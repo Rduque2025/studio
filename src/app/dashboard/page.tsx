@@ -5,10 +5,30 @@ import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 import { mockCourses, mockActivities, mockMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function DashboardPage() {
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
+      <SectionWrapper 
+        title="Acerca de Banesco Seguros"
+        description="Nuestra trayectoria y compromiso con Venezuela."
+      >
+        <Card className="bg-card">
+          <CardContent className="p-6">
+            <p className="text-muted-foreground leading-relaxed">
+              En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
+            </p>
+          </CardContent>
+        </Card>
+      </SectionWrapper>
+
       <SectionWrapper title="Mapa Interactivo de Clientes" description="Visualice la distribución de clientes a nivel nacional.">
         <InteractiveVenezuelaMap />
       </SectionWrapper>

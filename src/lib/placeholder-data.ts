@@ -21,7 +21,7 @@ export interface Activity {
 
 export interface MenuItem {
   id: string;
-  day: string;
+  day: string; // For weekly menu, can be repurposed for item type or category for others
   name: string;
   description: string;
   imageUrl: string;
@@ -146,6 +146,77 @@ export const mockMenuItems: MenuItem[] = [
   },
 ];
 
+export const mockDietMenuItems: MenuItem[] = [
+  {
+    id: "DM001",
+    day: "Opción Ligera 1",
+    name: "Ensalada César con Pollo a la Parrilla",
+    description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "chicken salad"
+  },
+  {
+    id: "DM002",
+    day: "Opción Ligera 2",
+    name: "Wrap de Vegetales con Hummus",
+    description: "Tortilla integral rellena de hummus, pimientos, pepino, zanahoria y espinacas.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "veggie wrap"
+  },
+  {
+    id: "DM003",
+    day: "Opción Vegana",
+    name: "Bowl de Quinoa con Tofu y Aguacate",
+    description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "quinoa bowl"
+  },
+    {
+    id: "DM004",
+    day: "Opción Baja en Carbohidratos",
+    name: "Pescado Blanco al Horno con Brócoli",
+    description: "Filete de pescado blanco (merluza o similar) horneado con hierbas, acompañado de brócoli al vapor.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "baked fish"
+  },
+];
+
+export const mockExecutiveMenuItems: MenuItem[] = [
+  {
+    id: "EM001",
+    day: "Plato Principal 1",
+    name: "Lomo Saltado Peruano",
+    description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "lomo saltado"
+  },
+  {
+    id: "EM002",
+    day: "Plato Principal 2",
+    name: "Risotto de Champiñones y Trufa",
+    description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "mushroom risotto"
+  },
+  {
+    id: "EM003",
+    day: "Opción del Mar",
+    name: "Paella de Mariscos Individual",
+    description: "Arroz bomba cocinado en caldo de pescado con camarones, calamares, mejillones y almejas.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "seafood paella"
+  },
+  {
+    id: "EM004",
+    day: "Opción de Carne Roja",
+    name: "Entrecot a la Parrilla con Chimichurri",
+    description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "grilled steak"
+  },
+];
+
+
 export const mockDepartments: Department[] = [
   { id: "rh", name: "Recursos Humanos", description: "Gestión de talento, nómina y bienestar del empleado." },
   { id: "it", name: "Tecnología de Información", description: "Soporte técnico, infraestructura y desarrollo de sistemas." },
@@ -195,3 +266,4 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+

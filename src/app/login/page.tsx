@@ -58,12 +58,19 @@ export default function LoginPage() {
       });
       router.push("/dashboard");
     } catch (signInError: any) {
-      if (signInError.code === 'auth/user-not-found') {
-        // User not found, try to create an account
+      // If user not found OR invalid credential (which might mask user-not-found due to enum protection)
+      if (signInError.code === 'auth/user-not-found' || signInError.code === 'auth/invalid-credential') {
+        let initialToastTitle = "Intentando acceder/registrar";
+        if (signInError.code === 'auth/user-not-found') {
+            initialToastTitle = "Usuario no encontrado";
+        } else { // auth/invalid-credential
+            initialToastTitle = "Credenciales inválidas o usuario no existente";
+        }
         toast({
-          title: "Usuario no encontrado",
-          description: "Creando nueva cuenta e iniciando sesión...",
+          title: initialToastTitle,
+          description: "Intentando crear nueva cuenta e iniciando sesión...",
         });
+        
         try {
           // Attempt to create user
           await createUserWithEmailAndPassword(auth, data.email, data.password);
@@ -79,8 +86,10 @@ export default function LoginPage() {
           let errDesc = creationOrSecondSignInError.message || "No se pudo completar el registro o inicio de sesión.";
           
           if (creationOrSecondSignInError.code === 'auth/email-already-in-use') {
-            errTitle = "Correo ya Registrado";
-            errDesc = "Este correo electrónico ya está en uso. Intente iniciar sesión.";
+            // If creation failed because email exists, the initial signInError (if 'auth/invalid-credential')
+            // was likely due to a wrong password for an existing user.
+            errTitle = "Error de Autenticación";
+            errDesc = "Email o contraseña incorrecta. El correo ya está registrado.";
           } else if (creationOrSecondSignInError.code === 'auth/weak-password') {
             errTitle = "Contraseña Débil";
             errDesc = "La contraseña es demasiado débil. Firebase podría requerir una contraseña más larga (ej. 6+ caracteres).";
@@ -99,7 +108,9 @@ export default function LoginPage() {
           });
           console.error("Error durante creación o segundo intento de login:", creationOrSecondSignInError);
         }
-      } else if (signInError.code === 'auth/wrong-password' || signInError.code === 'auth/invalid-credential') {
+      } else if (signInError.code === 'auth/wrong-password') {
+        // This handles cases where Firebase explicitly signals a wrong password,
+        // and it wasn't an 'auth/invalid-credential' that led to a creation attempt.
         toast({
           title: "Error de Autenticación",
           description: "Email o contraseña incorrecta. Verifique sus credenciales.",
@@ -107,6 +118,7 @@ export default function LoginPage() {
         });
         console.error("Login error (wrong pass/invalid cred):", signInError);
       } else {
+        // Catch-all for other initial sign-in errors
         toast({
           title: "Error de Autenticación",
           description: signInError.message || "Ocurrió un error al intentar iniciar sesión.",

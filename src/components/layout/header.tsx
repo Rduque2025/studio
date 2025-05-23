@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, LogOut, UserCircle, Menu } from "lucide-react";
+// import { useRouter } from "next/navigation"; // No longer needed for logout
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu } from "lucide-react"; // LogOut, UserCircle removed
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+// DropdownMenu components related to user are removed
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useAuth } from "@/contexts/auth-context";
-import { auth } from "@/config/firebase";
-import { signOut } from "firebase/auth";
+// import { useAuth } from "@/contexts/auth-context"; // No longer needed
+// import { auth } from "@/config/firebase"; // No longer needed for signOut
+// import { signOut } from "firebase/auth"; // No longer needed
 import React from "react";
 
 const navItems = [
@@ -21,18 +21,18 @@ const navItems = [
 ];
 
 export function Header() {
-  const { user } = useAuth();
-  const router = useRouter();
+  // const { user } = useAuth(); // Removed
+  // const router = useRouter(); // Removed
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      router.push("/login");
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
+  // const handleLogout = async () => { // Removed
+  //   try {
+  //     await signOut(auth);
+  //     router.push("/login");
+  //   } catch (error) {
+  //     console.error("Error signing out: ", error);
+  //   }
+  // };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -57,34 +57,7 @@ export function Header() {
         </nav>
 
         <div className="flex flex-1 items-center justify-end space-x-4">
-          {user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                  <UserCircle className="h-6 w-6" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56" align="end" forceMount>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">Mi Cuenta</p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Cerrar Sesión</span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <Button asChild variant="outline" size="sm">
-              <Link href="/login">Iniciar Sesión</Link>
-            </Button>
-          )}
+          {/* User DropdownMenu and related logic removed */}
           
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>

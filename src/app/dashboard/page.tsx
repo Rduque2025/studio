@@ -1,3 +1,4 @@
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
@@ -5,7 +6,10 @@ import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 import { mockCourses, mockActivities, mockMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { List, ListItem } from "@/components/ui/list"; // Assuming a List component exists or can be created
+import { CheckCircle } from "lucide-react";
+
 
 export default function DashboardPage() {
   return (
@@ -25,6 +29,62 @@ export default function DashboardPage() {
             <p className="text-muted-foreground leading-relaxed mt-4">
               Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
             </p>
+          </CardContent>
+        </Card>
+      </SectionWrapper>
+
+      <SectionWrapper 
+        title="Valores y Pilares Fundamentales"
+        description="Los principios que guían nuestro actuar diario."
+      >
+        <Card className="bg-card">
+          <CardContent className="p-6 grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-semibold text-primary mb-3">Nuestros Valores</h3>
+              <ul className="space-y-2 text-muted-foreground">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Confianza:</strong> Construimos relaciones sólidas y duraderas basadas en la transparencia y el cumplimiento de nuestros compromisos.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Innovación:</strong> Buscamos constantemente nuevas y mejores formas de proteger lo que más valoran nuestros clientes.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Excelencia en el Servicio:</strong> Nos esforzamos por superar las expectativas de nuestros clientes en cada interacción.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Compromiso Social:</strong> Contribuimos activamente al desarrollo y bienestar de las comunidades donde operamos.</span>
+                </li>
+                 <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Integridad:</strong> Actuamos con honestidad y ética en todas nuestras operaciones.</span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-primary mb-3">Nuestros Pilares</h3>
+              <ul className="space-y-2 text-muted-foreground">
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Solidez Financiera:</strong> Garantizamos la capacidad de respuesta ante los compromisos adquiridos con nuestros asegurados.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Talento Humano:</strong> Contamos con un equipo de profesionales altamente capacitados y motivados.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Tecnología e Innovación:</strong> Invertimos en tecnología para optimizar procesos y mejorar la experiencia del cliente.</span>
+                </li>
+                <li className="flex items-start">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2 mt-1 flex-shrink-0" />
+                  <span><strong>Adaptabilidad:</strong> Nos ajustamos a los cambios del entorno y a las necesidades evolutivas del mercado.</span>
+                </li>
+              </ul>
+            </div>
           </CardContent>
         </Card>
       </SectionWrapper>

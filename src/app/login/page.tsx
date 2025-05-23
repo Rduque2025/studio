@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -16,7 +17,10 @@ import { useAuth } from "@/contexts/auth-context";
 import { Eye, EyeOff, Mail, KeyRound } from "lucide-react";
 
 const loginSchema = z.object({
-  email: z.string().email({ message: "Email inválido" }),
+  email: z.string().email({ message: "Email inválido" }).refine(
+    (email) => email.endsWith("@banescoseguros.com"),
+    { message: "El correo debe ser del dominio @banescoseguros.com" }
+  ),
   password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
 });
 
@@ -43,6 +47,25 @@ export default function LoginPage() {
     }
   }, [user, authLoading, router]);
 
+  const handleCreateUser = async (data: LoginFormInputs) => {
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      toast({
+        title: "Cuenta Creada Exitosamente",
+        description: "Ahora puede iniciar sesión con sus credenciales.",
+      });
+      // Attempt to sign in the new user automatically or redirect to login to sign in manually
+      // For simplicity, we'll let them sign in on the next attempt or refresh.
+      // router.push("/dashboard"); // Optionally redirect to dashboard
+    } catch (creationError: any) {
+      toast({
+        title: "Error al Crear Cuenta",
+        description: creationError.message || "No se pudo crear la cuenta. Intente de nuevo o contacte al administrador.",
+        variant: "destructive",
+      });
+      console.error("Creation error:", creationError);
+    }
+  };
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     setIsLoading(true);
@@ -54,48 +77,39 @@ export default function LoginPage() {
       });
       router.push("/dashboard");
     } catch (error: any) {
-      // Simplified error handling. In a real app, you might want to create a new user if they don't exist.
-      // For this portal, we assume users are pre-created or an admin handles user creation.
-      let errorMessage = "Error al iniciar sesión. Verifique sus credenciales.";
       if (error.code === 'auth/user-not-found') {
-        errorMessage = "Usuario no encontrado. Por favor, regístrese o contacte al administrador.";
+        // User not found, try to create an account if email is valid
+        toast({
+          title: "Usuario no encontrado",
+          description: "Intentando crear una nueva cuenta...",
+        });
+        await handleCreateUser(data); // This will show its own toasts
       } else if (error.code === 'auth/wrong-password') {
-        errorMessage = "Contraseña incorrecta.";
+        toast({
+          title: "Error de Autenticación",
+          description: "Contraseña incorrecta.",
+          variant: "destructive",
+        });
+      } else if (error.code === 'auth/invalid-credential') {
+         toast({
+          title: "Error de Autenticación",
+          description: "Credenciales inválidas. Verifique su email y contraseña.",
+          variant: "destructive",
+        });
       }
-      
-      toast({
-        title: "Error de Autenticación",
-        description: errorMessage,
-        variant: "destructive",
-      });
-      console.error("Login error:", error);
+      else {
+        toast({
+          title: "Error de Autenticación",
+          description: error.message || "Error al iniciar sesión. Verifique sus credenciales.",
+          variant: "destructive",
+        });
+      }
+      console.error("Login/Creation error:", error);
     } finally {
       setIsLoading(false);
     }
   };
   
-  // Example: Create a user if they don't exist (optional, can be removed if users are pre-managed)
-  const handleCreateUser = async (data: LoginFormInputs) => {
-    setIsLoading(true);
-    try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      toast({
-        title: "Cuenta Creada",
-        description: "Su cuenta ha sido creada exitosamente. Por favor inicie sesión.",
-      });
-      // Optionally sign them in automatically or redirect to login
-      router.push("/dashboard"); // Or stay on login page
-    } catch (error: any) {
-      toast({
-        title: "Error al Crear Cuenta",
-        description: error.message || "No se pudo crear la cuenta.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
 
   if (authLoading || (!authLoading && user)) {
     return (
@@ -133,7 +147,7 @@ export default function LoginPage() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="su.email@banesco.com"
+                  placeholder="su.email@banescoseguros.com"
                   {...register("email")}
                   className="pl-10"
                   aria-invalid={errors.email ? "true" : "false"}
@@ -173,13 +187,13 @@ export default function LoginPage() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
               ) : null}
-              {isLoading ? "Ingresando..." : "Ingresar"}
+              {isLoading ? "Procesando..." : "Ingresar"}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col items-center text-center">
            <p className="mt-4 text-xs text-muted-foreground">
-            Si no tiene una cuenta, puede <Button variant="link" className="p-0 h-auto text-xs" onClick={() => handleSubmit(handleCreateUser)()}>crear una aquí</Button> o contactar al administrador.
+            Si tiene problemas para acceder, contacte al administrador.
           </p>
           <p className="mt-4 text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} Banesco Seguros.
@@ -189,3 +203,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+    

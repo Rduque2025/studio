@@ -1,4 +1,5 @@
 
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
@@ -10,6 +11,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { List, ListItem } from "@/components/ui/list"; 
 import { CheckCircle } from "lucide-react";
+import Image from "next/image";
 
 
 export default function DashboardPage() {
@@ -20,16 +22,28 @@ export default function DashboardPage() {
         description="Nuestra trayectoria y compromiso con Venezuela."
       >
         <Card className="bg-card">
-          <CardContent className="p-6">
-            <p className="text-muted-foreground leading-relaxed">
-              En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
-            </p>
+          <CardContent className="p-6 grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <p className="text-muted-foreground leading-relaxed">
+                En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mt-4">
+                Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
+              </p>
+              <p className="text-muted-foreground leading-relaxed mt-4">
+                Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
+              </p>
+            </div>
+            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-sm">
+              <Image 
+                src="https://placehold.co/600x400.png"
+                alt="Imagen corporativa de Banesco Seguros"
+                layout="fill"
+                objectFit="cover"
+                data-ai-hint="corporate office"
+                className="rounded-lg"
+              />
+            </div>
           </CardContent>
         </Card>
       </SectionWrapper>

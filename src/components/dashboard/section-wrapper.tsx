@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface SectionWrapperProps {
   title: string;
@@ -13,7 +14,7 @@ interface SectionWrapperProps {
 export function SectionWrapper({ title, description, children, className, cardClassName, contentClassName }: SectionWrapperProps) {
   return (
     <section className={className}>
-      <Card className={cardClassName}>
+      <Card className={cn("bg-transparent shadow-none border-none", cardClassName)}>
         <CardHeader>
           <CardTitle className="text-2xl font-semibold">{title}</CardTitle>
           {description && <CardDescription>{description}</CardDescription>}

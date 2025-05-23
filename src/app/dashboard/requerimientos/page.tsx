@@ -25,7 +25,7 @@ export default function RequerimientosPage() {
           {mockDepartments.map((dept) => {
             const IconComponent = iconMap[dept.id] || Settings;
             return (
-              <Card key={dept.id} className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <Card key={dept.id} className="transition-colors flex flex-col">
                 <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2">
                   <div className="bg-primary/10 p-3 rounded-lg">
                     <IconComponent className="h-6 w-6 text-primary" />

@@ -8,7 +8,7 @@ interface MenuItemCardProps {
 
 export function MenuItemCard({ item }: MenuItemCardProps) {
   return (
-    <Card className="w-64 md:w-72 flex-shrink-0 shadow-lg overflow-hidden">
+    <Card className="w-64 md:w-72 flex-shrink-0 overflow-hidden">
       <CardHeader className="p-0">
         <div className="relative w-full h-40">
           <Image

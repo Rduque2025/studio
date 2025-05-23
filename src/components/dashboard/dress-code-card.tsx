@@ -9,7 +9,7 @@ interface DressCodeCardProps {
 
 export function DressCodeCard({ item }: DressCodeCardProps) {
   return (
-    <Card className="w-72 md:w-80 flex-shrink-0 shadow-lg overflow-hidden">
+    <Card className="w-72 md:w-80 flex-shrink-0 overflow-hidden">
       <CardHeader className="p-0">
         <div className="relative w-full h-48">
           <Image

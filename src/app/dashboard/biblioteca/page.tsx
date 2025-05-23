@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { FileText, Download, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge"; // Import Badge
 
 const mockDocuments = [
   { id: "doc1", title: "Manual de Procedimientos Internos", category: "Manuales", size: "2.5 MB", type: "PDF" },
@@ -30,7 +31,7 @@ export default function BibliotecaPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockDocuments.map(doc => (
-            <Card key={doc.id} className="hover:shadow-md transition-shadow">
+            <Card key={doc.id} className="transition-colors">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
                   <FileText className="h-8 w-8 text-primary" />

@@ -34,7 +34,7 @@ export function CalendarWithEvents() {
   };
   
   const modifiersClassNames = {
-    highlighted: 'border-primary ring-2 ring-primary rounded-md',
+    highlighted: 'border-primary ring-1 ring-primary rounded-md', // reduced ring
     ...mockCalendarEvents.reduce((acc, event) => {
       const key = `event-${format(event.date, 'yyyy-MM-dd')}`;
       // Ensure the color class is for text or a dot, not background to avoid conflict with selection
@@ -66,7 +66,7 @@ export function CalendarWithEvents() {
         selected={date}
         onSelect={setDate} // Keep this for general date selection
         onDayClick={handleDayClick} // Handle specific logic for event days
-        className="rounded-md border shadow-lg p-4 bg-card"
+        className="rounded-md border p-4 bg-card shadow-none" // Removed shadow-lg
         defaultMonth={new Date(2025, 0, 1)} // Start in January 2025
         locale={es}
         modifiers={modifiers}

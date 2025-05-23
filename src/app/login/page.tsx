@@ -21,7 +21,7 @@ const loginSchema = z.object({
     (email) => email.endsWith("@banescoseguros.com"),
     { message: "El correo debe ser del dominio @banescoseguros.com" }
   ),
-  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres" }),
+  password: z.string().min(4, { message: "La contraseña debe tener al menos 4 caracteres" }),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -47,64 +47,73 @@ export default function LoginPage() {
     }
   }, [user, authLoading, router]);
 
-  const handleCreateUser = async (data: LoginFormInputs) => {
-    try {
-      await createUserWithEmailAndPassword(auth, data.email, data.password);
-      toast({
-        title: "Cuenta Creada Exitosamente",
-        description: "Ahora puede iniciar sesión con sus credenciales.",
-      });
-      // Attempt to sign in the new user automatically or redirect to login to sign in manually
-      // For simplicity, we'll let them sign in on the next attempt or refresh.
-      // router.push("/dashboard"); // Optionally redirect to dashboard
-    } catch (creationError: any) {
-      toast({
-        title: "Error al Crear Cuenta",
-        description: creationError.message || "No se pudo crear la cuenta. Intente de nuevo o contacte al administrador.",
-        variant: "destructive",
-      });
-      console.error("Creation error:", creationError);
-    }
-  };
-
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     setIsLoading(true);
     try {
+      // Attempt 1: Sign in
       await signInWithEmailAndPassword(auth, data.email, data.password);
       toast({
         title: "Inicio de Sesión Exitoso",
         description: "Bienvenido de vuelta!",
       });
       router.push("/dashboard");
-    } catch (error: any) {
-      if (error.code === 'auth/user-not-found') {
-        // User not found, try to create an account if email is valid
+    } catch (signInError: any) {
+      if (signInError.code === 'auth/user-not-found') {
+        // User not found, try to create an account
         toast({
           title: "Usuario no encontrado",
-          description: "Intentando crear una nueva cuenta...",
+          description: "Creando nueva cuenta e iniciando sesión...",
         });
-        await handleCreateUser(data); // This will show its own toasts
-      } else if (error.code === 'auth/wrong-password') {
+        try {
+          // Attempt to create user
+          await createUserWithEmailAndPassword(auth, data.email, data.password);
+          // Creation successful, now sign in the new user
+          await signInWithEmailAndPassword(auth, data.email, data.password);
+          toast({
+            title: "Cuenta Creada e Inicio de Sesión Exitoso",
+            description: "Bienvenido!",
+          });
+          router.push("/dashboard");
+        } catch (creationOrSecondSignInError: any) {
+          let errTitle = "Error en el Proceso";
+          let errDesc = creationOrSecondSignInError.message || "No se pudo completar el registro o inicio de sesión.";
+          
+          if (creationOrSecondSignInError.code === 'auth/email-already-in-use') {
+            errTitle = "Correo ya Registrado";
+            errDesc = "Este correo electrónico ya está en uso. Intente iniciar sesión.";
+          } else if (creationOrSecondSignInError.code === 'auth/weak-password') {
+            errTitle = "Contraseña Débil";
+            errDesc = "La contraseña es demasiado débil. Firebase podría requerir una contraseña más larga (ej. 6+ caracteres).";
+          } else if (creationOrSecondSignInError.code === 'auth/operation-not-allowed') {
+            errTitle = "Operación no Permitida";
+            errDesc = "La creación de usuarios por email/contraseña no está habilitada en Firebase.";
+          } else if (creationOrSecondSignInError.code === 'auth/invalid-email') {
+            errTitle = "Email Inválido";
+            errDesc = "El formato del correo electrónico no es válido.";
+          }
+
+          toast({
+            title: errTitle,
+            description: errDesc,
+            variant: "destructive",
+          });
+          console.error("Error durante creación o segundo intento de login:", creationOrSecondSignInError);
+        }
+      } else if (signInError.code === 'auth/wrong-password' || signInError.code === 'auth/invalid-credential') {
         toast({
           title: "Error de Autenticación",
-          description: "Contraseña incorrecta.",
+          description: "Email o contraseña incorrecta. Verifique sus credenciales.",
           variant: "destructive",
         });
-      } else if (error.code === 'auth/invalid-credential') {
-         toast({
-          title: "Error de Autenticación",
-          description: "Credenciales inválidas. Verifique su email y contraseña.",
-          variant: "destructive",
-        });
-      }
-      else {
+        console.error("Login error (wrong pass/invalid cred):", signInError);
+      } else {
         toast({
           title: "Error de Autenticación",
-          description: error.message || "Error al iniciar sesión. Verifique sus credenciales.",
+          description: signInError.message || "Ocurrió un error al intentar iniciar sesión.",
           variant: "destructive",
         });
+        console.error("Generic login error:", signInError);
       }
-      console.error("Login/Creation error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -203,5 +212,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-    

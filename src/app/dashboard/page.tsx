@@ -4,10 +4,11 @@ import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
-import { mockCourses, mockActivities, mockMenuItems } from "@/lib/placeholder-data";
+import { DressCodeCard } from "@/components/dashboard/dress-code-card"; // Importar DressCodeCard
+import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems } from "@/lib/placeholder-data"; // Importar mockDressCodeItems
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { List, ListItem } from "@/components/ui/list"; // Assuming a List component exists or can be created
+import { List, ListItem } from "@/components/ui/list"; 
 import { CheckCircle } from "lucide-react";
 
 
@@ -106,6 +107,17 @@ export default function DashboardPage() {
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
+      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa.">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md">
+          <div className="flex w-max space-x-4 p-4">
+            {mockDressCodeItems.map((item) => (
+              <DressCodeCard key={item.id} item={item} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" />

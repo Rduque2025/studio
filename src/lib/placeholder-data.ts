@@ -1,3 +1,4 @@
+
 export interface Course {
   id: string;
   title: string;
@@ -32,6 +33,14 @@ export interface Department {
   name: string;
   description: string;
   icon?: React.ElementType; // Lucide icon
+}
+
+export interface DressCodeItem {
+  id: string;
+  title: string;
+  description: string;
+  imageUrl: string;
+  dataAiHint?: string;
 }
 
 export const mockCourses: Course[] = [
@@ -154,4 +163,35 @@ export const mockCalendarEvents = [
   { date: new Date(2025, 11, 24), title: "Noche Buena", description: "Medio día laborable.", color: "bg-green-500" },
   { date: new Date(2025, 11, 25), title: "Navidad", description: "Feriado nacional.", color: "bg-red-500" },
   { date: new Date(2025, 0, 15), title: "Presentación Resultados Anuales", description: "Presentación de resultados del año anterior.", color: "bg-purple-500" },
+];
+
+export const mockDressCodeItems: DressCodeItem[] = [
+  {
+    id: "DC001",
+    title: "Formal de Negocios",
+    description: "Traje completo (saco y pantalón o falda), camisa de vestir, corbata (opcional para mujeres). Zapatos de vestir.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "business formal"
+  },
+  {
+    id: "DC002",
+    title: "Casual de Negocios",
+    description: "Pantalones de vestir o chinos, camisa o blusa, blazer o suéter opcional. Zapatos cerrados.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "business casual"
+  },
+  {
+    id: "DC003",
+    title: "Smart Casual",
+    description: "Vaqueros oscuros (sin roturas), camisa o polo, blusa elegante. Chaqueta deportiva o cárdigan. Zapatos limpios y cuidados.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "smart casual"
+  },
+  {
+    id: "DC004",
+    title: "Viernes Casual",
+    description: "Vestimenta más relajada, pero manteniendo profesionalismo. Vaqueros permitidos (limpios), camisetas tipo polo o blusas casuales.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "casual friday"
+  },
 ];

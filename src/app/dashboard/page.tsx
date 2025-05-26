@@ -4,6 +4,7 @@
 
 
 
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
@@ -29,13 +30,13 @@ export default function DashboardPage() {
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <p className="text-muted-foreground leading-relaxed text-lg">
+              <p className="text-muted-foreground leading-relaxed text-base">
                 En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4 text-lg">
+              <p className="text-muted-foreground leading-relaxed mt-4 text-base">
                 Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4 text-lg">
+              <p className="text-muted-foreground leading-relaxed mt-4 text-base">
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>
@@ -164,6 +165,7 @@ export default function DashboardPage() {
     </div>
   );
 }
+
 
 
 

@@ -23,9 +23,9 @@ const rotatingImagesData = [
     hint: "corporate office" 
   },
   { 
-    src: "https://placehold.co/1080x720/E97451/FFFFFF.png", 
-    alt: "Colaboración en equipo Banesco Seguros", 
-    hint: "team collaboration" 
+    src: "https://images.unsplash.com/photo-1576696058573-12b47c49559e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RkFNSUxJQXxlbnwwfHx8fDE3NDgyOTEzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    alt: "Protección y confianza familiar Banesco Seguros", 
+    hint: "family protection" 
   },
   { 
     src: "https://placehold.co/1080x720/5D8AA8/FFFFFF.png", 
@@ -59,7 +59,7 @@ export default function DashboardPage() {
         contentClassName="p-6" 
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
+            <div className="p-6">
               <p className="text-muted-foreground leading-relaxed text-sm">
                 En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
               </p>
@@ -213,3 +213,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

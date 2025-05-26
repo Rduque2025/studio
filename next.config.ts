@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.banescoseguros.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

@@ -4,13 +4,13 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap, regions as mapRegionsData, type Region as MapRegion, type BusinessLineData } from "@/components/dashboard/venezuela-map"; // Renamed to avoid conflict
-import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell, Legend } from "recharts";
+import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell } from "recharts"; // Removed Legend
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
+  // ChartLegend, // Removed
+  // ChartLegendContent, // Removed
   type ChartConfig,
 } from "@/components/ui/chart";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -206,7 +206,7 @@ export default function MapaClientesPage() {
                     cursor={{ fill: "hsl(var(--muted))" }} 
                     content={<ChartTooltipContent />} 
                   />
-                   <Legend content={<ChartLegendContent />} />
+                  {/* <Legend content={<ChartLegendContent />} /> Removed */}
                   <Bar
                     dataKey="Clientes" 
                     radius={[0, 8, 8, 0]} 

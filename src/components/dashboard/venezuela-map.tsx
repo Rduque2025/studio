@@ -92,24 +92,24 @@ export function InteractiveVenezuelaMap() {
       <div className="grid md:grid-cols-2 gap-4">
         <Card className="text-center border-muted shadow-sm bg-card">
           <CardHeader className="pb-2 pt-4">
-            <CardTitle className="text-lg font-semibold flex items-center justify-center gap-2">
+            <CardTitle className="text-base font-semibold flex items-center justify-center gap-2">
               <Users className="h-5 w-5 text-primary" />
               {displayedNaturalTitle}
             </CardTitle>
           </CardHeader>
           <CardContent className="pb-4">
-            <p className="text-3xl font-bold text-primary">{formattedNaturalCount}</p>
+            <p className="text-2xl font-bold text-primary">{formattedNaturalCount}</p>
           </CardContent>
         </Card>
         <Card className="text-center border-muted shadow-sm bg-card">
           <CardHeader className="pb-2 pt-4">
-            <CardTitle className="text-lg font-semibold flex items-center justify-center gap-2">
+            <CardTitle className="text-base font-semibold flex items-center justify-center gap-2">
               <Briefcase className="h-5 w-5 text-primary" />
               {displayedJuridicalTitle}
             </CardTitle>
           </CardHeader>
           <CardContent className="pb-4">
-            <p className="text-3xl font-bold text-primary">{formattedJuridicalCount}</p>
+            <p className="text-2xl font-bold text-primary">{formattedJuridicalCount}</p>
           </CardContent>
         </Card>
       </div>

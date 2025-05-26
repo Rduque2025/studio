@@ -1,23 +1,29 @@
 
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
-import { Users, Briefcase } from 'lucide-react'; // Icons for client types
 
-interface RegionData {
+export interface BusinessLineData {
+  personas: number;
+  automovil: number;
+  patrimoniales: number;
+}
+
+export interface Region {
   id: string;
   name: string;
   d: string;
-  naturalClients: number;
-  juridicalClients: number;
+  clientsByLine: BusinessLineData;
   fill?: string;
 }
 
-const regions: RegionData[] = [
+// Updated mock data generation strategy:
+// 'personas' will be the old 'naturalClients'
+// 'automovil' will be ~60% of old 'juridicalClients'
+// 'patrimoniales' will be ~40% of old 'juridicalClients'
+const rawRegionsData = [
   { id: "amazonas", name: "Amazonas", d: "M100 350 L120 380 L90 400 L70 370 Z", naturalClients: 90, juridicalClients: 60 },
   { id: "anzoategui", name: "Anzoátegui", d: "M200 150 L230 160 L220 190 L190 180 Z", naturalClients: 720, juridicalClients: 480 },
   { id: "apure", name: "Apure", d: "M50 250 L100 240 L110 280 L60 290 Z", naturalClients: 270, juridicalClients: 180 },
@@ -43,123 +49,88 @@ const regions: RegionData[] = [
   { id: "zulia", name: "Zulia", d: "M10 50 L70 40 L80 130 L20 140 Z", naturalClients: 2100, juridicalClients: 1400 },
 ];
 
-export function InteractiveVenezuelaMap() {
-  const totalNaturalClients = useMemo(() => regions.reduce((sum, r) => sum + r.naturalClients, 0), []);
-  const totalJuridicalClients = useMemo(() => regions.reduce((sum, r) => sum + r.juridicalClients, 0), []);
-  const [selectedRegion, setSelectedRegion] = useState<RegionData | null>(null);
+export const regions: Region[] = rawRegionsData.map(r => ({
+  id: r.id,
+  name: r.name,
+  d: r.d,
+  clientsByLine: {
+    personas: r.naturalClients,
+    automovil: Math.round(r.juridicalClients * 0.6),
+    patrimoniales: Math.round(r.juridicalClients * 0.4),
+  },
+  fill: r.fill,
+}));
 
-  const displayedNaturalTitle = selectedRegion ? `Naturales en ${selectedRegion.name}` : "Clientes Naturales (Nacional)";
-  const displayedJuridicalTitle = selectedRegion ? `Jurídicos en ${selectedRegion.name}` : "Clientes Jurídicos (Nacional)";
-  
-  const displayedNaturalCount = selectedRegion ? selectedRegion.naturalClients : totalNaturalClients;
-  const displayedJuridicalCount = selectedRegion ? selectedRegion.juridicalClients : totalJuridicalClients;
 
-  const [formattedNaturalCount, setFormattedNaturalCount] = useState<string | number>(displayedNaturalCount);
-  const [formattedJuridicalCount, setFormattedJuridicalCount] = useState<string | number>(displayedJuridicalCount);
+interface InteractiveVenezuelaMapProps {
+  selectedRegionId: string | null;
+  onRegionSelect: (region: Region | null) => void;
+}
 
-  useEffect(() => {
-    setFormattedNaturalCount(displayedNaturalCount.toLocaleString());
-  }, [displayedNaturalCount]);
+export function InteractiveVenezuelaMap({ selectedRegionId, onRegionSelect }: InteractiveVenezuelaMapProps) {
 
-  useEffect(() => {
-    setFormattedJuridicalCount(displayedJuridicalCount.toLocaleString());
-  }, [displayedJuridicalCount]);
-
-  const handleRegionClick = (region: RegionData) => {
-    if (selectedRegion && selectedRegion.id === region.id) {
-      setSelectedRegion(null);
+  const handleRegionClick = (region: Region) => {
+    if (selectedRegionId === region.id) {
+      onRegionSelect(null); // Deselect if clicking the same region
     } else {
-      setSelectedRegion(region);
+      onRegionSelect(region);
     }
   };
 
-  const handleShowTotal = () => {
-    setSelectedRegion(null);
+  const handleBackgroundClick = () => {
+    onRegionSelect(null); // Deselect when clicking map background
   };
-
-  const getPathFill = (region: RegionData, currentSelectedRegion: RegionData | null): string | undefined => {
-    if (currentSelectedRegion?.id === region.id) {
+  
+  const getPathFill = (region: Region, currentSelectedId: string | null): string | undefined => {
+    if (currentSelectedId === region.id) {
       return 'hsl(var(--accent))'; 
     }
-    if (region.fill) {
+    if (region.fill) { // For Distrito Capital example
       return region.fill;
     }
-    return undefined; 
+    return undefined; // Defaults to CSS fill (muted)
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid md:grid-cols-2 gap-4">
-        <Card className="text-center border-muted shadow-sm bg-card">
-          <CardHeader className="pb-2 pt-4">
-            <CardTitle className="text-base font-semibold flex items-center justify-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              {displayedNaturalTitle}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pb-4">
-            <p className="text-2xl font-bold text-primary">{formattedNaturalCount}</p>
-          </CardContent>
-        </Card>
-        <Card className="text-center border-muted shadow-sm bg-card">
-          <CardHeader className="pb-2 pt-4">
-            <CardTitle className="text-base font-semibold flex items-center justify-center gap-2">
-              <Briefcase className="h-5 w-5 text-primary" />
-              {displayedJuridicalTitle}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pb-4">
-            <p className="text-2xl font-bold text-primary">{formattedJuridicalCount}</p>
-          </CardContent>
-        </Card>
+    <TooltipProvider delayDuration={100}>
+      <div className="w-full aspect-[1.5] rounded-lg border bg-card p-4 overflow-hidden flex items-center justify-center shadow-sm">
+        <svg 
+          viewBox="0 0 350 420" 
+          className="w-full h-full max-w-lg max-h-[500px]"
+          onClick={(e) => {
+            // Only deselect if the click target is the SVG element itself (background)
+            if (e.target === e.currentTarget) {
+              handleBackgroundClick();
+            }
+          }}
+        >
+          <title>Mapa de Venezuela</title>
+          {regions.map(region => (
+            <Tooltip key={region.id}>
+              <TooltipTrigger asChild>
+                <path
+                  id={region.id}
+                  d={region.d}
+                  className={cn(
+                    "stroke-border fill-muted hover:fill-accent/70 transition-colors cursor-pointer"
+                  )}
+                  style={{ fill: getPathFill(region, selectedRegionId) }}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent background click when clicking a path
+                    handleRegionClick(region);
+                  }}
+                />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="font-semibold">{region.name}</p>
+                <p>Personas: {region.clientsByLine.personas.toLocaleString()}</p>
+                <p>Automóvil: {region.clientsByLine.automovil.toLocaleString()}</p>
+                <p>Patrimoniales: {region.clientsByLine.patrimoniales.toLocaleString()}</p>
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </svg>
       </div>
-      
-      {selectedRegion && (
-        <div className="text-center">
-          <Button variant="link" onClick={handleShowTotal} className="text-sm">
-            Ver total nacional
-          </Button>
-        </div>
-      )}
-
-      <TooltipProvider delayDuration={100}>
-        <div className="w-full aspect-[1.5] rounded-lg border bg-card p-4 overflow-hidden flex items-center justify-center shadow-sm">
-          <svg 
-            viewBox="0 0 350 420" 
-            className="w-full h-full max-w-lg max-h-[500px]"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                handleShowTotal();
-              }
-            }}
-          >
-            <title>Mapa de Venezuela</title>
-            {regions.map(region => (
-              <Tooltip key={region.id}>
-                <TooltipTrigger asChild>
-                  <path
-                    id={region.id}
-                    d={region.d}
-                    className={cn(
-                      "stroke-border fill-muted hover:fill-accent/70 transition-colors cursor-pointer"
-                    )}
-                    style={{ fill: getPathFill(region, selectedRegion) }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRegionClick(region);
-                    }}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p className="font-semibold">{region.name}</p>
-                  <p>Naturales: {region.naturalClients.toLocaleString()}</p>
-                  <p>Jurídicos: {region.juridicalClients.toLocaleString()}</p>
-                </TooltipContent>
-              </Tooltip>
-            ))}
-          </svg>
-        </div>
-      </TooltipProvider>
-    </div>
+    </TooltipProvider>
   );
 }

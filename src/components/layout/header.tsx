@@ -2,19 +2,28 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu } from "lucide-react";
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React from "react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Input } from "@/components/ui/input";
 
-const navItems = [
+const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
   { name: "Biblioteca Digital", href: "/dashboard/biblioteca", icon: BookOpen },
 ];
+
+const navItemsMobile = [
+  ...navItemsDesktop,
+  { name: "Buscar", href: "#", icon: Search }, // Placeholder, actual search can be implemented later
+  { name: "Configuración", href: "/dashboard/settings", icon: Settings }, // Placeholder for settings page
+];
+
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -28,7 +37,7 @@ export function Header() {
         </Link>
         
         <nav className="hidden md:flex flex-1 justify-center items-center space-x-3 text-xs font-medium">
-          {navItems.map((item) => (
+          {navItemsDesktop.map((item) => (
             <Link
               key={item.name}
               href={item.href}
@@ -39,7 +48,35 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-end flex-shrink-0 md:ml-6"> {/* Ensure ml-6 for desktop to give space, but not needed for mobile as nav is hidden */}
+        <div className="flex items-center justify-end flex-shrink-0 ml-auto md:ml-6 space-x-2">
+          {/* Desktop Icons */}
+          <div className="hidden md:flex items-center space-x-1">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Search className="h-5 w-5" />
+                  <span className="sr-only">Buscar</span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-2">
+                <div className="flex w-full max-w-sm items-center space-x-2">
+                  <Input type="search" placeholder="Buscar..." className="h-9" />
+                  <Button type="submit" size="sm">Buscar</Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <Link href="/dashboard/settings" legacyBehavior passHref>
+              <Button variant="ghost" size="icon" asChild>
+                <a> {/* Use <a> for Next.js Link with legacyBehavior */}
+                  <Settings className="h-5 w-5" />
+                  <span className="sr-only">Configuración</span>
+                </a>
+              </Button>
+            </Link>
+          </div>
+          
+          {/* Mobile Menu Trigger */}
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
@@ -50,12 +87,19 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col space-y-4 mt-8">
-                  {navItems.map((item) => (
+                  {navItemsMobile.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
                       className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => {
+                        // For search, we don't want to close if it's just a placeholder.
+                        // If it were a popover trigger for mobile, we'd handle it differently.
+                        if (item.name !== "Buscar" || item.href !== "#") {
+                           setIsMobileMenuOpen(false);
+                        }
+                        // If 'Buscar' is clicked and has href="#", it does nothing, which is fine for a placeholder.
+                      }}
                     >
                       <item.icon className="h-5 w-5 text-muted-foreground" />
                       <span>{item.name}</span>

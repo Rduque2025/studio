@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings } from "lucide-react";
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Map } from "lucide-react"; // Added Map icon
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,6 +13,7 @@ import Image from "next/image";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
+  { name: "Mapa de Clientes", href: "/dashboard/mapa-clientes", icon: Map }, // Added Mapa de Clientes
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
@@ -32,7 +33,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/dashboard" className="ml-6 mr-4 flex items-center space-x-2 flex-shrink-0"> {/* Increased left margin */}
+        <Link href="/dashboard" className="ml-6 mr-4 flex items-center space-x-2 flex-shrink-0">
           <Image
             src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
             alt="Banesco Seguros Logo"

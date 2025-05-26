@@ -1,6 +1,7 @@
 
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
+// Removed InteractiveVenezuelaMap import
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
@@ -50,7 +51,7 @@ export default function DashboardPage() {
       <SectionWrapper 
         title="Valores y Pilares Fundamentales"
         description="Los principios que guían nuestro actuar diario."
-        cardClassName="bg-transparent shadow-none border-none" 
+        cardClassName="bg-transparent shadow-none rounded-lg border-none" 
       >
         <Card className="bg-transparent shadow-none rounded-lg border-none"> 
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
@@ -93,9 +94,7 @@ export default function DashboardPage() {
         </Card>
       </SectionWrapper>
 
-      <SectionWrapper title="Mapa Interactivo de Clientes" description="Visualice la distribución de clientes a nivel nacional.">
-        <InteractiveVenezuelaMap />
-      </SectionWrapper>
+      {/* Removed InteractiveVenezuelaMap section from here */}
 
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa.">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -149,7 +149,7 @@ export const mockMenuItems: MenuItem[] = [
 export const mockDietMenuItems: MenuItem[] = [
   {
     id: "DM001",
-    day: "Opción Ligera 1",
+    day: "Lunes",
     name: "Ensalada César con Pollo a la Parrilla",
     description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.",
     imageUrl: "https://placehold.co/400x300.png",
@@ -157,7 +157,7 @@ export const mockDietMenuItems: MenuItem[] = [
   },
   {
     id: "DM002",
-    day: "Opción Ligera 2",
+    day: "Martes",
     name: "Wrap de Vegetales con Hummus",
     description: "Tortilla integral rellena de hummus, pimientos, pepino, zanahoria y espinacas.",
     imageUrl: "https://placehold.co/400x300.png",
@@ -165,26 +165,34 @@ export const mockDietMenuItems: MenuItem[] = [
   },
   {
     id: "DM003",
-    day: "Opción Vegana",
+    day: "Miércoles",
     name: "Bowl de Quinoa con Tofu y Aguacate",
     description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.",
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "quinoa bowl"
   },
-    {
+  {
     id: "DM004",
-    day: "Opción Baja en Carbohidratos",
+    day: "Jueves",
     name: "Pescado Blanco al Horno con Brócoli",
     description: "Filete de pescado blanco (merluza o similar) horneado con hierbas, acompañado de brócoli al vapor.",
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "baked fish"
   },
+  {
+    id: "DM005",
+    day: "Viernes",
+    name: "Sopa de Lentejas y Vegetales",
+    description: "Contundente sopa de lentejas con zanahoria, apio, cebolla y un toque de pimentón.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "lentil soup"
+  }
 ];
 
 export const mockExecutiveMenuItems: MenuItem[] = [
   {
     id: "EM001",
-    day: "Plato Principal 1",
+    day: "Lunes",
     name: "Lomo Saltado Peruano",
     description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.",
     imageUrl: "https://placehold.co/400x300.png",
@@ -192,7 +200,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
   },
   {
     id: "EM002",
-    day: "Plato Principal 2",
+    day: "Martes",
     name: "Risotto de Champiñones y Trufa",
     description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.",
     imageUrl: "https://placehold.co/400x300.png",
@@ -200,7 +208,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
   },
   {
     id: "EM003",
-    day: "Opción del Mar",
+    day: "Miércoles",
     name: "Paella de Mariscos Individual",
     description: "Arroz bomba cocinado en caldo de pescado con camarones, calamares, mejillones y almejas.",
     imageUrl: "https://placehold.co/400x300.png",
@@ -208,12 +216,20 @@ export const mockExecutiveMenuItems: MenuItem[] = [
   },
   {
     id: "EM004",
-    day: "Opción de Carne Roja",
+    day: "Jueves",
     name: "Entrecot a la Parrilla con Chimichurri",
     description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.",
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "grilled steak"
   },
+  {
+    id: "EM005",
+    day: "Viernes",
+    name: "Canelones de Ricota y Espinaca",
+    description: "Canelones rellenos de suave ricota y espinacas frescas, bañados en salsa bechamel y gratinados.",
+    imageUrl: "https://placehold.co/400x300.png",
+    dataAiHint: "cannelloni ricotta"
+  }
 ];
 
 

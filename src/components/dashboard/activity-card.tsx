@@ -1,3 +1,6 @@
+
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,12 +10,20 @@ import { Badge } from "@/components/ui/badge";
 import { CalendarDays, MapPin } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { useState, useEffect } from "react";
 
 interface ActivityCardProps {
   activity: Activity;
 }
 
 export function ActivityCard({ activity }: ActivityCardProps) {
+  const [formattedDate, setFormattedDate] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Ensure date formatting happens only on the client side
+    setFormattedDate(format(new Date(activity.date), "PPP", { locale: es }));
+  }, [activity.date]);
+
   return (
     <Card className="flex flex-col h-full overflow-hidden">
       <CardHeader className="p-0">
@@ -34,7 +45,7 @@ export function ActivityCard({ activity }: ActivityCardProps) {
          <div className="space-y-1 text-xs text-muted-foreground mb-3">
           <div className="flex items-center gap-1">
             <CalendarDays className="h-3 w-3" /> 
-            {format(new Date(activity.date), "PPP", { locale: es })}
+            {formattedDate || "Cargando fecha..."}
           </div>
           <div className="flex items-center gap-1">
             <MapPin className="h-3 w-3" /> {activity.location}

@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}> {/* Apply Poppins variable and a base font-sans class */}
+    <html lang="en" className={`${poppins.variable}`}>
+      <body className={`font-sans antialiased`}> {/* Apply Poppins via font-sans which is now configured in Tailwind */}
         {children}
         <Toaster />
       </body>

@@ -13,38 +13,34 @@ export default {
         sans: ['var(--font-poppins)', 'sans-serif'], // Set Poppins as the default sans-serif font
       },
   		colors: {
-  			background: 'hsl(var(--background))',
-  			foreground: 'hsl(var(--foreground))',
-  			card: {
-  				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
-  			},
-  			popover: {
-  				DEFAULT: 'hsl(var(--popover))',
-  				foreground: 'hsl(var(--popover-foreground))'
-  			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
-  			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
-  			},
-  			muted: {
-  				DEFAULT: 'hsl(var(--muted))',
-  				foreground: 'hsl(var(--muted-foreground))'
-  			},
-  			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
-  			},
+  			background: 'hsl(var(--background))', // White
+  			foreground: 'hsl(var(--foreground))', // Dark Slate Blue for text
+
+  			muted: 'hsl(var(--muted))', // Very Light Cool Grey
+  			'muted-foreground': 'hsl(var(--muted-foreground))', // Cool Grey
+
+  			popover: 'hsl(var(--popover))',
+  			'popover-foreground': 'hsl(var(--popover-foreground))',
+
+  			card: 'hsl(var(--card))', // White cards
+  			'card-foreground': 'hsl(var(--card-foreground))',
+
+  			border: 'hsl(var(--border))', // Light Cool Grey border
+  			input: 'hsl(var(--input))', // Same as muted for input background
+
+  			primary: 'hsl(var(--primary))', // Deep Teal
+  			'primary-foreground': 'hsl(var(--primary-foreground))', // White
+
+  			secondary: 'hsl(var(--secondary))', // Light Blue-Grey (can be adjusted if needed)
+  			'secondary-foreground': 'hsl(var(--secondary-foreground))', // Primary blue text on secondary
+
+  			accent: 'hsl(var(--accent))', // Soft Blue
+  			'accent-foreground': 'hsl(var(--accent-foreground))', // Darker blue for text on accent
+        
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'hsl(var(--border))',
-  			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {
   				'1': 'hsl(var(--chart-1))',

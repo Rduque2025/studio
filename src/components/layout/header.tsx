@@ -32,13 +32,13 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/dashboard" className="ml-2 mr-4 flex items-center space-x-2 flex-shrink-0">
+        <Link href="/dashboard" className="ml-4 mr-4 flex items-center space-x-2 flex-shrink-0"> {/* Changed ml-2 to ml-4 */}
           <Image
             src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
             alt="Banesco Seguros Logo"
-            width={150} 
+            width={150}
             height={32}
-            className="h-8 w-auto" 
+            className="h-8 w-auto"
             priority
           />
         </Link>

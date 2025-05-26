@@ -1,0 +1,17 @@
+[
+  {
+    "id": "amazonas",
+    "name": "Amazonas",
+    "path": "M_EXAMPLE_AMAZONAS_PATH_FROM_YOUR_JSON"
+  },
+  {
+    "id": "anzoategui",
+    "name": "Anzoátegui",
+    "path": "M_EXAMPLE_ANZOATEGUI_PATH_FROM_YOUR_JSON"
+  },
+  {
+    "id": "distrito-capital",
+    "name": "Distrito Capital",
+    "path": "M_EXAMPLE_DC_PATH_FROM_YOUR_JSON"
+  }
+]

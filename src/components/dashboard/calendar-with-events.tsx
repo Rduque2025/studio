@@ -3,13 +3,12 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"; // Popover might not be needed anymore if dialog is used for event details
 import { Button } from '@/components/ui/button';
 import { mockCalendarEvents } from '@/lib/placeholder-data';
 import { format, isToday } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-import { AlertCircle, PlusCircle } from 'lucide-react';
+import { AlertCircle, PlusCircle, Trash2 } from 'lucide-react'; // Added Trash2
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -90,11 +89,13 @@ export function CalendarWithEvents() {
   };
 
   const handleDayClick = (day: Date) => {
-    const eventOnDay = allEvents.find(
+    const eventsOnDay = allEvents.filter(
       (event) => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd')
     );
     // If multiple events, show the first one for now. Could be enhanced to show a list in popover.
-    setSelectedEvent(eventOnDay || null);
+    // Prioritize user events if multiple on the same day for the popover
+    const userEventOnDay = eventsOnDay.find(e => e.isUserEvent);
+    setSelectedEvent(userEventOnDay || eventsOnDay[0] || null);
     setDate(day);
   };
   
@@ -127,6 +128,21 @@ export function CalendarWithEvents() {
     setNewEventDescription('');
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" añadido al calendario.` });
+    setSelectedEvent(newEventToAdd); // Select the newly added event
+  };
+
+  const handleDeleteEvent = (eventId: string) => {
+    const eventToDelete = userEvents.find(e => e.id === eventId);
+    if (!eventToDelete) return;
+
+    setUserEvents(prev => prev.filter(event => event.id !== eventId));
+    toast({
+      title: "Evento Eliminado",
+      description: `El evento "${eventToDelete.title}" ha sido eliminado.`,
+    });
+    if (selectedEvent && selectedEvent.id === eventId) {
+      setSelectedEvent(null); // Clear selection if the deleted event was selected
+    }
   };
 
 
@@ -147,9 +163,22 @@ export function CalendarWithEvents() {
             <div className="p-2 mt-2 border-t text-sm space-y-2">
               {currentEventForPopover ? (
                <div>
-                <h4 className={cn("font-semibold mb-1 flex items-center gap-2", currentEventForPopover.color.replace('bg-','text-'))}>
-                   <AlertCircle className="h-4 w-4" /> {currentEventForPopover.title}
-                   {currentEventForPopover.isUserEvent && <Badge variant="secondary" className="bg-green-100 text-green-700">Personal</Badge>}
+                <h4 className={cn("font-semibold mb-1 flex items-center justify-between gap-2", currentEventForPopover.isUserEvent ? 'text-green-700' : currentEventForPopover.color.replace('bg-','text-'))}>
+                    <div className="flex items-center gap-2">
+                        <AlertCircle className="h-4 w-4" /> {currentEventForPopover.title}
+                        {currentEventForPopover.isUserEvent && <Badge variant="secondary" className="bg-green-100 text-green-700">Personal</Badge>}
+                    </div>
+                    {currentEventForPopover.isUserEvent && (
+                        <Button 
+                            variant="ghost" 
+                            size="icon" 
+                            className="h-6 w-6 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                            onClick={() => handleDeleteEvent(currentEventForPopover!.id)}
+                            aria-label="Eliminar evento"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </Button>
+                    )}
                 </h4>
                 <p className="text-muted-foreground">{currentEventForPopover.description}</p>
                </div>
@@ -158,50 +187,51 @@ export function CalendarWithEvents() {
                   {date ? `Seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
                 </p>
               )}
-              {date && (
-                <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" size="sm" className="w-full mt-1">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Añadir Evento para {format(date, 'dd MMM', { locale: es })}
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Añadir Nuevo Evento</DialogTitle>
-                      <DialogDescription>
-                        Añada un título y descripción para su evento en {format(date, 'PPP', { locale: es })}.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <label htmlFor="event-title" className="text-right">Título</label>
-                        <Input 
-                          id="event-title" 
-                          value={newEventTitle} 
-                          onChange={(e) => setNewEventTitle(e.target.value)} 
-                          className="col-span-3" 
-                          placeholder="Título del evento"
-                        />
+              <div className="flex items-center justify-end pt-1">
+                {date && (
+                  <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" size="icon" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}>
+                        <PlusCircle className="h-5 w-5" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Añadir Nuevo Evento</DialogTitle>
+                        <DialogDescription>
+                          Añada un título y descripción para su evento en {format(date, 'PPP', { locale: es })}.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <label htmlFor="event-title" className="text-right">Título</label>
+                          <Input 
+                            id="event-title" 
+                            value={newEventTitle} 
+                            onChange={(e) => setNewEventTitle(e.target.value)} 
+                            className="col-span-3" 
+                            placeholder="Título del evento"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <label htmlFor="event-description" className="text-right">Descripción</label>
+                          <Textarea 
+                            id="event-description" 
+                            value={newEventDescription} 
+                            onChange={(e) => setNewEventDescription(e.target.value)} 
+                            className="col-span-3" 
+                            placeholder="Descripción (opcional)"
+                          />
+                        </div>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <label htmlFor="event-description" className="text-right">Descripción</label>
-                        <Textarea 
-                          id="event-description" 
-                          value={newEventDescription} 
-                          onChange={(e) => setNewEventDescription(e.target.value)} 
-                          className="col-span-3" 
-                          placeholder="Descripción (opcional)"
-                        />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button type="button" variant="outline" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
-                      <Button type="submit" onClick={handleAddEvent}>Guardar Evento</Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              )}
+                      <DialogFooter>
+                        <Button type="button" variant="outline" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
+                        <Button type="submit" onClick={handleAddEvent}>Guardar Evento</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                )}
+              </div>
             </div>
           }
         />
@@ -228,12 +258,12 @@ export function CalendarWithEvents() {
               onClick={() => handleDayClick(event.date)}
             >
               <div className="flex items-start gap-3 w-full">
-                <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", event.color)} />
+                <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", event.isUserEvent ? 'bg-green-500' : event.color)} />
                 <div className="flex-grow">
                   <p className="font-medium text-sm">{event.title}</p>
                   <p className="text-xs text-muted-foreground">{format(event.date, 'd \'de\' MMMM', { locale: es })}</p>
                 </div>
-                {event.isUserEvent && <Badge variant="outline" className="text-xs">Personal</Badge>}
+                {event.isUserEvent && <Badge variant="outline" className="text-xs bg-green-100 text-green-700 border-green-300">Personal</Badge>}
               </div>
             </Button>
           ))}

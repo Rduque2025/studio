@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
@@ -32,8 +33,14 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <Link href="/dashboard" className="mr-6 flex items-center space-x-2 flex-shrink-0">
-          {/* Text Logo for Banesco Seguros */}
-          <span className="font-bold text-lg text-primary">Banesco Seguros</span>
+          <Image
+            src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
+            alt="Banesco Seguros Logo"
+            width={150} // Adjust width as needed, estimating based on typical logo aspect ratio for this height
+            height={32}
+            className="h-8 w-auto" // h-8 is 32px
+            priority
+          />
         </Link>
         
         <nav className="hidden md:flex flex-1 justify-center items-center space-x-3 text-xs font-medium">

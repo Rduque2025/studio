@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -9,8 +10,10 @@ import { DressCodeCard } from "@/components/dashboard/dress-code-card";
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
 
 
 const rotatingImagesData = [
@@ -33,35 +36,18 @@ const rotatingImagesData = [
 
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const rotationDelay = 2000; // Rotate every 2 seconds
 
-  const handleMouseEnter = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    // Start cycling one image ahead on first interval trigger
-    intervalRef.current = setInterval(() => {
-      setCurrentImageIndex(prevIndex => (prevIndex + 1) % rotatingImagesData.length);
-    }, rotationDelay);
+  const handlePrevImage = () => {
+    setCurrentImageIndex(prevIndex => 
+      prevIndex === 0 ? rotatingImagesData.length - 1 : prevIndex - 1
+    );
   };
 
-  const handleMouseLeave = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    setCurrentImageIndex(0); // Reset to the first image
+  const handleNextImage = () => {
+    setCurrentImageIndex(prevIndex =>
+      prevIndex === rotatingImagesData.length - 1 ? 0 : prevIndex + 1
+    );
   };
-
-  // Cleanup interval on component unmount
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, []);
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
@@ -86,19 +72,35 @@ export default function DashboardPage() {
             </div>
             <div
               className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
             >
               <Image 
-                key={rotatingImagesData[currentImageIndex].src} // Key to help React re-render image correctly
+                key={rotatingImagesData[currentImageIndex].src} 
                 src={rotatingImagesData[currentImageIndex].src}
                 alt={rotatingImagesData[currentImageIndex].alt}
                 layout="fill"
                 objectFit="cover"
                 data-ai-hint={rotatingImagesData[currentImageIndex].hint}
                 className="rounded-lg"
-                priority={currentImageIndex === 0} // Only the first image is priority
+                priority={currentImageIndex === 0} 
               />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handlePrevImage}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+                aria-label="Imagen anterior"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleNextImage}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+                aria-label="Siguiente imagen"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </Button>
             </div>
           </div>
       </SectionWrapper>

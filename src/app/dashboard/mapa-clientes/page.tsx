@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
@@ -41,9 +42,23 @@ const salesChannelsChartConfig = {
 export default function MapaClientesPage() {
   const [selectedRegion, setSelectedRegion] = useState<MapRegion | null>(null);
 
-  const currentData: MapRegionClientData = useMemo(() => (selectedRegion 
-    ? selectedRegion.clients 
-    : nationalClientTotals), [selectedRegion]);
+  const currentData: MapRegionClientData = useMemo(() => {
+    if (selectedRegion) {
+      return selectedRegion.clients;
+    }
+    // For national totals, sum up from all regions' specific business lines and sales channels
+    return regions.reduce((acc, region) => {
+        acc.personas += region.clients.personas;
+        acc.automovil += region.clients.automovil;
+        acc.patrimoniales += region.clients.patrimoniales;
+        acc.banco += region.clients.banco;
+        acc.tradicional += region.clients.tradicional;
+        acc.alternos += region.clients.alternos;
+        return acc;
+      }, { personas: 0, automovil: 0, patrimoniales: 0, banco: 0, tradicional: 0, alternos: 0 }
+    );
+  }, [selectedRegion]);
+
 
   const totalNaturalClientsCurrent = currentData.personas;
   const totalJuridicalClientsCurrent = currentData.automovil + currentData.patrimoniales;
@@ -72,15 +87,15 @@ export default function MapaClientesPage() {
   };
 
   const businessLinesChartData = useMemo(() => [
-    { name: "Personas", Clientes: currentData.personas, fill: "var(--color-Personas)" },
-    { name: "Automóvil", Clientes: currentData.automovil, fill: "var(--color-Automóvil)" },
-    { name: "Patrimoniales", Clientes: currentData.patrimoniales, fill: "var(--color-Patrimoniales)" },
+    { name: "Personas", Clientes: currentData.personas, fill: businessLinesChartConfig.Personas.color },
+    { name: "Automóvil", Clientes: currentData.automovil, fill: businessLinesChartConfig.Automóvil.color },
+    { name: "Patrimoniales", Clientes: currentData.patrimoniales, fill: businessLinesChartConfig.Patrimoniales.color },
   ], [currentData]);
 
   const salesChannelsChartData = useMemo(() => [
-    { name: "Banco", Clientes: currentData.banco, fill: "var(--color-Banco)" },
-    { name: "Tradicional", Clientes: currentData.tradicional, fill: "var(--color-Tradicional)" },
-    { name: "Canales Alternos", Clientes: currentData["Canales Alternos"] || currentData.alternos, fill: "var(--color-Canales Alternos)" },
+    { name: "Banco", Clientes: currentData.banco, fill: salesChannelsChartConfig.Banco.color },
+    { name: "Tradicional", Clientes: currentData.tradicional, fill: salesChannelsChartConfig.Tradicional.color },
+    { name: "Canales Alternos", Clientes: currentData.alternos, fill: salesChannelsChartConfig["Canales Alternos"].color },
   ], [currentData]);
 
   const chartTitlePrefix = selectedRegion ? `en ${selectedRegion.name}` : "Nacional";
@@ -146,13 +161,13 @@ export default function MapaClientesPage() {
                       tickMargin={5}
                       axisLine={false}
                       className="text-xs"
-                      width={80} // Adjust width for labels
+                      width={100} // Ajustado el ancho para "Patrimoniales"
                     />
                     <XAxis type="number" hide />
                     <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                     <Bar dataKey="Clientes" layout="vertical" radius={5}>
                        {businessLinesChartData.map((entry) => (
-                        <Cell key={`cell-${entry.name}`} fill={entry.fill} />
+                        <Cell key={`cell-L-${entry.name}`} fill={entry.fill} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -177,13 +192,13 @@ export default function MapaClientesPage() {
                       tickMargin={5}
                       axisLine={false}
                       className="text-xs"
-                      width={100} // Adjust width for labels like "Canales Alternos"
+                      width={100} 
                     />
                     <XAxis type="number" hide />
                     <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                     <Bar dataKey="Clientes" layout="vertical" radius={5}>
                       {salesChannelsChartData.map((entry) => (
-                        <Cell key={`cell-${entry.name}`} fill={entry.fill} />
+                        <Cell key={`cell-C-${entry.name}`} fill={entry.fill} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -196,4 +211,3 @@ export default function MapaClientesPage() {
     </div>
   );
 }
-

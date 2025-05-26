@@ -1,14 +1,18 @@
+
 "use client";
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
 
 interface RegionData {
   id: string;
   name: string;
   d: string;
   clients: number;
-  fill?: string;
+  fill?: string; // Original fill, e.g., for Distrito Capital
 }
 
 const regions: RegionData[] = [
@@ -37,34 +41,95 @@ const regions: RegionData[] = [
   { id: "zulia", name: "Zulia", d: "M10 50 L70 40 L80 130 L20 140 Z", clients: 3500 },
 ];
 
-
 export function InteractiveVenezuelaMap() {
+  const totalClients = useMemo(() => regions.reduce((sum, r) => sum + r.clients, 0), []);
+  const [selectedRegion, setSelectedRegion] = useState<RegionData | null>(null);
+
+  const displayedName = selectedRegion ? `Clientes en ${selectedRegion.name}` : "Clientes Totales en Venezuela";
+  const displayedCount = selectedRegion ? selectedRegion.clients : totalClients;
+
+  const handleRegionClick = (region: RegionData) => {
+    if (selectedRegion && selectedRegion.id === region.id) {
+      setSelectedRegion(null); // Deselect if clicking the same region
+    } else {
+      setSelectedRegion(region);
+    }
+  };
+
+  const handleShowTotal = () => {
+    setSelectedRegion(null);
+  };
+
+  const getPathFill = (region: RegionData, currentSelectedRegion: RegionData | null): string | undefined => {
+    if (currentSelectedRegion?.id === region.id) {
+      return 'hsl(var(--accent))'; // Selected region color
+    }
+    // Use original fill if defined (e.g., for Distrito Capital)
+    if (region.fill) {
+      return region.fill;
+    }
+    // For other regions, rely on the default fill-muted from className
+    return undefined; 
+  };
+
   return (
-    <TooltipProvider delayDuration={100}>
-      <div className="w-full aspect-[1.5] rounded-lg border bg-card p-4 overflow-hidden flex items-center justify-center">
-        <svg viewBox="0 0 350 420" className="w-full h-full max-w-lg max-h-[500px]">
-          <title>Mapa de Venezuela</title>
-          {regions.map(region => (
-            <Tooltip key={region.id}>
-              <TooltipTrigger asChild>
-                <path
-                  id={region.id}
-                  d={region.d}
-                  className="stroke-border fill-muted hover:fill-accent/50 transition-colors cursor-pointer"
-                  style={{ fill: region.fill }}
-                />
-              </TooltipTrigger>
-              <TooltipContent>
-                <p className="font-semibold">{region.name}</p>
-                <p>Clientes: {region.clients.toLocaleString()}</p>
-              </TooltipContent>
-            </Tooltip>
-          ))}
-           <text x="175" y="30" textAnchor="middle" className="text-lg font-semibold fill-foreground">
-            Mapa Interactivo de Clientes (Ejemplo)
-          </text>
-        </svg>
-      </div>
-    </TooltipProvider>
+    <div className="space-y-6">
+      <Card className="text-center border-none shadow-none bg-transparent">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-xl font-semibold">{displayedName}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-4xl font-bold text-primary">{displayedCount.toLocaleString()}</p>
+          {selectedRegion && (
+            <Button variant="link" onClick={handleShowTotal} className="mt-2 text-sm">
+              Ver total nacional
+            </Button>
+          )}
+        </CardContent>
+      </Card>
+
+      <TooltipProvider delayDuration={100}>
+        <div className="w-full aspect-[1.5] rounded-lg border bg-card p-4 overflow-hidden flex items-center justify-center">
+          <svg 
+            viewBox="0 0 350 420" 
+            className="w-full h-full max-w-lg max-h-[500px]"
+            onClick={(e) => {
+              // If the click target is the SVG itself (background), and not a path
+              if (e.target === e.currentTarget) {
+                handleShowTotal();
+              }
+            }}
+          >
+            <title>Mapa de Venezuela</title>
+            {regions.map(region => (
+              <Tooltip key={region.id}>
+                <TooltipTrigger asChild>
+                  <path
+                    id={region.id}
+                    d={region.d}
+                    className={cn(
+                      "stroke-border fill-muted hover:fill-accent/70 transition-colors cursor-pointer"
+                    )}
+                    style={{ fill: getPathFill(region, selectedRegion) }}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent SVG background click from firing immediately
+                      handleRegionClick(region);
+                    }}
+                  />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="font-semibold">{region.name}</p>
+                  <p>Clientes: {region.clients.toLocaleString()}</p>
+                </TooltipContent>
+              </Tooltip>
+            ))}
+            {/* The text title inside SVG can be removed if card title is sufficient */}
+            {/* <text x="175" y="30" textAnchor="middle" className="text-lg font-semibold fill-foreground">
+              Mapa Interactivo de Clientes
+            </text> */}
+          </svg>
+        </div>
+      </TooltipProvider>
+    </div>
   );
 }

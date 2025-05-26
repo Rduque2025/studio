@@ -32,13 +32,13 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/dashboard" className="mr-6 flex items-center space-x-2 flex-shrink-0">
+        <Link href="/dashboard" className="ml-2 mr-4 flex items-center space-x-2 flex-shrink-0">
           <Image
             src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
             alt="Banesco Seguros Logo"
-            width={150} // Adjust width as needed, estimating based on typical logo aspect ratio for this height
+            width={150} 
             height={32}
-            className="h-8 w-auto" // h-8 is 32px
+            className="h-8 w-auto" 
             priority
           />
         </Link>
@@ -100,12 +100,9 @@ export function Header() {
                       href={item.href}
                       className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent"
                       onClick={() => {
-                        // For search, we don't want to close if it's just a placeholder.
-                        // If it were a popover trigger for mobile, we'd handle it differently.
                         if (item.name !== "Buscar" || item.href !== "#") {
                            setIsMobileMenuOpen(false);
                         }
-                        // If 'Buscar' is clicked and has href="#", it does nothing, which is fine for a placeholder.
                       }}
                     >
                       <item.icon className="h-5 w-5 text-muted-foreground" />

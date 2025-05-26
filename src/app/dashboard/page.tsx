@@ -5,6 +5,7 @@
 
 
 
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
@@ -24,19 +25,19 @@ export default function DashboardPage() {
       <SectionWrapper 
         title="Acerca de Banesco Seguros"
         description="Nuestra trayectoria y compromiso con Venezuela."
-        cardClassName="bg-transparent rounded-lg shadow-sm border-none" 
+        cardClassName="bg-transparent rounded-lg shadow-none border-none" 
         titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
         contentClassName="p-6" 
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <p className="text-muted-foreground leading-relaxed text-base">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4 text-base">
+              <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
                 Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4 text-base">
+              <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>
@@ -165,6 +166,7 @@ export default function DashboardPage() {
     </div>
   );
 }
+
 
 
 

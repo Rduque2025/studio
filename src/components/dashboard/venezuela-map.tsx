@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,12 @@ export function InteractiveVenezuelaMap() {
   const displayedName = selectedRegion ? `Clientes en ${selectedRegion.name}` : "Clientes Totales en Venezuela";
   const displayedCount = selectedRegion ? selectedRegion.clients : totalClients;
 
+  const [formattedDisplayedCount, setFormattedDisplayedCount] = useState<string | number>(displayedCount);
+
+  useEffect(() => {
+    setFormattedDisplayedCount(displayedCount.toLocaleString());
+  }, [displayedCount]);
+
   const handleRegionClick = (region: RegionData) => {
     if (selectedRegion && selectedRegion.id === region.id) {
       setSelectedRegion(null); // Deselect if clicking the same region
@@ -79,7 +85,7 @@ export function InteractiveVenezuelaMap() {
           <CardTitle className="text-xl font-semibold">{displayedName}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-4xl font-bold text-primary">{displayedCount.toLocaleString()}</p>
+          <p className="text-4xl font-bold text-primary">{formattedDisplayedCount}</p>
           {selectedRegion && (
             <Button variant="link" onClick={handleShowTotal} className="mt-2 text-sm">
               Ver total nacional

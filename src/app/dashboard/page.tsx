@@ -8,7 +8,6 @@ import { DressCodeCard } from "@/components/dashboard/dress-code-card";
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-// import { List, ListItem } from "@/components/ui/list"; No longer used
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 
@@ -19,39 +18,42 @@ export default function DashboardPage() {
       <SectionWrapper 
         title="Acerca de Banesco Seguros"
         description="Nuestra trayectoria y compromiso con Venezuela."
+        cardClassName="bg-muted rounded-lg shadow-sm border" // Give hero section a distinct background and standard card look
+        titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" // Larger title for hero
+        contentClassName="p-6" // Ensure padding for hero content
       >
-        <Card className="bg-transparent shadow-none border-none"> {/* Consistent with minimalist theme */}
-          <CardContent className="p-6 grid md:grid-cols-2 gap-8 items-center">
+        {/* Removed the inner Card component as SectionWrapper's card is now styled */}
+          <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed text-lg"> {/* Slightly larger text for hero description */}
                 En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
+              <p className="text-muted-foreground leading-relaxed mt-4 text-lg">
                 Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
+              <p className="text-muted-foreground leading-relaxed mt-4 text-lg">
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>
-            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-sm">
+            <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md"> {/* Adjusted height and shadow for hero image */}
               <Image 
                 src="https://placehold.co/600x400.png"
                 alt="Imagen corporativa de Banesco Seguros"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="corporate office"
+                data-ai-hint="corporate office building" // More specific hint
                 className="rounded-lg"
               />
             </div>
-          </CardContent>
-        </Card>
+          </div>
       </SectionWrapper>
 
       <SectionWrapper 
         title="Valores y Pilares Fundamentales"
         description="Los principios que guían nuestro actuar diario."
+        cardClassName="bg-transparent shadow-none border-none" // Keep this section transparent
       >
-        <Card className="bg-transparent shadow-none border-none"> 
+        <Card className="bg-card shadow-sm border rounded-lg"> {/* Inner card for content structure */}
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
             <div className="space-y-6"> 
               <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Valores</h3>
@@ -105,7 +107,7 @@ export default function DashboardPage() {
       </SectionWrapper>
       
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
@@ -116,7 +118,7 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md">
+       <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockDietMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
@@ -127,7 +129,7 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockExecutiveMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
@@ -138,7 +140,7 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockDressCodeItems.map((item) => (
               <DressCodeCard key={item.id} item={item} />
@@ -158,4 +160,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

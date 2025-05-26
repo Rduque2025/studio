@@ -1,19 +1,68 @@
+'use client';
 
-
+import React, { useState, useEffect, useRef } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-// Removed InteractiveVenezuelaMap import
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 import { DressCodeCard } from "@/components/dashboard/dress-code-card"; 
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
 import Image from "next/image";
 
 
+const rotatingImagesData = [
+  { 
+    src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDb25maWFuemF8ZW58MHx8fHwxNzQ4MjkwNzU3fDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    alt: "Imagen corporativa de Banesco Seguros", 
+    hint: "corporate office" 
+  },
+  { 
+    src: "https://placehold.co/1080x720/E97451/FFFFFF.png", 
+    alt: "Colaboración en equipo Banesco Seguros", 
+    hint: "team collaboration" 
+  },
+  { 
+    src: "https://placehold.co/1080x720/5D8AA8/FFFFFF.png", 
+    alt: "Solidez financiera Banesco Seguros", 
+    hint: "financial security" 
+  },
+];
+
 export default function DashboardPage() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const rotationDelay = 2000; // Rotate every 2 seconds
+
+  const handleMouseEnter = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    // Start cycling one image ahead on first interval trigger
+    intervalRef.current = setInterval(() => {
+      setCurrentImageIndex(prevIndex => (prevIndex + 1) % rotatingImagesData.length);
+    }, rotationDelay);
+  };
+
+  const handleMouseLeave = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setCurrentImageIndex(0); // Reset to the first image
+  };
+
+  // Cleanup interval on component unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <SectionWrapper 
@@ -35,14 +84,20 @@ export default function DashboardPage() {
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>
-            <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md">
+            <div
+              className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
               <Image 
-                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDb25maWFuemF8ZW58MHx8fHwxNzQ4MjkwNzU3fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Imagen corporativa de Banesco Seguros"
+                key={rotatingImagesData[currentImageIndex].src} // Key to help React re-render image correctly
+                src={rotatingImagesData[currentImageIndex].src}
+                alt={rotatingImagesData[currentImageIndex].alt}
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="corporate office building"
+                data-ai-hint={rotatingImagesData[currentImageIndex].hint}
                 className="rounded-lg"
+                priority={currentImageIndex === 0} // Only the first image is priority
               />
             </div>
           </div>
@@ -93,8 +148,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </SectionWrapper>
-
-      {/* Removed InteractiveVenezuelaMap section from here */}
 
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa.">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

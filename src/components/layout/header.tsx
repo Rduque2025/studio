@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Map } from "lucide-react"; // Added Map icon
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database } from "lucide-react"; // Changed Map to Database
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,7 +13,7 @@ import Image from "next/image";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
-  { name: "Mapa de Clientes", href: "/dashboard/mapa-clientes", icon: Map }, // Added Mapa de Clientes
+  { name: "Datos", href: "/dashboard/mapa-clientes", icon: Database }, // Changed name and icon
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },

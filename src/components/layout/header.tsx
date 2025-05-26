@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database, Bell } from "lucide-react"; // Changed Map to Database, Added Bell
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database, Bell } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -10,19 +10,14 @@ import React, { useEffect, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { mockCalendarEvents } from "@/lib/placeholder-data"; // Import mock events
-import { format, isToday } from "date-fns"; // Import date-fns functions
-import { es } from "date-fns/locale"; // Import Spanish locale
+// import { mockCalendarEvents } from "@/lib/placeholder-data"; // No longer needed directly
+import { useEvents, type CalendarEvent } from "@/contexts/events-context"; // Import useEvents
+import { format, isToday } from "date-fns"; 
+import { es } from "date-fns/locale"; 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
-interface Reminder {
-  id: string;
-  title: string;
-  date: Date;
-  description?: string;
-  color?: string;
-}
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
@@ -35,7 +30,7 @@ const navItemsDesktop = [
 
 const navItemsMobile = [
   ...navItemsDesktop,
-  { name: "Recordatorios", href: "#", icon: Bell, isReminders: true }, // Added for mobile
+  { name: "Recordatorios", href: "#", icon: Bell, isReminders: true }, 
   { name: "Buscar", href: "#", icon: Search, isSearch: true }, 
   { name: "Configuración", href: "/dashboard/settings", icon: Settings },
 ];
@@ -43,28 +38,22 @@ const navItemsMobile = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [todaysMockEvents, setTodaysMockEvents] = useState<Reminder[]>([]);
+  const { allEvents, getCategoryDisplayStyles } = useEvents(); // Use context to get all events
+  const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); // State for today's events from context
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
 
 
   useEffect(() => {
-    // Filter mock events for today - client-side only
-    const filtered = mockCalendarEvents.map((event, index) => ({
-      ...event,
-      id: `mock-reminder-${index}`
-    })).filter(event => isToday(event.date));
-    setTodaysMockEvents(filtered);
-  }, []);
+    // Filter allEvents for today - client-side only
+    const filtered = allEvents.filter(event => isToday(event.date));
+    setTodaysEvents(filtered);
+  }, [allEvents]); // Re-filter when allEvents from context changes
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
     if (item.isSearch || item.isReminders) {
       // For search and reminders, we might open a popover or specific UI in mobile
-      // For now, let's assume they don't close the menu immediately if it's a popover trigger
-      if (item.isReminders) {
-          // This is a placeholder for potential mobile-specific reminder UI
-          // For now, it won't do anything special beyond what Popover does
-      }
+      // For now, it won't do anything special beyond what Popover does
     } else {
       setIsMobileMenuOpen(false);
     }
@@ -97,7 +86,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-end flex-shrink-0 ml-auto md:ml-6 space-x-1"> {/* Reduced space-x-2 to space-x-1 */}
+        <div className="flex items-center justify-end flex-shrink-0 ml-auto md:ml-6 space-x-1"> 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-1">
             <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
@@ -119,7 +108,7 @@ export function Header() {
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Bell className="h-5 w-5" />
-                  {todaysMockEvents.length > 0 && (
+                  {todaysEvents.length > 0 && (
                      <span className="absolute top-2 right-2 block h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
                   )}
                   <span className="sr-only">Recordatorios</span>
@@ -130,18 +119,50 @@ export function Header() {
                   <h4 className="font-medium text-sm text-foreground">Recordatorios de Hoy</h4>
                 </div>
                 <Separator />
-                {todaysMockEvents.length > 0 ? (
+                {todaysEvents.length > 0 ? (
                   <ScrollArea className="h-[200px]">
                     <div className="p-4 space-y-3">
-                      {todaysMockEvents.map((event) => (
-                        <div key={event.id} className="text-xs">
-                          <p className="font-medium text-foreground truncate">{event.title}</p>
-                          <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
-                           <Badge variant="outline" className="mt-1" style={{backgroundColor: event.color?.replace('bg-',''), color: event.color ? 'white': 'inherit' }}>
-                            {format(event.date, "PPP", { locale: es })}
-                          </Badge>
-                        </div>
-                      ))}
+                      {todaysEvents.map((event) => {
+                        const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+                        const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
+                        // Ensure color is a valid CSS color string by removing 'bg-' prefix if it exists
+                        const badgeBgColor = displayColor.startsWith('bg-') ? displayColor.substring(3) : displayColor;
+                        const isDarkColor = ['blue-600', 'pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
+
+                        return (
+                          <div key={event.id} className="text-xs">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <p className="font-medium text-foreground truncate">{event.title}</p>
+                                    <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
+                                </div>
+                                {categoryStyles && (
+                                    <Badge variant="outline" className={cn("ml-2 text-xs self-start", categoryStyles.badgeClass)}>
+                                        {categoryStyles.badgeText}
+                                    </Badge>
+                                )}
+                            </div>
+                            <div className="flex items-center gap-2 mt-1">
+                                <Badge 
+                                    variant="outline" 
+                                    style={{
+                                        backgroundColor: badgeBgColor, 
+                                        color: isDarkColor ? 'white' : 'hsl(var(--foreground))',
+                                        borderColor: badgeBgColor,
+                                    }}
+                                >
+                                    {format(event.date, "PPP", { locale: es })}
+                                </Badge>
+                                {event.time && (
+                                    <Badge variant="outline">
+                                        <Clock className="mr-1 h-3 w-3" />
+                                        {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
+                                    </Badge>
+                                )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </ScrollArea>
                 ) : (
@@ -187,7 +208,7 @@ export function Header() {
                     >
                       <item.icon className="h-5 w-5 text-muted-foreground" />
                       <span>{item.name}</span>
-                      {item.icon === Bell && todaysMockEvents.length > 0 && (
+                      {item.icon === Bell && todaysEvents.length > 0 && (
                          <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
                       )}
                     </Link>

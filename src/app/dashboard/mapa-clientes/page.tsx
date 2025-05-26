@@ -4,7 +4,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap, regions, type Region, type BusinessLineData } from "@/components/dashboard/venezuela-map";
-import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell, Legend } from "recharts"; // Removed XAxis
+import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell, Legend } from "recharts";
 import {
   ChartContainer,
   ChartTooltip,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/chart";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Users, Briefcase } from 'lucide-react'; // Icons for client types
+import { Users, Briefcase } from 'lucide-react';
 
 
 const nationalBusinessLineTotals: BusinessLineData = regions.reduce(
@@ -29,20 +29,20 @@ const nationalBusinessLineTotals: BusinessLineData = regions.reduce(
 );
 
 const chartConfig = {
-  Clientes: { // This key will be used for the Bar dataKey
+  Clientes: { 
     label: "Nº de Clientes",
   },
   Personas: {
     label: "Personas",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(217, 91%, 60%)", // Primary Blue
   },
   Automóvil: {
     label: "Automóvil",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(160, 70%, 45%)", // Teal/Green
   },
   Patrimoniales: {
     label: "Patrimoniales",
-    color: "hsl(var(--chart-3))",
+    color: "hsl(35, 95%, 55%)",  // Orange
   },
 } satisfies ChartConfig;
 
@@ -60,7 +60,6 @@ export default function MapaClientesPage() {
     { name: "Patrimoniales", Clientes: currentData.patrimoniales, fill: chartConfig.Patrimoniales.color },
   ];
 
-  // For top summary cards
   const totalNaturalClientsCurrent = currentData.personas;
   const totalJuridicalClientsCurrent = currentData.automovil + currentData.patrimoniales;
 
@@ -139,7 +138,7 @@ export default function MapaClientesPage() {
             <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart
-                  layout="vertical" // Horizontal bars
+                  layout="vertical" 
                   data={chartData}
                   margin={{
                     top: 5, 
@@ -150,19 +149,13 @@ export default function MapaClientesPage() {
                   accessibilityLayer
                 >
                   <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-                  {/* <XAxis 
-                    type="number" 
-                    hide // Alternative: hide={true} - Removing completely for cleaner look
-                    stroke="hsl(var(--muted-foreground))"
-                    tickFormatter={(value) => value.toLocaleString()}
-                  /> */}
                   <YAxis
                     type="category"
-                    dataKey="name" // Business line names on Y-axis
+                    dataKey="name" 
                     stroke="hsl(var(--muted-foreground))"
                     tickLine={false}
                     axisLine={false}
-                    width={100} // Adjust width for labels
+                    width={100} 
                   />
                   <Tooltip
                     cursor={{ fill: "hsl(var(--muted))" }} 
@@ -170,8 +163,8 @@ export default function MapaClientesPage() {
                   />
                    <Legend content={<ChartLegendContent />} />
                   <Bar
-                    dataKey="Clientes" // The value to plot
-                    radius={[0, 8, 8, 0]} // Rounded end corners for horizontal bars
+                    dataKey="Clientes" 
+                    radius={[0, 8, 8, 0]} 
                   >
                     {chartData.map((entry) => (
                       <Cell
@@ -189,3 +182,4 @@ export default function MapaClientesPage() {
     </div>
   );
 }
+

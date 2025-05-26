@@ -70,7 +70,7 @@ const processMockEvents = (events: Omit<CalendarEvent, 'id' | 'isUserEvent' | 'c
 };
 
 export function CalendarWithEvents() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2025, 0, 1));
+  const [date, setDate] = useState<Date | undefined>(new Date()); // Default to today's date
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const [processedMockEvents] = useState(() => processMockEvents(rawMockEvents));
@@ -98,7 +98,7 @@ export function CalendarWithEvents() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [processedMockEvents]);
+  }, [processedMockEvents]); // Removed allEvents from deps to avoid re-triggering on user event add for existing day
 
 
   const eventDates = allEvents.map(event => event.date);
@@ -199,7 +199,7 @@ export function CalendarWithEvents() {
           onSelect={setDate}
           onDayClick={handleDayClick}
           className="rounded-md border p-4 bg-card shadow-none"
-          defaultMonth={new Date(2025, 0, 1)}
+          defaultMonth={new Date()} // Default to current month
           locale={es}
           modifiers={modifiers}
           modifiersClassNames={modifiersClassNames}
@@ -294,7 +294,7 @@ export function CalendarWithEvents() {
       <div className="lg:w-2/5 w-full mt-6 lg:mt-0">
         <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-semibold">
-                Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : '2025'})
+                Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : format(new Date(), 'MMMM yyyy', { locale: es })})
             </h3>
         </div>
         <div className="space-y-2 max-h-96 lg:max-h-[calc(theme(spacing.96)_+_theme(spacing.12))] overflow-y-auto pr-2">

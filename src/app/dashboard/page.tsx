@@ -28,7 +28,7 @@ const rotatingImagesData = [
     hint: "family protection" 
   },
   { 
-    src: "https://placehold.co/1080x720/5D8AA8/FFFFFF.png", 
+    src: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8RU1QUkVTQXxlbnwwfHx8fDE3NDgyOTE1NTF8MA&ixlib=rb-4.1.0&q=80&w=1080", 
     alt: "Solidez financiera Banesco Seguros", 
     hint: "financial security" 
   },
@@ -56,7 +56,7 @@ export default function DashboardPage() {
         description="Nuestra trayectoria y compromiso con Venezuela."
         cardClassName="bg-transparent rounded-lg shadow-none border-none" 
         titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
-        contentClassName="p-6" 
+        contentClassName="p-0" 
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="p-6">
@@ -213,4 +213,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

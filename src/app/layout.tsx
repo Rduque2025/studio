@@ -1,16 +1,9 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google'; // Import Poppins
+// Removed Poppins import from next/font/google
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
-// Configure Poppins font
-const poppins = Poppins({
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  display: 'swap', // Ensures text remains visible during font loading
-  variable: '--font-poppins', // CSS variable for Tailwind
-});
+// Removed Poppins font configuration using next/font/google
 
 export const metadata: Metadata = {
   title: 'Portal de Gestión - Banesco Seguros',
@@ -23,8 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable}`}>
-      <body className={`font-sans antialiased`}> {/* Apply Poppins via font-sans which is now configured in Tailwind */}
+    // Removed poppins.variable from html className
+    <html lang="en"> 
+      {/* font-sans will now use 'Poppins' from Tailwind config */}
+      <body className={`font-sans antialiased`}> 
         {children}
         <Toaster />
       </body>

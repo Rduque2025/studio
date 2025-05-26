@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -10,32 +11,32 @@ export default {
   theme: {
   	extend: {
       fontFamily: {
-        sans: ['var(--font-poppins)', 'sans-serif'], // Set Poppins as the default sans-serif font
+        sans: ['Poppins', 'sans-serif'], // Use Poppins directly
       },
   		colors: {
-  			background: 'hsl(var(--background))', // White
-  			foreground: 'hsl(var(--foreground))', // Dark Slate Blue for text
+  			background: 'hsl(var(--background))', 
+  			foreground: 'hsl(var(--foreground))', 
 
-  			muted: 'hsl(var(--muted))', // Very Light Cool Grey
-  			'muted-foreground': 'hsl(var(--muted-foreground))', // Cool Grey
+  			muted: 'hsl(var(--muted))', 
+  			'muted-foreground': 'hsl(var(--muted-foreground))', 
 
   			popover: 'hsl(var(--popover))',
   			'popover-foreground': 'hsl(var(--popover-foreground))',
 
-  			card: 'hsl(var(--card))', // White cards
+  			card: 'hsl(var(--card))', 
   			'card-foreground': 'hsl(var(--card-foreground))',
 
-  			border: 'hsl(var(--border))', // Light Cool Grey border
-  			input: 'hsl(var(--input))', // Same as muted for input background
+  			border: 'hsl(var(--border))', 
+  			input: 'hsl(var(--input))', 
 
-  			primary: 'hsl(var(--primary))', // Deep Teal
-  			'primary-foreground': 'hsl(var(--primary-foreground))', // White
+  			primary: 'hsl(var(--primary))', 
+  			'primary-foreground': 'hsl(var(--primary-foreground))', 
 
-  			secondary: 'hsl(var(--secondary))', // Light Blue-Grey (can be adjusted if needed)
-  			'secondary-foreground': 'hsl(var(--secondary-foreground))', // Primary blue text on secondary
+  			secondary: 'hsl(var(--secondary))', 
+  			'secondary-foreground': 'hsl(var(--secondary-foreground))', 
 
-  			accent: 'hsl(var(--accent))', // Soft Blue
-  			'accent-foreground': 'hsl(var(--accent-foreground))', // Darker blue for text on accent
+  			accent: 'hsl(var(--accent))', 
+  			'accent-foreground': 'hsl(var(--accent-foreground))', 
         
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',

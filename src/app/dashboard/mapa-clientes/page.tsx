@@ -6,7 +6,7 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap, mapRegionsData, type MapRegion, type MapRegionClientData } from "@/components/dashboard/venezuela-map";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Users, Briefcase, TrendingUp, BarChartHorizontal } from 'lucide-react'; // Added BarChartHorizontal
+import { Users, Briefcase, TrendingUp, BarChartHorizontal } from 'lucide-react'; 
 import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell, XAxis } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 
@@ -35,7 +35,7 @@ const businessLinesChartConfig = {
 const salesChannelsChartConfig = {
   Banco: { label: "Banco", color: "hsl(var(--chart-4))" },
   Tradicional: { label: "Tradicional", color: "hsl(var(--chart-5))" },
-  "Canales Alternos": { label: "Canales Alternos", color: "hsl(210 30% 70%)" }, // Custom grey
+  "Canales Alternos": { label: "Canales Alternos", color: "hsl(210 30% 70%)" }, 
 } satisfies ChartConfig;
 
 
@@ -46,7 +46,6 @@ export default function MapaClientesPage() {
     if (selectedRegion) {
       return selectedRegion.clients;
     }
-    // For national totals, sum up from all regions' specific business lines and sales channels
     return regions.reduce((acc, region) => {
         acc.personas += region.clients.personas;
         acc.automovil += region.clients.automovil;
@@ -144,7 +143,7 @@ export default function MapaClientesPage() {
           </div>
 
           <div className="md:col-span-1 space-y-8">
-            <Card>
+            <Card className="border-none shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <BarChartHorizontal className="h-5 w-5 text-primary" />
@@ -161,7 +160,7 @@ export default function MapaClientesPage() {
                       tickMargin={5}
                       axisLine={false}
                       className="text-xs"
-                      width={100} // Ajustado el ancho para "Patrimoniales"
+                      width={100} 
                     />
                     <XAxis type="number" hide />
                     <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
@@ -175,7 +174,7 @@ export default function MapaClientesPage() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-none shadow-sm">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <TrendingUp className="h-5 w-5 text-primary" />

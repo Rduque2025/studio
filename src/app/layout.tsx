@@ -1,17 +1,15 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Poppins } from 'next/font/google'; // Import Poppins
 import './globals.css';
-// AuthProvider ya no es necesario
 import { Toaster } from '@/components/ui/toaster';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Configure Poppins font
+const poppins = Poppins({
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  display: 'swap', // Ensures text remains visible during font loading
+  variable: '--font-poppins', // CSS variable for Tailwind
 });
 
 export const metadata: Metadata = {
@@ -26,8 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {/* AuthProvider eliminado */}
+      <body className={`${poppins.variable} font-sans antialiased`}> {/* Apply Poppins variable and a base font-sans class */}
         {children}
         <Toaster />
       </body>

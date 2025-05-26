@@ -143,7 +143,7 @@ export default function MapaClientesPage() {
           </div>
 
           <div className="md:col-span-1 space-y-8">
-            <Card className="border-none shadow-sm">
+            <Card className="border-none">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <BarChartHorizontal className="h-5 w-5 text-primary" />
@@ -174,7 +174,7 @@ export default function MapaClientesPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-sm">
+            <Card className="border-none">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <TrendingUp className="h-5 w-5 text-primary" />

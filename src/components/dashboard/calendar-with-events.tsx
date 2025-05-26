@@ -5,10 +5,10 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
 import { mockCalendarEvents as rawMockEvents } from '@/lib/placeholder-data'; // Renamed to avoid conflict
-import { format, isToday } from 'date-fns';
+import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-import { AlertCircle, PlusCircle, Trash2 } from 'lucide-react';
+import { AlertCircle, PlusCircle, Trash2, Clock } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,7 +23,8 @@ interface CalendarEvent {
   description: string;
   color: string;
   isUserEvent?: boolean;
-  category?: 'personal' | 'trabajo'; // Added category for user events
+  category?: 'personal' | 'trabajo';
+  time?: string; // Added time field
 }
 
 // Keywords for work-related events
@@ -61,16 +62,17 @@ const categoryDisplayStyles = {
 
 
 // Helper to process mock events and ensure they have IDs
-const processMockEvents = (events: Omit<CalendarEvent, 'id' | 'isUserEvent' | 'category'>[]): CalendarEvent[] => {
+const processMockEvents = (events: Omit<CalendarEvent, 'id' | 'isUserEvent' | 'category' | 'time'>[]): CalendarEvent[] => {
   return events.map((event, index) => ({
     ...event,
+    date: typeof event.date === 'string' ? parseISO(event.date) : event.date,
     id: `mock-${index}-${event.title.replace(/\s+/g, '-')}`,
     isUserEvent: false,
   }));
 };
 
 export function CalendarWithEvents() {
-  const [date, setDate] = useState<Date | undefined>(new Date()); // Default to today's date
+  const [date, setDate] = useState<Date | undefined>(new Date()); 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const [processedMockEvents] = useState(() => processMockEvents(rawMockEvents));
@@ -78,6 +80,7 @@ export function CalendarWithEvents() {
   
   const [newEventTitle, setNewEventTitle] = useState('');
   const [newEventDescription, setNewEventDescription] = useState('');
+  const [newEventTime, setNewEventTime] = useState(''); // State for new event time
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
   
   const { toast } = useToast();
@@ -92,13 +95,13 @@ export function CalendarWithEvents() {
       todaysEvents.forEach(event => {
         toast({
           title: `Recordatorio Hoy: ${event.title}`,
-          description: event.description || `Evento programado para hoy.`,
+          description: `${event.description || 'Evento programado.'}${event.time ? ` Hora: ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}` : ''}`,
           duration: 7000,
         });
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [processedMockEvents]); // Removed allEvents from deps to avoid re-triggering on user event add for existing day
+  }, [processedMockEvents]); 
 
 
   const eventDates = allEvents.map(event => event.date);
@@ -116,7 +119,7 @@ export function CalendarWithEvents() {
     highlighted: 'border-primary ring-1 ring-primary rounded-md',
     ...allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
-      let textColorClass = event.color.replace('bg-', 'text-'); // Default for mock
+      let textColorClass = event.color.replace('bg-', 'text-'); 
       if (event.isUserEvent && event.category) {
         textColorClass = categoryDisplayStyles[event.category].textColor;
       }
@@ -124,7 +127,7 @@ export function CalendarWithEvents() {
       acc[key] = `relative ${textColorClass} 
                   before:content-[''] before:absolute before:rounded-full before:w-2 before:h-2 
                   before:-bottom-1 before:left-1/2 before:-translate-x-1/2 
-                  ${event.color}`; // event.color here is the dot color
+                  ${event.color}`; 
       return acc;
     }, {} as Record<string, string>)
   };
@@ -157,19 +160,21 @@ export function CalendarWithEvents() {
       color: dotColor,
       isUserEvent: true,
       category: category,
+      time: newEventTime || undefined,
     };
     setUserEvents(prev => [...prev, newEventToAdd]);
 
     if (isToday(newEventToAdd.date)) {
       toast({
         title: `Evento ${categoryDisplayStyles[category].badgeText} añadido para hoy: ${newEventToAdd.title}`,
-        description: newEventToAdd.description,
+        description: `${newEventToAdd.description}${newEventToAdd.time ? ` Hora: ${format(new Date(`1970-01-01T${newEventToAdd.time}`), 'p', { locale: es })}` : ''}`,
         duration: 7000,
       });
     }
 
     setNewEventTitle('');
     setNewEventDescription('');
+    setNewEventTime(''); // Reset time field
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${categoryDisplayStyles[category].badgeText}) añadido al calendario.` });
     setSelectedEvent(newEventToAdd);
@@ -199,7 +204,7 @@ export function CalendarWithEvents() {
           onSelect={setDate}
           onDayClick={handleDayClick}
           className="rounded-md border p-4 bg-card shadow-none"
-          defaultMonth={new Date()} // Default to current month
+          defaultMonth={new Date()}
           locale={es}
           modifiers={modifiers}
           modifiersClassNames={modifiersClassNames}
@@ -235,6 +240,11 @@ export function CalendarWithEvents() {
                     )}
                 </h4>
                 <p className="text-muted-foreground">{currentEventForPopover.description}</p>
+                {currentEventForPopover.time && (
+                    <p className="text-muted-foreground text-xs flex items-center gap-1">
+                        <Clock className="h-3 w-3" /> Hora: {format(new Date(`1970-01-01T${currentEventForPopover.time}`), 'p', { locale: es })}
+                    </p>
+                )}
                </div>
               ) : (
                 <p className="text-muted-foreground">
@@ -253,7 +263,7 @@ export function CalendarWithEvents() {
                       <DialogHeader>
                         <DialogTitle>Añadir Nuevo Evento</DialogTitle>
                         <DialogDescription>
-                          Añada un título y descripción para su evento en {format(date, 'PPP', { locale: es })}. Se categorizará automáticamente.
+                          Añada un título, descripción y hora (opcional) para su evento en {format(date, 'PPP', { locale: es })}. Se categorizará automáticamente.
                         </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
@@ -275,6 +285,16 @@ export function CalendarWithEvents() {
                             onChange={(e) => setNewEventDescription(e.target.value)} 
                             className="col-span-3" 
                             placeholder="Descripción (opcional)"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <label htmlFor="event-time" className="text-right">Hora</label>
+                          <Input 
+                            id="event-time" 
+                            type="time"
+                            value={newEventTime} 
+                            onChange={(e) => setNewEventTime(e.target.value)} 
+                            className="col-span-3" 
                           />
                         </div>
                       </div>
@@ -312,10 +332,13 @@ export function CalendarWithEvents() {
               onClick={() => handleDayClick(event.date)}
             >
               <div className="flex items-start gap-3 w-full">
-                <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", event.color)} /> {/* Dot color */}
+                <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", event.color)} /> 
                 <div className="flex-grow">
                   <p className="font-medium text-sm">{event.title}</p>
-                  <p className="text-xs text-muted-foreground">{format(event.date, 'd \'de\' MMMM', { locale: es })}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {format(event.date, 'd \'de\' MMMM', { locale: es })}
+                    {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
+                  </p>
                 </div>
                 {event.isUserEvent && event.category && (
                   <Badge 

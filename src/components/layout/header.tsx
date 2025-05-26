@@ -22,24 +22,24 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        <Link href="/dashboard" className="mr-6 flex items-center space-x-2">
+        <Link href="/dashboard" className="mr-6 flex items-center space-x-2 flex-shrink-0">
           {/* Text Logo for Banesco Seguros */}
           <span className="font-bold text-lg text-primary">Banesco Seguros</span>
         </Link>
         
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <nav className="hidden md:flex flex-1 justify-center items-center space-x-3 text-xs font-medium">
           {navItems.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
+              className="transition-colors hover:text-foreground/80 text-foreground/60 px-2 py-1 rounded-md"
             >
               {item.name}
             </Link>
           ))}
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex items-center justify-end flex-shrink-0 md:ml-6"> {/* Ensure ml-6 for desktop to give space, but not needed for mobile as nav is hidden */}
           <div className="md:hidden">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>

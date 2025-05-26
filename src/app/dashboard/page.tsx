@@ -1,5 +1,6 @@
 
 
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
@@ -53,7 +54,7 @@ export default function DashboardPage() {
         description="Los principios que guían nuestro actuar diario."
         cardClassName="bg-transparent shadow-none border-none" 
       >
-        <Card className="bg-card shadow-sm rounded-lg"> 
+        <Card className="bg-card shadow-sm rounded-lg border-none"> 
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
             <div className="space-y-6"> 
               <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Valores</h3>
@@ -160,3 +161,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

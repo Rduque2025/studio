@@ -10,8 +10,7 @@ import React, { useEffect, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
-// import { mockCalendarEvents } from "@/lib/placeholder-data"; // No longer needed directly
-import { useEvents, type CalendarEvent } from "@/contexts/events-context"; // Import useEvents
+import { useEvents, type CalendarEvent } from "@/contexts/events-context"; 
 import { format, isToday } from "date-fns"; 
 import { es } from "date-fns/locale"; 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -38,17 +37,16 @@ const navItemsMobile = [
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const { allEvents, getCategoryDisplayStyles } = useEvents(); // Use context to get all events
-  const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); // State for today's events from context
+  const { allEvents, getCategoryDisplayStyles } = useEvents(); 
+  const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); 
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
 
 
   useEffect(() => {
-    // Filter allEvents for today - client-side only
     const filtered = allEvents.filter(event => isToday(event.date));
     setTodaysEvents(filtered);
-  }, [allEvents]); // Re-filter when allEvents from context changes
+  }, [allEvents]); 
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
     if (item.isSearch || item.isReminders) {
@@ -125,9 +123,9 @@ export function Header() {
                       {todaysEvents.map((event) => {
                         const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
                         const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
-                        // Ensure color is a valid CSS color string by removing 'bg-' prefix if it exists
                         const badgeBgColor = displayColor.startsWith('bg-') ? displayColor.substring(3) : displayColor;
-                        const isDarkColor = ['blue-600', 'pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
+                        // Removed 'blue-600' from this list to ensure black text on blue-600 backgrounds
+                        const isDarkColor = ['pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
 
                         return (
                           <div key={event.id} className="text-xs">

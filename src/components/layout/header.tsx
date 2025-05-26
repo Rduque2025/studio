@@ -2,18 +2,31 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database } from "lucide-react"; // Changed Map to Database
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database, Bell } from "lucide-react"; // Changed Map to Database, Added Bell
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { mockCalendarEvents } from "@/lib/placeholder-data"; // Import mock events
+import { format, isToday } from "date-fns"; // Import date-fns functions
+import { es } from "date-fns/locale"; // Import Spanish locale
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+
+interface Reminder {
+  id: string;
+  title: string;
+  date: Date;
+  description?: string;
+  color?: string;
+}
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
-  { name: "Datos", href: "/dashboard/mapa-clientes", icon: Database }, // Changed name and icon
+  { name: "Datos", href: "/dashboard/mapa-clientes", icon: Database },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
@@ -22,13 +35,41 @@ const navItemsDesktop = [
 
 const navItemsMobile = [
   ...navItemsDesktop,
-  { name: "Buscar", href: "#", icon: Search }, // Placeholder, actual search can be implemented later
-  { name: "Configuración", href: "/dashboard/settings", icon: Settings }, // Placeholder for settings page
+  { name: "Recordatorios", href: "#", icon: Bell, isReminders: true }, // Added for mobile
+  { name: "Buscar", href: "#", icon: Search, isSearch: true }, 
+  { name: "Configuración", href: "/dashboard/settings", icon: Settings },
 ];
 
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const [todaysMockEvents, setTodaysMockEvents] = useState<Reminder[]>([]);
+  const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
+  const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
+
+
+  useEffect(() => {
+    // Filter mock events for today - client-side only
+    const filtered = mockCalendarEvents.map((event, index) => ({
+      ...event,
+      id: `mock-reminder-${index}`
+    })).filter(event => isToday(event.date));
+    setTodaysMockEvents(filtered);
+  }, []);
+
+  const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
+    if (item.isSearch || item.isReminders) {
+      // For search and reminders, we might open a popover or specific UI in mobile
+      // For now, let's assume they don't close the menu immediately if it's a popover trigger
+      if (item.isReminders) {
+          // This is a placeholder for potential mobile-specific reminder UI
+          // For now, it won't do anything special beyond what Popover does
+      }
+    } else {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -56,10 +97,10 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-end flex-shrink-0 ml-auto md:ml-6 space-x-2">
+        <div className="flex items-center justify-end flex-shrink-0 ml-auto md:ml-6 space-x-1"> {/* Reduced space-x-2 to space-x-1 */}
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-1">
-            <Popover>
+            <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon">
                   <Search className="h-5 w-5" />
@@ -69,14 +110,56 @@ export function Header() {
               <PopoverContent className="w-auto p-2">
                 <div className="flex w-full max-w-sm items-center space-x-2">
                   <Input type="search" placeholder="Buscar..." className="h-9" />
-                  <Button type="submit" size="sm">Buscar</Button>
+                  <Button type="submit" size="sm" onClick={() => setIsSearchPopoverOpen(false)}>Buscar</Button>
                 </div>
               </PopoverContent>
             </Popover>
 
+            <Popover open={isRemindersPopoverOpen} onOpenChange={setIsRemindersPopoverOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Bell className="h-5 w-5" />
+                  {todaysMockEvents.length > 0 && (
+                     <span className="absolute top-2 right-2 block h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
+                  )}
+                  <span className="sr-only">Recordatorios</span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-0">
+                <div className="p-4">
+                  <h4 className="font-medium text-sm text-foreground">Recordatorios de Hoy</h4>
+                </div>
+                <Separator />
+                {todaysMockEvents.length > 0 ? (
+                  <ScrollArea className="h-[200px]">
+                    <div className="p-4 space-y-3">
+                      {todaysMockEvents.map((event) => (
+                        <div key={event.id} className="text-xs">
+                          <p className="font-medium text-foreground truncate">{event.title}</p>
+                          <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
+                           <Badge variant="outline" className="mt-1" style={{backgroundColor: event.color?.replace('bg-',''), color: event.color ? 'white': 'inherit' }}>
+                            {format(event.date, "PPP", { locale: es })}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                ) : (
+                  <p className="p-4 text-sm text-muted-foreground">No hay recordatorios para hoy.</p>
+                )}
+                 <Separator />
+                <div className="p-2 text-center">
+                    <Button variant="link" size="sm" asChild onClick={() => {setIsRemindersPopoverOpen(false); setIsMobileMenuOpen(false);}}>
+                        <Link href="/dashboard/calendario">Ver Calendario</Link>
+                    </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+
+
             <Link href="/dashboard/settings" legacyBehavior passHref>
               <Button variant="ghost" size="icon" asChild>
-                <a> {/* Use <a> for Next.js Link with legacyBehavior */}
+                <a> 
                   <Settings className="h-5 w-5" />
                   <span className="sr-only">Configuración</span>
                 </a>
@@ -100,14 +183,13 @@ export function Header() {
                       key={item.name}
                       href={item.href}
                       className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent"
-                      onClick={() => {
-                        if (item.name !== "Buscar" || item.href !== "#") {
-                           setIsMobileMenuOpen(false);
-                        }
-                      }}
+                      onClick={() => handleMobileLinkClick(item)}
                     >
                       <item.icon className="h-5 w-5 text-muted-foreground" />
                       <span>{item.name}</span>
+                      {item.icon === Bell && todaysMockEvents.length > 0 && (
+                         <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
+                      )}
                     </Link>
                   ))}
                 </nav>

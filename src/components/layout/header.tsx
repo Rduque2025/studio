@@ -89,6 +89,7 @@ export function Header() {
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     if (isRemindersPopoverOpen) {
+      setCurrentTimeForCountdown(new Date()); // Update once immediately when opening
       intervalId = setInterval(() => {
         setCurrentTimeForCountdown(new Date());
       }, 1000); // Update every second
@@ -176,6 +177,8 @@ export function Header() {
                         const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
                         const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
                         const badgeBgColor = displayColor.startsWith('bg-') ? displayColor.substring(3) : displayColor;
+                        
+                        // Define which background colors are considered "dark" and need white text
                         const isDarkBg = ['pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
                         
                         const countdownStr = calculateCountdown(event.date, event.time);
@@ -198,7 +201,7 @@ export function Header() {
                                     variant="outline" 
                                     style={{
                                         backgroundColor: badgeBgColor, 
-                                        color: isDarkBg || badgeBgColor.includes('blue-600') ? 'white' : 'hsl(var(--foreground))',
+                                        color: isDarkBg ? 'white' : 'hsl(var(--foreground))',
                                         borderColor: badgeBgColor,
                                     }}
                                 >

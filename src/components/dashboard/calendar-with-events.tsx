@@ -5,7 +5,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
 import { mockCalendarEvents as rawMockEvents } from '@/lib/placeholder-data'; // Renamed to avoid conflict
-import { format, isToday, parseISO } from 'date-fns';
+import { format, isToday, parseISO, differenceInMinutes } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
 import { AlertCircle, PlusCircle, Trash2, Clock } from 'lucide-react';
@@ -80,13 +80,15 @@ export function CalendarWithEvents() {
   
   const [newEventTitle, setNewEventTitle] = useState('');
   const [newEventDescription, setNewEventDescription] = useState('');
-  const [newEventTime, setNewEventTime] = useState(''); // State for new event time
+  const [newEventTime, setNewEventTime] = useState(''); 
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
+  const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
   const { toast } = useToast();
 
   const allEvents = useMemo(() => [...processedMockEvents, ...userEvents], [processedMockEvents, userEvents]);
 
+  // Toast for events scheduled for today (on load)
   useEffect(() => {
     const todayStr = format(new Date(), 'yyyy-MM-dd');
     const todaysEvents = allEvents.filter(event => format(event.date, 'yyyy-MM-dd') === todayStr);
@@ -101,7 +103,42 @@ export function CalendarWithEvents() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [processedMockEvents]); 
+  }, [processedMockEvents]); // Only run for mock events on initial load
+
+  // Effect for 1-hour pre-reminders
+  useEffect(() => {
+    const checkUpcomingEvents = () => {
+      const now = new Date();
+      allEvents.forEach(event => {
+        if (event.time && !remindedEventIds.has(event.id)) {
+          const eventDateStr = format(event.date, 'yyyy-MM-dd');
+          const todayStr = format(now, 'yyyy-MM-dd');
+
+          if (eventDateStr === todayStr) { // Check if the event is today
+            const [hours, minutes] = event.time.split(':').map(Number);
+            const eventDateTime = new Date(event.date); // Start with the event's date
+            eventDateTime.setHours(hours, minutes, 0, 0); // Set the time
+
+            const diffMins = differenceInMinutes(eventDateTime, now);
+
+            if (diffMins > 0 && diffMins <= 60) { // Event is in the next 60 minutes and hasn't passed
+              toast({
+                title: `Recordatorio Próximo: ${event.title}`,
+                description: `El evento comienza en aproximadamente ${diffMins} minuto(s).`,
+                duration: 10000,
+              });
+              setRemindedEventIds(prev => new Set(prev).add(event.id));
+            }
+          }
+        }
+      });
+    };
+
+    checkUpcomingEvents(); // Check immediately
+    const intervalId = setInterval(checkUpcomingEvents, 60000); // Check every minute
+
+    return () => clearInterval(intervalId); // Cleanup interval on unmount
+  }, [allEvents, toast, remindedEventIds]);
 
 
   const eventDates = allEvents.map(event => event.date);
@@ -174,10 +211,11 @@ export function CalendarWithEvents() {
 
     setNewEventTitle('');
     setNewEventDescription('');
-    setNewEventTime(''); // Reset time field
+    setNewEventTime(''); 
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${categoryDisplayStyles[category].badgeText}) añadido al calendario.` });
     setSelectedEvent(newEventToAdd);
+     // If the new event is within the next hour, the interval checker will pick it up.
   };
 
   const handleDeleteEvent = (eventId: string) => {
@@ -185,6 +223,11 @@ export function CalendarWithEvents() {
     if (!eventToDelete) return;
 
     setUserEvents(prev => prev.filter(event => event.id !== eventId));
+    setRemindedEventIds(prev => { // Also remove from reminded set if deleted
+        const newSet = new Set(prev);
+        newSet.delete(eventId);
+        return newSet;
+    });
     toast({
       title: "Evento Eliminado",
       description: `El evento "${eventToDelete.title}" ha sido eliminado.`,

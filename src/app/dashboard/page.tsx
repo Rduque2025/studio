@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap } from "@/components/dashboard/venezuela-map";
 import { CourseCard } from "@/components/dashboard/course-card";
@@ -23,7 +16,7 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <SectionWrapper 
-        title="Acerca de Banesco Seguros"
+        title="Banesco Seguros Venezuela"
         description="Nuestra trayectoria y compromiso con Venezuela."
         cardClassName="bg-transparent rounded-lg shadow-none border-none" 
         titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
@@ -166,9 +159,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-
-
-
-
-

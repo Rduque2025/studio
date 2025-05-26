@@ -19,7 +19,7 @@ export default function DashboardPage() {
       <SectionWrapper 
         title="Acerca de Banesco Seguros"
         description="Nuestra trayectoria y compromiso con Venezuela."
-        cardClassName="bg-muted rounded-lg shadow-sm" // Removed 'border'
+        cardClassName="bg-muted rounded-lg shadow-sm" 
         titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
         contentClassName="p-6" 
       >
@@ -53,7 +53,7 @@ export default function DashboardPage() {
         description="Los principios que guían nuestro actuar diario."
         cardClassName="bg-transparent shadow-none border-none" 
       >
-        <Card className="bg-card shadow-sm rounded-lg"> {/* Removed 'border' */}
+        <Card className="bg-card shadow-sm rounded-lg"> 
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
             <div className="space-y-6"> 
               <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Valores</h3>
@@ -107,7 +107,7 @@ export default function DashboardPage() {
       </SectionWrapper>
       
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
@@ -118,7 +118,7 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación.">
-       <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
+       <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockDietMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
@@ -129,7 +129,7 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockExecutiveMenuItems.map((item) => (
               <MenuItemCard key={item.id} item={item} />
@@ -140,7 +140,7 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md border bg-card shadow-sm">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm">
           <div className="flex w-max space-x-4 p-4">
             {mockDressCodeItems.map((item) => (
               <DressCodeCard key={item.id} item={item} />
@@ -160,4 +160,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

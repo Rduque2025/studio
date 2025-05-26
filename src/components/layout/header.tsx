@@ -6,12 +6,12 @@ import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, S
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useEvents, type CalendarEvent } from "@/contexts/events-context"; 
-import { format, isToday } from "date-fns"; 
+import { format, isToday, intervalToDuration, isPast } from "date-fns"; 
 import { es } from "date-fns/locale"; 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +34,38 @@ const navItemsMobile = [
   { name: "Configuración", href: "/dashboard/settings", icon: Settings },
 ];
 
+// Helper function to calculate countdown string
+function calculateCountdown(eventDate: Date, eventTime?: string): string {
+  if (!eventTime) return '';
+
+  const now = new Date();
+  const [hours, minutes] = eventTime.split(':').map(Number);
+  const eventDateTime = new Date(eventDate);
+  eventDateTime.setHours(hours, minutes, 0, 0);
+
+  if (isPast(eventDateTime)) {
+    return 'Comenzó';
+  }
+
+  const duration = intervalToDuration({ start: now, end: eventDateTime });
+  const parts = [];
+  if (duration.days && duration.days > 0) parts.push(`${duration.days}d`);
+  if (duration.hours && duration.hours > 0) parts.push(`${duration.hours}h`);
+  if (duration.minutes && duration.minutes > 0) parts.push(`${duration.minutes}m`);
+  
+  if (parts.length === 0 && duration.seconds && duration.seconds > 0) {
+     parts.push(`${duration.seconds}s`);
+  } else if (parts.length < 2 && duration.seconds && duration.seconds > 0 && !(duration.days || duration.hours) && !(duration.minutes && duration.minutes >=10 )) { // Show seconds if minutes < 10
+     parts.push(`${duration.seconds}s`);
+  }
+
+  if (parts.length === 0) {
+    return 'Ahora';
+  }
+
+  return `en ${parts.join(' ')}`;
+}
+
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -41,12 +73,32 @@ export function Header() {
   const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); 
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
+  const [currentTimeForCountdown, setCurrentTimeForCountdown] = useState(new Date());
 
 
   useEffect(() => {
     const filtered = allEvents.filter(event => isToday(event.date));
-    setTodaysEvents(filtered);
+    setTodaysEvents(filtered.sort((a, b) => {
+        if (!a.time && !b.time) return 0;
+        if (!a.time) return 1;
+        if (!b.time) return -1;
+        return a.time.localeCompare(b.time);
+    }));
   }, [allEvents]); 
+
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    if (isRemindersPopoverOpen) {
+      intervalId = setInterval(() => {
+        setCurrentTimeForCountdown(new Date());
+      }, 1000); // Update every second
+    }
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [isRemindersPopoverOpen]);
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
     if (item.isSearch || item.isReminders) {
@@ -124,18 +176,19 @@ export function Header() {
                         const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
                         const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
                         const badgeBgColor = displayColor.startsWith('bg-') ? displayColor.substring(3) : displayColor;
-                        // Removed 'blue-600' from this list to ensure black text on blue-600 backgrounds
-                        const isDarkColor = ['pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
+                        const isDarkBg = ['pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
+                        
+                        const countdownStr = calculateCountdown(event.date, event.time);
 
                         return (
                           <div key={event.id} className="text-xs">
                             <div className="flex justify-between items-start">
-                                <div>
+                                <div className="flex-grow">
                                     <p className="font-medium text-foreground truncate">{event.title}</p>
                                     <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
                                 </div>
                                 {categoryStyles && (
-                                    <Badge variant="outline" className={cn("ml-2 text-xs self-start", categoryStyles.badgeClass)}>
+                                    <Badge variant="outline" className={cn("ml-2 text-xs self-start flex-shrink-0", categoryStyles.badgeClass)}>
                                         {categoryStyles.badgeText}
                                     </Badge>
                                 )}
@@ -145,17 +198,22 @@ export function Header() {
                                     variant="outline" 
                                     style={{
                                         backgroundColor: badgeBgColor, 
-                                        color: isDarkColor ? 'white' : 'hsl(var(--foreground))',
+                                        color: isDarkBg || badgeBgColor.includes('blue-600') ? 'white' : 'hsl(var(--foreground))',
                                         borderColor: badgeBgColor,
                                     }}
                                 >
                                     {format(event.date, "PPP", { locale: es })}
                                 </Badge>
                                 {event.time && (
-                                    <Badge variant="outline">
+                                    <Badge variant="outline" className="flex items-center">
                                         <Clock className="mr-1 h-3 w-3" />
                                         {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
                                     </Badge>
+                                )}
+                                {countdownStr && event.time && (
+                                  <Badge variant="secondary" className="font-mono">
+                                    {countdownStr}
+                                  </Badge>
                                 )}
                             </div>
                           </div>

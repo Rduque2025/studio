@@ -4,7 +4,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap, regions, type Region, type BusinessLineData } from "@/components/dashboard/venezuela-map";
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip, Cell, Legend } from "recharts";
+import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell, Legend } from "recharts"; // Removed XAxis
 import {
   ChartContainer,
   ChartTooltip,
@@ -77,7 +77,7 @@ export default function MapaClientesPage() {
 
   const displayedNaturalTitle = selectedRegion ? `Naturales en ${selectedRegion.name}` : "Clientes Naturales (Nacional)";
   const displayedJuridicalTitle = selectedRegion ? `Jurídicos en ${selectedRegion.name}` : "Clientes Jurídicos (Nacional)";
-  // const chartTitle = selectedRegion ? `Distribución en ${selectedRegion.name}` : "Distribución Nacional de Clientes"; // Removed as per request
+  
   const chartDescription = selectedRegion 
     ? `Clientes por línea de negocio en ${selectedRegion.name}.`
     : "Total de clientes activos por cada línea de negocio principal a nivel nacional.";
@@ -134,7 +134,6 @@ export default function MapaClientesPage() {
         <Card className="border shadow-sm">
           <CardHeader>
             {/* CardTitle removed as per user request */}
-            {/* <CardDescription>{chartDescription}</CardDescription> */} {/* This was already commented out, keeping it that way */}
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
@@ -144,18 +143,19 @@ export default function MapaClientesPage() {
                   data={chartData}
                   margin={{
                     top: 5, 
-                    right: 30, // Increased right margin for YAxis labels
+                    right: 30, 
                     left: 20,
                     bottom: 5,
                   }}
                   accessibilityLayer
                 >
                   <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-                  <XAxis 
+                  {/* <XAxis 
                     type="number" 
+                    hide // Alternative: hide={true} - Removing completely for cleaner look
                     stroke="hsl(var(--muted-foreground))"
                     tickFormatter={(value) => value.toLocaleString()}
-                  />
+                  /> */}
                   <YAxis
                     type="category"
                     dataKey="name" // Business line names on Y-axis

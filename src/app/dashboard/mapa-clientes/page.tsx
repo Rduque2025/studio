@@ -77,7 +77,7 @@ export default function MapaClientesPage() {
 
   const displayedNaturalTitle = selectedRegion ? `Naturales en ${selectedRegion.name}` : "Clientes Naturales (Nacional)";
   const displayedJuridicalTitle = selectedRegion ? `Jurídicos en ${selectedRegion.name}` : "Clientes Jurídicos (Nacional)";
-  const chartTitle = selectedRegion ? `Distribución en ${selectedRegion.name}` : "Distribución Nacional de Clientes";
+  // const chartTitle = selectedRegion ? `Distribución en ${selectedRegion.name}` : "Distribución Nacional de Clientes"; // Removed as per request
   const chartDescription = selectedRegion 
     ? `Clientes por línea de negocio en ${selectedRegion.name}.`
     : "Total de clientes activos por cada línea de negocio principal a nivel nacional.";
@@ -133,8 +133,8 @@ export default function MapaClientesPage() {
       >
         <Card className="border shadow-sm">
           <CardHeader>
-            <CardTitle>{chartTitle}</CardTitle>
-            {/* <CardDescription>{chartDescription}</CardDescription> */}
+            {/* CardTitle removed as per user request */}
+            {/* <CardDescription>{chartDescription}</CardDescription> */} {/* This was already commented out, keeping it that way */}
           </CardHeader>
           <CardContent>
             <ChartContainer config={chartConfig} className="min-h-[300px] w-full">

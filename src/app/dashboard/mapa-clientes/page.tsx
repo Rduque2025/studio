@@ -4,15 +4,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap, regions as mapRegionsData, type Region as MapRegion, type BusinessLineData } from "@/components/dashboard/venezuela-map"; // Renamed to avoid conflict
-import { Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell } from "recharts"; // Removed Legend
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  // ChartLegend, // Removed
-  // ChartLegendContent, // Removed
-  type ChartConfig,
-} from "@/components/ui/chart";
+// Bar, BarChart, CartesianGrid, YAxis, ResponsiveContainer, Tooltip, Cell removed
+// ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig removed
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { Users, Briefcase } from 'lucide-react';
@@ -67,24 +60,7 @@ const nationalBusinessLineTotals: BusinessLineData = regions.reduce(
   { personas: 0, automovil: 0, patrimoniales: 0 }
 );
 
-const chartConfig = {
-  Clientes: { 
-    label: "Nº de Clientes",
-  },
-  Personas: {
-    label: "Personas",
-    color: "hsl(217, 91%, 60%)", // Primary Blue
-  },
-  Automóvil: {
-    label: "Automóvil",
-    color: "hsl(160, 70%, 45%)", // Teal/Green
-  },
-  Patrimoniales: {
-    label: "Patrimoniales",
-    color: "hsl(35, 95%, 55%)",  // Orange
-  },
-} satisfies ChartConfig;
-
+// chartConfig removed
 
 export default function MapaClientesPage() {
   const [selectedRegion, setSelectedRegion] = useState<MapRegion | null>(null);
@@ -93,11 +69,7 @@ export default function MapaClientesPage() {
     ? selectedRegion.clientsByLine 
     : nationalBusinessLineTotals), [selectedRegion]);
 
-  const chartData = useMemo(() => [
-    { name: "Personas", Clientes: currentData.personas, fill: chartConfig.Personas.color },
-    { name: "Automóvil", Clientes: currentData.automovil, fill: chartConfig.Automóvil.color },
-    { name: "Patrimoniales", Clientes: currentData.patrimoniales, fill: chartConfig.Patrimoniales.color },
-  ], [currentData]);
+  // chartData removed
 
   const totalNaturalClientsCurrent = currentData.personas;
   const totalJuridicalClientsCurrent = currentData.automovil + currentData.patrimoniales;
@@ -116,10 +88,7 @@ export default function MapaClientesPage() {
   const displayedNaturalTitle = selectedRegion ? `Naturales en ${selectedRegion.name}` : "Clientes Naturales (Nacional)";
   const displayedJuridicalTitle = selectedRegion ? `Jurídicos en ${selectedRegion.name}` : "Clientes Jurídicos (Nacional)";
   
-  const chartDescription = selectedRegion 
-    ? `Clientes por línea de negocio en ${selectedRegion.name}.`
-    : "Total de clientes activos por cada línea de negocio principal a nivel nacional.";
-
+  // chartDescription removed
 
   const handleRegionSelected = (regionId: string | null) => {
     if (regionId === null) {
@@ -171,60 +140,7 @@ export default function MapaClientesPage() {
         <InteractiveVenezuelaMap regionsData={regions} selectedRegionId={selectedRegion?.id || null} onRegionSelect={handleRegionSelected} />
       </SectionWrapper>
 
-      <SectionWrapper
-        title="Clientes por Líneas de Negocio"
-        description={chartDescription}
-      >
-        <Card className="border shadow-sm">
-          <CardHeader>
-            {/* CardTitle removed as per user request */}
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart
-                  layout="vertical" 
-                  data={chartData}
-                  margin={{
-                    top: 5, 
-                    right: 30, 
-                    left: 20,
-                    bottom: 5,
-                  }}
-                  accessibilityLayer
-                >
-                  <CartesianGrid horizontal={false} strokeDasharray="3 3" />
-                  <YAxis
-                    type="category"
-                    dataKey="name" 
-                    stroke="hsl(var(--muted-foreground))"
-                    tickLine={false}
-                    axisLine={false}
-                    width={100} 
-                  />
-                  <Tooltip
-                    cursor={{ fill: "hsl(var(--muted))" }} 
-                    content={<ChartTooltipContent />} 
-                  />
-                  {/* <Legend content={<ChartLegendContent />} /> Removed */}
-                  <Bar
-                    dataKey="Clientes" 
-                    radius={[0, 8, 8, 0]} 
-                  >
-                    {chartData.map((entry) => (
-                      <Cell
-                        key={`cell-${entry.name}`}
-                        fill={entry.fill || "hsl(var(--foreground))"}
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </SectionWrapper>
+      {/* Section for "Clientes por Líneas de Negocio" and the BarChart has been removed */}
     </div>
   );
 }
-

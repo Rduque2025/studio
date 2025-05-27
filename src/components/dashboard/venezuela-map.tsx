@@ -4,7 +4,6 @@
 import React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from '@/lib/utils';
-import venezuelaPathsJson from '@/lib/venezuela-map-data.json'; // Import the new JSON file
 
 export interface BusinessLineData {
   personas: number;
@@ -20,6 +19,7 @@ export interface SalesChannelData {
 
 export interface RegionClientData extends BusinessLineData, SalesChannelData {}
 
+
 export interface Region {
   id: string;
   name: string;
@@ -27,19 +27,7 @@ export interface Region {
   clients: RegionClientData;
 }
 
-// Create a Map for efficient lookup of SVG paths
-const svgPathMap = new Map<string, string>();
-if (Array.isArray(venezuelaPathsJson)) {
-  venezuelaPathsJson.forEach(item => {
-    if (item && typeof item.id === 'string' && typeof item.path === 'string') {
-      svgPathMap.set(item.id, item.path);
-    }
-  });
-}
-
-
 const rawRegionsData = [
-  // d attributes will now be primarily sourced from the JSON file via svgPathMap
   { id: "amazonas", name: "Amazonas", d: "M100 350 L120 380 L90 400 L70 370 Z", naturalClients: 90, juridicalClients: 60, salesBanco: 70, salesTradicional: 50, salesAlternos: 30 },
   { id: "anzoategui", name: "Anzoátegui", d: "M200 150 L230 160 L220 190 L190 180 Z", naturalClients: 720, juridicalClients: 480, salesBanco: 500, salesTradicional: 400, salesAlternos: 300 },
   { id: "apure", name: "Apure", d: "M50 250 L100 240 L110 280 L60 290 Z", naturalClients: 270, juridicalClients: 180, salesBanco: 200, salesTradicional: 150, salesAlternos: 100 },
@@ -60,7 +48,7 @@ const rawRegionsData = [
   { id: "sucre", name: "Sucre", d: "M280 120 L320 110 L310 150 L270 140 Z", naturalClients: 510, juridicalClients: 340, salesBanco: 400, salesTradicional: 250, salesAlternos: 200 },
   { id: "tachira", name: "Táchira", d: "M30 150 L60 140 L70 180 L40 190 Z", naturalClients: 900, juridicalClients: 600, salesBanco: 700, salesTradicional: 500, salesAlternos: 300 },
   { id: "trujillo", name: "Trujillo", d: "M80 140 L110 130 L120 170 L90 180 Z", naturalClients: 600, juridicalClients: 400, salesBanco: 450, salesTradicional: 300, salesAlternos: 250 },
-  { id: "la-guaira", name: "La Guaira (Vargas)", d: "M165 95 L185 100 L180 110 L160 105 Z", naturalClients: 1020, juridicalClients: 680, salesBanco: 800, salesTradicional: 500, salesAlternos: 400 }, // id changed to match common slugs
+  { id: "la-guaira", name: "La Guaira (Vargas)", d: "M165 95 L185 100 L180 110 L160 105 Z", naturalClients: 1020, juridicalClients: 680, salesBanco: 800, salesTradicional: 500, salesAlternos: 400 },
   { id: "yaracuy", name: "Yaracuy", d: "M120 100 L140 105 L135 125 L115 120 Z", naturalClients: 570, juridicalClients: 380, salesBanco: 400, salesTradicional: 300, salesAlternos: 250 },
   { id: "zulia", name: "Zulia", d: "M10 50 L70 40 L80 130 L20 140 Z", naturalClients: 2100, juridicalClients: 1400, salesBanco: 1600, salesTradicional: 1100, salesAlternos: 800 },
 ];
@@ -68,7 +56,7 @@ const rawRegionsData = [
 export const regions: Region[] = rawRegionsData.map(r => ({
   id: r.id,
   name: r.name,
-  d: svgPathMap.get(r.id) || r.d, // Use path from JSON if available, otherwise fallback to placeholder
+  d: r.d,
   clients: {
     personas: r.naturalClients,
     automovil: Math.round(r.juridicalClients * 0.6),
@@ -112,7 +100,7 @@ export function InteractiveVenezuelaMap({ regionsData, selectedRegionId, onRegio
     <TooltipProvider delayDuration={100}>
       <div className="w-full aspect-[1.5] rounded-lg border bg-card p-4 overflow-hidden flex items-center justify-center shadow-sm">
         <svg
-          viewBox="0 0 350 420" // You might need to adjust this viewBox based on your new SVG paths
+          viewBox="0 0 350 420" 
           className="w-full h-full max-w-lg max-h-[500px]"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
@@ -126,7 +114,7 @@ export function InteractiveVenezuelaMap({ regionsData, selectedRegionId, onRegio
               <TooltipTrigger asChild>
                 <path
                   id={region.id}
-                  d={region.d} // This 'd' will come from your JSON via svgPathMap or fallback
+                  d={region.d}
                   className={cn(
                     "fill-primary stroke-background stroke-1 hover:fill-primary/80 transition-colors cursor-pointer"
                   )}
@@ -157,3 +145,4 @@ export function InteractiveVenezuelaMap({ regionsData, selectedRegionId, onRegio
 
 export { regions as mapRegionsData };
 export type { Region as MapRegion, BusinessLineData as MapBusinessLineData, SalesChannelData as MapSalesChannelData, RegionClientData as MapRegionClientData };
+

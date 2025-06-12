@@ -1,3 +1,4 @@
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockActivities } from "@/lib/placeholder-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -21,8 +22,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ActivityDetailsPage({ params }: ActivityDetailsPageProps) {
-  const activity = mockActivities.find(a => a.id === params.id);
+export default function ActivityDetailsPage({ params: { id } }: ActivityDetailsPageProps) {
+  const activity = mockActivities.find(a => a.id === id);
 
   if (!activity) {
     return (
@@ -96,4 +97,3 @@ export default function ActivityDetailsPage({ params }: ActivityDetailsPageProps
     </div>
   );
 }
-

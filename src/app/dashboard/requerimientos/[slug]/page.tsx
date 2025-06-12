@@ -1,3 +1,4 @@
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,8 +16,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
-  const department = mockDepartments.find(d => d.id === params.slug);
+export default function DepartmentRequestPage({ params: { slug } }: DepartmentPageProps) {
+  const department = mockDepartments.find(d => d.id === slug);
 
   if (!department) {
     return (

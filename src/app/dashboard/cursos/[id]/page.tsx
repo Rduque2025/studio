@@ -1,3 +1,4 @@
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockCourses } from "@/lib/placeholder-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,8 +21,8 @@ export async function generateStaticParams() {
 }
 
 
-export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
-  const course = mockCourses.find(c => c.id === params.id);
+export default function CourseDetailsPage({ params: { id } }: CourseDetailsPageProps) {
+  const course = mockCourses.find(c => c.id === id);
 
   if (!course) {
     return (

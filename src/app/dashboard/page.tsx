@@ -55,6 +55,13 @@ const bannerImagesData = [
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
+  const [currentDayName, setCurrentDayName] = useState('');
+
+  useEffect(() => {
+    const today = new Date();
+    const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
+    setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+  }, []);
 
   const handlePrevImage = () => {
     setCurrentImageIndex(prevIndex => 
@@ -174,7 +181,7 @@ export default function DashboardPage() {
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} />
+              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
@@ -185,7 +192,7 @@ export default function DashboardPage() {
        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDietMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} />
+              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
@@ -196,13 +203,13 @@ export default function DashboardPage() {
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockExecutiveMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} />
+              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </SectionWrapper>
-
+      
       <SectionWrapper 
         title="Valores y Pilares Fundamentales"
         description="Los principios que guían nuestro actuar diario."

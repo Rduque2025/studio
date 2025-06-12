@@ -34,8 +34,27 @@ const rotatingImagesData = [
   },
 ];
 
+const bannerImagesData = [
+  {
+    src: "https://placehold.co/1200x400.png",
+    alt: "Banner principal del portal de gestión 1",
+    hint: "corporate banner"
+  },
+  {
+    src: "https://placehold.co/1200x400/003c71/ffffff.png", 
+    alt: "Banner principal del portal de gestión 2",
+    hint: "company values"
+  },
+  {
+    src: "https://placehold.co/1200x400/1a61ab/ffffff.png", 
+    alt: "Banner principal del portal de gestión 3",
+    hint: "employee portal"
+  },
+];
+
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
 
   const handlePrevImage = () => {
     setCurrentImageIndex(prevIndex => 
@@ -49,19 +68,51 @@ export default function DashboardPage() {
     );
   };
 
+  const handlePrevBannerImage = () => {
+    setCurrentBannerImageIndex(prevIndex =>
+      prevIndex === 0 ? bannerImagesData.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextBannerImage = () => {
+    setCurrentBannerImageIndex(prevIndex =>
+      prevIndex === bannerImagesData.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <section className="mb-12">
         <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-lg">
           <Image
-            src="https://placehold.co/1200x400.png"
-            alt="Banner principal del portal de gestión"
+            key={bannerImagesData[currentBannerImageIndex].src}
+            src={bannerImagesData[currentBannerImageIndex].src}
+            alt={bannerImagesData[currentBannerImageIndex].alt}
             layout="fill"
             objectFit="cover"
             className="rounded-lg"
-            data-ai-hint="corporate banner"
-            priority 
+            data-ai-hint={bannerImagesData[currentBannerImageIndex].hint}
+            priority={currentBannerImageIndex === 0} 
           />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handlePrevBannerImage}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+            aria-label="Banner anterior"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleNextBannerImage}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+            aria-label="Siguiente banner"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
         </div>
       </section>
 

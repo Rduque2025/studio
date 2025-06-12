@@ -51,6 +51,24 @@ export default function DashboardPage() {
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
+      <section className="mb-12">
+        <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-lg">
+          <Image
+            src="https://placehold.co/1200x400.png"
+            alt="Banner principal del portal de gestión"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-lg"
+            data-ai-hint="corporate banner"
+            priority 
+          />
+           <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-center p-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Bienvenido al Portal de Gestión</h1>
+            <p className="text-lg md:text-xl text-white/90 max-w-2xl">Su centro de información y recursos de Banesco Seguros.</p>
+          </div>
+        </div>
+      </section>
+
       <SectionWrapper 
         title="Banesco Seguros Venezuela"
         description="Nuestra trayectoria y compromiso con Venezuela."

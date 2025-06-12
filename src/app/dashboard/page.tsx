@@ -170,6 +170,39 @@ export default function DashboardPage() {
           </div>
       </SectionWrapper>
 
+      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor.">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockMenuItems.map((item) => (
+              <MenuItemCard key={item.id} item={item} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
+      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación.">
+       <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockDietMenuItems.map((item) => (
+              <MenuItemCard key={item.id} item={item} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
+      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior.">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockExecutiveMenuItems.map((item) => (
+              <MenuItemCard key={item.id} item={item} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
       <SectionWrapper 
         title="Valores y Pilares Fundamentales"
         description="Los principios que guían nuestro actuar diario."
@@ -224,39 +257,6 @@ export default function DashboardPage() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación.">
-       <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockDietMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior.">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockExecutiveMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa.">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
@@ -278,3 +278,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

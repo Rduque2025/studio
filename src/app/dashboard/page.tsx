@@ -62,10 +62,6 @@ export default function DashboardPage() {
             data-ai-hint="corporate banner"
             priority 
           />
-           <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center text-center p-4">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Bienvenido al Portal de Gestión</h1>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl">Su centro de información y recursos de Banesco Seguros.</p>
-          </div>
         </div>
       </section>
 

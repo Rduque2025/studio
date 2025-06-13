@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-import { AlertCircle, PlusCircle, Trash2, Clock } from 'lucide-react';
+import { AlertCircle, PlusCircle, Trash2, Clock, CalendarDays } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,7 +17,7 @@ import { useEvents, type CalendarEvent } from '@/contexts/events-context';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function CalendarWithEvents() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1));
+  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); // Default to June 2025
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
@@ -26,6 +26,7 @@ export function CalendarWithEvents() {
   const [newEventDescription, setNewEventDescription] = useState('');
   const [newEventTime, setNewEventTime] = useState(''); 
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
+  const [isEventsMonthDialogOpen, setIsEventsMonthDialogOpen] = useState(false); // State for the month events dialog
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
   const { toast } = useToast();
@@ -105,8 +106,6 @@ export function CalendarWithEvents() {
   }, [allEvents, remindedEventIds]);
 
 
-  const eventDates = allEvents.map(event => event.date);
-
   const modifiers = {
     ...allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
@@ -121,6 +120,7 @@ export function CalendarWithEvents() {
       let dotColorClass = 'bg-foreground'; 
       
       if (event.isUserEvent && event.category) {
+        dotColorClass = getCategoryDisplayStyles(event.category).dotColor;
       } else if (!event.isUserEvent && event.color) {
         dotColorClass = event.color; 
       }
@@ -204,10 +204,29 @@ export function CalendarWithEvents() {
     }
   };
 
+  const displayedMonthName = useMemo(() => {
+    const currentDate = date || new Date(2025, 5, 1);
+    const monthName = format(currentDate, 'MMMM yyyy', { locale: es });
+    return monthName.charAt(0).toUpperCase() + monthName.slice(1);
+  }, [date]);
+
+  const eventsForCurrentMonth = useMemo(() => {
+    return allEvents
+      .filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true)
+      .sort((a,b) => {
+          const dateComparison = a.date.getTime() - b.date.getTime();
+          if (dateComparison !== 0) return dateComparison;
+          if (a.time && b.time) return a.time.localeCompare(b.time);
+          if (a.time) return -1;
+          if (b.time) return 1;
+          return 0;
+      });
+  }, [allEvents, date]);
+
 
   return (
-    <div className="flex flex-col lg:grid lg:grid-cols-[max-content_1fr] gap-6 lg:gap-8 items-start">
-      <div className="w-full lg:w-auto self-start">
+    <div className="flex flex-col items-center w-full">
+      <div className="w-full max-w-md self-center"> {/* Calendar container, centered and with max-width */}
         <Calendar
           mode="single"
           selected={date}
@@ -226,7 +245,7 @@ export function CalendarWithEvents() {
                     "font-semibold mb-0.5 flex items-center justify-between gap-2 text-sm", 
                     currentEventForPopover.isUserEvent && currentEventForPopover.category 
                       ? getCategoryDisplayStyles(currentEventForPopover.category).textColor 
-                      : currentEventForPopover.color.replace('bg-','text-') 
+                      : (currentEventForPopover.color && currentEventForPopover.color.startsWith('bg-') ? currentEventForPopover.color.replace('bg-','text-') : 'text-foreground')
                   )}
                 >
                     <div className="flex items-center gap-1.5"> 
@@ -321,50 +340,51 @@ export function CalendarWithEvents() {
         />
       </div>
       
-      <div className="w-full mt-6 lg:mt-0 rounded-md border bg-card shadow-sm">
-        <div className="p-4">
-            <div className="flex justify-between items-center mb-3">
-                <h3 className="text-lg font-semibold">
-                    Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : format(new Date(2025,5,1), 'MMMM yyyy', { locale: es })})
-                </h3>
-            </div>
-            <ScrollArea className="h-80 lg:h-[370px] pr-2"> 
+      <div className="w-full mt-6 flex justify-center">
+        <Dialog open={isEventsMonthDialogOpen} onOpenChange={setIsEventsMonthDialogOpen}>
+          <DialogTrigger asChild>
+            <Button variant="outline">
+              <CalendarDays className="mr-2 h-4 w-4" /> Ver Eventos de {displayedMonthName}
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[525px]">
+            <DialogHeader>
+              <DialogTitle>Eventos del Mes - {displayedMonthName}</DialogTitle>
+              <DialogDescription>
+                Lista de todos los eventos programados para {displayedMonthName.toLowerCase()}.
+                 Puede hacer clic en un evento para seleccionarlo en el calendario.
+              </DialogDescription>
+            </DialogHeader>
+            <ScrollArea className="h-[400px] pr-2 mt-4"> 
                 <div className="space-y-2">
-                {allEvents
-                    .filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true)
-                    .sort((a,b) => {
-                        const dateComparison = a.date.getTime() - b.date.getTime();
-                        if (dateComparison !== 0) return dateComparison;
-                        if (a.time && b.time) return a.time.localeCompare(b.time);
-                        if (a.time) return -1;
-                        if (b.time) return 1;
-                        return 0;
-                    })
-                    .map(event => {
+                {eventsForCurrentMonth.map(event => {
                     const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
                     return (
                         <Button
                         key={event.id}
                         variant="ghost"
                         className={cn(
-                            "w-full justify-start text-left h-auto p-2.5 border rounded-md", // Reduced padding slightly with p-2.5 and added rounded-md
+                            "w-full justify-start text-left h-auto p-2.5 border rounded-md", 
                             date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
                         )}
-                        onClick={() => handleDayClick(event.date)}
+                        onClick={() => {
+                            handleDayClick(event.date);
+                            setIsEventsMonthDialogOpen(false); // Close dialog on event click
+                        }}
                         >
-                        <div className="flex items-start gap-2.5 w-full"> {/* Reduced gap */}
-                            <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  {/* Smaller dot */}
+                        <div className="flex items-start gap-2.5 w-full"> 
+                            <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  
                             <div className="flex-grow">
-                            <p className="font-medium text-xs leading-tight">{event.title}</p> {/* Reduced font size and line-height */}
-                            <p className="text-xs text-muted-foreground mt-0.5"> {/* Reduced top margin */}
-                                {format(event.date, 'd \'de\' MMM', { locale: es })} {/* Shorter month format */}
+                            <p className="font-medium text-xs leading-tight">{event.title}</p> 
+                            <p className="text-xs text-muted-foreground mt-0.5"> 
+                                {format(event.date, 'd \'de\' MMM', { locale: es })} 
                                 {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
                             </p>
                             </div>
                             {categoryStyles && (
                             <Badge 
                                 variant="outline" 
-                                className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} // Ensure badge is also small
+                                className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} 
                             >
                                 {categoryStyles.badgeText}
                             </Badge>
@@ -373,12 +393,16 @@ export function CalendarWithEvents() {
                         </Button>
                     );
                     })}
-                {allEvents.filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true).length === 0 && (
-                    <p className="text-sm text-muted-foreground p-3 border rounded-md">No hay eventos este mes.</p>
+                {eventsForCurrentMonth.length === 0 && (
+                    <p className="text-sm text-muted-foreground p-3 text-center">No hay eventos para {displayedMonthName.toLowerCase()}.</p>
                 )}
                 </div>
             </ScrollArea>
-        </div>
+            <DialogFooter className="mt-4">
+              <Button type="button" variant="outline" onClick={() => setIsEventsMonthDialogOpen(false)}>Cerrar</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

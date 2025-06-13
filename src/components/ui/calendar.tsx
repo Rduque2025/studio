@@ -118,7 +118,7 @@ function Calendar({
             <div className={cn(
               "self-start mb-1 text-xs font-medium px-1.5 py-0.5 rounded-full",
                activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
-               activeModifiers.selected && "bg-accent text-primary-foreground", 
+               activeModifiers.selected && "bg-[#6d6f71] text-primary-foreground", 
                !activeModifiers.today && !activeModifiers.selected && "text-foreground"
             )}>
               {format(cellDate, "d")}
@@ -140,3 +140,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+

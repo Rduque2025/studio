@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Calendar, type CalendarProps } from "@/components/ui/calendar"; // Assuming CalendarProps is exported
+import { Calendar, type CalendarProps } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -12,9 +12,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { Badge } from '@/components/ui/badge';
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 
 export function CalendarWithEvents() {
@@ -67,7 +65,7 @@ export function CalendarWithEvents() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allEvents]);
+  }, [allEvents, toast]); // Added toast to dependency array
 
   useEffect(() => {
     const checkUpcomingEvents = () => {
@@ -102,14 +100,12 @@ export function CalendarWithEvents() {
     const intervalId = setInterval(checkUpcomingEvents, 60000); 
 
     return () => clearInterval(intervalId); 
-  }, [allEvents, remindedEventIds]);
+  }, [allEvents, remindedEventIds, toast]); // Added toast to dependency array
 
 
   const handleDayClick = (day: Date) => {
-    // If events are shown in cells, clicking a day might just set the 'selected' visual state
-    // and prepare for adding a new event to this day.
     setDate(day);
-    setSelectedEvent(null); // Clear previously selected specific event, if any
+    setSelectedEvent(null); 
   };
   
   const handleAddEvent = () => {
@@ -148,7 +144,7 @@ export function CalendarWithEvents() {
     setNewEventTime(''); 
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${styles.badgeText}) añadido al calendario.` });
-    setSelectedEvent(newEventToAdd); // Optionally select the newly added event
+    setSelectedEvent(newEventToAdd); 
   };
 
   const handleDeleteEvent = (eventId: string) => {
@@ -173,9 +169,9 @@ export function CalendarWithEvents() {
   };
 
 
-  const renderDayEventsContent = (day: Date): React.ReactNode => {
+  const renderDayEventsContent = (dayCellDate: Date): React.ReactNode => {
     const eventsOnDay = allEvents
-      .filter(event => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd'))
+      .filter(event => format(event.date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd'))
       .sort((a,b) => {
           if (a.time && b.time) return a.time.localeCompare(b.time);
           if (a.time) return -1;
@@ -184,48 +180,66 @@ export function CalendarWithEvents() {
       });
   
     if (eventsOnDay.length === 0) {
-      return <div className="flex-grow min-h-[4rem]"></div>; // Placeholder for consistent cell height
+      return <div className="flex-grow min-h-[4rem]"></div>;
     }
   
     const maxEventsToShow = 3; 
-  
+    const isCellCurrentlySelected = date && format(date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
+
     return (
       <div className="flex-grow overflow-y-auto space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
         {eventsOnDay.slice(0, maxEventsToShow).map(event => {
           const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
           const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
-          const isSelected = selectedEvent?.id === event.id && date && format(date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd');
+          
+          // isClickedEventItem determines if THIS specific event item was the one that set selectedEvent
+          const isClickedEventItem = selectedEvent?.id === event.id && isCellCurrentlySelected;
           
           return (
             <div 
               key={event.id} 
               className={cn(
-                "p-1 rounded-sm flex items-start gap-1.5 group/event-item cursor-pointer hover:bg-accent/20",
-                isSelected && "bg-accent/30 ring-1 ring-accent"
+                "p-1 rounded-sm flex items-start gap-1.5 group/event-item cursor-pointer",
+                !isCellCurrentlySelected && "hover:bg-accent/20", // Hover only if cell is not selected
+                isCellCurrentlySelected && isClickedEventItem && "bg-accent/30 ring-1 ring-accent" // Highlight clicked item within selected cell
               )}
               style={{ 
-                // Use a very light, almost transparent version of the event color for background
-                backgroundColor: `${displayColor.replace('bg-','').replace('-500','').replace('-600','').replace('-700','')}1A` 
+                backgroundColor: isCellCurrentlySelected && isClickedEventItem ? 
+                                 `${displayColor.replace('bg-','').replace('-500','').replace('-600','').replace('-700','')}3A` // More transparent if cell is selected + item clicked
+                                 : (!isCellCurrentlySelected ? `${displayColor.replace('bg-','').replace('-500','').replace('-600','').replace('-700','')}1A` : undefined)
               }}
               onClick={(e) => {
-                e.stopPropagation(); // Prevent day click if clicking on event
+                e.stopPropagation(); 
                 setSelectedEvent(event);
-                setDate(day); // Ensure calendar selection follows
+                setDate(dayCellDate); 
               }}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedEvent(event); setDate(day);}}}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedEvent(event); setDate(dayCellDate);}}}
             >
               <div className={cn("mt-[3px] w-1.5 h-1.5 rounded-full flex-shrink-0", displayColor)} />
               <div className="flex-grow">
-                <p className={cn("font-medium truncate", isSelected ? "text-accent-foreground font-semibold" : "text-foreground/90")}>{event.title}</p>
-                 {event.time && <p className={cn("text-xs", isSelected? "text-accent-foreground/80" : "text-muted-foreground/80")}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
+                <p className={cn(
+                  "font-medium truncate",
+                  isCellCurrentlySelected 
+                    ? "" // Inherits text-primary-foreground from parent
+                    : (isClickedEventItem ? "text-accent-foreground font-semibold" : "text-foreground/90")
+                )}>{event.title}</p>
+                 {event.time && <p className={cn(
+                   "text-xs",
+                   isCellCurrentlySelected
+                     ? "opacity-80" // Inherits text-primary-foreground, slightly dimmed
+                     : (isClickedEventItem ? "text-accent-foreground/80" : "text-muted-foreground/80")
+                  )}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
               </div>
             </div>
           );
         })}
         {eventsOnDay.length > maxEventsToShow && (
-          <div className="text-center text-muted-foreground text-[9px] mt-1">
+          <div className={cn(
+            "text-center text-[9px] mt-1",
+            isCellCurrentlySelected ? "text-primary-foreground/70" : "text-muted-foreground"
+            )}>
             + {eventsOnDay.length - maxEventsToShow} más
           </div>
         )}
@@ -240,15 +254,15 @@ export function CalendarWithEvents() {
           mode="single"
           selected={date}
           onSelect={setDate} 
-          onDayClick={handleDayClick} // Sets the main selected date
+          onDayClick={handleDayClick}
           className="w-full" 
-          defaultMonth={new Date(2025, 5, 1)} // June 2025
+          defaultMonth={new Date(2025, 5, 1)}
           locale={es} 
-          renderDayContent={renderDayEventsContent} // Pass the function to render events in cells
+          renderDayContent={renderDayEventsContent}
           footer={
             <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
               <div className="flex items-center justify-between">
-                <div>
+                <div className="min-h-[60px]"> {/* Ensure footer has some min height */}
                   {selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? (
                     <div className="text-xs">
                       <p className="font-semibold text-primary">{selectedEvent.title}</p>
@@ -338,5 +352,3 @@ export function CalendarWithEvents() {
     </div>
   );
 }
-
-    

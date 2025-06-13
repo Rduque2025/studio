@@ -16,8 +16,38 @@ import { Badge } from '@/components/ui/badge';
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+// Define la estructura para los eventos agrupados
+interface GroupedEvents {
+  [category: string]: CalendarEvent[];
+}
+
+// Orden deseado para las categorías en el diálogo
+const dialogCategoriesOrder = ["Feriados", "Pagos", "Reuniones", "Eventos Especiales", "Eventos Personales"];
+
+// Función para categorizar eventos específicamente para el diálogo
+function categorizeEventForDialog(event: CalendarEvent): string {
+  const titleLower = event.title.toLowerCase();
+  const descriptionLower = event.description ? event.description.toLowerCase() : "";
+  
+  if (titleLower.includes("pago ") || titleLower.includes("beneficio de") || titleLower.includes("asignación especial") || titleLower.includes("quincena") || titleLower.includes("complemento alimentación")) {
+    return "Pagos";
+  }
+  if (titleLower.includes("feriado") || titleLower.includes("día del trabajador") || titleLower.includes("día de la independencia") || titleLower.includes("navidad") || titleLower.includes("noche buena") || titleLower.includes("día de la resistencia indígena")) {
+    return "Feriados";
+  }
+  if (titleLower.includes("reunión") || titleLower.includes("comité") || titleLower.includes("presentación") || titleLower.includes("sprint") || titleLower.includes("planning") || titleLower.includes("review") || titleLower.includes("inicio trimestre") || titleLower.includes("resultados anuales")) {
+    return "Reuniones";
+  }
+  if (event.isUserEvent && event.category === 'personal') {
+    return "Eventos Personales";
+  }
+  // Para eventos como "Día Internacional de la Mujer", talleres, charlas, etc. o eventos de trabajo de usuario no cubiertos antes.
+  return "Eventos Especiales";
+}
+
+
 export function CalendarWithEvents() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); // Default to June 2025
+  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
@@ -26,7 +56,7 @@ export function CalendarWithEvents() {
   const [newEventDescription, setNewEventDescription] = useState('');
   const [newEventTime, setNewEventTime] = useState(''); 
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
-  const [isEventsMonthDialogOpen, setIsEventsMonthDialogOpen] = useState(false); // State for the month events dialog
+  const [isEventsMonthDialogOpen, setIsEventsMonthDialogOpen] = useState(false); 
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
   const { toast } = useToast();
@@ -150,8 +180,9 @@ export function CalendarWithEvents() {
       return;
     }
     
-    const category = categorizeEvent(newEventTitle, newEventDescription);
-    const styles = getCategoryDisplayStyles(category);
+    // Use the context's categorizeEvent for the event's 'personal'/'trabajo' category
+    const mainCategory = categorizeEvent(newEventTitle, newEventDescription);
+    const styles = getCategoryDisplayStyles(mainCategory);
 
     const newEventToAdd: CalendarEvent = {
       id: `user-${Date.now()}`,
@@ -160,7 +191,7 @@ export function CalendarWithEvents() {
       description: newEventDescription,
       color: styles.dotColor, 
       isUserEvent: true,
-      category: category,
+      category: mainCategory, // 'personal' or 'trabajo'
       time: newEventTime || undefined,
     };
     addUserEvent(newEventToAdd); 
@@ -222,6 +253,17 @@ export function CalendarWithEvents() {
           return 0;
       });
   }, [allEvents, date]);
+
+  const groupedEventsForDialog = useMemo(() => {
+    return eventsForCurrentMonth.reduce<GroupedEvents>((acc, event) => {
+      const category = categorizeEventForDialog(event);
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(event);
+      return acc;
+    }, {});
+  }, [eventsForCurrentMonth]);
 
 
   return (
@@ -296,43 +338,57 @@ export function CalendarWithEvents() {
                         </DialogDescription>
                         </DialogHeader>
                         <ScrollArea className="h-[400px] pr-2 mt-4"> 
-                            <div className="space-y-2">
-                            {eventsForCurrentMonth.map(event => {
-                                const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+                            <div className="space-y-0.5">
+                            {dialogCategoriesOrder.map(categoryName => {
+                                const eventsInCategory = groupedEventsForDialog[categoryName];
+                                if (!eventsInCategory || eventsInCategory.length === 0) {
+                                return null;
+                                }
                                 return (
-                                    <Button
-                                    key={event.id}
-                                    variant="ghost"
-                                    className={cn(
-                                        "w-full justify-start text-left h-auto p-2.5 border rounded-md", 
-                                        date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
-                                    )}
-                                    onClick={() => {
-                                        handleDayClick(event.date);
-                                        setIsEventsMonthDialogOpen(false); 
-                                    }}
-                                    >
-                                    <div className="flex items-start gap-2.5 w-full"> 
-                                        <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  
-                                        <div className="flex-grow">
-                                        <p className="font-medium text-xs leading-tight">{event.title}</p> 
-                                        <p className="text-xs text-muted-foreground mt-0.5"> 
-                                            {format(event.date, 'd \'de\' MMM', { locale: es })} 
-                                            {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
-                                        </p>
-                                        </div>
-                                        {categoryStyles && (
-                                        <Badge 
-                                            variant="outline" 
-                                            className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} 
-                                        >
-                                            {categoryStyles.badgeText}
-                                        </Badge>
-                                        )}
+                                <div key={categoryName} className="mb-2">
+                                    <h5 className="font-semibold text-sm my-2 px-1 text-primary sticky top-0 bg-background/90 py-1 z-10">{categoryName}</h5>
+                                    <div className="space-y-1.5">
+                                    {eventsInCategory.map(event => {
+                                        const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+                                        return (
+                                            <Button
+                                            key={event.id}
+                                            variant="ghost"
+                                            className={cn(
+                                                "w-full justify-start text-left h-auto p-2.5 border rounded-md hover:bg-accent/80", 
+                                                date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
+                                            )}
+                                            onClick={() => {
+                                                handleDayClick(event.date);
+                                                setIsEventsMonthDialogOpen(false); 
+                                            }}
+                                            >
+                                            <div className="flex items-start gap-2.5 w-full"> 
+                                                <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  
+                                                <div className="flex-grow">
+                                                <p className="font-medium text-xs leading-tight">{event.title}</p> 
+                                                <p className="text-xs text-muted-foreground mt-0.5"> 
+                                                    {format(event.date, 'd \'de\' MMM', { locale: es })} 
+                                                    {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
+                                                </p>
+                                                </div>
+                                                {/* Badge para categoría 'Personal' o 'Trabajo' de eventos de usuario */}
+                                                {categoryStyles && (
+                                                <Badge 
+                                                    variant="outline" 
+                                                    className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} 
+                                                >
+                                                    {categoryStyles.badgeText}
+                                                </Badge>
+                                                )}
+                                            </div>
+                                            </Button>
+                                        );
+                                        })}
                                     </div>
-                                    </Button>
+                                </div>
                                 );
-                                })}
+                            })}
                             {eventsForCurrentMonth.length === 0 && (
                                 <p className="text-sm text-muted-foreground p-3 text-center">No hay eventos para {displayedMonthName.toLowerCase()}.</p>
                             )}
@@ -355,7 +411,7 @@ export function CalendarWithEvents() {
                       <DialogHeader>
                         <DialogTitle>Añadir Nuevo Evento</DialogTitle>
                         <DialogDescription>
-                          Añada un título, descripción y hora (opcional) para su evento en {format(date, 'PPP', { locale: es })}. Se categorizará automáticamente.
+                          Añada un título, descripción y hora (opcional) para su evento en {format(date, 'PPP', { locale: es })}. Se categorizará automáticamente como 'Personal' o 'Trabajo'.
                         </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
@@ -405,4 +461,3 @@ export function CalendarWithEvents() {
     </div>
   );
 }
-

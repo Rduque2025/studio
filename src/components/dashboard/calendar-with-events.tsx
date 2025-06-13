@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Calendar, type CalendarProps } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -13,6 +13,53 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
+
+// Define colors for categories to be used as capsules in day cells
+const EVENT_ITEM_STYLES = {
+  PAGO: { bg: 'bg-green-500', text: 'text-white', label: 'Pago' },
+  ESPECIAL: { bg: 'bg-purple-500', text: 'text-white', label: 'Especial' },
+  REUNION: { bg: 'bg-red-500', text: 'text-white', label: 'Reunión' },
+  TRABAJO: { bg: 'bg-blue-600', text: 'text-white', label: 'Trabajo' }, // User event - trabajo
+  PERSONAL: { bg: 'bg-teal-600', text: 'text-white', label: 'Personal' }, // User event - personal
+  DEFAULT: { bg: 'bg-gray-200', text: 'text-gray-700', label: ''} // Fallback
+};
+
+// Keywords for categorization
+const PAGO_KEYWORDS = ['pago', 'beneficio', 'asignación', 'quincena', 'transporte', 'alimentación', 'sociales'];
+const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario', 'independencia', 'mujer', 'trabajador', 'resistencia', 'navidad', 'noche buena', 'festivo', 'resultados anuales'];
+const REUNION_KEYWORDS = ['reunión', 'comité', 'presentación', 'cierre', 'trimestral', 'planificación', 'sprint', 'review', 'taller', 'charla', 'workshop', 'q2', 'q1', 'q3', 'q4'];
+
+
+function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string } {
+  const title = event.title.toLowerCase();
+  const description = event.description.toLowerCase();
+  const fullText = `${title} ${description}`;
+
+  if (PAGO_KEYWORDS.some(kw => fullText.includes(kw))) {
+    return EVENT_ITEM_STYLES.PAGO;
+  }
+  if (ESPECIAL_KEYWORDS.some(kw => fullText.includes(kw))) {
+    return EVENT_ITEM_STYLES.ESPECIAL;
+  }
+  if (REUNION_KEYWORDS.some(kw => fullText.includes(kw))) {
+    return EVENT_ITEM_STYLES.REUNION;
+  }
+
+  if (event.isUserEvent && event.category) {
+    if (event.category === 'trabajo') return EVENT_ITEM_STYLES.TRABAJO;
+    if (event.category === 'personal') return EVENT_ITEM_STYLES.PERSONAL;
+  }
+  
+  // Fallback for mock events that don't fit above categories, using their predefined color if it's a bg class
+  if (event.color && event.color.startsWith('bg-')) {
+     const isDarkBg = ['pink-500', 'red-500', 'purple-500', 'green-500', 'blue-500', 'orange-500', 'yellow-500', 'teal-500', 'cyan-500', 'sky-500', 'emerald-500', 'lime-500', 
+                       'pink-600', 'red-600', 'purple-600', 'green-600', 'blue-600', 'orange-600', 'yellow-600', 'teal-600', 'cyan-600', 'sky-600', 'emerald-600', 'lime-600' // adding -600 variants
+                      ].some(c => event.color.includes(c));
+     return { bg: event.color, text: isDarkBg ? 'text-white' : 'text-gray-800', label: '' };
+  }
+
+  return EVENT_ITEM_STYLES.DEFAULT;
+}
 
 
 export function CalendarWithEvents() {
@@ -65,7 +112,7 @@ export function CalendarWithEvents() {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allEvents, toast]); // Added toast to dependency array
+  }, [allEvents, toast]); 
 
   useEffect(() => {
     const checkUpcomingEvents = () => {
@@ -100,7 +147,7 @@ export function CalendarWithEvents() {
     const intervalId = setInterval(checkUpcomingEvents, 60000); 
 
     return () => clearInterval(intervalId); 
-  }, [allEvents, remindedEventIds, toast]); // Added toast to dependency array
+  }, [allEvents, remindedEventIds, toast]); 
 
 
   const handleDayClick = (day: Date) => {
@@ -114,15 +161,15 @@ export function CalendarWithEvents() {
       return;
     }
     
-    const mainCategory = categorizeEvent(newEventTitle, newEventDescription);
-    const styles = getCategoryDisplayStyles(mainCategory);
+    const mainCategory = categorizeEvent(newEventTitle, newEventDescription); // This is 'personal' or 'trabajo'
+    const userEventStyles = getCategoryDisplayStyles(mainCategory); // Gets dotColor, badgeText etc. for user events
 
     const newEventToAdd: CalendarEvent = {
       id: `user-${Date.now()}`,
       date,
       title: newEventTitle,
       description: newEventDescription,
-      color: styles.dotColor, 
+      color: userEventStyles.dotColor, // Use dotColor for consistency, though capsule style will be from EVENT_ITEM_STYLES
       isUserEvent: true,
       category: mainCategory, 
       time: newEventTime || undefined,
@@ -132,7 +179,7 @@ export function CalendarWithEvents() {
     if (isToday(newEventToAdd.date)) {
       const countdown = getInitialCountdownString(newEventToAdd.date, newEventToAdd.time);
       toast({
-        title: `Evento ${styles.badgeText} añadido para hoy: ${newEventToAdd.title}`,
+        title: `Evento ${userEventStyles.badgeText} añadido para hoy: ${newEventToAdd.title}`,
         description: `${newEventToAdd.description}${newEventToAdd.time ? ` Hora: ${format(new Date(`1970-01-01T${newEventToAdd.time}`), 'p', { locale: es })}` : ''}${countdown}`,
         duration: 7000,
       });
@@ -143,7 +190,7 @@ export function CalendarWithEvents() {
     setNewEventDescription('');
     setNewEventTime(''); 
     setIsAddEventDialogOpen(false);
-    toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${styles.badgeText}) añadido al calendario.` });
+    toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${userEventStyles.badgeText}) añadido al calendario.` });
     setSelectedEvent(newEventToAdd); 
   };
 
@@ -168,7 +215,6 @@ export function CalendarWithEvents() {
     }
   };
 
-
   const renderDayEventsContent = (dayCellDate: Date): React.ReactNode => {
     const eventsOnDay = allEvents
       .filter(event => format(event.date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd'))
@@ -183,31 +229,24 @@ export function CalendarWithEvents() {
       return <div className="flex-grow min-h-[4rem]"></div>;
     }
   
-    const maxEventsToShow = 3; 
+    const maxEventsToShowInCell = 3; 
     const isCellCurrentlySelected = date && format(date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
 
     return (
       <div className="flex-grow overflow-y-auto space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
-        {eventsOnDay.slice(0, maxEventsToShow).map(event => {
-          const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-          const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
-          
-          // isClickedEventItem determines if THIS specific event item was the one that set selectedEvent
+        {eventsOnDay.slice(0, maxEventsToShowInCell).map(event => {
+          const renderProps = getEventRenderProps(event);
           const isClickedEventItem = selectedEvent?.id === event.id && isCellCurrentlySelected;
           
           return (
             <div 
               key={event.id} 
               className={cn(
-                "p-1 rounded-sm flex items-start gap-1.5 group/event-item cursor-pointer",
-                !isCellCurrentlySelected && "hover:bg-accent/20", // Hover only if cell is not selected
-                isCellCurrentlySelected && isClickedEventItem && "bg-accent/30 ring-1 ring-accent" // Highlight clicked item within selected cell
+                "px-1 py-0.5 rounded text-xs leading-tight flex items-start gap-1.5 cursor-pointer",
+                renderProps.bg,
+                renderProps.text,
+                isClickedEventItem && "ring-2 ring-offset-1 ring-white/70" // Highlight for clicked item within selected cell
               )}
-              style={{ 
-                backgroundColor: isCellCurrentlySelected && isClickedEventItem ? 
-                                 `${displayColor.replace('bg-','').replace('-500','').replace('-600','').replace('-700','')}3A` // More transparent if cell is selected + item clicked
-                                 : (!isCellCurrentlySelected ? `${displayColor.replace('bg-','').replace('-500','').replace('-600','').replace('-700','')}1A` : undefined)
-              }}
               onClick={(e) => {
                 e.stopPropagation(); 
                 setSelectedEvent(event);
@@ -217,30 +256,25 @@ export function CalendarWithEvents() {
               tabIndex={0}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedEvent(event); setDate(dayCellDate);}}}
             >
-              <div className={cn("mt-[3px] w-1.5 h-1.5 rounded-full flex-shrink-0", displayColor)} />
+              {/* Dot removed, capsule color is the indicator */}
               <div className="flex-grow">
                 <p className={cn(
                   "font-medium truncate",
-                  isCellCurrentlySelected 
-                    ? "" // Inherits text-primary-foreground from parent
-                    : (isClickedEventItem ? "text-accent-foreground font-semibold" : "text-foreground/90")
+                   // Text color is now part of renderProps.text and applied to the parent div
                 )}>{event.title}</p>
                  {event.time && <p className={cn(
-                   "text-xs",
-                   isCellCurrentlySelected
-                     ? "opacity-80" // Inherits text-primary-foreground, slightly dimmed
-                     : (isClickedEventItem ? "text-accent-foreground/80" : "text-muted-foreground/80")
+                   "text-xs opacity-80", // Inherits text color, slightly dimmed
                   )}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
               </div>
             </div>
           );
         })}
-        {eventsOnDay.length > maxEventsToShow && (
+        {eventsOnDay.length > maxEventsToShowInCell && (
           <div className={cn(
             "text-center text-[9px] mt-1",
             isCellCurrentlySelected ? "text-primary-foreground/70" : "text-muted-foreground"
             )}>
-            + {eventsOnDay.length - maxEventsToShow} más
+            + {eventsOnDay.length - maxEventsToShowInCell} más
           </div>
         )}
       </div>
@@ -262,7 +296,7 @@ export function CalendarWithEvents() {
           footer={
             <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
               <div className="flex items-center justify-between">
-                <div className="min-h-[60px]"> {/* Ensure footer has some min height */}
+                <div className="min-h-[60px] flex-grow"> {/* Ensure footer has some min height and can grow */}
                   {selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? (
                     <div className="text-xs">
                       <p className="font-semibold text-primary">{selectedEvent.title}</p>
@@ -287,6 +321,7 @@ export function CalendarWithEvents() {
                   ) : (
                      <p className="text-xs text-muted-foreground">
                       {date ? `Día seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
+                      { date && !selectedEvent && <span className="ml-1">Seleccione un evento para ver detalles.</span>}
                     </p>
                   )}
                 </div>
@@ -294,7 +329,7 @@ export function CalendarWithEvents() {
                 {date && (
                   <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                     <DialogTrigger asChild>
-                       <Button variant="outline" size="icon" className="h-8 w-8" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> 
+                       <Button variant="outline" size="icon" className="h-8 w-8 flex-shrink-0" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> 
                         <PlusCircle className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
@@ -352,3 +387,4 @@ export function CalendarWithEvents() {
     </div>
   );
 }
+

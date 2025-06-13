@@ -106,7 +106,7 @@ export default function DashboardPage() {
             variant="ghost"
             size="icon"
             onClick={handlePrevBannerImage}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
             aria-label="Banner anterior"
           >
             <ChevronLeft className="h-6 w-6" />
@@ -115,7 +115,7 @@ export default function DashboardPage() {
             variant="ghost"
             size="icon"
             onClick={handleNextBannerImage}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
             aria-label="Siguiente banner"
           >
             <ChevronRight className="h-6 w-6" />
@@ -159,7 +159,7 @@ export default function DashboardPage() {
                 variant="ghost"
                 size="icon"
                 onClick={handlePrevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
                 aria-label="Imagen anterior"
               >
                 <ChevronLeft className="h-6 w-6" />
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                 variant="ghost"
                 size="icon"
                 onClick={handleNextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
                 aria-label="Siguiente imagen"
               >
                 <ChevronRight className="h-6 w-6" />
@@ -177,7 +177,7 @@ export default function DashboardPage() {
           </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor.">
+      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
@@ -188,7 +188,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación.">
+      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary">
        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDietMenuItems.map((item) => (
@@ -199,7 +199,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior.">
+      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockExecutiveMenuItems.map((item) => (
@@ -213,12 +213,13 @@ export default function DashboardPage() {
       <SectionWrapper 
         title="Valores y Pilares Fundamentales"
         description="Los principios que guían nuestro actuar diario."
-        cardClassName="bg-transparent shadow-none rounded-lg border-none" 
+        cardClassName="bg-transparent shadow-none rounded-lg border-none"
+        titleClassName="text-primary"
       >
         <Card className="bg-transparent shadow-none rounded-lg border-none"> 
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
             <div className="space-y-6"> 
-              <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Valores</h3>
+              <h3 className="text-xl font-semibold text-secondary mb-4">Nuestros Valores</h3>
               {[
                 { title: "Confianza", text: "Construimos relaciones sólidas y duraderas basadas en la transparencia y el cumplimiento de nuestros compromisos." },
                 { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger lo que más valoran nuestros clientes." },
@@ -236,7 +237,7 @@ export default function DashboardPage() {
               ))}
             </div>
             <div className="space-y-6"> 
-              <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Pilares</h3>
+              <h3 className="text-xl font-semibold text-secondary mb-4">Nuestros Pilares</h3>
               {[
                 { title: "Solidez Financiera", text: "Garantizamos la capacidad de respuesta ante los compromisos adquiridos con nuestros asegurados." },
                 { title: "Talento Humano", text: "Contamos con un equipo de profesionales altamente capacitados y motivados." },
@@ -256,7 +257,7 @@ export default function DashboardPage() {
         </Card>
       </SectionWrapper>
 
-      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa.">
+      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
             <CourseCard key={course.id} course={course} />
@@ -264,7 +265,7 @@ export default function DashboardPage() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa.">
+      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDressCodeItems.map((item) => (
@@ -275,7 +276,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar.">
+      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />

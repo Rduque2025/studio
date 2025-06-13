@@ -108,7 +108,6 @@ export function CalendarWithEvents() {
   const eventDates = allEvents.map(event => event.date);
 
   const modifiers = {
-    // highlighted: eventDates, // Keep if you want a general highlight for any event day
     ...allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
       acc[key] = event.date;
@@ -117,25 +116,19 @@ export function CalendarWithEvents() {
   };
   
   const modifiersClassNames = {
-    // highlighted: 'border-primary ring-1 ring-primary rounded-md', // Style for general event day highlight
     ...allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
-      let dotColorClass = 'bg-foreground'; // Default dot color (black/foreground)
+      let dotColorClass = 'bg-foreground'; 
       
       if (event.isUserEvent && event.category) {
-         // For user events, you might use category-specific dot colors if desired
-         // const styles = getCategoryDisplayStyles(event.category);
-         // dotColorClass = styles.dotColor; // Example: using category specific dot colors
       } else if (!event.isUserEvent && event.color) {
-        // For predefined mock events, use their specific color for the dot
         dotColorClass = event.color; 
       }
       
-      // Minimalist dot style
       acc[key] = `relative 
                   after:content-[''] after:absolute after:rounded-full after:w-1.5 after:h-1.5 
                   after:bottom-1 after:left-1/2 after:-translate-x-1/2 
-                  ${dotColorClass}`; // Use the determined dot color
+                  ${dotColorClass}`; 
       return acc;
     }, {} as Record<string, string>)
   };
@@ -214,34 +207,32 @@ export function CalendarWithEvents() {
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-[max-content_1fr] gap-6 lg:gap-8 items-start">
-      {/* Calendar part wrapper - removing card styles like border, padding, shadow */}
       <div className="w-full lg:w-auto self-start">
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate}
           onDayClick={handleDayClick}
-          // className="rounded-md border p-4 bg-card shadow-sm w-full" // Removed card specific classes
-          className="w-full" // Ensure it takes full width of its container
+          className="w-full" 
           defaultMonth={new Date(2025, 5, 1)}
-          locale={es} // Pass locale
+          locale={es} 
           modifiers={modifiers}
           modifiersClassNames={modifiersClassNames}
           footer={
-            <div className="p-2 mt-1 text-sm space-y-1"> {/* Simplified footer styling */}
+            <div className="p-2 mt-1 text-sm space-y-1"> 
               {currentEventForPopover ? (
                <div>
                 <h4 className={cn(
-                    "font-semibold mb-0.5 flex items-center justify-between gap-2 text-sm", // Reduced font size
+                    "font-semibold mb-0.5 flex items-center justify-between gap-2 text-sm", 
                     currentEventForPopover.isUserEvent && currentEventForPopover.category 
                       ? getCategoryDisplayStyles(currentEventForPopover.category).textColor 
-                      : currentEventForPopover.color.replace('bg-','text-') // This might need adjustment if color is not bg- based
+                      : currentEventForPopover.color.replace('bg-','text-') 
                   )}
                 >
-                    <div className="flex items-center gap-1.5"> {/* Reduced gap */}
-                        <AlertCircle className="h-3.5 w-3.5" /> {currentEventForPopover.title} {/* Smaller icon */}
+                    <div className="flex items-center gap-1.5"> 
+                        <AlertCircle className="h-3.5 w-3.5" /> {currentEventForPopover.title} 
                         {currentEventForPopover.isUserEvent && currentEventForPopover.category && (
-                            <Badge variant="outline" className={cn("text-xs px-1.5 py-0", getCategoryDisplayStyles(currentEventForPopover.category).badgeClass)}> {/* Smaller badge */}
+                            <Badge variant="outline" className={cn("text-xs px-1.5 py-0", getCategoryDisplayStyles(currentEventForPopover.category).badgeClass)}> 
                                 {getCategoryDisplayStyles(currentEventForPopover.category).badgeText}
                             </Badge>
                         )}
@@ -250,15 +241,15 @@ export function CalendarWithEvents() {
                         <Button 
                             variant="ghost" 
                             size="icon" 
-                            className="h-5 w-5 text-destructive hover:bg-destructive/10 hover:text-destructive" // Smaller button
+                            className="h-5 w-5 text-destructive hover:bg-destructive/10 hover:text-destructive" 
                             onClick={() => handleDeleteEvent(currentEventForPopover!.id)}
                             aria-label="Eliminar evento"
                         >
-                            <Trash2 className="h-3.5 w-3.5" /> {/* Smaller icon */}
+                            <Trash2 className="h-3.5 w-3.5" /> 
                         </Button>
                     )}
                 </h4>
-                <p className="text-xs text-muted-foreground">{currentEventForPopover.description}</p> {/* Smaller text */}
+                <p className="text-xs text-muted-foreground">{currentEventForPopover.description}</p> 
                 {currentEventForPopover.time && (
                     <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <Clock className="h-3 w-3" /> Hora: {format(new Date(`1970-01-01T${currentEventForPopover.time}`), 'p', { locale: es })}
@@ -266,7 +257,7 @@ export function CalendarWithEvents() {
                 )}
                </div>
               ) : (
-                <p className="text-xs text-muted-foreground"> {/* Smaller text */}
+                <p className="text-xs text-muted-foreground"> 
                   {date ? `Seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
                 </p>
               )}
@@ -274,7 +265,7 @@ export function CalendarWithEvents() {
                 {date && (
                   <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                     <DialogTrigger asChild>
-                       <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> {/* Subtle add button */}
+                       <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> 
                         <PlusCircle className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
@@ -330,7 +321,6 @@ export function CalendarWithEvents() {
         />
       </div>
       
-      {/* Event list part */}
       <div className="w-full mt-6 lg:mt-0 rounded-md border bg-card shadow-sm">
         <div className="p-4">
             <div className="flex justify-between items-center mb-3">
@@ -357,24 +347,24 @@ export function CalendarWithEvents() {
                         key={event.id}
                         variant="ghost"
                         className={cn(
-                            "w-full justify-start text-left h-auto p-3 border",
+                            "w-full justify-start text-left h-auto p-2.5 border rounded-md", // Reduced padding slightly with p-2.5 and added rounded-md
                             date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
                         )}
                         onClick={() => handleDayClick(event.date)}
                         >
-                        <div className="flex items-start gap-3 w-full">
-                            <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} /> 
+                        <div className="flex items-start gap-2.5 w-full"> {/* Reduced gap */}
+                            <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  {/* Smaller dot */}
                             <div className="flex-grow">
-                            <p className="font-medium text-sm">{event.title}</p>
-                            <p className="text-xs text-muted-foreground">
-                                {format(event.date, 'd \'de\' MMMM', { locale: es })}
+                            <p className="font-medium text-xs leading-tight">{event.title}</p> {/* Reduced font size and line-height */}
+                            <p className="text-xs text-muted-foreground mt-0.5"> {/* Reduced top margin */}
+                                {format(event.date, 'd \'de\' MMM', { locale: es })} {/* Shorter month format */}
                                 {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
                             </p>
                             </div>
                             {categoryStyles && (
                             <Badge 
                                 variant="outline" 
-                                className={cn("text-xs", categoryStyles.badgeClass)}
+                                className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} // Ensure badge is also small
                             >
                                 {categoryStyles.badgeText}
                             </Badge>

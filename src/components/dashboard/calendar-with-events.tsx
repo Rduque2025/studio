@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-import { AlertCircle, PlusCircle, Trash2, Clock, CalendarDays } from 'lucide-react';
+import { AlertCircle, PlusCircle, Trash2, Clock, CalendarDays, Filter, XCircle } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -41,7 +41,6 @@ function categorizeEventForDialog(event: CalendarEvent): string {
   if (event.isUserEvent && event.category === 'personal') {
     return "Eventos Personales";
   }
-  // Para eventos como "Día Internacional de la Mujer", talleres, charlas, etc. o eventos de trabajo de usuario no cubiertos antes.
   return "Eventos Especiales";
 }
 
@@ -49,6 +48,7 @@ function categorizeEventForDialog(event: CalendarEvent): string {
 export function CalendarWithEvents() {
   const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
   
@@ -136,32 +136,43 @@ export function CalendarWithEvents() {
   }, [allEvents, remindedEventIds]);
 
 
-  const modifiers = {
-    ...allEvents.reduce((acc, event) => {
+  const modifiers = useMemo(() => {
+    return allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
       acc[key] = event.date;
       return acc;
-    }, {} as Record<string, Date>)
-  };
+    }, {} as Record<string, Date>);
+  }, [allEvents]);
   
-  const modifiersClassNames = {
-    ...allEvents.reduce((acc, event) => {
+  const modifiersClassNames = useMemo(() => {
+    return allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
-      let dotColorClass = 'bg-foreground'; 
-      
-      if (event.isUserEvent && event.category) {
-        dotColorClass = getCategoryDisplayStyles(event.category).dotColor;
-      } else if (!event.isUserEvent && event.color) {
-        dotColorClass = event.color; 
+      let dotClass = '';
+      const eventDialogCategory = categorizeEventForDialog(event);
+  
+      if (selectedCategoryFilter) {
+        if (eventDialogCategory === selectedCategoryFilter) {
+          dotClass = 'after:bg-accent after:w-2 after:h-2'; 
+        } else {
+          dotClass = 'after:bg-muted-foreground/30 after:w-1 after:h-1'; 
+        }
+      } else {
+        let originalDotColor = 'bg-foreground'; 
+        if (event.isUserEvent && event.category) {
+          originalDotColor = getCategoryDisplayStyles(event.category).dotColor;
+        } else if (!event.isUserEvent && event.color) {
+          originalDotColor = event.color;
+        }
+        dotClass = `after:${originalDotColor} after:w-1.5 after:h-1.5`;
       }
-      
+  
       acc[key] = `relative 
-                  after:content-[''] after:absolute after:rounded-full after:w-1.5 after:h-1.5 
-                  after:bottom-1 after:left-1/2 after:-translate-x-1/2 
-                  ${dotColorClass}`; 
+                    after:content-[''] after:absolute after:rounded-full 
+                    after:bottom-1 after:left-1/2 after:-translate-x-1/2 
+                    ${dotClass}`;
       return acc;
-    }, {} as Record<string, string>)
-  };
+    }, {} as Record<string, string>);
+  }, [allEvents, selectedCategoryFilter, getCategoryDisplayStyles]);
 
   const handleDayClick = (day: Date) => {
     const eventsOnDay = allEvents.filter(
@@ -180,7 +191,6 @@ export function CalendarWithEvents() {
       return;
     }
     
-    // Use the context's categorizeEvent for the event's 'personal'/'trabajo' category
     const mainCategory = categorizeEvent(newEventTitle, newEventDescription);
     const styles = getCategoryDisplayStyles(mainCategory);
 
@@ -191,7 +201,7 @@ export function CalendarWithEvents() {
       description: newEventDescription,
       color: styles.dotColor, 
       isUserEvent: true,
-      category: mainCategory, // 'personal' or 'trabajo'
+      category: mainCategory, 
       time: newEventTime || undefined,
     };
     addUserEvent(newEventToAdd); 
@@ -265,6 +275,12 @@ export function CalendarWithEvents() {
     }, {});
   }, [eventsForCurrentMonth]);
 
+  const handleCategoryFilterClick = (categoryName: string | null) => {
+    setSelectedCategoryFilter(categoryName);
+    // Optionally close the dialog when a filter is applied
+    // setIsEventsMonthDialogOpen(false); 
+  };
+
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -333,11 +349,24 @@ export function CalendarWithEvents() {
                         <DialogHeader>
                         <DialogTitle>Eventos del Mes - {displayedMonthName}</DialogTitle>
                         <DialogDescription>
-                            Lista de todos los eventos programados para {displayedMonthName.toLowerCase()}.
-                            Puede hacer clic en un evento para seleccionarlo en el calendario.
+                            {selectedCategoryFilter ? `Mostrando eventos de: ${selectedCategoryFilter}.` : "Lista de todos los eventos programados."}
+                            <br/>
+                            Haga clic en una categoría para filtrar o en un evento para verlo en el calendario.
                         </DialogDescription>
                         </DialogHeader>
-                        <ScrollArea className="h-[400px] pr-2 mt-4"> 
+                        
+                        <div className="my-3">
+                            <Button 
+                                variant={!selectedCategoryFilter ? "default" : "outline"} 
+                                size="sm" 
+                                onClick={() => handleCategoryFilterClick(null)}
+                                className="w-full"
+                            >
+                                <Filter className="mr-2 h-4 w-4" /> Mostrar Todas las Categorías
+                            </Button>
+                        </div>
+
+                        <ScrollArea className="h-[350px] pr-2 mt-2"> 
                             <div className="space-y-0.5">
                             {dialogCategoriesOrder.map(categoryName => {
                                 const eventsInCategory = groupedEventsForDialog[categoryName];
@@ -345,9 +374,18 @@ export function CalendarWithEvents() {
                                 return null;
                                 }
                                 return (
-                                <div key={categoryName} className="mb-2">
-                                    <h5 className="font-semibold text-sm my-2 px-1 text-primary sticky top-0 bg-background/90 py-1 z-10">{categoryName}</h5>
-                                    <div className="space-y-1.5">
+                                <div key={categoryName} className="mb-3">
+                                    <Button 
+                                        variant={selectedCategoryFilter === categoryName ? "secondary" : "ghost"} 
+                                        className={cn(
+                                            "w-full justify-start text-left h-auto py-1.5 px-2 mb-1.5 font-semibold text-sm sticky top-0 bg-background/95 z-10",
+                                            selectedCategoryFilter === categoryName && "text-secondary-foreground"
+                                        )}
+                                        onClick={() => handleCategoryFilterClick(categoryName)}
+                                    >
+                                        {categoryName} ({eventsInCategory.length})
+                                    </Button>
+                                    <div className="space-y-1.5 pl-2 border-l-2 ml-2 border-muted">
                                     {eventsInCategory.map(event => {
                                         const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
                                         return (
@@ -360,7 +398,12 @@ export function CalendarWithEvents() {
                                             )}
                                             onClick={() => {
                                                 handleDayClick(event.date);
-                                                setIsEventsMonthDialogOpen(false); 
+                                                // No cerramos el dialogo al seleccionar un evento si hay un filtro activo, 
+                                                // para que el usuario pueda seguir viendo la categoría filtrada.
+                                                // Si no hay filtro, sí cerramos.
+                                                if (!selectedCategoryFilter) {
+                                                    setIsEventsMonthDialogOpen(false); 
+                                                }
                                             }}
                                             >
                                             <div className="flex items-start gap-2.5 w-full"> 
@@ -372,7 +415,6 @@ export function CalendarWithEvents() {
                                                     {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
                                                 </p>
                                                 </div>
-                                                {/* Badge para categoría 'Personal' o 'Trabajo' de eventos de usuario */}
                                                 {categoryStyles && (
                                                 <Badge 
                                                     variant="outline" 
@@ -461,3 +503,5 @@ export function CalendarWithEvents() {
     </div>
   );
 }
+
+    

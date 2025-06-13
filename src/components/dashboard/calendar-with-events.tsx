@@ -226,7 +226,7 @@ export function CalendarWithEvents() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-md self-center"> {/* Calendar container, centered and with max-width */}
+      <div className="w-full max-w-lg self-center"> {/* Calendar container, centered and with max-width */}
         <Calendar
           mode="single"
           selected={date}

@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
 
 export function CalendarWithEvents() {
-  const [date, setDate] = useState<Date | undefined>(new Date()); 
+  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); // Default to June 2025
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
@@ -140,11 +140,13 @@ export function CalendarWithEvents() {
     const eventsOnDay = allEvents.filter(
       (event) => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd')
     );
+    // If multiple events, prefer user event for popover, otherwise first event.
     const userEventOnDay = eventsOnDay.find(e => e.isUserEvent); 
-    setSelectedEvent(userEventOnDay || eventsOnDay[0] || null);
+    setSelectedEvent(userEventOnDay || eventsOnDay[0] || null); 
     setDate(day);
   };
   
+  // For the popover, only show details if the selectedEvent is on the currently selected `date`
   const currentEventForPopover = selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? selectedEvent : null;
 
   const handleAddEvent = () => {
@@ -209,15 +211,15 @@ export function CalendarWithEvents() {
 
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 items-start">
-      <div className="flex-shrink-0 w-full lg:w-auto">
+    <div className="flex flex-col gap-8 items-stretch"> {/* Changed to flex-col and items-stretch */}
+      <div className="w-full"> {/* Calendar takes full width */}
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate}
           onDayClick={handleDayClick}
-          className="rounded-md border p-4 bg-card shadow-none"
-          defaultMonth={new Date()} 
+          className="rounded-md border p-4 bg-card shadow-none w-full" // Added w-full
+          defaultMonth={new Date(2025, 5, 1)} // Default to June 2025
           locale={es}
           modifiers={modifiers}
           modifiersClassNames={modifiersClassNames}
@@ -229,7 +231,7 @@ export function CalendarWithEvents() {
                     "font-semibold mb-1 flex items-center justify-between gap-2", 
                     currentEventForPopover.isUserEvent && currentEventForPopover.category 
                       ? getCategoryDisplayStyles(currentEventForPopover.category).textColor 
-                      : currentEventForPopover.color.replace('bg-','text-') 
+                      : currentEventForPopover.color.replace('bg-','text-') // Fallback for non-categorized or mock events
                   )}
                 >
                     <div className="flex items-center gap-2">
@@ -324,24 +326,22 @@ export function CalendarWithEvents() {
         />
       </div>
       
-      <div className="lg:w-2/5 w-full mt-6 lg:mt-0">
+      <div className="w-full mt-6"> {/* Event list also takes full width and appears below */}
         <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-semibold">
-                Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : format(new Date(), 'MMMM yyyy', { locale: es })})
+                Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : format(new Date(2025,5,1), 'MMMM yyyy', { locale: es })})
             </h3>
         </div>
-        <div className="space-y-2 max-h-96 lg:max-h-[calc(theme(spacing.96)_+_theme(spacing.12))] overflow-y-auto pr-2">
+        <div className="space-y-2 max-h-96 overflow-y-auto pr-2"> {/* Removed lg specific max-h */}
           {allEvents
             .filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true)
             .sort((a,b) => {
-                // First sort by date
                 const dateComparison = a.date.getTime() - b.date.getTime();
                 if (dateComparison !== 0) return dateComparison;
-                // If dates are same, sort by time (if available)
                 if (a.time && b.time) return a.time.localeCompare(b.time);
-                if (a.time) return -1; // Events with time come before events without time
+                if (a.time) return -1;
                 if (b.time) return 1;
-                return 0; // If both have no time, keep original order or consider them equal
+                return 0;
             })
             .map(event => {
               const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;

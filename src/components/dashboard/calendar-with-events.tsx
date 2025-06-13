@@ -14,9 +14,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Badge } from '@/components/ui/badge';
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export function CalendarWithEvents() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); // Default to June 2025
+  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1));
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
@@ -140,13 +141,11 @@ export function CalendarWithEvents() {
     const eventsOnDay = allEvents.filter(
       (event) => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd')
     );
-    // If multiple events, prefer user event for popover, otherwise first event.
     const userEventOnDay = eventsOnDay.find(e => e.isUserEvent); 
     setSelectedEvent(userEventOnDay || eventsOnDay[0] || null); 
     setDate(day);
   };
   
-  // For the popover, only show details if the selectedEvent is on the currently selected `date`
   const currentEventForPopover = selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? selectedEvent : null;
 
   const handleAddEvent = () => {
@@ -211,15 +210,16 @@ export function CalendarWithEvents() {
 
 
   return (
-    <div className="flex flex-col gap-8 items-stretch"> {/* Changed to flex-col and items-stretch */}
-      <div className="w-full"> {/* Calendar takes full width */}
+    <div className="flex flex-col lg:grid lg:grid-cols-[max-content_1fr] gap-6 lg:gap-8 items-start">
+      {/* Calendar part wrapper */}
+      <div className="w-full lg:w-auto self-start">
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate}
           onDayClick={handleDayClick}
-          className="rounded-md border p-4 bg-card shadow-none w-full" // Added w-full
-          defaultMonth={new Date(2025, 5, 1)} // Default to June 2025
+          className="rounded-md border p-4 bg-card shadow-sm w-full"
+          defaultMonth={new Date(2025, 5, 1)}
           locale={es}
           modifiers={modifiers}
           modifiersClassNames={modifiersClassNames}
@@ -231,7 +231,7 @@ export function CalendarWithEvents() {
                     "font-semibold mb-1 flex items-center justify-between gap-2", 
                     currentEventForPopover.isUserEvent && currentEventForPopover.category 
                       ? getCategoryDisplayStyles(currentEventForPopover.category).textColor 
-                      : currentEventForPopover.color.replace('bg-','text-') // Fallback for non-categorized or mock events
+                      : currentEventForPopover.color.replace('bg-','text-')
                   )}
                 >
                     <div className="flex items-center gap-2">
@@ -326,61 +326,67 @@ export function CalendarWithEvents() {
         />
       </div>
       
-      <div className="w-full mt-6"> {/* Event list also takes full width and appears below */}
-        <div className="flex justify-between items-center mb-3">
-            <h3 className="text-lg font-semibold">
-                Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : format(new Date(2025,5,1), 'MMMM yyyy', { locale: es })})
-            </h3>
-        </div>
-        <div className="space-y-2 max-h-96 overflow-y-auto pr-2"> {/* Removed lg specific max-h */}
-          {allEvents
-            .filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true)
-            .sort((a,b) => {
-                const dateComparison = a.date.getTime() - b.date.getTime();
-                if (dateComparison !== 0) return dateComparison;
-                if (a.time && b.time) return a.time.localeCompare(b.time);
-                if (a.time) return -1;
-                if (b.time) return 1;
-                return 0;
-            })
-            .map(event => {
-              const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-              return (
-                <Button
-                  key={event.id}
-                  variant="ghost"
-                  className={cn(
-                    "w-full justify-start text-left h-auto p-3 border",
-                    date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
-                  )}
-                  onClick={() => handleDayClick(event.date)}
-                >
-                  <div className="flex items-start gap-3 w-full">
-                    <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} /> 
-                    <div className="flex-grow">
-                      <p className="font-medium text-sm">{event.title}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {format(event.date, 'd \'de\' MMMM', { locale: es })}
-                        {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
-                      </p>
-                    </div>
-                    {categoryStyles && (
-                      <Badge 
-                        variant="outline" 
-                        className={cn("text-xs", categoryStyles.badgeClass)}
-                      >
-                        {categoryStyles.badgeText}
-                      </Badge>
-                    )}
-                  </div>
-                </Button>
-              );
-            })}
-          {allEvents.filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true).length === 0 && (
-            <p className="text-sm text-muted-foreground p-3 border rounded-md">No hay eventos este mes.</p>
-          )}
+      {/* Event list part */}
+      <div className="w-full mt-6 lg:mt-0 rounded-md border bg-card shadow-sm">
+        <div className="p-4">
+            <div className="flex justify-between items-center mb-3">
+                <h3 className="text-lg font-semibold">
+                    Eventos del Mes ({date ? format(date, 'MMMM yyyy', { locale: es }) : format(new Date(2025,5,1), 'MMMM yyyy', { locale: es })})
+                </h3>
+            </div>
+            <ScrollArea className="h-80 lg:h-[370px] pr-2"> 
+                <div className="space-y-2">
+                {allEvents
+                    .filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true)
+                    .sort((a,b) => {
+                        const dateComparison = a.date.getTime() - b.date.getTime();
+                        if (dateComparison !== 0) return dateComparison;
+                        if (a.time && b.time) return a.time.localeCompare(b.time);
+                        if (a.time) return -1;
+                        if (b.time) return 1;
+                        return 0;
+                    })
+                    .map(event => {
+                    const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+                    return (
+                        <Button
+                        key={event.id}
+                        variant="ghost"
+                        className={cn(
+                            "w-full justify-start text-left h-auto p-3 border",
+                            date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
+                        )}
+                        onClick={() => handleDayClick(event.date)}
+                        >
+                        <div className="flex items-start gap-3 w-full">
+                            <div className={cn("mt-1 w-3 h-3 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} /> 
+                            <div className="flex-grow">
+                            <p className="font-medium text-sm">{event.title}</p>
+                            <p className="text-xs text-muted-foreground">
+                                {format(event.date, 'd \'de\' MMMM', { locale: es })}
+                                {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
+                            </p>
+                            </div>
+                            {categoryStyles && (
+                            <Badge 
+                                variant="outline" 
+                                className={cn("text-xs", categoryStyles.badgeClass)}
+                            >
+                                {categoryStyles.badgeText}
+                            </Badge>
+                            )}
+                        </div>
+                        </Button>
+                    );
+                    })}
+                {allEvents.filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true).length === 0 && (
+                    <p className="text-sm text-muted-foreground p-3 border rounded-md">No hay eventos este mes.</p>
+                )}
+                </div>
+            </ScrollArea>
         </div>
       </div>
     </div>
   );
 }
+

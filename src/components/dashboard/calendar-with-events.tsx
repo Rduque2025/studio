@@ -226,7 +226,7 @@ export function CalendarWithEvents() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-lg self-center"> {/* Calendar container, centered and with max-width */}
+      <div className="w-full max-w-lg self-center"> 
         <Calendar
           mode="single"
           selected={date}
@@ -280,7 +280,70 @@ export function CalendarWithEvents() {
                   {date ? `Seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
                 </p>
               )}
-              <div className="flex items-center justify-end pt-1">
+              <div className="flex items-center justify-end pt-1 space-x-1"> 
+                 <Dialog open={isEventsMonthDialogOpen} onOpenChange={setIsEventsMonthDialogOpen}>
+                    <DialogTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Ver eventos de ${displayedMonthName}`}>
+                            <CalendarDays className="h-4 w-4" />
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[525px]">
+                        <DialogHeader>
+                        <DialogTitle>Eventos del Mes - {displayedMonthName}</DialogTitle>
+                        <DialogDescription>
+                            Lista de todos los eventos programados para {displayedMonthName.toLowerCase()}.
+                            Puede hacer clic en un evento para seleccionarlo en el calendario.
+                        </DialogDescription>
+                        </DialogHeader>
+                        <ScrollArea className="h-[400px] pr-2 mt-4"> 
+                            <div className="space-y-2">
+                            {eventsForCurrentMonth.map(event => {
+                                const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+                                return (
+                                    <Button
+                                    key={event.id}
+                                    variant="ghost"
+                                    className={cn(
+                                        "w-full justify-start text-left h-auto p-2.5 border rounded-md", 
+                                        date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
+                                    )}
+                                    onClick={() => {
+                                        handleDayClick(event.date);
+                                        setIsEventsMonthDialogOpen(false); 
+                                    }}
+                                    >
+                                    <div className="flex items-start gap-2.5 w-full"> 
+                                        <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  
+                                        <div className="flex-grow">
+                                        <p className="font-medium text-xs leading-tight">{event.title}</p> 
+                                        <p className="text-xs text-muted-foreground mt-0.5"> 
+                                            {format(event.date, 'd \'de\' MMM', { locale: es })} 
+                                            {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
+                                        </p>
+                                        </div>
+                                        {categoryStyles && (
+                                        <Badge 
+                                            variant="outline" 
+                                            className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} 
+                                        >
+                                            {categoryStyles.badgeText}
+                                        </Badge>
+                                        )}
+                                    </div>
+                                    </Button>
+                                );
+                                })}
+                            {eventsForCurrentMonth.length === 0 && (
+                                <p className="text-sm text-muted-foreground p-3 text-center">No hay eventos para {displayedMonthName.toLowerCase()}.</p>
+                            )}
+                            </div>
+                        </ScrollArea>
+                        <DialogFooter className="mt-4">
+                        <Button type="button" variant="outline" onClick={() => setIsEventsMonthDialogOpen(false)}>Cerrar</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+
                 {date && (
                   <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                     <DialogTrigger asChild>
@@ -338,71 +401,6 @@ export function CalendarWithEvents() {
             </div>
           }
         />
-      </div>
-      
-      <div className="w-full mt-6 flex justify-center">
-        <Dialog open={isEventsMonthDialogOpen} onOpenChange={setIsEventsMonthDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="outline">
-              <CalendarDays className="mr-2 h-4 w-4" /> Ver Eventos de {displayedMonthName}
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[525px]">
-            <DialogHeader>
-              <DialogTitle>Eventos del Mes - {displayedMonthName}</DialogTitle>
-              <DialogDescription>
-                Lista de todos los eventos programados para {displayedMonthName.toLowerCase()}.
-                 Puede hacer clic en un evento para seleccionarlo en el calendario.
-              </DialogDescription>
-            </DialogHeader>
-            <ScrollArea className="h-[400px] pr-2 mt-4"> 
-                <div className="space-y-2">
-                {eventsForCurrentMonth.map(event => {
-                    const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-                    return (
-                        <Button
-                        key={event.id}
-                        variant="ghost"
-                        className={cn(
-                            "w-full justify-start text-left h-auto p-2.5 border rounded-md", 
-                            date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
-                        )}
-                        onClick={() => {
-                            handleDayClick(event.date);
-                            setIsEventsMonthDialogOpen(false); // Close dialog on event click
-                        }}
-                        >
-                        <div className="flex items-start gap-2.5 w-full"> 
-                            <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  
-                            <div className="flex-grow">
-                            <p className="font-medium text-xs leading-tight">{event.title}</p> 
-                            <p className="text-xs text-muted-foreground mt-0.5"> 
-                                {format(event.date, 'd \'de\' MMM', { locale: es })} 
-                                {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
-                            </p>
-                            </div>
-                            {categoryStyles && (
-                            <Badge 
-                                variant="outline" 
-                                className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} 
-                            >
-                                {categoryStyles.badgeText}
-                            </Badge>
-                            )}
-                        </div>
-                        </Button>
-                    );
-                    })}
-                {eventsForCurrentMonth.length === 0 && (
-                    <p className="text-sm text-muted-foreground p-3 text-center">No hay eventos para {displayedMonthName.toLowerCase()}.</p>
-                )}
-                </div>
-            </ScrollArea>
-            <DialogFooter className="mt-4">
-              <Button type="button" variant="outline" onClick={() => setIsEventsMonthDialogOpen(false)}>Cerrar</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
       </div>
     </div>
   );

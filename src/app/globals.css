@@ -21,7 +21,7 @@
     --border: 210 20% 88%; /* Light Cool Grey border */
     --input: 210 30% 96%; /* Same as muted for input background */
 
-    --primary: 208 100% 22%; /* Deep Teal - from #003c71 */
+    --primary: 210 2% 44%; /* Medium Grey - from #6d6f71 */
     --primary-foreground: 0 0% 100%; /* White */
 
     --secondary: 209 73% 39%; /* Medium-dark blue - from #1a61ab */
@@ -33,10 +33,10 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 208 100% 32%; /* Slightly lighter Deep Teal for rings */
+    --ring: 210 2% 50%; /* Adjusted ring for new primary - Medium Grey */
     --radius: 0.5rem;
 
-    --chart-1: 208 100% 22%; /* Deep Teal */
+    --chart-1: 210 2% 44%; /* New primary grey for chart */
     --chart-2: 205 90% 65%; /* Lighter blue */
     --chart-3: 210 50% 40%; /* Muted dark blue */
     --chart-4: 190 80% 50%; /* Tealish blue */
@@ -60,8 +60,8 @@
     --border: 210 30% 25%;
     --input: 210 30% 20%;
 
-    --primary: 208 90% 55%; /* Lighter Deep Teal for dark mode primary */
-    --primary-foreground: 210 50% 10%; /* Dark text on light blue */
+    --primary: 210 2% 65%; /* Lighter Grey for dark mode primary */
+    --primary-foreground: 0 0% 10%; /* Dark text for contrast on lighter grey */
 
     --secondary: 209 70% 30%; /* Darker version of #1a61ab for dark mode */
     --secondary-foreground: 210 30% 90%; /* Light text on dark secondary */
@@ -72,9 +72,9 @@
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 208 90% 65%; /* Slightly lighter Deep Teal for dark mode rings */
+    --ring: 210 2% 70%; /* Adjusted ring for new dark primary - Lighter Grey */
 
-    --chart-1: 208 90% 55%; /* Lighter Deep Teal for dark mode */
+    --chart-1: 210 2% 65%; /* New dark primary grey for chart */
     --chart-2: 205 90% 70%;
     --chart-3: 210 50% 50%;
     --chart-4: 190 80% 60%;

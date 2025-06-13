@@ -21,22 +21,22 @@
     --border: 210 20% 88%; /* Light Cool Grey border */
     --input: 210 30% 96%; /* Same as muted for input background */
 
-    --primary: 208 100% 22%; /* Deep Teal - NEW from #003c71 */
+    --primary: 208 100% 22%; /* Deep Teal - from #003c71 */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 210 40% 93%; /* Light Blue-Grey */
-    --secondary-foreground: 208 100% 22%; /* Deep Teal text on secondary - NEW */
+    --secondary: 209 73% 39%; /* Medium-dark blue - from #1a61ab */
+    --secondary-foreground: 0 0% 100%; /* White for contrast on new secondary */
 
-    --accent: 205 90% 76%; /* Lighter Sky Blue */
+    --accent: 200 100% 67%; /* Bright sky blue - from #59d1ff */
     --accent-foreground: 210 50% 15%; /* Darker blue for text on accent */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 208 100% 32%; /* Slightly lighter Deep Teal for rings - NEW */
+    --ring: 208 100% 32%; /* Slightly lighter Deep Teal for rings */
     --radius: 0.5rem;
 
-    --chart-1: 208 100% 22%; /* Deep Teal - NEW */
+    --chart-1: 208 100% 22%; /* Deep Teal */
     --chart-2: 205 90% 65%; /* Lighter blue */
     --chart-3: 210 50% 40%; /* Muted dark blue */
     --chart-4: 190 80% 50%; /* Tealish blue */
@@ -60,21 +60,21 @@
     --border: 210 30% 25%;
     --input: 210 30% 20%;
 
-    --primary: 208 90% 55%; /* Lighter Deep Teal for dark mode primary - NEW */
+    --primary: 208 90% 55%; /* Lighter Deep Teal for dark mode primary */
     --primary-foreground: 210 50% 10%; /* Dark text on light blue */
 
-    --secondary: 210 30% 22%;
-    --secondary-foreground: 210 30% 90%; /* Light text on dark secondary (remains unchanged) */
+    --secondary: 209 70% 30%; /* Darker version of #1a61ab for dark mode */
+    --secondary-foreground: 210 30% 90%; /* Light text on dark secondary */
 
-    --accent: 205 90% 55%;
-    --accent-foreground: 210 30% 95%;
+    --accent: 200 90% 60%; /* Derived from #59d1ff for dark mode */
+    --accent-foreground: 210 30% 95%; /* Light text on accent */
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 208 90% 65%; /* Slightly lighter Deep Teal for dark mode rings - NEW */
+    --ring: 208 90% 65%; /* Slightly lighter Deep Teal for dark mode rings */
 
-    --chart-1: 208 90% 55%; /* Lighter Deep Teal for dark mode - NEW */
+    --chart-1: 208 90% 55%; /* Lighter Deep Teal for dark mode */
     --chart-2: 205 90% 70%;
     --chart-3: 210 50% 50%;
     --chart-4: 190 80% 60%;

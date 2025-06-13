@@ -16,18 +16,18 @@ import { useEvents, type CalendarEvent } from '@/contexts/events-context';
 
 // Define colors for categories to be used as capsules in day cells
 const EVENT_ITEM_STYLES = {
-  PAGO: { bg: 'bg-green-500', text: 'text-white', label: 'Pago' },
-  ESPECIAL: { bg: 'bg-purple-500', text: 'text-white', label: 'Especial' },
-  REUNION: { bg: 'bg-red-500', text: 'text-white', label: 'Reunión' },
-  TRABAJO: { bg: 'bg-blue-600', text: 'text-white', label: 'Trabajo' }, // User event - trabajo
-  PERSONAL: { bg: 'bg-teal-600', text: 'text-white', label: 'Personal' }, // User event - personal
-  DEFAULT: { bg: 'bg-gray-200', text: 'text-gray-700', label: ''} // Fallback
+  PAGO: { bg: 'bg-green-200', text: 'text-green-800', label: 'Pago' },
+  ESPECIAL: { bg: 'bg-purple-200', text: 'text-purple-800', label: 'Especial' },
+  REUNION: { bg: 'bg-rose-200', text: 'text-rose-800', label: 'Reunión' },
+  TRABAJO: { bg: 'bg-sky-200', text: 'text-sky-800', label: 'Trabajo' }, // User event - trabajo
+  PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal' }, // User event - personal
+  DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: ''} // Fallback
 };
 
-// Keywords for categorization
+// Keywords for categorization - keep these specific to avoid miscategorization
 const PAGO_KEYWORDS = ['pago', 'beneficio', 'asignación', 'quincena', 'transporte', 'alimentación', 'sociales'];
 const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario', 'independencia', 'mujer', 'trabajador', 'resistencia', 'navidad', 'noche buena', 'festivo', 'resultados anuales'];
-const REUNION_KEYWORDS = ['reunión', 'comité', 'presentación', 'cierre', 'trimestral', 'planificación', 'sprint', 'review', 'taller', 'charla', 'workshop', 'q2', 'q1', 'q3', 'q4'];
+const REUNION_KEYWORDS = ['reunión', 'reunion', 'comité', 'comite', 'presentación', 'presentacion', 'cierre', 'trimestral', 'planificación', 'planning', 'sprint', 'review', 'taller', 'charla', 'workshop', 'q1', 'q2', 'q3', 'q4'];
 
 
 function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string } {
@@ -52,9 +52,14 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
   
   // Fallback for mock events that don't fit above categories, using their predefined color if it's a bg class
   if (event.color && event.color.startsWith('bg-')) {
-     const isDarkBg = ['pink-500', 'red-500', 'purple-500', 'green-500', 'blue-500', 'orange-500', 'yellow-500', 'teal-500', 'cyan-500', 'sky-500', 'emerald-500', 'lime-500', 
-                       'pink-600', 'red-600', 'purple-600', 'green-600', 'blue-600', 'orange-600', 'yellow-600', 'teal-600', 'cyan-600', 'sky-600', 'emerald-600', 'lime-600' // adding -600 variants
-                      ].some(c => event.color.includes(c));
+     // For mock events with pre-defined `bg-` colors, try to guess if text should be light or dark.
+     // This is a rough heuristic.
+     const darkBgs = ['bg-pink-500', 'bg-red-500', 'bg-purple-500', 'bg-green-500', 'bg-blue-500', 'bg-orange-500', 'bg-yellow-500', 'bg-teal-500', 'bg-cyan-500', 'bg-sky-500', 'bg-emerald-500', 'bg-lime-500', 
+                      'bg-pink-600', 'bg-red-600', 'bg-purple-600', 'bg-green-600', 'bg-blue-600', 'bg-orange-600', 'bg-yellow-600', 'bg-teal-600', 'bg-cyan-600', 'bg-sky-600', 'bg-emerald-600', 'bg-lime-600',
+                      'bg-slate-700', 'bg-gray-700', 'bg-zinc-700', 'bg-neutral-700', 'bg-stone-700',
+                      'bg-slate-800', 'bg-gray-800', 'bg-zinc-800', 'bg-neutral-800', 'bg-stone-800',
+                     ];
+     const isDarkBg = darkBgs.some(c => event.color.includes(c));
      return { bg: event.color, text: isDarkBg ? 'text-white' : 'text-gray-800', label: '' };
   }
 
@@ -161,15 +166,15 @@ export function CalendarWithEvents() {
       return;
     }
     
-    const mainCategory = categorizeEvent(newEventTitle, newEventDescription); // This is 'personal' or 'trabajo'
-    const userEventStyles = getCategoryDisplayStyles(mainCategory); // Gets dotColor, badgeText etc. for user events
+    const mainCategory = categorizeEvent(newEventTitle, newEventDescription); 
+    const userEventStyles = getCategoryDisplayStyles(mainCategory); 
 
     const newEventToAdd: CalendarEvent = {
       id: `user-${Date.now()}`,
       date,
       title: newEventTitle,
       description: newEventDescription,
-      color: userEventStyles.dotColor, // Use dotColor for consistency, though capsule style will be from EVENT_ITEM_STYLES
+      color: userEventStyles.dotColor, 
       isUserEvent: true,
       category: mainCategory, 
       time: newEventTime || undefined,
@@ -226,7 +231,7 @@ export function CalendarWithEvents() {
       });
   
     if (eventsOnDay.length === 0) {
-      return <div className="flex-grow min-h-[4rem]"></div>;
+      return <div className="flex-grow min-h-[4rem]"></div>; // Ensure empty cells maintain height
     }
   
     const maxEventsToShowInCell = 3; 
@@ -245,7 +250,7 @@ export function CalendarWithEvents() {
                 "px-1 py-0.5 rounded text-xs leading-tight flex items-start gap-1.5 cursor-pointer",
                 renderProps.bg,
                 renderProps.text,
-                isClickedEventItem && "ring-2 ring-offset-1 ring-white/70" // Highlight for clicked item within selected cell
+                isClickedEventItem && "ring-2 ring-offset-1 ring-white/70" 
               )}
               onClick={(e) => {
                 e.stopPropagation(); 
@@ -256,14 +261,14 @@ export function CalendarWithEvents() {
               tabIndex={0}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedEvent(event); setDate(dayCellDate);}}}
             >
-              {/* Dot removed, capsule color is the indicator */}
               <div className="flex-grow">
                 <p className={cn(
                   "font-medium truncate",
-                   // Text color is now part of renderProps.text and applied to the parent div
+                  isCellCurrentlySelected ? (isClickedEventItem ? renderProps.text : 'inherit') : renderProps.text
                 )}>{event.title}</p>
                  {event.time && <p className={cn(
-                   "text-xs opacity-80", // Inherits text color, slightly dimmed
+                   "text-xs opacity-80", 
+                   isCellCurrentlySelected ? (isClickedEventItem ? renderProps.text : 'inherit') : renderProps.text
                   )}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
               </div>
             </div>
@@ -296,7 +301,7 @@ export function CalendarWithEvents() {
           footer={
             <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
               <div className="flex items-center justify-between">
-                <div className="min-h-[60px] flex-grow"> {/* Ensure footer has some min height and can grow */}
+                <div className="min-h-[60px] flex-grow"> 
                   {selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? (
                     <div className="text-xs">
                       <p className="font-semibold text-primary">{selectedEvent.title}</p>
@@ -388,3 +393,4 @@ export function CalendarWithEvents() {
   );
 }
 
+    

@@ -2,12 +2,12 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar, type CalendarProps } from "@/components/ui/calendar"; // Assuming CalendarProps is exported
 import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-import { AlertCircle, PlusCircle, Trash2, Clock, CalendarDays, Filter, XCircle } from 'lucide-react';
+import { PlusCircle, Trash2, Clock } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,39 +16,10 @@ import { Badge } from '@/components/ui/badge';
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-// Define la estructura para los eventos agrupados
-interface GroupedEvents {
-  [category: string]: CalendarEvent[];
-}
-
-// Orden deseado para las categorías en el diálogo
-const dialogCategoriesOrder = ["Feriados", "Pagos", "Reuniones", "Eventos Especiales", "Eventos Personales"];
-
-// Función para categorizar eventos específicamente para el diálogo
-function categorizeEventForDialog(event: CalendarEvent): string {
-  const titleLower = event.title.toLowerCase();
-  const descriptionLower = event.description ? event.description.toLowerCase() : "";
-  
-  if (titleLower.includes("pago ") || titleLower.includes("beneficio de") || titleLower.includes("asignación especial") || titleLower.includes("quincena") || titleLower.includes("complemento alimentación")) {
-    return "Pagos";
-  }
-  if (titleLower.includes("feriado") || titleLower.includes("día del trabajador") || titleLower.includes("día de la independencia") || titleLower.includes("navidad") || titleLower.includes("noche buena") || titleLower.includes("día de la resistencia indígena")) {
-    return "Feriados";
-  }
-  if (titleLower.includes("reunión") || titleLower.includes("comité") || titleLower.includes("presentación") || titleLower.includes("sprint") || titleLower.includes("planning") || titleLower.includes("review") || titleLower.includes("inicio trimestre") || titleLower.includes("resultados anuales")) {
-    return "Reuniones";
-  }
-  if (event.isUserEvent && event.category === 'personal') {
-    return "Eventos Personales";
-  }
-  return "Eventos Especiales";
-}
-
 
 export function CalendarWithEvents() {
   const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
-  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
   
@@ -56,7 +27,6 @@ export function CalendarWithEvents() {
   const [newEventDescription, setNewEventDescription] = useState('');
   const [newEventTime, setNewEventTime] = useState(''); 
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
-  const [isEventsMonthDialogOpen, setIsEventsMonthDialogOpen] = useState(false); 
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
   const { toast } = useToast();
@@ -84,7 +54,6 @@ export function CalendarWithEvents() {
     const todayStr = format(new Date(), 'yyyy-MM-dd');
     const todaysEvents = allEvents.filter(event => format(event.date, 'yyyy-MM-dd') === todayStr);
     const newTodaysEvents = todaysEvents.filter(event => !remindedEventIds.has(`today-${event.id}`));
-
 
     if (newTodaysEvents.length > 0) {
       newTodaysEvents.forEach(event => {
@@ -136,55 +105,13 @@ export function CalendarWithEvents() {
   }, [allEvents, remindedEventIds]);
 
 
-  const modifiers = useMemo(() => {
-    return allEvents.reduce((acc, event) => {
-      const key = `event-${event.id}`;
-      acc[key] = event.date;
-      return acc;
-    }, {} as Record<string, Date>);
-  }, [allEvents]);
-  
-  const modifiersClassNames = useMemo(() => {
-    return allEvents.reduce((acc, event) => {
-      const key = `event-${event.id}`;
-      let dotClass = '';
-      const eventDialogCategory = categorizeEventForDialog(event);
-  
-      if (selectedCategoryFilter) {
-        if (eventDialogCategory === selectedCategoryFilter) {
-          dotClass = 'after:bg-accent after:w-2 after:h-2'; 
-        } else {
-          dotClass = 'after:bg-muted-foreground/30 after:w-1 after:h-1'; 
-        }
-      } else {
-        let originalDotColor = 'bg-foreground'; 
-        if (event.isUserEvent && event.category) {
-          originalDotColor = getCategoryDisplayStyles(event.category).dotColor;
-        } else if (!event.isUserEvent && event.color) {
-          originalDotColor = event.color;
-        }
-        dotClass = `after:${originalDotColor} after:w-1.5 after:h-1.5`;
-      }
-  
-      acc[key] = `relative 
-                    after:content-[''] after:absolute after:rounded-full 
-                    after:bottom-1 after:left-1/2 after:-translate-x-1/2 
-                    ${dotClass}`;
-      return acc;
-    }, {} as Record<string, string>);
-  }, [allEvents, selectedCategoryFilter, getCategoryDisplayStyles]);
-
   const handleDayClick = (day: Date) => {
-    const eventsOnDay = allEvents.filter(
-      (event) => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd')
-    );
-    const userEventOnDay = eventsOnDay.find(e => e.isUserEvent); 
-    setSelectedEvent(userEventOnDay || eventsOnDay[0] || null); 
+    // If events are shown in cells, clicking a day might just set the 'selected' visual state
+    // and prepare for adding a new event to this day.
     setDate(day);
+    setSelectedEvent(null); // Clear previously selected specific event, if any
   };
   
-  const currentEventForPopover = selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? selectedEvent : null;
-
   const handleAddEvent = () => {
     if (!date || !newEventTitle) {
       toast({ title: "Error", description: "Por favor, seleccione una fecha e ingrese un título para el evento.", variant: "destructive" });
@@ -221,7 +148,7 @@ export function CalendarWithEvents() {
     setNewEventTime(''); 
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${styles.badgeText}) añadido al calendario.` });
-    setSelectedEvent(newEventToAdd);
+    setSelectedEvent(newEventToAdd); // Optionally select the newly added event
   };
 
   const handleDeleteEvent = (eventId: string) => {
@@ -245,207 +172,115 @@ export function CalendarWithEvents() {
     }
   };
 
-  const displayedMonthName = useMemo(() => {
-    const currentDate = date || new Date(2025, 5, 1);
-    const monthName = format(currentDate, 'MMMM yyyy', { locale: es });
-    return monthName.charAt(0).toUpperCase() + monthName.slice(1);
-  }, [date]);
 
-  const eventsForCurrentMonth = useMemo(() => {
-    return allEvents
-      .filter(event => date ? event.date.getMonth() === date.getMonth() && event.date.getFullYear() === date.getFullYear() : true)
+  const renderDayEventsContent = (day: Date): React.ReactNode => {
+    const eventsOnDay = allEvents
+      .filter(event => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd'))
       .sort((a,b) => {
-          const dateComparison = a.date.getTime() - b.date.getTime();
-          if (dateComparison !== 0) return dateComparison;
           if (a.time && b.time) return a.time.localeCompare(b.time);
           if (a.time) return -1;
           if (b.time) return 1;
           return 0;
       });
-  }, [allEvents, date]);
-
-  const groupedEventsForDialog = useMemo(() => {
-    return eventsForCurrentMonth.reduce<GroupedEvents>((acc, event) => {
-      const category = categorizeEventForDialog(event);
-      if (!acc[category]) {
-        acc[category] = [];
-      }
-      acc[category].push(event);
-      return acc;
-    }, {});
-  }, [eventsForCurrentMonth]);
-
-  const handleCategoryFilterClick = (categoryName: string | null) => {
-    setSelectedCategoryFilter(categoryName);
-    // Optionally close the dialog when a filter is applied
-    // setIsEventsMonthDialogOpen(false); 
+  
+    if (eventsOnDay.length === 0) {
+      return <div className="flex-grow min-h-[4rem]"></div>; // Placeholder for consistent cell height
+    }
+  
+    const maxEventsToShow = 3; 
+  
+    return (
+      <div className="flex-grow overflow-y-auto space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
+        {eventsOnDay.slice(0, maxEventsToShow).map(event => {
+          const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+          const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
+          const isSelected = selectedEvent?.id === event.id && date && format(date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd');
+          
+          return (
+            <div 
+              key={event.id} 
+              className={cn(
+                "p-1 rounded-sm flex items-start gap-1.5 group/event-item cursor-pointer hover:bg-accent/20",
+                isSelected && "bg-accent/30 ring-1 ring-accent"
+              )}
+              style={{ 
+                // Use a very light, almost transparent version of the event color for background
+                backgroundColor: `${displayColor.replace('bg-','').replace('-500','').replace('-600','').replace('-700','')}1A` 
+              }}
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent day click if clicking on event
+                setSelectedEvent(event);
+                setDate(day); // Ensure calendar selection follows
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedEvent(event); setDate(day);}}}
+            >
+              <div className={cn("mt-[3px] w-1.5 h-1.5 rounded-full flex-shrink-0", displayColor)} />
+              <div className="flex-grow">
+                <p className={cn("font-medium truncate", isSelected ? "text-accent-foreground font-semibold" : "text-foreground/90")}>{event.title}</p>
+                 {event.time && <p className={cn("text-xs", isSelected? "text-accent-foreground/80" : "text-muted-foreground/80")}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
+              </div>
+            </div>
+          );
+        })}
+        {eventsOnDay.length > maxEventsToShow && (
+          <div className="text-center text-muted-foreground text-[9px] mt-1">
+            + {eventsOnDay.length - maxEventsToShow} más
+          </div>
+        )}
+      </div>
+    );
   };
-
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-lg self-center"> 
+      <div className="w-full"> 
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
-          onDayClick={handleDayClick}
+          onSelect={setDate} 
+          onDayClick={handleDayClick} // Sets the main selected date
           className="w-full" 
-          defaultMonth={new Date(2025, 5, 1)}
+          defaultMonth={new Date(2025, 5, 1)} // June 2025
           locale={es} 
-          modifiers={modifiers}
-          modifiersClassNames={modifiersClassNames}
+          renderDayContent={renderDayEventsContent} // Pass the function to render events in cells
           footer={
-            <div className="p-2 mt-1 text-sm space-y-1"> 
-              {currentEventForPopover ? (
-               <div>
-                <h4 className={cn(
-                    "font-semibold mb-0.5 flex items-center justify-between gap-2 text-sm", 
-                    currentEventForPopover.isUserEvent && currentEventForPopover.category 
-                      ? getCategoryDisplayStyles(currentEventForPopover.category).textColor 
-                      : (currentEventForPopover.color && currentEventForPopover.color.startsWith('bg-') ? currentEventForPopover.color.replace('bg-','text-') : 'text-foreground')
-                  )}
-                >
-                    <div className="flex items-center gap-1.5"> 
-                        <AlertCircle className="h-3.5 w-3.5" /> {currentEventForPopover.title} 
-                        {currentEventForPopover.isUserEvent && currentEventForPopover.category && (
-                            <Badge variant="outline" className={cn("text-xs px-1.5 py-0", getCategoryDisplayStyles(currentEventForPopover.category).badgeClass)}> 
-                                {getCategoryDisplayStyles(currentEventForPopover.category).badgeText}
-                            </Badge>
-                        )}
+            <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
+              <div className="flex items-center justify-between">
+                <div>
+                  {selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? (
+                    <div className="text-xs">
+                      <p className="font-semibold text-primary">{selectedEvent.title}</p>
+                      <p className="text-muted-foreground">{selectedEvent.description}</p>
+                      {selectedEvent.time && (
+                        <p className="text-muted-foreground flex items-center gap-1">
+                          <Clock className="h-3 w-3" /> {format(new Date(`1970-01-01T${selectedEvent.time}`), 'p', { locale: es })}
+                        </p>
+                      )}
+                       {selectedEvent.isUserEvent && (
+                          <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              className="h-6 w-6 text-destructive hover:bg-destructive/10 hover:text-destructive mt-1" 
+                              onClick={() => handleDeleteEvent(selectedEvent!.id)}
+                              aria-label="Eliminar evento"
+                          >
+                              <Trash2 className="h-3.5 w-3.5" /> 
+                          </Button>
+                      )}
                     </div>
-                    {currentEventForPopover.isUserEvent && (
-                        <Button 
-                            variant="ghost" 
-                            size="icon" 
-                            className="h-5 w-5 text-destructive hover:bg-destructive/10 hover:text-destructive" 
-                            onClick={() => handleDeleteEvent(currentEventForPopover!.id)}
-                            aria-label="Eliminar evento"
-                        >
-                            <Trash2 className="h-3.5 w-3.5" /> 
-                        </Button>
-                    )}
-                </h4>
-                <p className="text-xs text-muted-foreground">{currentEventForPopover.description}</p> 
-                {currentEventForPopover.time && (
-                    <p className="text-xs text-muted-foreground flex items-center gap-1">
-                        <Clock className="h-3 w-3" /> Hora: {format(new Date(`1970-01-01T${currentEventForPopover.time}`), 'p', { locale: es })}
+                  ) : (
+                     <p className="text-xs text-muted-foreground">
+                      {date ? `Día seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
                     </p>
-                )}
-               </div>
-              ) : (
-                <p className="text-xs text-muted-foreground"> 
-                  {date ? `Seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
-                </p>
-              )}
-              <div className="flex items-center justify-end pt-1 space-x-1"> 
-                 <Dialog open={isEventsMonthDialogOpen} onOpenChange={setIsEventsMonthDialogOpen}>
-                    <DialogTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Ver eventos de ${displayedMonthName}`}>
-                            <CalendarDays className="h-4 w-4" />
-                        </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[525px]">
-                        <DialogHeader>
-                        <DialogTitle>Eventos del Mes - {displayedMonthName}</DialogTitle>
-                        <DialogDescription>
-                            {selectedCategoryFilter ? `Mostrando eventos de: ${selectedCategoryFilter}.` : "Lista de todos los eventos programados."}
-                            <br/>
-                            Haga clic en una categoría para filtrar o en un evento para verlo en el calendario.
-                        </DialogDescription>
-                        </DialogHeader>
-                        
-                        <div className="my-3">
-                            <Button 
-                                variant={!selectedCategoryFilter ? "default" : "outline"} 
-                                size="sm" 
-                                onClick={() => handleCategoryFilterClick(null)}
-                                className="w-full"
-                            >
-                                <Filter className="mr-2 h-4 w-4" /> Mostrar Todas las Categorías
-                            </Button>
-                        </div>
-
-                        <ScrollArea className="h-[350px] pr-2 mt-2"> 
-                            <div className="space-y-0.5">
-                            {dialogCategoriesOrder.map(categoryName => {
-                                const eventsInCategory = groupedEventsForDialog[categoryName];
-                                if (!eventsInCategory || eventsInCategory.length === 0) {
-                                return null;
-                                }
-                                return (
-                                <div key={categoryName} className="mb-3">
-                                    <Button 
-                                        variant={selectedCategoryFilter === categoryName ? "secondary" : "ghost"} 
-                                        className={cn(
-                                            "w-full justify-start text-left h-auto py-1.5 px-2 mb-1.5 font-semibold text-sm sticky top-0 bg-background/95 z-10",
-                                            selectedCategoryFilter === categoryName && "text-secondary-foreground"
-                                        )}
-                                        onClick={() => handleCategoryFilterClick(categoryName)}
-                                    >
-                                        {categoryName} ({eventsInCategory.length})
-                                    </Button>
-                                    <div className="space-y-1.5 pl-2 border-l-2 ml-2 border-muted">
-                                    {eventsInCategory.map(event => {
-                                        const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-                                        return (
-                                            <Button
-                                            key={event.id}
-                                            variant="ghost"
-                                            className={cn(
-                                                "w-full justify-start text-left h-auto p-2.5 border rounded-md hover:bg-accent/80", 
-                                                date && format(event.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') && "bg-accent text-accent-foreground"
-                                            )}
-                                            onClick={() => {
-                                                handleDayClick(event.date);
-                                                // No cerramos el dialogo al seleccionar un evento si hay un filtro activo, 
-                                                // para que el usuario pueda seguir viendo la categoría filtrada.
-                                                // Si no hay filtro, sí cerramos.
-                                                if (!selectedCategoryFilter) {
-                                                    setIsEventsMonthDialogOpen(false); 
-                                                }
-                                            }}
-                                            >
-                                            <div className="flex items-start gap-2.5 w-full"> 
-                                                <div className={cn("mt-1 w-2.5 h-2.5 rounded-full flex-shrink-0", categoryStyles ? categoryStyles.dotColor : event.color)} />  
-                                                <div className="flex-grow">
-                                                <p className="font-medium text-xs leading-tight">{event.title}</p> 
-                                                <p className="text-xs text-muted-foreground mt-0.5"> 
-                                                    {format(event.date, 'd \'de\' MMM', { locale: es })} 
-                                                    {event.time && ` - ${format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}`}
-                                                </p>
-                                                </div>
-                                                {categoryStyles && (
-                                                <Badge 
-                                                    variant="outline" 
-                                                    className={cn("text-xs px-1.5 py-0", categoryStyles.badgeClass)} 
-                                                >
-                                                    {categoryStyles.badgeText}
-                                                </Badge>
-                                                )}
-                                            </div>
-                                            </Button>
-                                        );
-                                        })}
-                                    </div>
-                                </div>
-                                );
-                            })}
-                            {eventsForCurrentMonth.length === 0 && (
-                                <p className="text-sm text-muted-foreground p-3 text-center">No hay eventos para {displayedMonthName.toLowerCase()}.</p>
-                            )}
-                            </div>
-                        </ScrollArea>
-                        <DialogFooter className="mt-4">
-                        <Button type="button" variant="outline" onClick={() => setIsEventsMonthDialogOpen(false)}>Cerrar</Button>
-                        </DialogFooter>
-                    </DialogContent>
-                </Dialog>
+                  )}
+                </div>
 
                 {date && (
                   <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                     <DialogTrigger asChild>
-                       <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> 
+                       <Button variant="outline" size="icon" className="h-8 w-8" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> 
                         <PlusCircle className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>

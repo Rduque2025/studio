@@ -108,7 +108,7 @@ export function CalendarWithEvents() {
   const eventDates = allEvents.map(event => event.date);
 
   const modifiers = {
-    highlighted: eventDates,
+    // highlighted: eventDates, // Keep if you want a general highlight for any event day
     ...allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
       acc[key] = event.date;
@@ -117,22 +117,25 @@ export function CalendarWithEvents() {
   };
   
   const modifiersClassNames = {
-    highlighted: 'border-primary ring-1 ring-primary rounded-md',
+    // highlighted: 'border-primary ring-1 ring-primary rounded-md', // Style for general event day highlight
     ...allEvents.reduce((acc, event) => {
       const key = `event-${event.id}`;
-      let finalColor = event.color; 
-      let textColorClass = event.color.replace('bg-', 'text-');
-
+      let dotColorClass = 'bg-foreground'; // Default dot color (black/foreground)
+      
       if (event.isUserEvent && event.category) {
-        const styles = getCategoryDisplayStyles(event.category);
-        finalColor = styles.dotColor; 
-        textColorClass = styles.textColor;
+         // For user events, you might use category-specific dot colors if desired
+         // const styles = getCategoryDisplayStyles(event.category);
+         // dotColorClass = styles.dotColor; // Example: using category specific dot colors
+      } else if (!event.isUserEvent && event.color) {
+        // For predefined mock events, use their specific color for the dot
+        dotColorClass = event.color; 
       }
       
-      acc[key] = `relative ${textColorClass} 
-                  before:content-[''] before:absolute before:rounded-full before:w-2 before:h-2 
-                  before:-bottom-1 before:left-1/2 before:-translate-x-1/2 
-                  ${finalColor}`; 
+      // Minimalist dot style
+      acc[key] = `relative 
+                  after:content-[''] after:absolute after:rounded-full after:w-1.5 after:h-1.5 
+                  after:bottom-1 after:left-1/2 after:-translate-x-1/2 
+                  ${dotColorClass}`; // Use the determined dot color
       return acc;
     }, {} as Record<string, string>)
   };
@@ -211,33 +214,34 @@ export function CalendarWithEvents() {
 
   return (
     <div className="flex flex-col lg:grid lg:grid-cols-[max-content_1fr] gap-6 lg:gap-8 items-start">
-      {/* Calendar part wrapper */}
+      {/* Calendar part wrapper - removing card styles like border, padding, shadow */}
       <div className="w-full lg:w-auto self-start">
         <Calendar
           mode="single"
           selected={date}
           onSelect={setDate}
           onDayClick={handleDayClick}
-          className="rounded-md border p-4 bg-card shadow-sm w-full"
+          // className="rounded-md border p-4 bg-card shadow-sm w-full" // Removed card specific classes
+          className="w-full" // Ensure it takes full width of its container
           defaultMonth={new Date(2025, 5, 1)}
-          locale={es}
+          locale={es} // Pass locale
           modifiers={modifiers}
           modifiersClassNames={modifiersClassNames}
           footer={
-            <div className="p-2 mt-2 border-t text-sm space-y-2">
+            <div className="p-2 mt-1 text-sm space-y-1"> {/* Simplified footer styling */}
               {currentEventForPopover ? (
                <div>
                 <h4 className={cn(
-                    "font-semibold mb-1 flex items-center justify-between gap-2", 
+                    "font-semibold mb-0.5 flex items-center justify-between gap-2 text-sm", // Reduced font size
                     currentEventForPopover.isUserEvent && currentEventForPopover.category 
                       ? getCategoryDisplayStyles(currentEventForPopover.category).textColor 
-                      : currentEventForPopover.color.replace('bg-','text-')
+                      : currentEventForPopover.color.replace('bg-','text-') // This might need adjustment if color is not bg- based
                   )}
                 >
-                    <div className="flex items-center gap-2">
-                        <AlertCircle className="h-4 w-4" /> {currentEventForPopover.title}
+                    <div className="flex items-center gap-1.5"> {/* Reduced gap */}
+                        <AlertCircle className="h-3.5 w-3.5" /> {currentEventForPopover.title} {/* Smaller icon */}
                         {currentEventForPopover.isUserEvent && currentEventForPopover.category && (
-                            <Badge variant="secondary" className={cn("text-xs", getCategoryDisplayStyles(currentEventForPopover.category).badgeClass)}>
+                            <Badge variant="outline" className={cn("text-xs px-1.5 py-0", getCategoryDisplayStyles(currentEventForPopover.category).badgeClass)}> {/* Smaller badge */}
                                 {getCategoryDisplayStyles(currentEventForPopover.category).badgeText}
                             </Badge>
                         )}
@@ -246,23 +250,23 @@ export function CalendarWithEvents() {
                         <Button 
                             variant="ghost" 
                             size="icon" 
-                            className="h-6 w-6 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                            className="h-5 w-5 text-destructive hover:bg-destructive/10 hover:text-destructive" // Smaller button
                             onClick={() => handleDeleteEvent(currentEventForPopover!.id)}
                             aria-label="Eliminar evento"
                         >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-3.5 w-3.5" /> {/* Smaller icon */}
                         </Button>
                     )}
                 </h4>
-                <p className="text-muted-foreground">{currentEventForPopover.description}</p>
+                <p className="text-xs text-muted-foreground">{currentEventForPopover.description}</p> {/* Smaller text */}
                 {currentEventForPopover.time && (
-                    <p className="text-muted-foreground text-xs flex items-center gap-1">
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
                         <Clock className="h-3 w-3" /> Hora: {format(new Date(`1970-01-01T${currentEventForPopover.time}`), 'p', { locale: es })}
                     </p>
                 )}
                </div>
               ) : (
-                <p className="text-muted-foreground">
+                <p className="text-xs text-muted-foreground"> {/* Smaller text */}
                   {date ? `Seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
                 </p>
               )}
@@ -270,8 +274,8 @@ export function CalendarWithEvents() {
                 {date && (
                   <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button variant="outline" size="icon" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}>
-                        <PlusCircle className="h-5 w-5" />
+                       <Button variant="ghost" size="icon" className="h-7 w-7" aria-label={`Añadir evento el ${format(date, 'PPP', { locale: es })}`}> {/* Subtle add button */}
+                        <PlusCircle className="h-4 w-4" />
                       </Button>
                     </DialogTrigger>
                     <DialogContent>

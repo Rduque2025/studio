@@ -91,18 +91,17 @@ function Calendar({
         row: "flex w-full mt-1 gap-1", 
         cell: cn( 
           "w-full text-sm p-0 relative focus-within:relative focus-within:z-20 border border-border rounded-md",
-          "min-h-[10rem] h-auto", 
+          "min-h-[10rem] h-auto",
+          "has-[[aria-selected=true]]:bg-[#dcdcdc] has-[[aria-selected=true]]:text-foreground has-[[aria-selected=true]]:hover:bg-[#c8c8c8] has-[[aria-selected=true]]:focus:bg-[#c8c8c8]", // Handles selected day bg
+          "dark:has-[[aria-selected=true]]:bg-slate-700 dark:has-[[aria-selected=true]]:text-slate-50 dark:has-[[aria-selected=true]]:hover:bg-slate-600 dark:has-[[aria-selected=true]]:focus:bg-slate-600",
           props.mode === "range" &&
-            "has-[[aria-selected=true_],[aria-selected=true_span_end],[aria-selected=true_span_start]]:bg-accent/50",
-          props.mode === "multiple" && "has-[[aria-selected=true]]:bg-accent/50"
+            "has-[[aria-selected=true_],[aria-selected=true_span_end],[aria-selected=true_span_start]]:bg-accent/50", // Keep range styles if needed
+          props.mode === "multiple" && "has-[[aria-selected=true]]:bg-accent/50" // Keep multiple styles if needed
         ),
         day: cn(
           "h-full w-full p-1.5 text-left align-top font-normal flex flex-col" 
         ),
-        day_selected: 
-          cn( (props.mode === "single" || props.mode === "multiple" || props.mode === "range") && 
-              "bg-[#dcdcdc] text-foreground hover:bg-[#c8c8c8] focus:bg-[#c8c8c8] rounded-md dark:bg-slate-700 dark:text-slate-50 dark:hover:bg-slate-600 dark:focus:bg-slate-600"
-            ),
+        day_selected: "", // Clear direct day_selected styles as cell handles it via has[]
         day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-sky-300 dark:border-sky-700 rounded-md", 
         day_outside: "day-outside text-muted-foreground/40 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
@@ -121,8 +120,8 @@ function Calendar({
                 <div className={cn(
                   "self-start text-xs font-medium px-1.5 py-0.5 rounded-full",
                    activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
-                   activeModifiers.selected && !activeModifiers.today && "bg-[#dcdcdc] text-foreground", 
-                   activeModifiers.selected && activeModifiers.today && "bg-[#dcdcdc] text-foreground" 
+                   activeModifiers.selected && !activeModifiers.today && "bg-transparent text-foreground", // Number pill transparent if selected
+                   activeModifiers.selected && activeModifiers.today && "bg-transparent text-foreground"  // Number pill transparent if selected and today
                 )}>
                   {format(cellDate, "d")}
                 </div>
@@ -133,22 +132,13 @@ function Calendar({
                 )}
               </div>
               {activeModifiers.selected && onAddEventTrigger && (
-                <div 
-                  role="button"
-                  tabIndex={0}
+                <div
                   onClick={(e) => {
                     e.stopPropagation();
                     onAddEventTrigger(cellDate);
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      onAddEventTrigger(cellDate);
-                    }
-                  }}
                   className={cn(
-                    "p-0 h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-accent/50 focus-visible:ring-1 focus-visible:ring-ring cursor-pointer"
+                    "p-0 h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-accent/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer"
                   )}
                   aria-label={`Añadir evento el ${format(cellDate, 'PPP', { locale: props.locale || es })}`}
                 >
@@ -173,4 +163,3 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
-

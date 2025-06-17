@@ -78,11 +78,19 @@ const pilaresData = [
   { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, bgColor: "bg-pink-600", iconColor: "text-pink-700" },
 ];
 
+const pillPositions = [
+  { base: "top-[10%] left-[5%] sm:top-[15%] sm:left-[10%]", orientation: "left" as const },
+  { base: "top-[10%] right-[5%] sm:top-[15%] sm:right-[10%]", orientation: "right" as const },
+  { base: "bottom-[10%] left-[5%] sm:bottom-[15%] sm:left-[10%]", orientation: "left" as const },
+  { base: "bottom-[10%] right-[5%] sm:bottom-[15%] sm:right-[10%]", orientation: "right" as const },
+];
+
 
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
+  const [currentDisplay, setCurrentDisplay] = useState<'valores' | 'pilares'>('valores');
 
   useEffect(() => {
     const today = new Date();
@@ -114,8 +122,12 @@ export default function DashboardPage() {
     );
   };
 
+  const toggleDisplay = () => {
+    setCurrentDisplay(prev => prev === 'valores' ? 'pilares' : 'valores');
+  };
+
   const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
-    const IconToRender = icon; // Use a PascalCase alias for the icon component
+    const IconToRender = icon; 
     return (
       <div className={cn("flex items-center w-72 md:w-80 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
         <div className={cn("text-white p-4 rounded-lg shadow-md h-32 flex flex-col justify-center", bgColor, orientation === 'left' ? 'rounded-r-none' : 'rounded-l-none')}>
@@ -219,46 +231,56 @@ export default function DashboardPage() {
             </div>
           </div>
       </SectionWrapper>
-
-      <SectionWrapper title="" cardClassName="bg-transparent shadow-none rounded-lg border-none" headerClassName="hidden" contentClassName="p-0">
-        <div className="space-y-12 py-6">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Valores</h3>
-            <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-3xl mx-auto">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background">
-                <Building2 className="h-16 w-16 md:h-20 md:w-20 text-primary" />
-              </div>
-              
-              {/* Valor 1: Top-Leftish */}
-              <div className="absolute top-[10%] left-[5%] sm:top-[15%] sm:left-[10%]">
-                <ValuePillarPill {...valoresData[0]} orientation="left" />
-              </div>
-              {/* Valor 2: Top-Rightish */}
-              <div className="absolute top-[10%] right-[5%] sm:top-[15%] sm:right-[10%]">
-                 <ValuePillarPill {...valoresData[1]} orientation="right" />
-              </div>
-              {/* Valor 3: Bottom-Leftish */}
-              <div className="absolute bottom-[10%] left-[5%] sm:bottom-[15%] sm:left-[10%]">
-                <ValuePillarPill {...valoresData[2]} orientation="left" />
-              </div>
-              {/* Valor 4: Bottom-Rightish */}
-              <div className="absolute bottom-[10%] right-[5%] sm:bottom-[15%] sm:right-[10%]">
-                <ValuePillarPill {...valoresData[3]} orientation="right" />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-3xl font-bold text-primary mb-12 text-center">Nuestros Pilares</h3>
-            <div className="flex flex-wrap justify-center items-stretch gap-x-8 gap-y-12">
-              {pilaresData.map((pillar, index) => (
-                <ValuePillarPill key={pillar.title} {...pillar} orientation={index % 2 === 0 ? 'left' : 'right'} />
-              ))}
-            </div>
-          </div>
+      
+      <SectionWrapper 
+        title="Nuestros Principios Fundamentales"
+        cardClassName="bg-transparent shadow-none rounded-lg border-none"
+        contentClassName="p-0"
+        titleClassName="text-3xl font-bold text-primary mb-8 text-center"
+      >
+        <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-3xl mx-auto">
+          <button
+            onClick={toggleDisplay}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background z-20 cursor-pointer hover:scale-105 transition-transform"
+            aria-label="Cambiar vista entre valores y pilares"
+          >
+            <Building2 className="h-16 w-16 md:h-20 md:w-20 text-primary" />
+          </button>
+          
+          {pillPositions.map((pos, index) => {
+            const valor = valoresData[index];
+            const pilar = pilaresData[index];
+            return (
+              <React.Fragment key={index}>
+                {/* Valor Pill */}
+                <div 
+                  className={cn(
+                    "absolute transition-all duration-500 ease-in-out",
+                    pos.base,
+                    currentDisplay === 'valores' 
+                      ? "opacity-100 scale-100" 
+                      : "opacity-0 scale-90 pointer-events-none"
+                  )}
+                >
+                  {valor && <ValuePillarPill {...valor} orientation={pos.orientation} />}
+                </div>
+                {/* Pilar Pill */}
+                <div 
+                  className={cn(
+                    "absolute transition-all duration-500 ease-in-out",
+                    pos.base,
+                    currentDisplay === 'pilares' 
+                      ? "opacity-100 scale-100" 
+                      : "opacity-0 scale-90 pointer-events-none"
+                  )}
+                >
+                  {pilar && <ValuePillarPill {...pilar} orientation={pos.orientation} />}
+                </div>
+              </React.Fragment>
+            );
+          })}
         </div>
       </SectionWrapper>
-
 
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
@@ -322,7 +344,6 @@ export default function DashboardPage() {
     </div>
   );
 }
-
     
 
     

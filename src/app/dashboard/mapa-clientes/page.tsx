@@ -340,7 +340,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
-                Logro Cobrado vs. Meta (Mensual)
+                Logro Cobrado vs. Meta
               </CardTitle>
               <CardDescription className="text-xs">Comparativa mensual del monto cobrado real frente a la meta establecida.</CardDescription>
             </CardHeader>

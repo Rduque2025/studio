@@ -101,7 +101,7 @@ function Calendar({
           cn( (props.mode === "single" || props.mode === "multiple" || props.mode === "range") && 
               "bg-[#dcdcdc] text-foreground hover:bg-[#c8c8c8] focus:bg-[#c8c8c8] rounded-md dark:bg-slate-700 dark:text-slate-50 dark:hover:bg-slate-600 dark:focus:bg-slate-600"
             ),
-        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-secondary rounded-md", 
+        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-sky-300 dark:border-sky-700 rounded-md", 
         day_outside: "day-outside text-muted-foreground/40 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle: props.mode === "range" && "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -117,10 +117,9 @@ function Calendar({
             <div className="flex items-center space-x-1 mb-1"> 
               <div className={cn(
                 "self-start text-xs font-medium px-1.5 py-0.5 rounded-full",
-                 activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground"
-                 // When selected, the number's text color is handled by the cell's `text-foreground`.
-                 // No distinct background for the number pill itself if the day is selected.
-                 // When not selected and not today, it's a plain number, text color defaults or is `text-foreground` from cell.
+                 activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
+                 activeModifiers.selected && !activeModifiers.today && "bg-[#dcdcdc] text-foreground", // Selected, not today
+                 activeModifiers.selected && activeModifiers.today && "bg-[#dcdcdc] text-foreground" // Selected AND today
               )}>
                 {format(cellDate, "d")}
               </div>
@@ -147,3 +146,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+

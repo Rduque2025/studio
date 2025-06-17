@@ -260,6 +260,11 @@ export const mockCalendarEvents = [
   { id: "payment-jun-20-sociales", date: new Date(2025, 5, 20), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
   { id: "payment-jun-26-alimentacion-benef",date: new Date(2025, 5, 26), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
   { id: "payment-jun-26-quincena", date: new Date(2025, 5, 26), title: "Pago Quincena", description: "Pago de quincena.", color: "bg-emerald-500", isUserEvent: false },
+  // Feriados Bancarios Junio 2025
+  { id: "bank-holiday-jun-02", date: new Date(2025, 5, 2), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "bank-holiday-jun-16", date: new Date(2025, 5, 16), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "bank-holiday-jun-23", date: new Date(2025, 5, 23), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "bank-holiday-jun-24", date: new Date(2025, 5, 24), title: "Feriado Bancario", description: "Día no laborable para el sector bancario (Coincide con Batalla de Carabobo).", color: "bg-slate-700", isUserEvent: false },
 ];
 
 export const mockDressCodeItems: DressCodeItem[] = [

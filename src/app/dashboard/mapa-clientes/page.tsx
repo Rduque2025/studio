@@ -25,20 +25,20 @@ const keyMetricsData = {
 };
 
 const logroCobradoData = [
-  { month: "Ene", real: 450000, meta: 400000 },
-  { month: "Feb", real: 480000, meta: 420000 },
-  { month: "Mar", real: 510000, meta: 450000 },
-  { month: "Abr", real: 490000, meta: 460000 },
-  { month: "May", real: 530000, meta: 480000 },
+  { month: "Ene", real: 1000000, meta: 32000000 },
+  { month: "Feb", real: 2200000, meta: 32000000 },
+  { month: "Mar", real: 3700000, meta: 32000000 },
+  { month: "Abr", real: 5500000, meta: 32000000 },
+  { month: "May", real: 7500000, meta: 32000000 },
   { month: "Jun", real: 9000000, meta: 32000000 }, 
 ];
 
 const logroSuscritoData = [
-  { month: "Ene", real: 600000, meta: 550000 },
-  { month: "Feb", real: 620000, meta: 570000 },
-  { month: "Mar", real: 650000, meta: 600000 },
-  { month: "Abr", real: 630000, meta: 610000 },
-  { month: "May", real: 670000, meta: 630000 },
+  { month: "Ene", real: 1500000, meta: 37000000 },
+  { month: "Feb", real: 3300000, meta: 37000000 },
+  { month: "Mar", real: 5300000, meta: 37000000 },
+  { month: "Abr", real: 7500000, meta: 37000000 },
+  { month: "May", real: 10000000, meta: 37000000 },
   { month: "Jun", real: 12000000, meta: 37000000 }, 
 ];
 
@@ -107,7 +107,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, descr
     }
   }, [value, isPercentage]);
 
-  let indicatorColorClass = "bg-primary"; // Default color
+  let indicatorColorClass = "bg-primary"; 
   if (progressPercentage !== undefined) {
     if (progressPercentage >= 100) {
       indicatorColorClass = "bg-green-500"; 

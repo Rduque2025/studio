@@ -32,6 +32,7 @@ const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; labe
   "Pago Quincena": { bg: 'bg-[#128d5d]', text: 'text-white', label: '' },
   "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
   "Beneficio Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
+  "Feriado Bancario": { bg: 'bg-slate-700', text: 'text-white', label: '' },
 };
 
 // Keywords for categorization - keep these specific to avoid miscategorization
@@ -270,9 +271,6 @@ export function CalendarWithEvents() {
                 setSelectedEvent(event);
                 setDate(dayCellDate); 
               }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { setSelectedEvent(event); setDate(dayCellDate);}}}
             >
               <div className="flex-grow">
                 <p className={cn(
@@ -410,3 +408,4 @@ export function CalendarWithEvents() {
     </div>
   );
 }
+

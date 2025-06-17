@@ -13,6 +13,7 @@ import { Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, Responsive
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { cn } from "@/lib/utils"; 
 import { regions as mapRegionsData } from "@/components/dashboard/venezuela-map"; // For state list
+import { ScrollArea } from "@/components/ui/scroll-area"; // Added import
 
 const keyMetricsData = {
   totalClientes: 25789,

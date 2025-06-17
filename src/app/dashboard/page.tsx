@@ -186,7 +186,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
       <section className="mb-12">
         <div className="flex flex-col md:flex-row items-start justify-center gap-8 max-w-6xl mx-auto">
           {/* Left Column: New PNG container */}
-          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg bg-pink-100"> {/* Added bg-pink-100 */}
             <Image
               src="https://storage.googleapis.com/makerbot-images/uploads/2024/07/26/11181827402633099955_1753716487192.png"
               alt="Persona ensamblando piezas de rompecabezas, simbolizando soluciones y estrategia"
@@ -251,7 +251,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
             </div>
              <div className="flex flex-col md:flex-row items-center gap-4">
                 {/* New PNG Placeholder (Inner Left) */}
-                <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-md flex-shrink-0">
+                <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-md flex-shrink-0 bg-pink-100"> {/* Added bg-pink-100 */}
                     <Image
                     src="https://storage.googleapis.com/makerbot-images/uploads/2024/07/26/11181827402633099955_1753716487192.png"
                     alt="Persona ensamblando piezas de rompecabezas, simbolizando soluciones y estrategia Banesco"
@@ -416,7 +416,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="flex flex-col md:flex-row items-start justify-center gap-8 py-4">
           {/* Left Column: New PNG container */}
-          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg bg-pink-100"> {/* Added bg-pink-100 */}
             <Image
               src="https://placehold.co/400x388.png"
               alt="Guía visual complementaria del código de vestimenta"

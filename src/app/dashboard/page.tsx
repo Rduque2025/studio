@@ -239,11 +239,9 @@ export default function DashboardPage() {
       </SectionWrapper>
       
       <SectionWrapper 
-        title="Valores y Pilares Fundamentales"
-        description="Los principios que guían nuestro actuar diario."
+        title=""
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
-        titleClassName="text-primary"
-        descriptionClassName="text-secondary"
+        headerClassName="hidden"
         contentClassName="p-0"
       >
         <div className="space-y-12 py-6">
@@ -314,3 +312,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

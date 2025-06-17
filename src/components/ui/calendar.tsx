@@ -70,17 +70,17 @@ function Calendar({
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 w-full",
         month: "space-y-3 w-full", 
         
-        caption: "flex justify-center pt-1 relative items-center", // This class is for the default DayPicker caption container
+        caption: "flex justify-center pt-1 relative items-center", 
         caption_label: "text-lg font-medium text-foreground", 
         caption_dropdowns: "flex gap-1", 
 
-        nav: "space-x-1 flex items-center", // Default nav container style
-        nav_button: cn( // Default nav button style
+        nav: "space-x-1 flex items-center", 
+        nav_button: cn( 
           buttonVariants({ variant: "outline" }),
           "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
         ),
-        nav_button_previous: "absolute left-1", // Used if we were using default DayPicker nav placement
-        nav_button_next: "absolute right-1",   // Used if we were using default DayPicker nav placement
+        nav_button_previous: "absolute left-1", 
+        nav_button_next: "absolute right-1",   
         
         table: "w-full border-collapse space-y-1",
         head_row: "flex mb-1", 
@@ -89,7 +89,7 @@ function Calendar({
         row: "flex w-full mt-1 gap-1", 
         cell: cn( 
           "w-full text-sm p-0 relative focus-within:relative focus-within:z-20 border border-border rounded-md",
-          "min-h-[10rem] h-auto", // Increased height for event content
+          "min-h-[10rem] h-auto", 
           props.mode === "range" &&
             "has-[[aria-selected=true_],[aria-selected=true_span_end],[aria-selected=true_span_start]]:bg-accent/50",
           props.mode === "multiple" && "has-[[aria-selected=true]]:bg-accent/50"
@@ -97,12 +97,11 @@ function Calendar({
         day: cn(
           "h-full w-full p-1.5 text-left align-top font-normal flex flex-col" 
         ),
-        day_selected: // When the day itself is selected (e.g., in single mode)
-          cn( props.mode === "single" && "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground rounded-md",
-              props.mode === "multiple" && "bg-primary text-primary-foreground rounded-md",
-              props.mode === "range" && "bg-primary text-primary-foreground"
+        day_selected: 
+          cn( (props.mode === "single" || props.mode === "multiple" || props.mode === "range") && 
+              "bg-[#dcdcdc] text-foreground hover:bg-[#c8c8c8] focus:bg-[#c8c8c8] rounded-md dark:bg-slate-700 dark:text-slate-50 dark:hover:bg-slate-600 dark:focus:bg-slate-600"
             ),
-        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-secondary rounded-md", // For the current day marker
+        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-secondary rounded-md", 
         day_outside: "day-outside text-muted-foreground/40 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle: props.mode === "range" && "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -114,13 +113,14 @@ function Calendar({
       components={{
         Caption: CustomCaption,
         DayContent: ({ date: cellDate, activeModifiers }) => (
-          <div className={cn("flex flex-col h-full w-full", activeModifiers.selected && "text-primary-foreground")}>
-            <div className="flex items-center space-x-1 mb-1"> {/* Container for number and "Hoy" label */}
+          <div className={cn("flex flex-col h-full w-full", activeModifiers.selected && "text-foreground")}>
+            <div className="flex items-center space-x-1 mb-1"> 
               <div className={cn(
                 "self-start text-xs font-medium px-1.5 py-0.5 rounded-full",
-                 activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
-                 activeModifiers.selected && "bg-[#6d6f71] text-secondary-foreground", 
-                 !activeModifiers.today && !activeModifiers.selected && "text-foreground"
+                 activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground"
+                 // When selected, the number's text color is handled by the cell's `text-foreground`.
+                 // No distinct background for the number pill itself if the day is selected.
+                 // When not selected and not today, it's a plain number, text color defaults or is `text-foreground` from cell.
               )}>
                 {format(cellDate, "d")}
               </div>
@@ -133,10 +133,10 @@ function Calendar({
             {renderDayContent ? renderDayContent(cellDate) : null}
           </div>
         ),
-        IconLeft: ({ ...rest }) => ( // Default IconLeft, not used by CustomCaption directly unless we re-pass it
+        IconLeft: ({ ...rest }) => ( 
           <ChevronLeft className={cn("h-4 w-4")} {...rest} />
         ),
-        IconRight: ({ ...rest }) => ( // Default IconRight
+        IconRight: ({ ...rest }) => ( 
           <ChevronRight className={cn("h-4 w-4")} {...rest} />
         ),
       }}
@@ -147,7 +147,3 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
-
-
-
-

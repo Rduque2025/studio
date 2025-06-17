@@ -50,17 +50,17 @@ const rotatingImagesData = [
 
 const bannerImagesData = [
   {
-    src: "https://placehold.co/1200x400.png",
+    src: "https://placehold.co/677x388.png",
     alt: "Banner principal del portal de gestión 1",
     hint: "corporate banner"
   },
   {
-    src: "https://placehold.co/1200x400/003c71/ffffff.png",
+    src: "https://placehold.co/677x388/003c71/ffffff.png",
     alt: "Banner principal del portal de gestión 2",
     hint: "company values"
   },
   {
-    src: "https://placehold.co/1200x400/1a61ab/ffffff.png",
+    src: "https://placehold.co/677x388/1a61ab/ffffff.png",
     alt: "Banner principal del portal de gestión 3",
     hint: "employee portal"
   },
@@ -170,7 +170,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <section className="mb-12">
-        <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-lg">
+        <div className="relative w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
           <Image
             key={bannerImagesData[currentBannerImageIndex].src}
             src={bannerImagesData[currentBannerImageIndex].src}
@@ -389,3 +389,4 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
     </div>
   );
 }
+

@@ -342,7 +342,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
                 <TrendingUp className="h-5 w-5 text-primary" />
                 Logro Cobrado vs. Meta (Mensual)
               </CardTitle>
-              <CardDescription>Comparativa mensual del monto cobrado real frente a la meta establecida.</CardDescription>
+              <CardDescription className="text-xs">Comparativa mensual del monto cobrado real frente a la meta establecida.</CardDescription>
             </CardHeader>
             <CardContent className="pl-2 pr-6 pb-6">
               <ChartContainer config={cobradoChartConfig} className="h-[300px] w-full">
@@ -365,7 +365,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
                 <Target className="h-5 w-5 text-primary" />
                 Logro Suscrito vs. Meta (Mensual)
               </CardTitle>
-              <CardDescription>Comparativa mensual del monto suscrito real frente a la meta establecida.</CardDescription>
+              <CardDescription className="text-xs">Comparativa mensual del monto suscrito real frente a la meta establecida.</CardDescription>
             </CardHeader>
             <CardContent className="pl-2 pr-6 pb-6">
               <ChartContainer config={suscritoChartConfig} className="h-[300px] w-full">
@@ -391,7 +391,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
                 <Activity className="h-5 w-5 text-primary" />
                 Tendencia del NPS (Mensual)
               </CardTitle>
-              <CardDescription>Evolución mensual del Net Promoter Score.</CardDescription>
+              <CardDescription className="text-xs">Evolución mensual del Net Promoter Score.</CardDescription>
             </CardHeader>
             <CardContent className="pl-2 pr-6 pb-6">
               <ChartContainer config={npsChartConfig} className="h-[300px] w-full">
@@ -413,7 +413,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
                 <Percent className="h-5 w-5 text-primary" />
                 Índice de Siniestralidad (Mensual)
               </CardTitle>
-              <CardDescription>Evolución mensual del índice de siniestralidad (%).</CardDescription>
+              <CardDescription className="text-xs">Evolución mensual del índice de siniestralidad (%).</CardDescription>
             </CardHeader>
             <CardContent className="pl-2 pr-6 pb-6">
               <ChartContainer config={siniestralidadChartConfig} className="h-[300px] w-full">

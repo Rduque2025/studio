@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react" // Added PlusCircle
+import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react" 
 import { DayPicker, CaptionProps } from "react-day-picker" 
 import { format } from "date-fns"
 import { es } from "date-fns/locale" 
@@ -13,7 +13,7 @@ import { buttonVariants } from "@/components/ui/button"
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   locale?: Locale; 
   renderDayContent?: (date: Date) => React.ReactNode;
-  onAddEventTrigger?: (date: Date) => void; // New prop
+  onAddEventTrigger?: (date: Date) => void;
 }
 
 function CustomCaption(props: CaptionProps) {
@@ -60,7 +60,7 @@ function Calendar({
   showOutsideDays = true,
   locale = es, 
   renderDayContent,
-  onAddEventTrigger, // Destructure new prop
+  onAddEventTrigger,
   ...props
 }: CalendarProps) {
   return (
@@ -132,21 +132,28 @@ function Calendar({
                   </span>
                 )}
               </div>
-              {/* Add Event Button for selected day */}
               {activeModifiers.selected && onAddEventTrigger && (
-                <button
-                  type="button"
+                <div 
+                  role="button"
+                  tabIndex={0}
                   onClick={(e) => {
                     e.stopPropagation();
                     onAddEventTrigger(cellDate);
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onAddEventTrigger(cellDate);
+                    }
+                  }}
                   className={cn(
-                    "p-0 h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-accent/50 focus-visible:ring-1 focus-visible:ring-ring"
+                    "p-0 h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-accent/50 focus-visible:ring-1 focus-visible:ring-ring cursor-pointer"
                   )}
                   aria-label={`Añadir evento el ${format(cellDate, 'PPP', { locale: props.locale || es })}`}
                 >
                   <PlusCircle className="h-4 w-4" />
-                </button>
+                </div>
               )}
             </div>
             {renderDayContent ? renderDayContent(cellDate) : null}
@@ -166,3 +173,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+

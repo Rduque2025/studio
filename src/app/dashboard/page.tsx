@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -10,7 +9,7 @@ import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 import { DressCodeCard } from "@/components/dashboard/dress-code-card"; 
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; // Added CardDescription, CardHeader, CardTitle
+import { Card, CardContent } from "@/components/ui/card";
 import { 
   ChevronLeft, 
   ChevronRight,
@@ -21,7 +20,8 @@ import {
   Landmark,
   UsersRound,
   Cpu,
-  GitFork
+  GitFork,
+  Building2
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -65,17 +65,17 @@ const bannerImagesData = [
 ];
 
 const valoresData = [
-  { title: "Confianza", text: "Construimos relaciones sólidas y duraderas basadas en la transparencia y el cumplimiento de nuestros compromisos.", icon: Handshake },
-  { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger lo que más valoran nuestros clientes.", icon: Lightbulb },
-  { title: "Excelencia en el Servicio", text: "Nos esforzamos por superar las expectativas de nuestros clientes en cada interacción.", icon: Award },
-  { title: "Compromiso Social", text: "Contribuimos activamente al desarrollo y bienestar de las comunidades donde operamos.", icon: Globe },
+  { title: "Confianza", text: "Relaciones sólidas y duraderas basadas en transparencia.", icon: Handshake, bgColor: "bg-yellow-500", iconColor: "text-yellow-600" },
+  { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger.", icon: Lightbulb, bgColor: "bg-teal-500", iconColor: "text-teal-600" },
+  { title: "Excelencia", text: "Superamos las expectativas de nuestros clientes en cada interacción.", icon: Award, bgColor: "bg-purple-600", iconColor: "text-purple-700" },
+  { title: "Compromiso", text: "Contribuimos al desarrollo y bienestar de las comunidades.", icon: Globe, bgColor: "bg-rose-500", iconColor: "text-rose-600" },
 ];
 
 const pilaresData = [
-  { title: "Solidez Financiera", text: "Garantizamos la capacidad de respuesta ante los compromisos adquiridos con nuestros asegurados.", icon: Landmark },
-  { title: "Talento Humano", text: "Contamos con un equipo de profesionales altamente capacitados y motivados.", icon: UsersRound },
-  { title: "Tecnología e Innovación", text: "Invertimos en tecnología para optimizar procesos y mejorar la experiencia del cliente.", icon: Cpu },
-  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y a las necesidades evolutivas del mercado.", icon: GitFork },
+  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, bgColor: "bg-sky-600", iconColor: "text-sky-700" },
+  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound, bgColor: "bg-lime-600", iconColor: "text-lime-700" },
+  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, bgColor: "bg-indigo-600", iconColor: "text-indigo-700" },
+  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, bgColor: "bg-pink-600", iconColor: "text-pink-700" },
 ];
 
 
@@ -111,6 +111,20 @@ export default function DashboardPage() {
   const handleNextBannerImage = () => {
     setCurrentBannerImageIndex(prevIndex =>
       prevIndex === bannerImagesData.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const ValuePillarPill = ({ title, text, IconComponent, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, IconComponent: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
+    return (
+      <div className={cn("flex items-center w-72 md:w-80 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
+        <div className={cn("text-white p-4 rounded-lg shadow-md h-32 flex flex-col justify-center", bgColor, orientation === 'left' ? 'rounded-r-none' : 'rounded-l-none')}>
+          <h4 className="font-semibold text-md mb-1">{title}</h4>
+          <p className="text-xs leading-tight">{text}</p>
+        </div>
+        <div className={cn("bg-card p-3 rounded-full shadow-lg z-10", orientation === 'left' ? 'ml-[-20px]' : 'mr-[-20px]')}>
+          <IconComponent className={cn("h-8 w-8", iconColor)} />
+        </div>
+      </div>
     );
   };
 
@@ -205,6 +219,46 @@ export default function DashboardPage() {
           </div>
       </SectionWrapper>
 
+      <SectionWrapper title="" cardClassName="bg-transparent shadow-none rounded-lg border-none" headerClassName="hidden" contentClassName="p-0">
+        <div className="space-y-12 py-6">
+          <div className="text-center mb-12">
+            <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Valores</h3>
+            <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-3xl mx-auto">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background">
+                <Building2 className="h-16 w-16 md:h-20 md:w-20 text-primary" />
+              </div>
+              
+              {/* Valor 1: Top-Leftish */}
+              <div className="absolute top-[10%] left-[5%] sm:top-[15%] sm:left-[10%]">
+                <ValuePillarPill {...valoresData[0]} orientation="left" />
+              </div>
+              {/* Valor 2: Top-Rightish */}
+              <div className="absolute top-[10%] right-[5%] sm:top-[15%] sm:right-[10%]">
+                 <ValuePillarPill {...valoresData[1]} orientation="right" />
+              </div>
+              {/* Valor 3: Bottom-Leftish */}
+              <div className="absolute bottom-[10%] left-[5%] sm:bottom-[15%] sm:left-[10%]">
+                <ValuePillarPill {...valoresData[2]} orientation="left" />
+              </div>
+              {/* Valor 4: Bottom-Rightish */}
+              <div className="absolute bottom-[10%] right-[5%] sm:bottom-[15%] sm:right-[10%]">
+                <ValuePillarPill {...valoresData[3]} orientation="right" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-3xl font-bold text-primary mb-12 text-center">Nuestros Pilares</h3>
+            <div className="flex flex-wrap justify-center items-stretch gap-x-8 gap-y-12">
+              {pilaresData.map((pillar, index) => (
+                <ValuePillarPill key={pillar.title} {...pillar} orientation={index % 2 === 0 ? 'left' : 'right'} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </SectionWrapper>
+
+
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
@@ -238,51 +292,6 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
       
-      <SectionWrapper 
-        title=""
-        cardClassName="bg-transparent shadow-none rounded-lg border-none"
-        headerClassName="hidden"
-        contentClassName="p-0"
-      >
-        <div className="space-y-12 py-6">
-          <div>
-            <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Valores</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {valoresData.map((value) => {
-                const IconComponent = value.icon;
-                return (
-                  <Card key={value.title} className="h-full flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
-                    <IconComponent className="h-8 w-8 text-primary mb-2" />
-                    <h4 className="text-lg font-semibold text-secondary mb-2">{value.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {value.text}
-                    </p>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Pilares</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-              {pilaresData.map((pillar) => {
-                const IconComponent = pillar.icon;
-                return (
-                  <Card key={pillar.title} className="h-full flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
-                    <IconComponent className="h-8 w-8 text-primary mb-2" />
-                    <h4 className="text-lg font-semibold text-secondary mb-2">{pillar.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {pillar.text}
-                    </p>
-                  </Card>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
-
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
@@ -313,3 +322,4 @@ export default function DashboardPage() {
   );
 }
 
+    

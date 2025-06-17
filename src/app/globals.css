@@ -27,7 +27,7 @@
     --secondary: 210 70% 39%; /* #1A61AB Nuevo Azul Secundario */
     --secondary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
 
-    --accent: 30 29% 64%; /* #C4A484 Beige Arena */
+    --accent: 210 90% 70%; /* Azul Claro */
     --accent-foreground: 0 0% 23%; /* #3A3A3A Gris Grafito */
 
     --destructive: 0 84.2% 60.2%;
@@ -38,7 +38,7 @@
 
     --chart-1: 208 100% 22%; /* #003C71 Nuevo Azul Principal */
     --chart-2: 210 70% 39%; /* #1A61AB Nuevo Azul Secundario */
-    --chart-3: 30 29% 64%;  /* #C4A484 Beige Arena */
+    --chart-3: 210 90% 70%;  /* Azul Claro */
     --chart-4: 208 100% 35%; /* Tono más claro del nuevo azul principal #003C71 */
     --chart-5: 210 70% 55%; /* Tono más claro del Nuevo Azul Secundario #5E9CD4 */
   }
@@ -65,8 +65,8 @@
     --secondary: 210 65% 30%; /* #114477 Variante oscura del Nuevo Azul Secundario */
     --secondary-foreground: 0 0% 90%; /* Blanco hueso */
 
-    --accent: 30 29% 64%; /* #C4A484 Beige Arena */
-    --accent-foreground: 0 0% 15%; /* Gris Grafito muy oscuro para contraste en Beige */
+    --accent: 210 90% 70%; /* Azul Claro */
+    --accent-foreground: 0 0% 15%; /* Gris Grafito muy oscuro para contraste en Azul Claro */
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
@@ -75,7 +75,7 @@
 
     --chart-1: 223 19% 52%; /* Azul Acero */
     --chart-2: 210 65% 30%; /* #114477 Variante oscura del Nuevo Azul Secundario */
-    --chart-3: 30 29% 64%;  /* Beige Arena */
+    --chart-3: 210 90% 70%;  /* Azul Claro */
     --chart-4: 223 19% 65%; /* Variante más clara de Azul Acero */
     --chart-5: 210 65% 45%; /* #367BB6 Variante más clara del Nuevo Azul Secundario oscuro */
   }

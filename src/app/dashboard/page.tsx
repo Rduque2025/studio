@@ -298,17 +298,6 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockDressCodeItems.map((item) => (
-              <DressCodeCard key={item.id} item={item} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
       <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockActivities.map((activity) => (
@@ -385,6 +374,17 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
             );
           })}
         </div>
+      </SectionWrapper>
+
+      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockDressCodeItems.map((item) => (
+              <DressCodeCard key={item.id} item={item} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </SectionWrapper>
     </div>
   );

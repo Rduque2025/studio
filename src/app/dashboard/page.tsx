@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -128,6 +129,7 @@ export default function DashboardPage() {
         description="Nuestra trayectoria y compromiso con Venezuela."
         cardClassName="bg-transparent rounded-lg shadow-none border-none" 
         titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
+        descriptionClassName="text-secondary"
         contentClassName="p-0" 
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -230,7 +232,7 @@ export default function DashboardPage() {
                 <div key={value.title} className="flex items-start">
                   <CheckCircle className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <strong className="block font-medium text-foreground">{value.title}</strong>
+                    <strong className="block font-semibold text-secondary">{value.title}</strong>
                     <span className="text-sm text-muted-foreground leading-snug">{value.text}</span>
                   </div>
                 </div>
@@ -247,7 +249,7 @@ export default function DashboardPage() {
                 <div key={pillar.title} className="flex items-start">
                   <CheckCircle className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <strong className="block font-medium text-foreground">{pillar.title}</strong>
+                    <strong className="block font-semibold text-secondary">{pillar.title}</strong>
                     <span className="text-sm text-muted-foreground leading-snug">{pillar.text}</span>
                   </div>
                 </div>
@@ -286,4 +288,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
 

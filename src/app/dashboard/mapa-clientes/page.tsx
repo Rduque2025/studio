@@ -126,11 +126,23 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
   const routeParams = use(params);
   const unwrappedSearchParams = use(searchParams);
 
-  const junioCobrado = logroCobradoData[logroCobradoData.length - 1];
-  const junioSuscrito = logroSuscritoData[logroSuscritoData.length - 1];
+  const [cobradoCardDescription, setCobradoCardDescription] = useState<string | undefined>(undefined);
+  const [suscritoCardDescription, setSuscritoCardDescription] = useState<string | undefined>(undefined);
+  
+  const junioCobrado = useMemo(() => logroCobradoData[logroCobradoData.length - 1], []);
+  const junioSuscrito = useMemo(() => logroSuscritoData[logroSuscritoData.length - 1], []);
 
-  const cobradoPercentageChange = junioCobrado ? parseFloat((((junioCobrado.real - junioCobrado.meta) / junioCobrado.meta) * 100).toFixed(1)) : undefined;
-  const suscritoPercentageChange = junioSuscrito ? parseFloat((((junioSuscrito.real - junioSuscrito.meta) / junioSuscrito.meta) * 100).toFixed(1)) : undefined;
+  const cobradoPercentageChange = useMemo(() => junioCobrado ? parseFloat((((junioCobrado.real - junioCobrado.meta) / junioCobrado.meta) * 100).toFixed(1)) : undefined, [junioCobrado]);
+  const suscritoPercentageChange = useMemo(() => junioSuscrito ? parseFloat((((junioSuscrito.real - junioSuscrito.meta) / junioSuscrito.meta) * 100).toFixed(1)) : undefined, [junioSuscrito]);
+
+  useEffect(() => {
+    if (junioCobrado) {
+      setCobradoCardDescription(`Meta ${junioCobrado.month}: ${junioCobrado.meta.toLocaleString()}`);
+    }
+    if (junioSuscrito) {
+      setSuscritoCardDescription(`Meta ${junioSuscrito.month}: ${junioSuscrito.meta.toLocaleString()}`);
+    }
+  }, [junioCobrado, junioSuscrito]);
 
 
   return (
@@ -150,7 +162,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
               title={`Cobrado Real (${junioCobrado.month})`} 
               value={junioCobrado.real} 
               icon={DollarSign} 
-              description={`Meta ${junioCobrado.month}: ${junioCobrado.meta.toLocaleString()}`}
+              description={cobradoCardDescription || "Cargando descripción..."}
               percentageChange={cobradoPercentageChange} 
             />
           )}
@@ -159,7 +171,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
               title={`Suscrito Real (${junioSuscrito.month})`}
               value={junioSuscrito.real} 
               icon={DollarSign} 
-              description={`Meta ${junioSuscrito.month}: ${junioSuscrito.meta.toLocaleString()}`}
+              description={suscritoCardDescription || "Cargando descripción..."}
               percentageChange={suscritoPercentageChange}
             />
           )}

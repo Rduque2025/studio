@@ -13,7 +13,8 @@ import { Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, Responsive
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { cn } from "@/lib/utils"; 
 import { regions as mapRegionsData } from "@/components/dashboard/venezuela-map"; // For state list
-import { ScrollArea } from "@/components/ui/scroll-area"; // Added import
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const keyMetricsData = {
   totalClientes: 25789,
@@ -28,7 +29,7 @@ const logroCobradoData = [
   { month: "Mar", real: 510000, meta: 450000 },
   { month: "Abr", real: 490000, meta: 460000 },
   { month: "May", real: 530000, meta: 480000 },
-  { month: "Jun", real: 550000, meta: 500000 }, // This will represent "current accumulated" for the KPI
+  { month: "Jun", real: 550000, meta: 500000 }, 
 ];
 
 const logroSuscritoData = [
@@ -37,7 +38,7 @@ const logroSuscritoData = [
   { month: "Mar", real: 650000, meta: 600000 },
   { month: "Abr", real: 630000, meta: 610000 },
   { month: "May", real: 670000, meta: 630000 },
-  { month: "Jun", real: 700000, meta: 650000 }, // This will represent "current accumulated" for the KPI
+  { month: "Jun", real: 700000, meta: 650000 }, 
 ];
 
 const npsTrendData = [
@@ -156,7 +157,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
     }
   }, [currentCobrado, currentSuscrito]);
 
-  // State for filters
+  const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
   const [selectedLineas, setSelectedLineas] = useState<string[]>([]);
   const [selectedCanales, setSelectedCanales] = useState<string[]>([]);
   const [selectedRegiones, setSelectedRegiones] = useState<string[]>([]);
@@ -195,97 +196,117 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
         title="Indicadores Clave de Rendimiento"
         description="Visualice las métricas acumuladas y el rendimiento de la empresa. Utilice los filtros para refinar los datos."
       >
-        {/* Filters Section */}
-        <Card className="mb-8 shadow-sm">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Filter className="h-5 w-5 text-primary" />
-              Filtros
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Accordion type="multiple" className="w-full">
-              <AccordionItem value="lineas-negocio">
-                <AccordionTrigger>Líneas de Negocio</AccordionTrigger>
-                <AccordionContent>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
-                    {lineasNegocioOptions.map(linea => (
-                      <div key={linea} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`linea-${linea}`}
-                          checked={selectedLineas.includes(linea)}
-                          onCheckedChange={(checked) => handleCheckboxChange(setSelectedLineas, linea, !!checked)}
-                        />
-                        <Label htmlFor={`linea-${linea}`} className="font-normal text-sm">{linea}</Label>
+        {/* Filter Dialog Trigger */}
+        <div className="mb-8 flex justify-end">
+          <Dialog open={isFilterDialogOpen} onOpenChange={setIsFilterDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline">
+                <Filter className="mr-2 h-4 w-4" />
+                Filtros
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md md:max-w-lg lg:max-w-xl">
+              <DialogHeader>
+                <DialogTitle>Filtros de Indicadores</DialogTitle>
+                <DialogDescription>
+                  Seleccione los criterios para refinar los datos mostrados. Los cambios se aplicarán al cerrar este diálogo.
+                </DialogDescription>
+              </DialogHeader>
+              
+              <ScrollArea className="max-h-[60vh] pr-4 my-4"> {/* Added my-4 for spacing */}
+                <Accordion type="multiple" className="w-full">
+                  <AccordionItem value="lineas-negocio">
+                    <AccordionTrigger>Líneas de Negocio</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-2">
+                        {lineasNegocioOptions.map(linea => (
+                          <div key={linea} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`dialog-linea-${linea}`}
+                              checked={selectedLineas.includes(linea)}
+                              onCheckedChange={(checked) => handleCheckboxChange(setSelectedLineas, linea, !!checked)}
+                            />
+                            <Label htmlFor={`dialog-linea-${linea}`} className="font-normal text-sm">{linea}</Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="canales-venta">
-                <AccordionTrigger>Canales de Venta</AccordionTrigger>
-                <AccordionContent>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4">
-                    {canalesVentaOptions.map(canal => (
-                      <div key={canal} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`canal-${canal}`}
-                          checked={selectedCanales.includes(canal)}
-                          onCheckedChange={(checked) => handleCheckboxChange(setSelectedCanales, canal, !!checked)}
-                        />
-                        <Label htmlFor={`canal-${canal}`} className="font-normal text-sm">{canal}</Label>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="canales-venta">
+                    <AccordionTrigger>Canales de Venta</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-2">
+                        {canalesVentaOptions.map(canal => (
+                          <div key={canal} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`dialog-canal-${canal}`}
+                              checked={selectedCanales.includes(canal)}
+                              onCheckedChange={(checked) => handleCheckboxChange(setSelectedCanales, canal, !!checked)}
+                            />
+                            <Label htmlFor={`dialog-canal-${canal}`} className="font-normal text-sm">{canal}</Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="regiones">
-                <AccordionTrigger>Región Geográfica</AccordionTrigger>
-                <AccordionContent>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
-                    {regionesOptions.map(region => (
-                      <div key={region} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`region-${region}`}
-                          checked={selectedRegiones.includes(region)}
-                          onCheckedChange={(checked) => handleCheckboxChange(setSelectedRegiones, region, !!checked)}
-                        />
-                        <Label htmlFor={`region-${region}`} className="font-normal text-sm">{region}</Label>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="regiones">
+                    <AccordionTrigger>Región Geográfica</AccordionTrigger>
+                    <AccordionContent>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-2">
+                        {regionesOptions.map(region => (
+                          <div key={region} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={`dialog-region-${region}`}
+                              checked={selectedRegiones.includes(region)}
+                              onCheckedChange={(checked) => handleCheckboxChange(setSelectedRegiones, region, !!checked)}
+                            />
+                            <Label htmlFor={`dialog-region-${region}`} className="font-normal text-sm">{region}</Label>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="estados">
-                <AccordionTrigger>Estado</AccordionTrigger>
-                <AccordionContent>
-                  <ScrollArea className="h-48">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
-                      {estadosOptions.map(estado => (
-                        <div key={estado} className="flex items-center space-x-2">
-                          <Checkbox
-                            id={`estado-${estado}`}
-                            checked={selectedEstados.includes(estado)}
-                            onCheckedChange={(checked) => handleCheckboxChange(setSelectedEstados, estado, !!checked)}
-                          />
-                          <Label htmlFor={`estado-${estado}`} className="font-normal text-sm">{estado}</Label>
+                    </AccordionContent>
+                  </AccordionItem>
+                  <AccordionItem value="estados">
+                    <AccordionTrigger>Estado</AccordionTrigger>
+                    <AccordionContent>
+                      <ScrollArea className="h-40"> {/* Nested ScrollArea for states */}
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-2">
+                          {estadosOptions.map(estado => (
+                            <div key={estado} className="flex items-center space-x-2">
+                              <Checkbox
+                                id={`dialog-estado-${estado}`}
+                                checked={selectedEstados.includes(estado)}
+                                onCheckedChange={(checked) => handleCheckboxChange(setSelectedEstados, estado, !!checked)}
+                              />
+                              <Label htmlFor={`dialog-estado-${estado}`} className="font-normal text-sm">{estado}</Label>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  </ScrollArea>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <div className="flex justify-end gap-2 mt-6">
-              <Button variant="outline" onClick={handleClearFilters}>
-                <RotateCcw className="mr-2 h-4 w-4" /> Limpiar Filtros
-              </Button>
-              <Button onClick={handleApplyFilters}>
-                <Filter className="mr-2 h-4 w-4" /> Aplicar Filtros
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                      </ScrollArea>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </ScrollArea>
+              
+              <DialogFooter className="mt-2 gap-2 sm:justify-between">
+                <Button variant="outline" onClick={handleClearFilters} className="sm:mr-auto">
+                  <RotateCcw className="mr-2 h-4 w-4" /> Limpiar
+                </Button>
+                <div className="flex gap-2">
+                    <Button variant="ghost" onClick={() => setIsFilterDialogOpen(false)}>
+                        Cancelar
+                    </Button>
+                    <Button onClick={() => {
+                      handleApplyFilters();
+                      setIsFilterDialogOpen(false);
+                    }}>
+                      <Filter className="mr-2 h-4 w-4" /> Aplicar
+                    </Button>
+                </div>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
 
         {/* Row 1: Metric Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">

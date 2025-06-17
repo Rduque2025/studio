@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { regions as mapRegionsData } from "@/components/dashboard/venezuela-map"; // For state list
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress"; // Import Progress component
+import { Progress } from "@/components/ui/progress"; 
 
 const keyMetricsData = {
   totalClientes: 25789,
@@ -91,7 +91,7 @@ interface MetricCardProps {
   description?: string;
   isPercentage?: boolean;
   percentageChange?: number;
-  progressPercentage?: number; // New prop for progress bar
+  progressPercentage?: number; 
 }
 
 const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, description, isPercentage, percentageChange, progressPercentage }) => {
@@ -158,10 +158,10 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
 
   useEffect(() => {
     if (currentCobrado) {
-      setCobradoCardDescription(`Meta Acumulada: ${currentCobrado.meta.toLocaleString()}`);
+      setCobradoCardDescription(`Meta Anual: ${currentCobrado.meta.toLocaleString()}`);
     }
     if (currentSuscrito) {
-      setSuscritoCardDescription(`Meta Acumulada: ${currentSuscrito.meta.toLocaleString()}`);
+      setSuscritoCardDescription(`Meta Anual: ${currentSuscrito.meta.toLocaleString()}`);
     }
   }, [currentCobrado, currentSuscrito]);
 

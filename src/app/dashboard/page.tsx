@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -82,11 +81,46 @@ const pilaresData = [
 ];
 
 const pillPositions = [
-  { base: "top-[2%] left-[1%] sm:top-[5%] sm:left-[2%]", orientation: "left" as const },
-  { base: "top-[2%] right-[1%] sm:top-[5%] sm:right-[2%]", orientation: "right" as const },
-  { base: "bottom-[2%] left-[1%] sm:bottom-[5%] sm:left-[2%]", orientation: "left" as const },
-  { base: "bottom-[2%] right-[1%] sm:bottom-[5%] sm:right-[2%]", orientation: "right" as const },
+  { base: "top-[2%] left-0 sm:top-[5%] sm:left-0", orientation: "left" as const },
+  { base: "top-[2%] right-0 sm:top-[5%] sm:right-0", orientation: "right" as const },
+  { base: "bottom-[2%] left-0 sm:bottom-[5%] sm:left-0", orientation: "left" as const },
+  { base: "bottom-[2%] right-0 sm:bottom-[5%] sm:right-0", orientation: "right" as const },
 ];
+
+const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
+  const IconToRender = icon;
+  return (
+    <div
+      className={cn(
+        "text-white rounded-lg shadow-md h-40 w-80 md:w-96", // Card dimensions
+        "relative", // For icon positioning
+        bgColor // Background color for the pill
+      )}
+    >
+      <div 
+        className={cn(
+          "absolute bg-card p-3 rounded-full shadow-lg z-10", // Icon circle styles
+          orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4' // Icon position
+        )}
+      >
+        <IconToRender className={cn("h-7 w-7", iconColor)} />
+      </div>
+
+      <div 
+        className={cn(
+          "flex flex-col justify-center h-full", // Text container fills height
+          "py-4", // Vertical padding for text
+          orientation === 'left' 
+            ? 'pl-[4.5rem] pr-4 text-left' // Padding for left-oriented icon (icon width + space)
+            : 'pr-[4.5rem] pl-4 text-right' // Padding for right-oriented icon
+        )}
+      >
+        <h4 className="font-semibold text-md mb-1">{title}</h4>
+        <p className="text-xs leading-tight">{text}</p>
+      </div>
+    </div>
+  );
+};
 
 
 export default function DashboardPage() {
@@ -128,40 +162,6 @@ export default function DashboardPage() {
   const toggleDisplay = () => {
     setCurrentDisplay(prev => prev === 'valores' ? 'pilares' : 'valores');
   };
-
-  const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
-    const IconToRender = icon;
-    return (
-      <div
-        className={cn(
-          "text-white rounded-lg shadow-md h-40 w-80 md:w-96",
-          "relative",
-          bgColor
-        )}
-      >
-        <div 
-          className={cn(
-            "absolute bg-card p-2 rounded-full shadow-md",
-            orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4'
-          )}
-        >
-          <IconToRender className={cn("h-7 w-7", iconColor)} />
-        </div>
-
-        <div 
-          className={cn(
-            "flex flex-col justify-center h-full",
-            "py-4", 
-            orientation === 'left' ? 'pl-[4.5rem] pr-4 text-left' : 'pr-[4.5rem] pl-4 text-right'
-          )}
-        >
-          <h4 className="font-semibold text-md mb-1">{title}</h4>
-          <p className="text-xs leading-tight">{text}</p>
-        </div>
-      </div>
-    );
-  };
-
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
@@ -292,7 +292,7 @@ export default function DashboardPage() {
         contentClassName="p-0"
         titleClassName="text-3xl font-bold text-primary mb-8 text-center"
       >
-        <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-3xl mx-auto">
+        <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-4xl mx-auto"> {/* Changed max-w-3xl to max-w-4xl */}
           <button
             onClick={toggleDisplay}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background z-20 cursor-pointer hover:scale-105 transition-transform p-4 text-center"
@@ -375,4 +375,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

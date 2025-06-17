@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 
 export default function CourseDetailsPage({ params, searchParams }: CourseDetailsPageProps) {
   const routeParams = use(params);
-  const _usedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
+  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
 
   const id = routeParams.id;
   const course = mockCourses.find(c => c.id === id);

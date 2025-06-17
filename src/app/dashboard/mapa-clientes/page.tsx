@@ -39,11 +39,11 @@ const salesChannelsChartConfig = {
 } satisfies ChartConfig;
 
 interface MapaClientesPageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default function MapaClientesPage({ searchParams }: MapaClientesPageProps) {
-  const _searchParams = use(searchParams);
+  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
   const [selectedRegion, setSelectedRegion] = useState<MapRegion | null>(null);
 
   const currentData: MapRegionClientData = useMemo(() => {

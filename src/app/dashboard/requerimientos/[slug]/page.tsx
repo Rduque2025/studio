@@ -20,7 +20,7 @@ export async function generateStaticParams() {
 
 export default function DepartmentRequestPage({ params, searchParams }: DepartmentPageProps) {
   const routeParams = use(params);
-  const _usedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
+  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
 
   const slug = routeParams.slug;
   const department = mockDepartments.find(d => d.id === slug);

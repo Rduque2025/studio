@@ -123,11 +123,11 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
 };
 
 interface DashboardPageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default function DashboardPage({ searchParams }: DashboardPageProps) {
-  const _searchParams = use(searchParams);
+  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');

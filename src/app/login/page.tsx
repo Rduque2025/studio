@@ -5,11 +5,11 @@ import { useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 
 interface LoginPageRedirectProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default function LoginPageRedirect({ searchParams }: LoginPageRedirectProps) {
-  const _searchParams = use(searchParams);
+  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
   const router = useRouter();
 
   useEffect(() => {

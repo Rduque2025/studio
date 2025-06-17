@@ -132,23 +132,31 @@ export default function DashboardPage() {
   const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
     const IconToRender = icon;
     return (
-      <div className={cn("flex items-center w-80 md:w-96 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
-        <div className={cn(
-            "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center",
-            bgColor,
-            orientation === 'left' ? 'rounded-r-none pl-8 pr-6' : 'rounded-l-none pr-8 pl-4',
-            orientation === 'right' ? 'text-right' : ''
+      <div
+        className={cn(
+          "text-white rounded-lg shadow-md h-40 w-80 md:w-96",
+          "relative",
+          bgColor
+        )}
+      >
+        <div 
+          className={cn(
+            "absolute bg-card p-2 rounded-full shadow-md",
+            orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4'
+          )}
+        >
+          <IconToRender className={cn("h-7 w-7", iconColor)} />
+        </div>
+
+        <div 
+          className={cn(
+            "flex flex-col justify-center h-full",
+            "py-4", 
+            orientation === 'left' ? 'pl-[4.5rem] pr-4 text-left' : 'pr-[4.5rem] pl-4 text-right'
           )}
         >
           <h4 className="font-semibold text-md mb-1">{title}</h4>
           <p className="text-xs leading-tight">{text}</p>
-        </div>
-        <div className={cn(
-            "bg-card p-3 rounded-full shadow-lg z-10",
-            orientation === 'left' ? '-ml-4' : '-mr-4'
-          )}
-        >
-          <IconToRender className={cn("h-8 w-8", iconColor)} />
         </div>
       </div>
     );
@@ -277,7 +285,7 @@ export default function DashboardPage() {
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
       </SectionWrapper>
-
+      
       <SectionWrapper
         title="Nuestros Principios Fundamentales"
         cardClassName="bg-transparent shadow-none rounded-lg border-none"

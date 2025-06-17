@@ -22,7 +22,8 @@ import {
   Landmark,
   UsersRound,
   Cpu,
-  GitFork
+  GitFork,
+  TrendingUp // Importado nuevo icono
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -78,6 +79,7 @@ const pilaresData = [
   { title: "Talento Humano", text: "Contamos con un equipo de profesionales altamente capacitados y motivados.", icon: UsersRound },
   { title: "Tecnología e Innovación", text: "Invertimos en tecnología para optimizar procesos y mejorar la experiencia del cliente.", icon: Cpu },
   { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y a las necesidades evolutivas del mercado.", icon: GitFork },
+  { title: "Crecimiento Sostenible", text: "Impulsamos el desarrollo continuo de la organización, asegurando la permanencia y el éxito a largo plazo.", icon: TrendingUp },
 ];
 
 
@@ -269,7 +271,7 @@ export default function DashboardPage() {
 
           <div>
             <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Pilares</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {pilaresData.map((pillar) => {
                 const IconComponent = pillar.icon;
                 return (
@@ -316,3 +318,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

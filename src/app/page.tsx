@@ -1,9 +1,15 @@
+
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 
-export default function HomePage() {
+interface HomePageProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
+export default function HomePage({ searchParams }: HomePageProps) {
+  const _searchParams = use(searchParams);
   const router = useRouter();
 
   useEffect(() => {

@@ -9,6 +9,7 @@ interface DepartmentPageProps {
   params: {
     slug: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
@@ -19,6 +20,7 @@ export async function generateStaticParams() {
 
 export default function DepartmentRequestPage(props: DepartmentPageProps) {
   const routeParams = use(props.params);
+  const _searchParams = use(props.searchParams);
   const slug = routeParams.slug;
   const department = mockDepartments.find(d => d.id === slug);
 

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { InteractiveVenezuelaMap, mapRegionsData, type MapRegion, type MapRegionClientData } from "@/components/dashboard/venezuela-map";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,8 +38,12 @@ const salesChannelsChartConfig = {
   "Canales Alternos": { label: "Canales Alternos", color: "hsl(210 30% 70%)" }, 
 } satisfies ChartConfig;
 
+interface MapaClientesPageProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
 
-export default function MapaClientesPage() {
+export default function MapaClientesPage({ searchParams }: MapaClientesPageProps) {
+  const _searchParams = use(searchParams);
   const [selectedRegion, setSelectedRegion] = useState<MapRegion | null>(null);
 
   const currentData: MapRegionClientData = useMemo(() => {

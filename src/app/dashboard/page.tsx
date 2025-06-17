@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
@@ -122,8 +122,12 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
   );
 };
 
+interface DashboardPageProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
 
-export default function DashboardPage() {
+export default function DashboardPage({ searchParams }: DashboardPageProps) {
+  const _searchParams = use(searchParams);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
@@ -252,7 +256,7 @@ export default function DashboardPage() {
             </div>
           </div>
       </SectionWrapper>
-
+      
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
@@ -385,4 +389,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

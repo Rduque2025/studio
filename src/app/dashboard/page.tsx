@@ -13,14 +13,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { 
   ChevronLeft, 
   ChevronRight,
-  Handshake,
-  Lightbulb,
-  Award,
-  Globe,
-  Landmark,
-  UsersRound,
-  Cpu,
-  GitFork,
+  Handshake, // Valor
+  Lightbulb, // Valor
+  Award,     // Valor
+  Globe,     // Valor
+  Landmark,  // Pilar
+  UsersRound,// Pilar
+  Cpu,       // Pilar
+  GitFork,   // Pilar
   Building2
 } from "lucide-react";
 import Image from "next/image";
@@ -114,7 +114,8 @@ export default function DashboardPage() {
     );
   };
 
-  const ValuePillarPill = ({ title, text, IconComponent, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, IconComponent: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
+  const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
+    const IconToRender = icon; // Use a PascalCase alias for the icon component
     return (
       <div className={cn("flex items-center w-72 md:w-80 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
         <div className={cn("text-white p-4 rounded-lg shadow-md h-32 flex flex-col justify-center", bgColor, orientation === 'left' ? 'rounded-r-none' : 'rounded-l-none')}>
@@ -122,7 +123,7 @@ export default function DashboardPage() {
           <p className="text-xs leading-tight">{text}</p>
         </div>
         <div className={cn("bg-card p-3 rounded-full shadow-lg z-10", orientation === 'left' ? 'ml-[-20px]' : 'mr-[-20px]')}>
-          <IconComponent className={cn("h-8 w-8", iconColor)} />
+          <IconToRender className={cn("h-8 w-8", iconColor)} />
         </div>
       </div>
     );
@@ -321,5 +322,7 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
 
     

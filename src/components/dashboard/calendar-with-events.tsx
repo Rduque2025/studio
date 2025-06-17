@@ -24,6 +24,15 @@ const EVENT_ITEM_STYLES = {
   DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: ''} // Fallback
 };
 
+// Specific styles for certain event titles
+const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; label: string } } = {
+  "Beneficio de Transporte": { bg: 'bg-[#543db8]', text: 'text-white', label: '' },
+  "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-black', label: '' },
+  "Asignación Especial": { bg: 'bg-[#1a61ab]', text: 'text-white', label: '' },
+  "Pago Quincena": { bg: 'bg-[#128d5d]', text: 'text-white', label: '' },
+  "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' }
+};
+
 // Keywords for categorization - keep these specific to avoid miscategorization
 const PAGO_KEYWORDS = ['pago', 'beneficio', 'asignación', 'quincena', 'transporte', 'alimentación', 'sociales'];
 const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario', 'independencia', 'mujer', 'trabajador', 'resistencia', 'navidad', 'noche buena', 'festivo', 'resultados anuales'];
@@ -31,6 +40,11 @@ const REUNION_KEYWORDS = ['reunión', 'reunion', 'comité', 'comite', 'presentac
 
 
 function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string } {
+  // Check for specific event titles first
+  if (SPECIFIC_EVENT_STYLES[event.title]) {
+    return SPECIFIC_EVENT_STYLES[event.title];
+  }
+
   const title = event.title.toLowerCase();
   const description = event.description.toLowerCase();
   const fullText = `${title} ${description}`;
@@ -52,8 +66,6 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
   
   // Fallback for mock events that don't fit above categories, using their predefined color if it's a bg class
   if (event.color && event.color.startsWith('bg-')) {
-     // For mock events with pre-defined `bg-` colors, try to guess if text should be light or dark.
-     // This is a rough heuristic.
      const darkBgs = ['bg-pink-500', 'bg-red-500', 'bg-purple-500', 'bg-green-500', 'bg-blue-500', 'bg-orange-500', 'bg-yellow-500', 'bg-teal-500', 'bg-cyan-500', 'bg-sky-500', 'bg-emerald-500', 'bg-lime-500', 
                       'bg-pink-600', 'bg-red-600', 'bg-purple-600', 'bg-green-600', 'bg-blue-600', 'bg-orange-600', 'bg-yellow-600', 'bg-teal-600', 'bg-cyan-600', 'bg-sky-600', 'bg-emerald-600', 'bg-lime-600',
                       'bg-slate-700', 'bg-gray-700', 'bg-zinc-700', 'bg-neutral-700', 'bg-stone-700',

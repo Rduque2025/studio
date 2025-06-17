@@ -92,27 +92,27 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
   return (
     <div
       className={cn(
-        "text-white rounded-lg shadow-md h-40 w-80 md:w-96", 
-        "relative", 
-        bgColor 
+        "text-white rounded-lg shadow-md h-40 w-80 md:w-96",
+        "relative",
+        bgColor
       )}
     >
-      <div 
+      <div
         className={cn(
-          "absolute bg-card p-2 rounded-full shadow-lg z-10", 
-          orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4' 
+          "absolute bg-card p-2 rounded-full shadow-lg z-10",
+          orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4'
         )}
       >
         <IconToRender className={cn("h-6 w-6", iconColor)} />
       </div>
 
-      <div 
+      <div
         className={cn(
-          "flex flex-col justify-center h-full", 
-          "py-4", 
-          orientation === 'left' 
-            ? 'pl-[3.5rem] pr-4 text-left' 
-            : 'pr-[3.5rem] pl-4 text-right' 
+          "flex flex-col justify-center h-full",
+          "py-4",
+          orientation === 'left'
+            ? 'pl-[3.5rem] pr-4 text-left'
+            : 'pr-[3.5rem] pl-4 text-right'
         )}
       >
         <h4 className="font-semibold text-md mb-1">{title}</h4>
@@ -292,6 +292,13 @@ export default function DashboardPage() {
         contentClassName="p-0"
         titleClassName="text-3xl font-bold text-primary mb-8 text-center"
       >
+        <div className="mb-10 text-center">
+          <h3 className="text-xl font-semibold text-primary mb-2">Nuestra Oferta de Valor</h3>
+          <p className="text-sm text-secondary max-w-2xl mx-auto leading-relaxed">
+            Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
+          </p>
+        </div>
+
         <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-4xl mx-auto">
           <button
             onClick={toggleDisplay}
@@ -375,4 +382,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

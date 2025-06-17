@@ -80,10 +80,10 @@ const pilaresData = [
 ];
 
 const pillPositions = [
-  { base: "top-[10%] left-[5%] sm:top-[15%] sm:left-[10%]", orientation: "left" as const },
-  { base: "top-[10%] right-[5%] sm:top-[15%] sm:right-[10%]", orientation: "right" as const },
-  { base: "bottom-[10%] left-[5%] sm:bottom-[15%] sm:left-[10%]", orientation: "left" as const },
-  { base: "bottom-[10%] right-[5%] sm:bottom-[15%] sm:right-[10%]", orientation: "right" as const },
+  { base: "top-[2%] left-[1%] sm:top-[5%] sm:left-[2%]", orientation: "left" as const },
+  { base: "top-[2%] right-[1%] sm:top-[5%] sm:right-[2%]", orientation: "right" as const },
+  { base: "bottom-[2%] left-[1%] sm:bottom-[5%] sm:left-[2%]", orientation: "left" as const },
+  { base: "bottom-[2%] right-[1%] sm:bottom-[5%] sm:right-[2%]", orientation: "right" as const },
 ];
 
 

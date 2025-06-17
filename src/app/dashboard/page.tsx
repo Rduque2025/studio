@@ -92,27 +92,27 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
   return (
     <div
       className={cn(
-        "text-white rounded-lg shadow-md h-40 w-80 md:w-96", // Card dimensions
-        "relative", // For icon positioning
-        bgColor // Background color for the pill
+        "text-white rounded-lg shadow-md h-40 w-80 md:w-96", 
+        "relative", 
+        bgColor 
       )}
     >
       <div 
         className={cn(
-          "absolute bg-card p-3 rounded-full shadow-lg z-10", // Icon circle styles
-          orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4' // Icon position
+          "absolute bg-card p-2 rounded-full shadow-lg z-10", 
+          orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4' 
         )}
       >
-        <IconToRender className={cn("h-7 w-7", iconColor)} />
+        <IconToRender className={cn("h-6 w-6", iconColor)} />
       </div>
 
       <div 
         className={cn(
-          "flex flex-col justify-center h-full", // Text container fills height
-          "py-4", // Vertical padding for text
+          "flex flex-col justify-center h-full", 
+          "py-4", 
           orientation === 'left' 
-            ? 'pl-[4.5rem] pr-4 text-left' // Padding for left-oriented icon (icon width + space)
-            : 'pr-[4.5rem] pl-4 text-right' // Padding for right-oriented icon
+            ? 'pl-[3.5rem] pr-4 text-left' 
+            : 'pr-[3.5rem] pl-4 text-right' 
         )}
       >
         <h4 className="font-semibold text-md mb-1">{title}</h4>
@@ -292,7 +292,7 @@ export default function DashboardPage() {
         contentClassName="p-0"
         titleClassName="text-3xl font-bold text-primary mb-8 text-center"
       >
-        <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-4xl mx-auto"> {/* Changed max-w-3xl to max-w-4xl */}
+        <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-4xl mx-auto">
           <button
             onClick={toggleDisplay}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background z-20 cursor-pointer hover:scale-105 transition-transform p-4 text-center"
@@ -375,3 +375,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

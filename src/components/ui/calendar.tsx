@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react" // Added PlusCircle
 import { DayPicker, CaptionProps } from "react-day-picker" 
 import { format } from "date-fns"
 import { es } from "date-fns/locale" 
@@ -13,6 +13,7 @@ import { buttonVariants } from "@/components/ui/button"
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   locale?: Locale; 
   renderDayContent?: (date: Date) => React.ReactNode;
+  onAddEventTrigger?: (date: Date) => void; // New prop
 }
 
 function CustomCaption(props: CaptionProps) {
@@ -59,6 +60,7 @@ function Calendar({
   showOutsideDays = true,
   locale = es, 
   renderDayContent,
+  onAddEventTrigger, // Destructure new prop
   ...props
 }: CalendarProps) {
   return (
@@ -114,19 +116,37 @@ function Calendar({
         Caption: CustomCaption,
         DayContent: ({ date: cellDate, activeModifiers }) => (
           <div className={cn("flex flex-col h-full w-full", activeModifiers.selected && "text-foreground")}>
-            <div className="flex items-center space-x-1 mb-1"> 
-              <div className={cn(
-                "self-start text-xs font-medium px-1.5 py-0.5 rounded-full",
-                 activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
-                 activeModifiers.selected && !activeModifiers.today && "bg-[#dcdcdc] text-foreground", // Selected, not today
-                 activeModifiers.selected && activeModifiers.today && "bg-[#dcdcdc] text-foreground" // Selected AND today
-              )}>
-                {format(cellDate, "d")}
+            <div className="flex items-start justify-between space-x-1 mb-1"> 
+              <div className="flex items-center space-x-1"> 
+                <div className={cn(
+                  "self-start text-xs font-medium px-1.5 py-0.5 rounded-full",
+                   activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
+                   activeModifiers.selected && !activeModifiers.today && "bg-[#dcdcdc] text-foreground", 
+                   activeModifiers.selected && activeModifiers.today && "bg-[#dcdcdc] text-foreground" 
+                )}>
+                  {format(cellDate, "d")}
+                </div>
+                {activeModifiers.today && (
+                  <span className="text-[0.6rem] font-bold text-primary uppercase tracking-wider">
+                    Hoy
+                  </span>
+                )}
               </div>
-              {activeModifiers.today && (
-                <span className="text-[0.6rem] font-bold text-primary uppercase tracking-wider">
-                  Hoy
-                </span>
+              {/* Add Event Button for selected day */}
+              {activeModifiers.selected && onAddEventTrigger && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onAddEventTrigger(cellDate);
+                  }}
+                  className={cn(
+                    "p-0 h-6 w-6 flex items-center justify-center rounded-full text-muted-foreground hover:text-primary hover:bg-accent/50 focus-visible:ring-1 focus-visible:ring-ring"
+                  )}
+                  aria-label={`Añadir evento el ${format(cellDate, 'PPP', { locale: props.locale || es })}`}
+                >
+                  <PlusCircle className="h-4 w-4" />
+                </button>
               )}
             </div>
             {renderDayContent ? renderDayContent(cellDate) : null}
@@ -146,4 +166,3 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
-

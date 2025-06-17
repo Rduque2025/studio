@@ -6,79 +6,78 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* White */
-    --foreground: 210 50% 20%; /* Dark Slate Blue for text */
+    --background: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
+    --foreground: 0 0% 23%; /* #3A3A3A Gris Grafito */
 
-    --muted: 210 30% 96%; /* Very Light Cool Grey */
-    --muted-foreground: 210 30% 55%; /* Cool Grey */
+    --muted: 0 0% 90%; 
+    --muted-foreground: 0 0% 40%; 
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 50% 20%;
+    --popover: 0 0% 95%; /* #F2F2F2 */
+    --popover-foreground: 0 0% 23%; /* #3A3A3A */
 
-    --card: 0 0% 100%; /* White cards */
-    --card-foreground: 210 50% 20%;
+    --card: 0 0% 95%; /* #F2F2F2 */
+    --card-foreground: 0 0% 23%; /* #3A3A3A */
 
-    --border: 210 20% 88%; /* Light Cool Grey border */
-    --input: 210 30% 96%; /* Same as muted for input background */
+    --border: 0 0% 85%; 
+    --input: 0 0% 90%; 
 
-    --primary: 0 0% 93%; /* #EEEEEE */
-    --primary-foreground: 210 50% 20%; /* Dark Slate Blue for text */
+    --primary: 225 41% 18%; /* #1C2541 Azul de Medianoche */
+    --primary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza (para contraste en primario oscuro) */
 
-    --secondary: 209 73% 39%; /* Medium-dark blue - from #1a61ab */
-    --secondary-foreground: 0 0% 100%; /* White for contrast on new secondary */
+    --secondary: 223 19% 52%; /* #6D7B9C Azul Acero */
+    --secondary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza (para contraste en secundario) */
 
-    --accent: 200 100% 67%; /* Bright sky blue - from #59d1ff */
-    --accent-foreground: 210 50% 15%; /* Darker blue for text on accent */
+    --accent: 30 29% 64%; /* #C4A484 Beige Arena */
+    --accent-foreground: 0 0% 23%; /* #3A3A3A Gris Grafito (para contraste en acento) */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 210 2% 50%; /* Medium Grey for focus ring */
+    --ring: 225 41% 50%; /* Tono más claro de Azul de Medianoche para el anillo de enfoque */
     --radius: 0.5rem;
 
-    --chart-1: 0 0% 93%; /* Match new primary (#EEEEEE) */
-    --chart-2: 205 90% 65%; /* Lighter blue */
-    --chart-3: 210 50% 40%; /* Muted dark blue */
-    --chart-4: 190 80% 50%; /* Tealish blue */
-    --chart-5: 225 70% 55%; /* Indigo-ish blue */
+    --chart-1: 225 41% 18%; /* #1C2541 Azul de Medianoche */
+    --chart-2: 223 19% 52%; /* #6D7B9C Azul Acero */
+    --chart-3: 30 29% 64%;  /* #C4A484 Beige Arena */
+    --chart-4: 225 41% 35%; /* Tono más claro de Azul de Medianoche */
+    --chart-5: 223 19% 70%; /* Tono más claro de Azul Acero */
   }
 
   .dark {
-    /* Basic dark theme, user can refine later if needed */
-    --background: 210 30% 10%;
-    --foreground: 210 30% 90%;
+    --background: 220 15% 10%; /* Gris oscuro frío */
+    --foreground: 0 0% 90%;    /* Blanco hueso */
 
-    --muted: 210 30% 15%;
-    --muted-foreground: 210 30% 65%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --popover: 210 30% 8%;
-    --popover-foreground: 210 30% 90%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 0 0% 90%;
 
-    --card: 210 30% 12%;
-    --card-foreground: 210 30% 90%;
+    --card: 220 15% 12%;
+    --card-foreground: 0 0% 90%;
 
-    --border: 210 30% 25%;
-    --input: 210 30% 20%;
+    --border: 220 15% 25%;
+    --input: 220 15% 20%;
 
-    --primary: 0 0% 85%; /* Light grey #D9D9D9 for dark mode primary */
-    --primary-foreground: 210 50% 20%; /* Dark Slate Blue for text, consistent with light mode */
+    --primary: 223 19% 52%; /* #6D7B9C Azul Acero (usado como primario en tema oscuro) */
+    --primary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
 
-    --secondary: 209 70% 30%; /* Darker version of #1a61ab for dark mode */
-    --secondary-foreground: 210 30% 90%; /* Light text on dark secondary */
+    --secondary: 225 41% 30%; /* Azul de Medianoche más oscuro y apagado */
+    --secondary-foreground: 0 0% 90%; /* Blanco hueso */
 
-    --accent: 200 90% 60%; /* Derived from #59d1ff for dark mode */
-    --accent-foreground: 210 30% 95%; /* Light text on accent */
+    --accent: 30 29% 64%; /* #C4A484 Beige Arena */
+    --accent-foreground: 0 0% 15%; /* Gris Grafito muy oscuro para contraste en Beige */
 
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 210 2% 70%; /* Lighter Grey for focus ring in dark mode */
+    --ring: 223 19% 70%; /* Azul Acero más claro para el anillo de enfoque */
 
-    --chart-1: 0 0% 85%; /* Match new dark primary (#D9D9D9) */
-    --chart-2: 205 90% 70%;
-    --chart-3: 210 50% 50%;
-    --chart-4: 190 80% 60%;
-    --chart-5: 225 70% 65%;
+    --chart-1: 223 19% 52%; /* Azul Acero */
+    --chart-2: 225 41% 30%; /* Azul de Medianoche oscuro */
+    --chart-3: 30 29% 64%;  /* Beige Arena */
+    --chart-4: 223 19% 65%; /* Variante más clara de Azul Acero */
+    --chart-5: 225 41% 45%; /* Variante más clara de Azul de Medianoche oscuro */
   }
 }
 

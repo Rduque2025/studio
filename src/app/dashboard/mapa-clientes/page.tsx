@@ -4,9 +4,10 @@
 import React, { useMemo, useEffect, useState, use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, FileCheck, Smile, UserPlus, TrendingUp, Target, Activity, Percent } from 'lucide-react';
+import { Users, FileCheck, Smile, UserPlus, TrendingUp, Target, Activity, Percent, ArrowUp, ArrowDown } from 'lucide-react';
 import { Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
+import { cn } from "@/lib/utils"; // Import cn
 
 const keyMetricsData = {
   totalClientes: 25789,
@@ -75,9 +76,10 @@ interface MetricCardProps {
   icon: React.ElementType;
   description?: string;
   isPercentage?: boolean;
+  percentageChange?: number;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, description, isPercentage }) => {
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, description, isPercentage, percentageChange }) => {
   const [formattedValue, setFormattedValue] = useState<string | number>(value);
 
   useEffect(() => {
@@ -97,8 +99,19 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, descr
         <Icon className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="text-2xl font-bold text-primary">{formattedValue}</div>
-        {description && <p className="text-xs text-muted-foreground">{description}</p>}
+        <div className="flex items-baseline gap-1.5">
+          <div className="text-2xl font-bold text-primary">{formattedValue}</div>
+          {percentageChange !== undefined && (
+            <span className={cn(
+              "inline-flex items-center gap-0.5 rounded-full px-1.5 py-0.5 text-xs font-semibold",
+              percentageChange >= 0 ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+            )}>
+              {percentageChange >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
+              {Math.abs(percentageChange)}%
+            </span>
+          )}
+        </div>
+        {description && <p className="text-xs text-muted-foreground mt-1">{description}</p>}
       </CardContent>
     </Card>
   );
@@ -121,10 +134,10 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
       >
         {/* Row 1: Metric Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
-          <MetricCard title="Total Clientes" value={keyMetricsData.totalClientes} icon={Users} description="Número total de clientes activos." />
-          <MetricCard title="Pólizas Activas" value={keyMetricsData.polizasActivas} icon={FileCheck} description="Total de pólizas vigentes." />
-          <MetricCard title="NPS Actual" value={keyMetricsData.npsActual} icon={Smile} description="Net Promoter Score (última medición)." isPercentage />
-          <MetricCard title="Nuevos Clientes (Mes)" value={keyMetricsData.nuevosClientesMes} icon={UserPlus} description="Clientes adquiridos este mes." />
+          <MetricCard title="Total Clientes" value={keyMetricsData.totalClientes} icon={Users} description="Número total de clientes activos." percentageChange={2.1} />
+          <MetricCard title="Pólizas Activas" value={keyMetricsData.polizasActivas} icon={FileCheck} description="Total de pólizas vigentes." percentageChange={1.5}/>
+          <MetricCard title="NPS Actual" value={keyMetricsData.npsActual} icon={Smile} description="Net Promoter Score (última medición)." isPercentage percentageChange={2.0}/>
+          <MetricCard title="Nuevos Clientes (Mes)" value={keyMetricsData.nuevosClientesMes} icon={UserPlus} description="Clientes adquiridos este mes." percentageChange={-5.2}/>
         </div>
 
         {/* Row 2: Performance Charts */}
@@ -226,3 +239,4 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
     </div>
   );
 }
+

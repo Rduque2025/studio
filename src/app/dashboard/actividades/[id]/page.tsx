@@ -1,4 +1,5 @@
 
+import { use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockActivities } from "@/lib/placeholder-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -22,7 +23,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ActivityDetailsPage({ params: { id } }: ActivityDetailsPageProps) {
+export default function ActivityDetailsPage(props: ActivityDetailsPageProps) {
+  const routeParams = use(props.params);
+  const id = routeParams.id;
   const activity = mockActivities.find(a => a.id === id);
 
   if (!activity) {

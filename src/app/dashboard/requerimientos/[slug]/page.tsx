@@ -1,4 +1,5 @@
 
+import { use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Card, CardContent } from "@/components/ui/card";
@@ -16,7 +17,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function DepartmentRequestPage({ params: { slug } }: DepartmentPageProps) {
+export default function DepartmentRequestPage(props: DepartmentPageProps) {
+  const routeParams = use(props.params);
+  const slug = routeParams.slug;
   const department = mockDepartments.find(d => d.id === slug);
 
   if (!department) {

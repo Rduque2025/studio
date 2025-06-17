@@ -102,7 +102,7 @@ function Calendar({
               props.mode === "multiple" && "bg-primary text-primary-foreground rounded-md",
               props.mode === "range" && "bg-primary text-primary-foreground"
             ),
-        day_today: "bg-muted text-foreground rounded-md", // For the current day marker
+        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-sky-300 dark:border-sky-700 rounded-md", // For the current day marker
         day_outside: "day-outside text-muted-foreground/40 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle: props.mode === "range" && "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -115,13 +115,20 @@ function Calendar({
         Caption: CustomCaption,
         DayContent: ({ date: cellDate, activeModifiers }) => (
           <div className={cn("flex flex-col h-full w-full", activeModifiers.selected && "text-primary-foreground")}>
-            <div className={cn(
-              "self-start mb-1 text-xs font-medium px-1.5 py-0.5 rounded-full",
-               activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
-               activeModifiers.selected && "bg-[#6d6f71] text-secondary-foreground", 
-               !activeModifiers.today && !activeModifiers.selected && "text-foreground"
-            )}>
-              {format(cellDate, "d")}
+            <div className="flex items-center space-x-1 mb-1"> {/* Container for number and "Hoy" label */}
+              <div className={cn(
+                "self-start text-xs font-medium px-1.5 py-0.5 rounded-full",
+                 activeModifiers.today && !activeModifiers.selected && "bg-secondary text-secondary-foreground",
+                 activeModifiers.selected && "bg-[#6d6f71] text-secondary-foreground", 
+                 !activeModifiers.today && !activeModifiers.selected && "text-foreground"
+              )}>
+                {format(cellDate, "d")}
+              </div>
+              {activeModifiers.today && (
+                <span className="text-[0.6rem] font-bold text-primary uppercase tracking-wider">
+                  Hoy
+                </span>
+              )}
             </div>
             {renderDayContent ? renderDayContent(cellDate) : null}
           </div>
@@ -140,5 +147,6 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+
 
 

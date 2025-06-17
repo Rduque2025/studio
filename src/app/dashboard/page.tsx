@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -294,7 +295,10 @@ export default function DashboardPage() {
         <div className="mb-10 text-center">
           <h3 className="text-xl font-semibold text-primary mb-2">Nuestra Oferta de Valor</h3>
           <p className="text-sm text-foreground max-w-2xl mx-auto leading-relaxed">
-            Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
+            Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con{' '}
+            <span className="font-semibold text-secondary">
+              servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
+            </span>
           </p>
         </div>
 
@@ -381,3 +385,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

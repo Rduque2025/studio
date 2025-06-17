@@ -111,7 +111,7 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
           "flex flex-col justify-center h-full",
           "py-4",
           orientation === 'left'
-            ? 'pl-[3.5rem] pr-6 text-left' 
+            ? 'pl-[3.5rem] pr-6 text-left'
             : 'pr-[3.5rem] pl-4 text-right'
         )}
       >
@@ -127,7 +127,7 @@ interface DashboardPageProps {
 }
 
 export default function DashboardPage({ searchParams }: DashboardPageProps) {
-  const unwrappedSearchParams = use(searchParams); 
+  const unwrappedSearchParams = use(searchParams);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
@@ -185,19 +185,8 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
     <div className="container mx-auto py-8 px-4 space-y-12">
       <section className="mb-12">
         <div className="flex flex-col md:flex-row items-start justify-center gap-8 max-w-6xl mx-auto">
-          {/* Left Column: New PNG container */}
-          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
-            <Image
-              src="https://storage.googleapis.com/makerbot-images/uploads/2024/07/26/11181827402633099955_1753716487192.png"
-              alt="Persona ensamblando piezas de rompecabezas, simbolizando soluciones y estrategia"
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint="puzzle solution"
-            />
-          </div>
-
-          {/* Right Column: Existing Banner Carousel */}
-          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+          {/* Banner Carousel */}
+          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
             <Image
               key={bannerImagesData[currentBannerImageIndex].src}
               src={bannerImagesData[currentBannerImageIndex].src}
@@ -250,16 +239,6 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
               </p>
             </div>
              <div className="flex flex-col md:flex-row items-center gap-4">
-                {/* New PNG Placeholder (Inner Left) */}
-                <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-md flex-shrink-0">
-                    <Image
-                    src="https://storage.googleapis.com/makerbot-images/uploads/2024/07/26/11181827402633099955_1753716487192.png"
-                    alt="Persona ensamblando piezas de rompecabezas, simbolizando soluciones y estrategia Banesco"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="puzzle strategy"
-                    />
-                </div>
                 {/* Existing Rotating Image Carousel (Inner Right) */}
                 <div className="relative w-full md:flex-1 h-[388.39px] rounded-lg overflow-hidden shadow-md">
                     <Image
@@ -293,7 +272,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
             </div>
           </div>
       </SectionWrapper>
-      
+
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
@@ -342,7 +321,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
           ))}
         </div>
       </SectionWrapper>
-      
+
       <SectionWrapper
         title="Nuestros Principios Fundamentales"
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
@@ -415,19 +394,8 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
 
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="flex flex-col md:flex-row items-start justify-center gap-8 py-4">
-          {/* Left Column: New PNG container */}
-          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
-            <Image
-              src="https://placehold.co/400x388.png"
-              alt="Guía visual complementaria del código de vestimenta"
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint="attire guide"
-            />
-          </div>
-
-          {/* Right Column: Existing Dress Code Image Viewer */}
-          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+          {/* Dress Code Image Viewer */}
+          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
             {mockDressCodeItems.length > 0 && (
               <Image
                 key={mockDressCodeItems[currentDressCodeImageIndex].id}

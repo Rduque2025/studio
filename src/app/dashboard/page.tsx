@@ -22,7 +22,9 @@ import {
   UsersRound,
   Cpu,       
   GitFork,   
-  Building2
+  Building2,
+  Gem, // Added for Valores
+  Layers // Added for Pilares
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -251,10 +253,20 @@ export default function DashboardPage() {
         <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-3xl mx-auto">
           <button
             onClick={toggleDisplay}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background z-20 cursor-pointer hover:scale-105 transition-transform"
-            aria-label="Cambiar vista entre valores y pilares"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background z-20 cursor-pointer hover:scale-105 transition-transform p-4 text-center"
+            aria-label={`Cambiar vista a ${currentDisplay === 'valores' ? 'Pilares' : 'Valores'}`}
           >
-            <Building2 className="h-16 w-16 md:h-20 md:w-20 text-primary" />
+            {currentDisplay === 'valores' ? (
+              <>
+                <Layers className="h-10 w-10 md:h-12 md:w-12 text-primary mb-1" />
+                <span className="text-xs font-semibold text-primary">Pilares</span>
+              </>
+            ) : (
+              <>
+                <Gem className="h-10 w-10 md:h-12 md:w-12 text-primary mb-1" />
+                <span className="text-xs font-semibold text-primary">Valores</span>
+              </>
+            )}
           </button>
           
           {pillPositions.map((pos, index) => {
@@ -357,3 +369,4 @@ export default function DashboardPage() {
     
 
     
+

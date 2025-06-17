@@ -257,8 +257,8 @@ export default function DashboardPage() {
                 return (
                   <Card key={value.title} className="flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
                     <IconComponent className="h-12 w-12 text-primary mb-4" />
-                    <h4 className="text-xl font-semibold text-secondary mb-2">{value.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <h4 className="text-lg font-semibold text-secondary mb-2">{value.title}</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       {value.text}
                     </p>
                   </Card>
@@ -275,8 +275,8 @@ export default function DashboardPage() {
                 return (
                   <Card key={pillar.title} className="flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
                     <IconComponent className="h-12 w-12 text-primary mb-4" />
-                    <h4 className="text-xl font-semibold text-secondary mb-2">{pillar.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <h4 className="text-lg font-semibold text-secondary mb-2">{pillar.title}</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
                       {pillar.text}
                     </p>
                   </Card>

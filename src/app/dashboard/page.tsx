@@ -258,7 +258,7 @@ export default function DashboardPage() {
                 const IconComponent = value.icon;
                 return (
                   <Card key={value.title} className="h-full flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
-                    <IconComponent className="h-12 w-12 text-primary mb-4" />
+                    <IconComponent className="h-10 w-10 text-primary mb-3" />
                     <h4 className="text-lg font-semibold text-secondary mb-2">{value.title}</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {value.text}
@@ -276,7 +276,7 @@ export default function DashboardPage() {
                 const IconComponent = pillar.icon;
                 return (
                   <Card key={pillar.title} className="h-full flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
-                    <IconComponent className="h-12 w-12 text-primary mb-4" />
+                    <IconComponent className="h-10 w-10 text-primary mb-3" />
                     <h4 className="text-lg font-semibold text-secondary mb-2">{pillar.title}</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {pillar.text}

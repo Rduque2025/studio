@@ -10,7 +10,7 @@ import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 import { DressCodeCard } from "@/components/dashboard/dress-code-card"; 
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; // Added CardDescription, CardHeader, CardTitle
 import { 
   ChevronLeft, 
   ChevronRight,
@@ -207,7 +207,7 @@ export default function DashboardPage() {
           </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary">
+      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
@@ -218,7 +218,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary">
+      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary" descriptionClassName="text-secondary">
        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDietMenuItems.map((item) => (
@@ -229,7 +229,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary">
+      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockExecutiveMenuItems.map((item) => (
@@ -246,44 +246,48 @@ export default function DashboardPage() {
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
         titleClassName="text-primary"
         descriptionClassName="text-secondary"
+        contentClassName="p-0"
       >
-        <Card className="bg-transparent shadow-none rounded-lg border-none"> 
-          <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
-            <div className="space-y-6"> 
-              <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Valores</h3>
-              {valoresData.map(value => {
+        <div className="space-y-12 py-6">
+          <div>
+            <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Valores</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {valoresData.map((value) => {
                 const IconComponent = value.icon;
                 return (
-                  <div key={value.title} className="flex items-start">
-                    <IconComponent className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
-                    <div>
-                      <strong className="block font-semibold text-secondary">{value.title}</strong>
-                      <span className="text-sm text-muted-foreground leading-snug">{value.text}</span>
-                    </div>
-                  </div>
+                  <Card key={value.title} className="flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
+                    <IconComponent className="h-12 w-12 text-primary mb-4" />
+                    <h4 className="text-xl font-semibold text-secondary mb-2">{value.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {value.text}
+                    </p>
+                  </Card>
                 );
               })}
             </div>
-            <div className="space-y-6"> 
-              <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Pilares</h3>
-              {pilaresData.map(pillar => {
+          </div>
+
+          <div>
+            <h3 className="text-3xl font-bold text-primary mb-8 text-center">Nuestros Pilares</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {pilaresData.map((pillar) => {
                 const IconComponent = pillar.icon;
                 return (
-                  <div key={pillar.title} className="flex items-start">
-                    <IconComponent className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
-                    <div>
-                      <strong className="block font-semibold text-secondary">{pillar.title}</strong>
-                      <span className="text-sm text-muted-foreground leading-snug">{pillar.text}</span>
-                    </div>
-                  </div>
+                  <Card key={pillar.title} className="flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
+                    <IconComponent className="h-12 w-12 text-primary mb-4" />
+                    <h4 className="text-xl font-semibold text-secondary mb-2">{pillar.title}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {pillar.text}
+                    </p>
+                  </Card>
                 );
               })}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary">
+      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
             <CourseCard key={course.id} course={course} />
@@ -291,7 +295,7 @@ export default function DashboardPage() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary">
+      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDressCodeItems.map((item) => (
@@ -302,7 +306,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary">
+      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />
@@ -312,6 +316,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-
-

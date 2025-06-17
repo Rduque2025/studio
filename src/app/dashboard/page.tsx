@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -13,14 +14,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { 
   ChevronLeft, 
   ChevronRight,
-  Handshake, // Valor
-  Lightbulb, // Valor
-  Award,     // Valor
-  Globe,     // Valor
-  Landmark,  // Pilar
-  UsersRound,// Pilar
-  Cpu,       // Pilar
-  GitFork,   // Pilar
+  Handshake, 
+  Lightbulb, 
+  Award,     
+  Globe,     
+  Landmark,  
+  UsersRound,
+  Cpu,       
+  GitFork,   
   Building2
 } from "lucide-react";
 import Image from "next/image";
@@ -129,7 +130,7 @@ export default function DashboardPage() {
   const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
     const IconToRender = icon; 
     return (
-      <div className={cn("flex items-center w-72 md:w-80 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
+      <div className={cn("flex items-center w-60 md:w-64 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
         <div className={cn("text-white p-4 rounded-lg shadow-md h-32 flex flex-col justify-center", bgColor, orientation === 'left' ? 'rounded-r-none' : 'rounded-l-none')}>
           <h4 className="font-semibold text-md mb-1">{title}</h4>
           <p className="text-xs leading-tight">{text}</p>

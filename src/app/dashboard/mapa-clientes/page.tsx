@@ -4,10 +4,15 @@
 import React, { useMemo, useEffect, useState, use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, FileCheck, Smile, UserPlus, TrendingUp, Target, Activity, Percent, ArrowUp, ArrowDown, DollarSign } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Users, FileCheck, Smile, UserPlus, TrendingUp, Target, Activity, Percent, ArrowUp, ArrowDown, DollarSign, Filter, RotateCcw } from 'lucide-react';
 import { Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { cn } from "@/lib/utils"; 
+import { regions as mapRegionsData } from "@/components/dashboard/venezuela-map"; // For state list
 
 const keyMetricsData = {
   totalClientes: 25789,
@@ -22,7 +27,7 @@ const logroCobradoData = [
   { month: "Mar", real: 510000, meta: 450000 },
   { month: "Abr", real: 490000, meta: 460000 },
   { month: "May", real: 530000, meta: 480000 },
-  { month: "Jun", real: 550000, meta: 500000 },
+  { month: "Jun", real: 550000, meta: 500000 }, // This will represent "current accumulated" for the KPI
 ];
 
 const logroSuscritoData = [
@@ -31,7 +36,7 @@ const logroSuscritoData = [
   { month: "Mar", real: 650000, meta: 600000 },
   { month: "Abr", real: 630000, meta: 610000 },
   { month: "May", real: 670000, meta: 630000 },
-  { month: "Jun", real: 700000, meta: 650000 },
+  { month: "Jun", real: 700000, meta: 650000 }, // This will represent "current accumulated" for the KPI
 ];
 
 const npsTrendData = [
@@ -51,6 +56,12 @@ const siniestralidadData = [
   { month: "May", indice: 49 },
   { month: "Jun", indice: 48 },
 ];
+
+const lineasNegocioOptions = ['Salud', 'Auto', 'Patrimoniales', 'Persona'];
+const canalesVentaOptions = ['Banco', 'Tradicional', 'Canales Alternos'];
+const regionesOptions = ['Capital', 'Central', 'Occidental', 'Oriental', 'Los Llanos', 'Andina', 'Guayana'];
+const estadosOptions = mapRegionsData.map(r => r.name).sort();
+
 
 const cobradoChartConfig = {
   real: { label: "Cobrado Real", color: "hsl(var(--chart-1))" },
@@ -129,47 +140,171 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
   const [cobradoCardDescription, setCobradoCardDescription] = useState<string | undefined>(undefined);
   const [suscritoCardDescription, setSuscritoCardDescription] = useState<string | undefined>(undefined);
   
-  const junioCobrado = useMemo(() => logroCobradoData[logroCobradoData.length - 1], []);
-  const junioSuscrito = useMemo(() => logroSuscritoData[logroSuscritoData.length - 1], []);
+  const currentCobrado = useMemo(() => logroCobradoData[logroCobradoData.length - 1], []);
+  const currentSuscrito = useMemo(() => logroSuscritoData[logroSuscritoData.length - 1], []);
 
-  const cobradoPercentageChange = useMemo(() => junioCobrado ? parseFloat((((junioCobrado.real - junioCobrado.meta) / junioCobrado.meta) * 100).toFixed(1)) : undefined, [junioCobrado]);
-  const suscritoPercentageChange = useMemo(() => junioSuscrito ? parseFloat((((junioSuscrito.real - junioSuscrito.meta) / junioSuscrito.meta) * 100).toFixed(1)) : undefined, [junioSuscrito]);
+  const cobradoPercentageChange = useMemo(() => currentCobrado ? parseFloat((((currentCobrado.real - currentCobrado.meta) / currentCobrado.meta) * 100).toFixed(1)) : undefined, [currentCobrado]);
+  const suscritoPercentageChange = useMemo(() => currentSuscrito ? parseFloat((((currentSuscrito.real - currentSuscrito.meta) / currentSuscrito.meta) * 100).toFixed(1)) : undefined, [currentSuscrito]);
 
   useEffect(() => {
-    if (junioCobrado) {
-      setCobradoCardDescription(`Meta ${junioCobrado.month}: ${junioCobrado.meta.toLocaleString()}`);
+    if (currentCobrado) {
+      setCobradoCardDescription(`Meta Acumulada: ${currentCobrado.meta.toLocaleString()}`);
     }
-    if (junioSuscrito) {
-      setSuscritoCardDescription(`Meta ${junioSuscrito.month}: ${junioSuscrito.meta.toLocaleString()}`);
+    if (currentSuscrito) {
+      setSuscritoCardDescription(`Meta Acumulada: ${currentSuscrito.meta.toLocaleString()}`);
     }
-  }, [junioCobrado, junioSuscrito]);
+  }, [currentCobrado, currentSuscrito]);
 
+  // State for filters
+  const [selectedLineas, setSelectedLineas] = useState<string[]>([]);
+  const [selectedCanales, setSelectedCanales] = useState<string[]>([]);
+  const [selectedRegiones, setSelectedRegiones] = useState<string[]>([]);
+  const [selectedEstados, setSelectedEstados] = useState<string[]>([]);
+
+  const handleCheckboxChange = (
+    setter: React.Dispatch<React.SetStateAction<string[]>>,
+    value: string,
+    checked: boolean
+  ) => {
+    setter(prev => 
+      checked ? [...prev, value] : prev.filter(item => item !== value)
+    );
+  };
+
+  const handleApplyFilters = () => {
+    console.log("Filtros Aplicados:", {
+      lineasNegocio: selectedLineas,
+      canalesVenta: selectedCanales,
+      regiones: selectedRegiones,
+      estados: selectedEstados,
+    });
+    // Placeholder for actual data fetching/filtering logic
+  };
+
+  const handleClearFilters = () => {
+    setSelectedLineas([]);
+    setSelectedCanales([]);
+    setSelectedRegiones([]);
+    setSelectedEstados([]);
+  };
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <SectionWrapper
         title="Indicadores Clave de Rendimiento"
-        description="Visualice las métricas más importantes y el rendimiento de la empresa."
+        description="Visualice las métricas acumuladas y el rendimiento de la empresa. Utilice los filtros para refinar los datos."
       >
+        {/* Filters Section */}
+        <Card className="mb-8 shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Filter className="h-5 w-5 text-primary" />
+              Filtros
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="multiple" className="w-full">
+              <AccordionItem value="lineas-negocio">
+                <AccordionTrigger>Líneas de Negocio</AccordionTrigger>
+                <AccordionContent>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+                    {lineasNegocioOptions.map(linea => (
+                      <div key={linea} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`linea-${linea}`}
+                          checked={selectedLineas.includes(linea)}
+                          onCheckedChange={(checked) => handleCheckboxChange(setSelectedLineas, linea, !!checked)}
+                        />
+                        <Label htmlFor={`linea-${linea}`} className="font-normal text-sm">{linea}</Label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="canales-venta">
+                <AccordionTrigger>Canales de Venta</AccordionTrigger>
+                <AccordionContent>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4">
+                    {canalesVentaOptions.map(canal => (
+                      <div key={canal} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`canal-${canal}`}
+                          checked={selectedCanales.includes(canal)}
+                          onCheckedChange={(checked) => handleCheckboxChange(setSelectedCanales, canal, !!checked)}
+                        />
+                        <Label htmlFor={`canal-${canal}`} className="font-normal text-sm">{canal}</Label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="regiones">
+                <AccordionTrigger>Región Geográfica</AccordionTrigger>
+                <AccordionContent>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+                    {regionesOptions.map(region => (
+                      <div key={region} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`region-${region}`}
+                          checked={selectedRegiones.includes(region)}
+                          onCheckedChange={(checked) => handleCheckboxChange(setSelectedRegiones, region, !!checked)}
+                        />
+                        <Label htmlFor={`region-${region}`} className="font-normal text-sm">{region}</Label>
+                      </div>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="estados">
+                <AccordionTrigger>Estado</AccordionTrigger>
+                <AccordionContent>
+                  <ScrollArea className="h-48">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+                      {estadosOptions.map(estado => (
+                        <div key={estado} className="flex items-center space-x-2">
+                          <Checkbox
+                            id={`estado-${estado}`}
+                            checked={selectedEstados.includes(estado)}
+                            onCheckedChange={(checked) => handleCheckboxChange(setSelectedEstados, estado, !!checked)}
+                          />
+                          <Label htmlFor={`estado-${estado}`} className="font-normal text-sm">{estado}</Label>
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <div className="flex justify-end gap-2 mt-6">
+              <Button variant="outline" onClick={handleClearFilters}>
+                <RotateCcw className="mr-2 h-4 w-4" /> Limpiar Filtros
+              </Button>
+              <Button onClick={handleApplyFilters}>
+                <Filter className="mr-2 h-4 w-4" /> Aplicar Filtros
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Row 1: Metric Cards */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
-          <MetricCard title="Total Clientes" value={keyMetricsData.totalClientes} icon={Users} description="Número total de clientes activos." percentageChange={2.1} />
-          <MetricCard title="Pólizas Activas" value={keyMetricsData.polizasActivas} icon={FileCheck} description="Total de pólizas vigentes." percentageChange={1.5}/>
-          <MetricCard title="NPS Actual" value={keyMetricsData.npsActual} icon={Smile} description="Net Promoter Score (última medición)." isPercentage percentageChange={2.0}/>
-          <MetricCard title="Nuevos Clientes (Mes)" value={keyMetricsData.nuevosClientesMes} icon={UserPlus} description="Clientes adquiridos este mes." percentageChange={-5.2}/>
-          {junioCobrado && (
+          <MetricCard title="Total Clientes (Acumulado)" value={keyMetricsData.totalClientes} icon={Users} description="Número total de clientes activos." percentageChange={2.1} />
+          <MetricCard title="Pólizas Activas (Acumulado)" value={keyMetricsData.polizasActivas} icon={FileCheck} description="Total de pólizas vigentes." percentageChange={1.5}/>
+          <MetricCard title="NPS Acumulado" value={keyMetricsData.npsActual} icon={Smile} description="Net Promoter Score (última medición)." isPercentage percentageChange={2.0}/>
+          <MetricCard title="Nuevos Clientes (Mes Actual)" value={keyMetricsData.nuevosClientesMes} icon={UserPlus} description="Clientes adquiridos este mes." percentageChange={-5.2}/>
+          {currentCobrado && (
             <MetricCard 
-              title={`Cobrado Real (${junioCobrado.month})`} 
-              value={junioCobrado.real} 
+              title="Logro Cobrado Acumulado"
+              value={currentCobrado.real} 
               icon={DollarSign} 
               description={cobradoCardDescription || "Cargando descripción..."}
               percentageChange={cobradoPercentageChange} 
             />
           )}
-          {junioSuscrito && (
+          {currentSuscrito && (
             <MetricCard 
-              title={`Suscrito Real (${junioSuscrito.month})`}
-              value={junioSuscrito.real} 
+              title="Logro Suscrito Acumulado"
+              value={currentSuscrito.real} 
               icon={DollarSign} 
               description={suscritoCardDescription || "Cargando descripción..."}
               percentageChange={suscritoPercentageChange}
@@ -183,7 +318,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
-                Logro Cobrado vs. Meta
+                Logro Cobrado vs. Meta (Mensual)
               </CardTitle>
               <CardDescription>Comparativa mensual del monto cobrado real frente a la meta establecida.</CardDescription>
             </CardHeader>
@@ -206,7 +341,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Target className="h-5 w-5 text-primary" />
-                Logro Suscrito vs. Meta
+                Logro Suscrito vs. Meta (Mensual)
               </CardTitle>
               <CardDescription>Comparativa mensual del monto suscrito real frente a la meta establecida.</CardDescription>
             </CardHeader>
@@ -232,7 +367,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Activity className="h-5 w-5 text-primary" />
-                Tendencia del NPS
+                Tendencia del NPS (Mensual)
               </CardTitle>
               <CardDescription>Evolución mensual del Net Promoter Score.</CardDescription>
             </CardHeader>
@@ -254,7 +389,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Percent className="h-5 w-5 text-primary" />
-                Índice de Siniestralidad
+                Índice de Siniestralidad (Mensual)
               </CardTitle>
               <CardDescription>Evolución mensual del índice de siniestralidad (%).</CardDescription>
             </CardHeader>

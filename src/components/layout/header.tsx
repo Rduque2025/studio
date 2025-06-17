@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database, Bell, Clock } from "lucide-react"; 
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database, Bell, Clock, Target } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
-  { name: "Datos", href: "/dashboard/mapa-clientes", icon: Database },
+  { name: "Objetivos", href: "/dashboard/mapa-clientes", icon: Target }, // Changed from "Datos" and Database icon
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
@@ -281,3 +281,4 @@ export function Header() {
     </header>
   );
 }
+

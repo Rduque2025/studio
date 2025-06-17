@@ -132,7 +132,7 @@ export default function DashboardPage() {
     return (
       <div className={cn("flex items-center w-60 md:w-64 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
         <div className={cn(
-            "text-white py-4 rounded-lg shadow-md h-32 flex flex-col justify-center", 
+            "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center", 
             bgColor, 
             orientation === 'left' ? 'rounded-r-none pl-4 pr-6' : 'rounded-l-none pr-4 pl-6'
           )}

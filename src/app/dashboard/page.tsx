@@ -11,7 +11,19 @@ import { DressCodeCard } from "@/components/dashboard/dress-code-card";
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import { 
+  ChevronLeft, 
+  ChevronRight,
+  Handshake,
+  Lightbulb,
+  Award,
+  Globe,
+  Shield,
+  Landmark,
+  UsersRound,
+  Cpu,
+  GitFork
+} from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
@@ -52,6 +64,22 @@ const bannerImagesData = [
     hint: "employee portal"
   },
 ];
+
+const valoresData = [
+  { title: "Confianza", text: "Construimos relaciones sólidas y duraderas basadas en la transparencia y el cumplimiento de nuestros compromisos.", icon: Handshake },
+  { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger lo que más valoran nuestros clientes.", icon: Lightbulb },
+  { title: "Excelencia en el Servicio", text: "Nos esforzamos por superar las expectativas de nuestros clientes en cada interacción.", icon: Award },
+  { title: "Compromiso Social", text: "Contribuimos activamente al desarrollo y bienestar de las comunidades donde operamos.", icon: Globe },
+  { title: "Integridad", text: "Actuamos con honestidad y ética en todas nuestras operaciones.", icon: Shield },
+];
+
+const pilaresData = [
+  { title: "Solidez Financiera", text: "Garantizamos la capacidad de respuesta ante los compromisos adquiridos con nuestros asegurados.", icon: Landmark },
+  { title: "Talento Humano", text: "Contamos con un equipo de profesionales altamente capacitados y motivados.", icon: UsersRound },
+  { title: "Tecnología e Innovación", text: "Invertimos en tecnología para optimizar procesos y mejorar la experiencia del cliente.", icon: Cpu },
+  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y a las necesidades evolutivas del mercado.", icon: GitFork },
+];
+
 
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -217,43 +245,39 @@ export default function DashboardPage() {
         description="Los principios que guían nuestro actuar diario."
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
         titleClassName="text-primary"
+        descriptionClassName="text-secondary"
       >
         <Card className="bg-transparent shadow-none rounded-lg border-none"> 
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
             <div className="space-y-6"> 
               <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Valores</h3>
-              {[
-                { title: "Confianza", text: "Construimos relaciones sólidas y duraderas basadas en la transparencia y el cumplimiento de nuestros compromisos." },
-                { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger lo que más valoran nuestros clientes." },
-                { title: "Excelencia en el Servicio", text: "Nos esforzamos por superar las expectativas de nuestros clientes en cada interacción." },
-                { title: "Compromiso Social", text: "Contribuimos activamente al desarrollo y bienestar de las comunidades donde operamos." },
-                { title: "Integridad", text: "Actuamos con honestidad y ética en todas nuestras operaciones." },
-              ].map(value => (
-                <div key={value.title} className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
-                  <div>
-                    <strong className="block font-semibold text-secondary">{value.title}</strong>
-                    <span className="text-sm text-muted-foreground leading-snug">{value.text}</span>
+              {valoresData.map(value => {
+                const IconComponent = value.icon;
+                return (
+                  <div key={value.title} className="flex items-start">
+                    <IconComponent className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
+                    <div>
+                      <strong className="block font-semibold text-secondary">{value.title}</strong>
+                      <span className="text-sm text-muted-foreground leading-snug">{value.text}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
             <div className="space-y-6"> 
               <h3 className="text-xl font-semibold text-primary mb-4">Nuestros Pilares</h3>
-              {[
-                { title: "Solidez Financiera", text: "Garantizamos la capacidad de respuesta ante los compromisos adquiridos con nuestros asegurados." },
-                { title: "Talento Humano", text: "Contamos con un equipo de profesionales altamente capacitados y motivados." },
-                { title: "Tecnología e Innovación", text: "Invertimos en tecnología para optimizar procesos y mejorar la experiencia del cliente." },
-                { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y a las necesidades evolutivas del mercado." },
-              ].map(pillar => (
-                <div key={pillar.title} className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
-                  <div>
-                    <strong className="block font-semibold text-secondary">{pillar.title}</strong>
-                    <span className="text-sm text-muted-foreground leading-snug">{pillar.text}</span>
+              {pilaresData.map(pillar => {
+                const IconComponent = pillar.icon;
+                return (
+                  <div key={pillar.title} className="flex items-start">
+                    <IconComponent className="h-5 w-5 text-primary mr-3 mt-1 flex-shrink-0" />
+                    <div>
+                      <strong className="block font-semibold text-secondary">{pillar.title}</strong>
+                      <span className="text-sm text-muted-foreground leading-snug">{pillar.text}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -288,5 +312,6 @@ export default function DashboardPage() {
     </div>
   );
 }
+
 
 

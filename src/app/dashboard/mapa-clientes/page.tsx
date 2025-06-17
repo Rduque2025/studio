@@ -30,7 +30,7 @@ const logroCobradoData = [
   { month: "Mar", real: 510000, meta: 450000 },
   { month: "Abr", real: 490000, meta: 460000 },
   { month: "May", real: 530000, meta: 480000 },
-  { month: "Jun", real: 550000, meta: 500000 }, 
+  { month: "Jun", real: 550000, meta: 32000000 }, 
 ];
 
 const logroSuscritoData = [
@@ -39,7 +39,7 @@ const logroSuscritoData = [
   { month: "Mar", real: 650000, meta: 600000 },
   { month: "Abr", real: 630000, meta: 610000 },
   { month: "May", real: 670000, meta: 630000 },
-  { month: "Jun", real: 700000, meta: 650000 }, 
+  { month: "Jun", real: 700000, meta: 37000000 }, 
 ];
 
 const npsTrendData = [
@@ -459,3 +459,4 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
     </div>
   );
 }
+

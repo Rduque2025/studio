@@ -23,7 +23,7 @@ import {
   UsersRound,
   Cpu,
   GitFork,
-  TrendingUp // Importado nuevo icono
+  TrendingUp
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -257,7 +257,7 @@ export default function DashboardPage() {
               {valoresData.map((value) => {
                 const IconComponent = value.icon;
                 return (
-                  <Card key={value.title} className="flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
+                  <Card key={value.title} className="h-full flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
                     <IconComponent className="h-12 w-12 text-primary mb-4" />
                     <h4 className="text-lg font-semibold text-secondary mb-2">{value.title}</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">
@@ -275,7 +275,7 @@ export default function DashboardPage() {
               {pilaresData.map((pillar) => {
                 const IconComponent = pillar.icon;
                 return (
-                  <Card key={pillar.title} className="flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
+                  <Card key={pillar.title} className="h-full flex flex-col items-center text-center p-6 bg-card shadow-xl rounded-2xl transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1 transform">
                     <IconComponent className="h-12 w-12 text-primary mb-4" />
                     <h4 className="text-lg font-semibold text-secondary mb-2">{pillar.title}</h4>
                     <p className="text-xs text-muted-foreground leading-relaxed">

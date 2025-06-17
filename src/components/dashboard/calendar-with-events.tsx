@@ -27,7 +27,7 @@ const EVENT_ITEM_STYLES = {
 // Specific styles for certain event titles
 const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; label: string } } = {
   "Beneficio de Transporte": { bg: 'bg-[#543db8]', text: 'text-white', label: '' },
-  "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-black', label: '' },
+  "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-white', label: '' },
   "Asignación Especial": { bg: 'bg-[#1a61ab]', text: 'text-white', label: '' },
   "Pago Quincena": { bg: 'bg-[#128d5d]', text: 'text-white', label: '' },
   "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
@@ -405,5 +405,7 @@ export function CalendarWithEvents() {
     </div>
   );
 }
+
+    
 
     

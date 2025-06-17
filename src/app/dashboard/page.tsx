@@ -433,18 +433,9 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
                 </div>
             )}
           </div>
-          {mockDressCodeItems.length > 0 && (
-            <div className="text-center max-w-xl mt-2">
-              <h3 className="text-xl font-semibold text-foreground mb-1">
-                {mockDressCodeItems[currentDressCodeImageIndex].title}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {mockDressCodeItems[currentDressCodeImageIndex].description}
-              </p>
-            </div>
-          )}
         </div>
       </SectionWrapper>
     </div>
   );
 }
+

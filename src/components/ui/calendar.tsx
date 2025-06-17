@@ -102,7 +102,7 @@ function Calendar({
               props.mode === "multiple" && "bg-primary text-primary-foreground rounded-md",
               props.mode === "range" && "bg-primary text-primary-foreground"
             ),
-        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-sky-300 dark:border-sky-700 rounded-md", // For the current day marker
+        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-secondary rounded-md", // For the current day marker
         day_outside: "day-outside text-muted-foreground/40 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle: props.mode === "range" && "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -147,6 +147,7 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+
 
 
 

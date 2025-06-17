@@ -21,9 +21,8 @@ import {
   UsersRound,
   Cpu,
   GitFork,
-  Building2,
-  Gem,
-  Layers
+  Layers,
+  Gem
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -294,7 +293,7 @@ export default function DashboardPage() {
       >
         <div className="mb-10 text-center">
           <h3 className="text-xl font-semibold text-primary mb-2">Nuestra Oferta de Valor</h3>
-          <p className="text-sm text-secondary max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm text-foreground max-w-2xl mx-auto leading-relaxed">
             Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
           </p>
         </div>

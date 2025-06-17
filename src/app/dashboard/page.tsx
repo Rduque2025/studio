@@ -203,7 +203,7 @@ export default function DashboardPage() {
         description="Nuestra trayectoria y compromiso con Venezuela."
         cardClassName="bg-transparent rounded-lg shadow-none border-none"
         titleClassName="text-4xl md:text-5xl font-bold text-primary py-4"
-        descriptionClassName="text-secondary"
+        descriptionClassName="text-secondary font-semibold"
         contentClassName="p-0"
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">

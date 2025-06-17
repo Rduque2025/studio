@@ -4,10 +4,10 @@
 import React, { useMemo, useEffect, useState, use } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, FileCheck, Smile, UserPlus, TrendingUp, Target, Activity, Percent, ArrowUp, ArrowDown } from 'lucide-react';
+import { Users, FileCheck, Smile, UserPlus, TrendingUp, Target, Activity, Percent, ArrowUp, ArrowDown, DollarSign } from 'lucide-react';
 import { Bar, BarChart, Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
-import { cn } from "@/lib/utils"; // Import cn
+import { cn } from "@/lib/utils"; 
 
 const keyMetricsData = {
   totalClientes: 25789,
@@ -126,6 +126,13 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
   const routeParams = use(params);
   const unwrappedSearchParams = use(searchParams);
 
+  const junioCobrado = logroCobradoData[logroCobradoData.length - 1];
+  const junioSuscrito = logroSuscritoData[logroSuscritoData.length - 1];
+
+  const cobradoPercentageChange = junioCobrado ? parseFloat((((junioCobrado.real - junioCobrado.meta) / junioCobrado.meta) * 100).toFixed(1)) : undefined;
+  const suscritoPercentageChange = junioSuscrito ? parseFloat((((junioSuscrito.real - junioSuscrito.meta) / junioSuscrito.meta) * 100).toFixed(1)) : undefined;
+
+
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <SectionWrapper
@@ -133,11 +140,29 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
         description="Visualice las métricas más importantes y el rendimiento de la empresa."
       >
         {/* Row 1: Metric Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
           <MetricCard title="Total Clientes" value={keyMetricsData.totalClientes} icon={Users} description="Número total de clientes activos." percentageChange={2.1} />
           <MetricCard title="Pólizas Activas" value={keyMetricsData.polizasActivas} icon={FileCheck} description="Total de pólizas vigentes." percentageChange={1.5}/>
           <MetricCard title="NPS Actual" value={keyMetricsData.npsActual} icon={Smile} description="Net Promoter Score (última medición)." isPercentage percentageChange={2.0}/>
           <MetricCard title="Nuevos Clientes (Mes)" value={keyMetricsData.nuevosClientesMes} icon={UserPlus} description="Clientes adquiridos este mes." percentageChange={-5.2}/>
+          {junioCobrado && (
+            <MetricCard 
+              title={`Cobrado Real (${junioCobrado.month})`} 
+              value={junioCobrado.real} 
+              icon={DollarSign} 
+              description={`Meta ${junioCobrado.month}: ${junioCobrado.meta.toLocaleString()}`}
+              percentageChange={cobradoPercentageChange} 
+            />
+          )}
+          {junioSuscrito && (
+            <MetricCard 
+              title={`Suscrito Real (${junioSuscrito.month})`}
+              value={junioSuscrito.real} 
+              icon={DollarSign} 
+              description={`Meta ${junioSuscrito.month}: ${junioSuscrito.meta.toLocaleString()}`}
+              percentageChange={suscritoPercentageChange}
+            />
+          )}
         </div>
 
         {/* Row 2: Performance Charts */}

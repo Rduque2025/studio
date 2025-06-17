@@ -188,11 +188,11 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
           {/* Left Column: New PNG container */}
           <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
             <Image
-              src="https://placehold.co/400x388.png"
-              alt="Contenido destacado Banesco Seguros"
+              src="https://storage.googleapis.com/makerbot-images/uploads/2024/07/26/11181827402633099955_1753716487192.png"
+              alt="Persona ensamblando piezas de rompecabezas, simbolizando soluciones y estrategia"
               layout="fill"
               objectFit="cover"
-              data-ai-hint="featured content"
+              data-ai-hint="puzzle solution"
             />
           </div>
 
@@ -253,11 +253,11 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
                 {/* New PNG Placeholder (Inner Left) */}
                 <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-md flex-shrink-0">
                     <Image
-                    src="https://placehold.co/400x388.png"
-                    alt="Imagen descriptiva Banesco Seguros"
+                    src="https://storage.googleapis.com/makerbot-images/uploads/2024/07/26/11181827402633099955_1753716487192.png"
+                    alt="Persona ensamblando piezas de rompecabezas, simbolizando soluciones y estrategia Banesco"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="corporate image"
+                    data-ai-hint="puzzle strategy"
                     />
                 </div>
                 {/* Existing Rotating Image Carousel (Inner Right) */}

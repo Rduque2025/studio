@@ -7,24 +7,24 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
-import { DressCodeCard } from "@/components/dashboard/dress-code-card"; 
-import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data"; 
+import { DressCodeCard } from "@/components/dashboard/dress-code-card";
+import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent } from "@/components/ui/card";
-import { 
-  ChevronLeft, 
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  ChevronLeft,
   ChevronRight,
-  Handshake, 
-  Lightbulb, 
-  Award,     
-  Globe,     
-  Landmark,  
+  Handshake,
+  Lightbulb,
+  Award,
+  Globe,
+  Landmark,
   UsersRound,
-  Cpu,       
-  GitFork,   
+  Cpu,
+  GitFork,
   Building2,
-  Gem, 
-  Layers 
+  Gem,
+  Layers
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -32,20 +32,20 @@ import { cn } from '@/lib/utils';
 
 
 const rotatingImagesData = [
-  { 
-    src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDb25maWFuemF8ZW58MHx8fHwxNzQ4MjkwNzU3fDA&ixlib=rb-4.1.0&q=80&w=1080", 
-    alt: "Imagen corporativa de Banesco Seguros", 
-    hint: "corporate office" 
+  {
+    src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDb25maWFuemF8ZW58MHx8fHwxNzQ4MjkwNzU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    alt: "Imagen corporativa de Banesco Seguros",
+    hint: "corporate office"
   },
-  { 
-    src: "https://images.unsplash.com/photo-1576696058573-12b47c49559e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RkFNSUxJQXxlbnwwfHx8fDE3NDgyOTEzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080", 
-    alt: "Protección y confianza familiar Banesco Seguros", 
-    hint: "family protection" 
+  {
+    src: "https://images.unsplash.com/photo-1576696058573-12b47c49559e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RkFNSUxJQXxlbnwwfHx8fDE3NDgyOTEzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    alt: "Protección y confianza familiar Banesco Seguros",
+    hint: "family protection"
   },
-  { 
-    src: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8RU1QUkVTQXxlbnwwfHx8fDE3NDgyOTE1NTF8MA&ixlib=rb-4.1.0&q=80&w=1080", 
-    alt: "Solidez financiera Banesco Seguros", 
-    hint: "financial security" 
+  {
+    src: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8RU1QUkVTQXxlbnwwfHx8fDE3NDgyOTE1NTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    alt: "Solidez financiera Banesco Seguros",
+    hint: "financial security"
   },
 ];
 
@@ -56,12 +56,12 @@ const bannerImagesData = [
     hint: "corporate banner"
   },
   {
-    src: "https://placehold.co/1200x400/003c71/ffffff.png", 
+    src: "https://placehold.co/1200x400/003c71/ffffff.png",
     alt: "Banner principal del portal de gestión 2",
     hint: "company values"
   },
   {
-    src: "https://placehold.co/1200x400/1a61ab/ffffff.png", 
+    src: "https://placehold.co/1200x400/1a61ab/ffffff.png",
     alt: "Banner principal del portal de gestión 3",
     hint: "employee portal"
   },
@@ -102,7 +102,7 @@ export default function DashboardPage() {
   }, []);
 
   const handlePrevImage = () => {
-    setCurrentImageIndex(prevIndex => 
+    setCurrentImageIndex(prevIndex =>
       prevIndex === 0 ? rotatingImagesData.length - 1 : prevIndex - 1
     );
   };
@@ -130,20 +130,20 @@ export default function DashboardPage() {
   };
 
   const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
-    const IconToRender = icon; 
+    const IconToRender = icon;
     return (
       <div className={cn("flex items-center w-72 md:w-80 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
         <div className={cn(
-            "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center", 
-            bgColor, 
-            orientation === 'left' ? 'rounded-r-none pl-4 pr-6' : 'rounded-l-none pr-6 pl-4'
+            "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center",
+            bgColor,
+            orientation === 'left' ? 'rounded-r-none pl-8 pr-6' : 'rounded-l-none pr-8 pl-4'
           )}
         >
           <h4 className="font-semibold text-md mb-1">{title}</h4>
           <p className="text-xs leading-tight">{text}</p>
         </div>
         <div className={cn(
-            "bg-card p-3 rounded-full shadow-lg z-10", 
+            "bg-card p-3 rounded-full shadow-lg z-10",
             orientation === 'left' ? '-ml-4' : '-mr-4'
           )}
         >
@@ -166,7 +166,7 @@ export default function DashboardPage() {
             objectFit="cover"
             className="rounded-lg"
             data-ai-hint={bannerImagesData[currentBannerImageIndex].hint}
-            priority={currentBannerImageIndex === 0} 
+            priority={currentBannerImageIndex === 0}
           />
           <Button
             variant="ghost"
@@ -189,13 +189,13 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <SectionWrapper 
+      <SectionWrapper
         title="Banesco Seguros Venezuela"
         description="Nuestra trayectoria y compromiso con Venezuela."
-        cardClassName="bg-transparent rounded-lg shadow-none border-none" 
-        titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
+        cardClassName="bg-transparent rounded-lg shadow-none border-none"
+        titleClassName="text-4xl md:text-5xl font-bold text-primary py-4"
         descriptionClassName="text-secondary"
-        contentClassName="p-0" 
+        contentClassName="p-0"
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="p-6">
@@ -212,15 +212,15 @@ export default function DashboardPage() {
             <div
               className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md"
             >
-              <Image 
-                key={rotatingImagesData[currentImageIndex].src} 
+              <Image
+                key={rotatingImagesData[currentImageIndex].src}
                 src={rotatingImagesData[currentImageIndex].src}
                 alt={rotatingImagesData[currentImageIndex].alt}
                 layout="fill"
                 objectFit="cover"
                 data-ai-hint={rotatingImagesData[currentImageIndex].hint}
                 className="rounded-lg"
-                priority={currentImageIndex === 0} 
+                priority={currentImageIndex === 0}
               />
               <Button
                 variant="ghost"
@@ -243,7 +243,7 @@ export default function DashboardPage() {
             </div>
           </div>
       </SectionWrapper>
-      
+
       <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
@@ -277,7 +277,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper 
+      <SectionWrapper
         title="Nuestros Principios Fundamentales"
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
         contentClassName="p-0"
@@ -301,31 +301,31 @@ export default function DashboardPage() {
               </>
             )}
           </button>
-          
+
           {pillPositions.map((pos, index) => {
             const valor = valoresData[index];
             const pilar = pilaresData[index];
             return (
               <React.Fragment key={index}>
                 {/* Valor Pill */}
-                <div 
+                <div
                   className={cn(
                     "absolute transition-all duration-500 ease-in-out",
                     pos.base,
-                    currentDisplay === 'valores' 
-                      ? "opacity-100 scale-100" 
+                    currentDisplay === 'valores'
+                      ? "opacity-100 scale-100"
                       : "opacity-0 scale-90 pointer-events-none"
                   )}
                 >
                   {valor && <ValuePillarPill {...valor} orientation={pos.orientation} />}
                 </div>
                 {/* Pilar Pill */}
-                <div 
+                <div
                   className={cn(
                     "absolute transition-all duration-500 ease-in-out",
                     pos.base,
-                    currentDisplay === 'pilares' 
-                      ? "opacity-100 scale-100" 
+                    currentDisplay === 'pilares'
+                      ? "opacity-100 scale-100"
                       : "opacity-0 scale-90 pointer-events-none"
                   )}
                 >
@@ -336,7 +336,7 @@ export default function DashboardPage() {
           })}
         </div>
       </SectionWrapper>
-      
+
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
@@ -344,7 +344,7 @@ export default function DashboardPage() {
           ))}
         </div>
       </SectionWrapper>
-      
+
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
@@ -366,8 +366,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-    
-
-    
-
-

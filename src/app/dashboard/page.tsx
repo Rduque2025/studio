@@ -7,7 +7,7 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
-import { DressCodeCard } from "@/components/dashboard/dress-code-card";
+// DressCodeCard is no longer directly used in the map, but the data is.
 import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -132,6 +132,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentDisplay, setCurrentDisplay] = useState<'valores' | 'pilares'>('valores');
+  const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
 
   useEffect(() => {
     const today = new Date();
@@ -166,6 +167,19 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
   const toggleDisplay = () => {
     setCurrentDisplay(prev => prev === 'valores' ? 'pilares' : 'valores');
   };
+
+  const handlePrevDressCodeImage = () => {
+    setCurrentDressCodeImageIndex(prevIndex =>
+      prevIndex === 0 ? mockDressCodeItems.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextDressCodeImage = () => {
+    setCurrentDressCodeImageIndex(prevIndex =>
+      prevIndex === mockDressCodeItems.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
@@ -377,16 +391,60 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
       </SectionWrapper>
 
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockDressCodeItems.map((item) => (
-              <DressCodeCard key={item.id} item={item} />
-            ))}
+        <div className="flex flex-col items-center">
+          <div className="relative w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto mb-4">
+            {mockDressCodeItems.length > 0 && (
+              <Image
+                key={mockDressCodeItems[currentDressCodeImageIndex].id}
+                src={mockDressCodeItems[currentDressCodeImageIndex].imageUrl}
+                alt={mockDressCodeItems[currentDressCodeImageIndex].title}
+                layout="fill"
+                objectFit="cover"
+                className="rounded-lg"
+                data-ai-hint={mockDressCodeItems[currentDressCodeImageIndex].dataAiHint}
+                priority={currentDressCodeImageIndex === 0}
+              />
+            )}
+            {mockDressCodeItems.length > 1 && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handlePrevDressCodeImage}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+                  aria-label="Código de vestimenta anterior"
+                >
+                  <ChevronLeft className="h-6 w-6" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={handleNextDressCodeImage}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+                  aria-label="Siguiente código de vestimenta"
+                >
+                  <ChevronRight className="h-6 w-6" />
+                </Button>
+              </>
+            )}
+             {mockDressCodeItems.length === 0 && (
+                <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
+                    <p className="text-muted-foreground">No hay información de código de vestimenta disponible.</p>
+                </div>
+            )}
           </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+          {mockDressCodeItems.length > 0 && (
+            <div className="text-center max-w-xl mt-2">
+              <h3 className="text-xl font-semibold text-foreground mb-1">
+                {mockDressCodeItems[currentDressCodeImageIndex].title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {mockDressCodeItems[currentDressCodeImageIndex].description}
+              </p>
+            </div>
+          )}
+        </div>
       </SectionWrapper>
     </div>
   );
 }
-

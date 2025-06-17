@@ -15,7 +15,7 @@ interface ActivityDetailsPageProps {
   params: {
     id: string;
   };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
@@ -24,9 +24,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ActivityDetailsPage(props: ActivityDetailsPageProps) {
-  const routeParams = use(props.params);
-  const _searchParams = use(props.searchParams);
+export default function ActivityDetailsPage({ params, searchParams }: ActivityDetailsPageProps) {
+  const routeParams = use(params);
+  const _usedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
+  
   const id = routeParams.id;
   const activity = mockActivities.find(a => a.id === id);
 

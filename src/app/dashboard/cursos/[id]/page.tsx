@@ -13,7 +13,7 @@ interface CourseDetailsPageProps {
   params: {
     id: string;
   };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
@@ -22,10 +22,10 @@ export async function generateStaticParams() {
   }));
 }
 
+export default function CourseDetailsPage({ params, searchParams }: CourseDetailsPageProps) {
+  const routeParams = use(params);
+  const _usedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
 
-export default function CourseDetailsPage(props: CourseDetailsPageProps) {
-  const routeParams = use(props.params);
-  const _searchParams = use(props.searchParams);
   const id = routeParams.id;
   const course = mockCourses.find(c => c.id === id);
 

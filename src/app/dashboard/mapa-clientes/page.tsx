@@ -195,6 +195,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
       <SectionWrapper
         title="Indicadores Clave de Rendimiento"
         description="Visualice las métricas acumuladas y el rendimiento de la empresa. Utilice los filtros para refinar los datos."
+        descriptionClassName="text-xs"
       >
         {/* Filter Dialog Trigger */}
         <div className="mb-8 flex justify-end">

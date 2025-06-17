@@ -23,8 +23,8 @@ import {
   Cpu,       
   GitFork,   
   Building2,
-  Gem, // Added for Valores
-  Layers // Added for Pilares
+  Gem, 
+  Layers 
 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -136,7 +136,7 @@ export default function DashboardPage() {
         <div className={cn(
             "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center", 
             bgColor, 
-            orientation === 'left' ? 'rounded-r-none pl-4 pr-6' : 'rounded-l-none pr-4 pl-6'
+            orientation === 'left' ? 'rounded-r-none pl-4 pr-6' : 'rounded-l-none pr-6 pl-4'
           )}
         >
           <h4 className="font-semibold text-md mb-1">{title}</h4>
@@ -244,6 +244,39 @@ export default function DashboardPage() {
           </div>
       </SectionWrapper>
       
+      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockMenuItems.map((item) => (
+              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
+      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary" descriptionClassName="text-secondary">
+       <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockDietMenuItems.map((item) => (
+              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
+      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary" descriptionClassName="text-secondary">
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockExecutiveMenuItems.map((item) => (
+              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </SectionWrapper>
+
       <SectionWrapper 
         title="Nuestros Principios Fundamentales"
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
@@ -303,39 +336,6 @@ export default function DashboardPage() {
           })}
         </div>
       </SectionWrapper>
-
-      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary" descriptionClassName="text-secondary">
-       <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockDietMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockExecutiveMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
       
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -369,4 +369,5 @@ export default function DashboardPage() {
     
 
     
+
 

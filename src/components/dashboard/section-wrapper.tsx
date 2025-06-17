@@ -11,15 +11,16 @@ interface SectionWrapperProps {
   contentClassName?: string;
   headerClassName?: string;
   titleClassName?: string;
+  descriptionClassName?: string; 
 }
 
-export function SectionWrapper({ title, description, children, className, cardClassName, contentClassName, headerClassName, titleClassName }: SectionWrapperProps) {
+export function SectionWrapper({ title, description, children, className, cardClassName, contentClassName, headerClassName, titleClassName, descriptionClassName }: SectionWrapperProps) {
   return (
     <section className={className}>
       <Card className={cn("bg-transparent shadow-none border-none", cardClassName)}>
         <CardHeader className={headerClassName}>
-          <CardTitle className={cn("text-2xl font-semibold", titleClassName)}>{title}</CardTitle>
-          {description && <CardDescription>{description}</CardDescription>}
+          <CardTitle className={cn("text-2xl font-semibold text-secondary", titleClassName)}>{title}</CardTitle>
+          {description && <CardDescription className={cn("text-accent", descriptionClassName)}>{description}</CardDescription>}
         </CardHeader>
         <CardContent className={contentClassName}>
           {children}

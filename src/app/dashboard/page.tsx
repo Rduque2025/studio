@@ -127,18 +127,18 @@ export default function DashboardPage() {
         title="Banesco Seguros Venezuela"
         description="Nuestra trayectoria y compromiso con Venezuela."
         cardClassName="bg-transparent rounded-lg shadow-none border-none" 
-        titleClassName="text-4xl md:text-5xl font-bold text-primary py-4" 
+        titleClassName="text-4xl md:text-5xl font-bold text-secondary py-4" 
         contentClassName="p-0" 
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="p-6">
-              <p className="text-muted-foreground leading-relaxed text-sm">
+              <p className="text-accent leading-relaxed text-sm">
                 En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
+              <p className="text-accent leading-relaxed mt-4 text-sm">
                 Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
               </p>
-              <p className="text-muted-foreground leading-relaxed mt-4 text-sm">
+              <p className="text-accent leading-relaxed mt-4 text-sm">
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
           </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary">
+      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockMenuItems.map((item) => (
@@ -188,7 +188,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary">
+      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-secondary">
        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDietMenuItems.map((item) => (
@@ -199,7 +199,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary">
+      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockExecutiveMenuItems.map((item) => (
@@ -214,7 +214,7 @@ export default function DashboardPage() {
         title="Valores y Pilares Fundamentales"
         description="Los principios que guían nuestro actuar diario."
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
-        titleClassName="text-primary"
+        titleClassName="text-secondary"
       >
         <Card className="bg-transparent shadow-none rounded-lg border-none"> 
           <CardContent className="p-6 grid md:grid-cols-2 gap-x-12 gap-y-8">
@@ -257,7 +257,7 @@ export default function DashboardPage() {
         </Card>
       </SectionWrapper>
 
-      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary">
+      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
             <CourseCard key={course.id} course={course} />
@@ -265,7 +265,7 @@ export default function DashboardPage() {
         </div>
       </SectionWrapper>
       
-      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary">
+      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-secondary">
         <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
           <div className="flex w-max space-x-4 p-4">
             {mockDressCodeItems.map((item) => (
@@ -276,7 +276,7 @@ export default function DashboardPage() {
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary">
+      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />

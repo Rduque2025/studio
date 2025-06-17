@@ -111,7 +111,7 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
           "flex flex-col justify-center h-full",
           "py-4",
           orientation === 'left'
-            ? 'pl-[3.5rem] pr-4 text-left'
+            ? 'pl-[3.5rem] pr-6 text-left' 
             : 'pr-[3.5rem] pl-4 text-right'
         )}
       >

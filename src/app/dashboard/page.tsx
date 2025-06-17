@@ -131,11 +131,20 @@ export default function DashboardPage() {
     const IconToRender = icon; 
     return (
       <div className={cn("flex items-center w-60 md:w-64 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
-        <div className={cn("text-white p-4 rounded-lg shadow-md h-32 flex flex-col justify-center", bgColor, orientation === 'left' ? 'rounded-r-none' : 'rounded-l-none')}>
+        <div className={cn(
+            "text-white py-4 rounded-lg shadow-md h-32 flex flex-col justify-center", 
+            bgColor, 
+            orientation === 'left' ? 'rounded-r-none pl-4 pr-6' : 'rounded-l-none pr-4 pl-6'
+          )}
+        >
           <h4 className="font-semibold text-md mb-1">{title}</h4>
           <p className="text-xs leading-tight">{text}</p>
         </div>
-        <div className={cn("bg-card p-3 rounded-full shadow-lg z-10", orientation === 'left' ? 'ml-[-20px]' : 'mr-[-20px]')}>
+        <div className={cn(
+            "bg-card p-3 rounded-full shadow-lg z-10", 
+            orientation === 'left' ? '-ml-4' : '-mr-4'
+          )}
+        >
           <IconToRender className={cn("h-8 w-8", iconColor)} />
         </div>
       </div>

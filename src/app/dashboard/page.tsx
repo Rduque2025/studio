@@ -127,7 +127,7 @@ interface DashboardPageProps {
 }
 
 export default function DashboardPage({ searchParams }: DashboardPageProps) {
-  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
+  const unwrappedSearchParams = use(searchParams); 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
@@ -191,7 +191,6 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
             alt={bannerImagesData[currentBannerImageIndex].alt}
             layout="fill"
             objectFit="cover"
-            className="rounded-lg"
             data-ai-hint={bannerImagesData[currentBannerImageIndex].hint}
             priority={currentBannerImageIndex === 0}
           />
@@ -246,7 +245,6 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
                 layout="fill"
                 objectFit="cover"
                 data-ai-hint={rotatingImagesData[currentImageIndex].hint}
-                className="rounded-lg"
                 priority={currentImageIndex === 0}
               />
               <Button
@@ -391,8 +389,20 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
       </SectionWrapper>
 
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <div className="flex flex-col items-center">
-          <div className="relative w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto mb-4">
+        <div className="flex flex-col md:flex-row items-start justify-center gap-8 py-4">
+          {/* Left Column: New PNG container */}
+          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+            <Image
+              src="https://placehold.co/400x388.png"
+              alt="Guía visual complementaria del código de vestimenta"
+              layout="fill"
+              objectFit="cover"
+              data-ai-hint="attire guide"
+            />
+          </div>
+
+          {/* Right Column: Existing Dress Code Image Viewer */}
+          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
             {mockDressCodeItems.length > 0 && (
               <Image
                 key={mockDressCodeItems[currentDressCodeImageIndex].id}
@@ -400,7 +410,6 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
                 alt={mockDressCodeItems[currentDressCodeImageIndex].title}
                 layout="fill"
                 objectFit="cover"
-                className="rounded-lg"
                 data-ai-hint={mockDressCodeItems[currentDressCodeImageIndex].dataAiHint}
                 priority={currentDressCodeImageIndex === 0}
               />
@@ -438,4 +447,3 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
     </div>
   );
 }
-

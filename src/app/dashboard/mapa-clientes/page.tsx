@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 import { regions as mapRegionsData } from "@/components/dashboard/venezuela-map"; // For state list
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress"; // Import Progress component
 
 const keyMetricsData = {
   totalClientes: 25789,
@@ -90,9 +91,10 @@ interface MetricCardProps {
   description?: string;
   isPercentage?: boolean;
   percentageChange?: number;
+  progressPercentage?: number; // New prop for progress bar
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, description, isPercentage, percentageChange }) => {
+const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, description, isPercentage, percentageChange, progressPercentage }) => {
   const [formattedValue, setFormattedValue] = useState<string | number>(value);
 
   useEffect(() => {
@@ -125,6 +127,9 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, descr
           )}
         </div>
         {description && <p className="text-xs text-muted-foreground mt-1">{description}</p>}
+        {progressPercentage !== undefined && (
+          <Progress value={progressPercentage} className="mt-2 h-2" />
+        )}
       </CardContent>
     </Card>
   );
@@ -147,6 +152,9 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
 
   const cobradoPercentageChange = useMemo(() => currentCobrado ? parseFloat((((currentCobrado.real - currentCobrado.meta) / currentCobrado.meta) * 100).toFixed(1)) : undefined, [currentCobrado]);
   const suscritoPercentageChange = useMemo(() => currentSuscrito ? parseFloat((((currentSuscrito.real - currentSuscrito.meta) / currentSuscrito.meta) * 100).toFixed(1)) : undefined, [currentSuscrito]);
+
+  const cobradoProgressPercentage = useMemo(() => currentCobrado && currentCobrado.meta > 0 ? (currentCobrado.real / currentCobrado.meta) * 100 : 0, [currentCobrado]);
+  const suscritoProgressPercentage = useMemo(() => currentSuscrito && currentSuscrito.meta > 0 ? (currentSuscrito.real / currentSuscrito.meta) * 100 : 0, [currentSuscrito]);
 
   useEffect(() => {
     if (currentCobrado) {
@@ -214,7 +222,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
                 </DialogDescription>
               </DialogHeader>
               
-              <ScrollArea className="max-h-[60vh] pr-4 my-4"> {/* Added my-4 for spacing */}
+              <ScrollArea className="max-h-[60vh] pr-4 my-4">
                 <Accordion type="multiple" className="w-full">
                   <AccordionItem value="lineas-negocio">
                     <AccordionTrigger>Líneas de Negocio</AccordionTrigger>
@@ -321,7 +329,8 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
               value={currentCobrado.real} 
               icon={DollarSign} 
               description={cobradoCardDescription || "Cargando descripción..."}
-              percentageChange={cobradoPercentageChange} 
+              percentageChange={cobradoPercentageChange}
+              progressPercentage={cobradoProgressPercentage}
             />
           )}
           {currentSuscrito && (
@@ -331,6 +340,7 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
               icon={DollarSign} 
               description={suscritoCardDescription || "Cargando descripción..."}
               percentageChange={suscritoPercentageChange}
+              progressPercentage={suscritoProgressPercentage}
             />
           )}
         </div>
@@ -434,4 +444,3 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
     </div>
   );
 }
-

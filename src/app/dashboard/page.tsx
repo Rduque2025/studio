@@ -132,13 +132,13 @@ export default function DashboardPage() {
       >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="p-6">
-              <p className="text-accent leading-relaxed text-sm">
+              <p className="text-secondary leading-relaxed text-sm">
                 En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
               </p>
-              <p className="text-accent leading-relaxed mt-4 text-sm">
+              <p className="text-secondary leading-relaxed mt-4 text-sm">
                 Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
               </p>
-              <p className="text-accent leading-relaxed mt-4 text-sm">
+              <p className="text-secondary leading-relaxed mt-4 text-sm">
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>

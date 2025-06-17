@@ -20,7 +20,7 @@ export function SectionWrapper({ title, description, children, className, cardCl
       <Card className={cn("bg-transparent shadow-none border-none", cardClassName)}>
         <CardHeader className={headerClassName}>
           <CardTitle className={cn("text-2xl font-semibold text-primary", titleClassName)}>{title}</CardTitle>
-          {description && <CardDescription className={cn("text-accent", descriptionClassName)}>{description}</CardDescription>}
+          {description && <CardDescription className={cn("text-secondary", descriptionClassName)}>{description}</CardDescription>}
         </CardHeader>
         <CardContent className={contentClassName}>
           {children}

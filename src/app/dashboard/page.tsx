@@ -132,7 +132,7 @@ export default function DashboardPage() {
   const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
     const IconToRender = icon;
     return (
-      <div className={cn("flex items-center w-72 md:w-80 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
+      <div className={cn("flex items-center w-80 md:w-96 my-4", orientation === 'right' ? 'flex-row-reverse' : '')}>
         <div className={cn(
             "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center",
             bgColor,

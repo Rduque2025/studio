@@ -184,34 +184,48 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <section className="mb-12">
-        <div className="relative w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
-          <Image
-            key={bannerImagesData[currentBannerImageIndex].src}
-            src={bannerImagesData[currentBannerImageIndex].src}
-            alt={bannerImagesData[currentBannerImageIndex].alt}
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint={bannerImagesData[currentBannerImageIndex].hint}
-            priority={currentBannerImageIndex === 0}
-          />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handlePrevBannerImage}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-            aria-label="Banner anterior"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={handleNextBannerImage}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-            aria-label="Siguiente banner"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
+        <div className="flex flex-col md:flex-row items-start justify-center gap-8 max-w-6xl mx-auto">
+          {/* Left Column: New PNG container */}
+          <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+            <Image
+              src="https://placehold.co/400x388.png"
+              alt="Contenido destacado Banesco Seguros"
+              layout="fill"
+              objectFit="cover"
+              data-ai-hint="featured content"
+            />
+          </div>
+
+          {/* Right Column: Existing Banner Carousel */}
+          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg">
+            <Image
+              key={bannerImagesData[currentBannerImageIndex].src}
+              src={bannerImagesData[currentBannerImageIndex].src}
+              alt={bannerImagesData[currentBannerImageIndex].alt}
+              layout="fill"
+              objectFit="cover"
+              data-ai-hint={bannerImagesData[currentBannerImageIndex].hint}
+              priority={currentBannerImageIndex === 0}
+            />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handlePrevBannerImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+              aria-label="Banner anterior"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleNextBannerImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+              aria-label="Siguiente banner"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -235,36 +249,47 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
                 Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
               </p>
             </div>
-            <div
-              className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-md"
-            >
-              <Image
-                key={rotatingImagesData[currentImageIndex].src}
-                src={rotatingImagesData[currentImageIndex].src}
-                alt={rotatingImagesData[currentImageIndex].alt}
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint={rotatingImagesData[currentImageIndex].hint}
-                priority={currentImageIndex === 0}
-              />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handlePrevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                aria-label="Imagen anterior"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleNextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                aria-label="Siguiente imagen"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </Button>
+             <div className="flex flex-col md:flex-row items-center gap-4">
+                {/* New PNG Placeholder (Inner Left) */}
+                <div className="relative w-full md:w-[400px] h-[388.39px] rounded-lg overflow-hidden shadow-md flex-shrink-0">
+                    <Image
+                    src="https://placehold.co/400x388.png"
+                    alt="Imagen descriptiva Banesco Seguros"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="corporate image"
+                    />
+                </div>
+                {/* Existing Rotating Image Carousel (Inner Right) */}
+                <div className="relative w-full md:flex-1 h-[388.39px] rounded-lg overflow-hidden shadow-md">
+                    <Image
+                        key={rotatingImagesData[currentImageIndex].src}
+                        src={rotatingImagesData[currentImageIndex].src}
+                        alt={rotatingImagesData[currentImageIndex].alt}
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint={rotatingImagesData[currentImageIndex].hint}
+                        priority={currentImageIndex === 0}
+                    />
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handlePrevImage}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+                        aria-label="Imagen anterior"
+                    >
+                        <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleNextImage}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+                        aria-label="Siguiente imagen"
+                    >
+                        <ChevronRight className="h-6 w-6" />
+                    </Button>
+                </div>
             </div>
           </div>
       </SectionWrapper>
@@ -310,7 +335,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
+       <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />
@@ -447,3 +472,4 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
     </div>
   );
 }
+

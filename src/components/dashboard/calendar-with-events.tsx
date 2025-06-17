@@ -30,7 +30,8 @@ const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; labe
   "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-black', label: '' },
   "Asignación Especial": { bg: 'bg-[#1a61ab]', text: 'text-white', label: '' },
   "Pago Quincena": { bg: 'bg-[#128d5d]', text: 'text-white', label: '' },
-  "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' }
+  "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
+  "Beneficio Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
 };
 
 // Keywords for categorization - keep these specific to avoid miscategorization

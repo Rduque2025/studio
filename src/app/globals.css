@@ -24,7 +24,7 @@
     --primary: 208 100% 22%; /* #003C71 Nuevo Azul Principal */
     --primary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
 
-    --secondary: 223 19% 52%; /* #6D7B9C Azul Acero */
+    --secondary: 210 70% 39%; /* #1A61AB Nuevo Azul Secundario */
     --secondary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
 
     --accent: 30 29% 64%; /* #C4A484 Beige Arena */
@@ -37,10 +37,10 @@
     --radius: 0.5rem;
 
     --chart-1: 208 100% 22%; /* #003C71 Nuevo Azul Principal */
-    --chart-2: 223 19% 52%; /* #6D7B9C Azul Acero */
+    --chart-2: 210 70% 39%; /* #1A61AB Nuevo Azul Secundario */
     --chart-3: 30 29% 64%;  /* #C4A484 Beige Arena */
     --chart-4: 208 100% 35%; /* Tono más claro del nuevo azul principal #003C71 */
-    --chart-5: 223 19% 70%; /* Tono más claro de Azul Acero */
+    --chart-5: 210 70% 55%; /* Tono más claro del Nuevo Azul Secundario #5E9CD4 */
   }
 
   .dark {
@@ -62,7 +62,7 @@
     --primary: 223 19% 52%; /* #6D7B9C Azul Acero (usado como primario en tema oscuro) */
     --primary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
 
-    --secondary: 208 100% 18%; /* Nuevo Azul Principal más oscuro y apagado para tema oscuro */
+    --secondary: 210 65% 30%; /* #114477 Variante oscura del Nuevo Azul Secundario */
     --secondary-foreground: 0 0% 90%; /* Blanco hueso */
 
     --accent: 30 29% 64%; /* #C4A484 Beige Arena */
@@ -74,10 +74,10 @@
     --ring: 223 19% 70%; /* Azul Acero más claro para el anillo de enfoque */
 
     --chart-1: 223 19% 52%; /* Azul Acero */
-    --chart-2: 208 100% 18%; /* Nuevo Azul Principal oscuro */
+    --chart-2: 210 65% 30%; /* #114477 Variante oscura del Nuevo Azul Secundario */
     --chart-3: 30 29% 64%;  /* Beige Arena */
     --chart-4: 223 19% 65%; /* Variante más clara de Azul Acero */
-    --chart-5: 208 100% 28%; /* Variante más clara de Nuevo Azul Principal oscuro */
+    --chart-5: 210 65% 45%; /* #367BB6 Variante más clara del Nuevo Azul Secundario oscuro */
   }
 }
 

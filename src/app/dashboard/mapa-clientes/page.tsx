@@ -39,11 +39,14 @@ const salesChannelsChartConfig = {
 } satisfies ChartConfig;
 
 interface MapaClientesPageProps {
+  params: {}; // Added params even if not used, to match general structure if searchParams are present
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function MapaClientesPage({ searchParams }: MapaClientesPageProps) {
-  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
+export default function MapaClientesPage({ params, searchParams }: MapaClientesPageProps) {
+  const routeParams = use(params); // Unwap params even if not directly used
+  const unwrappedSearchParams = use(searchParams); 
+
   const [selectedRegion, setSelectedRegion] = useState<MapRegion | null>(null);
 
   const currentData: MapRegionClientData = useMemo(() => {

@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 
 export default function ActivityDetailsPage({ params, searchParams }: ActivityDetailsPageProps) {
   const routeParams = use(params);
-  const unwrappedSearchParams = use(searchParams); // Ensure searchParams is unwrapped
+  const unwrappedSearchParams = use(searchParams);
 
   const id = routeParams.id;
   const activity = mockActivities.find(a => a.id === id);

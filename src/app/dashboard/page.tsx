@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState, useEffect, useRef, use } from 'react';
@@ -123,11 +122,14 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
 };
 
 interface DashboardPageProps {
+  params: {}; // Added params even if not used, to match general structure if searchParams are present
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default function DashboardPage({ searchParams }: DashboardPageProps) {
+export default function DashboardPage({ params, searchParams }: DashboardPageProps) {
+  const routeParams = use(params); // Unwap params even if not directly used
   const unwrappedSearchParams = use(searchParams);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
@@ -184,7 +186,7 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
       <section className="mb-12">
-        <div className="flex flex-col md:flex-row items-start justify-center gap-8 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-6xl mx-auto">
           {/* Banner Carousel */}
           <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
             <Image
@@ -440,4 +442,3 @@ export default function DashboardPage({ searchParams }: DashboardPageProps) {
     </div>
   );
 }
-

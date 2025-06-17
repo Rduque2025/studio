@@ -136,7 +136,8 @@ export default function DashboardPage() {
         <div className={cn(
             "text-white py-4 rounded-lg shadow-md h-40 flex flex-col justify-center",
             bgColor,
-            orientation === 'left' ? 'rounded-r-none pl-8 pr-6' : 'rounded-l-none pr-8 pl-4'
+            orientation === 'left' ? 'rounded-r-none pl-8 pr-6' : 'rounded-l-none pr-8 pl-4',
+            orientation === 'right' ? 'text-right' : ''
           )}
         >
           <h4 className="font-semibold text-md mb-1">{title}</h4>
@@ -366,3 +367,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

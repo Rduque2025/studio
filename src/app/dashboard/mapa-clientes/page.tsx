@@ -107,6 +107,17 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, descr
     }
   }, [value, isPercentage]);
 
+  let indicatorColorClass = "bg-primary"; // Default color
+  if (progressPercentage !== undefined) {
+    if (progressPercentage >= 100) {
+      indicatorColorClass = "bg-green-500"; 
+    } else if (progressPercentage >= 70) {
+      indicatorColorClass = "bg-yellow-500"; 
+    } else {
+      indicatorColorClass = "bg-red-500"; 
+    }
+  }
+
   return (
     <Card className="shadow-sm">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -128,7 +139,11 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, descr
         </div>
         {description && <p className="text-xs text-muted-foreground mt-1">{description}</p>}
         {progressPercentage !== undefined && (
-          <Progress value={progressPercentage} className="mt-2 h-2" />
+          <Progress 
+            value={progressPercentage} 
+            indicatorClassName={indicatorColorClass}
+            className="mt-2 h-2" 
+          />
         )}
       </CardContent>
     </Card>

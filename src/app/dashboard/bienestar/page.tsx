@@ -11,7 +11,7 @@ export default function BienestarPage() {
     <div className="container mx-auto py-8 px-4 space-y-12">
       <SectionWrapper title="Actividades de Bienestar" description="Descubra nuestros programas diseñados para su salud y bienestar integral.">
          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockActivities.slice(0,3).map((activity) => (
+          {mockActivities.map((activity) => (
             <ActivityCard key={activity.id} activity={activity} />
           ))}
            {mockActivities.length === 0 && (
@@ -41,4 +41,3 @@ export default function BienestarPage() {
     </div>
   );
 }
-

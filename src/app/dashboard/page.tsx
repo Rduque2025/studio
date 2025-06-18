@@ -127,7 +127,6 @@ interface DashboardPageProps {
 }
 
 export default function DashboardPage({ params, searchParams }: DashboardPageProps) {
-  // Ensure params and searchParams are unwrapped using React.use()
   const routeParams = use(params); 
   const unwrappedSearchParams = use(searchParams);
 
@@ -395,6 +394,43 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </div>
       </SectionWrapper>
 
+      <SectionWrapper title="Nuestra Misión" titleClassName="text-3xl font-bold text-primary mb-8 text-center">
+        <div className="max-w-3xl mx-auto space-y-6">
+          <div className="relative pl-8 md:pl-10 py-6 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="absolute -left-[1.30rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md border-2 border-background">1</div>
+            <h3 className="text-xl font-semibold text-primary mb-2 ml-4">Excelencia y Calidad de Servicios</h3>
+            <p className="text-muted-foreground text-sm ml-4 leading-relaxed">
+              Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.
+            </p>
+          </div>
+
+          <div className="relative pl-8 md:pl-10 py-6 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-6 lg:ml-8">
+            <div className="absolute -left-[1.30rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md border-2 border-background">2</div>
+            <h3 className="text-xl font-semibold text-primary mb-2 ml-4">Satisfacción de Necesidades</h3>
+            <p className="text-muted-foreground text-sm ml-4 leading-relaxed">
+              Orientada en la satisfacción de las necesidades de los clientes propios.
+            </p>
+          </div>
+
+          <div className="relative pl-8 md:pl-10 py-6 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-12 lg:ml-16">
+            <div className="absolute -left-[1.30rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md border-2 border-background">3</div>
+            <h3 className="text-xl font-semibold text-primary mb-2 ml-4">Soporte Extendido</h3>
+            <p className="text-muted-foreground text-sm ml-4 leading-relaxed">
+              Atendiendo las necesidades de la organización y de los intermediarios.
+            </p>
+          </div>
+        </div>
+        <div className="mt-12 text-center px-4 py-8 bg-card rounded-lg shadow-xl">
+          <p className="text-md md:text-lg font-medium text-foreground leading-relaxed max-w-4xl mx-auto">
+            <span className="block text-2xl font-bold text-primary mb-3">Nuestra Misión Consolidada:</span>
+            <span className="italic text-base md:text-lg">
+              "Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios, orientada en la satisfacción de las necesidades de los clientes propios, de la organización y de los intermediarios."
+            </span>
+          </p>
+        </div>
+      </SectionWrapper>
+
+
       <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="flex flex-col md:flex-row items-start justify-center gap-8 py-4">
           {/* Dress Code Image Viewer */}
@@ -443,5 +479,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     </div>
   );
 }
+
+    
 
     

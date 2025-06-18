@@ -397,7 +397,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
 
       <SectionWrapper title="Nuestra Misión" titleClassName="text-2xl font-bold text-primary mb-6 text-center">
         <div className="max-w-3xl mx-auto space-y-4">
-          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out">
             <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">1</div>
             <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Excelencia y Calidad de Servicios</h3>
             <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
@@ -405,7 +405,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             </p>
           </div>
 
-          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-4 lg:ml-6">
+          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-4 lg:ml-6">
             <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">2</div>
             <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Satisfacción de Necesidades</h3>
             <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
@@ -413,7 +413,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             </p>
           </div>
 
-          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-8 lg:ml-12">
+          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-8 lg:ml-12">
             <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">3</div>
             <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Soporte Extendido</h3>
             <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
@@ -476,5 +476,6 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 

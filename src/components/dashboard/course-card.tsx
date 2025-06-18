@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,7 +27,7 @@ export function CourseCard({ course }: CourseCardProps) {
       </CardHeader>
       <CardContent className="flex-grow p-4">
         <CardTitle className="text-lg font-semibold mb-2">{course.title}</CardTitle>
-        <CardDescription className="text-sm text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
+        <CardDescription className="text-xs text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
           {course.description}
         </CardDescription>
         <div className="flex flex-wrap gap-2 text-xs text-muted-foreground mb-3">
@@ -46,3 +47,4 @@ export function CourseCard({ course }: CourseCardProps) {
     </Card>
   );
 }
+

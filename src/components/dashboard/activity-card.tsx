@@ -49,7 +49,7 @@ export function ActivityCard({ activity }: ActivityCardProps) {
       </CardHeader>
       <CardContent className="flex-grow p-4">
         <CardTitle className="text-lg font-semibold mb-2">{activity.title}</CardTitle>
-        <CardDescription className="text-sm text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
+        <CardDescription className="text-xs text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
           {activity.description.split('\n')[0]} {/* Show only first line or main part of description */}
         </CardDescription>
          <div className="space-y-1 text-xs text-muted-foreground mb-3">
@@ -70,3 +70,4 @@ export function ActivityCard({ activity }: ActivityCardProps) {
     </Card>
   );
 }
+

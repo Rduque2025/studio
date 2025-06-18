@@ -76,32 +76,60 @@ export const mockCourses: Course[] = [
 export const mockActivities: Activity[] = [
   {
     id: "A001",
-    title: "Charla sobre Bienestar Financiero",
-    date: "2025-03-15",
-    location: "Auditorio Principal",
+    title: "Yoga",
+    date: "2025-07-01",
+    location: "Triadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
-    dataAiHint: "financial wellness",
-    description: "Expertos compartirán consejos para una mejor salud financiera."
+    dataAiHint: "yoga fitness",
+    description: "¡Conecta tu cuerpo y mente!\nAcompáñanos en la clase de yoga, conformada por una serie de ejercicios físicos y de respiración diseñados para disminuir el estrés y las dolencias corporales, con el propósito de mejorar la salud, tanto física como mental.\nPara asistir a las clases solo necesitas:\n- Un mat o esterilla de yoga.\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M."
   },
   {
     id: "A002",
-    title: "Jornada de Voluntariado",
-    date: "2025-04-22",
-    location: "Comunidad Local",
+    title: "Ejercicios funcionales",
+    date: "2025-07-01",
+    location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
-    dataAiHint: "volunteering community",
-    description: "Participa en nuestra jornada de apoyo a la comunidad."
+    dataAiHint: "functional training",
+    description: "¡Mejora tu rendimiento físico y cuida tu salud!\n\nTe invitamos a participar en la actividad de entrenamiento funcional y en circuito, la cual ayuda a mejorar las capacidades físicas como  fuerza, resistencia, velocidad, coordinación y flexibilidad. Se puede realizar con o sin implementos.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M."
   },
   {
     id: "A003",
-    title: "Taller de Mindfulness",
-    date: "2025-05-10",
-    location: "Sala de Conferencias B",
+    title: "Clases de cuatro",
+    date: "2025-07-01",
+    location: "Triadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
-    dataAiHint: "mindfulness workshop",
-    description: "Aprende técnicas de relajación y manejo del estrés."
+    dataAiHint: "music lessons",
+    description: "Si tienes talento para tocar un instrumento musical o quieres aprender, es tú momento.\nÚnete al grupo, no necesitas experiencia previa para formar parte de la actividad.\nPara asistir a las clases solo necesitas:\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes o jueves, 5:00 P.M."
+  },
+  {
+    id: "A004",
+    title: "Clases de bailoterapia",
+    date: "2025-07-01",
+    location: "Terraza - Ciudad Banesco",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "dance therapy",
+    description: "Sorpréndete con la variedad de estilos y ritmos en nuestra clase de bailoterapia y disfruta de los múltiples beneficios de esta técnica:\n- Fortalece el corazón y la circulación de la sangre.\n- Reduce el estrés, la ansiedad y la tristeza.\n- Combate los dolores musculares.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nJueves, 5:00 P.M."
+  },
+  {
+    id: "A005",
+    title: "Cross combat",
+    date: "2025-07-01",
+    location: "Terraza - Ciudad Banesco",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "combat fitness",
+    description: "Te invitamos a esta emocionante actividad física musicalizada, donde de forma equilibrada y en conjunto se estimulan capacidades, como la aérobica o cardiovascular, la resistencia muscular, flexibilidad y otra habilidades y destrezas de ejercicios tomados del Boxeo, las Artes marciales y la Danza aeróbica o gimnasia aeróbica.\n\nDónde y cuándo son las clases:\nMartes, 5:00 P.M."
+  },
+  {
+    id: "A006",
+    title: "Teatro",
+    date: "2025-07-01",
+    location: "Tríadas - Ciudad Banesco",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "theater workshop",
+    description: "Te invitamos a esta maravillosa actividad, en la que desarrollarás competencias para romper el hielo, desenvolverte en diversos contextos con tranquilidad, mejorarás la dicción y oratoria para comunicarte asertivamente.  A partir del 12 de marzo.\n\nDónde y cuándo son las clases:\nMartes y Jueves, 5:00 P.M."
   },
 ];
+
 
 export const mockMenuItems: MenuItem[] = [
   {
@@ -297,4 +325,5 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+
 

@@ -7,10 +7,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import type { Activity } from "@/lib/placeholder-data";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, MapPin } from "lucide-react";
+import { CalendarDays, MapPin, Star } from "lucide-react"; // Imported Star
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface ActivityCardProps {
   activity: Activity;
@@ -25,7 +26,16 @@ export function ActivityCard({ activity }: ActivityCardProps) {
   }, [activity.date]);
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden">
+    <Card className={cn("flex flex-col h-full overflow-hidden relative")}> {/* Added relative class */}
+      {activity.isRecommended && (
+        <Badge
+          variant="default"
+          className="absolute top-2 right-2 z-10 bg-amber-500 hover:bg-amber-600 text-white shadow-md px-2 py-1 text-xs"
+        >
+          <Star className="mr-1.5 h-3 w-3" />
+          Recomendado
+        </Badge>
+      )}
       <CardHeader className="p-0">
         <div className="relative w-full h-48">
           <Image
@@ -40,7 +50,7 @@ export function ActivityCard({ activity }: ActivityCardProps) {
       <CardContent className="flex-grow p-4">
         <CardTitle className="text-lg font-semibold mb-2">{activity.title}</CardTitle>
         <CardDescription className="text-sm text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
-          {activity.description}
+          {activity.description.split('\n')[0]} {/* Show only first line or main part of description */}
         </CardDescription>
          <div className="space-y-1 text-xs text-muted-foreground mb-3">
           <div className="flex items-center gap-1">

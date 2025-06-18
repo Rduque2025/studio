@@ -12,11 +12,12 @@ export interface Course {
 export interface Activity {
   id: string;
   title: string;
-  date: string;
+  date: string; // This can be a generic date if the specific schedule is in the description
   location: string;
   imageUrl: string;
   description: string;
   dataAiHint?: string;
+  isRecommended?: boolean; // Added for recommended activities
 }
 
 export interface MenuItem {
@@ -77,7 +78,7 @@ export const mockActivities: Activity[] = [
   {
     id: "A001",
     title: "Yoga",
-    date: "2025-07-01",
+    date: "2025-07-01", // Generic date, details in description
     location: "Triadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "yoga fitness",
@@ -86,16 +87,17 @@ export const mockActivities: Activity[] = [
   {
     id: "A002",
     title: "Ejercicios funcionales",
-    date: "2025-07-01",
+    date: "2025-07-01", // Generic date
     location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "functional training",
-    description: "¡Mejora tu rendimiento físico y cuida tu salud!\n\nTe invitamos a participar en la actividad de entrenamiento funcional y en circuito, la cual ayuda a mejorar las capacidades físicas como  fuerza, resistencia, velocidad, coordinación y flexibilidad. Se puede realizar con o sin implementos.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M."
+    description: "¡Mejora tu rendimiento físico y cuida tu salud!\n\nTe invitamos a participar en la actividad de entrenamiento funcional y en circuito, la cual ayuda a mejorar las capacidades físicas como  fuerza, resistencia, velocidad, coordinación y flexibilidad. Se puede realizar con o sin implementos.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M.",
+    isRecommended: true, // Marked as recommended
   },
   {
     id: "A003",
     title: "Clases de cuatro",
-    date: "2025-07-01",
+    date: "2025-07-01", // Generic date
     location: "Triadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "music lessons",
@@ -104,16 +106,16 @@ export const mockActivities: Activity[] = [
   {
     id: "A004",
     title: "Clases de bailoterapia",
-    date: "2025-07-01",
+    date: "2025-07-01", // Generic date
     location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "dance therapy",
-    description: "Sorpréndete con la variedad de estilos y ritmos en nuestra clase de bailoterapia y disfruta de los múltiples beneficios de esta técnica:\n- Fortalece el corazón y la circulación de la sangre.\n- Reduce el estrés, la ansiedad y la tristeza.\n- Combate los dolores musculares.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nJueves, 5:00 P.M."
+    description: "Sorpréndete con la variedad de estilos y ritmos en nuestra clase de bailoterapia y disfruta de los múltiples beneficios de esta técnica:\n- Fortalece el corazón y la circulación de la sangre.\n- Reduce el estrés, la ansiedad y la tristeza.\n- Combate los dolores musculares.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\nDónde y cuándo son las clases:\nJueves, 5:00 P.M."
   },
   {
     id: "A005",
     title: "Cross combat",
-    date: "2025-07-01",
+    date: "2025-07-01", // Generic date
     location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "combat fitness",
@@ -122,7 +124,7 @@ export const mockActivities: Activity[] = [
   {
     id: "A006",
     title: "Teatro",
-    date: "2025-07-01",
+    date: "2025-07-01", // Generic date
     location: "Tríadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "theater workshop",
@@ -325,5 +327,6 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+
 
 

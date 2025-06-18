@@ -122,12 +122,13 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
 };
 
 interface DashboardPageProps {
-  params: {}; // Added params even if not used, to match general structure if searchParams are present
+  params: {}; 
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default function DashboardPage({ params, searchParams }: DashboardPageProps) {
-  const routeParams = use(params); // Unwap params even if not directly used
+  // Ensure params and searchParams are unwrapped using React.use()
+  const routeParams = use(params); 
   const unwrappedSearchParams = use(searchParams);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -442,3 +443,5 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     </div>
   );
 }
+
+    

@@ -102,7 +102,7 @@ function Calendar({
           "h-full w-full p-1.5 text-left align-top font-normal flex flex-col" 
         ),
         day_selected: "", // Clear direct day_selected styles as cell handles it via has[]
-        day_today: "bg-sky-100 dark:bg-sky-900/50 border-2 border-sky-300 dark:border-sky-700 rounded-md", 
+        day_today: "bg-sky-100 dark:bg-sky-900/50 rounded-md", 
         day_outside: "day-outside text-muted-foreground/40 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle: props.mode === "range" && "aria-selected:bg-accent aria-selected:text-accent-foreground",
@@ -163,3 +163,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+

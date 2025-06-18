@@ -395,35 +395,35 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Nuestra Misión" titleClassName="text-3xl font-bold text-primary mb-8 text-center">
-        <div className="max-w-3xl mx-auto space-y-6">
-          <div className="relative pl-8 md:pl-10 py-6 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="absolute -left-[1.30rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md border-2 border-background">1</div>
-            <h3 className="text-xl font-semibold text-primary mb-2 ml-4">Excelencia y Calidad de Servicios</h3>
-            <p className="text-muted-foreground text-sm ml-4 leading-relaxed">
+      <SectionWrapper title="Nuestra Misión" titleClassName="text-2xl font-bold text-primary mb-6 text-center">
+        <div className="max-w-3xl mx-auto space-y-4">
+          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">1</div>
+            <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Excelencia y Calidad de Servicios</h3>
+            <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
               Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.
             </p>
           </div>
 
-          <div className="relative pl-8 md:pl-10 py-6 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-6 lg:ml-8">
-            <div className="absolute -left-[1.30rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md border-2 border-background">2</div>
-            <h3 className="text-xl font-semibold text-primary mb-2 ml-4">Satisfacción de Necesidades</h3>
-            <p className="text-muted-foreground text-sm ml-4 leading-relaxed">
+          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-4 lg:ml-6">
+            <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">2</div>
+            <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Satisfacción de Necesidades</h3>
+            <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
               Orientada en la satisfacción de las necesidades de los clientes propios.
             </p>
           </div>
 
-          <div className="relative pl-8 md:pl-10 py-6 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-12 lg:ml-16">
-            <div className="absolute -left-[1.30rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md border-2 border-background">3</div>
-            <h3 className="text-xl font-semibold text-primary mb-2 ml-4">Soporte Extendido</h3>
-            <p className="text-muted-foreground text-sm ml-4 leading-relaxed">
+          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-xl transition-shadow duration-300 md:ml-8 lg:ml-12">
+            <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">3</div>
+            <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Soporte Extendido</h3>
+            <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
               Atendiendo las necesidades de la organización y de los intermediarios.
             </p>
           </div>
         </div>
-        <div className="mt-12 text-center px-4 py-8 bg-card rounded-lg shadow-xl">
-          <p className="text-md md:text-lg font-medium text-foreground leading-relaxed max-w-4xl mx-auto">
-            <span className="italic text-base md:text-lg">
+        <div className="mt-8 text-center px-4 py-6 bg-card rounded-lg shadow-xl">
+          <p className="text-sm md:text-base font-medium text-foreground leading-relaxed max-w-4xl mx-auto">
+            <span className="italic text-sm md:text-base">
               "Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios, orientada en la satisfacción de las necesidades de los clientes propios, de la organización y de los intermediarios."
             </span>
           </p>

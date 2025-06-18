@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect, useRef, use } from 'react';
@@ -422,7 +423,6 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </div>
         <div className="mt-12 text-center px-4 py-8 bg-card rounded-lg shadow-xl">
           <p className="text-md md:text-lg font-medium text-foreground leading-relaxed max-w-4xl mx-auto">
-            <span className="block text-2xl font-bold text-primary mb-3">Nuestra Misión Consolidada:</span>
             <span className="italic text-base md:text-lg">
               "Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios, orientada en la satisfacción de las necesidades de los clientes propios, de la organización y de los intermediarios."
             </span>

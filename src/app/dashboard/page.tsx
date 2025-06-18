@@ -422,10 +422,8 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           </div>
         </div>
         <div className="mt-8 text-center px-4 py-6 bg-card rounded-lg shadow-xl">
-          <p className="text-sm md:text-base font-medium text-foreground leading-relaxed max-w-4xl mx-auto">
-            <span className="italic text-sm md:text-base">
+          <p className="italic text-xs md:text-sm font-medium text-foreground leading-relaxed max-w-4xl mx-auto">
               "Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios, orientada en la satisfacción de las necesidades de los clientes propios, de la organización y de los intermediarios."
-            </span>
           </p>
         </div>
       </SectionWrapper>
@@ -483,3 +481,4 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+

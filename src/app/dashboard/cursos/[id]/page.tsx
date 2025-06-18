@@ -10,10 +10,10 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 interface CourseDetailsPageProps {
-  params: {
+  params: { // Type for the resolved params object
     id: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined }; // Type for the resolved searchParams object
 }
 
 export async function generateStaticParams() {
@@ -23,10 +23,11 @@ export async function generateStaticParams() {
 }
 
 export default function CourseDetailsPage({ params, searchParams }: CourseDetailsPageProps) {
-  const routeParams = use(params);
-  const unwrappedSearchParams = use(searchParams);
+  // Immediately unwrap params and searchParams using React.use()
+  const resolvedParams = use(params);
+  const resolvedSearchParams = use(searchParams); // Unwrap even if not directly used, for consistency
 
-  const id = routeParams.id;
+  const id = resolvedParams.id; // Use the unwrapped id
   const course = mockCourses.find(c => c.id === id);
 
   if (!course) {
@@ -67,7 +68,7 @@ export default function CourseDetailsPage({ params, searchParams }: CourseDetail
            </div>
         </CardHeader>
         <CardContent className="p-6">
-          <CardDescription className="text-base md:text-lg text-foreground mt-4 mb-6">
+          <CardDescription className="text-xs text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
             {course.description} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </CardDescription>
           

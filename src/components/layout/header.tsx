@@ -16,11 +16,12 @@ import { es } from "date-fns/locale";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
-  { name: "Objetivos", href: "/dashboard/mapa-clientes", icon: Target }, // Changed from "Datos" and Database icon
+  { name: "Objetivos", href: "/dashboard/mapa-clientes", icon: Target },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
@@ -74,6 +75,7 @@ export function Header() {
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const [currentTimeForCountdown, setCurrentTimeForCountdown] = useState(new Date());
+  const pathname = usePathname();
 
 
   useEffect(() => {
@@ -130,7 +132,12 @@ export function Header() {
             <Link
               key={item.name}
               href={item.href}
-              className="transition-colors hover:text-foreground/80 text-foreground/60 px-2 py-1 rounded-md"
+              className={cn(
+                "transition-colors hover:text-foreground/80 px-2 py-1 rounded-md",
+                pathname === item.href 
+                  ? "font-semibold text-foreground" 
+                  : "text-foreground/60"
+              )}
             >
               {item.name}
             </Link>
@@ -237,7 +244,12 @@ export function Header() {
 
 
             <Link href="/dashboard/settings" legacyBehavior passHref>
-              <Button variant="ghost" size="icon" asChild>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                asChild
+                className={cn(pathname === "/dashboard/settings" && "bg-accent text-accent-foreground")}
+              >
                 <a> 
                   <Settings className="h-5 w-5" />
                   <span className="sr-only">Configuración</span>
@@ -261,10 +273,20 @@ export function Header() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="flex items-center space-x-2 p-2 rounded-md hover:bg-accent"
+                      className={cn(
+                        "flex items-center space-x-2 p-2 rounded-md",
+                        pathname === item.href && item.href !== "#"
+                          ? "bg-accent text-accent-foreground font-semibold"
+                          : "hover:bg-accent hover:text-accent-foreground text-foreground"
+                      )}
                       onClick={() => handleMobileLinkClick(item)}
                     >
-                      <item.icon className="h-5 w-5 text-muted-foreground" />
+                      <item.icon className={cn(
+                        "h-5 w-5",
+                        pathname === item.href && item.href !== "#"
+                          ? "text-accent-foreground"
+                          : "text-muted-foreground"
+                       )} />
                       <span>{item.name}</span>
                       {item.icon === Bell && todaysEvents.length > 0 && (
                          <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />

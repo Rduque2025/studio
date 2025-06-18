@@ -245,50 +245,77 @@ export function CalendarWithEvents() {
       });
   
     if (eventsOnDay.length === 0) {
-      return <div className="flex-grow min-h-[4rem]"></div>; // Ensure empty cells maintain height
+      return <div className="flex-grow min-h-[4rem]"></div>; 
     }
   
     const maxEventsToShowInCell = 3; 
-    const isCellCurrentlySelected = date && format(date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
+    const isCellCurrentlySelectedDay = date && format(date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
 
     return (
-      <div className="flex-grow overflow-y-auto space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
-        {eventsOnDay.slice(0, maxEventsToShowInCell).map(event => {
+      <div className="flex-grow space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
+        {eventsOnDay.slice(0, selectedEvent && isCellCurrentlySelectedDay && eventsOnDay.find(e => e.id === selectedEvent.id) ? eventsOnDay.length : maxEventsToShowInCell).map(event => {
           const renderProps = getEventRenderProps(event);
-          const isClickedEventItem = selectedEvent?.id === event.id && isCellCurrentlySelected;
+          const isClickedEventItem = selectedEvent?.id === event.id && isCellCurrentlySelectedDay;
           
           return (
             <div 
               key={event.id} 
               className={cn(
-                "px-1 py-0.5 rounded text-xs leading-tight flex items-start gap-1.5 cursor-pointer",
+                "px-1 py-0.5 rounded text-xs leading-tight cursor-pointer",
                 renderProps.bg,
                 renderProps.text,
-                isClickedEventItem && "ring-2 ring-offset-1 ring-white/70" 
+                isClickedEventItem && "ring-2 ring-offset-1 ring-white/70 shadow-md" 
               )}
               onClick={(e) => {
                 e.stopPropagation(); 
-                setSelectedEvent(event);
-                setDate(dayCellDate); 
+                if (selectedEvent?.id === event.id) {
+                  setSelectedEvent(null); 
+                } else {
+                  setSelectedEvent(event);
+                  setDate(dayCellDate); 
+                }
               }}
             >
-              <div className="flex-grow">
+              <div className="flex items-start justify-between gap-1">
                 <p className={cn(
-                  "font-medium truncate",
-                  isCellCurrentlySelected ? (isClickedEventItem ? renderProps.text : 'inherit') : renderProps.text
+                  "font-medium",
+                  isClickedEventItem ? "truncate-none whitespace-normal" : "truncate", 
+                  renderProps.text
                 )}>{event.title}</p>
-                 {event.time && <p className={cn(
-                   "text-xs opacity-80", 
-                   isCellCurrentlySelected ? (isClickedEventItem ? renderProps.text : 'inherit') : renderProps.text
-                  )}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
               </div>
+              {event.time && <p className={cn("text-[10px] opacity-80", renderProps.text)}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
+              
+              {isClickedEventItem && (
+                <div className="mt-1 pt-1 border-t border-current/20">
+                  <p className={cn("text-[11px] opacity-90 whitespace-normal leading-snug", renderProps.text)}>{event.description || "Sin descripción."}</p>
+                  {event.isUserEvent && (
+                    <div className="mt-1 text-right">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className={cn(
+                          "h-5 w-5 p-0", 
+                          renderProps.text.startsWith('text-white') ? "text-white/80 hover:text-white hover:bg-destructive/50" : "text-current/80 hover:text-destructive hover:bg-destructive/10"
+                        )}
+                        onClick={(e) => {
+                          e.stopPropagation(); 
+                          handleDeleteEvent(event.id);
+                        }}
+                        aria-label="Eliminar evento"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           );
         })}
-        {eventsOnDay.length > maxEventsToShowInCell && (
+        {eventsOnDay.length > maxEventsToShowInCell && !(selectedEvent && isCellCurrentlySelectedDay && eventsOnDay.find(e => e.id === selectedEvent.id)) && (
           <div className={cn(
             "text-center text-[9px] mt-1",
-            isCellCurrentlySelected ? "text-primary-foreground/70" : "text-muted-foreground"
+            isCellCurrentlySelectedDay ? "text-primary-foreground/70" : "text-muted-foreground"
             )}>
             + {eventsOnDay.length - maxEventsToShowInCell} más
           </div>
@@ -298,8 +325,8 @@ export function CalendarWithEvents() {
   };
   
   const handleOpenAddEventDialog = (selectedDate: Date) => {
-    setDate(selectedDate); // Ensure the dialog knows which date it's for
-    setNewEventTitle(''); // Clear previous inputs
+    setDate(selectedDate); 
+    setNewEventTitle(''); 
     setNewEventDescription('');
     setNewEventTime('');
     setIsAddEventDialogOpen(true);
@@ -318,47 +345,26 @@ export function CalendarWithEvents() {
           defaultMonth={new Date(2025, 5, 1)}
           locale={es} 
           renderDayContent={renderDayEventsContent}
-          onAddEventTrigger={handleOpenAddEventDialog} // Pass the handler
+          onAddEventTrigger={handleOpenAddEventDialog} 
           footer={
             <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
-              <div className="flex items-center justify-between">
-                <div className="min-h-[60px] flex-grow"> 
-                  {selectedEvent && date && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') ? (
-                    <div className="text-xs">
-                      <p className="font-semibold text-primary">{selectedEvent.title}</p>
-                      <p className="text-muted-foreground">{selectedEvent.description}</p>
-                      {selectedEvent.time && (
-                        <p className="text-muted-foreground flex items-center gap-1">
-                          <Clock className="h-3 w-3" /> {format(new Date(`1970-01-01T${selectedEvent.time}`), 'p', { locale: es })}
-                        </p>
-                      )}
-                       {selectedEvent.isUserEvent && (
-                          <Button 
-                              variant="ghost" 
-                              size="icon" 
-                              className="h-6 w-6 text-destructive hover:bg-destructive/10 hover:text-destructive mt-1" 
-                              onClick={() => handleDeleteEvent(selectedEvent!.id)}
-                              aria-label="Eliminar evento"
-                          >
-                              <Trash2 className="h-3.5 w-3.5" /> 
-                          </Button>
-                      )}
-                    </div>
-                  ) : (
-                     <p className="text-xs text-muted-foreground">
-                      {date ? `Día seleccionado: ${format(date, 'PPP', { locale: es })}.` : 'Seleccione una fecha.'}
-                      { date && !selectedEvent && <span className="ml-1">Seleccione un evento para ver detalles.</span>}
-                    </p>
-                  )}
-                </div>
-                {/* Add Event Dialog Trigger is now inside the day cell, this is the dialog itself */}
+              <div className="min-h-[20px] flex-grow"> 
+                {date ? (
+                  <p className="text-xs text-muted-foreground">
+                    Día seleccionado: {format(date, 'PPP', { locale: es })}.
+                    {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') 
+                      ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
+                      : " Seleccione un evento o añada uno nuevo."}
+                  </p>
+                ) : (
+                   <p className="text-xs text-muted-foreground">Seleccione una fecha.</p>
+                )}
               </div>
             </div>
           }
         />
       </div>
 
-      {/* Add Event Dialog - remains the same, triggered by isAddEventDialogOpen */}
       <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
         <DialogContent>
           <DialogHeader>

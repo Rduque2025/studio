@@ -291,6 +291,7 @@ export function CalendarWithEvents() {
                   {event.isUserEvent && (
                     <div className="mt-1 text-right">
                       <Button
+                        asChild
                         variant="ghost"
                         size="icon"
                         className={cn(
@@ -303,7 +304,9 @@ export function CalendarWithEvents() {
                         }}
                         aria-label="Eliminar evento"
                       >
-                        <Trash2 className="h-3 w-3" />
+                        <span>
+                          <Trash2 className="h-3 w-3" />
+                        </span>
                       </Button>
                     </div>
                   )}

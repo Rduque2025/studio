@@ -8,9 +8,9 @@ import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 // DressCodeCard is no longer directly used in the map, but the data is.
-import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
   ChevronLeft,
   ChevronRight,
@@ -23,9 +23,14 @@ import {
   Cpu,
   GitFork,
   Layers,
-  Gem
+  Gem,
+  ArrowRight,
+  Users,
+  DollarSign,
+  Settings // For fallback icon
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
 
@@ -86,6 +91,14 @@ const pillPositions = [
   { base: "bottom-[2%] left-0 sm:bottom-[5%] sm:left-0", orientation: "left" as const },
   { base: "bottom-[2%] right-0 sm:bottom-[5%] sm:right-0", orientation: "right" as const },
 ];
+
+const departmentIconMap: { [key: string]: React.ElementType } = {
+  rh: Users,
+  it: Cpu,
+  finanzas: DollarSign,
+  // marketing: Megaphone, // Not used in this preview
+  // operaciones: Settings, // Not used in this preview
+};
 
 const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
   const IconToRender = icon;
@@ -309,6 +322,48 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </ScrollArea>
       </SectionWrapper>
 
+      <SectionWrapper 
+        title="Portal de Requerimientos" 
+        description="Acceda rápidamente a los formularios de solicitud más comunes o vea todas las opciones."
+        titleClassName="text-primary" 
+        descriptionClassName="text-secondary"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {mockDepartments.slice(0, 3).map((dept) => {
+            const IconComponent = departmentIconMap[dept.id] || Settings; // Fallback to a generic icon
+            return (
+              <Card key={dept.id} className="transition-colors flex flex-col">
+                <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2">
+                  <div className="bg-primary/10 p-3 rounded-lg">
+                    <IconComponent className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">{dept.name}</CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
+                </CardContent>
+                <CardFooter className="p-4 border-t">
+                  <Button asChild className="w-full">
+                    <Link href={`/dashboard/requerimientos/${dept.id}`}>
+                      Acceder <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            );
+          })}
+        </div>
+        <div className="text-center">
+          <Button asChild size="lg">
+            <Link href="/dashboard/requerimientos">
+              Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+      </SectionWrapper>
+
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
@@ -476,6 +531,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

@@ -271,7 +271,7 @@ export const mockDepartments: Department[] = [
     id: "rh", 
     name: "Recursos Humanos", 
     description: "Gestión de talento, nómina y bienestar del empleado.",
-    imageUrl: "https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2xpZW50fGVufDB8fHx8MTc1MDM0MzI3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1664575602276-acd073f104c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlbXByZXNhfGVufDB8fHx8MTc1MDI3NzU0OHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "human resources" 
   },
   { 
@@ -376,6 +376,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+
 
 
 

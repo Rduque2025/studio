@@ -101,6 +101,8 @@ const departmentIconMap: { [key: string]: React.ElementType } = {
   finanzas: DollarSign,
   marketing: Megaphone, 
   operaciones: Settings,
+  vacaciones: Plane,
+  hcm: ShieldCheck,
 };
 
 const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
@@ -366,6 +368,28 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
                           objectFit="cover"
                           data-ai-hint={dept.dataAiHint || 'department service'}
                         />
+                        {featuredDepartments.length > 1 && (
+                          <>
+                            <Button
+                              onClick={handlePrevDept}
+                              variant="ghost"
+                              size="icon"
+                              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+                              aria-label="Requerimiento anterior"
+                            >
+                              <ChevronLeft className="h-5 w-5" />
+                            </Button>
+                            <Button
+                              onClick={handleNextDept}
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
+                              aria-label="Siguiente requerimiento"
+                            >
+                              <ChevronRight className="h-5 w-5" />
+                            </Button>
+                          </>
+                        )}
                       </div>
                     )}
                     <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2 pt-4">
@@ -390,16 +414,6 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
                 );
               })()}
             </div>
-            {featuredDepartments.length > 1 && (
-              <div className="flex items-center justify-center md:justify-start space-x-4 w-full max-w-lg">
-                <Button onClick={handlePrevDept} variant="outline" size="icon" aria-label="Requerimiento anterior">
-                  <ChevronLeft className="h-5 w-5" />
-                </Button>
-                <Button onClick={handleNextDept} variant="outline" size="icon" aria-label="Siguiente requerimiento">
-                  <ChevronRight className="h-5 w-5" />
-                </Button>
-              </div>
-            )}
           </div>
         </SectionWrapper>
 
@@ -641,6 +655,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

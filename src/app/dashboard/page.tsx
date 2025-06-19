@@ -149,6 +149,10 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentDisplay, setCurrentDisplay] = useState<'valores' | 'pilares'>('valores');
   const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
+  const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
+
+  const featuredDepartments = mockDepartments.slice(0, 3);
+
 
   useEffect(() => {
     const today = new Date();
@@ -194,6 +198,14 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     setCurrentDressCodeImageIndex(prevIndex =>
       prevIndex === mockDressCodeItems.length - 1 ? 0 : prevIndex + 1
     );
+  };
+
+  const handlePrevDept = () => {
+    setCurrentDeptIndex(prev => (prev === 0 ? featuredDepartments.length - 1 : prev - 1));
+  };
+
+  const handleNextDept = () => {
+    setCurrentDeptIndex(prev => (prev === featuredDepartments.length - 1 ? 0 : prev + 1));
   };
 
 
@@ -328,32 +340,45 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         titleClassName="text-primary" 
         descriptionClassName="text-secondary"
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {mockDepartments.slice(0, 3).map((dept) => {
-            const IconComponent = departmentIconMap[dept.id] || Settings; // Fallback to a generic icon
-            return (
-              <Card key={dept.id} className="transition-colors flex flex-col">
-                <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2">
-                  <div className="bg-primary/10 p-3 rounded-lg">
-                    <IconComponent className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{dept.name}</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
-                </CardContent>
-                <CardFooter className="p-4 border-t">
-                  <Button asChild className="w-full">
-                    <Link href={`/dashboard/requerimientos/${dept.id}`}>
-                      Acceder <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            );
-          })}
+        <div className="flex flex-col items-center gap-6 mb-8">
+          <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
+            {featuredDepartments.length > 0 && (() => {
+              const dept = featuredDepartments[currentDeptIndex];
+              const IconComponent = departmentIconMap[dept.id] || Settings;
+              return (
+                <Card key={dept.id} className="transition-all duration-300 ease-in-out flex flex-col shadow-lg">
+                  <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2">
+                    <div className="bg-primary/10 p-3 rounded-lg">
+                      <IconComponent className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{dept.name}</CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="flex-grow min-h-[60px]"> {/* Added min-height */}
+                    <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
+                  </CardContent>
+                  <CardFooter className="p-4 border-t">
+                    <Button asChild className="w-full">
+                      <Link href={`/dashboard/requerimientos/${dept.id}`}>
+                        Acceder <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              );
+            })()}
+          </div>
+          {featuredDepartments.length > 1 && (
+            <div className="flex items-center justify-center space-x-4">
+              <Button onClick={handlePrevDept} variant="outline" size="icon" aria-label="Requerimiento anterior">
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+              <Button onClick={handleNextDept} variant="outline" size="icon" aria-label="Siguiente requerimiento">
+                <ChevronRight className="h-5 w-5" />
+              </Button>
+            </div>
+          )}
         </div>
         <div className="text-center">
           <Button asChild size="lg">
@@ -531,6 +556,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

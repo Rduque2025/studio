@@ -336,98 +336,102 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </ScrollArea>
       </SectionWrapper>
 
-      <SectionWrapper 
-        title="Portal de Requerimientos" 
-        titleClassName="text-primary"
-      >
-        <div className="mb-8 text-center md:text-left">
-          <Button asChild size="lg">
-            <Link href="/dashboard/requerimientos">
-              Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
-        </div>
-        <div className="flex flex-col items-center md:items-start gap-6">
-          <div className="relative w-full max-w-lg">
-            {featuredDepartments.length > 0 && (() => {
-              const dept = featuredDepartments[currentDeptIndex];
-              const IconComponent = departmentIconMap[dept.id] || Settings;
-              return (
-                <Card key={dept.id} className="transition-all duration-300 ease-in-out flex flex-col shadow-lg overflow-hidden rounded-lg">
-                  {dept.imageUrl && (
-                    <div className="relative w-full h-56 md:h-64">
-                      <Image
-                        src={dept.imageUrl}
-                        alt={`Imagen para ${dept.name}`}
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint={dept.dataAiHint || 'department service'}
-                      />
-                    </div>
-                  )}
-                  <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2 pt-4">
-                    <div className="bg-primary/10 p-3 rounded-lg">
-                      <IconComponent className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{dept.name}</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="flex-grow min-h-[50px]"> 
-                    <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
-                  </CardContent>
-                  <CardFooter className="p-4 border-t">
-                    <Button asChild className="w-full">
-                      <Link href={`/dashboard/requerimientos/${dept.id}`}>
-                        Acceder <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              );
-            })()}
+      <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 items-start">
+        <SectionWrapper 
+          title="Portal de Requerimientos" 
+          titleClassName="text-primary"
+          className="md:col-span-1"
+        >
+          <div className="mb-8 text-center md:text-left">
+            <Button asChild size="lg">
+              <Link href="/dashboard/requerimientos">
+                Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
-          {featuredDepartments.length > 1 && (
-            <div className="flex items-center justify-center md:justify-start space-x-4 w-full max-w-lg">
-              <Button onClick={handlePrevDept} variant="outline" size="icon" aria-label="Requerimiento anterior">
-                <ChevronLeft className="h-5 w-5" />
-              </Button>
-              <Button onClick={handleNextDept} variant="outline" size="icon" aria-label="Siguiente requerimiento">
-                <ChevronRight className="h-5 w-5" />
-              </Button>
+          <div className="flex flex-col items-center md:items-start gap-6">
+            <div className="relative w-full max-w-lg">
+              {featuredDepartments.length > 0 && (() => {
+                const dept = featuredDepartments[currentDeptIndex];
+                const IconComponent = departmentIconMap[dept.id] || Settings;
+                return (
+                  <Card key={dept.id} className="transition-all duration-300 ease-in-out flex flex-col shadow-lg overflow-hidden rounded-lg">
+                    {dept.imageUrl && (
+                      <div className="relative w-full h-56 md:h-64">
+                        <Image
+                          src={dept.imageUrl}
+                          alt={`Imagen para ${dept.name}`}
+                          layout="fill"
+                          objectFit="cover"
+                          data-ai-hint={dept.dataAiHint || 'department service'}
+                        />
+                      </div>
+                    )}
+                    <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2 pt-4">
+                      <div className="bg-primary/10 p-3 rounded-lg">
+                        <IconComponent className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg">{dept.name}</CardTitle>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="flex-grow min-h-[50px]"> 
+                      <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
+                    </CardContent>
+                    <CardFooter className="p-4 border-t">
+                      <Button asChild className="w-full">
+                        <Link href={`/dashboard/requerimientos/${dept.id}`}>
+                          Acceder <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                );
+              })()}
             </div>
-          )}
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper 
-        title="Gestión de Vacaciones" 
-        description="Planifique sus días libres, solicite vacaciones y consulte su saldo disponible."
-        titleClassName="text-primary" 
-        descriptionClassName="text-secondary"
-      >
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-md">
-                <Image
-                    src="https://placehold.co/600x400.png"
-                    alt="Gestión de Vacaciones"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="travel vacation"
-                />
-            </div>
-            <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <p className="text-muted-foreground mb-6 text-sm">
-                    Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
-                </p>
-                <Button asChild size="lg">
-                    <Link href="/dashboard/vacaciones">
-                        Acceder a Gestión de Vacaciones <Plane className="ml-2 h-5 w-5" />
-                    </Link>
+            {featuredDepartments.length > 1 && (
+              <div className="flex items-center justify-center md:justify-start space-x-4 w-full max-w-lg">
+                <Button onClick={handlePrevDept} variant="outline" size="icon" aria-label="Requerimiento anterior">
+                  <ChevronLeft className="h-5 w-5" />
                 </Button>
-            </div>
-        </div>
-      </SectionWrapper>
+                <Button onClick={handleNextDept} variant="outline" size="icon" aria-label="Siguiente requerimiento">
+                  <ChevronRight className="h-5 w-5" />
+                </Button>
+              </div>
+            )}
+          </div>
+        </SectionWrapper>
+
+        <SectionWrapper 
+          title="Gestión de Vacaciones" 
+          description="Planifique sus días libres, solicite vacaciones y consulte su saldo disponible."
+          titleClassName="text-primary" 
+          descriptionClassName="text-secondary"
+          className="md:col-span-1"
+        >
+          <div className="flex flex-col gap-6 items-center md:items-start">
+              <div className="relative w-full h-56 md:h-64 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                      src="https://placehold.co/600x400.png"
+                      alt="Gestión de Vacaciones"
+                      layout="fill"
+                      objectFit="cover"
+                      data-ai-hint="travel vacation"
+                  />
+              </div>
+              <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <p className="text-muted-foreground mb-6 text-sm">
+                      Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
+                  </p>
+                  <Button asChild size="lg">
+                      <Link href="/dashboard/vacaciones">
+                          Acceder a Gestión de Vacaciones <Plane className="ml-2 h-5 w-5" />
+                      </Link>
+                  </Button>
+              </div>
+          </div>
+        </SectionWrapper>
+      </div>
 
 
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
@@ -517,31 +521,33 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
       </SectionWrapper>
 
       <SectionWrapper title="Nuestra Misión" titleClassName="text-2xl font-bold text-primary mb-6 text-center">
-        <div className="max-w-3xl mx-auto space-y-4">
-          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out">
-            <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">1</div>
-            <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Excelencia y Calidad de Servicios</h3>
-            <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
-              Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.
-            </p>
-          </div>
+        <CardContent className="p-0">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out">
+              <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">1</div>
+              <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Excelencia y Calidad de Servicios</h3>
+              <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
+                Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.
+              </p>
+            </div>
 
-          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-4 lg:ml-6">
-            <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">2</div>
-            <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Satisfacción de Necesidades</h3>
-            <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
-              Orientada en la satisfacción de las necesidades de los clientes propios.
-            </p>
-          </div>
+            <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-4 lg:ml-6">
+              <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">2</div>
+              <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Satisfacción de Necesidades</h3>
+              <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
+                Orientada en la satisfacción de las necesidades de los clientes propios.
+              </p>
+            </div>
 
-          <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-8 lg:ml-12">
-            <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">3</div>
-            <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Soporte Extendido</h3>
-            <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
-              Atendiendo las necesidades de la organización y de los intermediarios.
-            </p>
+            <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-8 lg:ml-12">
+              <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">3</div>
+              <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Soporte Extendido</h3>
+              <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
+                Atendiendo las necesidades de la organización y de los intermediarios.
+              </p>
+            </div>
           </div>
-        </div>
+        </CardContent>
       </SectionWrapper>
 
 
@@ -597,6 +603,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

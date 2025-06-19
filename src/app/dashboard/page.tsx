@@ -403,7 +403,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </SectionWrapper>
 
         <SectionWrapper 
-          title="Gestión de Vacaciones" 
+          title="Planifica tus próximas vacaciones!" 
           description="Planifique sus días libres, solicite vacaciones y consulte su saldo disponible."
           titleClassName="text-primary" 
           descriptionClassName="text-secondary"
@@ -607,6 +607,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

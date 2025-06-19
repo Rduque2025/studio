@@ -428,7 +428,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             <CardHeader className="p-0">
               <div className="relative w-full h-56 md:h-64">
                 <Image
-                    src="https://images.unsplash.com/photo-1488462237308-ecaa28b729d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8dmFjYXRpb25zfGVufDB8fHx8MTc1MDM0MjYyM3ww&ixlib=rb-4.1.0&q=80&w=1080" 
+                    src="https://images.unsplash.com/photo-1519046904884-53103b34b206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaHxlbnwwfHx8fDE3NTAzNDI5NDR8MA&ixlib=rb-4.1.0&q=80&w=1080" 
                     alt="Gestión de Vacaciones"
                     layout="fill"
                     objectFit="cover"
@@ -655,6 +655,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

@@ -341,8 +341,15 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         titleClassName="text-primary" 
         descriptionClassName="text-secondary"
       >
-        <div className="flex flex-col items-center md:items-start gap-6 mb-8">
-          <div className="relative w-full max-w-lg"> {/* Increased max-width and aligned left on md+ */}
+        <div className="mb-8 text-center md:text-left">
+          <Button asChild size="lg">
+            <Link href="/dashboard/requerimientos">
+              Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+        <div className="flex flex-col items-center md:items-start gap-6">
+          <div className="relative w-full max-w-lg">
             {featuredDepartments.length > 0 && (() => {
               const dept = featuredDepartments[currentDeptIndex];
               const IconComponent = departmentIconMap[dept.id] || Settings;
@@ -382,7 +389,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             })()}
           </div>
           {featuredDepartments.length > 1 && (
-            <div className="flex items-center justify-center md:justify-start space-x-4 w-full max-w-lg"> {/* Aligned buttons with card */}
+            <div className="flex items-center justify-center md:justify-start space-x-4 w-full max-w-lg">
               <Button onClick={handlePrevDept} variant="outline" size="icon" aria-label="Requerimiento anterior">
                 <ChevronLeft className="h-5 w-5" />
               </Button>
@@ -391,13 +398,6 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
               </Button>
             </div>
           )}
-        </div>
-        <div className="text-center md:text-left"> {/* Align button to left on md+ */}
-          <Button asChild size="lg">
-            <Link href="/dashboard/requerimientos">
-              Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
-          </Button>
         </div>
       </SectionWrapper>
 
@@ -568,6 +568,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

@@ -3,7 +3,7 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockDepartments } from "@/lib/placeholder-data";
-import { ArrowRight, Users, Cpu, DollarSign, Megaphone, Settings } from "lucide-react"; // Example icons
+import { ArrowRight, Users, Cpu, DollarSign, Megaphone, Settings, Plane } from "lucide-react"; // Added Plane
 
 const iconMap: { [key: string]: React.ElementType } = {
   rh: Users,
@@ -11,6 +11,7 @@ const iconMap: { [key: string]: React.ElementType } = {
   finanzas: DollarSign,
   marketing: Megaphone,
   operaciones: Settings,
+  vacaciones: Plane, // Added Plane icon for vacaciones
 };
 
 
@@ -19,11 +20,12 @@ export default function RequerimientosPage() {
     <div className="container mx-auto py-8 px-4">
       <SectionWrapper 
         title="Portal de Requerimientos"
-        description="Seleccione el departamento para enviar su solicitud o consulta."
+        description="Seleccione el departamento o servicio para enviar su solicitud o consulta."
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockDepartments.map((dept) => {
             const IconComponent = iconMap[dept.id] || Settings;
+            const linkHref = dept.directLink ? dept.directLink : `/dashboard/requerimientos/${dept.id}`;
             return (
               <Card key={dept.id} className="transition-colors flex flex-col">
                 <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2">
@@ -39,7 +41,7 @@ export default function RequerimientosPage() {
                 </CardContent>
                 <div className="p-4 border-t">
                   <Button asChild className="w-full">
-                    <Link href={`/dashboard/requerimientos/${dept.id}`}>
+                    <Link href={linkHref}>
                       Acceder <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>

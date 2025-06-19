@@ -36,6 +36,7 @@ export interface Department {
   icon?: React.ElementType; // Lucide icon
   imageUrl?: string;
   dataAiHint?: string;
+  directLink?: string; // Added for direct links like /dashboard/vacaciones
 }
 
 export interface DressCodeItem {
@@ -301,6 +302,12 @@ export const mockDepartments: Department[] = [
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "operational efficiency"
   },
+  { 
+    id: "vacaciones", 
+    name: "Gestión de Vacaciones", 
+    description: "Solicite sus vacaciones, verifique días acumulados y planifique su próximo descanso.",
+    directLink: "/dashboard/vacaciones"
+  },
 ];
 
 export const mockCalendarEvents = [
@@ -359,7 +366,3 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
-
-
-
-

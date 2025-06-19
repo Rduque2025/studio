@@ -24,7 +24,6 @@ const navItemsDesktop = [
   { name: "Objetivos", href: "/dashboard/mapa-clientes", icon: Target },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
-  { name: "Vacaciones", href: "/dashboard/vacaciones", icon: Plane },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
   { name: "Biblioteca Digital", href: "/dashboard/biblioteca", icon: BookOpen },
 ];
@@ -304,4 +303,3 @@ export function Header() {
     </header>
   );
 }
-

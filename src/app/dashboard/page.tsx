@@ -346,7 +346,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           className="md:col-span-1"
         >
           <div className="mb-8 text-center md:text-left">
-            <Button asChild size="lg">
+            <Button asChild size="default">
               <Link href="/dashboard/requerimientos">
                 Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
@@ -655,6 +655,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

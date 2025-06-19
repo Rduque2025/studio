@@ -462,7 +462,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           <CardHeader className="p-0">
             <div className="relative w-full h-48 md:h-56">
               <Image
-                  src="https://placehold.co/600x400.png" 
+                  src="https://images.unsplash.com/photo-1740953448394-86122e98c1be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Q0lSVUdJQXxlbnwwfHx8fDE3NTAzNTMxNjh8MA&ixlib=rb-4.1.0&q=80&w=1080" 
                   alt="Póliza HCM Banesco Seguros"
                   layout="fill"
                   objectFit="cover"
@@ -655,6 +655,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

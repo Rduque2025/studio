@@ -409,27 +409,31 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           descriptionClassName="text-secondary"
           className="md:col-span-1"
         >
-          <div className="flex flex-col gap-6 items-center md:items-start">
-              <div className="relative w-full h-56 md:h-64 rounded-lg overflow-hidden shadow-md">
-                  <Image
-                      src="https://placehold.co/600x400.png"
-                      alt="Gestión de Vacaciones"
-                      layout="fill"
-                      objectFit="cover"
-                      data-ai-hint="travel vacation"
-                  />
+          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
+            <CardHeader className="p-0">
+              <div className="relative w-full h-48 md:h-56">
+                <Image
+                    src="https://placehold.co/600x400.png" 
+                    alt="Gestión de Vacaciones"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="travel vacation"
+                />
               </div>
-              <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                  <p className="text-muted-foreground mb-6 text-sm">
-                      Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
-                  </p>
-                  <Button asChild size="lg">
-                      <Link href="/dashboard/vacaciones">
-                          Acceder a Gestión de Vacaciones <Plane className="ml-2 h-5 w-5" />
-                      </Link>
-                  </Button>
-              </div>
-          </div>
+            </CardHeader>
+            <CardContent className="p-4 flex-grow">
+              <p className="text-sm text-muted-foreground">
+                  Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
+              </p>
+            </CardContent>
+            <CardFooter className="p-4 border-t">
+              <Button asChild size="default" className="w-full">
+                  <Link href="/dashboard/vacaciones">
+                      Acceder a Gestión de Vacaciones <Plane className="ml-2 h-4 w-4" />
+                  </Link>
+              </Button>
+            </CardFooter>
+          </Card>
         </SectionWrapper>
       </div>
 
@@ -603,6 +607,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

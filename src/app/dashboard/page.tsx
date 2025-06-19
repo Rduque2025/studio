@@ -28,7 +28,8 @@ import {
   Users,
   DollarSign,
   Settings, // For fallback icon
-  Megaphone // Added for Marketing department if needed
+  Megaphone, // Added for Marketing department if needed
+  Plane // For Vacaciones
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -337,7 +338,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
 
       <SectionWrapper 
         title="Portal de Requerimientos" 
-        titleClassName="text-primary" 
+        titleClassName="text-primary"
       >
         <div className="mb-8 text-center md:text-left">
           <Button asChild size="lg">
@@ -398,6 +399,36 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           )}
         </div>
       </SectionWrapper>
+
+      <SectionWrapper 
+        title="Gestión de Vacaciones" 
+        description="Planifique sus días libres, solicite vacaciones y consulte su saldo disponible."
+        titleClassName="text-primary" 
+        descriptionClassName="text-secondary"
+      >
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden shadow-md">
+                <Image
+                    src="https://placehold.co/600x400.png"
+                    alt="Gestión de Vacaciones"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="travel vacation"
+                />
+            </div>
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                <p className="text-muted-foreground mb-6 text-sm">
+                    Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
+                </p>
+                <Button asChild size="lg">
+                    <Link href="/dashboard/vacaciones">
+                        Acceder a Gestión de Vacaciones <Plane className="ml-2 h-5 w-5" />
+                    </Link>
+                </Button>
+            </div>
+        </div>
+      </SectionWrapper>
+
 
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -566,6 +597,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

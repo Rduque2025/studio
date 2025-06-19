@@ -306,8 +306,18 @@ export const mockDepartments: Department[] = [
     id: "vacaciones", 
     name: "Gestión de Vacaciones", 
     description: "Solicite sus vacaciones, verifique días acumulados y planifique su próximo descanso.",
+    imageUrl: "https://placehold.co/600x400.png", // Added placeholder image for vacaciones
+    dataAiHint: "travel planning", // Added data-ai-hint for vacaciones
     directLink: "/dashboard/vacaciones"
   },
+  {
+    id: "hcm",
+    name: "Nuestra Póliza HCM",
+    description: "Información y gestión de su Póliza de Hospitalización, Cirugía y Maternidad.",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "health policy",
+    directLink: "/dashboard/poliza-hcm"
+  }
 ];
 
 export const mockCalendarEvents = [
@@ -366,3 +376,4 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+

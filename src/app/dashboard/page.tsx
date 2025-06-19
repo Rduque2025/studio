@@ -29,7 +29,8 @@ import {
   DollarSign,
   Settings, // For fallback icon
   Megaphone, // Added for Marketing department if needed
-  Plane // For Vacaciones
+  Plane, // For Vacaciones
+  ShieldCheck // For HCM
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -153,7 +154,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
   const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
   const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
 
-  const featuredDepartments = mockDepartments.slice(0, 3);
+  const featuredDepartments = mockDepartments.filter(dept => dept.id !== 'vacaciones' && dept.id !== 'hcm').slice(0, 3);
 
 
   useEffect(() => {
@@ -437,6 +438,39 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </SectionWrapper>
       </div>
 
+      <SectionWrapper 
+        title="Nuestra Póliza HCM"
+        description="Información y gestión de su Póliza de Hospitalización, Cirugía y Maternidad."
+        titleClassName="text-primary"
+        descriptionClassName="text-secondary text-xs"
+      >
+        <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
+          <CardHeader className="p-0">
+            <div className="relative w-full h-48 md:h-56">
+              <Image
+                  src="https://placehold.co/600x400.png" 
+                  alt="Póliza HCM Banesco Seguros"
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint="health insurance"
+              />
+            </div>
+          </CardHeader>
+          <CardContent className="p-4 flex-grow">
+            <p className="text-xs text-muted-foreground">
+                Consulte los detalles de su cobertura, red de clínicas afiliadas, y gestione sus reembolsos o claves de emergencia.
+            </p>
+          </CardContent>
+          <CardFooter className="p-4 border-t">
+            <Button asChild size="default" className="w-full">
+                <Link href="/dashboard/poliza-hcm">
+                    Conocer Más <ShieldCheck className="ml-2 h-4 w-4" />
+                </Link>
+            </Button>
+          </CardFooter>
+        </Card>
+      </SectionWrapper>
+
 
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -607,6 +641,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

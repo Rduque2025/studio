@@ -3,7 +3,7 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { mockDepartments } from "@/lib/placeholder-data";
-import { ArrowRight, Users, Cpu, DollarSign, Megaphone, Settings, Plane } from "lucide-react"; // Added Plane
+import { ArrowRight, Users, Cpu, DollarSign, Megaphone, Settings, Plane, ShieldCheck } from "lucide-react"; // Added ShieldCheck
 
 const iconMap: { [key: string]: React.ElementType } = {
   rh: Users,
@@ -11,7 +11,8 @@ const iconMap: { [key: string]: React.ElementType } = {
   finanzas: DollarSign,
   marketing: Megaphone,
   operaciones: Settings,
-  vacaciones: Plane, // Added Plane icon for vacaciones
+  vacaciones: Plane,
+  hcm: ShieldCheck, // Added hcm icon
 };
 
 

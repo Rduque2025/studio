@@ -285,7 +285,7 @@ export const mockDepartments: Department[] = [
     id: "finanzas", 
     name: "Finanzas y Contabilidad", 
     description: "Presupuestos, reportes financieros y contabilidad general.",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmaW5hbmNlfGVufDB8fHx8MTc1MDM0MzYzMnww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "financial planning"
   },
   { 
@@ -306,8 +306,8 @@ export const mockDepartments: Department[] = [
     id: "vacaciones", 
     name: "Gestión de Vacaciones", 
     description: "Solicite sus vacaciones, verifique días acumulados y planifique su próximo descanso.",
-    imageUrl: "https://placehold.co/600x400.png", 
-    dataAiHint: "travel planning", 
+    imageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaHxlbnwwfHx8fDE3NTAzNDI5NDR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    dataAiHint: "travel vacation", 
     directLink: "/dashboard/vacaciones"
   },
   {
@@ -376,6 +376,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+
 
 
 

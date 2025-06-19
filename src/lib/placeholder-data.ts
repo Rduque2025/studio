@@ -34,6 +34,8 @@ export interface Department {
   name: string;
   description: string;
   icon?: React.ElementType; // Lucide icon
+  imageUrl?: string;
+  dataAiHint?: string;
 }
 
 export interface DressCodeItem {
@@ -78,7 +80,7 @@ export const mockActivities: Activity[] = [
   {
     id: "A001",
     title: "Yoga",
-    date: "2025-07-01", // Generic date, details in description
+    date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "yoga fitness",
@@ -87,17 +89,17 @@ export const mockActivities: Activity[] = [
   {
     id: "A002",
     title: "Ejercicios funcionales",
-    date: "2025-07-01", // Generic date
+    date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "functional training",
     description: "¡Mejora tu rendimiento físico y cuida tu salud!\n\nTe invitamos a participar en la actividad de entrenamiento funcional y en circuito, la cual ayuda a mejorar las capacidades físicas como  fuerza, resistencia, velocidad, coordinación y flexibilidad. Se puede realizar con o sin implementos.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M.",
-    isRecommended: true, // Marked as recommended
+    isRecommended: true,
   },
   {
     id: "A003",
     title: "Clases de cuatro",
-    date: "2025-07-01", // Generic date
+    date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "music lessons",
@@ -106,7 +108,7 @@ export const mockActivities: Activity[] = [
   {
     id: "A004",
     title: "Clases de bailoterapia",
-    date: "2025-07-01", // Generic date
+    date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "dance therapy",
@@ -115,7 +117,7 @@ export const mockActivities: Activity[] = [
   {
     id: "A005",
     title: "Cross combat",
-    date: "2025-07-01", // Generic date
+    date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "combat fitness",
@@ -124,7 +126,7 @@ export const mockActivities: Activity[] = [
   {
     id: "A006",
     title: "Teatro",
-    date: "2025-07-01", // Generic date
+    date: "2025-07-01",
     location: "Tríadas - Ciudad Banesco",
     imageUrl: "https://placehold.co/600x400.png",
     dataAiHint: "theater workshop",
@@ -264,11 +266,41 @@ export const mockExecutiveMenuItems: MenuItem[] = [
 
 
 export const mockDepartments: Department[] = [
-  { id: "rh", name: "Recursos Humanos", description: "Gestión de talento, nómina y bienestar del empleado." },
-  { id: "it", name: "Tecnología de Información", description: "Soporte técnico, infraestructura y desarrollo de sistemas." },
-  { id: "finanzas", name: "Finanzas y Contabilidad", description: "Presupuestos, reportes financieros y contabilidad general." },
-  { id: "marketing", name: "Marketing y Ventas", description: "Estrategias de mercado, publicidad y gestión de ventas." },
-  { id: "operaciones", name: "Operaciones", description: "Procesos internos, logística y gestión de calidad." },
+  { 
+    id: "rh", 
+    name: "Recursos Humanos", 
+    description: "Gestión de talento, nómina y bienestar del empleado.",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "human resources" 
+  },
+  { 
+    id: "it", 
+    name: "Tecnología de Información", 
+    description: "Soporte técnico, infraestructura y desarrollo de sistemas.",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "technology infrastructure"
+  },
+  { 
+    id: "finanzas", 
+    name: "Finanzas y Contabilidad", 
+    description: "Presupuestos, reportes financieros y contabilidad general.",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "financial planning"
+  },
+  { 
+    id: "marketing", 
+    name: "Marketing y Ventas", 
+    description: "Estrategias de mercado, publicidad y gestión de ventas.",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "marketing strategy"
+  },
+  { 
+    id: "operaciones", 
+    name: "Operaciones", 
+    description: "Procesos internos, logística y gestión de calidad.",
+    imageUrl: "https://placehold.co/600x400.png",
+    dataAiHint: "operational efficiency"
+  },
 ];
 
 export const mockCalendarEvents = [
@@ -327,6 +359,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+
 
 
 

@@ -27,7 +27,8 @@ import {
   ArrowRight,
   Users,
   DollarSign,
-  Settings // For fallback icon
+  Settings, // For fallback icon
+  Megaphone // Added for Marketing department if needed
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -96,8 +97,8 @@ const departmentIconMap: { [key: string]: React.ElementType } = {
   rh: Users,
   it: Cpu,
   finanzas: DollarSign,
-  // marketing: Megaphone, // Not used in this preview
-  // operaciones: Settings, // Not used in this preview
+  marketing: Megaphone, 
+  operaciones: Settings,
 };
 
 const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
@@ -340,14 +341,25 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         titleClassName="text-primary" 
         descriptionClassName="text-secondary"
       >
-        <div className="flex flex-col items-center gap-6 mb-8">
-          <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md">
+        <div className="flex flex-col items-center md:items-start gap-6 mb-8">
+          <div className="relative w-full max-w-lg"> {/* Increased max-width and aligned left on md+ */}
             {featuredDepartments.length > 0 && (() => {
               const dept = featuredDepartments[currentDeptIndex];
               const IconComponent = departmentIconMap[dept.id] || Settings;
               return (
-                <Card key={dept.id} className="transition-all duration-300 ease-in-out flex flex-col shadow-lg">
-                  <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2">
+                <Card key={dept.id} className="transition-all duration-300 ease-in-out flex flex-col shadow-lg overflow-hidden rounded-lg">
+                  {dept.imageUrl && (
+                    <div className="relative w-full h-56 md:h-64">
+                      <Image
+                        src={dept.imageUrl}
+                        alt={`Imagen para ${dept.name}`}
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint={dept.dataAiHint || 'department service'}
+                      />
+                    </div>
+                  )}
+                  <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2 pt-4">
                     <div className="bg-primary/10 p-3 rounded-lg">
                       <IconComponent className="h-6 w-6 text-primary" />
                     </div>
@@ -355,7 +367,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
                       <CardTitle className="text-lg">{dept.name}</CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-grow min-h-[60px]"> {/* Added min-height */}
+                  <CardContent className="flex-grow min-h-[50px]"> 
                     <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
                   </CardContent>
                   <CardFooter className="p-4 border-t">
@@ -370,7 +382,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             })()}
           </div>
           {featuredDepartments.length > 1 && (
-            <div className="flex items-center justify-center space-x-4">
+            <div className="flex items-center justify-center md:justify-start space-x-4 w-full max-w-lg"> {/* Aligned buttons with card */}
               <Button onClick={handlePrevDept} variant="outline" size="icon" aria-label="Requerimiento anterior">
                 <ChevronLeft className="h-5 w-5" />
               </Button>
@@ -380,7 +392,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             </div>
           )}
         </div>
-        <div className="text-center">
+        <div className="text-center md:text-left"> {/* Align button to left on md+ */}
           <Button asChild size="lg">
             <Link href="/dashboard/requerimientos">
               Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
@@ -556,6 +568,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

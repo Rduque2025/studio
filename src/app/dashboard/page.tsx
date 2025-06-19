@@ -422,7 +422,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
               </div>
             </CardHeader>
             <CardContent className="p-4 flex-grow">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                   Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
               </p>
             </CardContent>
@@ -607,6 +607,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

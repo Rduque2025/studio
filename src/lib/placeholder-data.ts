@@ -271,7 +271,7 @@ export const mockDepartments: Department[] = [
     id: "rh", 
     name: "Recursos Humanos", 
     description: "Gestión de talento, nómina y bienestar del empleado.",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "https://images.unsplash.com/photo-1590650516494-0c8e4a4dd67e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y2xpZW50fGVufDB8fHx8MTc1MDM0MzI3N3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "human resources" 
   },
   { 
@@ -306,8 +306,8 @@ export const mockDepartments: Department[] = [
     id: "vacaciones", 
     name: "Gestión de Vacaciones", 
     description: "Solicite sus vacaciones, verifique días acumulados y planifique su próximo descanso.",
-    imageUrl: "https://placehold.co/600x400.png", // Added placeholder image for vacaciones
-    dataAiHint: "travel planning", // Added data-ai-hint for vacaciones
+    imageUrl: "https://placehold.co/600x400.png", 
+    dataAiHint: "travel planning", 
     directLink: "/dashboard/vacaciones"
   },
   {
@@ -376,4 +376,5 @@ export const mockDressCodeItems: DressCodeItem[] = [
     dataAiHint: "casual friday"
   },
 ];
+
 

@@ -337,9 +337,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
 
       <SectionWrapper 
         title="Portal de Requerimientos" 
-        description="Acceda rápidamente a los formularios de solicitud más comunes o vea todas las opciones."
         titleClassName="text-primary" 
-        descriptionClassName="text-secondary"
       >
         <div className="mb-8 text-center md:text-left">
           <Button asChild size="lg">
@@ -568,6 +566,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

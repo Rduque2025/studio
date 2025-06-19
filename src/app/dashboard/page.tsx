@@ -426,7 +426,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         >
           <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
             <CardHeader className="p-0">
-              <div className="relative w-full h-48 md:h-56">
+              <div className="relative w-full h-56 md:h-64">
                 <Image
                     src="https://placehold.co/600x400.png" 
                     alt="Gestión de Vacaciones"
@@ -655,6 +655,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

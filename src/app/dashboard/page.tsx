@@ -406,7 +406,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           title="Planifica tus próximas vacaciones!" 
           description="Planifique sus días libres, solicite vacaciones y consulte su saldo disponible."
           titleClassName="text-primary" 
-          descriptionClassName="text-secondary"
+          descriptionClassName="text-secondary text-xs"
           className="md:col-span-1"
         >
           <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
@@ -524,7 +524,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         </div>
       </SectionWrapper>
 
-      <SectionWrapper title="Nuestra Misión" titleClassName="text-2xl font-bold text-primary mb-6 text-center">
+       <SectionWrapper title="Nuestra Misión" titleClassName="text-2xl font-bold text-primary mb-6 text-center">
         <CardContent className="p-0">
           <div className="max-w-3xl mx-auto space-y-4">
             <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out">
@@ -607,6 +607,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
     
 
     
+
 
 
 

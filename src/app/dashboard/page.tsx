@@ -479,12 +479,12 @@ export default function DashboardPage() {
             </CardFooter>
           </Card>
 
-          <Card className="flex flex-col h-full overflow-hidden rounded-lg border-none">
-            <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
+          <Card className="flex flex-col h-full overflow-hidden rounded-lg bg-card">
+            <CardHeader className="bg-primary text-primary-foreground text-center p-4">
+                <CardTitle className="text-xl font-bold">
                     ¡En caso de Emergencia!
                 </CardTitle>
-                <CardDescription className="text-xs">
+                <CardDescription className="text-primary-foreground/80 text-xs">
                     Números de atención para siniestros y claves de emergencia.
                 </CardDescription>
             </CardHeader>
@@ -686,5 +686,7 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
 
     

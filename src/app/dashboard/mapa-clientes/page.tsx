@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useMemo, useEffect, useState, use } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -150,15 +150,7 @@ const MetricCard: React.FC<MetricCardProps> = ({ title, value, icon: Icon, descr
   );
 };
 
-interface MapaClientesPageProps {
-  params: {};
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default function IndicadoresPage({ params, searchParams }: MapaClientesPageProps) {
-  const routeParams = use(params);
-  const unwrappedSearchParams = use(searchParams);
-
+export default function IndicadoresPage() {
   const [cobradoCardDescription, setCobradoCardDescription] = useState<string | undefined>(undefined);
   const [suscritoCardDescription, setSuscritoCardDescription] = useState<string | undefined>(undefined);
   
@@ -459,4 +451,5 @@ export default function IndicadoresPage({ params, searchParams }: MapaClientesPa
     </div>
   );
 }
+
 

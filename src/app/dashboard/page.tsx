@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef, use } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
@@ -142,15 +142,7 @@ const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 
   );
 };
 
-interface DashboardPageProps {
-  params: {}; 
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default function DashboardPage({ params, searchParams }: DashboardPageProps) {
-  const routeParams = use(params); 
-  const unwrappedSearchParams = use(searchParams);
-
+export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');

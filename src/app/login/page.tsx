@@ -1,17 +1,10 @@
 
 "use client";
 
-import { useEffect, use } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-interface LoginPageRedirectProps {
-  params: {}; // Added params even if not used, to match general structure if searchParams are present
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default function LoginPageRedirect({ params, searchParams }: LoginPageRedirectProps) {
-  const routeParams = use(params); // Unwap params even if not directly used
-  const unwrappedSearchParams = use(searchParams);
+export default function LoginPageRedirect() {
   const router = useRouter();
 
   useEffect(() => {

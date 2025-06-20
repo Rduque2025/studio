@@ -479,7 +479,7 @@ export default function DashboardPage() {
             </CardFooter>
           </Card>
 
-          <Card className="flex flex-col h-full overflow-hidden rounded-lg bg-card">
+          <Card className="flex flex-col h-full overflow-hidden rounded-lg bg-card border-none shadow-none">
             <CardHeader className="bg-primary text-primary-foreground text-center p-4">
                 <CardTitle className="text-xl font-bold">
                     ¡En caso de Emergencia!
@@ -493,7 +493,7 @@ export default function DashboardPage() {
                     href="https://wa.me/584242668446" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors"
+                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-muted rounded-lg transition-colors"
                 >
                     <div className="mb-4 rounded-full bg-muted p-5">
                         <MessageSquare className="h-10 w-10 text-green-600" />
@@ -505,7 +505,7 @@ export default function DashboardPage() {
                 </a>
                 <a 
                     href="tel:05007258300"
-                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors"
+                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-muted rounded-lg transition-colors"
                 >
                     <div className="mb-4 rounded-full bg-muted p-5">
                         <Phone className="h-10 w-10 text-primary" />

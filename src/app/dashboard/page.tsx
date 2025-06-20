@@ -496,29 +496,33 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
                     Números de atención para siniestros y claves de emergencia.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow flex flex-col justify-evenly items-stretch p-6">
-                <div className="flex items-center gap-4">
-                    <div className="bg-green-100 p-4 rounded-full">
-                        <MessageSquare className="h-10 w-10 text-green-600" />
+             <CardContent className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                <a 
+                    href="https://wa.me/584242668446" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors border"
+                >
+                    <div className="mb-4 rounded-full bg-muted p-5 border">
+                        <MessageSquare className="h-10 w-10 text-green-500" />
                     </div>
-                    <div className="flex-grow">
-                        <p className="text-sm font-medium text-muted-foreground">WhatsApp</p>
-                        <p className="text-2xl lg:text-3xl font-bold tracking-tight text-green-600">0424-Contigo</p>
-                        <p className="text-md text-muted-foreground -mt-1">(2668446)</p>
+                    <div className="text-center">
+                        <p className="text-sm font-semibold text-muted-foreground">WhatsApp</p>
+                        <p className="text-xl font-bold text-foreground">0424-Contigo</p>
                     </div>
-                </div>
-                
-                <Separator className="my-4" />
-
-                <div className="flex items-center gap-4">
-                    <div className="bg-primary/10 p-4 rounded-full">
+                </a>
+                <a 
+                    href="tel:05007258300"
+                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors border"
+                >
+                    <div className="mb-4 rounded-full bg-muted p-5 border">
                         <Phone className="h-10 w-10 text-primary" />
                     </div>
-                    <div className="flex-grow">
-                        <p className="text-sm font-medium text-muted-foreground">Atención Telefónica</p>
-                        <p className="text-2xl lg:text-3xl font-bold tracking-tight text-primary">0500-7258300</p>
+                    <div className="text-center">
+                        <p className="text-sm font-semibold text-muted-foreground">Llamar</p>
+                        <p className="text-xl font-bold text-foreground">0500-7258300</p>
                     </div>
-                </div>
+                </a>
             </CardContent>
           </Card>
         </div>

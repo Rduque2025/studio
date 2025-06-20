@@ -500,7 +500,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-semibold text-muted-foreground">WhatsApp</p>
-                        <p className="text-xl font-bold text-foreground">0424-Contigo</p>
+                        <p className="text-xl font-bold text-green-500">0424-Contigo</p>
                     </div>
                 </a>
                 <a 
@@ -512,7 +512,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-semibold text-muted-foreground">Llamar</p>
-                        <p className="text-xl font-bold text-foreground">0500-7258300</p>
+                        <p className="text-xl font-bold text-primary">0500-7258300</p>
                     </div>
                 </a>
             </CardContent>

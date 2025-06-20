@@ -496,7 +496,7 @@ export default function DashboardPage() {
                     className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-muted rounded-lg transition-colors"
                 >
                     <div className="mb-4 rounded-full bg-muted p-5">
-                        <MessageSquare className="h-10 w-10 text-green-600" />
+                        <MessageSquare className="h-10 w-10 text-green-600 transition-transform duration-200 group-hover:scale-110" />
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-semibold text-muted-foreground">WhatsApp</p>
@@ -508,7 +508,7 @@ export default function DashboardPage() {
                     className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-muted rounded-lg transition-colors"
                 >
                     <div className="mb-4 rounded-full bg-muted p-5">
-                        <Phone className="h-10 w-10 text-primary" />
+                        <Phone className="h-10 w-10 text-primary transition-transform duration-200 group-hover:scale-110" />
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-semibold text-muted-foreground">Llamar</p>
@@ -686,6 +686,8 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
 
     
 

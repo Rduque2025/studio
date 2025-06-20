@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useRef, use } from 'react';
@@ -459,7 +458,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
       >
         <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
           <CardHeader className="p-0">
-            <div className="relative w-full h-48 md:h-56">
+            <div className="relative w-full h-56 md:h-64">
               <Image
                   src="https://images.unsplash.com/photo-1740953448394-86122e98c1be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Q0lSVUdJQXxlbnwwfHx8fDE3NTAzNTMxNjh8MA&ixlib=rb-4.1.0&q=80&w=1080" 
                   alt="Póliza HCM Banesco Seguros"

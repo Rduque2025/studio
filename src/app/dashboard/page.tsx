@@ -479,7 +479,7 @@ export default function DashboardPage() {
             </CardFooter>
           </Card>
 
-          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
+          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg border-none">
             <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                     ¡En caso de Emergencia!
@@ -686,3 +686,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    

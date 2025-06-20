@@ -37,6 +37,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from '@/lib/utils';
+import { Separator } from "@/components/ui/separator";
 
 
 const rotatingImagesData = [
@@ -495,24 +496,27 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
                     Números de atención para siniestros y claves de emergencia.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="flex-grow flex flex-col justify-center items-start gap-8 p-6">
+            <CardContent className="flex-grow flex flex-col justify-evenly items-stretch p-6">
                 <div className="flex items-center gap-4">
                     <div className="bg-green-100 p-4 rounded-full">
-                        <MessageSquare className="h-8 w-8 text-green-600" />
+                        <MessageSquare className="h-10 w-10 text-green-600" />
                     </div>
-                    <div>
+                    <div className="flex-grow">
                         <p className="text-sm font-medium text-muted-foreground">WhatsApp</p>
-                        <p className="text-2xl font-bold tracking-tight text-green-600">0424-Contigo</p>
-                        <p className="text-sm text-muted-foreground">(2668446)</p>
+                        <p className="text-2xl lg:text-3xl font-bold tracking-tight text-green-600">0424-Contigo</p>
+                        <p className="text-md text-muted-foreground -mt-1">(2668446)</p>
                     </div>
                 </div>
+                
+                <Separator className="my-4" />
+
                 <div className="flex items-center gap-4">
                     <div className="bg-primary/10 p-4 rounded-full">
-                        <Phone className="h-8 w-8 text-primary" />
+                        <Phone className="h-10 w-10 text-primary" />
                     </div>
-                    <div>
+                    <div className="flex-grow">
                         <p className="text-sm font-medium text-muted-foreground">Atención Telefónica</p>
-                        <p className="text-2xl font-bold tracking-tight text-primary">0500-7258300</p>
+                        <p className="text-2xl lg:text-3xl font-bold tracking-tight text-primary">0500-7258300</p>
                     </div>
                 </div>
             </CardContent>

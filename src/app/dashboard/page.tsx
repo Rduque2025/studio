@@ -489,7 +489,6 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
           <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
             <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                    <Phone className="h-5 w-5 text-primary" />
                     ¡En caso de Emergencia!
                 </CardTitle>
                 <CardDescription className="text-xs">

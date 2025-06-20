@@ -496,11 +496,11 @@ export default function DashboardPage() {
                     className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors border"
                 >
                     <div className="mb-4 rounded-full bg-muted p-5 border">
-                        <MessageSquare className="h-10 w-10 text-green-500" />
+                        <MessageSquare className="h-10 w-10 text-green-600" />
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-semibold text-muted-foreground">WhatsApp</p>
-                        <p className="text-xl font-bold text-green-500">0424-Contigo</p>
+                        <p className="text-xl font-bold text-green-600">0424-Contigo</p>
                     </div>
                 </a>
                 <a 

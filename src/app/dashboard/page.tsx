@@ -493,9 +493,9 @@ export default function DashboardPage() {
                     href="https://wa.me/584242668446" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors border"
+                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors"
                 >
-                    <div className="mb-4 rounded-full bg-muted p-5 border">
+                    <div className="mb-4 rounded-full bg-muted p-5">
                         <MessageSquare className="h-10 w-10 text-green-600" />
                     </div>
                     <div className="text-center">
@@ -505,9 +505,9 @@ export default function DashboardPage() {
                 </a>
                 <a 
                     href="tel:05007258300"
-                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors border"
+                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-accent rounded-lg transition-colors"
                 >
-                    <div className="mb-4 rounded-full bg-muted p-5 border">
+                    <div className="mb-4 rounded-full bg-muted p-5">
                         <Phone className="h-10 w-10 text-primary" />
                     </div>
                     <div className="text-center">

@@ -28,7 +28,9 @@ import {
   Settings, // For fallback icon
   Megaphone, // Added for Marketing department if needed
   Plane, // For Vacaciones
-  ShieldCheck // For HCM
+  ShieldCheck, // For HCM
+  Phone,
+  MessageSquare
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -456,31 +458,66 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
         titleClassName="text-primary"
         descriptionClassName="text-secondary text-xs"
       >
-        <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
-          <CardHeader className="p-0">
-            <div className="relative w-full h-56 md:h-64">
-              <Image
-                  src="https://images.unsplash.com/photo-1740953448394-86122e98c1be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Q0lSVUdJQXxlbnwwfHx8fDE3NTAzNTMxNjh8MA&ixlib=rb-4.1.0&q=80&w=1080" 
-                  alt="Póliza HCM Banesco Seguros"
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint="health insurance"
-              />
-            </div>
-          </CardHeader>
-          <CardContent className="p-4 flex-grow">
-            <p className="text-xs text-muted-foreground">
-                Consulte los detalles de su cobertura, red de clínicas afiliadas, y gestione sus reembolsos o claves de emergencia.
-            </p>
-          </CardContent>
-          <CardFooter className="p-4 border-t">
-            <Button asChild size="default" className="w-full">
-                <Link href="/dashboard/poliza-hcm">
-                    Conocer Más <ShieldCheck className="ml-2 h-4 w-4" />
-                </Link>
-            </Button>
-          </CardFooter>
-        </Card>
+        <div className="grid md:grid-cols-2 gap-8 items-start">
+          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
+            <CardHeader className="p-0">
+              <div className="relative w-full h-56 md:h-64">
+                <Image
+                    src="https://images.unsplash.com/photo-1740953448394-86122e98c1be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Q0lSVUdJQXxlbnwwfHx8fDE3NTAzNTMxNjh8MA&ixlib=rb-4.1.0&q=80&w=1080" 
+                    alt="Póliza HCM Banesco Seguros"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="health insurance"
+                />
+              </div>
+            </CardHeader>
+            <CardContent className="p-4 flex-grow">
+              <p className="text-xs text-muted-foreground">
+                  Consulte los detalles de su cobertura, red de clínicas afiliadas, y gestione sus reembolsos o claves de emergencia.
+              </p>
+            </CardContent>
+            <CardFooter className="p-4 border-t">
+              <Button asChild size="default" className="w-full">
+                  <Link href="/dashboard/poliza-hcm">
+                      Conocer Más <ShieldCheck className="ml-2 h-4 w-4" />
+                  </Link>
+              </Button>
+            </CardFooter>
+          </Card>
+
+          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
+            <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                    <Phone className="h-5 w-5 text-primary" />
+                    Contacto de Emergencia
+                </CardTitle>
+                <CardDescription className="text-xs">
+                    Números de atención para siniestros y claves de emergencia.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="flex-grow flex flex-col justify-center items-start gap-8 p-6">
+                <div className="flex items-center gap-4">
+                    <div className="bg-green-100 p-4 rounded-full">
+                        <MessageSquare className="h-8 w-8 text-green-600" />
+                    </div>
+                    <div>
+                        <p className="text-sm font-medium text-muted-foreground">WhatsApp</p>
+                        <p className="text-2xl font-bold tracking-tight text-green-600">0424-Contigo</p>
+                        <p className="text-sm text-muted-foreground">(2668446)</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="bg-primary/10 p-4 rounded-full">
+                        <Phone className="h-8 w-8 text-primary" />
+                    </div>
+                    <div>
+                        <p className="text-sm font-medium text-muted-foreground">Atención Telefónica</p>
+                        <p className="text-2xl font-bold tracking-tight text-primary">0500-7258300</p>
+                    </div>
+                </div>
+            </CardContent>
+          </Card>
+        </div>
       </SectionWrapper>
 
 

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef, use } from 'react';
@@ -489,7 +490,7 @@ export default function DashboardPage({ params, searchParams }: DashboardPagePro
             <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                     <Phone className="h-5 w-5 text-primary" />
-                    Contacto de Emergencia
+                    ¡En caso de Emergencia!
                 </CardTitle>
                 <CardDescription className="text-xs">
                     Números de atención para siniestros y claves de emergencia.

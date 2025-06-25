@@ -152,7 +152,7 @@ export default function DashboardPage() {
 
   const principleCycle = {
       valores: { next: 'pilares', label: 'Valores', nextLabel: 'Pilares' },
-      pilares: { next: 'mision', label: 'Pilares', nextLabel: 'Nuestra Misión' },
+      pilares: { next: 'mision', label: 'Nuestra Misión', nextLabel: 'Valores' },
       mision: { next: 'valores', label: 'Nuestra Misión', nextLabel: 'Valores' },
   };
 

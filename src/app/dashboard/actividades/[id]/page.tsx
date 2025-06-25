@@ -1,5 +1,4 @@
 
-
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockActivities } from "@/lib/placeholder-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -15,7 +14,6 @@ interface ActivityDetailsPageProps {
   params: {
     id: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
@@ -46,7 +44,7 @@ export default function ActivityDetailsPage({ params }: ActivityDetailsPageProps
   return (
     <div className="container mx-auto py-8 px-4">
        <Button asChild variant="outline" className="mb-6">
-        <Link href="/dashboard">
+        <Link href="/dashboard/bienestar">
           <ArrowLeft className="mr-2 h-4 w-4" /> Volver a Actividades
         </Link>
       </Button>

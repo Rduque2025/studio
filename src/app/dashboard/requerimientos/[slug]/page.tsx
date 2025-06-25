@@ -1,5 +1,4 @@
 
-
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +8,6 @@ interface DepartmentPageProps {
   params: {
     slug: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {

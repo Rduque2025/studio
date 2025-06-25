@@ -563,10 +563,9 @@ export default function DashboardPage() {
                 ))}
             </div>
         </div>
-      </SectionWrapper>
 
-       <SectionWrapper title="Nuestra Misión" titleClassName="text-2xl font-bold text-primary mb-6 text-center">
-        <CardContent className="p-0">
+        <div className="mt-16">
+          <h3 className="text-2xl font-bold text-primary mb-6 text-center">Nuestra Misión</h3>
           <div className="max-w-3xl mx-auto space-y-4">
             <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out">
               <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">1</div>
@@ -592,7 +591,7 @@ export default function DashboardPage() {
               </p>
             </div>
           </div>
-        </CardContent>
+        </div>
       </SectionWrapper>
 
 
@@ -653,5 +652,7 @@ export default function DashboardPage() {
 
 
 
+
+    
 
     

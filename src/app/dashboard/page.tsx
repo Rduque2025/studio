@@ -542,11 +542,11 @@ export default function DashboardPage() {
       >
         <div className="relative rounded-lg overflow-hidden mb-12">
             <Image
-                src="https://images.unsplash.com/photo-1589139968482-628f8a8ad3d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NTAzNTgyMjJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxuZWdvY2lvc3xlbnwwfHx8fDE3NTA4NzczNzh8MA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Principios Fundamentales de la Empresa"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="abstract architecture"
+                data-ai-hint="business meeting"
                 className="z-0"
             />
             <div className="relative z-10 flex flex-col items-center justify-center text-center p-8 md:p-16 bg-black/40 backdrop-blur-sm text-white min-h-[300px]">

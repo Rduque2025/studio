@@ -127,8 +127,10 @@ export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
   const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
+  const [activePrinciple, setActivePrinciple] = useState<'valores' | 'pilares'>('valores');
 
   const featuredDepartments = mockDepartments.filter(dept => dept.id !== 'vacaciones' && dept.id !== 'hcm').slice(0, 3);
+  const principlesToShow = activePrinciple === 'valores' ? valoresData : pilaresData;
 
 
   useEffect(() => {
@@ -527,34 +529,33 @@ export default function DashboardPage() {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-x-20 gap-y-10">
-          {/* Columna de Valores */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-bold text-primary text-center">Valores</h3>
-            {valoresData.map((item, index) => (
-              <TimelineNode
-                key={item.title}
-                title={item.title}
-                text={item.text}
-                color={item.color}
-                isLast={index === valoresData.length - 1}
-              />
-            ))}
-          </div>
-
-          {/* Columna de Pilares */}
-          <div className="space-y-8">
-             <h3 className="text-2xl font-bold text-primary text-center">Pilares</h3>
-            {pilaresData.map((item, index) => (
-              <TimelineNode
-                key={item.title}
-                title={item.title}
-                text={item.text}
-                color={item.color}
-                isLast={index === pilaresData.length - 1}
-              />
-            ))}
-          </div>
+        <div className="grid md:grid-cols-3 gap-12 items-start">
+            <div className="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left md:sticky md:top-24">
+                <h3 className="text-3xl font-bold text-primary">
+                    {activePrinciple === 'valores' ? 'Valores' : 'Pilares'}
+                </h3>
+                <p className="text-muted-foreground mt-2 mb-6 text-sm">
+                    {activePrinciple === 'valores' 
+                        ? "Los principios éticos y profesionales que guían cada una de nuestras acciones y decisiones."
+                        : "Las columnas fundamentales sobre las que construimos nuestra solidez y confianza en el mercado."}
+                </p>
+                <Button onClick={() => setActivePrinciple(p => p === 'valores' ? 'pilares' : 'valores')} variant="outline">
+                    Ver {activePrinciple === 'valores' ? 'Pilares' : 'Valores'}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+            </div>
+            
+            <div className="md:col-span-2 space-y-8">
+                {principlesToShow.map((item, index) => (
+                  <TimelineNode
+                    key={item.title}
+                    title={item.title}
+                    text={item.text}
+                    color={item.color}
+                    isLast={index === principlesToShow.length - 1}
+                  />
+                ))}
+            </div>
         </div>
       </SectionWrapper>
 
@@ -643,3 +644,4 @@ export default function DashboardPage() {
     
 
     
+

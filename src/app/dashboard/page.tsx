@@ -117,7 +117,7 @@ const TimelineNode = ({ title, text, color, isLast, icon: Icon }: { title: strin
       </div>
       {/* Content */}
       <div className="w-full">
-        <div className={cn("relative p-4 rounded-xl text-white shadow-md", color)}>
+        <div className={cn("relative p-4 rounded-xl text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1", color)}>
           <div className={cn("absolute top-1.5 -left-[18px] w-5 h-0.5", color)} />
           <div className="flex items-start gap-3">
             <Icon className="h-5 w-5 mt-0.5 flex-shrink-0" />
@@ -659,6 +659,8 @@ export default function DashboardPage() {
 
 
 
+
+    
 
     
 

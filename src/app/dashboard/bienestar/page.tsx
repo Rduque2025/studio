@@ -182,7 +182,7 @@ export default function BienestarPage() {
               <p className="text-xs text-muted-foreground mb-4">
                 16 de Junio, 2024
               </p>
-              <p className="text-sm text-foreground mb-6">
+              <p className="text-xs text-foreground mb-6">
                 Un almuerzo especial para todos los padres de nuestra familia Banesco, reconociendo su invaluable labor y dedicación. Fue una jornada llena de camaradería y alegría.
               </p>
               <Button asChild variant="outline" size="sm" className="self-start">

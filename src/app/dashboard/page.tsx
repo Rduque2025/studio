@@ -112,8 +112,8 @@ const TimelineNode = ({ title, text, color, isLast }: { title: string, text: str
       <div className="w-full">
         <div className={cn("relative p-4 rounded-xl text-white shadow-md", color)}>
           <div className={cn("absolute top-1.5 -left-[18px] w-5 h-0.5", color)} />
-          <h4 className="font-semibold">{title}</h4>
-          <p className="text-sm leading-snug">{text}</p>
+          <h4 className="font-semibold text-sm">{title}</h4>
+          <p className="text-xs leading-snug">{text}</p>
         </div>
       </div>
     </div>
@@ -531,10 +531,10 @@ export default function DashboardPage() {
         
         <div className="grid md:grid-cols-3 gap-12 items-start">
             <div className="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left md:sticky md:top-24">
-                <h3 className="text-3xl font-bold text-primary">
+                <h3 className="text-2xl font-bold text-primary">
                     {activePrinciple === 'valores' ? 'Valores' : 'Pilares'}
                 </h3>
-                <p className="text-muted-foreground mt-2 mb-6 text-sm">
+                <p className="text-muted-foreground mt-2 mb-6 text-xs">
                     {activePrinciple === 'valores' 
                         ? "Los principios éticos y profesionales que guían cada una de nuestras acciones y decisiones."
                         : "Las columnas fundamentales sobre las que construimos nuestra solidez y confianza en el mercado."}
@@ -644,4 +644,5 @@ export default function DashboardPage() {
     
 
     
+
 

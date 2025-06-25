@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/com
 import { cn } from '@/lib/utils';
 
 interface SectionWrapperProps {
-  title: string;
+  title?: string;
   description?: string;
   children: React.ReactNode;
   className?: string;
@@ -18,10 +18,12 @@ export function SectionWrapper({ title, description, children, className, cardCl
   return (
     <section className={className}>
       <Card className={cn("bg-transparent shadow-none border-none", cardClassName)}>
-        <CardHeader className={headerClassName}>
-          <CardTitle className={cn("text-2xl font-semibold text-primary", titleClassName)}>{title}</CardTitle>
-          {description && <CardDescription className={cn("text-secondary", descriptionClassName)}>{description}</CardDescription>}
-        </CardHeader>
+        {title && (
+          <CardHeader className={headerClassName}>
+            <CardTitle className={cn("text-2xl font-semibold text-primary", titleClassName)}>{title}</CardTitle>
+            {description && <CardDescription className={cn("text-secondary", descriptionClassName)}>{description}</CardDescription>}
+          </CardHeader>
+        )}
         <CardContent className={contentClassName}>
           {children}
         </CardContent>

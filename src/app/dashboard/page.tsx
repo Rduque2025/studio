@@ -537,19 +537,34 @@ export default function DashboardPage() {
       </SectionWrapper>
 
       <SectionWrapper
-        title="Nuestros Principios Fundamentales"
         cardClassName="bg-transparent shadow-none rounded-lg border-none"
         contentClassName="p-0"
-        titleClassName="text-3xl font-bold text-primary mb-8 text-center"
       >
-        <div className="mb-10 text-center">
-          <h3 className="text-xl font-semibold text-primary mb-2">Nuestra Oferta de Valor</h3>
-          <p className="text-sm text-foreground max-w-2xl mx-auto leading-relaxed">
-            Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con{' '}
-            <span className="font-semibold text-secondary">
-              servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
-            </span>
-          </p>
+        <div className="relative rounded-lg overflow-hidden mb-12">
+            <Image
+                src="https://images.unsplash.com/photo-1589139968482-628f8a8ad3d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMGFyY2hpdGVjdHVyZXxlbnwwfHx8fDE3NTAzNTgyMjJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Principios Fundamentales de la Empresa"
+                layout="fill"
+                objectFit="cover"
+                data-ai-hint="abstract architecture"
+                className="z-0"
+            />
+            <div className="relative z-10 flex flex-col items-center justify-center text-center p-8 md:p-16 bg-black/40 backdrop-blur-sm text-white min-h-[300px]">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                    Nuestros Principios Fundamentales
+                </h2>
+                <div className="max-w-3xl">
+                    <h3 className="text-xl font-semibold mb-2 text-primary-foreground/90">
+                        Nuestra Oferta de Valor
+                    </h3>
+                    <p className="text-sm md:text-base text-primary-foreground/80 leading-relaxed">
+                        Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con{' '}
+                        <span className="font-semibold text-white">
+                            servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
+                        </span>
+                    </p>
+                </div>
+            </div>
         </div>
         
         <div className="grid md:grid-cols-3 gap-12 items-start">

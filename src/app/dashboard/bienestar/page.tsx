@@ -89,111 +89,117 @@ export default function BienestarPage() {
   }, []);
 
   return (
-    <div className="container mx-auto py-8 px-4 space-y-12">
-      <SectionWrapper 
-        title="Lobby de Bienestar"
-        description="Noticias, eventos y recursos para tu desarrollo y bienestar integral en Banesco Seguros."
-        titleClassName="text-3xl font-bold text-primary"
-        descriptionClassName="text-secondary"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[280px]">
-          {bienestarNews.map(item => (
-            <Link key={item.id} href={item.link} className={`relative rounded-xl overflow-hidden group block shadow-lg hover:shadow-2xl transition-shadow duration-300 ${item.gridClass}`}>
-              <Image 
-                src={item.imageUrl}
-                alt={item.title}
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint={item.dataAiHint}
-                className="transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent backdrop-blur-[2px] transition-all duration-300 group-hover:from-black/80 group-hover:backdrop-blur-md" />
-              
-              <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                {item.badge && (
-                  <span className="mb-2 text-xs font-semibold uppercase tracking-wider bg-primary/80 text-primary-foreground px-2 py-1 rounded-full self-start">
-                    {item.badge}
-                  </span>
-                )}
-                <h3 className="text-xl lg:text-2xl font-bold">{item.title}</h3>
-                <p className="text-sm mt-1 text-white/90 hidden md:block">{item.description}</p>
-                 <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-sm font-semibold">
-                  Ver más <ArrowRight className="ml-2 h-4 w-4" />
+    <>
+      <div className="container mx-auto py-8 px-4 space-y-12">
+        <SectionWrapper 
+          title="Lobby de Bienestar"
+          description="Noticias, eventos y recursos para tu desarrollo y bienestar integral en Banesco Seguros."
+          titleClassName="text-3xl font-bold text-primary"
+          descriptionClassName="text-secondary"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[280px]">
+            {bienestarNews.map(item => (
+              <Link key={item.id} href={item.link} className={`relative rounded-xl overflow-hidden group block shadow-lg hover:shadow-2xl transition-shadow duration-300 ${item.gridClass}`}>
+                <Image 
+                  src={item.imageUrl}
+                  alt={item.title}
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint={item.dataAiHint}
+                  className="transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent backdrop-blur-[2px] transition-all duration-300 group-hover:from-black/80 group-hover:backdrop-blur-md" />
+                
+                <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                  {item.badge && (
+                    <span className="mb-2 text-xs font-semibold uppercase tracking-wider bg-primary/80 text-primary-foreground px-2 py-1 rounded-full self-start">
+                      {item.badge}
+                    </span>
+                  )}
+                  <h3 className="text-xl lg:text-2xl font-bold">{item.title}</h3>
+                  <p className="text-sm mt-1 text-white/90 hidden md:block">{item.description}</p>
+                   <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-sm font-semibold">
+                    Ver más <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </SectionWrapper>
-      
-      <div id="actividades" className="scroll-mt-24">
-       <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockActivities.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
-          ))}
-        </div>
-      </SectionWrapper>
-      </div>
-
-      <div id="cursos" className="scroll-mt-24">
-        <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mockCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
+              </Link>
             ))}
           </div>
         </SectionWrapper>
-      </div>
+        
+        <div id="actividades" className="scroll-mt-24">
+         <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockActivities.map((activity) => (
+              <ActivityCard key={activity.id} activity={activity} />
+            ))}
+          </div>
+        </SectionWrapper>
+        </div>
 
-      <div id="menu-semanal" className="scroll-mt-24">
-        <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
-          <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-            <div className="flex w-max space-x-4 p-4">
-              {mockMenuItems.map((item) => (
-                <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+        <div id="cursos" className="scroll-mt-24">
+          <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {mockCourses.map((course) => (
+                <CourseCard key={course.id} course={course} />
               ))}
             </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
-        </SectionWrapper>
+          </SectionWrapper>
+        </div>
+
+        <div id="menu-semanal" className="scroll-mt-24">
+          <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
+            <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+              <div className="flex w-max space-x-4 p-4">
+                {mockMenuItems.map((item) => (
+                  <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                ))}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+          </SectionWrapper>
+        </div>
+
       </div>
 
-      <div id="evento-destacado" className="scroll-mt-24">
-        <SectionWrapper
-          title="Evento Reciente Destacado"
-          description="Revive los mejores momentos de nuestros últimos encuentros."
-          titleClassName="text-primary"
-          descriptionClassName="text-secondary"
-        >
-          <Card className="overflow-hidden md:flex shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="md:w-1/3 h-64 md:h-auto relative">
-              <Image
-                src="https://images.unsplash.com/photo-1542948843-bf19f4f535cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXRoZXJzJTIwZGF5fGVufDB8fHx8MTc1MDg3OTgwMnww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Celebración del Día del Padre"
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint="fathers day"
-              />
-            </div>
-            <div className="md:w-2/3 p-6 flex flex-col justify-center">
-              <Badge variant="secondary" className="mb-2 self-start">Evento Destacado</Badge>
-              <h3 className="text-xl font-bold text-primary mb-2">Celebramos el Día del Padre</h3>
-              <p className="text-xs text-muted-foreground mb-4">
-                16 de Junio, 2024
-              </p>
-              <p className="text-xs text-foreground mb-6">
-                Un almuerzo especial para todos los padres de nuestra familia Banesco, reconociendo su invaluable labor y dedicación. Fue una jornada llena de camaradería y alegría.
-              </p>
-              <Button asChild variant="outline" size="sm" className="self-start">
-                <Link href="/dashboard/calendario">
-                  Ver más en el calendario <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </Card>
-        </SectionWrapper>
+      <div id="evento-destacado" className="scroll-mt-24 bg-muted/50 py-12">
+        <div className="container mx-auto px-4">
+          <SectionWrapper
+            title="Evento Reciente Destacado"
+            description="Revive los mejores momentos de nuestros últimos encuentros."
+            titleClassName="text-primary"
+            descriptionClassName="text-secondary"
+            cardClassName="bg-transparent"
+          >
+            <Card className="overflow-hidden md:flex shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="md:w-1/3 h-64 md:h-auto relative">
+                <Image
+                  src="https://images.unsplash.com/photo-1542948843-bf19f4f535cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXRoZXJzJTIwZGF5fGVufDB8fHx8MTc1MDg3OTgwMnww&ixlib=rb-4.1.0&q=80&w=1080"
+                  alt="Celebración del Día del Padre"
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint="fathers day"
+                />
+              </div>
+              <div className="md:w-2/3 p-6 flex flex-col justify-center">
+                <Badge variant="secondary" className="mb-2 self-start">Evento Destacado</Badge>
+                <h3 className="text-xl font-bold text-primary mb-2">Celebramos el Día del Padre</h3>
+                <p className="text-xs text-muted-foreground mb-4">
+                  16 de Junio, 2024
+                </p>
+                <p className="text-xs text-foreground mb-6">
+                  Un almuerzo especial para todos los padres de nuestra familia Banesco, reconociendo su invaluable labor y dedicación. Fue una jornada llena de camaradería y alegría.
+                </p>
+                <Button asChild variant="outline" size="sm" className="self-start">
+                  <Link href="/dashboard/calendario">
+                    Ver más en el calendario <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+          </SectionWrapper>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

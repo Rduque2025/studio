@@ -9,9 +9,11 @@ import { ArrowRight } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
-import { CalendarWithEvents } from "@/components/dashboard/calendar-with-events";
 import { mockCourses, mockActivities, mockMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 
 const bienestarNews = [
   {
@@ -21,7 +23,7 @@ const bienestarNews = [
     imageUrl: "https://images.unsplash.com/photo-1542948843-bf19f4f535cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXRoZXJzJTIwZGF5fGVufDB8fHx8MTc1MDg3OTgwMnww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "fathers day",
     gridClass: "md:col-span-2 md:row-span-2",
-    link: "#calendario-eventos",
+    link: "#evento-destacado",
     badge: "Evento Pasado",
   },
   {
@@ -157,9 +159,39 @@ export default function BienestarPage() {
         </SectionWrapper>
       </div>
 
-      <div id="calendario-eventos" className="scroll-mt-24">
-         <SectionWrapper title="Calendario de Eventos" description="Manténgase al día con los eventos y fechas importantes de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
-            <CalendarWithEvents />
+      <div id="evento-destacado" className="scroll-mt-24">
+        <SectionWrapper
+          title="Evento Reciente Destacado"
+          description="Revive los mejores momentos de nuestros últimos encuentros."
+          titleClassName="text-primary"
+          descriptionClassName="text-secondary"
+        >
+          <Card className="overflow-hidden md:flex shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="md:w-1/3 h-64 md:h-auto relative">
+              <Image
+                src="https://images.unsplash.com/photo-1542948843-bf19f4f535cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXRoZXJzJTIwZGF5fGVufDB8fHx8MTc1MDg3OTgwMnww&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Celebración del Día del Padre"
+                layout="fill"
+                objectFit="cover"
+                data-ai-hint="fathers day"
+              />
+            </div>
+            <div className="md:w-2/3 p-6 flex flex-col justify-center">
+              <Badge variant="secondary" className="mb-2 self-start">Evento Destacado</Badge>
+              <h3 className="text-2xl font-bold text-primary mb-2">Celebramos el Día del Padre</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                16 de Junio, 2024
+              </p>
+              <p className="text-foreground mb-6">
+                Un almuerzo especial para todos los padres de nuestra familia Banesco, reconociendo su invaluable labor y dedicación. Fue una jornada llena de camaradería y alegría.
+              </p>
+              <Button asChild variant="outline" className="self-start">
+                <Link href="/dashboard/calendario">
+                  Ver más en el calendario <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </Card>
         </SectionWrapper>
       </div>
     </div>

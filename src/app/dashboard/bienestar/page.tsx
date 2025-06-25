@@ -1,3 +1,4 @@
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,7 +9,7 @@ const bienestarNews = [
     id: "news-1",
     title: "Celebramos el Día del Padre",
     description: "Un almuerzo especial para todos los padres de nuestra familia Banesco.",
-    imageUrl: "https://images.unsplash.com/photo-1598365145240-3b04e283c83e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYXRoZXJzJTIwZGF5JTIwbHVuY2h8ZW58MHx8fHwxNzUwODg5MTU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1542948843-bf19f4f535cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXRoZXJzJTIwZGF5fGVufDB8fHx8MTc1MDg3OTgwMnww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "fathers day",
     gridClass: "md:col-span-2 md:row-span-2",
     link: "#",
@@ -18,7 +19,7 @@ const bienestarNews = [
     id: "news-2",
     title: "Viernes de Pasticho",
     description: "¡No te pierdas el menú especial de esta semana!",
-    imageUrl: "https://images.unsplash.com/photo-1563372224-c837581292c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYXNhZ25hfGVufDB8fHx8MTc1MDg4OTIxOHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1745178964606-e8f4818f57b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsYXNhZ25hJTIwZm9vZHxlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "lasagna food",
     gridClass: "md:col-span-1 md:row-span-1",
     link: "/dashboard#menu-semanal",
@@ -28,7 +29,7 @@ const bienestarNews = [
     id: "news-3",
     title: "Nuevo Programa: Conecta2",
     description: "Fomentando la colaboración y el bienestar entre equipos.",
-    imageUrl: "https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTA4ODkyNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "team collaboration",
     gridClass: "md:col-span-1 md:row-span-1",
     link: "#",
@@ -38,7 +39,7 @@ const bienestarNews = [
     id: "news-4",
     title: "Clases de Yoga Semanales",
     description: "Encuentra tu equilibrio y reduce el estrés cada lunes y miércoles.",
-    imageUrl: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx5b2dhfGVufDB8fHx8MTc1MDg4OTI4Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/flagged/photo-1564740930826-1aabf6c8a776?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx5b2dhJTIwZml0bmVzc3xlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "yoga fitness",
     gridClass: "md:col-span-1 md:row-span-1",
     link: "/dashboard/actividades/A001",
@@ -48,7 +49,7 @@ const bienestarNews = [
     id: "news-5",
     title: "Curso de Liderazgo Efectivo",
     description: "Inscríbete ahora y potencia tus habilidades de gestión.",
-    imageUrl: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwJTIwbWVldGluZ3xlbnwwfHx8fDE3NTA4ODkzMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1624555130296-e551faf8969b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsZWFkZXJzaGlwJTIwbWVldGluZ3xlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "leadership meeting",
     gridClass: "md:col-span-2 md:row-span-1",
     link: "/dashboard/cursos/C001",
@@ -58,7 +59,7 @@ const bienestarNews = [
     id: "news-6",
     title: "Tips de Alimentación Saludable",
     description: "Descubre cómo mejorar tu dieta en la oficina.",
-    imageUrl: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwZm9vZHxlbnwwfHx8fDE3NTA4ODkzNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxoZWFsdGh5JTIwZm9vZHxlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "healthy food",
     gridClass: "md:col-span-1 md:row-span-1",
     link: "/dashboard/biblioteca",

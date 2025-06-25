@@ -1,8 +1,17 @@
 
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { CourseCard } from "@/components/dashboard/course-card";
+import { ActivityCard } from "@/components/dashboard/activity-card";
+import { MenuItemCard } from "@/components/dashboard/menu-item-card";
+import { CalendarWithEvents } from "@/components/dashboard/calendar-with-events";
+import { mockCourses, mockActivities, mockMenuItems } from "@/lib/placeholder-data";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const bienestarNews = [
   {
@@ -12,7 +21,7 @@ const bienestarNews = [
     imageUrl: "https://images.unsplash.com/photo-1542948843-bf19f4f535cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmYXRoZXJzJTIwZGF5fGVufDB8fHx8MTc1MDg3OTgwMnww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "fathers day",
     gridClass: "md:col-span-2 md:row-span-2",
-    link: "#",
+    link: "#calendario-eventos",
     badge: "Evento Pasado",
   },
   {
@@ -22,7 +31,7 @@ const bienestarNews = [
     imageUrl: "https://images.unsplash.com/photo-1745178964606-e8f4818f57b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsYXNhZ25hJTIwZm9vZHxlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "lasagna food",
     gridClass: "md:col-span-1 md:row-span-1",
-    link: "/dashboard#menu-semanal",
+    link: "#menu-semanal",
     badge: "Menú",
   },
   {
@@ -42,7 +51,7 @@ const bienestarNews = [
     imageUrl: "https://images.unsplash.com/flagged/photo-1564740930826-1aabf6c8a776?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx5b2dhJTIwZml0bmVzc3xlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "yoga fitness",
     gridClass: "md:col-span-1 md:row-span-1",
-    link: "/dashboard/actividades/A001",
+    link: "#actividades",
     badge: "Actividad",
   },
   {
@@ -52,7 +61,7 @@ const bienestarNews = [
     imageUrl: "https://images.unsplash.com/photo-1624555130296-e551faf8969b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsZWFkZXJzaGlwJTIwbWVldGluZ3xlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "leadership meeting",
     gridClass: "md:col-span-2 md:row-span-1",
-    link: "/dashboard/cursos/C001",
+    link: "#cursos",
     badge: "Formación",
   },
    {
@@ -69,8 +78,16 @@ const bienestarNews = [
 
 
 export default function BienestarPage() {
+  const [currentDayName, setCurrentDayName] = useState('');
+
+  useEffect(() => {
+    const today = new Date();
+    const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
+    setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+  }, []);
+
   return (
-    <div className="container mx-auto py-8 px-4">
+    <div className="container mx-auto py-8 px-4 space-y-12">
       <SectionWrapper 
         title="Lobby de Bienestar"
         description="Noticias, eventos y recursos para tu desarrollo y bienestar integral en Banesco Seguros."
@@ -106,6 +123,45 @@ export default function BienestarPage() {
           ))}
         </div>
       </SectionWrapper>
+      
+      <div id="actividades" className="scroll-mt-24">
+       <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {mockActivities.map((activity) => (
+            <ActivityCard key={activity.id} activity={activity} />
+          ))}
+        </div>
+      </SectionWrapper>
+      </div>
+
+      <div id="cursos" className="scroll-mt-24">
+        <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockCourses.map((course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+          </div>
+        </SectionWrapper>
+      </div>
+
+      <div id="menu-semanal" className="scroll-mt-24">
+        <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
+          <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+            <div className="flex w-max space-x-4 p-4">
+              {mockMenuItems.map((item) => (
+                <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+              ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </SectionWrapper>
+      </div>
+
+      <div id="calendario-eventos" className="scroll-mt-24">
+         <SectionWrapper title="Calendario de Eventos" description="Manténgase al día con los eventos y fechas importantes de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
+            <CalendarWithEvents />
+        </SectionWrapper>
+      </div>
     </div>
   );
 }

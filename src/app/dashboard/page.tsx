@@ -90,6 +90,13 @@ const pilaresData = [
   { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, color: "bg-amber-500" },
 ];
 
+const misionData = [
+  { title: "Excelencia y Calidad de Servicios", text: "Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.", icon: Award, color: "bg-teal-500" },
+  { title: "Satisfacción de Necesidades", text: "Orientada en la satisfacción de las necesidades de los clientes propios.", icon: Gem, color: "bg-cyan-500" },
+  { title: "Soporte Extendido", text: "Atendiendo las necesidades de la organización y de los intermediarios.", icon: Layers, color: "bg-sky-500" },
+];
+
+
 const departmentIconMap: { [key: string]: React.ElementType } = {
   rh: Users,
   it: Cpu,
@@ -132,11 +139,22 @@ export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
   const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
-  const [activePrinciple, setActivePrinciple] = useState<'valores' | 'pilares'>('valores');
+  const [activePrinciple, setActivePrinciple] = useState<'valores' | 'pilares' | 'mision'>('valores');
 
   const featuredDepartments = mockDepartments.filter(dept => dept.id !== 'vacaciones' && dept.id !== 'hcm').slice(0, 3);
-  const principlesToShow = activePrinciple === 'valores' ? valoresData : pilaresData;
+  
+  const principlesMap = {
+    valores: valoresData,
+    pilares: pilaresData,
+    mision: misionData,
+  };
+  const principlesToShow = principlesMap[activePrinciple];
 
+  const principleCycle = {
+      valores: { next: 'pilares', label: 'Valores', nextLabel: 'Pilares' },
+      pilares: { next: 'mision', label: 'Pilares', nextLabel: 'Nuestra Misión' },
+      mision: { next: 'valores', label: 'Nuestra Misión', nextLabel: 'Valores' },
+  };
 
   useEffect(() => {
     const today = new Date();
@@ -481,7 +499,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="text-center">
                         <p className="text-sm font-semibold text-muted-foreground">WhatsApp</p>
-                        <p className="text-xl font-bold text-green-600">0424-Contigo</p>
+                        <p className="text-xl font-bold text-green-500">0424-Contigo</p>
                     </div>
                 </a>
                 <a 
@@ -537,15 +555,18 @@ export default function DashboardPage() {
         <div className="grid md:grid-cols-3 gap-12 items-start">
             <div className="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left md:sticky md:top-24">
                 <h3 className="text-2xl font-bold text-primary">
-                    {activePrinciple === 'valores' ? 'Valores' : 'Pilares'}
+                  {principleCycle[activePrinciple].label}
                 </h3>
                 <p className="text-muted-foreground mt-2 mb-6 text-xs">
                     {activePrinciple === 'valores' 
                         ? "Los principios éticos y profesionales que guían cada una de nuestras acciones y decisiones."
-                        : "Las columnas fundamentales sobre las que construimos nuestra solidez y confianza en el mercado."}
+                        : activePrinciple === 'pilares' 
+                        ? "Las columnas fundamentales sobre las que construimos nuestra solidez y confianza en el mercado."
+                        : "Los objetivos centrales que definen nuestro propósito y compromiso con los clientes."
+                    }
                 </p>
-                <Button onClick={() => setActivePrinciple(p => p === 'valores' ? 'pilares' : 'valores')} variant="outline">
-                    Ver {activePrinciple === 'valores' ? 'Pilares' : 'Valores'}
+                <Button onClick={() => setActivePrinciple(principleCycle[activePrinciple].next as any)} variant="outline">
+                    Ver {principleCycle[activePrinciple].nextLabel}
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
             </div>
@@ -562,35 +583,6 @@ export default function DashboardPage() {
                   />
                 ))}
             </div>
-        </div>
-
-        <div className="mt-16">
-          <h3 className="text-2xl font-bold text-primary mb-6 text-center">Nuestra Misión</h3>
-          <div className="max-w-3xl mx-auto space-y-4">
-            <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out">
-              <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">1</div>
-              <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Excelencia y Calidad de Servicios</h3>
-              <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
-                Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.
-              </p>
-            </div>
-
-            <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-4 lg:ml-6">
-              <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">2</div>
-              <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Satisfacción de Necesidades</h3>
-              <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
-                Orientada en la satisfacción de las necesidades de los clientes propios.
-              </p>
-            </div>
-
-            <div className="relative pl-6 md:pl-8 py-4 border-l-4 border-primary rounded-r-lg bg-card shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 ease-in-out md:ml-8 lg:ml-12">
-              <div className="absolute -left-[1.10rem] top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full h-8 w-8 flex items-center justify-center font-bold text-md shadow-md border-2 border-background">3</div>
-              <h3 className="text-lg font-semibold text-primary mb-1 ml-3">Soporte Extendido</h3>
-              <p className="text-muted-foreground text-xs ml-3 leading-relaxed">
-                Atendiendo las necesidades de la organización y de los intermediarios.
-              </p>
-            </div>
-          </div>
         </div>
       </SectionWrapper>
 

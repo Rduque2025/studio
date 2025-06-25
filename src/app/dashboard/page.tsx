@@ -77,24 +77,17 @@ const bannerImagesData = [
 ];
 
 const valoresData = [
-  { title: "Confianza", text: "Relaciones sólidas y duraderas basadas en transparencia.", icon: Handshake, bgColor: "bg-yellow-500", iconColor: "text-yellow-600" },
-  { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger.", icon: Lightbulb, bgColor: "bg-teal-500", iconColor: "text-teal-600" },
-  { title: "Excelencia", text: "Superamos las expectativas de nuestros clientes en cada interacción.", icon: Award, bgColor: "bg-purple-600", iconColor: "text-purple-700" },
-  { title: "Compromiso", text: "Contribuimos al desarrollo y bienestar de las comunidades.", icon: Globe, bgColor: "bg-rose-500", iconColor: "text-rose-600" },
+  { title: "Confianza", text: "Relaciones sólidas y duraderas basadas en transparencia.", icon: Handshake, color: "bg-pink-500" },
+  { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger.", icon: Lightbulb, color: "bg-purple-500" },
+  { title: "Excelencia", text: "Superamos las expectativas de nuestros clientes en cada interacción.", icon: Award, color: "bg-blue-500" },
+  { title: "Compromiso", text: "Contribuimos al desarrollo y bienestar de las comunidades.", icon: Globe, color: "bg-rose-500" },
 ];
 
 const pilaresData = [
-  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, bgColor: "bg-sky-600", iconColor: "text-sky-700" },
-  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound, bgColor: "bg-lime-600", iconColor: "text-lime-700" },
-  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, bgColor: "bg-indigo-600", iconColor: "text-indigo-700" },
-  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, bgColor: "bg-pink-600", iconColor: "text-pink-700" },
-];
-
-const pillPositions = [
-  { base: "top-[2%] left-0 sm:top-[5%] sm:left-0", orientation: "left" as const },
-  { base: "top-[2%] right-0 sm:top-[5%] sm:right-0", orientation: "right" as const },
-  { base: "bottom-[2%] left-0 sm:bottom-[5%] sm:left-0", orientation: "left" as const },
-  { base: "bottom-[2%] right-0 sm:bottom-[5%] sm:right-0", orientation: "right" as const },
+  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, color: "bg-sky-500" },
+  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound, color: "bg-lime-500" },
+  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, color: "bg-indigo-500" },
+  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, color: "bg-amber-500" },
 ];
 
 const departmentIconMap: { [key: string]: React.ElementType } = {
@@ -107,46 +100,31 @@ const departmentIconMap: { [key: string]: React.ElementType } = {
   hcm: ShieldCheck,
 };
 
-const ValuePillarPill = ({ title, text, icon, bgColor, iconColor, orientation = 'left' }: { title: string, text: string, icon: React.ElementType, bgColor: string, iconColor: string, orientation?: 'left' | 'right' }) => {
-  const IconToRender = icon;
+const TimelineNode = ({ title, text, color, isLast }: { title: string, text: string, color: string, isLast: boolean }) => {
   return (
-    <div
-      className={cn(
-        "text-white rounded-lg shadow-md h-40 w-80 md:w-96",
-        "relative",
-        bgColor
-      )}
-    >
-      <div
-        className={cn(
-          "absolute bg-card p-2 rounded-full shadow-lg z-10",
-          orientation === 'left' ? 'top-4 left-4' : 'top-4 right-4'
-        )}
-      >
-        <IconToRender className={cn("h-6 w-6", iconColor)} />
+    <div className="flex items-start">
+      {/* Timeline decorator */}
+      <div className="flex flex-col items-center w-8 mr-4 flex-shrink-0">
+        <div className={cn("flex items-center justify-center h-5 w-5 rounded-full z-10", color)} />
+        {!isLast && <div className={cn("w-0.5 h-24", color)} />}
       </div>
-
-      <div
-        className={cn(
-          "flex flex-col justify-center h-full",
-          "py-4",
-          orientation === 'left'
-            ? 'pl-[3.5rem] pr-6 text-left'
-            : 'pr-[3.5rem] pl-4 text-right'
-        )}
-      >
-        <h4 className="font-semibold text-md mb-1">{title}</h4>
-        <p className="text-xs leading-tight">{text}</p>
+      {/* Content */}
+      <div className="w-full">
+        <div className={cn("relative p-4 rounded-xl text-white shadow-md", color)}>
+          <div className={cn("absolute top-1.5 -left-[18px] w-5 h-0.5", color)} />
+          <h4 className="font-semibold">{title}</h4>
+          <p className="text-sm leading-snug">{text}</p>
+        </div>
       </div>
     </div>
   );
 };
 
+
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
-  const [currentDisplay, setCurrentDisplay] = useState<'valores' | 'pilares'>('valores');
   const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
   const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
 
@@ -181,10 +159,6 @@ export default function DashboardPage() {
     setCurrentBannerImageIndex(prevIndex =>
       prevIndex === bannerImagesData.length - 1 ? 0 : prevIndex + 1
     );
-  };
-
-  const toggleDisplay = () => {
-    setCurrentDisplay(prev => prev === 'valores' ? 'pilares' : 'valores');
   };
 
   const handlePrevDressCodeImage = () => {
@@ -552,58 +526,35 @@ export default function DashboardPage() {
             </span>
           </p>
         </div>
+        
+        <div className="grid md:grid-cols-2 gap-x-20 gap-y-10">
+          {/* Columna de Valores */}
+          <div className="space-y-8">
+            <h3 className="text-2xl font-bold text-primary text-center">Valores</h3>
+            {valoresData.map((item, index) => (
+              <TimelineNode
+                key={item.title}
+                title={item.title}
+                text={item.text}
+                color={item.color}
+                isLast={index === valoresData.length - 1}
+              />
+            ))}
+          </div>
 
-        <div className="relative min-h-[500px] md:min-h-[600px] w-full max-w-4xl mx-auto">
-          <button
-            onClick={toggleDisplay}
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center w-32 h-32 md:w-40 md:h-40 bg-card rounded-full shadow-2xl border-4 border-background z-20 cursor-pointer hover:scale-105 transition-transform p-4 text-center"
-            aria-label={`Cambiar vista a ${currentDisplay === 'valores' ? 'Pilares' : 'Valores'}`}
-          >
-            {currentDisplay === 'valores' ? (
-              <>
-                <Layers className="h-10 w-10 md:h-12 md:w-12 text-primary mb-1" />
-                <span className="text-xs font-semibold text-primary">Pilares</span>
-              </>
-            ) : (
-              <>
-                <Gem className="h-10 w-10 md:h-12 md:w-12 text-primary mb-1" />
-                <span className="text-xs font-semibold text-primary">Valores</span>
-              </>
-            )}
-          </button>
-
-          {pillPositions.map((pos, index) => {
-            const valor = valoresData[index];
-            const pilar = pilaresData[index];
-            return (
-              <React.Fragment key={index}>
-                {/* Valor Pill */}
-                <div
-                  className={cn(
-                    "absolute transition-all duration-500 ease-in-out",
-                    pos.base,
-                    currentDisplay === 'valores'
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-90 pointer-events-none"
-                  )}
-                >
-                  {valor && <ValuePillarPill {...valor} orientation={pos.orientation} />}
-                </div>
-                {/* Pilar Pill */}
-                <div
-                  className={cn(
-                    "absolute transition-all duration-500 ease-in-out",
-                    pos.base,
-                    currentDisplay === 'pilares'
-                      ? "opacity-100 scale-100"
-                      : "opacity-0 scale-90 pointer-events-none"
-                  )}
-                >
-                  {pilar && <ValuePillarPill {...pilar} orientation={pos.orientation} />}
-                </div>
-              </React.Fragment>
-            );
-          })}
+          {/* Columna de Pilares */}
+          <div className="space-y-8">
+             <h3 className="text-2xl font-bold text-primary text-center">Pilares</h3>
+            {pilaresData.map((item, index) => (
+              <TimelineNode
+                key={item.title}
+                title={item.title}
+                text={item.text}
+                color={item.color}
+                isLast={index === pilaresData.length - 1}
+              />
+            ))}
+          </div>
         </div>
       </SectionWrapper>
 

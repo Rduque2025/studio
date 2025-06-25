@@ -178,14 +178,14 @@ export default function BienestarPage() {
             </div>
             <div className="md:w-2/3 p-6 flex flex-col justify-center">
               <Badge variant="secondary" className="mb-2 self-start">Evento Destacado</Badge>
-              <h3 className="text-2xl font-bold text-primary mb-2">Celebramos el Día del Padre</h3>
-              <p className="text-sm text-muted-foreground mb-4">
+              <h3 className="text-xl font-bold text-primary mb-2">Celebramos el Día del Padre</h3>
+              <p className="text-xs text-muted-foreground mb-4">
                 16 de Junio, 2024
               </p>
-              <p className="text-foreground mb-6">
+              <p className="text-sm text-foreground mb-6">
                 Un almuerzo especial para todos los padres de nuestra familia Banesco, reconociendo su invaluable labor y dedicación. Fue una jornada llena de camaradería y alegría.
               </p>
-              <Button asChild variant="outline" className="self-start">
+              <Button asChild variant="outline" size="sm" className="self-start">
                 <Link href="/dashboard/calendario">
                   Ver más en el calendario <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

@@ -100,7 +100,7 @@ const departmentIconMap: { [key: string]: React.ElementType } = {
   hcm: ShieldCheck,
 };
 
-const TimelineNode = ({ title, text, color, isLast }: { title: string, text: string, color: string, isLast: boolean }) => {
+const TimelineNode = ({ title, text, color, isLast, icon: Icon }: { title: string, text: string, color: string, isLast: boolean, icon: React.ElementType }) => {
   return (
     <div className="flex items-start">
       {/* Timeline decorator */}
@@ -112,8 +112,13 @@ const TimelineNode = ({ title, text, color, isLast }: { title: string, text: str
       <div className="w-full">
         <div className={cn("relative p-4 rounded-xl text-white shadow-md", color)}>
           <div className={cn("absolute top-1.5 -left-[18px] w-5 h-0.5", color)} />
-          <h4 className="font-semibold text-sm">{title}</h4>
-          <p className="text-xs leading-snug">{text}</p>
+          <div className="flex items-start gap-3">
+            <Icon className="h-5 w-5 mt-0.5 flex-shrink-0" />
+            <div>
+              <h4 className="font-semibold text-sm">{title}</h4>
+              <p className="text-xs leading-snug">{text}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -553,6 +558,7 @@ export default function DashboardPage() {
                     text={item.text}
                     color={item.color}
                     isLast={index === principlesToShow.length - 1}
+                    icon={item.icon}
                   />
                 ))}
             </div>
@@ -646,3 +652,6 @@ export default function DashboardPage() {
     
 
 
+
+
+    

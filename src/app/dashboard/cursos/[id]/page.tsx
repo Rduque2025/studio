@@ -1,5 +1,5 @@
 
-import { use } from 'react';
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockCourses } from "@/lib/placeholder-data";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -10,10 +10,10 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 interface CourseDetailsPageProps {
-  params: { // Type for the resolved params object
+  params: {
     id: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined }; // Type for the resolved searchParams object
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {
@@ -22,12 +22,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CourseDetailsPage({ params, searchParams }: CourseDetailsPageProps) {
-  // Immediately unwrap params and searchParams using React.use()
-  const resolvedParams = use(params);
-  const resolvedSearchParams = use(searchParams); // Unwrap even if not directly used, for consistency
-
-  const id = resolvedParams.id; // Use the unwrapped id
+export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
+  const { id } = params;
   const course = mockCourses.find(c => c.id === id);
 
   if (!course) {

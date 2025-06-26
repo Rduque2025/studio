@@ -63,12 +63,12 @@ const monthlyGoalsData = {
   Abr: { primas: 32, clientes: 55, cobranza: 25, nps: 91 },
   May: { primas: 40, clientes: 62, cobranza: 33, nps: 91 },
   Jun: { primas: 50, clientes: 68, cobranza: 42, nps: 92 },
-  Jul: { primas: 60, clientes: 74, cobranza: 51, nps: 92 },
-  Ago: { primas: 70, clientes: 80, cobranza: 60, nps: 93 },
-  Sep: { primas: 80, clientes: 86, cobranza: 70, nps: 94 },
-  Oct: { primas: 88, clientes: 92, cobranza: 80, nps: 94 },
-  Nov: { primas: 95, clientes: 96, cobranza: 90, nps: 95 },
-  Dic: { primas: 100, clientes: 100, cobranza: 100, nps: 95 },
+  Jul: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
+  Ago: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
+  Sep: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
+  Oct: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
+  Nov: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
+  Dic: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
 };
 const months = Object.keys(monthlyGoalsData) as (keyof typeof monthlyGoalsData)[];
 
@@ -78,7 +78,7 @@ const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
 
 
 export default function NosotrosPage() {
-  const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Sep');
+  const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const kpis = [

@@ -21,7 +21,7 @@ import { usePathname } from "next/navigation";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home },
-  { name: "Objetivos", href: "/dashboard/mapa-clientes", icon: Target },
+  { name: "Nosotros", href: "/dashboard/mapa-clientes", icon: Target },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },

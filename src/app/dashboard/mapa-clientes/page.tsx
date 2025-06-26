@@ -10,13 +10,13 @@ import {
   Pie, 
   Cell, 
   ResponsiveContainer,
-  LineChart,
+  AreaChart,
+  Area,
   Line,
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
-  Legend
+  Tooltip
 } from 'recharts';
 import { 
   TrendingUp,
@@ -175,35 +175,40 @@ export default function NosotrosPage() {
                         <div className="px-8 md:px-10 pb-8 pt-0">
                             <div className="w-full h-80">
                                 <ResponsiveContainer width="100%" height="100%">
-                                <LineChart
+                                  <AreaChart
                                     data={lineChartData}
                                     onClick={handleChartClick}
                                     margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
-                                >
+                                  >
+                                    <defs>
+                                      <linearGradient id="colorProgreso" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                      </linearGradient>
+                                    </defs>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                     <XAxis 
-                                    dataKey="name" 
-                                    stroke="hsl(var(--muted-foreground))" 
-                                    fontSize={12} 
-                                    tickLine={false}
-                                    axisLine={false}
+                                      dataKey="name" 
+                                      stroke="hsl(var(--muted-foreground))" 
+                                      fontSize={12} 
+                                      tickLine={false}
+                                      axisLine={false}
                                     />
                                     <YAxis 
-                                    stroke="hsl(var(--muted-foreground))" 
-                                    fontSize={12} 
-                                    unit="%" 
-                                    tickLine={false}
-                                    axisLine={false}
+                                      stroke="hsl(var(--muted-foreground))" 
+                                      fontSize={12} 
+                                      unit="%" 
+                                      tickLine={false}
+                                      axisLine={false}
                                     />
                                     <Tooltip
-                                    cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
-                                    contentStyle={{
-                                        backgroundColor: 'hsl(var(--background))',
-                                        borderColor: 'hsl(var(--border))',
-                                        borderRadius: 'var(--radius)',
-                                    }}
+                                      cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
+                                      contentStyle={{
+                                          backgroundColor: 'hsl(var(--background))',
+                                          borderColor: 'hsl(var(--border))',
+                                          borderRadius: 'var(--radius)',
+                                      }}
                                     />
-                                    <Legend iconType="circle" iconSize={8} />
                                     <Line 
                                         type="monotone" 
                                         dataKey="Meta" 
@@ -213,11 +218,13 @@ export default function NosotrosPage() {
                                         dot={false}
                                         activeDot={false}
                                     />
-                                    <Line 
+                                    <Area 
                                         type="monotone" 
                                         dataKey="Progreso Primas" 
                                         stroke="hsl(var(--primary))" 
-                                        strokeWidth={2.5} 
+                                        strokeWidth={2.5}
+                                        fillOpacity={1}
+                                        fill="url(#colorProgreso)"
                                         activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
                                         dot={(props) => {
                                             const { cx, cy, payload } = props;
@@ -227,7 +234,7 @@ export default function NosotrosPage() {
                                             return null;
                                         }}
                                     />
-                                </LineChart>
+                                  </AreaChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>

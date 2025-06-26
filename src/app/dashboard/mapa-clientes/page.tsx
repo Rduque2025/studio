@@ -69,11 +69,17 @@ export default function NosotrosPage() {
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const kpis = [
-      { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas, target: '$37.40 MM' },
-      { id: 'clientes', label: 'Clientes Nuevos', icon: UserPlus, value: selectedData.clientes, target: '100%' },
-      { id: 'cobranza', label: 'Meta de Cobranza', icon: CircleDollarSign, value: selectedData.cobranza, target: '100%' },
-      { id: 'nps', label: 'NPS (Satisfacción)', icon: Smile, value: selectedData.nps, target: '95%' }
+      { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas },
+      { id: 'clientes', label: 'Clientes Nuevos', icon: UserPlus, value: selectedData.clientes },
+      { id: 'cobranza', label: 'Meta de Cobranza', icon: CircleDollarSign, value: selectedData.cobranza },
+      { id: 'nps', label: 'NPS (Satisfacción)', icon: Smile, value: selectedData.nps }
   ];
+
+  const getProgressColor = (progress: number): string => {
+    if (progress >= 90) return '#22c55e'; // Green for 90%+
+    if (progress >= 50) return '#f59e0b'; // Amber/Yellow for 50-89%
+    return 'hsl(var(--destructive))';    // Red for < 50%
+  };
 
 
   return (
@@ -149,12 +155,12 @@ export default function NosotrosPage() {
               {/* KPI Display */}
               <div className="mt-12 pt-8 border-t">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                  {kpis.map((kpi, index) => {
+                  {kpis.map((kpi) => {
                       const data = [
                           { name: 'value', value: kpi.value },
                           { name: 'remaining', value: 100 - kpi.value },
                       ];
-                      const chartColor = `hsl(var(--chart-${index + 1}))`;
+                      const chartColor = getProgressColor(kpi.value);
 
                       return (
                           <div key={kpi.id} className="flex flex-col items-center text-center">

@@ -182,11 +182,6 @@ export function Header() {
                     <div className="p-4 space-y-3">
                       {todaysEvents.map((event) => {
                         const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-                        const displayColor = categoryStyles ? categoryStyles.dotColor : event.color;
-                        const badgeBgColor = displayColor.startsWith('bg-') ? displayColor.substring(3) : displayColor;
-                        
-                        const isDarkBg = ['pink-500', 'red-500', 'purple-500', 'green-600', 'orange-500'].some(c => badgeBgColor.includes(c));
-                        
                         const countdownStr = calculateCountdown(event.date, event.time);
 
                         return (
@@ -203,14 +198,7 @@ export function Header() {
                                 )}
                             </div>
                             <div className="flex items-center gap-2 mt-1">
-                                <Badge 
-                                    variant="outline" 
-                                    style={{
-                                        backgroundColor: badgeBgColor, 
-                                        color: isDarkBg ? 'white' : 'hsl(var(--foreground))',
-                                        borderColor: badgeBgColor,
-                                    }}
-                                >
+                                <Badge variant="outline">
                                     {format(event.date, "PPP", { locale: es })}
                                 </Badge>
                                 {event.time && (
@@ -220,7 +208,7 @@ export function Header() {
                                     </Badge>
                                 )}
                                 {countdownStr && event.time && (
-                                  <Badge variant="secondary">
+                                  <Badge variant="outline">
                                     {countdownStr}
                                   </Badge>
                                 )}

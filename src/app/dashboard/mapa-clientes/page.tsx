@@ -66,7 +66,7 @@ const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
 
 
 export default function NosotrosPage() {
-  const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Mar');
+  const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Sep');
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const kpis = [

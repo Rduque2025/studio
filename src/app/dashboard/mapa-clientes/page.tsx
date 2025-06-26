@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React from 'react';
@@ -230,13 +231,13 @@ export default function NosotrosPage() {
                   {commercialProcessSteps.map((step, index) => (
                     <React.Fragment key={step.title}>
                       <div className="flex flex-col items-center text-center w-28 shrink-0">
-                        <div className="flex items-center justify-center w-14 h-14 bg-primary/10 rounded-full text-primary">
-                          <step.icon className="h-7 w-7" />
+                        <div className="flex items-center justify-center w-20 h-20 bg-card rounded-full text-primary shadow-lg border hover:shadow-xl transition-shadow duration-300">
+                          <step.icon className="h-8 w-8" />
                         </div>
                         <p className="mt-2 text-xs font-semibold">{step.title}</p>
                       </div>
                       {index < commercialProcessSteps.length - 1 && (
-                        <div className="flex-1 flex items-center mt-7 shrink-0 px-2">
+                        <div className="flex-1 flex items-center mt-10 shrink-0 px-2">
                           <div className="w-full h-px bg-border" />
                         </div>
                       )}

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -200,7 +199,7 @@ export default function NosotrosPage() {
                         dot={(props) => {
                             const { cx, cy, payload } = props;
                             if (payload.name === selectedMonth) {
-                                return <circle cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
+                                return <circle key={payload.name} cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
                             }
                             return null;
                         }}

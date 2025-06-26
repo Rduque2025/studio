@@ -113,7 +113,7 @@ const TimelineNode = ({ title, text, color, isLast, icon: Icon }: { title: strin
       {/* Timeline decorator */}
       <div className="flex flex-col items-center w-8 mr-4 flex-shrink-0">
         <div className={cn("flex items-center justify-center h-5 w-5 rounded-full z-10", color)} />
-        {!isLast && <div className={cn("w-0.5 h-24", color)} />}
+        {!isLast && <div className={cn("w-0.5 h-12", color)} />}
       </div>
       {/* Content */}
       <div className="w-full">
@@ -603,7 +603,7 @@ export default function DashboardPage() {
                 </Button>
             </div>
             
-            <div className="md:col-span-2 space-y-8">
+            <div className="md:col-span-2 space-y-4">
                 {principlesToShow.map((item, index) => (
                   <TimelineNode
                     key={item.title}

@@ -242,7 +242,6 @@ export default function NosotrosPage() {
                 </AccordionItem>
             </Accordion>
              <CardContent className="p-8 md:p-10">
-                <CardTitle className="mb-4 text-xl md:text-2xl text-center">Progreso Detallado para {monthNames[selectedMonth]}</CardTitle>
                 <div className="mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
                     {kpis.map((kpi) => {

@@ -3,15 +3,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import type { Activity } from "@/lib/placeholder-data";
 import { Badge } from "@/components/ui/badge";
-import { CalendarDays, MapPin, Star } from "lucide-react"; // Imported Star
+import { CalendarDays, MapPin, Star, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import type { Activity } from "@/lib/placeholder-data";
 
 interface ActivityCardProps {
   activity: Activity;
@@ -26,50 +24,49 @@ export function ActivityCard({ activity }: ActivityCardProps) {
   }, [activity.date]);
 
   return (
-    <Card className={cn("w-72 md:w-80 flex-shrink-0 flex flex-col h-full overflow-hidden relative")}> {/* Added relative class and sizing */}
-      {activity.isRecommended && (
-        <Badge
-          variant="default"
-          className="absolute top-2 right-2 z-10 bg-amber-500 hover:bg-amber-600 text-white shadow-md px-2 py-1 text-xs"
-        >
-          <Star className="mr-1.5 h-3 w-3" />
-          Recomendado
-        </Badge>
-      )}
-      <CardHeader className="p-0">
-        <div className="relative w-full h-48">
-          <Image
-            src={activity.imageUrl}
-            alt={activity.title}
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint={activity.dataAiHint}
-          />
-        </div>
-      </CardHeader>
-      <CardContent className="flex-grow p-4">
-        <CardTitle className="text-lg font-semibold mb-2">{activity.title}</CardTitle>
-        <CardDescription className="text-xs text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
-          {activity.description.split('\n')[0]} {/* Show only first line or main part of description */}
-        </CardDescription>
-         <div className="space-y-1 text-xs text-muted-foreground mb-3">
-          <div className="flex items-center gap-1">
-            <CalendarDays className="h-3 w-3" /> 
-            {formattedDate || "Cargando fecha..."}
+    <Link 
+      href={`/dashboard/actividades/${activity.id}`} 
+      className={cn("w-72 md:w-80 h-96 flex-shrink-0 relative rounded-xl overflow-hidden group block shadow-lg hover:shadow-2xl transition-shadow duration-300")}
+    >
+      <Image
+        src={activity.imageUrl}
+        alt={activity.title}
+        layout="fill"
+        objectFit="cover"
+        data-ai-hint={activity.dataAiHint}
+        className="transition-transform duration-300 group-hover:scale-105"
+      />
+      
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent backdrop-blur-[2px] transition-all duration-300 group-hover:from-black/80 group-hover:backdrop-blur-sm" />
+
+      <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
+        {activity.isRecommended && (
+          <Badge
+            variant="default"
+            className="mb-2 self-start bg-amber-500 hover:bg-amber-600 text-white shadow-md px-2 py-1 text-xs"
+          >
+            <Star className="mr-1.5 h-3 w-3" />
+            Recomendado
+          </Badge>
+        )}
+        
+        <h3 className="text-xl font-bold mb-2">{activity.title}</h3>
+        
+        <div className="space-y-1 text-xs text-white/90 mb-3">
+          <div className="flex items-center gap-1.5">
+            <CalendarDays className="h-4 w-4" /> 
+            <span>{formattedDate || "Cargando fecha..."}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <MapPin className="h-3 w-3" /> {activity.location}
+          <div className="flex items-center gap-1.5">
+            <MapPin className="h-4 w-4" /> 
+            <span>{activity.location}</span>
           </div>
         </div>
-      </CardContent>
-      <CardFooter className="p-4 border-t">
-        <Button asChild className="w-full" variant="default">
-          <Link href={`/dashboard/actividades/${activity.id}`}>Más Información</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+        
+        <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-sm font-semibold">
+          Más Información <ArrowRight className="ml-2 h-4 w-4" />
+        </div>
+      </div>
+    </Link>
   );
 }
-
-
-    

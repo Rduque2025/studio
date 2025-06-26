@@ -5,7 +5,19 @@ import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
-import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { 
+  PieChart, 
+  Pie, 
+  Cell, 
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from 'recharts';
 import { 
   TrendingUp,
   PackagePlus,
@@ -81,6 +93,20 @@ export default function NosotrosPage() {
     return 'hsl(var(--destructive))';    // Red for < 50%
   };
 
+  const lineChartData = months.map(month => ({
+    name: month,
+    "Progreso Primas": monthlyGoalsData[month].primas,
+    "Meta": 100,
+  }));
+
+  const handleChartClick = (data: any) => {
+    if (data && data.activeLabel) {
+      const monthKey = data.activeLabel as keyof typeof monthlyGoalsData;
+      if (months.includes(monthKey)) {
+        setSelectedMonth(monthKey);
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -125,35 +151,66 @@ export default function NosotrosPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="p-8 md:p-10">
-              {/* Timeline */}
-              <div className="flex items-center justify-between mb-8 px-2">
-                <div className="relative w-full">
-                  <div className="h-px bg-border" />
-                  <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between">
-                    {months.map((month) => (
-                      <button
-                        key={month}
-                        onClick={() => setSelectedMonth(month)}
-                        className={cn(
-                          "h-4 w-4 rounded-full border-2 bg-background transition-colors duration-200 flex items-center justify-center",
-                          selectedMonth === month
-                            ? "border-primary"
-                            : "border-border hover:border-primary/70"
-                        )}
-                        aria-label={`Seleccionar mes ${month}`}
-                      >
-                         {selectedMonth === month && (
-                           <div className="h-full w-full scale-75 rounded-full bg-primary" />
-                         )}
-                        <span className="absolute -bottom-6 text-xs font-medium text-muted-foreground">{month}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+              <div className="w-full h-80 mb-8">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={lineChartData}
+                    onClick={handleChartClick}
+                    margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis 
+                      dataKey="name" 
+                      stroke="hsl(var(--muted-foreground))" 
+                      fontSize={12} 
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <YAxis 
+                      stroke="hsl(var(--muted-foreground))" 
+                      fontSize={12} 
+                      unit="%" 
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <Tooltip
+                      cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
+                      contentStyle={{
+                        backgroundColor: 'hsl(var(--background))',
+                        borderColor: 'hsl(var(--border))',
+                        borderRadius: 'var(--radius)',
+                      }}
+                    />
+                    <Legend iconType="circle" iconSize={8} />
+                    <Line 
+                        type="monotone" 
+                        dataKey="Meta" 
+                        stroke="hsl(var(--muted-foreground))" 
+                        strokeWidth={2}
+                        strokeDasharray="5 5" 
+                        dot={false}
+                        activeDot={false}
+                    />
+                    <Line 
+                        type="monotone" 
+                        dataKey="Progreso Primas" 
+                        stroke="hsl(var(--primary))" 
+                        strokeWidth={2.5} 
+                        activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
+                        dot={(props) => {
+                            const { cx, cy, payload } = props;
+                            if (payload.name === selectedMonth) {
+                                return <circle cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
+                            }
+                            return null;
+                        }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
 
               {/* KPI Display */}
-              <div className="mt-12 pt-8 border-t">
+              <div className="mt-8 pt-8 border-t">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
                   {kpis.map((kpi) => {
                       const data = [

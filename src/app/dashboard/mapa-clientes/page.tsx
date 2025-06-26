@@ -25,7 +25,8 @@ import {
   Calculator,
   Handshake,
   FileCheck2,
-  CircleDollarSign
+  CircleDollarSign,
+  Smile
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -90,7 +91,7 @@ export default function NosotrosPage() {
               <div className="w-full max-w-lg mx-auto">
                 <div className="flex justify-between items-end mb-1">
                   <div className="text-sm">
-                     <p className="font-medium text-foreground">Progreso Q1 2025</p>
+                     <p className="font-medium text-foreground">Progreso Q1 2025 (Primas Suscritas)</p>
                   </div>
                   <p className="text-2xl font-bold text-primary">24%</p>
                 </div>
@@ -99,6 +100,27 @@ export default function NosotrosPage() {
                   <span>$0 MM</span>
                   <span className="font-semibold">Meta: $37.40 MM</span>
                 </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 pt-8 border-t">
+                  <div className="flex flex-col items-center text-center">
+                      <UserPlus className="h-8 w-8 text-primary mb-2"/>
+                      <p className="font-semibold text-foreground">Clientes Nuevos</p>
+                      <p className="text-3xl font-bold text-primary mt-1">47%</p>
+                      <Progress value={47} className="w-full mt-2 h-2" />
+                  </div>
+                  <div className="flex flex-col items-center text-center">
+                      <CircleDollarSign className="h-8 w-8 text-primary mb-2"/>
+                      <p className="font-semibold text-foreground">Meta de Cobranza</p>
+                      <p className="text-3xl font-bold text-primary mt-1">18%</p>
+                      <Progress value={18} className="w-full mt-2 h-2" />
+                  </div>
+                  <div className="flex flex-col items-center text-center">
+                      <Smile className="h-8 w-8 text-primary mb-2"/>
+                      <p className="font-semibold text-foreground">NPS (Satisfacción)</p>
+                      <p className="text-3xl font-bold text-primary mt-1">90%</p>
+                      <Progress value={90} className="w-full mt-2 h-2" />
+                  </div>
               </div>
 
             </CardContent>

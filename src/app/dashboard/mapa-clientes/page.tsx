@@ -1,6 +1,8 @@
 
+'use client';
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
 import { Progress } from "@/components/ui/progress";
 import { 
@@ -16,6 +18,9 @@ import {
   Car,
   Briefcase
 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { mockEmployees, teamDepartments } from "@/lib/placeholder-data";
 
 
 export default function NosotrosPage() {
@@ -189,6 +194,47 @@ export default function NosotrosPage() {
                   </div>
                 </li>
               </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+                Nuestro Equipo
+              </CardTitle>
+               <CardDescription className="text-muted-foreground text-center">
+                  Conozca a los profesionales que impulsan nuestra visión.
+               </CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 md:p-10">
+              <Tabs defaultValue={teamDepartments[0].id} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
+                  {teamDepartments.map((dept) => (
+                    <TabsTrigger key={dept.id} value={dept.id}>{dept.name}</TabsTrigger>
+                  ))}
+                </TabsList>
+                {teamDepartments.map((dept) => (
+                  <TabsContent key={dept.id} value={dept.id}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                      {mockEmployees
+                        .filter((employee) => employee.department === dept.name)
+                        .map((employee) => (
+                          <div key={employee.id} className="flex flex-col items-center text-center p-4 border rounded-lg bg-card transition-shadow hover:shadow-md">
+                            <Avatar className="h-20 w-20 mb-4">
+                              <AvatarImage src={employee.imageUrl} alt={employee.name} data-ai-hint={employee.dataAiHint} />
+                              <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <p className="font-semibold text-foreground">{employee.name}</p>
+                            <p className="text-sm text-muted-foreground">{employee.role}</p>
+                          </div>
+                        ))}
+                         {mockEmployees.filter((employee) => employee.department === dept.name).length === 0 && (
+                            <p className="col-span-full text-center text-muted-foreground mt-4">No hay empleados en este departamento.</p>
+                        )}
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
             </CardContent>
           </Card>
         </div>

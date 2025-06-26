@@ -47,6 +47,15 @@ export interface DressCodeItem {
   dataAiHint?: string;
 }
 
+export interface Employee {
+  id: string;
+  name: string;
+  role: string;
+  department: 'Tecnología' | 'Recursos Humanos' | 'Finanzas' | 'Operaciones' | 'Marketing';
+  imageUrl: string;
+  dataAiHint: string;
+}
+
 export const mockCourses: Course[] = [
   {
     id: "C001",
@@ -377,6 +386,25 @@ export const mockDressCodeItems: DressCodeItem[] = [
   },
 ];
 
+export const mockEmployees: Employee[] = [
+  { id: 'E001', name: 'Carlos Rodríguez', role: 'Desarrollador Senior', department: 'Tecnología', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'person portrait' },
+  { id: 'E002', name: 'Ana Martínez', role: 'Analista de Sistemas', department: 'Tecnología', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'woman portrait' },
+  { id: 'E003', name: 'Luis Pérez', role: 'Soporte Técnico', department: 'Tecnología', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'man portrait' },
+  { id: 'E004', name: 'Sofía Gómez', role: 'Gerente de RRHH', department: 'Recursos Humanos', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'woman portrait' },
+  { id: 'E005', name: 'Javier Hernández', role: 'Reclutador', department: 'Recursos Humanos', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'person portrait' },
+  { id: 'E006', name: 'Elena Torres', role: 'Contadora Principal', department: 'Finanzas', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'woman portrait' },
+  { id: 'E007', name: 'David Ramírez', role: 'Analista Financiero', department: 'Finanzas', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'man portrait' },
+  { id: 'E008', name: 'Laura Díaz', role: 'Jefe de Operaciones', department: 'Operaciones', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'person portrait' },
+  { id: 'E009', name: 'Miguel Vargas', role: 'Especialista en Marketing', department: 'Marketing', imageUrl: 'https://placehold.co/100x100.png', dataAiHint: 'man portrait' },
+];
+
+export const teamDepartments = [
+  { id: 'tecnologia', name: 'Tecnología' },
+  { id: 'recursos-humanos', name: 'Recursos Humanos' },
+  { id: 'finanzas', name: 'Finanzas' },
+  { id: 'operaciones', name: 'Operaciones' },
+  { id: 'marketing', name: 'Marketing' },
+];
     
     
     

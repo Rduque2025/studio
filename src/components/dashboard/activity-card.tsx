@@ -26,7 +26,7 @@ export function ActivityCard({ activity }: ActivityCardProps) {
   }, [activity.date]);
 
   return (
-    <Card className={cn("flex flex-col h-full overflow-hidden relative")}> {/* Added relative class */}
+    <Card className={cn("w-72 md:w-80 flex-shrink-0 flex flex-col h-full overflow-hidden relative")}> {/* Added relative class and sizing */}
       {activity.isRecommended && (
         <Badge
           variant="default"
@@ -71,3 +71,5 @@ export function ActivityCard({ activity }: ActivityCardProps) {
   );
 }
 
+
+    

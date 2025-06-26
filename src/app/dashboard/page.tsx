@@ -521,6 +521,13 @@ export default function DashboardPage() {
 
 
       <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
+        <div className="mb-4">
+          <Button asChild>
+            <Link href="/dashboard/bienestar#cursos">
+              Ver todos los Cursos <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {mockCourses.map((course) => (
             <CourseCard key={course.id} course={course} />
@@ -529,11 +536,21 @@ export default function DashboardPage() {
       </SectionWrapper>
 
        <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockActivities.map((activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
-          ))}
+        <div className="mb-4">
+            <Button asChild>
+                <Link href="/dashboard/bienestar#actividades">
+                Ver Todas las Actividades <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+            </Button>
         </div>
+        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
+          <div className="flex w-max space-x-4 p-4">
+            {mockActivities.map((activity) => (
+              <ActivityCard key={activity.id} activity={activity} />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
       </SectionWrapper>
 
       <SectionWrapper
@@ -651,17 +668,3 @@ export default function DashboardPage() {
   );
 }
 
-    
-
-    
-
-    
-
-
-
-
-    
-
-    
-
-    

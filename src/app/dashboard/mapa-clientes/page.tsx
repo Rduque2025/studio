@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState } from 'react';
@@ -123,20 +122,23 @@ export default function NosotrosPage() {
               {/* Timeline */}
               <div className="flex items-center justify-between mb-8 px-2">
                 <div className="relative w-full">
-                  <div className="h-1 bg-border rounded-full" />
+                  <div className="h-px bg-border" />
                   <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between">
                     {months.map((month) => (
                       <button
                         key={month}
                         onClick={() => setSelectedMonth(month)}
                         className={cn(
-                          "h-5 w-5 rounded-full border-2 transition-all duration-200 flex items-center justify-center",
+                          "h-4 w-4 rounded-full border-2 bg-background transition-colors duration-200 flex items-center justify-center",
                           selectedMonth === month
-                            ? "bg-primary border-primary scale-125"
-                            : "bg-background border-border hover:border-primary"
+                            ? "border-primary"
+                            : "border-border hover:border-primary/70"
                         )}
                         aria-label={`Seleccionar mes ${month}`}
                       >
+                         {selectedMonth === month && (
+                           <div className="h-full w-full scale-75 rounded-full bg-primary" />
+                         )}
                         <span className="absolute -bottom-6 text-xs font-medium text-muted-foreground">{month}</span>
                       </button>
                     ))}

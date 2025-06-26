@@ -1,7 +1,17 @@
 
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import { 
+  TrendingUp,
+  PackagePlus,
+  Award,
+  RefreshCcw,
+  Gauge,
+  Network,
+  Gavel
+} from "lucide-react";
+
 
 export default function NosotrosPage() {
   return (
@@ -34,6 +44,81 @@ export default function NosotrosPage() {
                 <p className="text-muted-foreground leading-relaxed">
                     Seguir mejorando nuestros productos para empresas, ofreciendo coberturas y tarifas competitivas que cumplan sus necesidades de protección. Además, nos enfocaremos en agilizar la entrega de nuestros servicios para satisfacer sus expectativas de tiempo.
                 </p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
+                Retos para el Logro de Nuestra Visión 2025
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-8 md:p-10">
+              <ul className="space-y-6">
+                <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <TrendingUp className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Crecimiento Rentable y Sostenible</h4>
+                    <p className="text-muted-foreground text-sm">Asegurar un crecimiento rentable y sostenible del volumen de negocios.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <PackagePlus className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Innovación en Productos y Tecnología</h4>
+                    <p className="text-muted-foreground text-sm">Desarrollar productos, procesos y tecnología para mejorar la atención y ventas.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <Award className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Cultura de Alto Desempeño</h4>
+                    <p className="text-muted-foreground text-sm">Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <RefreshCcw className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Sistemática Comercial</h4>
+                    <p className="text-muted-foreground text-sm">Reimplantar y optimizar la sistemática comercial para impulsar los resultados.</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <Gauge className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Eficiencia Operativa</h4>
+                    <p className="text-muted-foreground text-sm">Aumentar la eficiencia en todos nuestros procesos operativos.</p>
+                  </div>
+                </li>
+                 <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <Network className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Modernización de TI</h4>
+                    <p className="text-muted-foreground text-sm">Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento.</p>
+                  </div>
+                </li>
+                 <li className="flex items-start gap-4">
+                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
+                    <Gavel className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">Cumplimiento Normativo</h4>
+                    <p className="text-muted-foreground text-sm">Garantizar la adecuación continua a la nueva normativa vigente en el sector.</p>
+                  </div>
+                </li>
+              </ul>
             </CardContent>
           </Card>
         </div>

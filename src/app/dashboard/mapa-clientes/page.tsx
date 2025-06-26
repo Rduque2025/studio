@@ -10,7 +10,11 @@ import {
   RefreshCcw,
   Gauge,
   Network,
-  Gavel
+  Gavel,
+  Users,
+  Hospital,
+  Car,
+  Briefcase
 } from "lucide-react";
 
 
@@ -73,6 +77,43 @@ export default function NosotrosPage() {
                 </div>
               </div>
 
+            </CardContent>
+          </Card>
+
+           <Card className="shadow-lg rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+                Nuestra Trayectoria en Cifras
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-8 md:p-10">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 text-center">
+                <div className="flex flex-col items-center">
+                  <Award className="h-10 w-10 text-primary mb-3" />
+                  <p className="text-3xl font-bold text-foreground">+32</p>
+                  <p className="text-sm text-muted-foreground mt-1">Años de servicio</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Users className="h-10 w-10 text-primary mb-3" />
+                  <p className="text-3xl font-bold text-foreground">+200.000</p>
+                  <p className="text-sm text-muted-foreground mt-1">Clientes satisfechos</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Hospital className="h-10 w-10 text-primary mb-3" />
+                  <p className="text-3xl font-bold text-foreground">+100</p>
+                  <p className="text-sm text-muted-foreground mt-1">Clínicas y centros de atención médica aliados</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <Car className="h-10 w-10 text-primary mb-3" />
+                  <p className="text-3xl font-bold text-foreground">+50</p>
+                  <p className="text-sm text-muted-foreground mt-1">Proveedores para Servicios de Auto</p>
+                </div>
+                <div className="flex flex-col items-center col-span-2 md:col-auto">
+                  <Briefcase className="h-10 w-10 text-primary mb-3" />
+                  <p className="text-3xl font-bold text-foreground">+200</p>
+                  <p className="text-sm text-muted-foreground mt-1">Empleados</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
 

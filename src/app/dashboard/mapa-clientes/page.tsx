@@ -2,6 +2,7 @@
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
+import { Progress } from "@/components/ui/progress";
 import { 
   TrendingUp,
   PackagePlus,
@@ -44,6 +45,34 @@ export default function NosotrosPage() {
                 <p className="text-muted-foreground leading-relaxed">
                     Seguir mejorando nuestros productos para empresas, ofreciendo coberturas y tarifas competitivas que cumplan sus necesidades de protección. Además, nos enfocaremos en agilizar la entrega de nuestros servicios para satisfacer sus expectativas de tiempo.
                 </p>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
+                Nuestra Meta de Negocios
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-8 md:p-10">
+              <p className="text-muted-foreground leading-relaxed mb-8 text-center md:text-left">
+                En 2025 proyectamos un volumen total de primas suscritas de <span className="font-bold text-foreground">USD 37.40 MM</span>, lo que representa un crecimiento de <span className="font-bold text-foreground">27%</span> en relación al año pasado. Al cierre del primer trimestre, el progreso es del <span className="font-bold text-foreground">24%</span> con relación a la meta.
+              </p>
+              
+              <div className="w-full max-w-lg mx-auto">
+                <div className="flex justify-between items-end mb-1">
+                  <div className="text-sm">
+                     <p className="font-medium text-foreground">Progreso Q1 2025</p>
+                  </div>
+                  <p className="text-2xl font-bold text-primary">24%</p>
+                </div>
+                <Progress value={24} className="h-3" />
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>$0 MM</span>
+                  <span className="font-semibold">Meta: $37.40 MM</span>
+                </div>
+              </div>
+
             </CardContent>
           </Card>
 

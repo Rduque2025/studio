@@ -2,7 +2,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
@@ -32,6 +32,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { mockEmployees, teamDepartments } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
 
 const commercialProcessSteps = [
     { title: "Por Contactar", icon: UserPlus },
@@ -43,7 +44,39 @@ const commercialProcessSteps = [
     { title: "Cobrada", icon: CircleDollarSign },
 ];
 
+const monthlyGoalsData = {
+  Ene: { primas: 8, clientes: 15, cobranza: 6, nps: 88 },
+  Feb: { primas: 16, clientes: 30, cobranza: 12, nps: 89 },
+  Mar: { primas: 24, clientes: 47, cobranza: 18, nps: 90 },
+  Abr: { primas: 32, clientes: 55, cobranza: 25, nps: 91 },
+  May: { primas: 40, clientes: 62, cobranza: 33, nps: 91 },
+  Jun: { primas: 50, clientes: 68, cobranza: 42, nps: 92 },
+  Jul: { primas: 60, clientes: 74, cobranza: 51, nps: 92 },
+  Ago: { primas: 70, clientes: 80, cobranza: 60, nps: 93 },
+  Sep: { primas: 80, clientes: 86, cobranza: 70, nps: 94 },
+  Oct: { primas: 88, clientes: 92, cobranza: 80, nps: 94 },
+  Nov: { primas: 95, clientes: 96, cobranza: 90, nps: 95 },
+  Dic: { primas: 100, clientes: 100, cobranza: 100, nps: 95 },
+};
+const months = Object.keys(monthlyGoalsData) as (keyof typeof monthlyGoalsData)[];
+
+const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
+    Ene: 'Enero', Feb: 'Febrero', Mar: 'Marzo', Abr: 'Abril', May: 'Mayo', Jun: 'Junio', Jul: 'Julio', Ago: 'Agosto', Sep: 'Septiembre', Oct: 'Octubre', Nov: 'Noviembre', Dic: 'Diciembre'
+};
+
+
 export default function NosotrosPage() {
+  const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Mar');
+  const selectedData = monthlyGoalsData[selectedMonth];
+
+  const kpis = [
+      { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas, target: '$37.40 MM' },
+      { id: 'clientes', label: 'Clientes Nuevos', icon: UserPlus, value: selectedData.clientes, target: '100%' },
+      { id: 'cobranza', label: 'Meta de Cobranza', icon: CircleDollarSign, value: selectedData.cobranza, target: '100%' },
+      { id: 'nps', label: 'NPS (Satisfacción)', icon: Smile, value: selectedData.nps, target: '95%' }
+  ];
+
+
   return (
     <div className="container mx-auto py-8 px-4">
       <SectionWrapper 
@@ -80,49 +113,61 @@ export default function NosotrosPage() {
           <Card className="shadow-lg rounded-xl">
             <CardHeader>
               <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
-                Nuestra Meta de Negocios
+                Nuestra Meta de Negocios 2025
               </CardTitle>
+               <CardDescription>
+                  Seleccione un mes para ver el progreso detallado de nuestras metas clave.
+                </CardDescription>
             </CardHeader>
             <CardContent className="p-8 md:p-10">
-              <p className="text-muted-foreground leading-relaxed mb-8 text-center md:text-left">
-                En 2025 proyectamos un volumen total de primas suscritas de <span className="font-bold text-foreground">USD 37.40 MM</span>, lo que representa un crecimiento de <span className="font-bold text-foreground">27%</span> en relación al año pasado. Al cierre del primer trimestre, el progreso es del <span className="font-bold text-foreground">24%</span> con relación a la meta.
-              </p>
-              
-              <div className="w-full max-w-lg mx-auto">
-                <div className="flex justify-between items-end mb-1">
-                  <div className="text-sm">
-                     <p className="font-medium text-foreground">Progreso Q1 2025 (Primas Suscritas)</p>
+              {/* Timeline */}
+              <div className="flex items-center justify-between mb-8 px-2">
+                <div className="relative w-full">
+                  <div className="h-1 bg-border rounded-full" />
+                  <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between">
+                    {months.map((month) => (
+                      <button
+                        key={month}
+                        onClick={() => setSelectedMonth(month)}
+                        className={cn(
+                          "h-5 w-5 rounded-full border-2 transition-all duration-200 flex items-center justify-center",
+                          selectedMonth === month
+                            ? "bg-primary border-primary scale-125"
+                            : "bg-background border-border hover:border-primary"
+                        )}
+                        aria-label={`Seleccionar mes ${month}`}
+                      >
+                        <span className="absolute -bottom-6 text-xs font-medium text-muted-foreground">{month}</span>
+                      </button>
+                    ))}
                   </div>
-                  <p className="text-2xl font-bold text-primary">24%</p>
-                </div>
-                <Progress value={24} className="h-3" />
-                <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                  <span>$0 MM</span>
-                  <span className="font-semibold">Meta: $37.40 MM</span>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 pt-8 border-t">
-                  <div className="flex flex-col items-center text-center">
-                      <UserPlus className="h-8 w-8 text-primary mb-2"/>
-                      <p className="font-semibold text-foreground">Clientes Nuevos</p>
-                      <p className="text-3xl font-bold text-primary mt-1">47%</p>
-                      <Progress value={47} className="w-full mt-2 h-2" />
-                  </div>
-                  <div className="flex flex-col items-center text-center">
-                      <CircleDollarSign className="h-8 w-8 text-primary mb-2"/>
-                      <p className="font-semibold text-foreground">Meta de Cobranza</p>
-                      <p className="text-3xl font-bold text-primary mt-1">18%</p>
-                      <Progress value={18} className="w-full mt-2 h-2" />
-                  </div>
-                  <div className="flex flex-col items-center text-center">
-                      <Smile className="h-8 w-8 text-primary mb-2"/>
-                      <p className="font-semibold text-foreground">NPS (Satisfacción)</p>
-                      <p className="text-3xl font-bold text-primary mt-1">90%</p>
-                      <Progress value={90} className="w-full mt-2 h-2" />
-                  </div>
+              {/* KPI Display */}
+              <div className="mt-12 pt-8 border-t">
+                 <p className="text-center text-lg font-semibold mb-6">
+                    Progreso para <span className="text-primary">{monthNames[selectedMonth]}, 2025</span>
+                  </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {kpis.map((kpi) => (
+                    <div key={kpi.id} className="flex flex-col items-center text-center">
+                       <div className="flex items-center gap-3 mb-2">
+                          <kpi.icon className="h-7 w-7 text-primary"/>
+                          <p className="font-semibold text-foreground">{kpi.label}</p>
+                       </div>
+                       <p className="text-4xl font-bold text-primary">{kpi.value}%</p>
+                       <div className="w-full mt-2">
+                         <Progress value={kpi.value} className="h-2" />
+                         <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                           <span>0%</span>
+                           <span>Meta: {kpi.target}</span>
+                         </div>
+                       </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-
             </CardContent>
           </Card>
 
@@ -316,5 +361,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
-    

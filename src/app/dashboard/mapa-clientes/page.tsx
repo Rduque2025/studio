@@ -43,6 +43,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { mockEmployees, teamDepartments } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const commercialProcessSteps = [
     { title: "Por Contactar", icon: UserPlus },
@@ -141,121 +142,128 @@ export default function NosotrosPage() {
           </Card>
 
           <Card className="shadow-lg rounded-xl">
-            <CardHeader>
-              <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
-                Nuestra Meta de Negocios 2025
-              </CardTitle>
-               <CardDescription>
-                  Seleccione un mes para ver el progreso detallado de nuestras metas clave.
-                </CardDescription>
-            </CardHeader>
-            <CardContent className="p-8 md:p-10">
-              <div className="w-full h-80 mb-8">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart
-                    data={lineChartData}
-                    onClick={handleChartClick}
-                    margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                    <XAxis 
-                      dataKey="name" 
-                      stroke="hsl(var(--muted-foreground))" 
-                      fontSize={12} 
-                      tickLine={false}
-                      axisLine={false}
-                    />
-                    <YAxis 
-                      stroke="hsl(var(--muted-foreground))" 
-                      fontSize={12} 
-                      unit="%" 
-                      tickLine={false}
-                      axisLine={false}
-                    />
-                    <Tooltip
-                      cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
-                      contentStyle={{
-                        backgroundColor: 'hsl(var(--background))',
-                        borderColor: 'hsl(var(--border))',
-                        borderRadius: 'var(--radius)',
-                      }}
-                    />
-                    <Legend iconType="circle" iconSize={8} />
-                    <Line 
-                        type="monotone" 
-                        dataKey="Meta" 
-                        stroke="hsl(var(--muted-foreground))" 
-                        strokeWidth={2}
-                        strokeDasharray="5 5" 
-                        dot={false}
-                        activeDot={false}
-                    />
-                    <Line 
-                        type="monotone" 
-                        dataKey="Progreso Primas" 
-                        stroke="hsl(var(--primary))" 
-                        strokeWidth={2.5} 
-                        activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
-                        dot={(props) => {
-                            const { cx, cy, payload } = props;
-                            if (payload.name === selectedMonth) {
-                                return <circle key={payload.name} cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
-                            }
-                            return null;
-                        }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+            <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
+                <AccordionItem value="item-1" className="border-b-0">
+                    <AccordionTrigger className="p-8 md:p-10 text-left hover:no-underline [&[data-state=open]>svg]:text-primary">
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                                Nuestra Meta de Negocios 2025
+                            </h3>
+                            <p className="text-sm text-muted-foreground mt-1">
+                                Seleccione un mes para ver el progreso detallado de nuestras metas clave. Pulse para expandir.
+                            </p>
+                        </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                        <div className="px-8 md:px-10 pb-8 md:pb-10">
+                            <div className="w-full h-80 mb-8">
+                                <ResponsiveContainer width="100%" height="100%">
+                                <LineChart
+                                    data={lineChartData}
+                                    onClick={handleChartClick}
+                                    margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <XAxis 
+                                    dataKey="name" 
+                                    stroke="hsl(var(--muted-foreground))" 
+                                    fontSize={12} 
+                                    tickLine={false}
+                                    axisLine={false}
+                                    />
+                                    <YAxis 
+                                    stroke="hsl(var(--muted-foreground))" 
+                                    fontSize={12} 
+                                    unit="%" 
+                                    tickLine={false}
+                                    axisLine={false}
+                                    />
+                                    <Tooltip
+                                    cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
+                                    contentStyle={{
+                                        backgroundColor: 'hsl(var(--background))',
+                                        borderColor: 'hsl(var(--border))',
+                                        borderRadius: 'var(--radius)',
+                                    }}
+                                    />
+                                    <Legend iconType="circle" iconSize={8} />
+                                    <Line 
+                                        type="monotone" 
+                                        dataKey="Meta" 
+                                        stroke="hsl(var(--muted-foreground))" 
+                                        strokeWidth={2}
+                                        strokeDasharray="5 5" 
+                                        dot={false}
+                                        activeDot={false}
+                                    />
+                                    <Line 
+                                        type="monotone" 
+                                        dataKey="Progreso Primas" 
+                                        stroke="hsl(var(--primary))" 
+                                        strokeWidth={2.5} 
+                                        activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
+                                        dot={(props) => {
+                                            const { cx, cy, payload } = props;
+                                            if (payload.name === selectedMonth) {
+                                                return <circle key={payload.name} cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
+                                            }
+                                            return null;
+                                        }}
+                                    />
+                                </LineChart>
+                                </ResponsiveContainer>
+                            </div>
 
-              {/* KPI Display */}
-              <div className="mt-8 pt-8 border-t">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                  {kpis.map((kpi) => {
-                      const data = [
-                          { name: 'value', value: kpi.value },
-                          { name: 'remaining', value: 100 - kpi.value },
-                      ];
-                      const chartColor = getProgressColor(kpi.value);
+                            <div className="mt-8 pt-8 border-t">
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                                {kpis.map((kpi) => {
+                                    const data = [
+                                        { name: 'value', value: kpi.value },
+                                        { name: 'remaining', value: 100 - kpi.value },
+                                    ];
+                                    const chartColor = getProgressColor(kpi.value);
 
-                      return (
-                          <div key={kpi.id} className="flex flex-col items-center text-center">
-                              <div className="relative w-36 h-36">
-                                  <ResponsiveContainer width="100%" height="100%">
-                                      <PieChart>
-                                          <Pie
-                                              data={data}
-                                              cx="50%"
-                                              cy="50%"
-                                              innerRadius="70%"
-                                              outerRadius="100%"
-                                              dataKey="value"
-                                              startAngle={90}
-                                              endAngle={-270}
-                                              paddingAngle={0}
-                                              stroke="none"
-                                          >
-                                              <Cell fill={chartColor} className="focus:outline-none" />
-                                              <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
-                                          </Pie>
-                                      </PieChart>
-                                  </ResponsiveContainer>
-                                  <div className="absolute inset-0 flex items-center justify-center">
-                                      <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
-                                  </div>
-                              </div>
-                              <div className="mt-4 text-center">
-                                  <p className="font-semibold text-foreground flex items-center justify-center gap-2">
-                                      <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
-                                      {kpi.label}
-                                  </p>
-                              </div>
-                          </div>
-                      );
-                  })}
-                </div>
-              </div>
-            </CardContent>
+                                    return (
+                                        <div key={kpi.id} className="flex flex-col items-center text-center">
+                                            <div className="relative w-36 h-36">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <PieChart>
+                                                        <Pie
+                                                            data={data}
+                                                            cx="50%"
+                                                            cy="50%"
+                                                            innerRadius="70%"
+                                                            outerRadius="100%"
+                                                            dataKey="value"
+                                                            startAngle={90}
+                                                            endAngle={-270}
+                                                            paddingAngle={0}
+                                                            stroke="none"
+                                                        >
+                                                            <Cell fill={chartColor} className="focus:outline-none" />
+                                                            <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
+                                                        </Pie>
+                                                    </PieChart>
+                                                </ResponsiveContainer>
+                                                <div className="absolute inset-0 flex items-center justify-center">
+                                                    <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
+                                                </div>
+                                            </div>
+                                            <div className="mt-4 text-center">
+                                                <p className="font-semibold text-foreground flex items-center justify-center gap-2">
+                                                    <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
+                                                    {kpi.label}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                                </div>
+                            </div>
+                        </div>
+                    </AccordionContent>
+                </AccordionItem>
+            </Accordion>
           </Card>
 
            <Card className="shadow-lg rounded-xl">

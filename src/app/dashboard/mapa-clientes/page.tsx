@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
-import { Progress } from "@/components/ui/progress";
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import { 
   TrendingUp,
   PackagePlus,
@@ -146,26 +146,53 @@ export default function NosotrosPage() {
 
               {/* KPI Display */}
               <div className="mt-12 pt-8 border-t">
-                 <p className="text-center text-lg font-semibold mb-6">
+                 <p className="text-center text-lg font-semibold mb-8">
                     Progreso para <span className="text-primary">{monthNames[selectedMonth]}, 2025</span>
                   </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                  {kpis.map((kpi) => (
-                    <div key={kpi.id} className="flex flex-col items-center text-center">
-                       <div className="flex items-center gap-3 mb-2">
-                          <kpi.icon className="h-7 w-7 text-primary"/>
-                          <p className="font-semibold text-foreground">{kpi.label}</p>
-                       </div>
-                       <p className="text-4xl font-bold text-primary">{kpi.value}%</p>
-                       <div className="w-full mt-2">
-                         <Progress value={kpi.value} className="h-2" />
-                         <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                           <span>0%</span>
-                           <span>Meta: {kpi.target}</span>
-                         </div>
-                       </div>
-                    </div>
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                  {kpis.map((kpi, index) => {
+                      const data = [
+                          { name: 'value', value: kpi.value },
+                          { name: 'remaining', value: 100 - kpi.value },
+                      ];
+                      const chartColor = `hsl(var(--chart-${index + 1}))`;
+
+                      return (
+                          <div key={kpi.id} className="flex flex-col items-center text-center">
+                              <div className="relative w-36 h-36">
+                                  <ResponsiveContainer width="100%" height="100%">
+                                      <PieChart>
+                                          <Pie
+                                              data={data}
+                                              cx="50%"
+                                              cy="50%"
+                                              innerRadius="70%"
+                                              outerRadius="100%"
+                                              dataKey="value"
+                                              startAngle={90}
+                                              endAngle={-270}
+                                              paddingAngle={0}
+                                              stroke="none"
+                                          >
+                                              <Cell fill={chartColor} className="focus:outline-none" />
+                                              <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
+                                          </Pie>
+                                      </PieChart>
+                                  </ResponsiveContainer>
+                                  <div className="absolute inset-0 flex items-center justify-center">
+                                      <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
+                                  </div>
+                              </div>
+                              <div className="mt-4 text-center">
+                                  <p className="font-semibold text-foreground flex items-center justify-center gap-2">
+                                      <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
+                                      {kpi.label}
+                                  </p>
+                                  <p className="text-sm text-muted-foreground mt-1">Meta: {kpi.target}</p>
+                              </div>
+                          </div>
+                      );
+                  })}
                 </div>
               </div>
             </CardContent>

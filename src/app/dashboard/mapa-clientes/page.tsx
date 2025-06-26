@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -143,20 +144,20 @@ export default function NosotrosPage() {
 
           <Card className="shadow-lg rounded-xl">
             <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-                <AccordionItem value="item-1" className="border-b-0">
+                <AccordionItem value="item-1" className="border-b">
                     <AccordionTrigger className="p-8 md:p-10 text-left hover:no-underline [&[data-state=open]>svg]:text-primary">
                         <div>
                             <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                                Nuestra Meta de Negocios 2025
+                                Gráfico de Tendencia de Metas
                             </h3>
                             <p className="text-sm text-muted-foreground mt-1">
-                                Seleccione un mes para ver el progreso detallado de nuestras metas clave. Pulse para expandir.
+                                Pulse para ver/ocultar el progreso mensual de Primas Suscritas.
                             </p>
                         </div>
                     </AccordionTrigger>
                     <AccordionContent>
-                        <div className="px-8 md:px-10 pb-8 md:pb-10">
-                            <div className="w-full h-80 mb-8">
+                        <div className="px-8 md:px-10 pb-8 pt-0">
+                            <div className="w-full h-80">
                                 <ResponsiveContainer width="100%" height="100%">
                                 <LineChart
                                     data={lineChartData}
@@ -213,57 +214,59 @@ export default function NosotrosPage() {
                                 </LineChart>
                                 </ResponsiveContainer>
                             </div>
-
-                            <div className="mt-8 pt-8 border-t">
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                                {kpis.map((kpi) => {
-                                    const data = [
-                                        { name: 'value', value: kpi.value },
-                                        { name: 'remaining', value: 100 - kpi.value },
-                                    ];
-                                    const chartColor = getProgressColor(kpi.value);
-
-                                    return (
-                                        <div key={kpi.id} className="flex flex-col items-center text-center">
-                                            <div className="relative w-36 h-36">
-                                                <ResponsiveContainer width="100%" height="100%">
-                                                    <PieChart>
-                                                        <Pie
-                                                            data={data}
-                                                            cx="50%"
-                                                            cy="50%"
-                                                            innerRadius="70%"
-                                                            outerRadius="100%"
-                                                            dataKey="value"
-                                                            startAngle={90}
-                                                            endAngle={-270}
-                                                            paddingAngle={0}
-                                                            stroke="none"
-                                                        >
-                                                            <Cell fill={chartColor} className="focus:outline-none" />
-                                                            <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
-                                                        </Pie>
-                                                    </PieChart>
-                                                </ResponsiveContainer>
-                                                <div className="absolute inset-0 flex items-center justify-center">
-                                                    <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
-                                                </div>
-                                            </div>
-                                            <div className="mt-4 text-center">
-                                                <p className="font-semibold text-foreground flex items-center justify-center gap-2">
-                                                    <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
-                                                    {kpi.label}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                                </div>
-                            </div>
                         </div>
                     </AccordionContent>
                 </AccordionItem>
             </Accordion>
+             <CardContent className="p-8 md:p-10">
+                <CardTitle className="mb-4 text-xl md:text-2xl text-center">Progreso Detallado para {monthNames[selectedMonth]}</CardTitle>
+                <div className="mt-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                    {kpis.map((kpi) => {
+                        const data = [
+                            { name: 'value', value: kpi.value },
+                            { name: 'remaining', value: 100 - kpi.value },
+                        ];
+                        const chartColor = getProgressColor(kpi.value);
+
+                        return (
+                            <div key={kpi.id} className="flex flex-col items-center text-center">
+                                <div className="relative w-36 h-36">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={data}
+                                                cx="50%"
+                                                cy="50%"
+                                                innerRadius="70%"
+                                                outerRadius="100%"
+                                                dataKey="value"
+                                                startAngle={90}
+                                                endAngle={-270}
+                                                paddingAngle={0}
+                                                stroke="none"
+                                            >
+                                                <Cell fill={chartColor} className="focus:outline-none" />
+                                                <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
+                                            </Pie>
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
+                                    </div>
+                                </div>
+                                <div className="mt-4 text-center">
+                                    <p className="font-semibold text-foreground flex items-center justify-center gap-2">
+                                        <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
+                                        {kpi.label}
+                                    </p>
+                                </div>
+                            </div>
+                        );
+                    })}
+                    </div>
+                </div>
+            </CardContent>
           </Card>
 
            <Card className="shadow-lg rounded-xl">

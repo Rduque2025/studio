@@ -187,7 +187,6 @@ export default function NosotrosPage() {
                                       <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
                                       {kpi.label}
                                   </p>
-                                  <p className="text-sm text-muted-foreground mt-1">Meta: {kpi.target}</p>
                               </div>
                           </div>
                       );

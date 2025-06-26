@@ -1,6 +1,7 @@
 
 'use client';
 
+import React from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
@@ -16,12 +17,29 @@ import {
   Users,
   Hospital,
   Car,
-  Briefcase
+  Briefcase,
+  UserPlus,
+  UserCheck,
+  FileClock,
+  Calculator,
+  Handshake,
+  FileCheck2,
+  CircleDollarSign
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { mockEmployees, teamDepartments } from "@/lib/placeholder-data";
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
+const commercialProcessSteps = [
+    { title: "Por Contactar", icon: UserPlus },
+    { title: "Contactado", icon: UserCheck },
+    { title: "Esperando Recaudos", icon: FileClock },
+    { title: "En Cotización", icon: Calculator },
+    { title: "En Negociación", icon: Handshake },
+    { title: "Emitida", icon: FileCheck2 },
+    { title: "Cobrada", icon: CircleDollarSign },
+];
 
 export default function NosotrosPage() {
   return (
@@ -200,6 +218,39 @@ export default function NosotrosPage() {
           <Card className="shadow-lg rounded-xl">
             <CardHeader>
               <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+                Nuestra Sistemática Comercial
+              </CardTitle>
+              <CardDescription className="text-muted-foreground text-center">
+                El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6 md:p-8">
+              <ScrollArea className="w-full">
+                <div className="flex items-start py-4 px-2 min-w-max">
+                  {commercialProcessSteps.map((step, index) => (
+                    <React.Fragment key={step.title}>
+                      <div className="flex flex-col items-center text-center w-28 shrink-0">
+                        <div className="flex items-center justify-center w-14 h-14 bg-primary/10 rounded-full text-primary">
+                          <step.icon className="h-7 w-7" />
+                        </div>
+                        <p className="mt-2 text-xs font-semibold">{step.title}</p>
+                      </div>
+                      {index < commercialProcessSteps.length - 1 && (
+                        <div className="flex-1 flex items-center mt-7 shrink-0 px-2">
+                          <div className="w-full h-px bg-border" />
+                        </div>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-lg rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
                 Nuestro Equipo
               </CardTitle>
                <CardDescription className="text-muted-foreground text-center">
@@ -242,3 +293,5 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    

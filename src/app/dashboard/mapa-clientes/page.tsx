@@ -70,6 +70,22 @@ const monthlyGoalsData = {
   Nov: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
   Dic: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
 };
+
+const monthlyMetaTarget = {
+  Ene: 10,
+  Feb: 19,
+  Mar: 22,
+  Abr: 33,
+  May: 44,
+  Jun: 49,
+  Jul: 60,
+  Ago: 70,
+  Sep: 80,
+  Oct: 88,
+  Nov: 95,
+  Dic: 100,
+};
+
 const months = Object.keys(monthlyGoalsData) as (keyof typeof monthlyGoalsData)[];
 
 const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
@@ -97,7 +113,7 @@ export default function NosotrosPage() {
   const lineChartData = months.map(month => ({
     name: month,
     "Progreso Primas": monthlyGoalsData[month].primas,
-    "Meta": 100,
+    "Meta": monthlyMetaTarget[month],
   }));
 
   const handleChartClick = (data: any) => {
@@ -459,3 +475,5 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    

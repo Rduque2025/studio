@@ -148,9 +148,6 @@ export default function NosotrosPage() {
 
               {/* KPI Display */}
               <div className="mt-12 pt-8 border-t">
-                 <p className="text-center text-lg font-semibold mb-8">
-                    Progreso para <span className="text-primary">{monthNames[selectedMonth]}, 2025</span>
-                  </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
                   {kpis.map((kpi, index) => {
                       const data = [

@@ -266,18 +266,15 @@ export default function NosotrosPage() {
                 const activeGoalDetails = smartGoalsData[activeSmartGoal];
                 return (
                   <div className={cn("bg-muted/50 p-6 rounded-lg min-h-[250px]")}>
-                    <h4 className={cn("text-xl font-bold mb-4", activeGoalDetails.textColor)}>
-                      Objetivos: {activeGoalDetails.title}
-                    </h4>
-                    <ul className="space-y-6">
+                    <ul className="space-y-4">
                       {activeGoalDetails.challenges.map((challenge, index) => (
                         <li key={index} className="flex items-start gap-4 animate-in fade-in duration-500">
                           <div className={cn("flex-shrink-0 p-3 rounded-full", activeGoalDetails.color)}>
                             <challenge.icon className="h-6 w-6 text-white" />
                           </div>
                           <div>
-                            <h5 className="font-semibold text-foreground">{challenge.title}</h5>
-                            <p className="text-muted-foreground text-sm">{challenge.description}</p>
+                            <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
+                            <p className="text-muted-foreground text-xs">{challenge.description}</p>
                           </div>
                         </li>
                       ))}

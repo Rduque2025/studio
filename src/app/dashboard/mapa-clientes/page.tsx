@@ -257,7 +257,7 @@ export default function NosotrosPage() {
                                     "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col",
                                     goal.color,
                                     !isActive && 'hover:shadow-lg hover:-translate-y-1',
-                                    isActive && 'shadow-xl',
+                                    isActive && 'shadow-xl scale-105',
                                     isAnyActive ? 
                                         (isActive ? 
                                             "h-48 justify-between md:w-48" :
@@ -282,7 +282,7 @@ export default function NosotrosPage() {
                 </div>
 
                 {activeSmartGoal && (
-                    <div className="flex-1 bg-muted/50 p-6 rounded-lg min-h-[350px] animate-in fade-in-0 duration-500">
+                    <div className="flex-1 p-6 rounded-lg min-h-[350px] animate-in fade-in-0 duration-500">
                         <ul className="space-y-4">
                             {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
                                 <li key={index} className="flex items-start gap-4">

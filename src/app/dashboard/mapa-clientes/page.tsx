@@ -208,7 +208,7 @@ export default function NosotrosPage() {
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="p-8 md:p-10 text-base">
+            <CardContent className="p-8 md:p-10 text-sm">
                 <p className="mb-6 text-muted-foreground leading-relaxed">
                     Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
                 </p>

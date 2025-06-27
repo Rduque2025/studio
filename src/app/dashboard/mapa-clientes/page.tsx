@@ -478,52 +478,44 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-            <Card className="shadow-lg rounded-xl">
-                <CardHeader>
-                  <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+            <div>
+                <div className="text-center mb-10">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary">
                     Nuestra Sistemática Comercial
-                  </CardTitle>
-                  <CardDescription className="text-muted-foreground text-center">
+                  </h3>
+                  <p className="text-muted-foreground text-center">
                     El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="p-6 md:p-10">
-                    <div className="w-full py-12">
-                        <div className="relative w-full">
-                            <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 border-t-2 border-dotted border-border" />
-                            <div className="relative flex w-full justify-between items-center">
-                                {commercialProcessSteps.map((step, index) => {
-                                    const isUp = index % 2 === 0;
-                                    return (
-                                        <div key={step.number} className="relative flex-1 flex justify-center">
-                                            <div className="relative">
-                                                <div
-                                                    className={cn(
-                                                        "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
-                                                        step.bgColor
-                                                    )}
-                                                >
-                                                    {step.number}
-                                                </div>
-                                                <div className={cn(
-                                                    "absolute left-1/2 -translate-x-1/2 flex items-center w-28",
-                                                    isUp ? "flex-col-reverse bottom-full mb-2" : "flex-col top-full mt-2"
-                                                )}>
-                                                    <div className="text-center">
-                                                        <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                                        <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                                    </div>
-                                                    <div className="h-4 w-px border-l-2 border-dotted border-border" />
-                                                </div>
-                                            </div>
+                  </p>
+                </div>
+                <div className="w-full py-12">
+                    <div className="relative w-full">
+                        <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 border-t-2 border-dotted border-border" />
+                        <div className="relative flex justify-between items-center">
+                            {commercialProcessSteps.map((step, index) => {
+                                const isUp = index % 2 !== 0;
+                                return (
+                                    <div key={step.number} className={cn(
+                                        "relative flex items-center",
+                                        isUp ? "flex-col-reverse" : "flex-col"
+                                    )}>
+                                        <div className="text-center w-32 pt-4 pb-4">
+                                            <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                            <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
                                         </div>
-                                    );
-                                })}
-                            </div>
+                                        <div className="h-8 w-px border-l-2 border-dotted border-border" />
+                                        <div className={cn(
+                                            "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
+                                            step.bgColor
+                                        )}>
+                                            <step.icon className="h-6 w-6 text-white" />
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
 
           <Card className="shadow-lg rounded-xl">
             <CardHeader>
@@ -570,16 +562,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-
-
-
-
-
-    

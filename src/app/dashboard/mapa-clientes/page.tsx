@@ -104,8 +104,7 @@ const smartGoalsData = {
     letter: "S",
     title: "Específico",
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    color: "bg-blue-600",
-    textColor: "text-blue-500",
+    color: "bg-[#543db8]",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
       { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },
@@ -117,8 +116,7 @@ const smartGoalsData = {
     letter: "M",
     title: "Medible",
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
-    color: "bg-sky-500",
-    textColor: "text-sky-500",
+    color: "bg-[#003c71]",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
       { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
@@ -132,8 +130,7 @@ const smartGoalsData = {
     letter: "A",
     title: "Alcanzable",
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
-    color: "bg-cyan-400",
-    textColor: "text-cyan-400",
+    color: "bg-[#1a61ab]",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },
@@ -145,8 +142,7 @@ const smartGoalsData = {
     letter: "R",
     title: "Relevante",
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
-    color: "bg-teal-400",
-    textColor: "text-teal-400",
+    color: "bg-[#3f94cd]",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]
@@ -155,8 +151,7 @@ const smartGoalsData = {
     letter: "T",
     title: "Temporal",
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    color: "bg-emerald-500",
-    textColor: "text-emerald-500",
+    color: "bg-[#59d1ff]",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },
@@ -255,8 +250,9 @@ export default function NosotrosPage() {
                                     }
                                 }}
                                 className={cn(
-                                    "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col",
+                                    "p-4 rounded-lg text-left transition-all duration-300 flex flex-col",
                                     goal.color,
+                                    goal.letter === 'T' ? 'text-foreground' : 'text-white',
                                     !isActive && 'hover:shadow-lg hover:-translate-y-1',
                                     isActive && 'shadow-xl scale-105',
                                     isAnyActive ? 
@@ -269,7 +265,7 @@ export default function NosotrosPage() {
                             >
                                 <div className={cn(isAnyActive && !isActive && 'hidden')}>
                                     <p className="text-sm font-semibold">{goal.title}</p>
-                                    <p className="text-xs text-white/80 mt-1">{goal.description}</p>
+                                    <p className={cn("text-xs mt-1", goal.letter === 'T' ? 'text-foreground/80' : 'text-white/80')}>{goal.description}</p>
                                 </div>
                                 <p className={cn(
                                     "font-extrabold opacity-80",
@@ -288,7 +284,7 @@ export default function NosotrosPage() {
                             {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
                                 <li key={index} className="flex items-start gap-4">
                                     <div className={cn("flex-shrink-0 p-3 rounded-full", smartGoalsData[activeSmartGoal].color)}>
-                                        <challenge.icon className="h-6 w-6 text-white" />
+                                        <challenge.icon className={cn("h-6 w-6", activeSmartGoal === 'T' ? "text-foreground" : "text-white")} />
                                     </div>
                                     <div>
                                         <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
@@ -478,35 +474,40 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-            <div>
+            <div className="w-full">
                 <div className="text-center mb-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                    Nuestra Sistemática Comercial
-                  </h3>
-                  <p className="text-muted-foreground text-center">
-                    El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-                  </p>
+                    <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                        Nuestra Sistemática Comercial
+                    </h3>
+                    <p className="text-muted-foreground text-center">
+                        El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+                    </p>
                 </div>
                 <div className="w-full py-12">
-                    <div className="relative w-full flex justify-between items-center">
-                        {/* Central Line - Removed */}
+                    <div className="relative flex justify-between items-center">
                         {commercialProcessSteps.map((step, index) => (
-                            <div key={step.number} className="relative flex flex-col items-center flex-1">
+                            <div 
+                                key={step.number}
+                                className={cn(
+                                    "relative flex-1 flex items-center",
+                                    index % 2 === 0 ? "flex-col" : "flex-col-reverse"
+                                )}
+                            >
                                 <div className={cn(
-                                    "flex items-center text-center w-28 md:w-32",
-                                    index % 2 === 0 ? "flex-col-reverse mb-8" : "flex-col mt-8"
+                                    "flex flex-col items-center text-center w-32",
+                                    index % 2 === 0 ? "mb-8" : "mt-8"
                                 )}>
-                                    <div>
-                                        <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                        <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                    </div>
-                                    <div className="h-8 w-px border-l-2 border-dotted border-border" />
-                                    <div className={cn(
-                                        "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
-                                        step.bgColor
-                                    )}>
-                                        <step.icon className="h-6 w-6 text-white" />
-                                    </div>
+                                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                </div>
+
+                                <div className="h-8 w-px border-l-2 border-dotted border-border" />
+                                
+                                <div className={cn(
+                                    "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
+                                    step.bgColor
+                                )}>
+                                    <step.icon className="h-6 w-6 text-white" />
                                 </div>
                             </div>
                         ))}
@@ -559,5 +560,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
-    

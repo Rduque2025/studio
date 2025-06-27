@@ -232,56 +232,73 @@ export default function NosotrosPage() {
 
           <Card className="shadow-none border-none rounded-xl">
             <CardContent className="p-4 md:p-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 mb-8">
-                {Object.keys(smartGoalsData).map((key) => {
-                  const goal = smartGoalsData[key as SmartKey];
-                  const isActive = activeSmartGoal === goal.letter;
-                  return (
-                    <button
-                      key={goal.letter}
-                      onClick={() => {
-                        if (activeSmartGoal === goal.letter) {
-                          setActiveSmartGoal(null);
-                        } else {
-                          setActiveSmartGoal(goal.letter as SmartKey);
-                        }
-                      }}
-                      className={cn(
-                        "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col justify-between h-48",
-                        goal.color,
-                        isActive ? 'scale-105 shadow-2xl' : 'hover:shadow-lg hover:-translate-y-1'
-                      )}
-                    >
-                      <div>
-                        <p className="text-sm font-semibold">{goal.title}</p>
-                        <p className="text-xs text-white/80 mt-1">{goal.description}</p>
-                      </div>
-                      <p className="text-6xl font-extrabold self-end opacity-80">{goal.letter}</p>
-                    </button>
-                  );
-                })}
-              </div>
+              <div className="flex flex-col md:flex-row items-stretch gap-4">
+                <div className={cn(
+                    "flex md:flex-col gap-2 transition-all duration-300 ease-in-out",
+                    !activeSmartGoal && "grid w-full grid-cols-2 sm:grid-cols-5",
+                    activeSmartGoal && "flex-row md:flex-col md:w-auto"
+                )}>
+                    {Object.keys(smartGoalsData).map((key) => {
+                        const goal = smartGoalsData[key as SmartKey];
+                        const isActive = activeSmartGoal === goal.letter;
+                        const isAnyActive = !!activeSmartGoal;
 
-              {activeSmartGoal && (() => {
-                const activeGoalDetails = smartGoalsData[activeSmartGoal];
-                return (
-                  <div className={cn("bg-muted/50 p-6 rounded-lg min-h-[250px]")}>
-                    <ul className="space-y-4">
-                      {activeGoalDetails.challenges.map((challenge, index) => (
-                        <li key={index} className="flex items-start gap-4 animate-in fade-in duration-500">
-                          <div className={cn("flex-shrink-0 p-3 rounded-full", activeGoalDetails.color)}>
-                            <challenge.icon className="h-6 w-6 text-white" />
-                          </div>
-                          <div>
-                            <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
-                            <p className="text-muted-foreground text-xs">{challenge.description}</p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })()}
+                        return (
+                            <button
+                                key={goal.letter}
+                                onClick={() => {
+                                    if (activeSmartGoal === goal.letter) {
+                                        setActiveSmartGoal(null);
+                                    } else {
+                                        setActiveSmartGoal(goal.letter as SmartKey);
+                                    }
+                                }}
+                                className={cn(
+                                    "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col",
+                                    goal.color,
+                                    !isActive && 'hover:shadow-lg hover:-translate-y-1',
+                                    isActive && 'shadow-xl',
+                                    isAnyActive ? 
+                                        (isActive ? 
+                                            "h-48 justify-between md:w-48" :
+                                            "h-20 justify-center items-center text-center p-2 w-full md:w-20"
+                                        ) 
+                                    : "h-48 justify-between"
+                                )}
+                            >
+                                <div className={cn(isAnyActive && !isActive && 'hidden')}>
+                                    <p className="text-sm font-semibold">{goal.title}</p>
+                                    <p className="text-xs text-white/80 mt-1">{goal.description}</p>
+                                </div>
+                                <p className={cn(
+                                    "font-extrabold opacity-80",
+                                    isAnyActive && !isActive ? 'text-4xl self-center' : 'text-6xl self-end'
+                                )}>
+                                    {goal.letter}
+                                </p>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {activeSmartGoal && (
+                    <div className="flex-1 bg-muted/50 p-6 rounded-lg min-h-[350px] animate-in fade-in-0 duration-500">
+                        <ul className="space-y-4">
+                            {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
+                                <li key={index} className="flex items-start gap-4">
+                                    <div className={cn("flex-shrink-0 p-3 rounded-full", smartGoalsData[activeSmartGoal].color)}>
+                                        <challenge.icon className="h-6 w-6 text-white" />
+                                    </div>
+                                    <div>
+                                        <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
+                                        <p className="text-muted-foreground text-xs">{challenge.description}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+              </div>
             </CardContent>
           </Card>
 

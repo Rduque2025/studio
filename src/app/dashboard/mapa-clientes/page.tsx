@@ -168,7 +168,9 @@ const smartGoalsData = {
 type SmartKey = keyof typeof smartGoalsData;
 
 
-export default function NosotrosPage() {
+export default function NosotrosPage({ searchParams }: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
   const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
   const selectedData = monthlyGoalsData[selectedMonth];
@@ -308,6 +310,47 @@ export default function NosotrosPage() {
               </div>
             </CardContent>
           </Card>
+          
+          <Card className="shadow-lg rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+                Nuestro Equipo
+              </CardTitle>
+               <CardDescription className="text-muted-foreground text-center">
+                  Conozca a los profesionales que impulsan nuestra visión.
+               </CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 md:p-10">
+              <Tabs defaultValue={teamDepartments[0].id} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
+                  {teamDepartments.map((dept) => (
+                    <TabsTrigger key={dept.id} value={dept.id}>{dept.name}</TabsTrigger>
+                  ))}
+                </TabsList>
+                {teamDepartments.map((dept) => (
+                  <TabsContent key={dept.id} value={dept.id}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                      {mockEmployees
+                        .filter((employee) => employee.department === dept.name)
+                        .map((employee) => (
+                          <div key={employee.id} className="flex flex-col items-center text-center p-4 border rounded-lg bg-card transition-shadow hover:shadow-md">
+                            <Avatar className="h-20 w-20 mb-4">
+                              <AvatarImage src={employee.imageUrl} alt={employee.name} data-ai-hint={employee.dataAiHint} />
+                              <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <p className="font-semibold text-foreground">{employee.name}</p>
+                            <p className="text-sm text-muted-foreground">{employee.role}</p>
+                          </div>
+                        ))}
+                         {mockEmployees.filter((employee) => employee.department === dept.name).length === 0 && (
+                            <p className="col-span-full text-center text-muted-foreground mt-4">No hay empleados en este departamento.</p>
+                        )}
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            </CardContent>
+          </Card>
 
           <div className="w-full">
             <div className="text-center mb-12">
@@ -318,39 +361,39 @@ export default function NosotrosPage() {
                 El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
               </p>
             </div>
-
-            <div className="relative flex justify-between items-center w-full px-4 md:px-0">
-              {commercialProcessSteps.map((step, index) => (
-                <div
-                  key={step.number}
-                  className="relative flex flex-col items-center flex-1 w-32"
-                >
-                  {/* Content block: Alternating order */}
-                  <div className={cn(
-                    "flex flex-col items-center text-center",
-                    index % 2 !== 0 ? 'order-1 mb-8' : 'order-3 mt-8'
-                  )}>
-                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                  </div>
-
-                  {/* Icon on the line */}
-                  <div className="order-2 flex flex-col items-center">
-                    <div className="w-px h-8 bg-transparent"></div>
-                    <div className={cn(
-                      "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
-                      step.bgColor
-                    )}>
-                      <step.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="w-px h-8 bg-transparent"></div>
-                  </div>
+            <div className="hidden md:flex flex-col items-center w-full">
+                <div className="flex justify-between w-full relative px-5">
+                    {commercialProcessSteps.map((step, index) => (
+                        <div key={step.number} className="relative flex-1 flex flex-col items-center group">
+                           <div className={cn(
+                            "flex flex-col items-center text-center w-32",
+                            index % 2 === 0 ? "mb-10" : "mt-10"
+                           )}>
+                                <div className={cn(
+                                    "flex flex-col items-center",
+                                    index % 2 === 0 ? "order-2" : "order-1"
+                                )}>
+                                    <div className={cn(
+                                        "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
+                                        step.bgColor
+                                    )}>
+                                      <step.icon className="h-6 w-6 text-white" />
+                                    </div>
+                                    <div className="w-px h-5 bg-border/80"></div>
+                                </div>
+                                <div className={cn(
+                                  "text-center",
+                                  index % 2 === 0 ? "order-1" : "order-2"
+                                )}>
+                                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                </div>
+                           </div>
+                        </div>
+                    ))}
                 </div>
-              ))}
             </div>
-
-             {/* Mobile Timeline */}
-            <div className="md:hidden space-y-8 mt-8">
+             <div className="md:hidden space-y-8 mt-8">
                 {commercialProcessSteps.map((step, index) => (
                     <div key={step.number} className="flex items-start gap-4">
                         <div className="flex flex-col items-center flex-shrink-0">
@@ -358,7 +401,7 @@ export default function NosotrosPage() {
                                 <step.icon className="h-6 w-6 text-white" />
                             </div>
                             {index < commercialProcessSteps.length - 1 && (
-                                <div className="w-px h-12 bg-border/80 mt-2"></div>
+                                <div className="w-px h-16 bg-border/80 mt-2"></div>
                             )}
                         </div>
                         <div>
@@ -545,46 +588,6 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-          <Card className="shadow-lg rounded-xl">
-            <CardHeader>
-              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
-                Nuestro Equipo
-              </CardTitle>
-               <CardDescription className="text-muted-foreground text-center">
-                  Conozca a los profesionales que impulsan nuestra visión.
-               </CardDescription>
-            </CardHeader>
-            <CardContent className="p-8 md:p-10">
-              <Tabs defaultValue={teamDepartments[0].id} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
-                  {teamDepartments.map((dept) => (
-                    <TabsTrigger key={dept.id} value={dept.id}>{dept.name}</TabsTrigger>
-                  ))}
-                </TabsList>
-                {teamDepartments.map((dept) => (
-                  <TabsContent key={dept.id} value={dept.id}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-                      {mockEmployees
-                        .filter((employee) => employee.department === dept.name)
-                        .map((employee) => (
-                          <div key={employee.id} className="flex flex-col items-center text-center p-4 border rounded-lg bg-card transition-shadow hover:shadow-md">
-                            <Avatar className="h-20 w-20 mb-4">
-                              <AvatarImage src={employee.imageUrl} alt={employee.name} data-ai-hint={employee.dataAiHint} />
-                              <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <p className="font-semibold text-foreground">{employee.name}</p>
-                            <p className="text-sm text-muted-foreground">{employee.role}</p>
-                          </div>
-                        ))}
-                         {mockEmployees.filter((employee) => employee.department === dept.name).length === 0 && (
-                            <p className="col-span-full text-center text-muted-foreground mt-4">No hay empleados en este departamento.</p>
-                        )}
-                    </div>
-                  </TabsContent>
-                ))}
-              </Tabs>
-            </CardContent>
-          </Card>
         </div>
       </SectionWrapper>
     </div>

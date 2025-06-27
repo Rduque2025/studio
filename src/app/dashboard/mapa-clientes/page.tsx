@@ -249,7 +249,7 @@ export default function NosotrosPage() {
                       className={cn(
                         "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col justify-between h-48",
                         goal.color,
-                        isActive ? 'ring-4 ring-offset-2 ring-primary/70 shadow-2xl' : 'hover:shadow-lg hover:-translate-y-1'
+                        isActive ? 'scale-105 shadow-2xl' : 'hover:shadow-lg hover:-translate-y-1'
                       )}
                     >
                       <div>

@@ -302,132 +302,143 @@ export default function NosotrosPage() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-none border-none rounded-xl">
+          <Card className="shadow-lg rounded-xl overflow-hidden">
             <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-                <AccordionItem value="item-1" className="border-b-0">
-                    <AccordionTrigger className="p-8 md:p-10 text-left hover:no-underline [&[data-state=open]>svg]:text-primary">
-                        <div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                                Seguimiento de Nuestros Objetivos
-                            </h3>
-                        </div>
-                    </AccordionTrigger>
-                    <AccordionContent>
-                        <div className="px-8 md:px-10 pb-8 pt-0">
-                            <div className="w-full h-80">
-                                <ResponsiveContainer width="100%" height="100%">
-                                  <AreaChart
-                                    data={lineChartData}
-                                    onClick={handleChartClick}
-                                    margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
-                                  >
-                                    <defs>
-                                      <linearGradient id="colorProgreso" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                                      </linearGradient>
-                                    </defs>
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                    <XAxis 
-                                      dataKey="name" 
-                                      stroke="hsl(var(--muted-foreground))" 
-                                      fontSize={12} 
-                                      tickLine={false}
-                                      axisLine={false}
-                                    />
-                                    <YAxis 
-                                      stroke="hsl(var(--muted-foreground))" 
-                                      fontSize={12} 
-                                      unit="%" 
-                                      tickLine={false}
-                                      axisLine={false}
-                                    />
-                                    <Tooltip
-                                      cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
-                                      contentStyle={{
-                                          backgroundColor: 'hsl(var(--background))',
-                                          borderColor: 'hsl(var(--border))',
-                                          borderRadius: 'var(--radius)',
-                                      }}
-                                    />
-                                    <Line 
-                                        type="monotone" 
-                                        dataKey="Meta" 
-                                        stroke="hsl(var(--muted-foreground))" 
-                                        strokeWidth={2}
-                                        strokeDasharray="5 5" 
-                                        dot={false}
-                                        activeDot={false}
-                                    />
-                                    <Area 
-                                        type="monotone" 
-                                        dataKey="Progreso Primas" 
-                                        stroke="hsl(var(--primary))" 
-                                        strokeWidth={2.5}
-                                        fillOpacity={1}
-                                        fill="url(#colorProgreso)"
-                                        activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
-                                        dot={(props) => {
-                                            const { cx, cy, payload } = props;
-                                            if (payload.name === selectedMonth) {
-                                                return <circle key={payload.name} cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
-                                            }
-                                            return null;
-                                        }}
-                                    />
-                                  </AreaChart>
-                                </ResponsiveContainer>
-                            </div>
-                        </div>
-                    </AccordionContent>
-                </AccordionItem>
-            </Accordion>
-             <CardContent className="p-8 md:p-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-                {kpis.map((kpi) => {
-                    const data = [
-                        { name: 'value', value: kpi.value },
-                        { name: 'remaining', value: 100 - kpi.value },
-                    ];
-                    const chartColor = getProgressColor(kpi.value);
+              <AccordionItem value="item-1" className="border-b-0">
+                <AccordionTrigger className="relative p-0 text-left hover:no-underline focus:no-underline w-full [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
+                  <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4">
+                    <Image 
+                      src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2Fsc3xlbnwwfHx8fDE3NTExNjU4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                      alt="Seguimiento de Objetivos"
+                      layout="fill"
+                      objectFit="cover"
+                      data-ai-hint="goals tracking"
+                      className="z-0"
+                    />
+                    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+                    <div className="relative z-10 text-white">
+                      <h3 className="text-3xl md:text-4xl font-bold">
+                        Seguimiento de Nuestros Objetivos
+                      </h3>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <div className="px-8 md:px-10 pt-6 pb-8">
+                    <div className="w-full h-80">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart
+                          data={lineChartData}
+                          onClick={handleChartClick}
+                          margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
+                        >
+                          <defs>
+                            <linearGradient id="colorProgreso" x1="0" y1="0" x2="0" y2="1">
+                              <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                            </linearGradient>
+                          </defs>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                          <XAxis 
+                            dataKey="name" 
+                            stroke="hsl(var(--muted-foreground))" 
+                            fontSize={12} 
+                            tickLine={false}
+                            axisLine={false}
+                          />
+                          <YAxis 
+                            stroke="hsl(var(--muted-foreground))" 
+                            fontSize={12} 
+                            unit="%" 
+                            tickLine={false}
+                            axisLine={false}
+                          />
+                          <Tooltip
+                            cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
+                            contentStyle={{
+                                backgroundColor: 'hsl(var(--background))',
+                                borderColor: 'hsl(var(--border))',
+                                borderRadius: 'var(--radius)',
+                            }}
+                          />
+                          <Line 
+                              type="monotone" 
+                              dataKey="Meta" 
+                              stroke="hsl(var(--muted-foreground))" 
+                              strokeWidth={2}
+                              strokeDasharray="5 5" 
+                              dot={false}
+                              activeDot={false}
+                          />
+                          <Area 
+                              type="monotone" 
+                              dataKey="Progreso Primas" 
+                              stroke="hsl(var(--primary))" 
+                              strokeWidth={2.5}
+                              fillOpacity={1}
+                              fill="url(#colorProgreso)"
+                              activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
+                              dot={(props) => {
+                                  const { cx, cy, payload } = props;
+                                  if (payload.name === selectedMonth) {
+                                      return <circle key={payload.name} cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
+                                  }
+                                  return null;
+                              }}
+                          />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                  <div className="border-t p-8 md:p-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                      {kpis.map((kpi) => {
+                          const data = [
+                              { name: 'value', value: kpi.value },
+                              { name: 'remaining', value: 100 - kpi.value },
+                          ];
+                          const chartColor = getProgressColor(kpi.value);
 
-                    return (
-                        <div key={kpi.id} className="flex flex-col items-center text-center">
-                            <div className="relative w-36 h-36">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <PieChart>
-                                        <Pie
-                                            data={data}
-                                            cx="50%"
-                                            cy="50%"
-                                            innerRadius="70%"
-                                            outerRadius="100%"
-                                            dataKey="value"
-                                            startAngle={90}
-                                            endAngle={-270}
-                                            paddingAngle={0}
-                                            stroke="none"
-                                        >
-                                            <Cell fill={chartColor} className="focus:outline-none" />
-                                            <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
-                                        </Pie>
-                                    </PieChart>
-                                </ResponsiveContainer>
-                                <div className="absolute inset-0 flex items-center justify-center">
-                                    <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
-                                </div>
-                            </div>
-                            <div className="mt-4 text-center">
-                                <p className="font-semibold text-foreground flex items-center justify-center gap-2">
-                                    <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
-                                    {kpi.label}
-                                </p>
-                            </div>
-                        </div>
-                    );
-                })}
-                </div>
-            </CardContent>
+                          return (
+                              <div key={kpi.id} className="flex flex-col items-center text-center">
+                                  <div className="relative w-36 h-36">
+                                      <ResponsiveContainer width="100%" height="100%">
+                                          <PieChart>
+                                              <Pie
+                                                  data={data}
+                                                  cx="50%"
+                                                  cy="50%"
+                                                  innerRadius="70%"
+                                                  outerRadius="100%"
+                                                  dataKey="value"
+                                                  startAngle={90}
+                                                  endAngle={-270}
+                                                  paddingAngle={0}
+                                                  stroke="none"
+                                              >
+                                                  <Cell fill={chartColor} className="focus:outline-none" />
+                                                  <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
+                                              </Pie>
+                                          </PieChart>
+                                      </ResponsiveContainer>
+                                      <div className="absolute inset-0 flex items-center justify-center">
+                                          <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
+                                      </div>
+                                  </div>
+                                  <div className="mt-4 text-center">
+                                      <p className="font-semibold text-foreground flex items-center justify-center gap-2">
+                                          <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
+                                          {kpi.label}
+                                      </p>
+                                  </div>
+                              </div>
+                          );
+                      })}
+                    </div>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </Card>
 
             <Card className="shadow-lg rounded-xl overflow-hidden">

@@ -406,7 +406,7 @@ export default function NosotrosPage() {
                               >
                                   <kpi.icon className="h-6 w-6 text-white" />
                               </div>
-                              <div className="w-48 h-24">
+                              <div className="w-56 h-28">
                                   <ResponsiveContainer width="100%" height="100%">
                                       <PieChart>
                                           <Pie
@@ -426,11 +426,11 @@ export default function NosotrosPage() {
                                       </PieChart>
                                   </ResponsiveContainer>
                               </div>
-                              <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
+                              <div className="-mt-10 flex items-baseline justify-center" style={{ color: chartColor }}>
                                 <span className="text-3xl font-bold">{kpi.value}</span>
                                 <span className="text-lg font-semibold">%</span>
                               </div>
-                              <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-48">
+                              <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
                                   <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
                               </div>
                           </div>

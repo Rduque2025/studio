@@ -390,7 +390,7 @@ export default function NosotrosPage() {
                   </div>
                 </div>
                 <div className="border-t p-8 md:p-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
                     {kpis.map((kpi) => {
                         const data = [
                             { name: 'value', value: kpi.value },
@@ -400,35 +400,38 @@ export default function NosotrosPage() {
 
                         return (
                             <div key={kpi.id} className="flex flex-col items-center text-center">
-                                <div className="relative w-36 h-36">
+                                <div
+                                    className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
+                                    style={{ backgroundColor: chartColor }}
+                                >
+                                    <kpi.icon className="h-6 w-6 text-white" />
+                                </div>
+                                <div className="relative w-48 h-24 overflow-hidden">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <PieChart>
                                             <Pie
                                                 data={data}
                                                 cx="50%"
-                                                cy="50%"
-                                                innerRadius="70%"
+                                                cy="100%"
+                                                innerRadius="65%"
                                                 outerRadius="100%"
                                                 dataKey="value"
-                                                startAngle={90}
-                                                endAngle={-270}
-                                                paddingAngle={0}
+                                                startAngle={180}
+                                                endAngle={0}
                                                 stroke="none"
                                             >
-                                                <Cell fill={chartColor} className="focus:outline-none" />
-                                                <Cell fill="hsl(var(--muted))" className="focus:outline-none" />
+                                                <Cell fill={chartColor} />
+                                                <Cell fill="hsl(var(--muted))" />
                                             </Pie>
                                         </PieChart>
                                     </ResponsiveContainer>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <span className="text-3xl font-bold text-foreground">{kpi.value}%</span>
+                                    <div className="absolute inset-x-0 bottom-2 flex items-baseline justify-center" style={{ color: chartColor }}>
+                                        <span className="text-3xl font-bold">{kpi.value}</span>
+                                        <span className="text-lg font-semibold">%</span>
                                     </div>
                                 </div>
-                                <div className="mt-4 text-center">
-                                    <p className="font-semibold text-foreground flex items-center justify-center gap-2">
-                                        <kpi.icon className="h-5 w-5" style={{ color: chartColor }} />
-                                        {kpi.label}
-                                    </p>
+                                <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-48">
+                                    <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
                                 </div>
                             </div>
                         );

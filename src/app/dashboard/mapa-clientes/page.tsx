@@ -383,7 +383,7 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-           <Card className="shadow-lg rounded-xl">
+           <Card className="shadow-none border-none rounded-xl">
             <CardContent className="p-4 md:p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 mb-8">
                 {Object.keys(smartGoalsData).map((key) => {

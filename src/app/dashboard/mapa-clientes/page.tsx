@@ -305,8 +305,8 @@ export default function NosotrosPage() {
 
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1" className="border-b-0">
-               <div className="relative p-0 text-left hover:no-underline focus:no-underline w-full shadow-lg rounded-xl overflow-hidden">
-                  <AccordionTrigger className="relative w-full p-0 [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
+               <div className="relative p-0 text-left w-full shadow-lg rounded-xl overflow-hidden">
+                  <AccordionTrigger className="relative w-full p-0 hover:no-underline [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
                     <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4">
                       <Image 
                         src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -488,30 +488,28 @@ export default function NosotrosPage() {
                   </p>
                 </div>
                 <div className="w-full py-12">
-                    <div className="relative w-full">
-                        <div className="relative flex justify-between items-center">
-                            {commercialProcessSteps.map((step, index) => {
-                                const isUp = index % 2 !== 0;
-                                return (
-                                    <div key={step.number} className={cn(
-                                        "relative flex items-center",
-                                        isUp ? "flex-col-reverse" : "flex-col"
-                                    )}>
-                                        <div className="text-center w-32 pt-4 pb-4">
-                                            <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                            <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                        </div>
-                                        <div className="h-8 w-px border-l-2 border-dotted border-border" />
-                                        <div className={cn(
-                                            "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
-                                            step.bgColor
-                                        )}>
-                                            <step.icon className="h-6 w-6 text-white" />
-                                        </div>
+                    <div className="relative w-full flex justify-between items-center">
+                        {/* Central Line - Removed */}
+                        {commercialProcessSteps.map((step, index) => (
+                            <div key={step.number} className="relative flex flex-col items-center flex-1">
+                                <div className={cn(
+                                    "flex items-center text-center w-28 md:w-32",
+                                    index % 2 === 0 ? "flex-col-reverse mb-8" : "flex-col mt-8"
+                                )}>
+                                    <div>
+                                        <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                        <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
                                     </div>
-                                );
-                            })}
-                        </div>
+                                    <div className="h-8 w-px border-l-2 border-dotted border-border" />
+                                    <div className={cn(
+                                        "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
+                                        step.bgColor
+                                    )}>
+                                        <step.icon className="h-6 w-6 text-white" />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -561,3 +559,5 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    

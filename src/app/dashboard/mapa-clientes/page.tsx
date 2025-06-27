@@ -307,11 +307,11 @@ export default function NosotrosPage() {
               <AccordionTrigger className="relative p-0 text-left hover:no-underline focus:no-underline w-full [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
                 <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4 shadow-lg rounded-xl overflow-hidden">
                   <Image 
-                    src="https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnb2Fsc3xlbnwwfHx8fDE3NTExNjU4NDN8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Seguimiento de Objetivos"
+                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Gráficos de estadísticas y seguimiento de objetivos"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="goals tracking"
+                    data-ai-hint="statistics analytics"
                     className="z-0"
                   />
                   <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />

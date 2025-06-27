@@ -92,9 +92,68 @@ const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
     Ene: 'Enero', Feb: 'Febrero', Mar: 'Marzo', Abr: 'Abril', May: 'Mayo', Jun: 'Junio', Jul: 'Julio', Ago: 'Agosto', Sep: 'Septiembre', Oct: 'Octubre', Nov: 'Noviembre', Dic: 'Diciembre'
 };
 
+const smartGoalsData = {
+  S: {
+    letter: "S",
+    title: "Específico",
+    description: "Metas claras y bien definidas para guiar nuestras acciones.",
+    color: "bg-rose-500",
+    textColor: "text-rose-500",
+    challenges: [
+      { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
+      { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },
+      { icon: Network, title: "Modernización de TI", description: "Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento." },
+    ]
+  },
+  M: {
+    letter: "M",
+    title: "Medible",
+    description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
+    color: "bg-orange-500",
+    textColor: "text-orange-500",
+    challenges: [
+      { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
+      { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
+    ]
+  },
+  A: {
+    letter: "A",
+    title: "Alcanzable",
+    description: "Objetivos realistas que podemos lograr con nuestros recursos.",
+    color: "bg-amber-400",
+    textColor: "text-amber-500",
+    challenges: [
+      { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
+    ]
+  },
+  R: {
+    letter: "R",
+    title: "Relevante",
+    description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
+    color: "bg-teal-500",
+    textColor: "text-teal-500",
+    challenges: [
+      { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
+    ]
+  },
+  T: {
+    letter: "T",
+    title: "Temporal",
+    description: "Un marco de tiempo definido para la consecución de las metas.",
+    color: "bg-sky-600",
+    textColor: "text-sky-600",
+    challenges: [
+       { icon: FileClock, title: "Visión 2025", description: "Todos estos retos están enmarcados dentro de nuestra Visión 2025, estableciendo un claro horizonte temporal para su consecución." },
+    ]
+  },
+};
+
+type SmartKey = keyof typeof smartGoalsData;
+
 
 export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
+  const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey>('S');
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const kpis = [
@@ -124,6 +183,8 @@ export default function NosotrosPage() {
       }
     }
   };
+
+  const activeGoalDetails = smartGoalsData[activeSmartGoal];
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -322,78 +383,58 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-          <Card className="shadow-lg rounded-xl">
-            <CardHeader>
+           <Card className="shadow-lg rounded-xl">
+            <CardHeader className="text-center">
               <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
                 Retos para el Logro de Nuestra Visión 2025
               </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Nuestros objetivos estratégicos bajo la metodología S.M.A.R.T.
+              </CardDescription>
             </CardHeader>
-            <CardContent className="p-8 md:p-10">
-              <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <TrendingUp className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Crecimiento Rentable y Sostenible</h4>
-                    <p className="text-muted-foreground text-sm">Asegurar un crecimiento rentable y sostenible del volumen de negocios.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <PackagePlus className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Innovación en Productos y Tecnología</h4>
-                    <p className="text-muted-foreground text-sm">Desarrollar productos, procesos y tecnología para mejorar la atención y ventas.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <Award className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Cultura de Alto Desempeño</h4>
-                    <p className="text-muted-foreground text-sm">Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <RefreshCcw className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Sistemática Comercial</h4>
-                    <p className="text-muted-foreground text-sm">Reimplantar y optimizar la sistemática comercial para impulsar los resultados.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <Gauge className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Eficiencia Operativa</h4>
-                    <p className="text-muted-foreground text-sm">Aumentar la eficiencia en todos nuestros procesos operativos.</p>
-                  </div>
-                </li>
-                 <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <Network className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Modernización de TI</h4>
-                    <p className="text-muted-foreground text-sm">Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento.</p>
-                  </div>
-                </li>
-                 <li className="flex items-start gap-4">
-                  <div className="flex-shrink-0 bg-primary/10 p-3 rounded-full">
-                    <Gavel className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground">Cumplimiento Normativo</h4>
-                    <p className="text-muted-foreground text-sm">Garantizar la adecuación continua a la nueva normativa vigente en el sector.</p>
-                  </div>
-                </li>
-              </ul>
+            <CardContent className="p-4 md:p-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 mb-8">
+                {Object.keys(smartGoalsData).map((key) => {
+                  const goal = smartGoalsData[key as SmartKey];
+                  const isActive = activeSmartGoal === goal.letter;
+                  return (
+                    <button
+                      key={goal.letter}
+                      onClick={() => setActiveSmartGoal(goal.letter as SmartKey)}
+                      className={cn(
+                        "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col justify-between h-48",
+                        goal.color,
+                        isActive ? 'ring-4 ring-offset-2 ring-primary/70 shadow-2xl' : 'hover:shadow-lg hover:-translate-y-1'
+                      )}
+                    >
+                      <div>
+                        <p className="text-sm font-semibold">{goal.title}</p>
+                        <p className="text-xs text-white/80 mt-1">{goal.description}</p>
+                      </div>
+                      <p className="text-6xl font-extrabold self-end opacity-80">{goal.letter}</p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className={cn("bg-muted/50 p-6 rounded-lg min-h-[250px]")}>
+                <h4 className={cn("text-xl font-bold mb-4", activeGoalDetails.textColor)}>
+                  Objetivos: {activeGoalDetails.title}
+                </h4>
+                <ul className="space-y-6">
+                  {activeGoalDetails.challenges.map((challenge, index) => (
+                    <li key={index} className="flex items-start gap-4 animate-in fade-in duration-500">
+                      <div className={cn("flex-shrink-0 p-3 rounded-full", activeGoalDetails.color)}>
+                        <challenge.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-foreground">{challenge.title}</h5>
+                        <p className="text-muted-foreground text-sm">{challenge.description}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </CardContent>
           </Card>
 

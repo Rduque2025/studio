@@ -264,7 +264,7 @@ export default function NosotrosPage() {
                             >
                                 <div className={cn(isAnyActive && !isActive && 'hidden')}>
                                     <p className="text-sm font-semibold">{goal.title}</p>
-                                    <p className={cn("text-xs mt-1 text-white/80")}>
+                                    <p className="text-xs mt-1 text-white/90">
                                         {goal.description}
                                     </p>
                                 </div>
@@ -475,7 +475,7 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-           <div className="w-full">
+           <div className="w-full pt-12">
               <div className="text-center mb-10">
                   <h3 className="text-2xl md:text-3xl font-bold text-primary">
                       Nuestra Sistemática Comercial
@@ -485,29 +485,51 @@ export default function NosotrosPage() {
                   </p>
               </div>
 
-              <div className="w-full relative flex justify-between items-center py-4">
-
+              {/* Desktop Timeline */}
+              <div className="hidden md:flex w-full relative items-stretch justify-between">
                   {commercialProcessSteps.map((step, index) => (
-                      <div key={step.number} className="relative flex flex-col items-center flex-1 w-28">
-                          {/* Top part for odd numbers, bottom for even */}
-                          <div className={cn("flex flex-col items-center text-center", index % 2 !== 0 && 'order-3')}>
-                              <div className="h-10 border-l-2 border-dotted border-border" />
-                              <div className={cn(
-                                  "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
-                                  step.bgColor
-                              )}>
-                                  <step.icon className="h-6 w-6 text-white" />
-                              </div>
-                              <h4 className={cn("mt-2 font-bold text-sm", step.color)}>{step.title}</h4>
+                      <div key={step.number} className={cn(
+                          "relative flex-1 flex justify-center",
+                          index % 2 === 0 ? "flex-col" : "flex-col-reverse"
+                      )}>
+                          {/* Content Box */}
+                          <div className={cn(
+                              "flex flex-col items-center text-center p-2 w-28",
+                              index % 2 === 0 ? "mb-8" : "mt-8"
+                          )}>
+                              <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
                               <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
                           </div>
-                          
-                          {/* Middle Line - invisible placeholder for correct flex spacing */}
-                          <div className={cn(index % 2 !== 0 ? 'order-2' : 'order-1 w-full h-px')} />
 
-                          {/* Bottom part for odd, top for even (placeholder) */}
-                          <div className={cn(index % 2 === 0 && 'order-3')}>
-                            {/* This space is empty to create the zig-zag */}
+                          {/* Vertical Connector */}
+                          <div className="w-px h-8 bg-border/80"></div>
+
+                          {/* Circle */}
+                          <div className={cn(
+                              "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
+                              step.bgColor
+                          )}>
+                              <step.icon className="h-6 w-6 text-white" />
+                          </div>
+                      </div>
+                  ))}
+              </div>
+
+              {/* Mobile Timeline */}
+              <div className="md:hidden space-y-8">
+                  {commercialProcessSteps.map((step, index) => (
+                      <div key={step.number} className="flex items-start gap-4">
+                          <div className="flex flex-col items-center flex-shrink-0">
+                              <div className={cn("w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md", step.bgColor)}>
+                                  <step.icon className="h-6 w-6 text-white" />
+                              </div>
+                              {index < commercialProcessSteps.length - 1 && (
+                                  <div className="w-px h-12 bg-border/80 mt-2"></div>
+                              )}
+                          </div>
+                          <div>
+                              <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                              <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
                           </div>
                       </div>
                   ))}

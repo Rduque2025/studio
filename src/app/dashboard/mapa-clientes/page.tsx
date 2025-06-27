@@ -399,41 +399,41 @@ export default function NosotrosPage() {
                         const chartColor = getProgressColor(kpi.value);
 
                         return (
-                            <div key={kpi.id} className="flex flex-col items-center text-center">
-                                <div
-                                    className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
-                                    style={{ backgroundColor: chartColor }}
-                                >
-                                    <kpi.icon className="h-6 w-6 text-white" />
-                                </div>
-                                <div className="relative w-48 h-24 overflow-hidden">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <PieChart>
-                                            <Pie
-                                                data={data}
-                                                cx="50%"
-                                                cy="100%"
-                                                innerRadius="65%"
-                                                outerRadius="100%"
-                                                dataKey="value"
-                                                startAngle={180}
-                                                endAngle={0}
-                                                stroke="none"
-                                            >
-                                                <Cell fill={chartColor} />
-                                                <Cell fill="hsl(var(--muted))" />
-                                            </Pie>
-                                        </PieChart>
-                                    </ResponsiveContainer>
-                                    <div className="absolute inset-x-0 bottom-2 flex items-baseline justify-center" style={{ color: chartColor }}>
-                                        <span className="text-3xl font-bold">{kpi.value}</span>
-                                        <span className="text-lg font-semibold">%</span>
-                                    </div>
-                                </div>
-                                <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-48">
-                                    <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
-                                </div>
-                            </div>
+                          <div key={kpi.id} className="flex flex-col items-center text-center">
+                              <div
+                                  className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
+                                  style={{ backgroundColor: chartColor }}
+                              >
+                                  <kpi.icon className="h-6 w-6 text-white" />
+                              </div>
+                              <div className="w-48 h-24">
+                                  <ResponsiveContainer width="100%" height="100%">
+                                      <PieChart>
+                                          <Pie
+                                              data={data}
+                                              cx="50%"
+                                              cy="100%"
+                                              innerRadius="65%"
+                                              outerRadius="100%"
+                                              dataKey="value"
+                                              startAngle={180}
+                                              endAngle={0}
+                                              stroke="none"
+                                          >
+                                              <Cell fill={chartColor} />
+                                              <Cell fill="hsl(var(--muted))" />
+                                          </Pie>
+                                      </PieChart>
+                                  </ResponsiveContainer>
+                              </div>
+                              <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
+                                <span className="text-3xl font-bold">{kpi.value}</span>
+                                <span className="text-lg font-semibold">%</span>
+                              </div>
+                              <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-48">
+                                  <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
+                              </div>
+                          </div>
                         );
                     })}
                   </div>

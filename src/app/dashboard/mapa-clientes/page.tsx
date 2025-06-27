@@ -488,31 +488,33 @@ export default function NosotrosPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-10">
-                    <div className="w-full overflow-x-auto py-12">
-                        <div className="relative min-w-[800px] w-full">
+                    <div className="w-full py-12">
+                        <div className="relative w-full">
                             <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 border-t-2 border-dotted border-border" />
-                            <div className="relative flex w-full justify-around items-center">
+                            <div className="relative flex w-full justify-between items-center">
                                 {commercialProcessSteps.map((step, index) => {
                                     const isUp = index % 2 === 0;
                                     return (
-                                        <div key={step.number} className="relative">
-                                            <div
-                                                className={cn(
-                                                    "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
-                                                    step.bgColor
-                                                )}
-                                            >
-                                                {step.number}
-                                            </div>
-                                            <div className={cn(
-                                                "absolute left-1/2 -translate-x-1/2 flex items-center w-36",
-                                                isUp ? "flex-col-reverse bottom-full mb-2" : "flex-col top-full mt-2"
-                                            )}>
-                                                <div className="text-center">
-                                                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                        <div key={step.number} className="relative flex-1 flex justify-center">
+                                            <div className="relative">
+                                                <div
+                                                    className={cn(
+                                                        "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
+                                                        step.bgColor
+                                                    )}
+                                                >
+                                                    {step.number}
                                                 </div>
-                                                <div className="h-4 w-px border-l-2 border-dotted border-border" />
+                                                <div className={cn(
+                                                    "absolute left-1/2 -translate-x-1/2 flex items-center w-28",
+                                                    isUp ? "flex-col-reverse bottom-full mb-2" : "flex-col top-full mt-2"
+                                                )}>
+                                                    <div className="text-center">
+                                                        <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                                        <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                                    </div>
+                                                    <div className="h-4 w-px border-l-2 border-dotted border-border" />
+                                                </div>
                                             </div>
                                         </div>
                                     );
@@ -578,3 +580,6 @@ export default function NosotrosPage() {
 
 
 
+
+
+    

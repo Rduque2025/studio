@@ -309,7 +309,7 @@ export default function NosotrosPage() {
                   <AccordionTrigger className="relative w-full p-0 [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
                     <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4">
                       <Image 
-                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Gráficos de estadísticas y seguimiento de objetivos"
                         layout="fill"
                         objectFit="cover"
@@ -488,47 +488,38 @@ export default function NosotrosPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-10">
-                    <div className="w-full overflow-x-auto py-8">
-                        <div className="relative min-w-[1400px] px-4">
-                            <div className="absolute top-1/2 left-0 w-full h-px border-t-2 border-dotted border-border -translate-y-1/2"></div>
-                            
-                            <div className="relative flex justify-between">
-                                {commercialProcessSteps.map((step, index) => {
-                                    const isUp = index % 2 === 0;
-                                    return (
-                                        <div key={step.number} className={cn(
-                                            "relative flex flex-col w-48",
-                                            isUp ? "items-center justify-end" : "items-center justify-start"
+                    <div className="w-full relative py-8">
+                        <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 border-t-2 border-dotted border-border" />
+
+                        <div className="relative flex w-full justify-between">
+                            {commercialProcessSteps.map((step, index) => {
+                                const isUp = index % 2 === 0;
+                                return (
+                                    <div key={step.number} className="flex flex-1 justify-center">
+                                        <div className={cn(
+                                            "relative flex items-center",
+                                            isUp ? "flex-col-reverse" : "flex-col"
                                         )}>
-                                            {isUp && (
-                                                <div className="text-center mb-6">
-                                                    <h4 className={cn("font-bold", step.color)}>{step.title}</h4>
-                                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                                </div>
-                                            )}
-
                                             <div className={cn(
-                                                "absolute w-px h-8 border-l-2 border-dotted border-border",
-                                                isUp ? "bottom-1/2 mb-4" : "top-1/2 mt-4"
-                                            )}></div>
-
+                                                "text-center max-w-32",
+                                                isUp ? "mb-4" : "mt-4"
+                                            )}>
+                                                <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                                <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                            </div>
+                                            
+                                            <div className="h-4 w-px border-l-2 border-dotted border-border" />
+                                            
                                             <div className={cn(
                                                 "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
                                                 step.bgColor
                                             )}>
                                                 {step.number}
                                             </div>
-                                            
-                                            {!isUp && (
-                                                <div className="text-center mt-6">
-                                                    <h4 className={cn("font-bold", step.color)}>{step.title}</h4>
-                                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                                </div>
-                                            )}
                                         </div>
-                                    );
-                                })}
-                            </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </CardContent>
@@ -585,5 +576,6 @@ export default function NosotrosPage() {
     
 
     
+
 
 

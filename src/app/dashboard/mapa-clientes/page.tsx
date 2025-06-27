@@ -53,14 +53,15 @@ import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const commercialProcessSteps = [
-    { title: "Por Contactar", icon: UserPlus },
-    { title: "Contactado", icon: UserCheck },
-    { title: "Esperando Recaudos", icon: FileClock },
-    { title: "En Cotización", icon: Calculator },
-    { title: "En Negociación", icon: Handshake },
-    { title: "Emitida", icon: FileCheck2 },
-    { title: "Cobrada", icon: CircleDollarSign },
+    { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-sky-500", bgColor: "bg-sky-500" },
+    { number: 2, title: "Contactado", description: "Se establece comunicación y se presentan los servicios.", icon: UserCheck, color: "text-teal-500", bgColor: "bg-teal-500" },
+    { number: 3, title: "Esperando Recaudos", description: "Recopilación de la documentación necesaria del cliente.", icon: FileClock, color: "text-amber-500", bgColor: "bg-amber-500" },
+    { number: 4, title: "En Cotización", description: "Análisis de necesidades y preparación de la propuesta.", icon: Calculator, color: "text-orange-500", bgColor: "bg-orange-500" },
+    { number: 5, title: "En Negociación", description: "Discusión de términos, coberturas y cierre de acuerdos.", icon: Handshake, color: "text-rose-500", bgColor: "bg-rose-500" },
+    { number: 6, title: "Emitida", description: "Generación y entrega oficial de la póliza al cliente.", icon: FileCheck2, color: "text-indigo-500", bgColor: "bg-indigo-500" },
+    { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign, color: "text-purple-500", bgColor: "bg-purple-500" },
 ];
+
 
 const monthlyGoalsData = {
   Ene: { primas: 8, clientes: 15, cobranza: 6, nps: 88 },
@@ -116,8 +117,8 @@ const smartGoalsData = {
     letter: "M",
     title: "Medible",
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
-    color: "bg-blue-500",
-    textColor: "text-blue-500",
+    color: "bg-sky-600",
+    textColor: "text-sky-600",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
       { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
@@ -131,8 +132,8 @@ const smartGoalsData = {
     letter: "A",
     title: "Alcanzable",
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
-    color: "bg-sky-500",
-    textColor: "text-sky-500",
+    color: "bg-cyan-500",
+    textColor: "text-cyan-500",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },
@@ -144,8 +145,8 @@ const smartGoalsData = {
     letter: "R",
     title: "Relevante",
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
-    color: "bg-cyan-500",
-    textColor: "text-cyan-500",
+    color: "bg-teal-500",
+    textColor: "text-teal-500",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]
@@ -154,8 +155,8 @@ const smartGoalsData = {
     letter: "T",
     title: "Temporal",
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    color: "bg-teal-400",
-    textColor: "text-teal-400",
+    color: "bg-emerald-500",
+    textColor: "text-emerald-500",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },
@@ -304,7 +305,7 @@ export default function NosotrosPage() {
 
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1" className="border-b-0">
-              <AccordionTrigger className="relative p-0 text-left hover:no-underline focus:no-underline w-full [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
+               <AccordionTrigger className="relative p-0 text-left hover:no-underline focus:no-underline w-full [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
                 <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4 shadow-lg rounded-xl overflow-hidden">
                   <Image 
                     src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -475,38 +476,76 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-           <Card className="shadow-lg rounded-xl">
-            <CardHeader>
-              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
-                Nuestra Sistemática Comercial
-              </CardTitle>
-              <CardDescription className="text-muted-foreground text-center">
-                El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="p-6 md:p-8">
-              <ScrollArea className="w-full">
-                <div className="flex items-start py-4 px-2 min-w-max">
-                  {commercialProcessSteps.map((step, index) => (
-                    <React.Fragment key={step.title}>
-                      <div className="flex flex-col items-center text-center w-28 shrink-0">
-                        <div className="flex items-center justify-center w-20 h-20 bg-card rounded-full text-primary shadow-lg border hover:shadow-xl transition-shadow duration-300">
-                          <step.icon className="h-8 w-8" />
+            <Card className="shadow-lg rounded-xl">
+                <CardHeader>
+                  <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+                    Nuestra Sistemática Comercial
+                  </CardTitle>
+                  <CardDescription className="text-muted-foreground text-center">
+                    El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6 md:p-10">
+                    {/* Mobile View: Simple Vertical Timeline */}
+                    <div className="md:hidden space-y-8">
+                        {commercialProcessSteps.map((step, index) => (
+                            <div key={step.number} className="flex items-start gap-4">
+                                <div className="flex flex-col items-center flex-shrink-0">
+                                    <div className={cn("text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md", step.bgColor)}>
+                                        {step.number}
+                                    </div>
+                                    {index < commercialProcessSteps.length - 1 && (
+                                        <div className="w-0.5 flex-grow bg-border my-2"></div>
+                                    )}
+                                </div>
+                                <div className="mt-1">
+                                    <h4 className={cn("font-bold", step.color)}>{step.title}</h4>
+                                    <p className="text-sm text-muted-foreground mt-1">{step.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Desktop View: Winding Pipeline */}
+                    <div className="hidden md:block relative">
+                        <div className="grid grid-cols-7 grid-rows-3 items-start" style={{ minHeight: '450px' }}>
+                            {/* Path segments */}
+                            <div className="col-start-1 row-start-1 mt-6 border-t-8 border-muted rounded-tl-3xl w-full h-full"></div>
+                            <div className="col-start-2 row-start-1 mt-6 border-t-8 border-b-8 border-muted h-full w-full"></div>
+                            <div className="col-start-2 row-start-2 border-l-8 border-muted h-full w-full"></div>
+                            <div className="col-start-2 row-start-3 mb-6 border-b-8 border-l-8 border-muted rounded-bl-3xl h-full w-full"></div>
+                            <div className="col-start-3 row-start-3 mb-6 border-b-8 border-muted h-full w-full"></div>
+                            <div className="col-start-4 row-start-3 mb-6 border-b-8 border-t-8 border-muted h-full w-full"></div>
+                            <div className="col-start-4 row-start-2 border-r-8 border-muted h-full w-full"></div>
+                            <div className="col-start-4 row-start-1 mt-6 border-t-8 border-r-8 border-muted rounded-tr-3xl h-full w-full"></div>
+                            <div className="col-start-5 row-start-1 mt-6 border-t-8 border-muted h-full w-full"></div>
+                            <div className="col-start-6 row-start-1 mt-6 border-t-8 border-b-8 border-muted h-full w-full"></div>
+                            <div className="col-start-6 row-start-2 border-l-8 border-muted h-full w-full"></div>
+                            <div className="col-start-6 row-start-3 mb-6 border-l-8 border-b-8 border-muted rounded-bl-3xl h-full w-full"></div>
+                            <div className="col-start-7 row-start-3 mb-6 border-b-8 border-muted h-full w-full"></div>
+
+                             {/* Step Components */}
+                            {[
+                                { step: commercialProcessSteps[0], gridPos: "col-start-1 row-start-1 self-start" },
+                                { step: commercialProcessSteps[1], gridPos: "col-start-2 row-start-2 self-center" },
+                                { step: commercialProcessSteps[2], gridPos: "col-start-3 row-start-3 self-end" },
+                                { step: commercialProcessSteps[3], gridPos: "col-start-4 row-start-2 self-center" },
+                                { step: commercialProcessSteps[4], gridPos: "col-start-5 row-start-1 self-start" },
+                                { step: commercialProcessSteps[5], gridPos: "col-start-6 row-start-2 self-center" },
+                                { step: commercialProcessSteps[6], gridPos: "col-start-7 row-start-3 self-end" },
+                            ].map(({ step, gridPos }) => (
+                                <div key={step.number} className={cn("relative z-10 p-2 flex flex-col items-center text-center", gridPos)}>
+                                    <div className={cn("h-14 w-14 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg mb-2", step.bgColor)}>
+                                        {step.number}
+                                    </div>
+                                    <h4 className={cn("font-semibold text-sm", step.color)}>{step.title}</h4>
+                                    <p className="text-xs text-muted-foreground max-w-40">{step.description}</p>
+                                </div>
+                            ))}
                         </div>
-                        <p className="mt-2 text-xs font-semibold">{step.title}</p>
-                      </div>
-                      {index < commercialProcessSteps.length - 1 && (
-                        <div className="flex-1 flex items-center mt-10 shrink-0 px-2">
-                          <div className="w-full h-px bg-border" />
-                        </div>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
-            </CardContent>
-          </Card>
+                    </div>
+                </CardContent>
+            </Card>
 
           <Card className="shadow-lg rounded-xl">
             <CardHeader>

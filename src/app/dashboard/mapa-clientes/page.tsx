@@ -187,11 +187,7 @@ export default function NosotrosPage() {
 
   return (
     <div className="container mx-auto py-8 px-4">
-      <SectionWrapper 
-        title="Nosotros"
-        description="Conozca más sobre nuestra misión, visión y los valores que nos impulsan."
-        titleClassName="text-3xl font-bold"
-      >
+      <SectionWrapper>
         <div className="space-y-12 mt-6">
           <Card className="overflow-hidden shadow-lg rounded-xl">
             <CardHeader className="p-0">

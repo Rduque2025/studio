@@ -384,14 +384,6 @@ export default function NosotrosPage() {
             </Card>
 
            <Card className="shadow-lg rounded-xl">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
-                Retos para el Logro de Nuestra Visión 2025
-              </CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Nuestros objetivos estratégicos bajo la metodología S.M.A.R.T.
-              </CardDescription>
-            </CardHeader>
             <CardContent className="p-4 md:p-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 md:gap-4 mb-8">
                 {Object.keys(smartGoalsData).map((key) => {
@@ -516,7 +508,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
-    
-
-    

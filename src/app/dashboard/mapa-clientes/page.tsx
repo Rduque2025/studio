@@ -250,9 +250,8 @@ export default function NosotrosPage() {
                                     }
                                 }}
                                 className={cn(
-                                    "p-4 rounded-lg text-left transition-all duration-300 flex flex-col",
+                                    "p-4 rounded-lg text-left transition-all duration-300 flex flex-col text-white",
                                     goal.color,
-                                    goal.letter === 'T' ? 'text-foreground' : 'text-white',
                                     !isActive && 'hover:shadow-lg hover:-translate-y-1',
                                     isActive && 'shadow-xl scale-105',
                                     isAnyActive ? 
@@ -265,7 +264,9 @@ export default function NosotrosPage() {
                             >
                                 <div className={cn(isAnyActive && !isActive && 'hidden')}>
                                     <p className="text-sm font-semibold">{goal.title}</p>
-                                    <p className={cn("text-xs mt-1", goal.letter === 'T' ? 'text-foreground/80' : 'text-white/80')}>{goal.description}</p>
+                                    <p className={cn("text-xs mt-1 text-white/80")}>
+                                        {goal.description}
+                                    </p>
                                 </div>
                                 <p className={cn(
                                     "font-extrabold opacity-80",
@@ -284,7 +285,7 @@ export default function NosotrosPage() {
                             {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
                                 <li key={index} className="flex items-start gap-4">
                                     <div className={cn("flex-shrink-0 p-3 rounded-full", smartGoalsData[activeSmartGoal].color)}>
-                                        <challenge.icon className={cn("h-6 w-6", activeSmartGoal === 'T' ? "text-foreground" : "text-white")} />
+                                        <challenge.icon className="h-6 w-6 text-white" />
                                     </div>
                                     <div>
                                         <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
@@ -474,46 +475,45 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-            <div className="w-full">
-                <div className="text-center mb-10">
-                    <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                        Nuestra Sistemática Comercial
-                    </h3>
-                    <p className="text-muted-foreground text-center">
-                        El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-                    </p>
-                </div>
-                <div className="w-full py-12">
-                    <div className="relative flex justify-between items-center">
-                        {commercialProcessSteps.map((step, index) => (
-                            <div 
-                                key={step.number}
-                                className={cn(
-                                    "relative flex-1 flex items-center",
-                                    index % 2 === 0 ? "flex-col" : "flex-col-reverse"
-                                )}
-                            >
-                                <div className={cn(
-                                    "flex flex-col items-center text-center w-32",
-                                    index % 2 === 0 ? "mb-8" : "mt-8"
-                                )}>
-                                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                </div>
+           <div className="w-full">
+              <div className="text-center mb-10">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                      Nuestra Sistemática Comercial
+                  </h3>
+                  <p className="text-muted-foreground text-center">
+                      El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+                  </p>
+              </div>
 
-                                <div className="h-8 w-px border-l-2 border-dotted border-border" />
-                                
-                                <div className={cn(
-                                    "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
-                                    step.bgColor
-                                )}>
-                                    <step.icon className="h-6 w-6 text-white" />
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+              <div className="w-full relative flex justify-between items-center py-4">
+
+                  {commercialProcessSteps.map((step, index) => (
+                      <div key={step.number} className="relative flex flex-col items-center flex-1 w-28">
+                          {/* Top part for odd numbers, bottom for even */}
+                          <div className={cn("flex flex-col items-center text-center", index % 2 !== 0 && 'order-3')}>
+                              <div className="h-10 border-l-2 border-dotted border-border" />
+                              <div className={cn(
+                                  "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
+                                  step.bgColor
+                              )}>
+                                  <step.icon className="h-6 w-6 text-white" />
+                              </div>
+                              <h4 className={cn("mt-2 font-bold text-sm", step.color)}>{step.title}</h4>
+                              <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                          </div>
+                          
+                          {/* Middle Line - invisible placeholder for correct flex spacing */}
+                          <div className={cn(index % 2 !== 0 ? 'order-2' : 'order-1 w-full h-px')} />
+
+                          {/* Bottom part for odd, top for even (placeholder) */}
+                          <div className={cn(index % 2 === 0 && 'order-3')}>
+                            {/* This space is empty to create the zig-zag */}
+                          </div>
+                      </div>
+                  ))}
+              </div>
+          </div>
+
 
           <Card className="shadow-lg rounded-xl">
             <CardHeader>
@@ -560,3 +560,5 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    

@@ -308,11 +308,8 @@ export default function NosotrosPage() {
                     <AccordionTrigger className="p-8 md:p-10 text-left hover:no-underline [&[data-state=open]>svg]:text-primary">
                         <div>
                             <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                                Gráfico de Tendencia de Metas
+                                Seguimiento de Nuestros Objetivos
                             </h3>
-                            <p className="text-sm text-muted-foreground mt-1">
-                                Pulse para ver/ocultar el progreso mensual de Primas Suscritas.
-                            </p>
                         </div>
                     </AccordionTrigger>
                     <AccordionContent>

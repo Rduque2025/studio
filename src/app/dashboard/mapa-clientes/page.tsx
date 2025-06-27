@@ -53,13 +53,13 @@ import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const commercialProcessSteps = [
-    { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-sky-500", bgColor: "bg-sky-500" },
-    { number: 2, title: "Contactado", description: "Se establece comunicación y se presentan los servicios.", icon: UserCheck, color: "text-teal-500", bgColor: "bg-teal-500" },
+    { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-red-500", bgColor: "bg-red-500" },
+    { number: 2, title: "Contactado", description: "Se establece comunicación y se presentan los servicios.", icon: UserCheck, color: "text-orange-500", bgColor: "bg-orange-500" },
     { number: 3, title: "Esperando Recaudos", description: "Recopilación de la documentación necesaria del cliente.", icon: FileClock, color: "text-amber-500", bgColor: "bg-amber-500" },
-    { number: 4, title: "En Cotización", description: "Análisis de necesidades y preparación de la propuesta.", icon: Calculator, color: "text-orange-500", bgColor: "bg-orange-500" },
-    { number: 5, title: "En Negociación", description: "Discusión de términos, coberturas y cierre de acuerdos.", icon: Handshake, color: "text-rose-500", bgColor: "bg-rose-500" },
-    { number: 6, title: "Emitida", description: "Generación y entrega oficial de la póliza al cliente.", icon: FileCheck2, color: "text-indigo-500", bgColor: "bg-indigo-500" },
-    { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign, color: "text-purple-500", bgColor: "bg-purple-500" },
+    { number: 4, title: "En Cotización", description: "Análisis de necesidades y preparación de la propuesta.", icon: Calculator, color: "text-yellow-500", bgColor: "bg-yellow-500" },
+    { number: 5, title: "En Negociación", description: "Discusión de términos, coberturas y cierre de acuerdos.", icon: Handshake, color: "text-lime-500", bgColor: "bg-lime-500" },
+    { number: 6, title: "Emitida", description: "Generación y entrega oficial de la póliza al cliente.", icon: FileCheck2, color: "text-green-500", bgColor: "bg-green-500" },
+    { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign, color: "text-green-700", bgColor: "bg-green-700" },
 ];
 
 
@@ -284,7 +284,10 @@ export default function NosotrosPage() {
                         <ul className="space-y-4">
                             {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
                                 <li key={index} className="flex items-start gap-4">
-                                    <div className={cn("flex-shrink-0 p-3 rounded-full", smartGoalsData[activeSmartGoal].color)}>
+                                    <div className={cn(
+                                      "flex-shrink-0 p-3 rounded-full", 
+                                      smartGoalsData[activeSmartGoal].color
+                                    )}>
                                         <challenge.icon className="h-6 w-6 text-white" />
                                     </div>
                                     <div>
@@ -475,48 +478,51 @@ export default function NosotrosPage() {
                 </div>
             </Card>
 
-           <div className="w-full pt-12">
-              <div className="text-center mb-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                      Nuestra Sistemática Comercial
-                  </h3>
-                  <p className="text-muted-foreground text-center">
-                      El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-                  </p>
+            <div className="w-full pt-12">
+              <div className="text-center mb-12">
+                <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                  Nuestra Sistemática Comercial
+                </h3>
+                <p className="text-muted-foreground text-center">
+                  El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+                </p>
               </div>
 
-              {/* Desktop Timeline */}
-              <div className="hidden md:flex w-full relative items-stretch justify-between">
+              <div className="relative flex justify-between items-center w-full">
+                {/* Mobile timeline is now part of the main timeline logic, but will wrap */}
+                <div className="flex justify-between w-full items-start md:items-center">
                   {commercialProcessSteps.map((step, index) => (
-                      <div key={step.number} className={cn(
-                          "relative flex-1 flex justify-center",
-                          index % 2 === 0 ? "flex-col" : "flex-col-reverse"
+                    <div
+                      key={step.number}
+                      className="relative flex flex-col items-center flex-1 w-32"
+                    >
+                      {/* Alternating content position */}
+                      <div className={cn(
+                        "flex flex-col items-center text-center",
+                        index % 2 !== 0 ? 'order-1 mb-8' : 'order-3 mt-8'
                       )}>
-                          {/* Content Box */}
-                          <div className={cn(
-                              "flex flex-col items-center text-center p-2 w-28",
-                              index % 2 === 0 ? "mb-8" : "mt-8"
-                          )}>
-                              <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                              <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                          </div>
-
-                          {/* Vertical Connector */}
-                          <div className="w-px h-8 bg-border/80"></div>
-
-                          {/* Circle */}
-                          <div className={cn(
-                              "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
-                              step.bgColor
-                          )}>
-                              <step.icon className="h-6 w-6 text-white" />
-                          </div>
+                        <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                        <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
                       </div>
+
+                      {/* Circle on the line */}
+                      <div className="order-2 flex flex-col items-center">
+                        <div className="w-px h-8 bg-border/80"></div>
+                        <div className={cn(
+                          "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
+                          step.bgColor
+                        )}>
+                          <step.icon className="h-6 w-6 text-white" />
+                        </div>
+                        <div className="w-px h-8 bg-border/80"></div>
+                      </div>
+                    </div>
                   ))}
+                </div>
               </div>
 
-              {/* Mobile Timeline */}
-              <div className="md:hidden space-y-8">
+               {/* Mobile Timeline */}
+              <div className="md:hidden space-y-8 mt-8">
                   {commercialProcessSteps.map((step, index) => (
                       <div key={step.number} className="flex items-start gap-4">
                           <div className="flex flex-col items-center flex-shrink-0">
@@ -534,7 +540,7 @@ export default function NosotrosPage() {
                       </div>
                   ))}
               </div>
-          </div>
+            </div>
 
 
           <Card className="shadow-lg rounded-xl">
@@ -582,5 +588,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
-    

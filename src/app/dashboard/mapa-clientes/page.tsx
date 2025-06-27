@@ -427,8 +427,8 @@ export default function NosotrosPage() {
                                   </ResponsiveContainer>
                               </div>
                               <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
-                                <span className="text-3xl font-bold">{kpi.value}</span>
-                                <span className="text-lg font-semibold">%</span>
+                                <span className="text-2xl font-bold">{kpi.value}</span>
+                                <span className="text-base font-semibold">%</span>
                               </div>
                               <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
                                   <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
@@ -553,3 +553,5 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    

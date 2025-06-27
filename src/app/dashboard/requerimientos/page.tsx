@@ -16,7 +16,9 @@ const iconMap: { [key: string]: React.ElementType } = {
 };
 
 
-export default function RequerimientosPage() {
+export default function RequerimientosPage({ searchParams }: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   return (
     <div className="container mx-auto py-8 px-4">
       <SectionWrapper 

@@ -9,9 +9,8 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 interface CourseDetailsPageProps {
-  params: {
-    id: string;
-  };
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {

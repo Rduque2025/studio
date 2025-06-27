@@ -104,7 +104,7 @@ const smartGoalsData = {
     letter: "S",
     title: "Específico",
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    color: "bg-blue-500",
+    color: "bg-blue-600",
     textColor: "text-blue-500",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
@@ -155,8 +155,8 @@ const smartGoalsData = {
     letter: "T",
     title: "Temporal",
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    color: "bg-emerald-400",
-    textColor: "text-emerald-400",
+    color: "bg-emerald-500",
+    textColor: "text-emerald-500",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },
@@ -511,24 +511,25 @@ export default function NosotrosPage() {
                     {/* Desktop View: Winding Pipeline */}
                     <div className="hidden md:block relative">
                         <div className="grid grid-cols-7 grid-rows-3 items-stretch" style={{ minHeight: '450px' }}>
-                            {/* Path 1 -> 2 */}
-                            <div className="col-start-1 row-start-1 border-b-8 border-r-8 rounded-br-3xl border-muted"></div>
-                            <div className="col-start-2 row-start-1 border-l-8 border-b-8 rounded-bl-3xl border-muted"></div>
-                            {/* Path 2 -> 3 */}
-                            <div className="col-start-2 row-start-2 border-r-8 border-t-8 rounded-tr-3xl border-muted"></div>
-                            <div className="col-start-3 row-start-2 border-l-8 border-b-8 rounded-bl-3xl border-muted"></div>
-                             {/* Path 3 -> 4 */}
-                            <div className="col-start-3 row-start-3 border-r-8 border-t-8 rounded-tr-3xl border-muted"></div>
-                            <div className="col-start-4 row-start-3 border-l-8 border-t-8 rounded-tl-3xl border-muted"></div>
-                             {/* Path 4 -> 5 */}
-                            <div className="col-start-4 row-start-2 border-b-8 border-r-8 rounded-br-3xl border-muted"></div>
-                            <div className="col-start-5 row-start-2 border-l-8 border-t-8 rounded-tl-3xl border-muted"></div>
-                             {/* Path 5 -> 6 */}
-                            <div className="col-start-5 row-start-1 border-b-8 border-r-8 rounded-br-3xl border-muted"></div>
-                            <div className="col-start-6 row-start-1 border-l-8 border-b-8 rounded-bl-3xl border-muted"></div>
-                            {/* Path 6 -> 7 */}
-                            <div className="col-start-6 row-start-2 border-r-8 border-t-8 rounded-tr-3xl border-muted"></div>
-                            <div className="col-start-7 row-start-2 border-l-8 border-muted"></div>
+                            {/* Path Segments */}
+                            {/* 1 -> 2 */}
+                            <div className="col-start-1 row-start-2 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
+                            <div className="col-start-2 row-start-2 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
+                            {/* 2 -> 3 */}
+                            <div className="col-start-2 row-start-3 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
+                            <div className="col-start-3 row-start-3 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
+                            {/* 3 -> 4 */}
+                            <div className="col-start-3 row-start-2 border-b-8 border-r-8 rounded-br-2xl border-muted"></div>
+                            <div className="col-start-4 row-start-2 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
+                            {/* 4 -> 5 */}
+                            <div className="col-start-4 row-start-1 border-b-8 border-r-8 rounded-br-2xl border-muted"></div>
+                            <div className="col-start-5 row-start-1 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
+                            {/* 5 -> 6 */}
+                            <div className="col-start-5 row-start-2 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
+                            <div className="col-start-6 row-start-2 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
+                            {/* 6 -> 7 */}
+                            <div className="col-start-6 row-start-3 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
+                            <div className="col-start-7 row-start-3 border-l-8 border-muted"></div>
 
                              {/* Step Components */}
                             {[

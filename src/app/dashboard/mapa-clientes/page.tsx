@@ -431,7 +431,7 @@ export default function NosotrosPage() {
                               </div>
                               <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
                                 <span className="text-xl font-bold">{kpi.value}</span>
-                                <span className="text-base font-semibold">%</span>
+                                <span className="text-sm font-semibold">%</span>
                               </div>
                               <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
                                   <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
@@ -488,62 +488,47 @@ export default function NosotrosPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-6 md:p-10">
-                    {/* Mobile View: Simple Vertical Timeline */}
-                    <div className="md:hidden space-y-8">
-                        {commercialProcessSteps.map((step, index) => (
-                            <div key={step.number} className="flex items-start gap-4">
-                                <div className="flex flex-col items-center flex-shrink-0">
-                                    <div className={cn("text-white rounded-full h-10 w-10 flex items-center justify-center font-bold text-lg shadow-md", step.bgColor)}>
-                                        {step.number}
-                                    </div>
-                                    {index < commercialProcessSteps.length - 1 && (
-                                        <div className="w-0.5 flex-grow bg-border my-2"></div>
-                                    )}
-                                </div>
-                                <div className="mt-1">
-                                    <h4 className={cn("font-bold", step.color)}>{step.title}</h4>
-                                    <p className="text-sm text-muted-foreground mt-1">{step.description}</p>
-                                </div>
+                    <div className="w-full overflow-x-auto py-8">
+                        <div className="relative min-w-[1400px] px-4">
+                            <div className="absolute top-1/2 left-0 w-full h-px border-t-2 border-dotted border-border -translate-y-1/2"></div>
+                            
+                            <div className="relative flex justify-between">
+                                {commercialProcessSteps.map((step, index) => {
+                                    const isUp = index % 2 === 0;
+                                    return (
+                                        <div key={step.number} className={cn(
+                                            "relative flex flex-col w-48",
+                                            isUp ? "items-center justify-end" : "items-center justify-start"
+                                        )}>
+                                            {isUp && (
+                                                <div className="text-center mb-6">
+                                                    <h4 className={cn("font-bold", step.color)}>{step.title}</h4>
+                                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                                </div>
+                                            )}
+
+                                            <div className={cn(
+                                                "absolute w-px h-8 border-l-2 border-dotted border-border",
+                                                isUp ? "bottom-1/2 mb-4" : "top-1/2 mt-4"
+                                            )}></div>
+
+                                            <div className={cn(
+                                                "relative z-10 w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md",
+                                                step.bgColor
+                                            )}>
+                                                {step.number}
+                                            </div>
+                                            
+                                            {!isUp && (
+                                                <div className="text-center mt-6">
+                                                    <h4 className={cn("font-bold", step.color)}>{step.title}</h4>
+                                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                    );
+                                })}
                             </div>
-                        ))}
-                    </div>
-
-                    {/* Desktop View: Winding Pipeline */}
-                    <div className="hidden md:block relative">
-                        <div className="grid grid-cols-7 grid-rows-3 items-stretch" style={{ minHeight: '450px' }}>
-                            {/* Path Segments - Rebuilt for continuous flow */}
-                            <div className="col-start-1 row-start-2 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
-                            <div className="col-start-2 row-start-2 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
-                            <div className="col-start-2 row-start-3 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
-                            <div className="col-start-3 row-start-3 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
-                            <div className="col-start-3 row-start-2 border-b-8 border-r-8 rounded-br-2xl border-muted"></div>
-                            <div className="col-start-4 row-start-2 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
-                            <div className="col-start-4 row-start-1 border-b-8 border-r-8 rounded-br-2xl border-muted"></div>
-                            <div className="col-start-5 row-start-1 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
-                            <div className="col-start-5 row-start-2 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
-                            <div className="col-start-6 row-start-2 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
-                            <div className="col-start-6 row-start-3 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
-                            <div className="col-start-7 row-start-3 border-l-8 border-muted"></div>
-
-
-                             {/* Step Components */}
-                            {[
-                                { step: commercialProcessSteps[0], gridPos: "col-start-1 row-start-1 self-start" },
-                                { step: commercialProcessSteps[1], gridPos: "col-start-2 row-start-2 self-center" },
-                                { step: commercialProcessSteps[2], gridPos: "col-start-3 row-start-3 self-end" },
-                                { step: commercialProcessSteps[3], gridPos: "col-start-4 row-start-2 self-center" },
-                                { step: commercialProcessSteps[4], gridPos: "col-start-5 row-start-1 self-start" },
-                                { step: commercialProcessSteps[5], gridPos: "col-start-6 row-start-2 self-center" },
-                                { step: commercialProcessSteps[6], gridPos: "col-start-7 row-start-3 self-end" },
-                            ].map(({ step, gridPos }) => (
-                                <div key={step.number} className={cn("relative z-10 p-2 flex flex-col items-center text-center", gridPos)}>
-                                    <div className={cn("h-14 w-14 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg mb-2", step.bgColor)}>
-                                        <step.icon className="h-7 w-7" />
-                                    </div>
-                                    <h4 className={cn("font-semibold text-sm", step.color)}>{step.title}</h4>
-                                    <p className="text-xs text-muted-foreground max-w-40">{step.description}</p>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </CardContent>
@@ -600,4 +585,5 @@ export default function NosotrosPage() {
     
 
     
+
 

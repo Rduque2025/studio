@@ -105,6 +105,7 @@ const smartGoalsData = {
     title: "Específico",
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
     color: "bg-[#543db8]",
+    textColor: "text-white",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
       { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },
@@ -117,6 +118,7 @@ const smartGoalsData = {
     title: "Medible",
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
     color: "bg-[#003c71]",
+    textColor: "text-white",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
       { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
@@ -131,6 +133,7 @@ const smartGoalsData = {
     title: "Alcanzable",
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
     color: "bg-[#1a61ab]",
+    textColor: "text-white",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },
@@ -143,6 +146,7 @@ const smartGoalsData = {
     title: "Relevante",
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
     color: "bg-[#3f94cd]",
+    textColor: "text-white",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]
@@ -152,6 +156,7 @@ const smartGoalsData = {
     title: "Temporal",
     description: "Un marco de tiempo definido para la consecución de las metas.",
     color: "bg-[#59d1ff]",
+    textColor: "text-white",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },
@@ -250,8 +255,9 @@ export default function NosotrosPage() {
                                     }
                                 }}
                                 className={cn(
-                                    "p-4 rounded-lg text-left transition-all duration-300 flex flex-col text-white",
+                                    "p-4 rounded-lg text-left transition-all duration-300 flex flex-col",
                                     goal.color,
+                                    goal.textColor,
                                     !isActive && 'hover:shadow-lg hover:-translate-y-1',
                                     isActive && 'shadow-xl scale-105',
                                     isAnyActive ? 
@@ -264,7 +270,7 @@ export default function NosotrosPage() {
                             >
                                 <div className={cn(isAnyActive && !isActive && 'hidden')}>
                                     <p className="text-sm font-semibold">{goal.title}</p>
-                                    <p className="text-xs mt-1 text-white/90">
+                                    <p className="text-xs mt-1 opacity-90">
                                         {goal.description}
                                     </p>
                                 </div>
@@ -288,7 +294,7 @@ export default function NosotrosPage() {
                                       "flex-shrink-0 p-3 rounded-full", 
                                       smartGoalsData[activeSmartGoal].color
                                     )}>
-                                        <challenge.icon className="h-6 w-6 text-white" />
+                                        <challenge.icon className={cn("h-6 w-6", smartGoalsData[activeSmartGoal].textColor)} />
                                     </div>
                                     <div>
                                         <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
@@ -302,6 +308,67 @@ export default function NosotrosPage() {
               </div>
             </CardContent>
           </Card>
+
+          <div className="w-full">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl md:text-3xl font-bold text-primary">
+                Nuestra Sistemática Comercial
+              </h3>
+              <p className="text-muted-foreground text-center">
+                El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+              </p>
+            </div>
+
+            <div className="relative flex justify-between items-center w-full px-4 md:px-0">
+              {commercialProcessSteps.map((step, index) => (
+                <div
+                  key={step.number}
+                  className="relative flex flex-col items-center flex-1 w-32"
+                >
+                  {/* Content block: Alternating order */}
+                  <div className={cn(
+                    "flex flex-col items-center text-center",
+                    index % 2 !== 0 ? 'order-1 mb-8' : 'order-3 mt-8'
+                  )}>
+                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                  </div>
+
+                  {/* Icon on the line */}
+                  <div className="order-2 flex flex-col items-center">
+                    <div className="w-px h-8 bg-transparent"></div>
+                    <div className={cn(
+                      "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
+                      step.bgColor
+                    )}>
+                      <step.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="w-px h-8 bg-transparent"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+             {/* Mobile Timeline */}
+            <div className="md:hidden space-y-8 mt-8">
+                {commercialProcessSteps.map((step, index) => (
+                    <div key={step.number} className="flex items-start gap-4">
+                        <div className="flex flex-col items-center flex-shrink-0">
+                            <div className={cn("w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md", step.bgColor)}>
+                                <step.icon className="h-6 w-6 text-white" />
+                            </div>
+                            {index < commercialProcessSteps.length - 1 && (
+                                <div className="w-px h-12 bg-border/80 mt-2"></div>
+                            )}
+                        </div>
+                        <div>
+                            <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                            <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+          </div>
 
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1" className="border-b-0">
@@ -477,71 +544,6 @@ export default function NosotrosPage() {
                     </div>
                 </div>
             </Card>
-
-            <div className="w-full pt-12">
-              <div className="text-center mb-12">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                  Nuestra Sistemática Comercial
-                </h3>
-                <p className="text-muted-foreground text-center">
-                  El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-                </p>
-              </div>
-
-              <div className="relative flex justify-between items-center w-full">
-                {/* Mobile timeline is now part of the main timeline logic, but will wrap */}
-                <div className="flex justify-between w-full items-start md:items-center">
-                  {commercialProcessSteps.map((step, index) => (
-                    <div
-                      key={step.number}
-                      className="relative flex flex-col items-center flex-1 w-32"
-                    >
-                      {/* Alternating content position */}
-                      <div className={cn(
-                        "flex flex-col items-center text-center",
-                        index % 2 !== 0 ? 'order-1 mb-8' : 'order-3 mt-8'
-                      )}>
-                        <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                        <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                      </div>
-
-                      {/* Circle on the line */}
-                      <div className="order-2 flex flex-col items-center">
-                        <div className="w-px h-8 bg-border/80"></div>
-                        <div className={cn(
-                          "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
-                          step.bgColor
-                        )}>
-                          <step.icon className="h-6 w-6 text-white" />
-                        </div>
-                        <div className="w-px h-8 bg-border/80"></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-               {/* Mobile Timeline */}
-              <div className="md:hidden space-y-8 mt-8">
-                  {commercialProcessSteps.map((step, index) => (
-                      <div key={step.number} className="flex items-start gap-4">
-                          <div className="flex flex-col items-center flex-shrink-0">
-                              <div className={cn("w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md", step.bgColor)}>
-                                  <step.icon className="h-6 w-6 text-white" />
-                              </div>
-                              {index < commercialProcessSteps.length - 1 && (
-                                  <div className="w-px h-12 bg-border/80 mt-2"></div>
-                              )}
-                          </div>
-                          <div>
-                              <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                              <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                          </div>
-                      </div>
-                  ))}
-              </div>
-            </div>
-
 
           <Card className="shadow-lg rounded-xl">
             <CardHeader>

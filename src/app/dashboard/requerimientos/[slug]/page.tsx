@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 }
 
 export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
-  const { slug } = params;
+  const slug = params.slug;
   const department = mockDepartments.find(d => d.id === slug);
 
   if (!department) {

@@ -21,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
-  const { id } = params;
+  const id = params.id;
   const course = mockCourses.find(c => c.id === id);
 
   if (!course) {

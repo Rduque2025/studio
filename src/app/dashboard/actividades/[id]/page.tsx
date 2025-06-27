@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 }
 
 export default function ActivityDetailsPage({ params }: ActivityDetailsPageProps) {
-  const { id } = params;
+  const id = params.id;
   const activity = mockActivities.find(a => a.id === id);
 
   if (!activity) {

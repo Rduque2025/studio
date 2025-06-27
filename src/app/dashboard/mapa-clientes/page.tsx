@@ -426,7 +426,7 @@ export default function NosotrosPage() {
                                       </PieChart>
                                   </ResponsiveContainer>
                               </div>
-                              <div className="-mt-10 flex items-baseline justify-center" style={{ color: chartColor }}>
+                              <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
                                 <span className="text-3xl font-bold">{kpi.value}</span>
                                 <span className="text-lg font-semibold">%</span>
                               </div>

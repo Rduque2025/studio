@@ -100,12 +100,12 @@ const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
 };
 
 const smartGoalsData = {
- S: {
+  S: {
     letter: "S",
     title: "Específico",
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    color: "bg-blue-600",
-    textColor: "text-blue-600",
+    color: "bg-blue-500",
+    textColor: "text-blue-500",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
       { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },
@@ -430,7 +430,7 @@ export default function NosotrosPage() {
                                   </ResponsiveContainer>
                               </div>
                               <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
-                                <span className="text-2xl font-bold">{kpi.value}</span>
+                                <span className="text-xl font-bold">{kpi.value}</span>
                                 <span className="text-base font-semibold">%</span>
                               </div>
                               <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
@@ -511,24 +511,24 @@ export default function NosotrosPage() {
                     {/* Desktop View: Winding Pipeline */}
                     <div className="hidden md:block relative">
                         <div className="grid grid-cols-7 grid-rows-3 items-stretch" style={{ minHeight: '450px' }}>
-                            {/* Corrected path segments */}
-                            <div className="col-start-1 row-start-1 border-b-8 border-r-8 border-muted rounded-br-3xl"></div>
-                            <div className="col-start-1 row-start-2 border-r-8 border-muted"></div>
-                            <div className="col-start-2 row-start-2 border-b-8 border-l-8 border-muted rounded-bl-3xl"></div>
-
-                            <div className="col-start-2 row-start-3 border-r-8 border-t-8 border-muted rounded-tr-3xl"></div>
-                            <div className="col-start-3 row-start-3 border-l-8 border-r-8 border-muted"></div>
-                            <div className="col-start-4 row-start-3 border-l-8 border-t-8 border-muted rounded-tl-3xl"></div>
-
-                            <div className="col-start-4 row-start-2 border-t-8 border-r-8 border-muted rounded-tr-3xl"></div>
-                            <div className="col-start-5 row-start-2 border-l-8 border-r-8 border-muted"></div>
-                            <div className="col-start-6 row-start-2 border-t-8 border-l-8 border-muted rounded-tl-3xl"></div>
-
-                            <div className="col-start-5 row-start-1 border-b-8 border-r-8 border-muted rounded-br-3xl"></div>
-                            <div className="col-start-6 row-start-1 border-l-8 border-r-8 border-muted"></div>
-                            
-                            <div className="col-start-6 row-start-3 border-r-8 border-t-8 border-muted rounded-tr-3xl"></div>
-                            <div className="col-start-7 row-start-3 border-l-8 border-muted"></div>
+                            {/* Path 1 -> 2 */}
+                            <div className="col-start-1 row-start-1 border-b-8 border-r-8 rounded-br-3xl border-muted"></div>
+                            <div className="col-start-2 row-start-1 border-l-8 border-b-8 rounded-bl-3xl border-muted"></div>
+                            {/* Path 2 -> 3 */}
+                            <div className="col-start-2 row-start-2 border-r-8 border-t-8 rounded-tr-3xl border-muted"></div>
+                            <div className="col-start-3 row-start-2 border-l-8 border-b-8 rounded-bl-3xl border-muted"></div>
+                             {/* Path 3 -> 4 */}
+                            <div className="col-start-3 row-start-3 border-r-8 border-t-8 rounded-tr-3xl border-muted"></div>
+                            <div className="col-start-4 row-start-3 border-l-8 border-t-8 rounded-tl-3xl border-muted"></div>
+                             {/* Path 4 -> 5 */}
+                            <div className="col-start-4 row-start-2 border-b-8 border-r-8 rounded-br-3xl border-muted"></div>
+                            <div className="col-start-5 row-start-2 border-l-8 border-t-8 rounded-tl-3xl border-muted"></div>
+                             {/* Path 5 -> 6 */}
+                            <div className="col-start-5 row-start-1 border-b-8 border-r-8 rounded-br-3xl border-muted"></div>
+                            <div className="col-start-6 row-start-1 border-l-8 border-b-8 rounded-bl-3xl border-muted"></div>
+                            {/* Path 6 -> 7 */}
+                            <div className="col-start-6 row-start-2 border-r-8 border-t-8 rounded-tr-3xl border-muted"></div>
+                            <div className="col-start-7 row-start-2 border-l-8 border-muted"></div>
 
                              {/* Step Components */}
                             {[
@@ -598,6 +598,8 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    
 
     
 

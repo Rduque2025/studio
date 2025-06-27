@@ -100,12 +100,12 @@ const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
 };
 
 const smartGoalsData = {
-  S: {
+ S: {
     letter: "S",
     title: "Específico",
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    color: "bg-blue-700",
-    textColor: "text-blue-700",
+    color: "bg-blue-600",
+    textColor: "text-blue-600",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
       { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },
@@ -117,8 +117,8 @@ const smartGoalsData = {
     letter: "M",
     title: "Medible",
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
-    color: "bg-sky-600",
-    textColor: "text-sky-600",
+    color: "bg-sky-500",
+    textColor: "text-sky-500",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
       { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
@@ -132,8 +132,8 @@ const smartGoalsData = {
     letter: "A",
     title: "Alcanzable",
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
-    color: "bg-cyan-500",
-    textColor: "text-cyan-500",
+    color: "bg-cyan-400",
+    textColor: "text-cyan-400",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },
@@ -145,8 +145,8 @@ const smartGoalsData = {
     letter: "R",
     title: "Relevante",
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
-    color: "bg-teal-500",
-    textColor: "text-teal-500",
+    color: "bg-teal-400",
+    textColor: "text-teal-400",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]
@@ -155,8 +155,8 @@ const smartGoalsData = {
     letter: "T",
     title: "Temporal",
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    color: "bg-emerald-500",
-    textColor: "text-emerald-500",
+    color: "bg-emerald-400",
+    textColor: "text-emerald-400",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },
@@ -305,24 +305,26 @@ export default function NosotrosPage() {
 
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1" className="border-b-0">
-               <AccordionTrigger className="relative p-0 text-left hover:no-underline focus:no-underline w-full [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
-                <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4 shadow-lg rounded-xl overflow-hidden">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Gráficos de estadísticas y seguimiento de objetivos"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="statistics analytics"
-                    className="z-0"
-                  />
-                  <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-                  <div className="relative z-10 text-white">
-                    <h3 className="text-3xl md:text-4xl font-bold">
-                      Seguimiento de Nuestros Objetivos
-                    </h3>
-                  </div>
-                </div>
-              </AccordionTrigger>
+               <div className="relative p-0 text-left hover:no-underline focus:no-underline w-full shadow-lg rounded-xl overflow-hidden">
+                  <AccordionTrigger className="relative w-full p-0 [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
+                    <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4">
+                      <Image 
+                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Gráficos de estadísticas y seguimiento de objetivos"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="statistics analytics"
+                        className="z-0"
+                      />
+                      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+                      <div className="relative z-10 text-white">
+                        <h3 className="text-3xl md:text-4xl font-bold">
+                          Seguimiento de Nuestros Objetivos
+                        </h3>
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+               </div>
               <AccordionContent>
                 <div className="px-8 md:px-10 pt-6 pb-8">
                   <div className="w-full h-80">
@@ -508,21 +510,25 @@ export default function NosotrosPage() {
 
                     {/* Desktop View: Winding Pipeline */}
                     <div className="hidden md:block relative">
-                        <div className="grid grid-cols-7 grid-rows-3 items-start" style={{ minHeight: '450px' }}>
-                            {/* Path segments */}
-                            <div className="col-start-1 row-start-1 mt-6 border-t-8 border-muted rounded-tl-3xl w-full h-full"></div>
-                            <div className="col-start-2 row-start-1 mt-6 border-t-8 border-b-8 border-muted h-full w-full"></div>
-                            <div className="col-start-2 row-start-2 border-l-8 border-muted h-full w-full"></div>
-                            <div className="col-start-2 row-start-3 mb-6 border-b-8 border-l-8 border-muted rounded-bl-3xl h-full w-full"></div>
-                            <div className="col-start-3 row-start-3 mb-6 border-b-8 border-muted h-full w-full"></div>
-                            <div className="col-start-4 row-start-3 mb-6 border-b-8 border-t-8 border-muted h-full w-full"></div>
-                            <div className="col-start-4 row-start-2 border-r-8 border-muted h-full w-full"></div>
-                            <div className="col-start-4 row-start-1 mt-6 border-t-8 border-r-8 border-muted rounded-tr-3xl h-full w-full"></div>
-                            <div className="col-start-5 row-start-1 mt-6 border-t-8 border-muted h-full w-full"></div>
-                            <div className="col-start-6 row-start-1 mt-6 border-t-8 border-b-8 border-muted h-full w-full"></div>
-                            <div className="col-start-6 row-start-2 border-l-8 border-muted h-full w-full"></div>
-                            <div className="col-start-6 row-start-3 mb-6 border-l-8 border-b-8 border-muted rounded-bl-3xl h-full w-full"></div>
-                            <div className="col-start-7 row-start-3 mb-6 border-b-8 border-muted h-full w-full"></div>
+                        <div className="grid grid-cols-7 grid-rows-3 items-stretch" style={{ minHeight: '450px' }}>
+                            {/* Corrected path segments */}
+                            <div className="col-start-1 row-start-1 border-b-8 border-r-8 border-muted rounded-br-3xl"></div>
+                            <div className="col-start-1 row-start-2 border-r-8 border-muted"></div>
+                            <div className="col-start-2 row-start-2 border-b-8 border-l-8 border-muted rounded-bl-3xl"></div>
+
+                            <div className="col-start-2 row-start-3 border-r-8 border-t-8 border-muted rounded-tr-3xl"></div>
+                            <div className="col-start-3 row-start-3 border-l-8 border-r-8 border-muted"></div>
+                            <div className="col-start-4 row-start-3 border-l-8 border-t-8 border-muted rounded-tl-3xl"></div>
+
+                            <div className="col-start-4 row-start-2 border-t-8 border-r-8 border-muted rounded-tr-3xl"></div>
+                            <div className="col-start-5 row-start-2 border-l-8 border-r-8 border-muted"></div>
+                            <div className="col-start-6 row-start-2 border-t-8 border-l-8 border-muted rounded-tl-3xl"></div>
+
+                            <div className="col-start-5 row-start-1 border-b-8 border-r-8 border-muted rounded-br-3xl"></div>
+                            <div className="col-start-6 row-start-1 border-l-8 border-r-8 border-muted"></div>
+                            
+                            <div className="col-start-6 row-start-3 border-r-8 border-t-8 border-muted rounded-tr-3xl"></div>
+                            <div className="col-start-7 row-start-3 border-l-8 border-muted"></div>
 
                              {/* Step Components */}
                             {[
@@ -536,7 +542,7 @@ export default function NosotrosPage() {
                             ].map(({ step, gridPos }) => (
                                 <div key={step.number} className={cn("relative z-10 p-2 flex flex-col items-center text-center", gridPos)}>
                                     <div className={cn("h-14 w-14 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg mb-2", step.bgColor)}>
-                                        {step.number}
+                                        <step.icon className="h-7 w-7" />
                                     </div>
                                     <h4 className={cn("font-semibold text-sm", step.color)}>{step.title}</h4>
                                     <p className="text-xs text-muted-foreground max-w-40">{step.description}</p>
@@ -592,5 +598,7 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    
 
     

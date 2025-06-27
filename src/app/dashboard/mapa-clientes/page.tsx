@@ -489,7 +489,6 @@ export default function NosotrosPage() {
                 </div>
                 <div className="w-full py-12">
                     <div className="relative w-full">
-                        <div className="absolute top-1/2 left-0 right-0 h-px -translate-y-1/2 border-t-2 border-dotted border-border" />
                         <div className="relative flex justify-between items-center">
                             {commercialProcessSteps.map((step, index) => {
                                 const isUp = index % 2 !== 0;

@@ -511,25 +511,20 @@ export default function NosotrosPage() {
                     {/* Desktop View: Winding Pipeline */}
                     <div className="hidden md:block relative">
                         <div className="grid grid-cols-7 grid-rows-3 items-stretch" style={{ minHeight: '450px' }}>
-                            {/* Path Segments */}
-                            {/* 1 -> 2 */}
+                            {/* Path Segments - Rebuilt for continuous flow */}
                             <div className="col-start-1 row-start-2 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
                             <div className="col-start-2 row-start-2 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
-                            {/* 2 -> 3 */}
                             <div className="col-start-2 row-start-3 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
-                            <div className="col-start-3 row-start-3 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
-                            {/* 3 -> 4 */}
+                            <div className="col-start-3 row-start-3 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
                             <div className="col-start-3 row-start-2 border-b-8 border-r-8 rounded-br-2xl border-muted"></div>
                             <div className="col-start-4 row-start-2 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
-                            {/* 4 -> 5 */}
                             <div className="col-start-4 row-start-1 border-b-8 border-r-8 rounded-br-2xl border-muted"></div>
-                            <div className="col-start-5 row-start-1 border-l-8 border-t-8 rounded-tl-2xl border-muted"></div>
-                            {/* 5 -> 6 */}
+                            <div className="col-start-5 row-start-1 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
                             <div className="col-start-5 row-start-2 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
                             <div className="col-start-6 row-start-2 border-l-8 border-b-8 rounded-bl-2xl border-muted"></div>
-                            {/* 6 -> 7 */}
                             <div className="col-start-6 row-start-3 border-t-8 border-r-8 rounded-tr-2xl border-muted"></div>
                             <div className="col-start-7 row-start-3 border-l-8 border-muted"></div>
+
 
                              {/* Step Components */}
                             {[
@@ -605,3 +600,4 @@ export default function NosotrosPage() {
     
 
     
+

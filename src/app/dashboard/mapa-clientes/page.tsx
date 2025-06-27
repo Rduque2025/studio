@@ -153,7 +153,7 @@ type SmartKey = keyof typeof smartGoalsData;
 
 export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
-  const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey>('S');
+  const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const kpis = [
@@ -184,7 +184,6 @@ export default function NosotrosPage() {
     }
   };
 
-  const activeGoalDetails = smartGoalsData[activeSmartGoal];
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -392,7 +391,13 @@ export default function NosotrosPage() {
                   return (
                     <button
                       key={goal.letter}
-                      onClick={() => setActiveSmartGoal(goal.letter as SmartKey)}
+                      onClick={() => {
+                        if (activeSmartGoal === goal.letter) {
+                          setActiveSmartGoal(null);
+                        } else {
+                          setActiveSmartGoal(goal.letter as SmartKey);
+                        }
+                      }}
                       className={cn(
                         "p-4 rounded-lg text-white text-left transition-all duration-300 flex flex-col justify-between h-48",
                         goal.color,
@@ -409,24 +414,29 @@ export default function NosotrosPage() {
                 })}
               </div>
 
-              <div className={cn("bg-muted/50 p-6 rounded-lg min-h-[250px]")}>
-                <h4 className={cn("text-xl font-bold mb-4", activeGoalDetails.textColor)}>
-                  Objetivos: {activeGoalDetails.title}
-                </h4>
-                <ul className="space-y-6">
-                  {activeGoalDetails.challenges.map((challenge, index) => (
-                    <li key={index} className="flex items-start gap-4 animate-in fade-in duration-500">
-                      <div className={cn("flex-shrink-0 p-3 rounded-full", activeGoalDetails.color)}>
-                        <challenge.icon className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h5 className="font-semibold text-foreground">{challenge.title}</h5>
-                        <p className="text-muted-foreground text-sm">{challenge.description}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {activeSmartGoal && (() => {
+                const activeGoalDetails = smartGoalsData[activeSmartGoal];
+                return (
+                  <div className={cn("bg-muted/50 p-6 rounded-lg min-h-[250px]")}>
+                    <h4 className={cn("text-xl font-bold mb-4", activeGoalDetails.textColor)}>
+                      Objetivos: {activeGoalDetails.title}
+                    </h4>
+                    <ul className="space-y-6">
+                      {activeGoalDetails.challenges.map((challenge, index) => (
+                        <li key={index} className="flex items-start gap-4 animate-in fade-in duration-500">
+                          <div className={cn("flex-shrink-0 p-3 rounded-full", activeGoalDetails.color)}>
+                            <challenge.icon className="h-6 w-6 text-white" />
+                          </div>
+                          <div>
+                            <h5 className="font-semibold text-foreground">{challenge.title}</h5>
+                            <p className="text-muted-foreground text-sm">{challenge.description}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })()}
             </CardContent>
           </Card>
 

@@ -103,8 +103,8 @@ const smartGoalsData = {
     letter: "S",
     title: "Específico",
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    color: "bg-indigo-800",
-    textColor: "text-indigo-800",
+    color: "bg-[#003c71]",
+    textColor: "text-[#003c71]",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
       { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },
@@ -116,8 +116,8 @@ const smartGoalsData = {
     letter: "M",
     title: "Medible",
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
-    color: "bg-indigo-700",
-    textColor: "text-indigo-700",
+    color: "bg-[#3A568F]",
+    textColor: "text-[#3A568F]",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
       { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
@@ -131,8 +131,8 @@ const smartGoalsData = {
     letter: "A",
     title: "Alcanzable",
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
-    color: "bg-violet-700",
-    textColor: "text-violet-700",
+    color: "bg-[#6366AF]",
+    textColor: "text-[#6366AF]",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },
@@ -144,8 +144,8 @@ const smartGoalsData = {
     letter: "R",
     title: "Relevante",
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
-    color: "bg-violet-600",
-    textColor: "text-violet-600",
+    color: "bg-[#8D76C7]",
+    textColor: "text-[#8D76C7]",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]
@@ -154,8 +154,8 @@ const smartGoalsData = {
     letter: "T",
     title: "Temporal",
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    color: "bg-purple-600",
-    textColor: "text-purple-600",
+    color: "bg-[#B788D5]",
+    textColor: "text-[#B788D5]",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },

@@ -315,48 +315,46 @@ export default function NosotrosPage() {
               </CardContent>
             </Card>
 
-            <div className="w-full rounded-2xl bg-muted p-8 md:p-12 my-12 text-center">
-                <h2 className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tight">
-                    Conoce a nuestro equipo
-                </h2>
-                <div className="inline-block bg-lime-300 px-4 py-1.5 mt-2 rounded">
-                    <p className="text-xs font-bold text-lime-900 uppercase tracking-widest">
-                        Impulsando nuestra visión
-                    </p>
-                </div>
+            <div className="w-full bg-muted py-16 md:py-24 my-12">
+                <div className="container mx-auto px-4">
 
-                <div className="flex justify-center items-center -space-x-12 mt-10">
-                    {featuredEmployees.map((employee, index) => (
-                       <Avatar key={employee.id} className={cn(
-                           "h-32 w-32 md:h-40 md:w-40 border-8 border-muted shadow-lg",
-                           index === 1 ? 'z-10 transform scale-110' : 'z-0'
-                       )}>
-                           <AvatarImage 
-                               src={employee.imageUrl} 
-                               alt={employee.name} 
-                               data-ai-hint={employee.dataAiHint}
-                               className="grayscale"
-                           />
-                           <AvatarFallback>{employee.name.slice(0,2)}</AvatarFallback>
-                       </Avatar>
-                    ))}
-                </div>
+                    <div className="text-center mb-16">
+                        <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground">
+                            <span className="font-light italic text-4xl md:text-6xl text-muted-foreground block -mb-4">Conoce a</span>
+                            nuestro <span className="text-primary">equipo</span>
+                        </h2>
+                    </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">
-                    {featuredEmployees.map((employee) => (
-                        <div key={employee.id}>
-                            <h3 className="text-base md:text-lg font-bold uppercase tracking-wider text-foreground">{employee.name}</h3>
-                            <p className="text-sm text-muted-foreground">{employee.role.toLowerCase()}</p>
-                        </div>
-                    ))}
-                </div>
+                    <div className="flex justify-center items-center -space-x-8 md:-space-x-10">
+                        {featuredEmployees.map((employee, index) => (
+                           <div key={employee.id} className={cn(
+                               "group relative h-72 w-52 md:h-80 md:w-60 rounded-xl overflow-hidden shadow-2xl border-4 border-background transform transition-all duration-500 ease-in-out hover:scale-105",
+                               index === 1 ? 'z-10 -translate-y-6 hover:z-20' : 'z-0 hover:z-20'
+                           )}>
+                               <Image 
+                                   src={employee.imageUrl} 
+                                   alt={employee.name} 
+                                   layout="fill"
+                                   objectFit="cover"
+                                   data-ai-hint={employee.dataAiHint}
+                                   className="grayscale group-hover:grayscale-0 transition-all duration-500"
+                               />
+                               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"/>
+                               <div className="absolute bottom-0 left-0 p-4 text-white w-full">
+                                   <h3 className="font-bold text-lg">{employee.name}</h3>
+                                   <p className="text-sm opacity-90">{employee.role}</p>
+                               </div>
+                           </div>
+                        ))}
+                    </div>
 
-                <div className="mt-12">
-                  <Button asChild size="lg">
-                    <Link href="/dashboard/equipo">
-                      Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+                    <div className="mt-16 text-center">
+                        <Button asChild size="lg">
+                            <Link href="/dashboard/equipo">
+                                Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                    </div>
                 </div>
             </div>
 

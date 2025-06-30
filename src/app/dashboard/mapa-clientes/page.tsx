@@ -174,22 +174,9 @@ type SmartKey = keyof typeof smartGoalsData;
 export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
   const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
-  const [teamCarouselIndex, setTeamCarouselIndex] = useState(0);
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const featuredEmployees = mockEmployees.slice(0, 3);
-
-  const handlePrevEmployee = () => {
-    setTeamCarouselIndex((prevIndex) =>
-      prevIndex === 0 ? featuredEmployees.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNextEmployee = () => {
-    setTeamCarouselIndex((prevIndex) =>
-      prevIndex === featuredEmployees.length - 1 ? 0 : prevIndex + 1
-    );
-  };
 
   const kpis = [
       { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas },
@@ -328,48 +315,50 @@ export default function NosotrosPage() {
               </CardContent>
             </Card>
 
-            <Card className="shadow-lg rounded-xl">
-              <CardHeader className="text-center">
-                <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
-                  Conoce a tu Equipo
-                </CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  Algunos de los profesionales que impulsan nuestra visión.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-8 md:p-10">
-                <div className="flex items-center justify-center gap-4 md:gap-8">
-                  <Button variant="outline" size="icon" className="h-10 w-10 rounded-full flex-shrink-0" onClick={handlePrevEmployee}>
-                    <ChevronLeft className="h-6 w-6" />
-                    <span className="sr-only">Anterior</span>
-                  </Button>
-                  <div className="w-full max-w-xs text-center">
-                    {featuredEmployees.length > 0 && (
-                      <div key={featuredEmployees[teamCarouselIndex].id}>
-                        <Avatar className="h-32 w-32 mx-auto mb-4 border-4 border-primary/20 shadow-md">
-                          <AvatarImage src={featuredEmployees[teamCarouselIndex].imageUrl} alt={featuredEmployees[teamCarouselIndex].name} data-ai-hint={featuredEmployees[teamCarouselIndex].dataAiHint} />
-                          <AvatarFallback>{featuredEmployees[teamCarouselIndex].name.slice(0, 2)}</AvatarFallback>
-                        </Avatar>
-                        <h3 className="font-semibold text-lg text-foreground">{featuredEmployees[teamCarouselIndex].name}</h3>
-                        <p className="text-sm text-muted-foreground">{featuredEmployees[teamCarouselIndex].role}</p>
-                        <p className="text-xs text-primary font-medium mt-1">{featuredEmployees[teamCarouselIndex].department}</p>
-                      </div>
-                    )}
-                  </div>
-                  <Button variant="outline" size="icon" className="h-10 w-10 rounded-full flex-shrink-0" onClick={handleNextEmployee}>
-                    <ChevronRight className="h-6 w-6" />
-                    <span className="sr-only">Siguiente</span>
+            <div className="w-full rounded-2xl bg-muted p-8 md:p-12 my-12 text-center">
+                <h2 className="text-4xl md:text-5xl font-black text-foreground mb-2 tracking-tight">
+                    Conoce a nuestro equipo
+                </h2>
+                <div className="inline-block bg-lime-300 px-4 py-1.5 mt-2 rounded">
+                    <p className="text-xs font-bold text-lime-900 uppercase tracking-widest">
+                        Impulsando nuestra visión
+                    </p>
+                </div>
+
+                <div className="flex justify-center items-center -space-x-12 mt-10">
+                    {featuredEmployees.map((employee, index) => (
+                       <Avatar key={employee.id} className={cn(
+                           "h-32 w-32 md:h-40 md:w-40 border-8 border-muted shadow-lg",
+                           index === 1 ? 'z-10 transform scale-110' : 'z-0'
+                       )}>
+                           <AvatarImage 
+                               src={employee.imageUrl} 
+                               alt={employee.name} 
+                               data-ai-hint={employee.dataAiHint}
+                               className="grayscale"
+                           />
+                           <AvatarFallback>{employee.name.slice(0,2)}</AvatarFallback>
+                       </Avatar>
+                    ))}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 max-w-4xl mx-auto">
+                    {featuredEmployees.map((employee) => (
+                        <div key={employee.id}>
+                            <h3 className="text-base md:text-lg font-bold uppercase tracking-wider text-foreground">{employee.name}</h3>
+                            <p className="text-sm text-muted-foreground">{employee.role.toLowerCase()}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <div className="mt-12">
+                  <Button asChild size="lg">
+                    <Link href="/dashboard/equipo">
+                      Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
                   </Button>
                 </div>
-              </CardContent>
-              <CardFooter className="flex justify-center pb-8">
-                <Button asChild>
-                  <Link href="/dashboard/equipo">
-                    Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </CardFooter>
-            </Card>
+            </div>
 
           </div>
         </SectionWrapper>

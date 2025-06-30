@@ -203,214 +203,222 @@ export default function NosotrosPage() {
 
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <SectionWrapper>
-        <div className="space-y-12 mt-6">
-          <Card className="overflow-hidden shadow-lg rounded-xl">
-            <CardHeader className="p-0">
-              <div className="relative w-full h-64 md:h-80">
-                <Image 
-                  src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Visión de la empresa"
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint="business vision"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                   <h2 className="text-4xl md:text-5xl font-bold text-white">Nuestra Visión para el 2025</h2>
+    <>
+      <div className="container mx-auto py-8 px-4">
+        <SectionWrapper>
+          <div className="space-y-12 mt-6">
+            <Card className="overflow-hidden shadow-lg rounded-xl">
+              <CardHeader className="p-0">
+                <div className="relative w-full h-64 md:h-80">
+                  <Image 
+                    src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Visión de la empresa"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="business vision"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
+                     <h2 className="text-4xl md:text-5xl font-bold text-white">Nuestra Visión para el 2025</h2>
+                  </div>
                 </div>
-              </div>
-            </CardHeader>
-            <CardContent className="p-8 md:p-10 text-sm">
-                <p className="mb-6 text-muted-foreground leading-relaxed">
-                    Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                    Seguir mejorando nuestros productos para empresas, ofreciendo coberturas y tarifas competitivas que cumplan sus necesidades de protección. Además, nos enfocaremos en agilizar la entrega de nuestros servicios para satisfacer sus expectativas de tiempo.
-                </p>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent className="p-8 md:p-10 text-sm">
+                  <p className="mb-6 text-muted-foreground leading-relaxed">
+                      Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                      Seguir mejorando nuestros productos para empresas, ofreciendo coberturas y tarifas competitivas que cumplan sus necesidades de protección. Además, nos enfocaremos en agilizar la entrega de nuestros servicios para satisfacer sus expectativas de tiempo.
+                  </p>
+              </CardContent>
+            </Card>
 
-          <Card className="shadow-none border-none rounded-xl">
-            <CardContent className="p-4 md:p-8">
-              <div className="flex flex-col md:flex-row items-stretch gap-4">
-                <div className={cn(
-                    "flex md:flex-col gap-2 transition-all duration-300 ease-in-out",
-                    !activeSmartGoal && "grid w-full grid-cols-2 sm:grid-cols-5",
-                    activeSmartGoal && "flex-row md:flex-col md:w-auto"
-                )}>
-                    {Object.keys(smartGoalsData).map((key) => {
-                        const goal = smartGoalsData[key as SmartKey];
-                        const isActive = activeSmartGoal === goal.letter;
-                        const isAnyActive = !!activeSmartGoal;
+            <Card className="shadow-none border-none rounded-xl">
+              <CardContent className="p-4 md:p-8">
+                <div className="flex flex-col md:flex-row items-stretch gap-4">
+                  <div className={cn(
+                      "flex md:flex-col gap-2 transition-all duration-300 ease-in-out",
+                      !activeSmartGoal && "grid w-full grid-cols-2 sm:grid-cols-5",
+                      activeSmartGoal && "flex-row md:flex-col md:w-auto"
+                  )}>
+                      {Object.keys(smartGoalsData).map((key) => {
+                          const goal = smartGoalsData[key as SmartKey];
+                          const isActive = activeSmartGoal === goal.letter;
+                          const isAnyActive = !!activeSmartGoal;
 
-                        return (
-                            <button
-                                key={goal.letter}
-                                onClick={() => {
-                                    if (activeSmartGoal === goal.letter) {
-                                        setActiveSmartGoal(null);
-                                    } else {
-                                        setActiveSmartGoal(goal.letter as SmartKey);
-                                    }
-                                }}
-                                className={cn(
-                                    "p-4 rounded-lg text-left transition-all duration-300 flex flex-col",
-                                    goal.color,
-                                    goal.textColor,
-                                    !isActive && 'hover:shadow-lg hover:-translate-y-1',
-                                    isActive && 'shadow-xl scale-105',
-                                    isAnyActive ? 
-                                        (isActive ? 
-                                            "h-48 justify-between md:w-48" :
-                                            "h-20 justify-center items-center text-center p-2 w-full md:w-20"
-                                        ) 
-                                    : "h-48 justify-between"
-                                )}
-                            >
-                                <div className={cn(isAnyActive && !isActive && 'hidden')}>
-                                    <p className="text-sm font-semibold">{goal.title}</p>
-                                    <p className="text-xs mt-1 opacity-90">
-                                        {goal.description}
-                                    </p>
-                                </div>
-                                <p className={cn(
-                                    "font-extrabold opacity-80",
-                                    isAnyActive && !isActive ? 'text-4xl self-center' : 'text-6xl self-end'
-                                )}>
-                                    {goal.letter}
-                                </p>
-                            </button>
-                        );
-                    })}
+                          return (
+                              <button
+                                  key={goal.letter}
+                                  onClick={() => {
+                                      if (activeSmartGoal === goal.letter) {
+                                          setActiveSmartGoal(null);
+                                      } else {
+                                          setActiveSmartGoal(goal.letter as SmartKey);
+                                      }
+                                  }}
+                                  className={cn(
+                                      "p-4 rounded-lg text-left transition-all duration-300 flex flex-col",
+                                      goal.color,
+                                      goal.textColor,
+                                      !isActive && 'hover:shadow-lg hover:-translate-y-1',
+                                      isActive && 'shadow-xl scale-105',
+                                      isAnyActive ? 
+                                          (isActive ? 
+                                              "h-48 justify-between md:w-48" :
+                                              "h-20 justify-center items-center text-center p-2 w-full md:w-20"
+                                          ) 
+                                      : "h-48 justify-between"
+                                  )}
+                              >
+                                  <div className={cn(isAnyActive && !isActive && 'hidden')}>
+                                      <p className="text-sm font-semibold">{goal.title}</p>
+                                      <p className="text-xs mt-1 opacity-90">
+                                          {goal.description}
+                                      </p>
+                                  </div>
+                                  <p className={cn(
+                                      "font-extrabold opacity-80",
+                                      isAnyActive && !isActive ? 'text-4xl self-center' : 'text-6xl self-end'
+                                  )}>
+                                      {goal.letter}
+                                  </p>
+                              </button>
+                          );
+                      })}
+                  </div>
+
+                  {activeSmartGoal && (
+                      <div className="flex-1 p-6 rounded-lg min-h-[350px] animate-in fade-in-0 duration-500">
+                          <ul className="space-y-4">
+                              {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
+                                  <li key={index} className="flex items-start gap-4">
+                                      <div className={cn(
+                                        "flex-shrink-0 p-3 rounded-full", 
+                                        smartGoalsData[activeSmartGoal].color
+                                      )}>
+                                          <challenge.icon className={cn("h-6 w-6", smartGoalsData[activeSmartGoal].textColor)} />
+                                      </div>
+                                      <div>
+                                          <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
+                                          <p className="text-muted-foreground text-xs">{challenge.description}</p>
+                                      </div>
+                                  </li>
+                              ))}
+                          </ul>
+                      </div>
+                  )}
                 </div>
+              </CardContent>
+            </Card>
 
-                {activeSmartGoal && (
-                    <div className="flex-1 p-6 rounded-lg min-h-[350px] animate-in fade-in-0 duration-500">
-                        <ul className="space-y-4">
-                            {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
-                                <li key={index} className="flex items-start gap-4">
-                                    <div className={cn(
-                                      "flex-shrink-0 p-3 rounded-full", 
-                                      smartGoalsData[activeSmartGoal].color
-                                    )}>
-                                        <challenge.icon className={cn("h-6 w-6", smartGoalsData[activeSmartGoal].textColor)} />
-                                    </div>
-                                    <div>
-                                        <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
-                                        <p className="text-muted-foreground text-xs">{challenge.description}</p>
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="shadow-lg rounded-xl">
-            <CardHeader>
-              <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
-                Nuestro Equipo
-              </CardTitle>
-               <CardDescription className="text-muted-foreground text-center">
-                  Conozca a los profesionales que impulsan nuestra visión.
-               </CardDescription>
-            </CardHeader>
-            <CardContent className="p-8 md:p-10">
-              <Tabs defaultValue={teamDepartments[0].id} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
-                  {teamDepartments.map((dept) => (
-                    <TabsTrigger key={dept.id} value={dept.id}>{dept.name}</TabsTrigger>
-                  ))}
-                </TabsList>
-                {teamDepartments.map((dept) => (
-                  <TabsContent key={dept.id} value={dept.id}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-                      {mockEmployees
-                        .filter((employee) => employee.department === dept.name)
-                        .map((employee) => (
-                          <div key={employee.id} className="flex flex-col items-center text-center p-4 border rounded-lg bg-card transition-shadow hover:shadow-md">
-                            <Avatar className="h-20 w-20 mb-4">
-                              <AvatarImage src={employee.imageUrl} alt={employee.name} data-ai-hint={employee.dataAiHint} />
-                              <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <p className="font-semibold text-foreground">{employee.name}</p>
-                            <p className="text-sm text-muted-foreground">{employee.role}</p>
-                          </div>
-                        ))}
-                         {mockEmployees.filter((employee) => employee.department === dept.name).length === 0 && (
-                            <p className="col-span-full text-center text-muted-foreground mt-4">No hay empleados en este departamento.</p>
-                        )}
-                    </div>
-                  </TabsContent>
-                ))}
-              </Tabs>
-            </CardContent>
-          </Card>
-
-          <div className="w-full">
-            <div className="text-center mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold text-primary">
-                Nuestra Sistemática Comercial
-              </h3>
-              <p className="text-muted-foreground text-center">
-                El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-              </p>
-            </div>
-            <div className="hidden md:flex flex-col items-center w-full">
-                <div className="flex justify-between w-full relative px-5">
-                    {commercialProcessSteps.map((step, index) => (
-                        <div key={step.number} className="relative flex-1 flex flex-col items-center group">
-                           <div className={cn(
-                            "flex flex-col items-center text-center w-32",
-                            index % 2 === 0 ? "mb-10" : "mt-10"
-                           )}>
-                                <div className={cn(
-                                    "flex flex-col items-center",
-                                    index % 2 === 0 ? "order-2" : "order-1"
-                                )}>
-                                    <div className={cn(
-                                        "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
-                                        step.bgColor
-                                    )}>
-                                      <step.icon className="h-6 w-6 text-white" />
-                                    </div>
-                                    <div className="w-px h-5 bg-border/80"></div>
-                                </div>
-                                <div className={cn(
-                                  "text-center",
-                                  index % 2 === 0 ? "order-1" : "order-2"
-                                )}>
-                                    <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                    <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                                </div>
-                           </div>
-                        </div>
+            <Card className="shadow-lg rounded-xl">
+              <CardHeader>
+                <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
+                  Nuestro Equipo
+                </CardTitle>
+                 <CardDescription className="text-muted-foreground text-center">
+                    Conozca a los profesionales que impulsan nuestra visión.
+                 </CardDescription>
+              </CardHeader>
+              <CardContent className="p-8 md:p-10">
+                <Tabs defaultValue={teamDepartments[0].id} className="w-full">
+                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
+                    {teamDepartments.map((dept) => (
+                      <TabsTrigger key={dept.id} value={dept.id}>{dept.name}</TabsTrigger>
                     ))}
-                </div>
-            </div>
-             <div className="md:hidden space-y-8 mt-8">
-                {commercialProcessSteps.map((step, index) => (
-                    <div key={step.number} className="flex items-start gap-4">
-                        <div className="flex flex-col items-center flex-shrink-0">
-                            <div className={cn("w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md", step.bgColor)}>
-                                <step.icon className="h-6 w-6 text-white" />
+                  </TabsList>
+                  {teamDepartments.map((dept) => (
+                    <TabsContent key={dept.id} value={dept.id}>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
+                        {mockEmployees
+                          .filter((employee) => employee.department === dept.name)
+                          .map((employee) => (
+                            <div key={employee.id} className="flex flex-col items-center text-center p-4 border rounded-lg bg-card transition-shadow hover:shadow-md">
+                              <Avatar className="h-20 w-20 mb-4">
+                                <AvatarImage src={employee.imageUrl} alt={employee.name} data-ai-hint={employee.dataAiHint} />
+                                <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
+                              </Avatar>
+                              <p className="font-semibold text-foreground">{employee.name}</p>
+                              <p className="text-sm text-muted-foreground">{employee.role}</p>
                             </div>
-                            {index < commercialProcessSteps.length - 1 && (
-                                <div className="w-px h-16 bg-border/80 mt-2"></div>
-                            )}
-                        </div>
-                        <div>
-                            <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                            <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+                          ))}
+                           {mockEmployees.filter((employee) => employee.department === dept.name).length === 0 && (
+                              <p className="col-span-full text-center text-muted-foreground mt-4">No hay empleados en este departamento.</p>
+                          )}
+                      </div>
+                    </TabsContent>
+                  ))}
+                </Tabs>
+              </CardContent>
+            </Card>
           </div>
+        </SectionWrapper>
+      </div>
+      
+      <section className="w-full bg-muted py-16 md:py-24 my-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold text-primary">
+              Nuestra Sistemática Comercial
+            </h3>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
+              El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
+            </p>
+          </div>
+          <div className="hidden md:flex flex-col items-center w-full">
+              <div className="flex justify-between w-full relative px-5">
+                  {commercialProcessSteps.map((step, index) => (
+                      <div key={step.number} className="relative flex-1 flex flex-col items-center group">
+                         <div className={cn(
+                          "flex flex-col items-center text-center w-32",
+                          index % 2 === 0 ? "mb-10" : "mt-10"
+                         )}>
+                              <div className={cn(
+                                  "flex flex-col items-center",
+                                  index % 2 === 0 ? "order-2" : "order-1"
+                              )}>
+                                  <div className={cn(
+                                      "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
+                                      step.bgColor
+                                  )}>
+                                    <step.icon className="h-6 w-6 text-white" />
+                                  </div>
+                                  <div className="w-px h-5 bg-border/80"></div>
+                              </div>
+                              <div className={cn(
+                                "text-center",
+                                index % 2 === 0 ? "order-1" : "order-2"
+                              )}>
+                                  <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                                  <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                              </div>
+                         </div>
+                      </div>
+                  ))}
+              </div>
+          </div>
+           <div className="md:hidden space-y-8 mt-8">
+              {commercialProcessSteps.map((step, index) => (
+                  <div key={step.number} className="flex items-start gap-4">
+                      <div className="flex flex-col items-center flex-shrink-0">
+                          <div className={cn("w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md", step.bgColor)}>
+                              <step.icon className="h-6 w-6 text-white" />
+                          </div>
+                          {index < commercialProcessSteps.length - 1 && (
+                              <div className="w-px h-16 bg-border/80 mt-2"></div>
+                          )}
+                      </div>
+                      <div>
+                          <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
+                          <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
+                      </div>
+                  </div>
+              ))}
+          </div>
+        </div>
+      </section>
 
+      <div className="container mx-auto py-8 px-4">
+        <div className="space-y-12">
           <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
             <AccordionItem value="item-1" className="border-b-0">
                <div className="relative p-0 text-left w-full shadow-lg rounded-xl overflow-hidden">
@@ -587,7 +595,7 @@ export default function NosotrosPage() {
             </Card>
 
         </div>
-      </SectionWrapper>
-    </div>
+      </div>
+    </>
   );
 }

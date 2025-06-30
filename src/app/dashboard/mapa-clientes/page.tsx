@@ -315,7 +315,7 @@ export default function NosotrosPage() {
               </CardContent>
             </Card>
 
-            <div className="w-full bg-muted py-16 md:py-24 my-12">
+            <div className="w-full py-16 md:py-24 my-12">
                 <div className="container mx-auto px-4">
 
                     <div className="text-center mb-16">

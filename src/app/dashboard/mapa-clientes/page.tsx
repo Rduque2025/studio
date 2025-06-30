@@ -168,9 +168,7 @@ const smartGoalsData = {
 type SmartKey = keyof typeof smartGoalsData;
 
 
-export default function NosotrosPage({ searchParams }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
   const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
   const selectedData = monthlyGoalsData[selectedMonth];

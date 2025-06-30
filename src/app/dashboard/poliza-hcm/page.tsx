@@ -3,11 +3,7 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent } from "@/components/ui/card";
 import { ShieldCheck } from "lucide-react";
 
-export default function PolizaHcmPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+export default function PolizaHcmPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <SectionWrapper 

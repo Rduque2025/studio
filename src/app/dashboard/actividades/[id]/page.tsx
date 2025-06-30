@@ -12,7 +12,6 @@ import { es } from "date-fns/locale";
 
 interface ActivityDetailsPageProps {
   params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 export async function generateStaticParams() {

@@ -3,11 +3,7 @@ import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Plane } from "lucide-react"; // Added Plane icon
 
-export default function VacacionesPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+export default function VacacionesPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <SectionWrapper 

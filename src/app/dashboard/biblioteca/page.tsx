@@ -15,11 +15,7 @@ const mockDocuments = [
 ];
 
 
-export default function BibliotecaPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+export default function BibliotecaPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <SectionWrapper 

@@ -2,8 +2,9 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
 import { 
   PieChart, 
@@ -43,14 +44,16 @@ import {
   ListChecks,
   Workflow,
   GraduationCap,
-  Gem
+  Gem,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight
 } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { mockEmployees, teamDepartments } from "@/lib/placeholder-data";
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from '@/components/ui/button';
 
 const commercialProcessSteps = [
     { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-red-500", bgColor: "bg-red-500" },
@@ -171,7 +174,22 @@ type SmartKey = keyof typeof smartGoalsData;
 export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
   const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
+  const [teamCarouselIndex, setTeamCarouselIndex] = useState(0);
   const selectedData = monthlyGoalsData[selectedMonth];
+
+  const featuredEmployees = mockEmployees.slice(0, 3);
+
+  const handlePrevEmployee = () => {
+    setTeamCarouselIndex((prevIndex) =>
+      prevIndex === 0 ? featuredEmployees.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextEmployee = () => {
+    setTeamCarouselIndex((prevIndex) =>
+      prevIndex === featuredEmployees.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   const kpis = [
       { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas },
@@ -311,45 +329,48 @@ export default function NosotrosPage() {
             </Card>
 
             <Card className="shadow-lg rounded-xl">
-              <CardHeader>
-                <CardTitle className="text-2xl md:text-3xl font-bold text-primary text-center">
-                  Nuestro Equipo
+              <CardHeader className="text-center">
+                <CardTitle className="text-2xl md:text-3xl font-bold text-primary">
+                  Conoce a tu Equipo
                 </CardTitle>
-                 <CardDescription className="text-muted-foreground text-center">
-                    Conozca a los profesionales que impulsan nuestra visión.
-                 </CardDescription>
+                <CardDescription className="text-muted-foreground">
+                  Algunos de los profesionales que impulsan nuestra visión.
+                </CardDescription>
               </CardHeader>
               <CardContent className="p-8 md:p-10">
-                <Tabs defaultValue={teamDepartments[0].id} className="w-full">
-                  <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-5 h-auto">
-                    {teamDepartments.map((dept) => (
-                      <TabsTrigger key={dept.id} value={dept.id}>{dept.name}</TabsTrigger>
-                    ))}
-                  </TabsList>
-                  {teamDepartments.map((dept) => (
-                    <TabsContent key={dept.id} value={dept.id}>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-                        {mockEmployees
-                          .filter((employee) => employee.department === dept.name)
-                          .map((employee) => (
-                            <div key={employee.id} className="flex flex-col items-center text-center p-4 border rounded-lg bg-card transition-shadow hover:shadow-md">
-                              <Avatar className="h-20 w-20 mb-4">
-                                <AvatarImage src={employee.imageUrl} alt={employee.name} data-ai-hint={employee.dataAiHint} />
-                                <AvatarFallback>{employee.name.charAt(0)}</AvatarFallback>
-                              </Avatar>
-                              <p className="font-semibold text-foreground">{employee.name}</p>
-                              <p className="text-sm text-muted-foreground">{employee.role}</p>
-                            </div>
-                          ))}
-                           {mockEmployees.filter((employee) => employee.department === dept.name).length === 0 && (
-                              <p className="col-span-full text-center text-muted-foreground mt-4">No hay empleados en este departamento.</p>
-                          )}
+                <div className="flex items-center justify-center gap-4 md:gap-8">
+                  <Button variant="outline" size="icon" className="h-10 w-10 rounded-full flex-shrink-0" onClick={handlePrevEmployee}>
+                    <ChevronLeft className="h-6 w-6" />
+                    <span className="sr-only">Anterior</span>
+                  </Button>
+                  <div className="w-full max-w-xs text-center">
+                    {featuredEmployees.length > 0 && (
+                      <div key={featuredEmployees[teamCarouselIndex].id}>
+                        <Avatar className="h-32 w-32 mx-auto mb-4 border-4 border-primary/20 shadow-md">
+                          <AvatarImage src={featuredEmployees[teamCarouselIndex].imageUrl} alt={featuredEmployees[teamCarouselIndex].name} data-ai-hint={featuredEmployees[teamCarouselIndex].dataAiHint} />
+                          <AvatarFallback>{featuredEmployees[teamCarouselIndex].name.slice(0, 2)}</AvatarFallback>
+                        </Avatar>
+                        <h3 className="font-semibold text-lg text-foreground">{featuredEmployees[teamCarouselIndex].name}</h3>
+                        <p className="text-sm text-muted-foreground">{featuredEmployees[teamCarouselIndex].role}</p>
+                        <p className="text-xs text-primary font-medium mt-1">{featuredEmployees[teamCarouselIndex].department}</p>
                       </div>
-                    </TabsContent>
-                  ))}
-                </Tabs>
+                    )}
+                  </div>
+                  <Button variant="outline" size="icon" className="h-10 w-10 rounded-full flex-shrink-0" onClick={handleNextEmployee}>
+                    <ChevronRight className="h-6 w-6" />
+                    <span className="sr-only">Siguiente</span>
+                  </Button>
+                </div>
               </CardContent>
+              <CardFooter className="flex justify-center pb-8">
+                <Button asChild>
+                  <Link href="/dashboard/equipo">
+                    Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </CardFooter>
             </Card>
+
           </div>
         </SectionWrapper>
       </div>

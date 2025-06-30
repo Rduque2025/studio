@@ -1,3 +1,4 @@
+
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { FileText, Download, Search } from "lucide-react";
@@ -14,7 +15,9 @@ const mockDocuments = [
 ];
 
 
-export default function BibliotecaPage({ searchParams }: {
+export default function BibliotecaPage({
+  searchParams,
+}: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   return (

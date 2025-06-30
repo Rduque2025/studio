@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -16,7 +17,9 @@ const iconMap: { [key: string]: React.ElementType } = {
 };
 
 
-export default function RequerimientosPage({ searchParams }: {
+export default function RequerimientosPage({
+  searchParams,
+}: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   return (

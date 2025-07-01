@@ -10,14 +10,7 @@ import {
   PieChart, 
   Pie, 
   Cell, 
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip
+  ResponsiveContainer
 } from 'recharts';
 import { 
   TrendingUp,
@@ -52,8 +45,9 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 const commercialProcessSteps = [
     { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-red-500", bgColor: "bg-red-500" },
@@ -79,21 +73,6 @@ const monthlyGoalsData = {
   Oct: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
   Nov: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
   Dic: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-};
-
-const monthlyMetaTarget = {
-  Ene: 10,
-  Feb: 19,
-  Mar: 22,
-  Abr: 33,
-  May: 44,
-  Jun: 49,
-  Jul: 60,
-  Ago: 70,
-  Sep: 80,
-  Oct: 88,
-  Nov: 95,
-  Dic: 100,
 };
 
 const months = Object.keys(monthlyGoalsData) as (keyof typeof monthlyGoalsData)[];
@@ -174,6 +153,7 @@ type SmartKey = keyof typeof smartGoalsData;
 export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
   const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
+  
   const selectedData = monthlyGoalsData[selectedMonth];
 
   const featuredEmployees = mockEmployees.slice(0, 3);
@@ -190,22 +170,6 @@ export default function NosotrosPage() {
     if (progress >= 50) return '#f59e0b'; // Amber/Yellow for 50-89%
     return 'hsl(var(--destructive))';    // Red for < 50%
   };
-
-  const lineChartData = months.map(month => ({
-    name: month,
-    "Progreso Primas": monthlyGoalsData[month].primas,
-    "Meta": monthlyMetaTarget[month],
-  }));
-
-  const handleChartClick = (data: any) => {
-    if (data && data.activeLabel) {
-      const monthKey = data.activeLabel as keyof typeof monthlyGoalsData;
-      if (months.includes(monthKey)) {
-        setSelectedMonth(monthKey);
-      }
-    }
-  };
-
 
   return (
     <>
@@ -314,7 +278,7 @@ export default function NosotrosPage() {
                 </div>
               </CardContent>
             </Card>
-
+            
             <div className="w-full py-16 md:py-24 my-12">
                 <div className="container mx-auto px-4">
 
@@ -427,147 +391,84 @@ export default function NosotrosPage() {
 
       <div className="container mx-auto py-8 px-4">
         <div className="space-y-12">
-          <Accordion type="single" collapsible className="w-full" defaultValue="item-1">
-            <AccordionItem value="item-1" className="border-b-0">
-               <div className="relative p-0 text-left w-full shadow-lg rounded-xl overflow-hidden">
-                  <AccordionTrigger className="relative w-full p-0 hover:no-underline [&>svg]:absolute [&>svg]:right-8 [&>svg]:top-1/2 [&>svg]:-translate-y-1/2 [&>svg]:text-white [&>svg]:z-20">
-                    <div className="relative h-48 md:h-56 w-full flex items-center justify-center text-center p-4">
-                      <Image 
-                        src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHxzdGF0aXN0aWNzfGVufDB8fHx8MTc1MTE2NjU4N3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                        alt="Gráficos de estadísticas y seguimiento de objetivos"
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint="statistics analytics"
-                        className="z-0"
-                      />
-                      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-                      <div className="relative z-10 text-white">
-                        <h3 className="text-3xl md:text-4xl font-bold">
-                          Seguimiento de Nuestros Objetivos
-                        </h3>
-                      </div>
+            <Card className="shadow-lg rounded-xl">
+                <CardHeader>
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <CardTitle>Indicadores Clave de Progreso</CardTitle>
+                            <CardDescription>
+                                Mostrando resultados para: {monthNames[selectedMonth]}
+                            </CardDescription>
+                        </div>
+                        <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
+                            <SelectTrigger className="w-full sm:w-[180px]">
+                                <SelectValue placeholder="Seleccionar mes" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {months.map((month) => (
+                                    <SelectItem key={month} value={month}>{monthNames[month]}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
-                  </AccordionTrigger>
-               </div>
-              <AccordionContent>
-                <div className="px-8 md:px-10 pt-6 pb-8">
-                  <div className="w-full h-80">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <AreaChart
-                        data={lineChartData}
-                        onClick={handleChartClick}
-                        margin={{ top: 5, right: 20, left: -10, bottom: 5 }}
-                      >
-                        <defs>
-                          <linearGradient id="colorProgreso" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                          </linearGradient>
-                        </defs>
-                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                        <XAxis 
-                          dataKey="name" 
-                          stroke="hsl(var(--muted-foreground))" 
-                          fontSize={12} 
-                          tickLine={false}
-                          axisLine={false}
-                        />
-                        <YAxis 
-                          stroke="hsl(var(--muted-foreground))" 
-                          fontSize={12} 
-                          unit="%" 
-                          tickLine={false}
-                          axisLine={false}
-                        />
-                        <Tooltip
-                          cursor={{ stroke: 'hsl(var(--border))', strokeWidth: 2, strokeDasharray: '3 3' }}
-                          contentStyle={{
-                              backgroundColor: 'hsl(var(--background))',
-                              borderColor: 'hsl(var(--border))',
-                              borderRadius: 'var(--radius)',
-                          }}
-                        />
-                        <Line 
-                            type="monotone" 
-                            dataKey="Meta" 
-                            stroke="hsl(var(--muted-foreground))" 
-                            strokeWidth={2}
-                            strokeDasharray="5 5" 
-                            dot={false}
-                            activeDot={false}
-                        />
-                        <Area 
-                            type="monotone" 
-                            dataKey="Progreso Primas" 
-                            stroke="hsl(var(--primary))" 
-                            strokeWidth={2.5}
-                            fillOpacity={1}
-                            fill="url(#colorProgreso)"
-                            activeDot={{ r: 6, style: { fill: 'hsl(var(--primary))' } }}
-                            dot={(props) => {
-                                const { cx, cy, payload } = props;
-                                if (payload.name === selectedMonth) {
-                                    return <circle key={payload.name} cx={cx} cy={cy} r={6} fill="hsl(var(--primary))" stroke="hsl(var(--background))" strokeWidth={2} />;
-                                }
-                                return null;
-                            }}
-                        />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                  </div>
-                </div>
-                <div className="border-t p-8 md:p-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-                    {kpis.map((kpi) => {
-                        const data = [
-                            { name: 'value', value: kpi.value },
-                            { name: 'remaining', value: 100 - kpi.value },
-                        ];
-                        const chartColor = getProgressColor(kpi.value);
+                </CardHeader>
+                <CardContent className="p-8 md:p-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                        {kpis.map((kpi) => {
+                            const data = [
+                                { name: 'value', value: kpi.value },
+                                { name: 'remaining', value: 100 - kpi.value },
+                            ];
+                            const chartColor = getProgressColor(kpi.value);
 
-                        return (
-                          <div key={kpi.id} className="flex flex-col items-center text-center">
-                              <div
-                                  className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
-                                  style={{ backgroundColor: chartColor }}
-                              >
-                                  <kpi.icon className="h-6 w-6 text-white" />
-                              </div>
-                              <div className="w-56 h-28">
-                                  <ResponsiveContainer width="100%" height="100%">
-                                      <PieChart>
-                                          <Pie
-                                              data={data}
-                                              cx="50%"
-                                              cy="100%"
-                                              innerRadius="65%"
-                                              outerRadius="100%"
-                                              dataKey="value"
-                                              startAngle={180}
-                                              endAngle={0}
-                                              stroke="none"
-                                          >
-                                              <Cell fill={chartColor} />
-                                              <Cell fill="hsl(var(--muted))" />
-                                          </Pie>
-                                      </PieChart>
-                                  </ResponsiveContainer>
-                              </div>
-                              <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
-                                <span className="text-xl font-bold">{kpi.value}</span>
-                                <span className="text-sm font-semibold">%</span>
-                              </div>
-                              <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
-                                  <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
-                              </div>
-                          </div>
-                        );
-                    })}
-                  </div>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+                            return (
+                            <div key={kpi.id} className="flex flex-col items-center text-center">
+                                <div
+                                    className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
+                                    style={{ backgroundColor: chartColor }}
+                                >
+                                    <kpi.icon className="h-6 w-6 text-white" />
+                                </div>
+                                <div className="w-56 h-28">
+                                    <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                            <Pie
+                                                data={data}
+                                                cx="50%"
+                                                cy="100%"
+                                                innerRadius="65%"
+                                                outerRadius="100%"
+                                                dataKey="value"
+                                                startAngle={180}
+                                                endAngle={0}
+                                                stroke="none"
+                                            >
+                                                <Cell fill={chartColor} />
+                                                <Cell fill="hsl(var(--muted))" />
+                                            </Pie>
+                                        </PieChart>
+                                    </ResponsiveContainer>
+                                </div>
+                                <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
+                                    <span className="text-xl font-bold">{kpi.value}</span>
+                                    <span className="text-sm font-semibold">%</span>
+                                </div>
+                                <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
+                                    <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
+                                </div>
+                            </div>
+                            );
+                        })}
+                    </div>
+                </CardContent>
+                <CardFooter className="justify-center p-4 border-t">
+                    <Button asChild>
+                        <Link href="/dashboard/objetivos">
+                            Ver Gráficos Detallados <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                </CardFooter>
+            </Card>
 
             <Card className="shadow-lg rounded-xl overflow-hidden">
                 <div className="grid md:grid-cols-5">

@@ -114,7 +114,7 @@ export default function NosotrosPage() {
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/90">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
             </p>
-            <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-sm font-semibold border-b-2 border-primary pb-1">
+            <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-sm font-semibold">
                 Explorar Desafíos Estratégicos <ArrowRight className="ml-2 h-4 w-4" />
             </div>
           </div>

@@ -16,7 +16,10 @@ import {
   Smile,
   ArrowRight,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Megaphone,
+  Settings,
+  HeartHandshake
 } from "lucide-react";
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
@@ -50,48 +53,58 @@ const commercialProcessSteps = [
     { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign },
 ];
 
+const dashboardCategories = [
+  {
+    title: "Gerencia Comercial",
+    href: "/dashboard/objetivos",
+    icon: TrendingUp,
+  },
+  {
+    title: "Mercadeo",
+    href: "/dashboard/objetivos",
+    icon: Megaphone,
+  },
+  {
+    title: "Suscripción",
+    href: "/dashboard/objetivos",
+    icon: FileCheck2,
+  },
+  {
+    title: "Siniestros",
+    href: "/dashboard/objetivos",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Finanzas",
+    href: "/dashboard/objetivos",
+    icon: CircleDollarSign,
+  },
+  {
+    title: "Operaciones y TI",
+    href: "/dashboard/objetivos",
+    icon: Settings,
+  },
+  {
+    title: "Talento Humano",
+    href: "/dashboard/objetivos",
+    icon: Users,
+  },
+  {
+    title: "Atención al Cliente",
+    href: "/dashboard/objetivos",
+    icon: HeartHandshake,
+  }
+];
 
-const monthlyGoalsData = {
-  Ene: { primas: 8, clientes: 15, cobranza: 6, nps: 88 },
-  Feb: { primas: 16, clientes: 30, cobranza: 12, nps: 89 },
-  Mar: { primas: 24, clientes: 47, cobranza: 18, nps: 90 },
-  Abr: { primas: 32, clientes: 55, cobranza: 25, nps: 91 },
-  May: { primas: 40, clientes: 62, cobranza: 33, nps: 91 },
-  Jun: { primas: 50, clientes: 68, cobranza: 42, nps: 92 },
-  Jul: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-  Ago: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-  Sep: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-  Oct: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-  Nov: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-  Dic: { primas: 0, clientes: 0, cobranza: 0, nps: 0 },
-};
-
-const months = Object.keys(monthlyGoalsData) as (keyof typeof monthlyGoalsData)[];
-
-const monthNames: Record<keyof typeof monthlyGoalsData, string> = {
-    Ene: 'Enero', Feb: 'Febrero', Mar: 'Marzo', Abr: 'Abril', May: 'Mayo', Jun: 'Junio', Jul: 'Julio', Ago: 'Agosto', Sep: 'Septiembre', Oct: 'Octubre', Nov: 'Noviembre', Dic: 'Diciembre'
-};
-
-
-export default function NosotrosPage() {
-  const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
-  
-  const selectedData = monthlyGoalsData[selectedMonth];
-
-  const kpis = [
-      { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas },
-      { id: 'clientes', label: 'Clientes Nuevos', icon: UserPlus, value: selectedData.clientes },
-      { id: 'cobranza', label: 'Meta de Cobranza', icon: CircleDollarSign, value: selectedData.cobranza },
-      { id: 'nps', label: 'NPS (Satisfacción)', icon: Smile, value: selectedData.nps }
-  ];
-
-  const statsData = [
+const statsData = [
     { value: "+32", description: "Años de servicio continuo y confianza." },
     { value: "+200k", description: "Clientes que han depositado su confianza en nosotros." },
     { value: "+100", description: "Clínicas afiliadas a nuestra red a nivel nacional." },
     { value: "+200", description: "Empleados comprometidos con nuestra misión y valores." }
   ];
 
+
+export default function NosotrosPage() {
 
   return (
     <div className="bg-background">
@@ -217,42 +230,30 @@ export default function NosotrosPage() {
           </div>
         </section>
 
-        <section className="min-h-screen flex flex-col justify-center">
-            <Card className="max-w-4xl mx-auto w-full bg-card shadow-lg rounded-2xl">
-                <CardHeader className="text-center p-8">
-                    <CardTitle className="text-3xl font-bold tracking-tight">Indicadores Clave de Progreso</CardTitle>
-                    <CardDescription className="flex justify-center items-center mt-2">
-                        Mostrando resultados para:
-                        <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
-                            <SelectTrigger className="w-auto inline-flex ml-2 border-0 shadow-none bg-transparent h-auto p-1 text-base font-semibold text-primary">
-                                <SelectValue placeholder="Seleccionar mes" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {months.map((month) => (
-                                    <SelectItem key={month} value={month}>{monthNames[month]}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="p-6 md:p-8">
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                        {kpis.map((kpi) => (
-                            <Card key={kpi.id} className="p-6 text-center bg-background border-border/60 shadow-sm">
-                                <p className="text-4xl font-bold text-foreground">{kpi.value}<span className="text-2xl text-muted-foreground">%</span></p>
-                                <p className="text-sm text-muted-foreground mt-2 font-medium">{kpi.label}</p>
-                            </Card>
-                        ))}
-                    </div>
-                </CardContent>
-                <CardFooter className="justify-center p-6 border-t border-border/20">
-                    <Button asChild>
-                        <Link href="/dashboard/objetivos">
-                            Ver Gráficos Detallados <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h3 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+                Explora por Área
+              </h3>
+              <p className="mt-4 text-muted-foreground text-base leading-relaxed">
+                Selecciona un área para visualizar sus indicadores de rendimiento y dashboards detallados.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {dashboardCategories.map((category) => (
+                <Link href={category.href} key={category.title} className="block">
+                  <Card className="group h-40 p-6 flex flex-col justify-start bg-card hover:bg-primary/5 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-lg border hover:border-primary/20">
+                      <category.icon className="h-7 w-7 mb-4 text-primary/80 group-hover:text-primary transition-colors" />
+                      <h4 className="font-bold text-base text-foreground">
+                          {category.title}
+                      </h4>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
         </section>
 
       </div>

@@ -3,15 +3,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
-import { 
-  PieChart, 
-  Pie, 
-  Cell, 
-  ResponsiveContainer
-} from 'recharts';
 import { 
   TrendingUp,
   PackagePlus,
@@ -21,9 +14,6 @@ import {
   Network,
   Gavel,
   Users,
-  Hospital,
-  Car,
-  Briefcase,
   UserPlus,
   UserCheck,
   FileClock,
@@ -38,25 +28,23 @@ import {
   Workflow,
   GraduationCap,
   Gem,
-  ChevronLeft,
-  ChevronRight,
   ArrowRight
 } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
 const commercialProcessSteps = [
-    { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-red-500", bgColor: "bg-red-500" },
-    { number: 2, title: "Contactado", description: "Se establece comunicación y se presentan los servicios.", icon: UserCheck, color: "text-orange-500", bgColor: "bg-orange-500" },
-    { number: 3, title: "Esperando Recaudos", description: "Recopilación de la documentación necesaria del cliente.", icon: FileClock, color: "text-amber-500", bgColor: "bg-amber-500" },
-    { number: 4, title: "En Cotización", description: "Análisis de necesidades y preparación de la propuesta.", icon: Calculator, color: "text-yellow-500", bgColor: "bg-yellow-500" },
-    { number: 5, title: "En Negociación", description: "Discusión de términos, coberturas y cierre de acuerdos.", icon: Handshake, color: "text-lime-500", bgColor: "bg-lime-500" },
-    { number: 6, title: "Emitida", description: "Generación y entrega oficial de la póliza al cliente.", icon: FileCheck2, color: "text-green-500", bgColor: "bg-green-500" },
-    { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign, color: "text-green-700", bgColor: "bg-green-700" },
+    { number: 1, title: "Por Contactar", description: "Identificación y primer acercamiento con el cliente potencial.", icon: UserPlus, color: "text-red-500", bgColor: "bg-red-100" },
+    { number: 2, title: "Contactado", description: "Se establece comunicación y se presentan los servicios.", icon: UserCheck, color: "text-orange-500", bgColor: "bg-orange-100" },
+    { number: 3, title: "Esperando Recaudos", description: "Recopilación de la documentación necesaria del cliente.", icon: FileClock, color: "text-amber-500", bgColor: "bg-amber-100" },
+    { number: 4, title: "En Cotización", description: "Análisis de necesidades y preparación de la propuesta.", icon: Calculator, color: "text-yellow-500", bgColor: "bg-yellow-100" },
+    { number: 5, title: "En Negociación", description: "Discusión de términos, coberturas y cierre de acuerdos.", icon: Handshake, color: "text-lime-500", bgColor: "bg-lime-100" },
+    { number: 6, title: "Emitida", description: "Generación y entrega oficial de la póliza al cliente.", icon: FileCheck2, color: "text-green-500", bgColor: "bg-green-100" },
+    { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign, color: "text-emerald-500", bgColor: "bg-emerald-100" },
 ];
 
 
@@ -152,11 +140,8 @@ type SmartKey = keyof typeof smartGoalsData;
 
 export default function NosotrosPage() {
   const [selectedMonth, setSelectedMonth] = useState<keyof typeof monthlyGoalsData>('Jun');
-  const [activeSmartGoal, setActiveSmartGoal] = useState<SmartKey | null>(null);
   
   const selectedData = monthlyGoalsData[selectedMonth];
-
-  const featuredEmployees = mockEmployees.slice(0, 3);
 
   const kpis = [
       { id: 'primas', label: 'Primas Suscritas', icon: TrendingUp, value: selectedData.primas },
@@ -165,281 +150,169 @@ export default function NosotrosPage() {
       { id: 'nps', label: 'NPS (Satisfacción)', icon: Smile, value: selectedData.nps }
   ];
 
-  const getProgressColor = (progress: number): string => {
-    if (progress >= 90) return '#22c55e'; // Green for 90%+
-    if (progress >= 50) return '#f59e0b'; // Amber/Yellow for 50-89%
-    return 'hsl(var(--destructive))';    // Red for < 50%
-  };
-
   return (
-    <>
-      <div className="container mx-auto py-8 px-4">
-        <SectionWrapper>
-          <div className="space-y-12 mt-6">
-            <Card className="overflow-hidden shadow-lg rounded-xl">
-              <CardHeader className="p-0">
-                <div className="relative w-full h-64 md:h-80">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Visión de la empresa"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="business vision"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
-                     <h2 className="text-4xl md:text-5xl font-bold text-white">Nuestra Visión para el 2025</h2>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="p-8 md:p-10 text-sm">
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                      Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
-                  </p>
-                  <p className="text-muted-foreground leading-relaxed">
-                      Seguir mejorando nuestros productos para empresas, ofreciendo coberturas y tarifas competitivas que cumplan sus necesidades de protección. Además, nos enfocaremos en agilizar la entrega de nuestros servicios para satisfacer sus expectativas de tiempo.
-                  </p>
-              </CardContent>
-            </Card>
+    <div className="bg-background">
+      <div className="container mx-auto py-12 px-4 space-y-24">
 
-            <Card className="shadow-none border-none rounded-xl">
-              <CardContent className="p-4 md:p-8">
-                <div className="flex flex-col md:flex-row items-stretch gap-4">
-                  <div className={cn(
-                      "flex md:flex-col gap-2 transition-all duration-300 ease-in-out",
-                      !activeSmartGoal && "grid w-full grid-cols-2 sm:grid-cols-5",
-                      activeSmartGoal && "flex-row md:flex-col md:w-auto"
-                  )}>
-                      {Object.keys(smartGoalsData).map((key) => {
-                          const goal = smartGoalsData[key as SmartKey];
-                          const isActive = activeSmartGoal === goal.letter;
-                          const isAnyActive = !!activeSmartGoal;
-
-                          return (
-                              <button
-                                  key={goal.letter}
-                                  onClick={() => {
-                                      if (activeSmartGoal === goal.letter) {
-                                          setActiveSmartGoal(null);
-                                      } else {
-                                          setActiveSmartGoal(goal.letter as SmartKey);
-                                      }
-                                  }}
-                                  className={cn(
-                                      "p-4 rounded-lg text-left transition-all duration-300 flex flex-col",
-                                      goal.color,
-                                      goal.textColor,
-                                      !isActive && 'hover:shadow-lg hover:-translate-y-1',
-                                      isActive && 'shadow-xl scale-105',
-                                      isAnyActive ? 
-                                          (isActive ? 
-                                              "h-48 justify-between md:w-48" :
-                                              "h-20 justify-center items-center text-center p-2 w-full md:w-20"
-                                          ) 
-                                      : "h-48 justify-between"
-                                  )}
-                              >
-                                  <div className={cn(isAnyActive && !isActive && 'hidden')}>
-                                      <p className="text-sm font-semibold">{goal.title}</p>
-                                      <p className="text-xs mt-1 opacity-90">
-                                          {goal.description}
-                                      </p>
-                                  </div>
-                                  <p className={cn(
-                                      "font-extrabold opacity-80",
-                                      isAnyActive && !isActive ? 'text-4xl self-center' : 'text-6xl self-end'
-                                  )}>
-                                      {goal.letter}
-                                  </p>
-                              </button>
-                          );
-                      })}
-                  </div>
-
-                  {activeSmartGoal && (
-                      <div className="flex-1 p-6 rounded-lg min-h-[350px] animate-in fade-in-0 duration-500">
-                          <ul className="space-y-4">
-                              {smartGoalsData[activeSmartGoal].challenges.map((challenge, index) => (
-                                  <li key={index} className="flex items-start gap-4">
-                                      <div className={cn(
-                                        "flex-shrink-0 p-3 rounded-full", 
-                                        smartGoalsData[activeSmartGoal].color
-                                      )}>
-                                          <challenge.icon className={cn("h-6 w-6", smartGoalsData[activeSmartGoal].textColor)} />
-                                      </div>
-                                      <div>
-                                          <h5 className="font-semibold text-foreground text-sm">{challenge.title}</h5>
-                                          <p className="text-muted-foreground text-xs">{challenge.description}</p>
-                                      </div>
-                                  </li>
-                              ))}
-                          </ul>
-                      </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-            
-            <div className="w-full py-16 md:py-24 my-12">
-                <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
-                        <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground">
-                            <span className="font-light italic text-4xl md:text-6xl text-muted-foreground block -mb-4">Conoce a</span>
-                            nuestro <span className="text-primary">equipo</span>
-                        </h2>
-                    </div>
-                    <div className="flex justify-center items-center -space-x-8 md:-space-x-10">
-                        {featuredEmployees.map((employee, index) => (
-                           <div key={employee.id} className={cn(
-                               "group relative h-72 w-52 md:h-80 md:w-60 rounded-xl overflow-hidden shadow-2xl border-4 border-background transform transition-all duration-500 ease-in-out hover:scale-105",
-                               index === 1 ? 'z-10 -translate-y-6 hover:z-20' : 'z-0 hover:z-20'
-                           )}>
-                               <Image 
-                                   src={employee.imageUrl} 
-                                   alt={employee.name} 
-                                   layout="fill"
-                                   objectFit="cover"
-                                   data-ai-hint={employee.dataAiHint}
-                                   className="grayscale group-hover:grayscale-0 transition-all duration-500"
-                               />
-                               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"/>
-                               <div className="absolute bottom-0 left-0 p-4 text-white w-full">
-                                   <h3 className="font-bold text-lg">{employee.name}</h3>
-                                   <p className="text-sm opacity-90">{employee.role}</p>
-                               </div>
-                           </div>
-                        ))}
-                    </div>
-                    <div className="mt-16 text-center">
-                        <Button asChild size="lg">
-                            <Link href="/dashboard/equipo">
-                                Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
-                    </div>
-                </div>
-            </div>
-
-          </div>
-        </SectionWrapper>
-      </div>
-      
-      <section className="w-full bg-muted py-16 md:py-24 my-12">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold text-primary">
-              Nuestra Sistemática Comercial
-            </h3>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
-              El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.
-            </p>
-          </div>
-          <div className="hidden md:flex flex-col items-center w-full">
-              <div className="flex justify-between w-full relative px-5">
-                  {commercialProcessSteps.map((step, index) => (
-                      <div key={step.number} className="relative flex-1 flex flex-col items-center group">
-                         <div className={cn(
-                          "flex flex-col items-center text-center w-32",
-                          index % 2 === 0 ? "mb-10" : "mt-10"
-                         )}>
-                              <div className={cn(
-                                  "flex flex-col items-center",
-                                  index % 2 === 0 ? "order-2" : "order-1"
-                              )}>
-                                  <div className={cn(
-                                      "w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md z-10",
-                                      step.bgColor
-                                  )}>
-                                    <step.icon className="h-6 w-6 text-white" />
-                                  </div>
-                                  <div className="w-px h-5 bg-border/80"></div>
-                              </div>
-                              <div className={cn(
-                                "text-center",
-                                index % 2 === 0 ? "order-1" : "order-2"
-                              )}>
-                                  <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                                  <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                              </div>
-                         </div>
-                      </div>
-                  ))}
+        <section>
+          <Card className="border-none shadow-none p-0">
+            <CardContent className="p-0 relative h-[500px] rounded-2xl overflow-hidden">
+              <Image 
+                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Visión de la empresa"
+                layout="fill"
+                objectFit="cover"
+                data-ai-hint="business vision"
+                className="brightness-75"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent flex flex-col justify-center items-start p-12 md:p-20">
+                <h2 className="text-4xl md:text-6xl font-extrabold text-white max-w-2xl leading-tight">Nuestra Visión para el 2025</h2>
+                <p className="text-white/90 mt-6 max-w-lg text-base leading-relaxed">
+                  Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
+                </p>
               </div>
+            </CardContent>
+          </Card>
+        </section>
+        
+        <section>
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-foreground tracking-tight">Nuestros Desafíos Estratégicos</h3>
+            <p className="text-muted-foreground mt-3 text-lg max-w-3xl mx-auto">Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales.</p>
           </div>
-           <div className="md:hidden space-y-8 mt-8">
-              {commercialProcessSteps.map((step, index) => (
-                  <div key={step.number} className="flex items-start gap-4">
-                      <div className="flex flex-col items-center flex-shrink-0">
-                          <div className={cn("w-12 h-12 flex items-center justify-center rounded-full text-white font-bold text-lg shadow-md", step.bgColor)}>
-                              <step.icon className="h-6 w-6 text-white" />
-                          </div>
-                          {index < commercialProcessSteps.length - 1 && (
-                              <div className="w-px h-16 bg-border/80 mt-2"></div>
-                          )}
-                      </div>
-                      <div>
-                          <h4 className={cn("font-bold text-sm", step.color)}>{step.title}</h4>
-                          <p className="text-xs text-muted-foreground mt-1">{step.description}</p>
-                      </div>
+          <Tabs defaultValue="S" className="w-full">
+            <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-5 bg-muted/60 p-1.5 h-auto rounded-xl">
+              {Object.keys(smartGoalsData).map((key) => {
+                  const goal = smartGoalsData[key as SmartKey];
+                  return (
+                      <TabsTrigger key={key} value={key} className="flex flex-col items-center gap-1 py-3 data-[state=active]:shadow-md rounded-lg">
+                          <span className="font-extrabold text-2xl" style={{color: goal.textColor, textShadow: '1px 1px 3px rgba(0,0,0,0.2)'}}>{goal.letter}</span>
+                          <span className="text-xs font-semibold uppercase tracking-wider">{goal.title}</span>
+                      </TabsTrigger>
+                  )
+              })}
+            </TabsList>
+
+            {Object.keys(smartGoalsData).map((key) => {
+                const goal = smartGoalsData[key as SmartKey];
+                return (
+                    <TabsContent key={key} value={key} className="mt-8">
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {goal.challenges.map((challenge, index) => (
+                                <Card key={index} className="border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300 bg-card/50">
+                                  <CardHeader className="flex flex-row items-center gap-4 space-y-0">
+                                    <div className={cn("flex-shrink-0 p-3 rounded-lg shadow-inner", goal.color)}>
+                                        <challenge.icon className={cn("h-6 w-6", goal.textColor)} />
+                                    </div>
+                                    <CardTitle className="text-base font-semibold leading-tight">{challenge.title}</CardTitle>
+                                  </CardHeader>
+                                  <CardContent>
+                                      <p className="text-sm text-muted-foreground">{challenge.description}</p>
+                                  </CardContent>
+                                </Card>
+                            ))}
+                        </div>
+                    </TabsContent>
+                )
+            })}
+          </Tabs>
+        </section>
+
+        <section>
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-foreground tracking-tight">Nuestra Sistemática Comercial</h3>
+            <p className="text-muted-foreground mt-3 text-lg">El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
+            {commercialProcessSteps.map((step) => (
+              <div key={step.number} className="text-center p-4 rounded-xl bg-muted/60">
+                <div className="flex justify-center mb-4">
+                  <div className={cn("w-14 h-14 flex items-center justify-center rounded-full shadow-md", step.bgColor)}>
+                    <step.icon className={cn("h-7 w-7", step.color)} />
                   </div>
+                </div>
+                <h4 className="font-bold text-sm mb-1">{step.title}</h4>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+           <Card className="bg-muted/60 border-none">
+            <CardContent className="p-10">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                  <div>
+                      <p className="text-6xl font-extrabold text-primary">+32</p>
+                      <p className="text-sm text-muted-foreground mt-2 font-medium">Años de servicio</p>
+                  </div>
+                  <div>
+                      <p className="text-6xl font-extrabold text-primary">+200k</p>
+                      <p className="text-sm text-muted-foreground mt-2 font-medium">Clientes satisfechos</p>
+                  </div>
+                  <div>
+                      <p className="text-6xl font-extrabold text-primary">+100</p>
+                      <p className="text-sm text-muted-foreground mt-2 font-medium">Clínicas aliadas</p>
+                  </div>
+                  <div>
+                      <p className="text-6xl font-extrabold text-primary">+200</p>
+                      <p className="text-sm text-muted-foreground mt-2 font-medium">Empleados</p>
+                  </div>
+              </div>
+            </CardContent>
+           </Card>
+        </section>
+
+        <section>
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-foreground tracking-tight">Conoce a Nuestro Equipo</h3>
+            <p className="text-muted-foreground mt-3 text-lg">Los profesionales que impulsan nuestra visión.</p>
+          </div>
+          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
+              {mockEmployees.slice(0, 3).map((employee) => (
+                  <Card key={employee.id} className="overflow-hidden rounded-xl border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300 bg-card/50">
+                      <CardHeader className="p-0">
+                          <div className="relative aspect-[4/5]">
+                              <Image 
+                                  src={employee.imageUrl} 
+                                  alt={employee.name} 
+                                  layout="fill"
+                                  objectFit="cover"
+                                  data-ai-hint={employee.dataAiHint}
+                              />
+                          </div>
+                      </CardHeader>
+                      <CardContent className="p-6 text-center">
+                          <h4 className="font-semibold text-lg">{employee.name}</h4>
+                          <p className="text-sm text-primary font-medium">{employee.role}</p>
+                      </CardContent>
+                  </Card>
               ))}
           </div>
-        </div>
-      </section>
-
-      <div className="container mx-auto py-8 px-4">
-        <div className="space-y-12">
-            <Card className="shadow-lg rounded-xl overflow-hidden">
-                <div className="grid md:grid-cols-5">
-                    <div className="md:col-span-2 bg-foreground text-background p-8 md:p-12 flex flex-col justify-center">
-                        <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                            Nuestra Trayectoria en Cifras
-                        </h3>
-                        <p className="text-sm text-background/80 leading-relaxed">
-                            Más de tres décadas de compromiso y confianza nos respaldan. Conozca los números que reflejan nuestra solidez y el impacto que generamos en la vida de miles de venezolanos.
-                        </p>
-                    </div>
-                    <div className="md:col-span-3 bg-background p-8 md:p-12">
-                        <div className="grid grid-cols-2 gap-8">
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-chart-2 to-chart-5 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                <p className="text-4xl lg:text-5xl font-bold">+32</p>
-                                <p className="text-xs lg:text-sm mt-1">Años de servicio</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-emerald-500 to-green-400 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                 <p className="text-4xl lg:text-5xl font-bold">+200k</p>
-                                <p className="text-xs lg:text-sm mt-1">Clientes satisfechos</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-amber-500 to-yellow-400 text-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                 <p className="text-4xl lg:text-5xl font-bold">+100</p>
-                                <p className="text-xs lg:text-sm mt-1">Clínicas aliadas</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-rose-500 to-pink-500 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                 <p className="text-4xl lg:text-5xl font-bold">+200</p>
-                                <p className="text-xs lg:text-sm mt-1">Empleados</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-        </div>
-      </div>
-      <section className="w-full bg-muted py-16 md:py-24 flex flex-col justify-center min-h-screen">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h3 className="text-3xl md:text-4xl font-bold text-primary">Indicadores Clave de Progreso</h3>
-            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">Monitoriza el avance de nuestros objetivos mensuales.</p>
+          <div className="mt-12 text-center">
+              <Button asChild size="lg">
+                  <Link href="/dashboard/equipo">
+                      Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+              </Button>
           </div>
+        </section>
 
-          <Card className="shadow-lg rounded-xl bg-card">
-              <CardHeader>
+        <section>
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-foreground tracking-tight">Indicadores Clave</h3>
+            <p className="text-muted-foreground mt-3 text-lg">Monitoriza el avance de nuestros objetivos mensuales.</p>
+          </div>
+            <Card className="shadow-sm rounded-2xl bg-muted/60 border-none">
+              <CardHeader className="border-b border-border/20 p-6">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                       <div>
-                          <CardTitle>Rendimiento Mensual</CardTitle>
+                          <CardTitle className="text-2xl">Rendimiento Mensual</CardTitle>
                           <CardDescription>
-                              Mostrando resultados para: {monthNames[selectedMonth]}
+                              Resultados para: {monthNames[selectedMonth]}
                           </CardDescription>
                       </div>
                       <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
-                          <SelectTrigger className="w-full sm:w-[180px]">
+                          <SelectTrigger className="w-full sm:w-[180px] bg-background">
                               <SelectValue placeholder="Seleccionar mes" />
                           </SelectTrigger>
                           <SelectContent>
@@ -450,65 +323,33 @@ export default function NosotrosPage() {
                       </Select>
                   </div>
               </CardHeader>
-              <CardContent className="p-8 md:p-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+              <CardContent className="p-6 md:p-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {kpis.map((kpi) => {
-                          const data = [
-                              { name: 'value', value: kpi.value },
-                              { name: 'remaining', value: 100 - kpi.value },
-                          ];
-                          const chartColor = getProgressColor(kpi.value);
-
                           return (
-                          <div key={kpi.id} className="flex flex-col items-center text-center">
-                              <div
-                                  className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
-                                  style={{ backgroundColor: chartColor }}
-                              >
-                                  <kpi.icon className="h-6 w-6 text-white" />
-                              </div>
-                              <div className="w-56 h-28">
-                                  <ResponsiveContainer width="100%" height="100%">
-                                      <PieChart>
-                                          <Pie
-                                              data={data}
-                                              cx="50%"
-                                              cy="100%"
-                                              innerRadius="65%"
-                                              outerRadius="100%"
-                                              dataKey="value"
-                                              startAngle={180}
-                                              endAngle={0}
-                                              stroke="none"
-                                          >
-                                              <Cell fill={chartColor} />
-                                              <Cell fill="hsl(var(--muted))" />
-                                          </Pie>
-                                      </PieChart>
-                                  </ResponsiveContainer>
-                              </div>
-                              <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
-                                  <span className="text-xl font-bold">{kpi.value}</span>
-                                  <span className="text-sm font-semibold">%</span>
-                              </div>
-                              <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
-                                  <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
-                              </div>
-                          </div>
+                              <Card key={kpi.id} className="p-6 text-center border-border/60 shadow-sm bg-background">
+                                  <div className="flex justify-center mb-4">
+                                      <div className="p-3 bg-primary/10 rounded-lg">
+                                        <kpi.icon className="h-7 w-7 text-primary" />
+                                      </div>
+                                  </div>
+                                  <p className="text-4xl font-bold text-foreground">{kpi.value}<span className="text-2xl text-muted-foreground">%</span></p>
+                                  <p className="text-sm text-muted-foreground mt-2 font-medium">{kpi.label}</p>
+                              </Card>
                           );
                       })}
                   </div>
               </CardContent>
-              <CardFooter className="justify-center p-4 border-t">
+              <CardFooter className="justify-center p-6 border-t border-border/20">
                   <Button asChild>
                       <Link href="/dashboard/objetivos">
-                          Ver Gráficos Detallados <ArrowRight className="ml-2 h-4 w-4" />
+                          Ver Dashboard Detallado <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                   </Button>
               </CardFooter>
-          </Card>
-        </div>
-      </section>
-    </>
+            </Card>
+        </section>
+      </div>
+    </div>
   );
 }

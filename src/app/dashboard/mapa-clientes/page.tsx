@@ -386,6 +386,42 @@ export default function NosotrosPage() {
         </div>
       </section>
 
+      <div className="container mx-auto py-8 px-4">
+        <div className="space-y-12">
+            <Card className="shadow-lg rounded-xl overflow-hidden">
+                <div className="grid md:grid-cols-5">
+                    <div className="md:col-span-2 bg-foreground text-background p-8 md:p-12 flex flex-col justify-center">
+                        <h3 className="text-3xl md:text-4xl font-bold mb-4">
+                            Nuestra Trayectoria en Cifras
+                        </h3>
+                        <p className="text-sm text-background/80 leading-relaxed">
+                            Más de tres décadas de compromiso y confianza nos respaldan. Conozca los números que reflejan nuestra solidez y el impacto que generamos en la vida de miles de venezolanos.
+                        </p>
+                    </div>
+                    <div className="md:col-span-3 bg-background p-8 md:p-12">
+                        <div className="grid grid-cols-2 gap-8">
+                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-chart-2 to-chart-5 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
+                                <p className="text-4xl lg:text-5xl font-bold">+32</p>
+                                <p className="text-xs lg:text-sm mt-1">Años de servicio</p>
+                            </div>
+                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-emerald-500 to-green-400 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
+                                 <p className="text-4xl lg:text-5xl font-bold">+200k</p>
+                                <p className="text-xs lg:text-sm mt-1">Clientes satisfechos</p>
+                            </div>
+                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-amber-500 to-yellow-400 text-foreground p-4 shadow-lg transition-transform hover:scale-105">
+                                 <p className="text-4xl lg:text-5xl font-bold">+100</p>
+                                <p className="text-xs lg:text-sm mt-1">Clínicas aliadas</p>
+                            </div>
+                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-rose-500 to-pink-500 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
+                                 <p className="text-4xl lg:text-5xl font-bold">+200</p>
+                                <p className="text-xs lg:text-sm mt-1">Empleados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+        </div>
+      </div>
       <section className="w-full bg-muted py-16 md:py-24 flex flex-col justify-center min-h-screen">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -473,43 +509,6 @@ export default function NosotrosPage() {
           </Card>
         </div>
       </section>
-
-      <div className="container mx-auto py-8 px-4">
-        <div className="space-y-12">
-            <Card className="shadow-lg rounded-xl overflow-hidden">
-                <div className="grid md:grid-cols-5">
-                    <div className="md:col-span-2 bg-foreground text-background p-8 md:p-12 flex flex-col justify-center">
-                        <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                            Nuestra Trayectoria en Cifras
-                        </h3>
-                        <p className="text-sm text-background/80 leading-relaxed">
-                            Más de tres décadas de compromiso y confianza nos respaldan. Conozca los números que reflejan nuestra solidez y el impacto que generamos en la vida de miles de venezolanos.
-                        </p>
-                    </div>
-                    <div className="md:col-span-3 bg-background p-8 md:p-12">
-                        <div className="grid grid-cols-2 gap-8">
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-chart-2 to-chart-5 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                <p className="text-4xl lg:text-5xl font-bold">+32</p>
-                                <p className="text-xs lg:text-sm mt-1">Años de servicio</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-emerald-500 to-green-400 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                 <p className="text-4xl lg:text-5xl font-bold">+200k</p>
-                                <p className="text-xs lg:text-sm mt-1">Clientes satisfechos</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-amber-500 to-yellow-400 text-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                 <p className="text-4xl lg:text-5xl font-bold">+100</p>
-                                <p className="text-xs lg:text-sm mt-1">Clínicas aliadas</p>
-                            </div>
-                            <div className="flex flex-col items-center justify-center text-center aspect-square rounded-full bg-gradient-to-br from-rose-500 to-pink-500 text-primary-foreground p-4 shadow-lg transition-transform hover:scale-105">
-                                 <p className="text-4xl lg:text-5xl font-bold">+200</p>
-                                <p className="text-xs lg:text-sm mt-1">Empleados</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-        </div>
-      </div>
     </>
   );
 }

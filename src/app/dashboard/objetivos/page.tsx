@@ -65,7 +65,7 @@ const formatCurrency = (value: number) => {
 // --- COMPONENT ---
 export default function GerenciaComercialDashboard() {
   return (
-    <div className="container mx-auto py-8 px-4 space-y-8 bg-muted/20 min-h-screen">
+    <div className="container mx-auto py-8 px-4 space-y-8 bg-muted min-h-screen">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Dashboard: Gerencia Comercial</h1>

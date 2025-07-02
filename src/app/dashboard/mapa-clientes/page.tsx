@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState } from 'react';
@@ -19,7 +20,9 @@ import {
   ChevronRight,
   Megaphone,
   Settings,
-  HeartHandshake
+  HeartHandshake,
+  Twitter,
+  Instagram
 } from "lucide-react";
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
@@ -163,55 +166,53 @@ export default function NosotrosPage() {
           </div>
         </section>
         
-        <section className="py-16 md:py-24">
-          <div className="container mx-auto text-center px-4">
-              <p className="text-lg font-semibold text-primary">Talento</p>
-              <h3 className="text-5xl font-extrabold text-foreground tracking-tight mb-12">
-                <span className="font-light text-muted-foreground">Conoce a nuestro</span><br/>equipo
-              </h3>
+        <section className="py-16 md:py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <Card className="bg-primary text-primary-foreground p-8 flex flex-col justify-center rounded-2xl aspect-[4/5] sm:aspect-auto">
+                    <CardHeader className="p-0">
+                        <CardTitle className="text-4xl font-bold">Nuestro fantástico equipo</CardTitle>
+                        <CardDescription className="text-primary-foreground/80 mt-3">
+                            Estas personas trabajan para hacer nuestro producto el mejor.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-0 mt-auto pt-6">
+                        <Button asChild variant="secondary" className="bg-white text-primary hover:bg-white/90">
+                            <Link href="/dashboard/equipo">
+                                Ver todo el equipo
+                            </Link>
+                        </Button>
+                    </CardContent>
+                </Card>
 
-              <div className="relative h-[380px] flex items-center justify-center">
-                  {mockEmployees.slice(0, 3).map((employee, index) => {
-                      const isCenter = index === 1;
-                      return (
-                          <div
-                              key={employee.id}
-                              className={cn(
-                                  "absolute w-[280px] h-full transition-all duration-500 ease-in-out",
-                                  isCenter ? 'z-20' : 'z-10'
-                              )}
-                              style={{
-                                  transform: `translateX(${(index - 1) * 70}%) scale(${isCenter ? 1.05 : 0.9})`,
-                                  transformOrigin: 'bottom center'
-                              }}
-                          >
-                              <Card className="w-full h-full overflow-hidden rounded-2xl shadow-2xl group border-0">
-                                  <Image
-                                      src={employee.imageUrl}
-                                      alt={employee.name}
-                                      layout="fill"
-                                      objectFit="cover"
-                                      data-ai-hint={employee.dataAiHint}
-                                      className="grayscale group-hover:grayscale-0 transition-all duration-500"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                                  <CardContent className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                      <CardTitle className="text-2xl font-bold uppercase tracking-wider">{employee.name}</CardTitle>
-                                      <CardDescription className="text-white/80 lowercase">{employee.role}</CardDescription>
-                                  </CardContent>
-                              </Card>
-                          </div>
-                      )
-                  })}
-              </div>
-
-              <div className="mt-12 text-center">
-                  <Button asChild size="lg">
-                      <Link href="/dashboard/equipo">
-                          Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                  </Button>
-              </div>
+                {mockEmployees.slice(0, 5).map((employee) => (
+                    <Card key={employee.id} className="rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 bg-card">
+                        <div className="relative aspect-[4/5] w-full">
+                            <Image
+                                src={employee.imageUrl}
+                                alt={employee.name}
+                                layout="fill"
+                                objectFit="cover"
+                                data-ai-hint={employee.dataAiHint}
+                            />
+                        </div>
+                        <CardFooter className="p-4 flex justify-between items-center">
+                            <div>
+                                <p className="font-semibold text-foreground">{employee.name}</p>
+                                <p className="text-sm text-muted-foreground">{employee.role}</p>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                                <Link href="#" className="text-muted-foreground hover:text-primary">
+                                    <Twitter className="h-4 w-4" />
+                                </Link>
+                                <Link href="#" className="text-muted-foreground hover:text-primary">
+                                    <Instagram className="h-4 w-4" />
+                                </Link>
+                            </div>
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
           </div>
         </section>
 

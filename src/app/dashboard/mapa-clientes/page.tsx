@@ -28,7 +28,9 @@ import {
   Workflow,
   GraduationCap,
   Gem,
-  ArrowRight
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
@@ -149,33 +151,54 @@ export default function NosotrosPage() {
       { id: 'cobranza', label: 'Meta de Cobranza', icon: CircleDollarSign, value: selectedData.cobranza },
       { id: 'nps', label: 'NPS (Satisfacción)', icon: Smile, value: selectedData.nps }
   ];
+  
+  const [currentEmployeeIndex, setCurrentEmployeeIndex] = useState(1);
+
+  const handlePrevEmployee = () => {
+      setCurrentEmployeeIndex(prev => (prev === 0 ? mockEmployees.length - 1 : prev - 1));
+  };
+  const handleNextEmployee = () => {
+      setCurrentEmployeeIndex(prev => (prev === mockEmployees.length - 1 ? 0 : prev + 1));
+  };
+
+  const getCardStyle = (index: number) => {
+    const offset = (index - currentEmployeeIndex + mockEmployees.length) % mockEmployees.length;
+    if (offset === 0) { // Center
+      return { transform: 'scale(1.05) translateY(-10px)', zIndex: 3, opacity: 1 };
+    }
+    if (offset === 1) { // Right
+      return { transform: 'translateX(50%) scale(0.9)', zIndex: 2, opacity: 0.7 };
+    }
+    if (offset === mockEmployees.length - 1) { // Left
+      return { transform: 'translateX(-50%) scale(0.9)', zIndex: 2, opacity: 0.7 };
+    }
+    return { transform: `translateX(${(offset - 1.5) * 50}%) scale(0.8)`, zIndex: 1, opacity: 0 };
+  };
+
 
   return (
     <div className="bg-background">
-      <div className="container mx-auto py-12 px-4 space-y-24">
+      <div className="space-y-24">
 
-        <section>
-          <Card className="border-none shadow-none p-0">
-            <CardContent className="p-0 relative h-[500px] rounded-2xl overflow-hidden">
-              <Image 
-                src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Visión de la empresa"
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint="business vision"
-                className="brightness-75"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent flex flex-col justify-center items-start p-12 md:p-20">
-                <h2 className="text-4xl md:text-6xl font-extrabold text-white max-w-2xl leading-tight">Nuestra Visión para el 2025</h2>
-                <p className="text-white/90 mt-6 max-w-lg text-base leading-relaxed">
-                  Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+        <section className="relative h-[600px] w-full">
+          <Image 
+            src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+            alt="Visión de la empresa"
+            layout="fill"
+            objectFit="cover"
+            data-ai-hint="business vision"
+            className="brightness-50"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          <div className="container mx-auto absolute inset-0 flex flex-col justify-center items-start text-white p-12">
+            <h2 className="text-4xl md:text-6xl font-extrabold max-w-2xl leading-tight">Nuestra Visión para el 2025</h2>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/90">
+              Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
+            </p>
+          </div>
         </section>
         
-        <section>
+        <section className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl font-bold text-foreground tracking-tight">Nuestros Desafíos Estratégicos</h3>
             <p className="text-muted-foreground mt-3 text-lg max-w-3xl mx-auto">Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales.</p>
@@ -186,7 +209,7 @@ export default function NosotrosPage() {
                   const goal = smartGoalsData[key as SmartKey];
                   return (
                       <TabsTrigger key={key} value={key} className="flex flex-col items-center gap-1 py-3 data-[state=active]:shadow-md rounded-lg">
-                          <span className="font-extrabold text-2xl" style={{color: goal.textColor, textShadow: '1px 1px 3px rgba(0,0,0,0.2)'}}>{goal.letter}</span>
+                          <span className="font-extrabold text-2xl">{goal.letter}</span>
                           <span className="text-xs font-semibold uppercase tracking-wider">{goal.title}</span>
                       </TabsTrigger>
                   )
@@ -200,9 +223,9 @@ export default function NosotrosPage() {
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {goal.challenges.map((challenge, index) => (
                                 <Card key={index} className="border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300 bg-card/50">
-                                  <CardHeader className="flex flex-row items-center gap-4 space-y-0">
-                                    <div className={cn("flex-shrink-0 p-3 rounded-lg shadow-inner", goal.color)}>
-                                        <challenge.icon className={cn("h-6 w-6", goal.textColor)} />
+                                  <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-3">
+                                    <div className="p-3 rounded-lg bg-primary/10">
+                                        <challenge.icon className="h-6 w-6 text-primary" />
                                     </div>
                                     <CardTitle className="text-base font-semibold leading-tight">{challenge.title}</CardTitle>
                                   </CardHeader>
@@ -218,27 +241,32 @@ export default function NosotrosPage() {
           </Tabs>
         </section>
 
-        <section>
-          <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-foreground tracking-tight">Nuestra Sistemática Comercial</h3>
-            <p className="text-muted-foreground mt-3 text-lg">El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
-            {commercialProcessSteps.map((step) => (
-              <div key={step.number} className="text-center p-4 rounded-xl bg-muted/60">
-                <div className="flex justify-center mb-4">
-                  <div className={cn("w-14 h-14 flex items-center justify-center rounded-full shadow-md", step.bgColor)}>
-                    <step.icon className={cn("h-7 w-7", step.color)} />
-                  </div>
+        <section className="bg-muted/60 py-16 md:py-24 my-12">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <h3 className="text-4xl font-bold text-foreground tracking-tight">Nuestra Sistemática Comercial</h3>
+              <p className="text-muted-foreground mt-3 text-lg max-w-2xl mx-auto">El flujo de nuestro proceso de ventas, desde el contacto inicial hasta el cierre.</p>
+            </div>
+            <div className="relative">
+                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-border -translate-y-1/2"></div>
+                <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-8">
+                    {commercialProcessSteps.map((step) => (
+                    <div key={step.number} className="text-center p-4 rounded-xl bg-background shadow-md border">
+                        <div className="flex justify-center mb-4">
+                        <div className={cn("w-16 h-16 flex items-center justify-center rounded-full shadow-inner border-4 border-background", step.bgColor)}>
+                            <step.icon className={cn("h-7 w-7", step.color)} />
+                        </div>
+                        </div>
+                        <h4 className="font-bold text-sm mb-1 h-10 flex items-center justify-center">{step.title}</h4>
+                    </div>
+                    ))}
                 </div>
-                <h4 className="font-bold text-sm mb-1">{step.title}</h4>
-              </div>
-            ))}
+            </div>
           </div>
         </section>
 
-        <section>
-           <Card className="bg-muted/60 border-none">
+       <section className="container mx-auto">
+           <Card className="bg-card/50 border-none">
             <CardContent className="p-10">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                   <div>
@@ -261,94 +289,95 @@ export default function NosotrosPage() {
             </CardContent>
            </Card>
         </section>
+        
+        <section className="py-16 md:py-24">
+          <div className="container mx-auto text-center">
+              <p className="text-lg font-semibold text-primary">Conoce a nuestro</p>
+              <h3 className="text-5xl font-extrabold text-foreground tracking-tight mb-12">equipo</h3>
 
-        <section>
-          <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-foreground tracking-tight">Conoce a Nuestro Equipo</h3>
-            <p className="text-muted-foreground mt-3 text-lg">Los profesionales que impulsan nuestra visión.</p>
-          </div>
-          <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-8">
-              {mockEmployees.slice(0, 3).map((employee) => (
-                  <Card key={employee.id} className="overflow-hidden rounded-xl border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300 bg-card/50">
-                      <CardHeader className="p-0">
-                          <div className="relative aspect-[4/5]">
-                              <Image 
-                                  src={employee.imageUrl} 
-                                  alt={employee.name} 
-                                  layout="fill"
-                                  objectFit="cover"
-                                  data-ai-hint={employee.dataAiHint}
-                              />
-                          </div>
-                      </CardHeader>
-                      <CardContent className="p-6 text-center">
-                          <h4 className="font-semibold text-lg">{employee.name}</h4>
-                          <p className="text-sm text-primary font-medium">{employee.role}</p>
-                      </CardContent>
-                  </Card>
-              ))}
-          </div>
-          <div className="mt-12 text-center">
-              <Button asChild size="lg">
-                  <Link href="/dashboard/equipo">
-                      Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-              </Button>
-          </div>
-        </section>
-
-        <section>
-          <div className="text-center mb-12">
-            <h3 className="text-4xl font-bold text-foreground tracking-tight">Indicadores Clave</h3>
-            <p className="text-muted-foreground mt-3 text-lg">Monitoriza el avance de nuestros objetivos mensuales.</p>
-          </div>
-            <Card className="shadow-sm rounded-2xl bg-muted/60 border-none">
-              <CardHeader className="border-b border-border/20 p-6">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                      <div>
-                          <CardTitle className="text-2xl">Rendimiento Mensual</CardTitle>
-                          <CardDescription>
-                              Resultados para: {monthNames[selectedMonth]}
-                          </CardDescription>
-                      </div>
-                      <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
-                          <SelectTrigger className="w-full sm:w-[180px] bg-background">
-                              <SelectValue placeholder="Seleccionar mes" />
-                          </SelectTrigger>
-                          <SelectContent>
-                              {months.map((month) => (
-                                  <SelectItem key={month} value={month}>{monthNames[month]}</SelectItem>
-                              ))}
-                          </SelectContent>
-                      </Select>
-                  </div>
-              </CardHeader>
-              <CardContent className="p-6 md:p-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      {kpis.map((kpi) => {
-                          return (
-                              <Card key={kpi.id} className="p-6 text-center border-border/60 shadow-sm bg-background">
-                                  <div className="flex justify-center mb-4">
-                                      <div className="p-3 bg-primary/10 rounded-lg">
-                                        <kpi.icon className="h-7 w-7 text-primary" />
-                                      </div>
-                                  </div>
-                                  <p className="text-4xl font-bold text-foreground">{kpi.value}<span className="text-2xl text-muted-foreground">%</span></p>
-                                  <p className="text-sm text-muted-foreground mt-2 font-medium">{kpi.label}</p>
+              <div className="relative h-[450px] max-w-3xl mx-auto flex items-center justify-center">
+                  {mockEmployees.slice(0, 3).map((employee, index) => {
+                      const isCenter = index === 1;
+                      return (
+                          <div
+                              key={employee.id}
+                              className={cn(
+                                  "absolute w-[280px] h-[380px] transition-all duration-500 ease-in-out",
+                                  isCenter ? 'z-10' : 'z-0'
+                              )}
+                              style={{
+                                  transform: `translateX(${(index - 1) * 60}%) scale(${isCenter ? 1 : 0.85})`,
+                                  transformOrigin: 'bottom center'
+                              }}
+                          >
+                              <Card className="w-full h-full overflow-hidden rounded-2xl shadow-2xl group">
+                                  <Image
+                                      src={employee.imageUrl}
+                                      alt={employee.name}
+                                      layout="fill"
+                                      objectFit="cover"
+                                      data-ai-hint={employee.dataAiHint}
+                                      className="grayscale group-hover:grayscale-0 transition-all duration-500"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                                  <CardContent className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                      <CardTitle className="text-2xl font-bold uppercase tracking-wider">{employee.name}</CardTitle>
+                                      <CardDescription className="text-white/80 lowercase">{employee.role}</CardDescription>
+                                  </CardContent>
                               </Card>
-                          );
-                      })}
-                  </div>
-              </CardContent>
-              <CardFooter className="justify-center p-6 border-t border-border/20">
-                  <Button asChild>
-                      <Link href="/dashboard/objetivos">
-                          Ver Dashboard Detallado <ArrowRight className="ml-2 h-4 w-4" />
+                          </div>
+                      )
+                  })}
+              </div>
+
+              <div className="mt-12 text-center">
+                  <Button asChild size="lg">
+                      <Link href="/dashboard/equipo">
+                          Ver todo el equipo <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                   </Button>
-              </CardFooter>
+              </div>
+          </div>
+        </section>
+
+        <section className="min-h-screen flex flex-col justify-center my-12">
+            <Card className="max-w-4xl mx-auto w-full bg-muted/60 border-none shadow-lg rounded-2xl">
+                <CardHeader className="text-center">
+                    <CardTitle className="text-3xl font-bold tracking-tight">Indicadores Clave de Progreso</CardTitle>
+                    <CardDescription className="flex justify-center items-center">
+                        Mostrando resultados para:
+                        <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
+                            <SelectTrigger className="w-auto inline-flex ml-2 border-0 shadow-none bg-transparent h-auto p-1 text-base">
+                                <SelectValue placeholder="Seleccionar mes" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {months.map((month) => (
+                                    <SelectItem key={month} value={month}>{monthNames[month]}</SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="p-6 md:p-8">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        {kpis.map((kpi) => (
+                            <Card key={kpi.id} className="p-6 text-center bg-background border-border/60 shadow-sm">
+                                <p className="text-4xl font-bold text-foreground">{kpi.value}<span className="text-2xl text-muted-foreground">%</span></p>
+                                <p className="text-sm text-muted-foreground mt-2 font-medium">{kpi.label}</p>
+                            </Card>
+                        ))}
+                    </div>
+                </CardContent>
+                <CardFooter className="justify-center p-6 border-t border-border/20">
+                    <Button asChild>
+                        <Link href="/dashboard/objetivos">
+                            Ver Gráficos Detallados <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                </CardFooter>
             </Card>
         </section>
+
       </div>
     </div>
   );

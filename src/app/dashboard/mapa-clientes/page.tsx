@@ -192,7 +192,7 @@ export default function NosotrosPage() {
                 </div>
               </CardHeader>
               <CardContent className="p-8 md:p-10 text-sm">
-                  <p className="mb-6 text-muted-foreground leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed mb-6">
                       Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
@@ -281,14 +281,12 @@ export default function NosotrosPage() {
             
             <div className="w-full py-16 md:py-24 my-12">
                 <div className="container mx-auto px-4">
-
                     <div className="text-center mb-16">
                         <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground">
                             <span className="font-light italic text-4xl md:text-6xl text-muted-foreground block -mb-4">Conoce a</span>
                             nuestro <span className="text-primary">equipo</span>
                         </h2>
                     </div>
-
                     <div className="flex justify-center items-center -space-x-8 md:-space-x-10">
                         {featuredEmployees.map((employee, index) => (
                            <div key={employee.id} className={cn(
@@ -311,7 +309,6 @@ export default function NosotrosPage() {
                            </div>
                         ))}
                     </div>
-
                     <div className="mt-16 text-center">
                         <Button asChild size="lg">
                             <Link href="/dashboard/equipo">
@@ -389,87 +386,96 @@ export default function NosotrosPage() {
         </div>
       </section>
 
+      <section className="w-full bg-muted py-16 md:py-24 flex flex-col justify-center min-h-screen">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold text-primary">Indicadores Clave de Progreso</h3>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">Monitoriza el avance de nuestros objetivos mensuales.</p>
+          </div>
+
+          <Card className="shadow-lg rounded-xl bg-card">
+              <CardHeader>
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                      <div>
+                          <CardTitle>Rendimiento Mensual</CardTitle>
+                          <CardDescription>
+                              Mostrando resultados para: {monthNames[selectedMonth]}
+                          </CardDescription>
+                      </div>
+                      <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
+                          <SelectTrigger className="w-full sm:w-[180px]">
+                              <SelectValue placeholder="Seleccionar mes" />
+                          </SelectTrigger>
+                          <SelectContent>
+                              {months.map((month) => (
+                                  <SelectItem key={month} value={month}>{monthNames[month]}</SelectItem>
+                              ))}
+                          </SelectContent>
+                      </Select>
+                  </div>
+              </CardHeader>
+              <CardContent className="p-8 md:p-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                      {kpis.map((kpi) => {
+                          const data = [
+                              { name: 'value', value: kpi.value },
+                              { name: 'remaining', value: 100 - kpi.value },
+                          ];
+                          const chartColor = getProgressColor(kpi.value);
+
+                          return (
+                          <div key={kpi.id} className="flex flex-col items-center text-center">
+                              <div
+                                  className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
+                                  style={{ backgroundColor: chartColor }}
+                              >
+                                  <kpi.icon className="h-6 w-6 text-white" />
+                              </div>
+                              <div className="w-56 h-28">
+                                  <ResponsiveContainer width="100%" height="100%">
+                                      <PieChart>
+                                          <Pie
+                                              data={data}
+                                              cx="50%"
+                                              cy="100%"
+                                              innerRadius="65%"
+                                              outerRadius="100%"
+                                              dataKey="value"
+                                              startAngle={180}
+                                              endAngle={0}
+                                              stroke="none"
+                                          >
+                                              <Cell fill={chartColor} />
+                                              <Cell fill="hsl(var(--muted))" />
+                                          </Pie>
+                                      </PieChart>
+                                  </ResponsiveContainer>
+                              </div>
+                              <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
+                                  <span className="text-xl font-bold">{kpi.value}</span>
+                                  <span className="text-sm font-semibold">%</span>
+                              </div>
+                              <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
+                                  <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
+                              </div>
+                          </div>
+                          );
+                      })}
+                  </div>
+              </CardContent>
+              <CardFooter className="justify-center p-4 border-t">
+                  <Button asChild>
+                      <Link href="/dashboard/objetivos">
+                          Ver Gráficos Detallados <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                  </Button>
+              </CardFooter>
+          </Card>
+        </div>
+      </section>
+
       <div className="container mx-auto py-8 px-4">
         <div className="space-y-12">
-            <Card className="shadow-lg rounded-xl">
-                <CardHeader>
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                            <CardTitle>Indicadores Clave de Progreso</CardTitle>
-                            <CardDescription>
-                                Mostrando resultados para: {monthNames[selectedMonth]}
-                            </CardDescription>
-                        </div>
-                        <Select value={selectedMonth} onValueChange={(value) => setSelectedMonth(value as keyof typeof monthlyGoalsData)}>
-                            <SelectTrigger className="w-full sm:w-[180px]">
-                                <SelectValue placeholder="Seleccionar mes" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {months.map((month) => (
-                                    <SelectItem key={month} value={month}>{monthNames[month]}</SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </CardHeader>
-                <CardContent className="p-8 md:p-10">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
-                        {kpis.map((kpi) => {
-                            const data = [
-                                { name: 'value', value: kpi.value },
-                                { name: 'remaining', value: 100 - kpi.value },
-                            ];
-                            const chartColor = getProgressColor(kpi.value);
-
-                            return (
-                            <div key={kpi.id} className="flex flex-col items-center text-center">
-                                <div
-                                    className="p-3 rounded-full mb-[-1.5rem] z-10 shadow-lg"
-                                    style={{ backgroundColor: chartColor }}
-                                >
-                                    <kpi.icon className="h-6 w-6 text-white" />
-                                </div>
-                                <div className="w-56 h-28">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <PieChart>
-                                            <Pie
-                                                data={data}
-                                                cx="50%"
-                                                cy="100%"
-                                                innerRadius="65%"
-                                                outerRadius="100%"
-                                                dataKey="value"
-                                                startAngle={180}
-                                                endAngle={0}
-                                                stroke="none"
-                                            >
-                                                <Cell fill={chartColor} />
-                                                <Cell fill="hsl(var(--muted))" />
-                                            </Pie>
-                                        </PieChart>
-                                    </ResponsiveContainer>
-                                </div>
-                                <div className="-mt-8 flex items-baseline justify-center" style={{ color: chartColor }}>
-                                    <span className="text-xl font-bold">{kpi.value}</span>
-                                    <span className="text-sm font-semibold">%</span>
-                                </div>
-                                <div className="mt-2 text-center p-3 bg-muted rounded-lg w-full max-w-56">
-                                    <p className="font-semibold text-foreground text-sm leading-tight">{kpi.label}</p>
-                                </div>
-                            </div>
-                            );
-                        })}
-                    </div>
-                </CardContent>
-                <CardFooter className="justify-center p-4 border-t">
-                    <Button asChild>
-                        <Link href="/dashboard/objetivos">
-                            Ver Gráficos Detallados <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                    </Button>
-                </CardFooter>
-            </Card>
-
             <Card className="shadow-lg rounded-xl overflow-hidden">
                 <div className="grid md:grid-cols-5">
                     <div className="md:col-span-2 bg-foreground text-background p-8 md:p-12 flex flex-col justify-center">
@@ -502,7 +508,6 @@ export default function NosotrosPage() {
                     </div>
                 </div>
             </Card>
-
         </div>
       </div>
     </>

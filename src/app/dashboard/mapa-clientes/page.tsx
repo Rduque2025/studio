@@ -169,7 +169,7 @@ export default function NosotrosPage() {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <Card className="bg-primary text-primary-foreground p-8 flex flex-col justify-center rounded-2xl aspect-[4/5] sm:aspect-auto">
+                <Card className="bg-primary text-primary-foreground p-8 flex flex-col justify-center rounded-2xl aspect-[6/7]">
                     <CardHeader className="p-0">
                         <CardTitle className="text-4xl font-bold">Nuestro fantástico equipo</CardTitle>
                         <CardDescription className="text-primary-foreground/80 mt-3">
@@ -187,7 +187,7 @@ export default function NosotrosPage() {
 
                 {mockEmployees.slice(0, 5).map((employee) => (
                     <Card key={employee.id} className="rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 bg-card">
-                        <div className="relative aspect-[4/5] w-full">
+                        <div className="relative aspect-[6/7] w-full">
                             <Image
                                 src={employee.imageUrl}
                                 alt={employee.name}

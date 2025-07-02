@@ -9,9 +9,12 @@ interface DepartmentPageProps {
 }
 
 export async function generateStaticParams() {
-  return mockDepartments.map((dept) => ({
-    slug: dept.id,
-  }));
+  // Filter out departments that have a directLink, as they have their own pages
+  return mockDepartments
+    .filter(dept => !dept.directLink)
+    .map((dept) => ({
+      slug: dept.id,
+    }));
 }
 
 export default function DepartmentRequestPage({ params }: DepartmentPageProps) {

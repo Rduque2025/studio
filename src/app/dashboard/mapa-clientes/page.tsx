@@ -24,7 +24,7 @@ import {
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   PackagePlus, 
@@ -53,49 +53,6 @@ const commercialProcessSteps = [
     { number: 7, title: "Cobrada", description: "Confirmación del pago y activación de la cobertura.", icon: CircleDollarSign },
 ];
 
-const dashboardCategories = [
-  {
-    title: "Gerencia Comercial",
-    href: "/dashboard/objetivos",
-    icon: TrendingUp,
-  },
-  {
-    title: "Mercadeo",
-    href: "/dashboard/objetivos",
-    icon: Megaphone,
-  },
-  {
-    title: "Suscripción",
-    href: "/dashboard/objetivos",
-    icon: FileCheck2,
-  },
-  {
-    title: "Siniestros",
-    href: "/dashboard/objetivos",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Finanzas",
-    href: "/dashboard/objetivos",
-    icon: CircleDollarSign,
-  },
-  {
-    title: "Operaciones y TI",
-    href: "/dashboard/objetivos",
-    icon: Settings,
-  },
-  {
-    title: "Talento Humano",
-    href: "/dashboard/objetivos",
-    icon: Users,
-  },
-  {
-    title: "Atención al Cliente",
-    href: "/dashboard/objetivos",
-    icon: HeartHandshake,
-  }
-];
-
 const statsData = [
     { value: "+32", description: "Años de servicio continuo y confianza." },
     { value: "+200k", description: "Clientes que han depositado su confianza en nosotros." },
@@ -105,6 +62,34 @@ const statsData = [
 
 
 export default function NosotrosPage() {
+
+  const serviceCategories = [
+    {
+      title: "Gerencia Comercial",
+      description: "Planes estratégicos de ventas que se alinean con tus objetivos.",
+      href: "/dashboard/objetivos",
+      icon: TrendingUp,
+      highlighted: true,
+    },
+    {
+      title: "Mercadeo",
+      description: "Guía experta para optimizar el rendimiento de tus campañas.",
+      href: "/dashboard/objetivos",
+      icon: Megaphone,
+    },
+    {
+      title: "Suscripción",
+      description: "Soluciones tecnológicas innovadoras para mejorar la eficiencia.",
+      href: "/dashboard/objetivos",
+      icon: FileCheck2,
+    },
+    {
+      title: "Siniestros",
+      description: "Identifica, evalúa y mitiga los riesgos para proteger tus activos.",
+      href: "/dashboard/objetivos",
+      icon: ClipboardCheck,
+    },
+  ];
 
   return (
     <div className="bg-background">
@@ -232,26 +217,52 @@ export default function NosotrosPage() {
 
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <h3 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-                Explora por Área
-              </h3>
-              <p className="mt-4 text-muted-foreground text-base leading-relaxed">
-                Selecciona un área para visualizar sus indicadores de rendimiento y dashboards detallados.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {dashboardCategories.map((category) => (
-                <Link href={category.href} key={category.title} className="block">
-                  <Card className="group h-40 p-6 flex flex-col justify-start bg-card hover:bg-primary/5 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-lg border hover:border-primary/20">
-                      <category.icon className="h-7 w-7 mb-4 text-primary/80 group-hover:text-primary transition-colors" />
-                      <h4 className="font-bold text-base text-foreground">
-                          {category.title}
-                      </h4>
-                  </Card>
-                </Link>
-              ))}
+            <div className="grid lg:grid-cols-2 lg:gap-24 items-center">
+              
+              <div className="mb-12 lg:mb-0">
+                <Badge variant="outline" className="mb-4">ÁREAS</Badge>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight mb-6">
+                  Explora nuestros dashboards por área
+                </h2>
+                <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
+                  Enfocados en tus necesidades, cada dashboard ofrece soluciones y estrategias para asegurar un crecimiento sostenido.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {serviceCategories.map((category) => (
+                  <Link href={category.href} key={category.title} className="block group">
+                    <Card className={cn(
+                        "h-full p-6 rounded-2xl border-border/60 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
+                        category.highlighted 
+                          ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                          : "bg-card hover:bg-muted/50"
+                      )}
+                    >
+                      <div className={cn(
+                          "flex items-center justify-center h-12 w-12 rounded-xl mb-6",
+                          category.highlighted ? "bg-white/20" : "bg-primary/10"
+                        )}
+                      >
+                        <category.icon className={cn(
+                          "h-6 w-6",
+                          category.highlighted ? "text-primary-foreground" : "text-primary"
+                        )} />
+                      </div>
+                      <h3 className="font-bold text-lg mb-2">
+                        {category.title}
+                      </h3>
+                      <p className={cn(
+                        "text-sm leading-relaxed",
+                        category.highlighted ? "text-primary-foreground/80" : "text-muted-foreground"
+                      )}>
+                        {category.description}
+                      </p>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+
             </div>
           </div>
         </section>

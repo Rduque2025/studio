@@ -98,51 +98,28 @@ export default function NosotrosPage() {
     <div className="bg-background">
       <div className="space-y-24">
 
-        <section className="relative h-[600px] w-full">
+        <section className="relative h-[600px] w-full group cursor-pointer">
+          <Link href="/dashboard/objetivos-smart" className="absolute inset-0 z-10" aria-label="Explorar desafíos estratégicos" />
           <Image 
             src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYW55fGVufDB8fHx8MTc1MDkwMzI3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
             alt="Visión de la empresa"
             layout="fill"
             objectFit="cover"
             data-ai-hint="business vision"
-            className="brightness-50"
+            className="brightness-50 group-hover:brightness-[0.4] transition-all"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          <div className="container mx-auto absolute inset-0 flex flex-col justify-center items-start text-white p-12">
+          <div className="container mx-auto absolute inset-0 flex flex-col justify-center items-start text-white p-12 z-20 pointer-events-none">
             <h2 className="text-4xl md:text-6xl font-extrabold max-w-2xl leading-tight">Nuestra Visión para el 2025</h2>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/90">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
             </p>
+            <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center text-sm font-semibold border-b-2 border-primary pb-1">
+                Explorar Desafíos Estratégicos <ArrowRight className="ml-2 h-4 w-4" />
+            </div>
           </div>
         </section>
         
-        <section className="container mx-auto text-center">
-            <div className="mb-12">
-                <h3 className="text-4xl font-bold text-foreground tracking-tight">Nuestros Desafíos Estratégicos</h3>
-                <p className="text-muted-foreground mt-3 text-lg max-w-3xl mx-auto">Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales.</p>
-            </div>
-            <Card className="max-w-2xl mx-auto bg-card/50 hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                    <Link href="/dashboard/objetivos-smart" className="block">
-                        <div className="flex flex-col items-center justify-center">
-                             <div className="flex items-center gap-4 mb-4 font-bold text-xl">
-                                <div className="p-3 rounded-lg bg-primary/10 text-primary">S</div>
-                                <div className="p-3 rounded-lg bg-primary/10 text-primary">M</div>
-                                <div className="p-3 rounded-lg bg-primary/10 text-primary">A</div>
-                                <div className="p-3 rounded-lg bg-primary/10 text-primary">R</div>
-                                <div className="p-3 rounded-lg bg-primary/10 text-primary">T</div>
-                            </div>
-                            <CardTitle>Explorar Objetivos S.M.A.R.T.</CardTitle>
-                            <p className="text-muted-foreground mt-2 text-sm">Haz clic para ver el desglose de nuestros desafíos estratégicos.</p>
-                            <Button variant="link" className="mt-2 text-primary">
-                                Ver detalles <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                        </div>
-                    </Link>
-                </CardContent>
-            </Card>
-        </section>
-
         <section className="bg-muted/60 py-16 md:py-24 my-12">
           <div className="container mx-auto">
             <div className="text-center mb-12">

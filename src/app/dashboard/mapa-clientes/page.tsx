@@ -222,7 +222,7 @@ export default function NosotrosPage() {
               <div className="mb-12 lg:mb-0">
                 <Badge variant="outline" className="mb-4">ÁREAS</Badge>
                 <h2 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight mb-6">
-                  Explora nuestros dashboards por área
+                  Seguimiento de Nuestros Objetivos
                 </h2>
                 <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
                   Enfocados en tus necesidades, cada dashboard ofrece soluciones y estrategias para asegurar un crecimiento sostenido.

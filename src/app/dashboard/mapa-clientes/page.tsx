@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -133,7 +132,7 @@ export default function NosotrosPage() {
                 <div key={step.number} className="text-center md:text-left">
                   <div className="flex justify-center md:justify-start mb-4">
                     <div className="flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
-                      <step.icon className="h-7 w-7" />
+                      <step.icon className="h-6 w-6" />
                     </div>
                   </div>
                   <h4 className="font-bold text-lg mb-2 text-foreground">{step.title}</h4>
@@ -259,5 +258,4 @@ export default function NosotrosPage() {
       </div>
     </div>
   );
-
-    
+}

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -130,7 +129,7 @@ export default function GerenciaComercialDashboard() {
           {/* Main Trend Chart */}
           <Card className="lg:col-span-4">
             <CardHeader>
-              <CardTitle>Indicador de Tendencia de Ventas</CardTitle>
+              <CardTitle className="text-lg font-semibold">Indicador de Tendencia de Ventas</CardTitle>
             </CardHeader>
             <CardContent className="h-[300px] w-full">
               <ResponsiveContainer>
@@ -150,7 +149,7 @@ export default function GerenciaComercialDashboard() {
           {/* Top Executives & KPIs */}
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle>Top Rendimiento (Ejecutivos)</CardTitle>
+              <CardTitle className="text-lg font-semibold">Top Rendimiento (Ejecutivos)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {topExecutivesData.map((exec) => (
@@ -214,8 +213,8 @@ export default function GerenciaComercialDashboard() {
           {/* Sales Force Chart */}
           <Card className="lg:col-span-4">
               <CardHeader>
-                  <CardTitle>Fuerza de Ventas</CardTitle>
-                  <CardDescription>Volumen de primas suscritas mensualmente.</CardDescription>
+                  <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
+                  <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
               </CardHeader>
               <CardContent className="h-[300px]">
                   <ResponsiveContainer width="100%" height="100%">

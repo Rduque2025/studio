@@ -124,9 +124,8 @@ export function Header() {
                 <Image
                     src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
                     alt="Banesco Seguros Logo"
-                    width={100}
-                    height={23}
-                    className="h-auto w-auto"
+                    width={86}
+                    height={20}
                     priority
                 />
                 </Link>
@@ -263,9 +262,9 @@ export function Header() {
             <Image
                 src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
                 alt="Banesco Seguros Logo"
-                width={86}
-                height={20}
-                className="h-5 w-auto"
+                width={68}
+                height={16}
+                className="h-4 w-auto"
                 priority
             />
             </Link>

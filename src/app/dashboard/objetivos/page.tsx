@@ -182,10 +182,10 @@ export default function GerenciaComercialDashboard() {
       <div className="flex">
         <TooltipProvider delayDuration={0}>
           <aside className={cn(
-              "relative bg-background border-r min-h-screen flex flex-col transition-all duration-300",
+              "relative min-h-screen flex flex-col p-4 gap-4 transition-all duration-300",
               isSidebarExpanded ? "w-64" : "w-20"
             )}>
-              <div className="absolute -right-3 top-1/2 z-10">
+              <div className="absolute -right-3 top-1/2 -translate-y-1/2 z-10">
                 <Button
                   variant="outline"
                   size="icon"
@@ -196,48 +196,45 @@ export default function GerenciaComercialDashboard() {
                 </Button>
               </div>
 
-            <nav className="flex-1 p-4">
-              <div className="p-2 rounded-xl border bg-card">
-                <ul className="space-y-1">
-                  {menuItems.map(item => (
-                    <li key={item.name}>
-                      <ShadTooltip>
-                        <TooltipTrigger asChild>
-                          <Link
-                            href={item.href}
-                            onClick={() => setActiveTab(item.name)}
-                            className={cn(
-                              "flex items-center py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
-                              "hover:bg-muted hover:text-foreground",
-                              activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
-                               isSidebarExpanded ? "px-3" : "justify-center h-12",
-                               isSidebarExpanded && "gap-3"
-                            )}
-                          >
-                            <item.icon className="h-5 w-5 flex-shrink-0" />
-                            <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
-                          </Link>
-                        </TooltipTrigger>
-                         {!isSidebarExpanded && (
-                            <TooltipContent side="right">
-                                {item.name}
-                            </TooltipContent>
-                        )}
-                      </ShadTooltip>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <nav className="flex-1 p-2 rounded-xl border bg-card flex">
+              <ul className="space-y-1 w-full">
+                {menuItems.map(item => (
+                  <li key={item.name}>
+                    <ShadTooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href={item.href}
+                          onClick={() => setActiveTab(item.name)}
+                          className={cn(
+                            "flex items-center py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
+                            "hover:bg-muted hover:text-foreground",
+                            activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
+                              isSidebarExpanded ? "px-3 gap-3" : "justify-center h-12",
+                          )}
+                        >
+                          <item.icon className="h-5 w-5 flex-shrink-0" />
+                          <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
+                        </Link>
+                      </TooltipTrigger>
+                        {!isSidebarExpanded && (
+                          <TooltipContent side="right">
+                              {item.name}
+                          </TooltipContent>
+                      )}
+                    </ShadTooltip>
+                  </li>
+                ))}
+              </ul>
             </nav>
-            <div className="mt-auto p-4 border-t">
+            <div className="p-2 rounded-xl border bg-card">
                <ShadTooltip>
                   <TooltipTrigger asChild>
                     <Button 
                       asChild 
                       variant="ghost" 
                       className={cn(
-                        "w-full", 
-                        isSidebarExpanded ? "justify-start" : "justify-center"
+                        "w-full text-muted-foreground hover:text-foreground", 
+                        isSidebarExpanded ? "justify-start gap-3" : "justify-center"
                       )}
                       size={isSidebarExpanded ? 'default' : 'icon'}
                     >
@@ -388,4 +385,6 @@ export default function GerenciaComercialDashboard() {
     </div>
   );
 }
+    
+
     

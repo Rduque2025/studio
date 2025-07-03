@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -15,7 +15,6 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-  Dot
 } from 'recharts';
 import { 
   ArrowLeft, 
@@ -27,8 +26,8 @@ import {
   Users,
   Package,
   FolderKanban,
-  Lock,
-  ArrowDown
+  ArrowDown,
+  Backspace
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
@@ -76,55 +75,112 @@ const menuItems = [
 // --- COMPONENT ---
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
+  const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('General');
 
-  const CORRECT_PASSWORD = '1234';
+  const PIN_LENGTH = 4;
+  const CORRECT_PIN = '1234';
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === CORRECT_PASSWORD) {
-      setIsAuthenticated(true);
+  const handlePinInput = (digit: string) => {
+    if (pin.length < PIN_LENGTH) {
+      setPin(pin + digit);
       setError('');
-    } else {
-      setError('Contraseña incorrecta. Intente de nuevo.');
-      setPassword('');
     }
   };
+
+  const handleBackspace = () => {
+    setPin(pin.slice(0, -1));
+    setError('');
+  };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError('');
+        setPin('');
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (pin.length === PIN_LENGTH) {
+      if (pin === CORRECT_PIN) {
+        setIsAuthenticated(true);
+        setError('');
+      } else {
+        setError('PIN incorrecto');
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pin]);
 
   if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-muted">
-        <Card className="w-full max-w-sm mx-4">
-          <CardHeader className="text-center">
-            <div className="mx-auto bg-primary/10 p-3 rounded-full w-fit mb-4">
-                <Lock className="h-8 w-8 text-primary" />
-            </div>
-            <CardTitle>Acceso Protegido</CardTitle>
-            <CardDescription>
-              Este dashboard es confidencial. Por favor, ingrese la contraseña para continuar.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium text-muted-foreground">Contraseña</label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="****"
-                  required
-                />
-              </div>
-              {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-              <Button type="submit" className="w-full">
-                Acceder al Dashboard
+        <Card className="w-full max-w-xs p-8 text-center shadow-lg rounded-2xl">
+          <div className="mb-8">
+             <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mx-auto h-10 w-10 text-primary"
+              >
+                <path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9z" />
+                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5" />
+                <path d="M12 12c-1.66 0-3-1.34-3-3" />
+              </svg>
+          </div>
+          <div className="flex justify-center gap-4 mb-10">
+            {[...Array(PIN_LENGTH)].map((_, i) => (
+              <div
+                key={i}
+                className={cn(
+                  "h-4 w-4 rounded-full border transition-colors duration-300",
+                  error 
+                    ? "bg-destructive/20 border-destructive" 
+                    : pin.length > i 
+                    ? "bg-primary border-primary" 
+                    : "border-muted-foreground/30 bg-transparent"
+                )}
+              />
+            ))}
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            {[...'123456789'].map((num) => (
+              <Button
+                key={num}
+                variant="ghost"
+                className="text-2xl font-light h-16 w-16 rounded-full"
+                onClick={() => handlePinInput(num)}
+              >
+                {num}
               </Button>
-            </form>
-          </CardContent>
+            ))}
+            <div />
+            <Button
+              variant="ghost"
+              className="text-2xl font-light h-16 w-16 rounded-full"
+              onClick={() => handlePinInput('0')}
+            >
+              0
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-2xl h-16 w-16 rounded-full flex items-center justify-center"
+              onClick={handleBackspace}
+            >
+              <Backspace className="h-6 w-6" />
+            </Button>
+          </div>
+           <div className="h-6 mt-4">
+             {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+          </div>
         </Card>
       </div>
     );
@@ -299,5 +355,3 @@ export default function GerenciaComercialDashboard() {
     </div>
   );
 }
-
-    

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -209,10 +208,10 @@ export default function GerenciaComercialDashboard() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-6 lg:p-8">
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">Dashboard de Analíticas</h1>
+              <h1 className="text-3xl font-bold text-foreground">Gerencia Comercial</h1>
               <p className="text-muted-foreground text-sm">Rendimiento y KPIs clave para Junio 2025.</p>
             </div>
 
@@ -290,7 +289,7 @@ export default function GerenciaComercialDashboard() {
               {/* Sales Force Chart */}
               <Card className="lg:col-span-2">
                   <CardHeader>
-                      <CardTitle className="text-lg font-semibold">Fuerza de Ventas vs Presupuesto</CardTitle>
+                      <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
                       <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
                   </CardHeader>
                   <CardContent className="h-[300px]">
@@ -336,5 +335,4 @@ export default function GerenciaComercialDashboard() {
     </div>
   );
 }
-
     

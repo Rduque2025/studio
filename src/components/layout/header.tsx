@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -262,9 +263,9 @@ export function Header() {
             <Image
                 src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
                 alt="Banesco Seguros Logo"
-                width={150}
-                height={32}
-                className="h-8 w-auto"
+                width={120}
+                height={26}
+                className="h-7 w-auto"
                 priority
             />
             </Link>

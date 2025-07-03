@@ -25,13 +25,12 @@ import {
   Users,
   Package,
   FolderKanban,
-  ArrowDown,
   Delete,
   Lock,
-  ChevronLeft
+  ChevronLeft,
+  MoreHorizontal
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Tooltip as ShadTooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -81,7 +80,7 @@ export default function GerenciaComercialDashboard() {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('General');
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
   const PIN_LENGTH = 4;
   const CORRECT_PIN = '1234';
@@ -178,210 +177,224 @@ export default function GerenciaComercialDashboard() {
   }
 
   return (
-    <div className="bg-muted min-h-screen">
-      <div className="flex">
-        <TooltipProvider delayDuration={0}>
-          <aside className={cn(
-              "relative min-h-screen flex flex-col p-4 gap-4 transition-all duration-300",
-              isSidebarExpanded ? "w-64" : "w-20"
-            )}>
-              <div className="absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full h-6 w-6 bg-background hover:bg-muted"
-                  onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
-                >
-                  <ChevronLeft className={cn("h-4 w-4 transition-transform", !isSidebarExpanded && "rotate-180")} />
-                </Button>
-              </div>
-
-            <nav className="flex-1 p-2 rounded-xl border bg-card flex">
-              <ul className="space-y-1 w-full">
-                {menuItems.map(item => (
-                  <li key={item.name}>
-                    <ShadTooltip>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={item.href}
-                          onClick={() => setActiveTab(item.name)}
-                          className={cn(
-                            "flex items-center py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
-                            "hover:bg-muted hover:text-foreground",
-                            activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
-                              isSidebarExpanded ? "px-3 gap-3" : "justify-center h-12",
-                          )}
-                        >
-                          <item.icon className="h-5 w-5 flex-shrink-0" />
-                          <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
-                        </Link>
-                      </TooltipTrigger>
-                        {!isSidebarExpanded && (
-                          <TooltipContent side="right">
-                              {item.name}
-                          </TooltipContent>
-                      )}
-                    </ShadTooltip>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div className="p-2 rounded-xl border bg-card">
-               <ShadTooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      asChild 
-                      variant="ghost" 
-                      className={cn(
-                        "w-full text-muted-foreground hover:text-foreground", 
-                        isSidebarExpanded ? "justify-start gap-3" : "justify-center"
-                      )}
-                      size={isSidebarExpanded ? 'default' : 'icon'}
-                    >
-                      <Link href="/dashboard/mapa-clientes">
-                        <ArrowLeft className="h-5 w-5 flex-shrink-0" />
-                        <span className={cn(
-                          "transition-all", 
-                          !isSidebarExpanded && "w-0 opacity-0"
-                        )}>Volver</span>
-                      </Link>
-                    </Button>
-                  </TooltipTrigger>
-                  {!isSidebarExpanded && (
-                      <TooltipContent side="right">
-                          Volver
-                      </TooltipContent>
-                  )}
-              </ShadTooltip>
-            </div>
-          </aside>
-        </TooltipProvider>
-
-        {/* Main Content */}
-        <main className="flex-1 p-6 lg:p-8">
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl font-bold text-foreground">Gerencia Comercial</h1>
-              <p className="text-muted-foreground text-sm">Rendimiento y KPIs clave para Junio 2025.</p>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {/* Stat Cards */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Ventas (Mes)</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold">{formatCurrency(750000)}</p>
-                   <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <span className="flex items-center text-green-600 font-semibold"><TrendingUp className="h-4 w-4 mr-1" /> 15.2%</span>
-                    <span>vs. mes anterior</span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Cobranza (Mes)</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold">{formatCurrency(690000)}</p>
-                   <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <span className="flex items-center text-green-600 font-semibold"><TrendingUp className="h-4 w-4 mr-1" /> 5.7%</span>
-                    <span>vs. mes anterior</span>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Nuevos Clientes</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold">+1,230</p>
-                   <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                    <span className="flex items-center text-red-600 font-semibold"><ArrowDown className="h-4 w-4 mr-1" /> 2.1%</span>
-                    <span>vs. mes anterior</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="grid grid-cols-1 gap-6">
-              {/* Main Trend Chart */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">Resumen de Ventas</CardTitle>
-                </CardHeader>
-                <CardContent className="h-[350px] w-full">
-                  <ResponsiveContainer>
-                    <AreaChart data={salesTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                      <defs>
-                        <linearGradient id="fillVentas" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
-                      <Tooltip
-                        cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}
-                        contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
-                      />
-                      <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{paddingBottom: '20px'}} />
-                      <Area type="monotone" dataKey="Ventas" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#fillVentas)" activeDot={{ r: 8, style: { fill: 'hsl(var(--primary))' } }} />
-                      <Area type="monotone" dataKey="Mes Anterior" stroke="hsl(var(--muted-foreground))" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
+    <div className="flex bg-muted min-h-screen">
+      <TooltipProvider delayDuration={0}>
+        <aside className={cn(
+            "relative min-h-screen flex flex-col bg-card border-r transition-all duration-300",
+            isSidebarExpanded ? "w-72" : "w-20"
+          )}>
+            <div className="absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-full h-6 w-6 bg-card hover:bg-muted"
+                onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
+              >
+                <ChevronLeft className={cn("h-4 w-4 transition-transform", !isSidebarExpanded && "rotate-180")} />
+              </Button>
             </div>
             
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-              {/* Sales Force Chart */}
-              <Card className="lg:col-span-2">
-                  <CardHeader>
-                      <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
-                      <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="h-[300px]">
-                      <ResponsiveContainer width="100%" height="100%">
-                          <BarChart data={salesForceData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                              <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
-                              <Tooltip
-                                  cursor={{ fill: 'hsl(var(--muted))' }}
-                                  contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}
-                              />
-                              <Legend verticalAlign="top" align="right" iconType="circle" />
-                              <Bar dataKey="budget" name="Presupuesto" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
-                              <Bar dataKey="value" name="Ventas" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                          </BarChart>
-                      </ResponsiveContainer>
-                  </CardContent>
-              </Card>
-
-              {/* Top Executives */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">Rendimiento de Ejecutivos</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {topExecutivesData.map((exec) => (
-                    <div key={exec.name} className="flex items-center gap-4">
-                      <Avatar className="h-10 w-10">
-                        <AvatarFallback>{exec.avatar}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium truncate">{exec.name}</p>
-                        <p className="text-xs text-muted-foreground">{formatCurrency(exec.sales)}</p>
-                      </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
+            <div className="flex items-center h-16 border-b px-4">
+              <div className={cn("flex items-center gap-3", !isSidebarExpanded && "hidden")}>
+                <div className="p-2 bg-primary text-primary-foreground rounded-lg">
+                  <TrendingUp className="h-5 w-5" />
+                </div>
+                <span className="font-bold text-lg">Gerencia</span>
+              </div>
+              <div className={cn("p-2 bg-primary text-primary-foreground rounded-lg mx-auto", isSidebarExpanded && "hidden")}>
+                <TrendingUp className="h-5 w-5" />
+              </div>
+              <Button variant="ghost" size="icon" className={cn("ml-auto", !isSidebarExpanded && "hidden")}>
+                <MoreHorizontal className="h-5 w-5" />
+              </Button>
             </div>
+
+          <nav className="flex-1 p-4 space-y-2">
+            <p className={cn("px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider", !isSidebarExpanded && "hidden")}>
+              Navegación
+            </p>
+            <ul className="space-y-1 w-full">
+              {menuItems.map(item => (
+                <li key={item.name}>
+                  <ShadTooltip>
+                    <TooltipTrigger asChild>
+                      <Link
+                        href={item.href}
+                        onClick={() => setActiveTab(item.name)}
+                        className={cn(
+                          "flex items-center py-2 rounded-lg text-sm font-medium transition-colors",
+                          "hover:bg-muted hover:text-foreground",
+                          activeTab === item.name ? "bg-muted text-foreground font-semibold" : "text-muted-foreground",
+                          isSidebarExpanded ? "px-3 gap-3" : "justify-center h-12",
+                        )}
+                      >
+                        <item.icon className="h-5 w-5 flex-shrink-0" />
+                        <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
+                      </Link>
+                    </TooltipTrigger>
+                      {!isSidebarExpanded && (
+                        <TooltipContent side="right">
+                            {item.name}
+                        </TooltipContent>
+                    )}
+                  </ShadTooltip>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="p-4 border-t">
+             <ShadTooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    asChild 
+                    variant="ghost" 
+                    className={cn(
+                      "w-full text-muted-foreground hover:text-foreground", 
+                      isSidebarExpanded ? "justify-start gap-3" : "justify-center"
+                    )}
+                    size={isSidebarExpanded ? 'default' : 'icon'}
+                  >
+                    <Link href="/dashboard/mapa-clientes">
+                      <ArrowLeft className="h-5 w-5 flex-shrink-0" />
+                      <span className={cn(
+                        "transition-all", 
+                        !isSidebarExpanded && "w-0 opacity-0"
+                      )}>Volver</span>
+                    </Link>
+                  </Button>
+                </TooltipTrigger>
+                {!isSidebarExpanded && (
+                    <TooltipContent side="right">
+                        Volver
+                    </TooltipContent>
+                )}
+            </ShadTooltip>
           </div>
-        </main>
-      </div>
+        </aside>
+      </TooltipProvider>
+
+      {/* Main Content */}
+      <main className="flex-1 p-6 lg:p-8 overflow-auto">
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Gerencia Comercial</h1>
+            <p className="text-muted-foreground text-sm">Rendimiento y KPIs clave para Junio 2025.</p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Stat Cards */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">Ventas (Mes)</CardTitle>
+                <CardDescription className="text-xs text-green-600">
+                  +15.2% vs. mes anterior
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-4xl font-bold">{formatCurrency(750000)}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">Cobranza (Mes)</CardTitle>
+                <CardDescription className="text-xs text-green-600">
+                  +5.7% vs. mes anterior
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-4xl font-bold">{formatCurrency(690000)}</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-sm font-medium text-muted-foreground">Nuevos Clientes</CardTitle>
+                 <CardDescription className="text-xs text-red-600">
+                  -2.1% vs. mes anterior
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-4xl font-bold">+1,230</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6">
+            {/* Main Trend Chart */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold">Resumen de Ventas</CardTitle>
+              </CardHeader>
+              <CardContent className="h-[350px] w-full">
+                <ResponsiveContainer>
+                  <AreaChart data={salesTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="fillVentas" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
+                    <Tooltip
+                      cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}
+                      contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                    />
+                    <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{paddingBottom: '20px'}} />
+                    <Area type="monotone" dataKey="Ventas" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#fillVentas)" activeDot={{ r: 8, style: { fill: 'hsl(var(--primary))' } }} />
+                    <Area type="monotone" dataKey="Mes Anterior" stroke="hsl(var(--muted-foreground))" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {/* Sales Force Chart */}
+            <Card className="lg:col-span-2">
+                <CardHeader>
+                    <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
+                    <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
+                </CardHeader>
+                <CardContent className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={salesForceData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                            <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
+                            <Tooltip
+                                cursor={{ fill: 'hsl(var(--muted))' }}
+                                contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}
+                            />
+                            <Legend verticalAlign="top" align="right" iconType="circle" />
+                            <Bar dataKey="budget" name="Presupuesto" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="value" name="Ventas" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </CardContent>
+            </Card>
+
+            {/* Top Executives */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold">Rendimiento de Ejecutivos</CardTitle>
+                 <CardDescription className="text-xs">Top 4 por ventas en el mes.</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {topExecutivesData.map((exec) => (
+                  <div key={exec.name} className="flex items-center gap-4">
+                    <Avatar className="h-10 w-10">
+                      <AvatarFallback>{exec.avatar}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <p className="text-sm font-medium truncate">{exec.name}</p>
+                      <p className="text-xs text-muted-foreground">{formatCurrency(exec.sales)}</p>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }

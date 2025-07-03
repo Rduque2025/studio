@@ -5,72 +5,60 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
 import {
+  AreaChart,
+  Area,
   BarChart,
   Bar,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line
+  Legend,
+  Dot
 } from 'recharts';
 import { 
   ArrowLeft, 
   TrendingUp, 
-  DollarSign, 
-  Users, 
   Target,
   LayoutGrid,
   FileSignature,
   CircleDollarSign,
+  Users,
   Package,
   FolderKanban,
-  Lock
+  Lock,
+  ArrowDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 // --- MOCK DATA ---
 const salesTrendData = [
-  { name: 'Ene', Ventas: 2300 },
-  { name: 'Feb', Ventas: 2100 },
-  { name: 'Mar', Ventas: 3200 },
-  { name: 'Abr', Ventas: 2800 },
-  { name: 'May', Ventas: 3500 },
-  { name: 'Jun', Ventas: 4100 },
+  { name: 'Ene', Ventas: 2300, "Mes Anterior": 1900 },
+  { name: 'Feb', Ventas: 2100, "Mes Anterior": 2200 },
+  { name: 'Mar', Ventas: 3200, "Mes Anterior": 2500 },
+  { name: 'Abr', Ventas: 2800, "Mes Anterior": 3000 },
+  { name: 'May', Ventas: 3500, "Mes Anterior": 3100 },
+  { name: 'Jun', Ventas: 4100, "Mes Anterior": 3600 },
 ];
 
 const topExecutivesData = [
-  { name: 'Ana Pérez', sales: 120000, goal: 150000, performance: 80 },
-  { name: 'Carlos Rivas', sales: 110000, goal: 140000, performance: 78 },
-  { name: 'Sofía Castillo', sales: 95000, goal: 130000, performance: 73 },
-  { name: 'Luis Mendez', sales: 80000, goal: 120000, performance: 67 },
-  { name: 'Maria Garcia', sales: 75000, goal: 110000, performance: 68 },
+  { name: 'Ana Pérez', sales: 120000, avatar: 'AP' },
+  { name: 'Carlos Rivas', sales: 110000, avatar: 'CR' },
+  { name: 'Sofía Castillo', sales: 95000, avatar: 'SC' },
+  { name: 'Luis Mendez', sales: 80000, avatar: 'LM' },
 ];
 
 const salesForceData = [
-    { month: 'Ene', value: 250 },
-    { month: 'Feb', value: 280 },
-    { month: 'Mar', value: 350 },
-    { month: 'Abr', value: 320 },
-    { month: 'May', value: 410 },
-    { month: 'Jun', value: 450 },
-    { month: 'Jul', value: 430 },
-    { month: 'Ago', value: 480 },
-    { month: 'Sep', value: 460 },
-    { month: 'Oct', value: 500 },
-    { month: 'Nov', value: 520 },
-    { month: 'Dic', value: 550 },
+    { month: 'Ene', value: 250, budget: 400 },
+    { month: 'Feb', value: 280, budget: 400 },
+    { month: 'Mar', value: 350, budget: 400 },
+    { month: 'Abr', value: 320, budget: 400 },
+    { month: 'May', value: 410, budget: 400 },
+    { month: 'Jun', value: 450, budget: 400 },
 ];
-
-const kpiClosingRateData = [{ name: 'completed', value: 65 }, { name: 'remaining', value: 35 }];
-const kpiNewClientsData = [{ name: 'completed', value: 85 }, { name: 'remaining', value: 15 }];
-const COLORS = ['hsl(var(--primary))', 'hsl(var(--muted))'];
 
 const formatCurrency = (value: number) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(value);
@@ -144,10 +132,10 @@ export default function GerenciaComercialDashboard() {
 
   return (
     <div className="bg-muted min-h-screen">
-      <div className="container mx-auto flex">
+      <div className="flex">
         {/* Sidebar */}
-        <aside className="w-64 bg-background p-4 flex-shrink-0 border-r min-h-screen">
-          <div className="mb-8 flex items-center gap-2">
+        <aside className="w-64 bg-background p-4 flex-shrink-0 border-r min-h-screen sticky top-0 h-screen">
+          <div className="mb-8 flex items-center gap-2 pl-2">
               <div className="bg-primary text-primary-foreground p-2 rounded-lg">
                   <Target className="h-6 w-6" />
               </div>
@@ -163,7 +151,7 @@ export default function GerenciaComercialDashboard() {
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground transition-colors",
                       "hover:bg-muted hover:text-foreground",
-                      activeTab === item.name && "bg-primary/10 text-primary font-semibold"
+                      activeTab === item.name && "bg-primary text-primary-foreground font-semibold"
                     )}
                   >
                     <item.icon className="h-5 w-5" />
@@ -173,7 +161,7 @@ export default function GerenciaComercialDashboard() {
               ))}
             </ul>
           </nav>
-          <div className="mt-auto pt-8">
+          <div className="mt-auto absolute bottom-4 w-[calc(100%-2rem)]">
               <Button asChild variant="outline" size="sm" className="w-full">
                   <Link href="/dashboard/mapa-clientes">
                   <ArrowLeft className="mr-2 h-4 w-4" />
@@ -184,14 +172,14 @@ export default function GerenciaComercialDashboard() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-8 overflow-y-auto">
-          <div className="space-y-8">
+        <main className="flex-1 p-6">
+          <div className="space-y-6">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Dashboard: Gerencia Comercial</h1>
+              <h1 className="text-3xl font-bold text-foreground">Dashboard de Analíticas</h1>
               <p className="text-muted-foreground text-sm">Rendimiento y KPIs clave para Junio 2025.</p>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {/* Stat Cards */}
               <Card>
                 <CardHeader>
@@ -199,9 +187,10 @@ export default function GerenciaComercialDashboard() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-3xl font-bold">{formatCurrency(750000)}</p>
-                  <p className="text-xs text-green-500 flex items-center mt-1">
-                    <TrendingUp className="h-4 w-4 mr-1" /> +15.2%
-                  </p>
+                   <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                    <span className="flex items-center text-green-600 font-semibold"><TrendingUp className="h-4 w-4 mr-1" /> 15.2%</span>
+                    <span>vs. mes anterior</span>
+                  </div>
                 </CardContent>
               </Card>
               <Card>
@@ -210,9 +199,10 @@ export default function GerenciaComercialDashboard() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-3xl font-bold">{formatCurrency(690000)}</p>
-                  <p className="text-xs text-green-500 flex items-center mt-1">
-                    <TrendingUp className="h-4 w-4 mr-1" /> +5.7%
-                  </p>
+                   <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                    <span className="flex items-center text-green-600 font-semibold"><TrendingUp className="h-4 w-4 mr-1" /> 5.7%</span>
+                    <span>vs. mes anterior</span>
+                  </div>
                 </CardContent>
               </Card>
               <Card>
@@ -221,111 +211,49 @@ export default function GerenciaComercialDashboard() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-3xl font-bold">+1,230</p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    vs. 1,256 mes anterior
-                  </p>
+                   <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                    <span className="flex items-center text-red-600 font-semibold"><ArrowDown className="h-4 w-4 mr-1" /> 2.1%</span>
+                    <span>vs. mes anterior</span>
+                  </div>
                 </CardContent>
               </Card>
+            </div>
+
+            <div className="grid grid-cols-1 gap-6">
+              {/* Main Trend Chart */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Primas Suscritas</CardTitle>
+                  <CardTitle className="text-lg font-semibold">Resumen de Ventas</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-3xl font-bold">{formatCurrency(1250000)}</p>
-                  <p className="text-xs text-green-500 flex items-center mt-1">
-                    <TrendingUp className="h-4 w-4 mr-1" /> +8.1%
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Main Trend Chart */}
-              <Card className="lg:col-span-4">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">Indicador de Tendencia de Ventas</CardTitle>
-                </CardHeader>
-                <CardContent className="h-[300px] w-full">
+                <CardContent className="h-[350px] w-full">
                   <ResponsiveContainer>
-                    <LineChart data={salesTrendData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                    <AreaChart data={salesTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="fillVentas" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                        </linearGradient>
+                      </defs>
                       <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
                       <Tooltip
-                        cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1, strokeDasharray: '3 3' }}
-                        contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}
+                        cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}
+                        contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
                       />
-                      <Line type="monotone" dataKey="Ventas" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} activeDot={{ r: 6 }} />
-                    </LineChart>
+                      <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{paddingBottom: '20px'}} />
+                      <Area type="monotone" dataKey="Ventas" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#fillVentas)" activeDot={{ r: 8, style: { fill: 'hsl(var(--primary))' } }} />
+                      <Area type="monotone" dataKey="Mes Anterior" stroke="hsl(var(--muted-foreground))" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
+                    </AreaChart>
                   </ResponsiveContainer>
                 </CardContent>
               </Card>
-
-              {/* Top Executives & KPIs */}
-              <Card className="lg:col-span-2">
-                <CardHeader>
-                  <CardTitle className="text-lg font-semibold">Top Rendimiento (Ejecutivos)</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {topExecutivesData.map((exec) => (
-                    <div key={exec.name}>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="font-medium">{exec.name}</span>
-                        <span className="text-muted-foreground">{exec.performance}%</span>
-                      </div>
-                      <Progress value={exec.performance} indicatorClassName="bg-primary" />
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-
-              <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <Card>
-                      <CardHeader>
-                          <CardTitle className="text-center text-sm font-medium text-muted-foreground">Tasa de Cierre</CardTitle>
-                      </CardHeader>
-                      <CardContent className="flex items-center justify-center h-32">
-                          <div className="relative h-full w-full">
-                              <ResponsiveContainer>
-                                  <PieChart>
-                                      <Pie data={kpiClosingRateData} cx="50%" cy="50%" innerRadius="70%" outerRadius="90%" dataKey="value" startAngle={90} endAngle={450} stroke="none">
-                                          {kpiClosingRateData.map((entry, index) => (
-                                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                          ))}
-                                      </Pie>
-                                  </PieChart>
-                              </ResponsiveContainer>
-                              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                  <span className="text-3xl font-bold text-foreground">{kpiClosingRateData[0].value}%</span>
-                              </div>
-                          </div>
-                      </CardContent>
-                  </Card>
-                  <Card>
-                      <CardHeader>
-                          <CardTitle className="text-center text-sm font-medium text-muted-foreground">Meta Nuevos Clientes</CardTitle>
-                      </CardHeader>
-                      <CardContent className="flex items-center justify-center h-32">
-                          <div className="relative h-full w-full">
-                              <ResponsiveContainer>
-                                  <PieChart>
-                                      <Pie data={kpiNewClientsData} cx="50%" cy="50%" innerRadius="70%" outerRadius="90%" dataKey="value" startAngle={90} endAngle={450} stroke="none">
-                                          {kpiNewClientsData.map((entry, index) => (
-                                              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                          ))}
-                                      </Pie>
-                                  </PieChart>
-                              </ResponsiveContainer>
-                              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                                  <span className="text-3xl font-bold text-foreground">{kpiNewClientsData[0].value}%</span>
-                              </div>
-                          </div>
-                      </CardContent>
-                  </Card>
-              </div>
-
-
+            </div>
+            
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
               {/* Sales Force Chart */}
-              <Card className="lg:col-span-4">
+              <Card className="lg:col-span-2">
                   <CardHeader>
-                      <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
+                      <CardTitle className="text-lg font-semibold">Fuerza de Ventas vs Presupuesto</CardTitle>
                       <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
                   </CardHeader>
                   <CardContent className="h-[300px]">
@@ -337,12 +265,33 @@ export default function GerenciaComercialDashboard() {
                                   cursor={{ fill: 'hsl(var(--muted))' }}
                                   contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}
                               />
-                              <Bar dataKey="value" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                              <Legend verticalAlign="top" align="right" iconType="circle" />
+                              <Bar dataKey="budget" name="Presupuesto" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
+                              <Bar dataKey="value" name="Ventas" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                           </BarChart>
                       </ResponsiveContainer>
                   </CardContent>
               </Card>
 
+              {/* Top Executives */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">Rendimiento de Ejecutivos</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {topExecutivesData.map((exec) => (
+                    <div key={exec.name} className="flex items-center gap-4">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback>{exec.avatar}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium truncate">{exec.name}</p>
+                        <p className="text-xs text-muted-foreground">{formatCurrency(exec.sales)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
             </div>
           </div>
         </main>
@@ -350,3 +299,5 @@ export default function GerenciaComercialDashboard() {
     </div>
   );
 }
+
+    

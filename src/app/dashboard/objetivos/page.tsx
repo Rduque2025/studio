@@ -201,7 +201,7 @@ export default function GerenciaComercialDashboard() {
               style={{ justifyContent: isSidebarExpanded ? 'flex-start' : 'center' }}
             >
               <TrendingUp className="h-6 w-6 text-primary" />
-              <span className={cn("font-bold text-foreground transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Ventas</span>
+              <span className={cn("font-bold text-foreground transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Dashboard</span>
             </div>
 
             <nav className="flex-1 px-2 pt-4">

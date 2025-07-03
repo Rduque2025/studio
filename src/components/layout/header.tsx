@@ -118,8 +118,8 @@ export function Header() {
 
         {/* Desktop Header Capsule */}
         <nav className="hidden md:flex items-center justify-between w-full max-w-6xl bg-card/95 backdrop-blur-sm p-2 rounded-full shadow-lg border">
-            {/* Left side: Logo + Nav Links */}
-            <div className="flex items-center space-x-2">
+            {/* Left side: Logo */}
+            <div className="flex items-center">
                 <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0 pl-2">
                 <Image
                     src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
@@ -129,8 +129,10 @@ export function Header() {
                     priority
                 />
                 </Link>
-                <Separator orientation="vertical" className="h-6" />
-                <div className="flex items-center space-x-1">
+            </div>
+
+            {/* Center: Nav Links */}
+            <div className="flex items-center space-x-1">
                 {navItemsDesktop.map((item) => {
                     const isActive = item.href === '/dashboard' 
                         ? pathname === '/dashboard' 
@@ -151,7 +153,6 @@ export function Header() {
                         </Link>
                     );
                 })}
-                </div>
             </div>
 
             {/* Right side: Action Icons */}
@@ -262,7 +263,7 @@ export function Header() {
             <Image
                 src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
                 alt="Banesco Seguros Logo"
-                width={68}
+                width={86}
                 height={16}
                 className="h-4 w-auto"
                 priority

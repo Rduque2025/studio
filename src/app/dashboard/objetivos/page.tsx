@@ -19,7 +19,6 @@ import {
 import { 
   ArrowLeft, 
   TrendingUp, 
-  Target,
   LayoutGrid,
   FileSignature,
   CircleDollarSign,
@@ -179,12 +178,7 @@ export default function GerenciaComercialDashboard() {
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-64 bg-background p-4 flex-shrink-0 border-r min-h-screen sticky top-0 h-screen">
-          <div className="mb-8 flex items-center gap-2 pl-2">
-              <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-                  <Target className="h-6 w-6" />
-              </div>
-          </div>
-          <nav>
+          <nav className="pt-8">
             <ul className="space-y-2">
               {menuItems.map(item => (
                 <li key={item.name}>
@@ -342,3 +336,5 @@ export default function GerenciaComercialDashboard() {
     </div>
   );
 }
+
+    

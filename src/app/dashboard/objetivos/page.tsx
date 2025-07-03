@@ -122,7 +122,7 @@ export default function GerenciaComercialDashboard() {
       <div className="flex items-center justify-center min-h-screen bg-muted">
         <Card className="w-full max-w-xs p-8 text-center shadow-lg rounded-2xl">
           <div className="mb-8">
-             <Lock className="mx-auto h-10 w-10 text-primary" />
+             <Lock className="mx-auto h-8 w-8 text-primary" />
           </div>
           <div className="flex justify-center gap-4 mb-10">
             {[...Array(PIN_LENGTH)].map((_, i) => (

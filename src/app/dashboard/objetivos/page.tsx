@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -26,11 +27,15 @@ import {
   FolderKanban,
   ArrowDown,
   Delete,
-  Lock
+  Lock,
+  ChevronLeft
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import Image from 'next/image';
+import { Tooltip as ShadTooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 
 // --- MOCK DATA ---
 const salesTrendData = [
@@ -77,6 +82,7 @@ export default function GerenciaComercialDashboard() {
   const [pin, setPin] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState('General');
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const PIN_LENGTH = 4;
   const CORRECT_PIN = '1234';
@@ -175,37 +181,84 @@ export default function GerenciaComercialDashboard() {
   return (
     <div className="bg-muted min-h-screen">
       <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 bg-background p-4 flex-shrink-0 border-r min-h-screen sticky top-0 h-screen">
-          <nav className="pt-8">
-            <ul className="space-y-2">
-              {menuItems.map(item => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    onClick={() => setActiveTab(item.name)}
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
-                      "hover:bg-muted hover:text-foreground",
-                      activeTab === item.name && "bg-primary text-primary-foreground font-semibold"
-                    )}
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="mt-auto absolute bottom-4 w-[calc(100%-2rem)]">
-              <Button asChild variant="outline" size="sm" className="w-full">
-                  <Link href="/dashboard/mapa-clientes">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Volver
-                  </Link>
-              </Button>
-          </div>
-        </aside>
+        <TooltipProvider delayDuration={0}>
+          <aside className={cn(
+              "relative bg-background border-r min-h-screen flex flex-col transition-all duration-300",
+              isSidebarExpanded ? "w-64" : "w-20"
+            )}>
+              <div className="absolute -right-3 top-1/2 z-10">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full h-6 w-6 bg-background hover:bg-muted"
+                  onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
+                >
+                  <ChevronLeft className={cn("h-4 w-4 transition-transform", !isSidebarExpanded && "rotate-180")} />
+                </Button>
+              </div>
+
+            <div 
+              className="flex items-center gap-2 h-16 border-b px-4"
+              style={{ justifyContent: isSidebarExpanded ? 'flex-start' : 'center' }}
+            >
+              <Image src="https://www.banescoseguros.com/wp-content/uploads/2024/06/cropped-favicon-32x32.png" alt="Banesco Logo" width={24} height={24} />
+              <span className={cn("font-bold text-foreground transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Banesco</span>
+            </div>
+
+            <nav className="flex-1 px-2 pt-4">
+              <ul className="space-y-1">
+                {menuItems.map(item => (
+                  <li key={item.name}>
+                    <ShadTooltip>
+                      <TooltipTrigger asChild>
+                        <Link
+                          href={item.href}
+                          onClick={() => setActiveTab(item.name)}
+                          className={cn(
+                            "flex items-center gap-3 py-2 rounded-lg text-sm font-medium text-muted-foreground transition-colors",
+                            "hover:bg-muted hover:text-foreground",
+                            activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
+                             isSidebarExpanded ? "px-3" : "justify-center h-12"
+                          )}
+                        >
+                          <item.icon className="h-5 w-5 flex-shrink-0" />
+                          <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
+                        </Link>
+                      </TooltipTrigger>
+                       {!isSidebarExpanded && (
+                          <TooltipContent side="right">
+                              {item.name}
+                          </TooltipContent>
+                      )}
+                    </ShadTooltip>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="mt-auto p-2 border-t">
+               <ShadTooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      asChild 
+                      variant="ghost" 
+                      className={cn("w-full", isSidebarExpanded ? "justify-start" : "justify-center")}
+                      size={isSidebarExpanded ? 'default' : 'icon'}
+                    >
+                      <Link href="/dashboard/mapa-clientes">
+                        <ArrowLeft className="h-5 w-5 flex-shrink-0" />
+                        <span className={cn("ml-3 transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Volver</span>
+                      </Link>
+                    </Button>
+                  </TooltipTrigger>
+                  {!isSidebarExpanded && (
+                      <TooltipContent side="right">
+                          Volver
+                      </TooltipContent>
+                  )}
+              </ShadTooltip>
+            </div>
+          </aside>
+        </TooltipProvider>
 
         {/* Main Content */}
         <main className="flex-1 p-6 lg:p-8">

@@ -206,10 +206,10 @@ export default function GerenciaComercialDashboard() {
                           href={item.href}
                           onClick={() => setActiveTab(item.name)}
                           className={cn(
-                            "flex items-center gap-3 py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
+                            "flex items-center py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
                             "hover:bg-muted hover:text-foreground",
                             activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
-                             isSidebarExpanded ? "px-3" : "justify-center h-12"
+                             isSidebarExpanded ? "px-3 gap-3" : "justify-center h-12"
                           )}
                         >
                           <item.icon className="h-5 w-5 flex-shrink-0" />
@@ -237,7 +237,7 @@ export default function GerenciaComercialDashboard() {
                     >
                       <Link href="/dashboard/mapa-clientes">
                         <ArrowLeft className="h-5 w-5 flex-shrink-0" />
-                        <span className={cn("ml-3 transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Volver</span>
+                        <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Volver</span>
                       </Link>
                     </Button>
                   </TooltipTrigger>

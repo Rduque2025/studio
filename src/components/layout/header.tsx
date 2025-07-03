@@ -1,12 +1,11 @@
-
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Database, Bell, Clock, Target, Plane } from "lucide-react"; 
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Bell, Clock, Target } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
@@ -20,19 +19,19 @@ import { usePathname } from "next/navigation";
 
 
 const navItemsDesktop = [
-  { name: "General", href: "/dashboard", icon: Home },
-  { name: "Nosotros", href: "/dashboard/mapa-clientes", icon: Target },
-  { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays },
-  { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake },
-  { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText },
-  { name: "Biblioteca Digital", href: "/dashboard/biblioteca", icon: BookOpen },
+  { name: "General", href: "/dashboard", icon: Home, activePaths: ["/dashboard"] },
+  { name: "Nosotros", href: "/dashboard/mapa-clientes", icon: Target, activePaths: ["/dashboard/mapa-clientes", "/dashboard/objetivos", "/dashboard/objetivos-smart"] },
+  { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays, activePaths: ["/dashboard/calendario"] },
+  { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake, activePaths: ["/dashboard/bienestar", "/dashboard/cursos", "/dashboard/actividades"] },
+  { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos"] },
+  { name: "Biblioteca Digital", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
 ];
 
 const navItemsMobile = [
   ...navItemsDesktop,
-  { name: "Recordatorios", href: "#", icon: Bell, isReminders: true }, 
-  { name: "Buscar", href: "#", icon: Search, isSearch: true }, 
-  { name: "Configuración", href: "/dashboard/settings", icon: Settings },
+  { name: "Recordatorios", href: "#", icon: Bell, isReminders: true, activePaths: [] }, 
+  { name: "Buscar", href: "#", icon: Search, isSearch: true, activePaths: [] }, 
+  { name: "Configuración", href: "/dashboard/settings", icon: Settings, activePaths: ["/dashboard/settings"] },
 ];
 
 // Helper function to calculate countdown string
@@ -74,7 +73,7 @@ export function Header() {
   const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); 
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
-  const [currentTimeForCountdown, setCurrentTimeForCountdown] = useState(new Date());
+  const [, setCurrentTimeForCountdown] = useState(new Date());
   const pathname = usePathname();
 
 
@@ -105,8 +104,7 @@ export function Header() {
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
     if (item.isSearch || item.isReminders) {
-      // For search and reminders, we might open a popover or specific UI in mobile
-      // For now, it won't do anything special beyond what Popover does
+      // Handled by popover
     } else {
       setIsMobileMenuOpen(false);
     }
@@ -114,9 +112,11 @@ export function Header() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
-        <Link href="/dashboard" className="ml-6 mr-4 flex items-center space-x-2 flex-shrink-0">
+    <header className="sticky top-0 z-50 w-full">
+      <div className="container flex h-20 items-center justify-between">
+        
+        {/* Logo */}
+        <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
           <Image
             src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
             alt="Banesco Seguros Logo"
@@ -127,24 +127,33 @@ export function Header() {
           />
         </Link>
         
-        <nav className="hidden md:flex flex-1 justify-center items-center space-x-3 text-xs font-medium">
-          {navItemsDesktop.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={cn(
-                "transition-colors hover:text-foreground/80 px-2 py-1 rounded-md",
-                pathname === item.href 
-                  ? "font-semibold text-foreground" 
-                  : "text-foreground/60"
-              )}
-            >
-              {item.name}
-            </Link>
-          ))}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:block bg-card p-1.5 rounded-full shadow-lg">
+            <div className="flex items-center space-x-1">
+                {navItemsDesktop.map((item) => {
+                    const isActive = item.href === '/dashboard' 
+                        ? pathname === '/dashboard' 
+                        : item.activePaths.some(p => pathname.startsWith(p));
+                    
+                    return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className={cn(
+                            "transition-colors px-4 py-1.5 rounded-full text-sm font-medium",
+                            isActive
+                              ? "bg-primary text-primary-foreground"
+                              : "text-muted-foreground hover:text-foreground"
+                          )}
+                        >
+                          {item.name}
+                        </Link>
+                    );
+                })}
+            </div>
         </nav>
 
-        <div className="flex items-center justify-end flex-shrink-0 ml-auto md:ml-6 space-x-1"> 
+        <div className="flex items-center justify-end flex-shrink-0 space-x-1"> 
           {/* Desktop Icons */}
           <div className="hidden md:flex items-center space-x-1">
             <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
@@ -257,37 +266,41 @@ export function Header() {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                 <nav className="flex flex-col space-y-4 mt-8">
-                  {navItemsMobile.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={cn(
-                        "flex items-center space-x-2 p-2 rounded-md",
-                        pathname === item.href && item.href !== "#"
-                          ? "bg-accent text-accent-foreground font-semibold"
-                          : "hover:bg-accent hover:text-accent-foreground text-foreground"
-                      )}
-                      onClick={() => handleMobileLinkClick(item)}
-                    >
-                      <item.icon className={cn(
-                        "h-5 w-5",
-                        pathname === item.href && item.href !== "#"
-                          ? "text-accent-foreground"
-                          : "text-muted-foreground"
-                       )} />
-                      <span>{item.name}</span>
-                      {item.icon === Bell && todaysEvents.length > 0 && (
-                         <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
-                      )}
-                    </Link>
-                  ))}
+                  {navItemsMobile.map((item) => {
+                    const isActive = item.href === '/dashboard' 
+                        ? pathname === '/dashboard' 
+                        : item.activePaths.some(p => p !== '/dashboard' && pathname.startsWith(p));
+                    return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className={cn(
+                            "flex items-center space-x-2 p-2 rounded-md",
+                            isActive && item.href !== "#"
+                              ? "bg-accent text-accent-foreground font-semibold"
+                              : "hover:bg-accent hover:text-accent-foreground text-foreground"
+                          )}
+                          onClick={() => handleMobileLinkClick(item)}
+                        >
+                          <item.icon className={cn(
+                            "h-5 w-5",
+                            isActive && item.href !== "#"
+                              ? "text-accent-foreground"
+                              : "text-muted-foreground"
+                           )} />
+                          <span>{item.name}</span>
+                          {item.icon === Bell && todaysEvents.length > 0 && (
+                             <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
+                          )}
+                        </Link>
+                    );
+                    })}
                 </nav>
               </SheetContent>
             </Sheet>
           </div>
         </div>
       </div>
-      <Separator />
     </header>
   );
 }

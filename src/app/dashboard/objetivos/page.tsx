@@ -196,14 +196,6 @@ export default function GerenciaComercialDashboard() {
                 </Button>
               </div>
 
-            <div 
-              className="flex items-center gap-2 h-16 border-b px-4"
-              style={{ justifyContent: isSidebarExpanded ? 'flex-start' : 'center' }}
-            >
-              <TrendingUp className="h-6 w-6 text-primary" />
-              <span className={cn("font-bold text-foreground transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Dashboard</span>
-            </div>
-
             <nav className="flex-1 px-2 pt-4">
               <ul className="space-y-1">
                 {menuItems.map(item => (

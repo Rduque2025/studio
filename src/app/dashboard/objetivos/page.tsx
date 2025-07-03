@@ -196,48 +196,57 @@ export default function GerenciaComercialDashboard() {
                 </Button>
               </div>
 
-            <nav className="flex-1 px-2 pt-4">
-              <ul className="space-y-1">
-                {menuItems.map(item => (
-                  <li key={item.name}>
-                    <ShadTooltip>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={item.href}
-                          onClick={() => setActiveTab(item.name)}
-                          className={cn(
-                            "flex items-center py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
-                            "hover:bg-muted hover:text-foreground",
-                            activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
-                             isSidebarExpanded ? "px-3 gap-3" : "justify-center h-12"
-                          )}
-                        >
-                          <item.icon className="h-5 w-5 flex-shrink-0" />
-                          <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
-                        </Link>
-                      </TooltipTrigger>
-                       {!isSidebarExpanded && (
-                          <TooltipContent side="right">
-                              {item.name}
-                          </TooltipContent>
-                      )}
-                    </ShadTooltip>
-                  </li>
-                ))}
-              </ul>
+            <nav className="flex-1 p-4">
+              <div className="p-2 rounded-xl border bg-card">
+                <ul className="space-y-1">
+                  {menuItems.map(item => (
+                    <li key={item.name}>
+                      <ShadTooltip>
+                        <TooltipTrigger asChild>
+                          <Link
+                            href={item.href}
+                            onClick={() => setActiveTab(item.name)}
+                            className={cn(
+                              "flex items-center py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
+                              "hover:bg-muted hover:text-foreground",
+                              activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
+                               isSidebarExpanded ? "px-3" : "justify-center h-12",
+                               isSidebarExpanded && "gap-3"
+                            )}
+                          >
+                            <item.icon className="h-5 w-5 flex-shrink-0" />
+                            <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>{item.name}</span>
+                          </Link>
+                        </TooltipTrigger>
+                         {!isSidebarExpanded && (
+                            <TooltipContent side="right">
+                                {item.name}
+                            </TooltipContent>
+                        )}
+                      </ShadTooltip>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </nav>
-            <div className="mt-auto p-2 border-t">
+            <div className="mt-auto p-4 border-t">
                <ShadTooltip>
                   <TooltipTrigger asChild>
                     <Button 
                       asChild 
                       variant="ghost" 
-                      className={cn("w-full", isSidebarExpanded ? "justify-start" : "justify-center")}
+                      className={cn(
+                        "w-full", 
+                        isSidebarExpanded ? "justify-start" : "justify-center"
+                      )}
                       size={isSidebarExpanded ? 'default' : 'icon'}
                     >
                       <Link href="/dashboard/mapa-clientes">
                         <ArrowLeft className="h-5 w-5 flex-shrink-0" />
-                        <span className={cn("transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Volver</span>
+                        <span className={cn(
+                          "transition-all", 
+                          !isSidebarExpanded && "w-0 opacity-0"
+                        )}>Volver</span>
                       </Link>
                     </Button>
                   </TooltipTrigger>

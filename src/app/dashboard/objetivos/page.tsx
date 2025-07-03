@@ -27,7 +27,8 @@ import {
   Package,
   FolderKanban,
   ArrowDown,
-  Backspace
+  Delete,
+  Lock
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
@@ -121,20 +122,7 @@ export default function GerenciaComercialDashboard() {
       <div className="flex items-center justify-center min-h-screen bg-muted">
         <Card className="w-full max-w-xs p-8 text-center shadow-lg rounded-2xl">
           <div className="mb-8">
-             <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mx-auto h-10 w-10 text-primary"
-              >
-                <path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9z" />
-                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5" />
-                <path d="M12 12c-1.66 0-3-1.34-3-3" />
-              </svg>
+             <Lock className="mx-auto h-10 w-10 text-primary" />
           </div>
           <div className="flex justify-center gap-4 mb-10">
             {[...Array(PIN_LENGTH)].map((_, i) => (
@@ -175,7 +163,7 @@ export default function GerenciaComercialDashboard() {
               className="text-2xl h-16 w-16 rounded-full flex items-center justify-center"
               onClick={handleBackspace}
             >
-              <Backspace className="h-6 w-6" />
+              <Delete className="h-6 w-6" />
             </Button>
           </div>
            <div className="h-6 mt-4">

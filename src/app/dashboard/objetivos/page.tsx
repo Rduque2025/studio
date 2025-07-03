@@ -193,7 +193,7 @@ export default function GerenciaComercialDashboard() {
                     href={item.href}
                     onClick={() => setActiveTab(item.name)}
                     className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-muted-foreground transition-colors",
+                      "flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
                       "hover:bg-muted hover:text-foreground",
                       activeTab === item.name && "bg-primary text-primary-foreground font-semibold"
                     )}

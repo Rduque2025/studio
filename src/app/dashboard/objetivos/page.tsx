@@ -33,7 +33,6 @@ import {
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import Image from 'next/image';
 import { Tooltip as ShadTooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 
@@ -201,8 +200,8 @@ export default function GerenciaComercialDashboard() {
               className="flex items-center gap-2 h-16 border-b px-4"
               style={{ justifyContent: isSidebarExpanded ? 'flex-start' : 'center' }}
             >
-              <Image src="https://www.banescoseguros.com/wp-content/uploads/2024/06/cropped-favicon-32x32.png" alt="Banesco Logo" width={24} height={24} />
-              <span className={cn("font-bold text-foreground transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Banesco</span>
+              <TrendingUp className="h-6 w-6 text-primary" />
+              <span className={cn("font-bold text-foreground transition-all", !isSidebarExpanded && "w-0 opacity-0")}>Ventas</span>
             </div>
 
             <nav className="flex-1 px-2 pt-4">
@@ -215,7 +214,7 @@ export default function GerenciaComercialDashboard() {
                           href={item.href}
                           onClick={() => setActiveTab(item.name)}
                           className={cn(
-                            "flex items-center gap-3 py-2 rounded-lg text-sm font-medium text-muted-foreground transition-colors",
+                            "flex items-center gap-3 py-2 rounded-lg text-xs font-medium text-muted-foreground transition-colors",
                             "hover:bg-muted hover:text-foreground",
                             activeTab === item.name && "bg-primary text-primary-foreground font-semibold",
                              isSidebarExpanded ? "px-3" : "justify-center h-12"

@@ -183,7 +183,6 @@ export default function GerenciaComercialDashboard() {
               <div className="bg-primary text-primary-foreground p-2 rounded-lg">
                   <Target className="h-6 w-6" />
               </div>
-              <h2 className="text-xl font-bold">Comercial</h2>
           </div>
           <nav>
             <ul className="space-y-2">

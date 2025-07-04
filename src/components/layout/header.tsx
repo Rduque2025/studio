@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -113,204 +112,203 @@ export function Header() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full flex h-20 items-center">
-
-        {/* Desktop Header Capsule */}
-        <nav className="container hidden md:grid grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
-            {/* Left side: Logo */}
-            <div className="flex items-center justify-start">
-                <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
-                <Image
-                    src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
-                    alt="Banesco Seguros Logo"
-                    width={86}
-                    height={20}
-                    priority
-                />
-                </Link>
-            </div>
-
-            {/* Center: Nav Links */}
-            <div className="flex items-center justify-center space-x-1">
-                {navItemsDesktop.map((item) => {
-                    const isActive = item.href === '/dashboard' 
-                        ? pathname === '/dashboard' 
-                        : item.activePaths.some(p => pathname.startsWith(p));
-                    
-                    return (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className={cn(
-                            "transition-colors px-3 py-1.5 rounded-full text-xs font-medium",
-                            isActive
-                              ? "bg-primary text-primary-foreground"
-                              : "text-muted-foreground hover:text-foreground"
-                          )}
-                        >
-                          {item.name}
-                        </Link>
-                    );
-                })}
-            </div>
-
-            {/* Right side: Action Icons */}
-            <div className="flex items-center justify-end space-x-1">
-                <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
-                <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                    <Search className="h-5 w-5" />
-                    <span className="sr-only">Buscar</span>
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-2">
-                    <div className="flex w-full max-w-sm items-center space-x-2">
-                    <Input type="search" placeholder="Buscar..." className="h-9" />
-                    <Button type="submit" size="sm" onClick={() => setIsSearchPopoverOpen(false)}>Buscar</Button>
-                    </div>
-                </PopoverContent>
-                </Popover>
-
-                <Popover open={isRemindersPopoverOpen} onOpenChange={setIsRemindersPopoverOpen}>
-                <PopoverTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                    <Bell className="h-5 w-5" />
-                    {todaysEvents.length > 0 && (
-                        <span className="absolute top-2 right-2 block h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
-                    )}
-                    <span className="sr-only">Recordatorios</span>
-                    </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-80 p-0">
-                    <div className="p-4">
-                    <h4 className="font-medium text-sm text-foreground">Recordatorios de Hoy</h4>
-                    </div>
-                    <Separator />
-                    {todaysEvents.length > 0 ? (
-                    <ScrollArea className="h-[200px]">
-                        <div className="p-4 space-y-3">
-                        {todaysEvents.map((event) => {
-                            const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-                            const countdownStr = calculateCountdown(event.date, event.time);
-
-                            return (
-                            <div key={event.id} className="text-xs">
-                                <div className="flex justify-between items-start">
-                                    <div className="flex-grow">
-                                        <p className="font-medium text-foreground truncate">{event.title}</p>
-                                        <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
-                                    </div>
-                                    {categoryStyles && (
-                                        <Badge variant="outline" className={cn("ml-2 text-xs self-start flex-shrink-0", categoryStyles.badgeClass)}>
-                                            {categoryStyles.badgeText}
-                                        </Badge>
-                                    )}
-                                </div>
-                                <div className="flex items-center gap-2 mt-1">
-                                    <Badge variant="outline">
-                                        {format(event.date, "PPP", { locale: es })}
-                                    </Badge>
-                                    {event.time && (
-                                        <Badge variant="outline" className="flex items-center">
-                                            <Clock className="mr-1 h-3 w-3" />
-                                            {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
-                                        </Badge>
-                                    )}
-                                    {countdownStr && event.time && (
-                                    <Badge variant="outline">
-                                        {countdownStr}
-                                    </Badge>
-                                    )}
-                                </div>
-                            </div>
-                            );
-                        })}
-                        </div>
-                    </ScrollArea>
-                    ) : (
-                    <p className="p-4 text-sm text-muted-foreground">No hay recordatorios para hoy.</p>
-                    )}
-                    <Separator />
-                    <div className="p-2 text-center">
-                        <Button variant="link" size="sm" asChild onClick={() => {setIsRemindersPopoverOpen(false); setIsMobileMenuOpen(false);}}>
-                            <Link href="/dashboard/calendario">Ver Calendario</Link>
-                        </Button>
-                    </div>
-                </PopoverContent>
-                </Popover>
-
-                <Link href="/dashboard/settings" legacyBehavior passHref>
-                <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    asChild
-                    className={cn(pathname === "/dashboard/settings" && "bg-accent text-accent-foreground")}
-                >
-                    <a> 
-                    <Settings className="h-5 w-5" />
-                    <span className="sr-only">Configuración</span>
-                    </a>
-                </Button>
-                </Link>
-            </div>
-        </nav>
-
-        {/* Mobile Header */}
-        <div className="flex md:hidden w-full items-center justify-between px-4">
-            {/* Logo */}
-            <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
+    <header className="sticky top-0 z-50 w-full flex h-20 items-center justify-center px-4">
+      {/* Desktop Header Capsule */}
+      <nav className="hidden md:grid w-full max-w-7xl grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
+        {/* Left side: Logo */}
+        <div className="flex items-center justify-start">
+          <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
             <Image
-                src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
-                alt="Banesco Seguros Logo"
-                width={86}
-                height={16}
-                className="h-4 w-auto"
-                priority
+              src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
+              alt="Banesco Seguros Logo"
+              width={86}
+              height={20}
+              priority
             />
-            </Link>
-            {/* Mobile Menu Trigger */}
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Abrir menú</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-                <nav className="flex flex-col space-y-4 mt-8">
-                  {navItemsMobile.map((item) => {
-                    const isActive = item.href === '/dashboard' 
-                        ? pathname === '/dashboard' 
-                        : item.activePaths.some(p => p !== '/dashboard' && pathname.startsWith(p));
-                    return (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          className={cn(
-                            "flex items-center space-x-2 p-2 rounded-md",
-                            isActive && item.href !== "#"
-                              ? "bg-accent text-accent-foreground font-semibold"
-                              : "hover:bg-accent hover:text-accent-foreground text-foreground"
-                          )}
-                          onClick={() => handleMobileLinkClick(item)}
-                        >
-                          <item.icon className={cn(
-                            "h-5 w-5",
-                            isActive && item.href !== "#"
-                              ? "text-accent-foreground"
-                              : "text-muted-foreground"
-                           )} />
-                          <span>{item.name}</span>
-                          {item.icon === Bell && todaysEvents.length > 0 && (
-                             <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
-                          )}
-                        </Link>
-                    );
-                    })}
-                </nav>
-              </SheetContent>
-            </Sheet>
+          </Link>
         </div>
+
+        {/* Center: Nav Links */}
+        <div className="flex items-center justify-center space-x-1">
+          {navItemsDesktop.map((item) => {
+            const isActive = item.href === '/dashboard' 
+                ? pathname === '/dashboard' 
+                : item.activePaths.some(p => pathname.startsWith(p));
+            
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  "transition-colors px-3 py-1.5 rounded-full text-xs font-medium",
+                  isActive
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right side: Action Icons */}
+        <div className="flex items-center justify-end space-x-1">
+          <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Search className="h-5 w-5" />
+                <span className="sr-only">Buscar</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-2">
+              <div className="flex w-full max-w-sm items-center space-x-2">
+                <Input type="search" placeholder="Buscar..." className="h-9" />
+                <Button type="submit" size="sm" onClick={() => setIsSearchPopoverOpen(false)}>Buscar</Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          <Popover open={isRemindersPopoverOpen} onOpenChange={setIsRemindersPopoverOpen}>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Bell className="h-5 w-5" />
+                {todaysEvents.length > 0 && (
+                  <span className="absolute top-2 right-2 block h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
+                )}
+                <span className="sr-only">Recordatorios</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-0">
+              <div className="p-4">
+                <h4 className="font-medium text-sm text-foreground">Recordatorios de Hoy</h4>
+              </div>
+              <Separator />
+              {todaysEvents.length > 0 ? (
+                <ScrollArea className="h-[200px]">
+                  <div className="p-4 space-y-3">
+                    {todaysEvents.map((event) => {
+                      const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
+                      const countdownStr = calculateCountdown(event.date, event.time);
+
+                      return (
+                        <div key={event.id} className="text-xs">
+                          <div className="flex justify-between items-start">
+                            <div className="flex-grow">
+                              <p className="font-medium text-foreground truncate">{event.title}</p>
+                              <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
+                            </div>
+                            {categoryStyles && (
+                              <Badge variant="outline" className={cn("ml-2 text-xs self-start flex-shrink-0", categoryStyles.badgeClass)}>
+                                {categoryStyles.badgeText}
+                              </Badge>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mt-1">
+                            <Badge variant="outline">
+                              {format(event.date, "PPP", { locale: es })}
+                            </Badge>
+                            {event.time && (
+                              <Badge variant="outline" className="flex items-center">
+                                <Clock className="mr-1 h-3 w-3" />
+                                {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
+                              </Badge>
+                            )}
+                            {countdownStr && event.time && (
+                              <Badge variant="outline">
+                                {countdownStr}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </ScrollArea>
+              ) : (
+                <p className="p-4 text-sm text-muted-foreground">No hay recordatorios para hoy.</p>
+              )}
+              <Separator />
+              <div className="p-2 text-center">
+                <Button variant="link" size="sm" asChild onClick={() => {setIsRemindersPopoverOpen(false); setIsMobileMenuOpen(false);}}>
+                  <Link href="/dashboard/calendario">Ver Calendario</Link>
+                </Button>
+              </div>
+            </PopoverContent>
+          </Popover>
+
+          <Link href="/dashboard/settings" legacyBehavior passHref>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              asChild
+              className={cn(pathname === "/dashboard/settings" && "bg-accent text-accent-foreground")}
+            >
+              <a> 
+                <Settings className="h-5 w-5" />
+                <span className="sr-only">Configuración</span>
+              </a>
+            </Button>
+          </Link>
+        </div>
+      </nav>
+
+      {/* Mobile Header */}
+      <div className="flex md:hidden w-full items-center justify-between">
+        {/* Logo */}
+        <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
+          <Image
+            src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
+            alt="Banesco Seguros Logo"
+            width={86}
+            height={16}
+            className="h-4 w-auto"
+            priority
+          />
+        </Link>
+        {/* Mobile Menu Trigger */}
+        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">Abrir menú</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+            <nav className="flex flex-col space-y-4 mt-8">
+              {navItemsMobile.map((item) => {
+                const isActive = item.href === '/dashboard' 
+                    ? pathname === '/dashboard' 
+                    : item.activePaths.some(p => p !== '/dashboard' && pathname.startsWith(p));
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center space-x-2 p-2 rounded-md",
+                      isActive && item.href !== "#"
+                        ? "bg-accent text-accent-foreground font-semibold"
+                        : "hover:bg-accent hover:text-accent-foreground text-foreground"
+                    )}
+                    onClick={() => handleMobileLinkClick(item)}
+                  >
+                    <item.icon className={cn(
+                      "h-5 w-5",
+                      isActive && item.href !== "#"
+                        ? "text-accent-foreground"
+                        : "text-muted-foreground"
+                     )} />
+                    <span>{item.name}</span>
+                    {item.icon === Bell && todaysEvents.length > 0 && (
+                       <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
+                    )}
+                  </Link>
+                );
+                })}
+            </nav>
+          </SheetContent>
+        </Sheet>
+      </div>
     </header>
   );
 }

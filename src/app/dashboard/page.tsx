@@ -1,140 +1,59 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
-// DressCodeCard is no longer directly used in the map, but the data is.
-import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  ChevronLeft,
-  ChevronRight,
-  Handshake,
-  Lightbulb,
-  Award,
-  Globe,
   Landmark,
   UsersRound,
   Cpu,
   GitFork,
-  Layers,
-  Gem,
   ArrowRight,
-  Users,
-  DollarSign,
-  Settings, // For fallback icon
-  Megaphone, // Added for Marketing department if needed
-  Plane, // For Vacaciones
-  ShieldCheck, // For HCM
-  Phone,
-  MessageSquare
+  Plane,
+  ShieldCheck,
+  FileText
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { cn } from '@/lib/utils';
-import { Separator } from "@/components/ui/separator";
-
-
-const rotatingImagesData = [
-  {
-    src: "https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDb25maWFuemF8ZW58MHx8fHwxNzQ4MjkwNzU3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Imagen corporativa de Banesco Seguros",
-    hint: "corporate office"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1576696058573-12b47c49559e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8RkFNSUxJQXxlbnwwfHx8fDE3NDgyOTEzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Protección y confianza familiar Banesco Seguros",
-    hint: "family protection"
-  },
-  {
-    src: "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8RU1QUkVTQXxlbnwwfHx8fDE3NDgyOTE1NTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    alt: "Solidez financiera Banesco Seguros",
-    hint: "financial security"
-  },
-];
-
-const valoresData = [
-  { title: "Confianza", text: "Relaciones sólidas y duraderas basadas en transparencia.", icon: Handshake, color: "bg-pink-500" },
-  { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger.", icon: Lightbulb, color: "bg-purple-500" },
-  { title: "Excelencia", text: "Superamos las expectativas de nuestros clientes en cada interacción.", icon: Award, color: "bg-blue-500" },
-  { title: "Compromiso", text: "Contribuimos al desarrollo y bienestar de las comunidades.", icon: Globe, color: "bg-rose-500" },
-];
 
 const pilaresData = [
-  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, color: "bg-sky-500" },
-  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound, color: "bg-lime-500" },
-  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, color: "bg-indigo-500" },
-  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, color: "bg-amber-500" },
+  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
+  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound },
+  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
+  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
 ];
 
-const misionData = [
-  { title: "Excelencia y Calidad de Servicios", text: "Ser una compañía de seguros reconocida por la excelencia en su calidad de servicios.", icon: Award, color: "bg-teal-500" },
-  { title: "Satisfacción de Necesidades", text: "Orientada en la satisfacción de las necesidades de los clientes propios.", icon: Gem, color: "bg-cyan-500" },
-  { title: "Soporte Extendido", text: "Atendiendo las necesidades de la organización y de los intermediarios.", icon: Layers, color: "bg-sky-500" },
+const quickAccessLinks = [
+    {
+        title: "Portal de Requerimientos",
+        description: "Envíe solicitudes o consultas a los departamentos.",
+        href: "/dashboard/requerimientos",
+        icon: FileText
+    },
+    {
+        title: "Gestión de Vacaciones",
+        description: "Planifique y solicite sus días libres.",
+        href: "/dashboard/vacaciones",
+        icon: Plane
+    },
+    {
+        title: "Póliza HCM",
+        description: "Consulte su cobertura, red de clínicas y más.",
+        href: "/dashboard/poliza-hcm",
+        icon: ShieldCheck
+    }
 ];
-
-
-const departmentIconMap: { [key: string]: React.ElementType } = {
-  rh: Users,
-  it: Cpu,
-  finanzas: DollarSign,
-  marketing: Megaphone, 
-  operaciones: Settings,
-  vacaciones: Plane,
-  hcm: ShieldCheck,
-};
-
-const TimelineNode = ({ title, text, color, isLast, icon: Icon }: { title: string, text: string, color: string, isLast: boolean, icon: React.ElementType }) => {
-  return (
-    <div className="flex items-start">
-      {/* Timeline decorator */}
-      <div className="flex flex-col items-center w-8 mr-4 flex-shrink-0">
-        <div className={cn("flex items-center justify-center h-5 w-5 rounded-full z-10", color)} />
-        {!isLast && <div className={cn("w-0.5 h-12", color)} />}
-      </div>
-      {/* Content */}
-      <div className="w-full">
-        <div className={cn("relative p-4 rounded-xl text-white shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-1", color)}>
-          <div className={cn("absolute top-1.5 -left-[18px] w-5 h-0.5", color)} />
-          <div className="flex items-start gap-3">
-            <Icon className="h-5 w-5 mt-0.5 flex-shrink-0" />
-            <div>
-              <h4 className="font-semibold text-sm">{title}</h4>
-              <p className="text-xs leading-snug">{text}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 
 export default function DashboardPage() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
-  const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
-  const [activePrinciple, setActivePrinciple] = useState<'valores' | 'pilares' | 'mision'>('valores');
-
-  const featuredDepartments = mockDepartments.filter(dept => dept.id !== 'vacaciones' && dept.id !== 'hcm').slice(0, 3);
-  
-  const principlesMap = {
-    valores: valoresData,
-    pilares: pilaresData,
-    mision: misionData,
-  };
-  const principlesToShow = principlesMap[activePrinciple];
-
-  const principleCycle = {
-      valores: { next: 'pilares', label: 'Valores', nextLabel: 'Pilares' },
-      pilares: { next: 'mision', label: 'Pilares', nextLabel: 'Nuestra Misión' },
-      mision: { next: 'valores', label: 'Nuestra Misión', nextLabel: 'Valores' },
-  };
 
   useEffect(() => {
     const today = new Date();
@@ -142,402 +61,182 @@ export default function DashboardPage() {
     setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
   }, []);
 
-  const handlePrevImage = () => {
-    setCurrentImageIndex(prevIndex =>
-      prevIndex === 0 ? rotatingImagesData.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNextImage = () => {
-    setCurrentImageIndex(prevIndex =>
-      prevIndex === rotatingImagesData.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const handlePrevDept = () => {
-    setCurrentDeptIndex(prev => (prev === 0 ? featuredDepartments.length - 1 : prev - 1));
-  };
-
-  const handleNextDept = () => {
-    setCurrentDeptIndex(prev => (prev === featuredDepartments.length - 1 ? 0 : prev + 1));
-  };
-
 
   return (
-    <div className="container mx-auto py-8 px-4 space-y-12">
-      <SectionWrapper
-        title="Banesco Seguros Venezuela"
-        description="Nuestra trayectoria y compromiso con Venezuela."
-        cardClassName="bg-transparent rounded-lg shadow-none border-none"
-        titleClassName="text-4xl md:text-5xl font-bold text-primary py-4"
-        descriptionClassName="text-secondary font-semibold"
-        contentClassName="p-0"
-      >
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="p-6">
-              <p className="text-foreground leading-relaxed text-sm">
-                En Banesco Seguros, nos dedicamos a ofrecer soluciones de protección innovadoras y confiables, adaptadas a las necesidades de nuestros clientes en Venezuela. Con una sólida trayectoria en el mercado asegurador, nuestro principal objetivo es brindar tranquilidad y respaldo a individuos, familias y empresas.
-              </p>
-              <p className="text-foreground leading-relaxed mt-4 text-sm">
-                Nos esforzamos por mantener los más altos estándares de servicio, con un equipo de profesionales comprometidos con la excelencia y la atención personalizada. Creemos en la importancia de construir relaciones a largo plazo basadas en la confianza y la transparencia.
-              </p>
-              <p className="text-foreground leading-relaxed mt-4 text-sm">
-                Nuestra visión es ser la aseguradora líder en el país, reconocida por nuestra solidez financiera, innovación constante y profundo compromiso social con el desarrollo de Venezuela.
-              </p>
-            </div>
-             <div className="flex flex-col md:flex-row items-center gap-4">
-                {/* Existing Rotating Image Carousel (Inner Right) */}
-                <div className="relative w-full md:flex-1 h-[388.39px] rounded-lg overflow-hidden shadow-md">
-                    <Image
-                        key={rotatingImagesData[currentImageIndex].src}
-                        src={rotatingImagesData[currentImageIndex].src}
-                        alt={rotatingImagesData[currentImageIndex].alt}
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint={rotatingImagesData[currentImageIndex].hint}
-                        priority={currentImageIndex === 0}
-                    />
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={handlePrevImage}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                        aria-label="Imagen anterior"
-                    >
-                        <ChevronLeft className="h-6 w-6" />
-                    </Button>
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={handleNextImage}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                        aria-label="Siguiente imagen"
-                    >
-                        <ChevronRight className="h-6 w-6" />
-                    </Button>
-                </div>
-            </div>
-          </div>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú Semanal" description="Consulte las opciones de almuerzo para esta semana en el comedor." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú de Dieta" description="Opciones saludables y balanceadas para cuidar su alimentación." titleClassName="text-primary" descriptionClassName="text-secondary">
-       <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockDietMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper title="Menú Ejecutivo" description="Platos especiales para una experiencia gastronómica superior." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockExecutiveMenuItems.map((item) => (
-              <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <div className="grid md:grid-cols-2 gap-x-12 gap-y-8 items-start">
-        <SectionWrapper 
-          title="Portal de Requerimientos" 
-          titleClassName="text-primary"
-          className="md:col-span-1"
-        >
-          <div className="mb-4 text-center md:text-left">
-            <Button asChild size="sm">
-              <Link href="/dashboard/requerimientos">
-                Ir al Portal de Requerimientos <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-          <div className="flex flex-col items-center md:items-start gap-6">
-            <div className="relative w-full max-w-lg">
-              {featuredDepartments.length > 0 && (() => {
-                const dept = featuredDepartments[currentDeptIndex];
-                const IconComponent = departmentIconMap[dept.id] || Settings;
-                return (
-                  <Card key={dept.id} className="transition-all duration-300 ease-in-out flex flex-col shadow-lg overflow-hidden rounded-lg">
-                    {dept.imageUrl && (
-                      <div className="relative w-full h-56 md:h-64">
-                        <Image
-                          src={dept.imageUrl}
-                          alt={`Imagen para ${dept.name}`}
-                          layout="fill"
-                          objectFit="cover"
-                          data-ai-hint={dept.dataAiHint || 'department service'}
-                        />
-                        {featuredDepartments.length > 1 && (
-                          <>
-                            <Button
-                              onClick={handlePrevDept}
-                              variant="ghost"
-                              size="icon"
-                              className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                              aria-label="Requerimiento anterior"
-                            >
-                              <ChevronLeft className="h-5 w-5" />
-                            </Button>
-                            <Button
-                              onClick={handleNextDept}
-                              variant="ghost"
-                              size="icon"
-                              className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                              aria-label="Siguiente requerimiento"
-                            >
-                              <ChevronRight className="h-5 w-5" />
-                            </Button>
-                          </>
-                        )}
-                      </div>
-                    )}
-                    <CardHeader className="flex-row items-center gap-4 space-y-0 pb-2 pt-4">
-                      <div className="bg-primary/10 p-3 rounded-lg">
-                        <IconComponent className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg">{dept.name}</CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="flex-grow min-h-[50px]"> 
-                      <CardDescription className="text-xs text-muted-foreground">{dept.description}</CardDescription>
-                    </CardContent>
-                    <CardFooter className="p-4 border-t">
-                      <Button asChild className="w-full">
-                        <Link href={`/dashboard/requerimientos/${dept.id}`}>
-                          Acceder <ArrowRight className="ml-2 h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                );
-              })()}
-            </div>
-          </div>
-        </SectionWrapper>
-
-        <SectionWrapper 
-          title="Planifica tus próximas vacaciones!" 
-          description="Planifique sus días libres, solicite vacaciones y consulte su saldo disponible."
-          titleClassName="text-primary" 
-          descriptionClassName="text-secondary text-xs"
-          className="md:col-span-1"
-        >
-          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
-            <CardHeader className="p-0">
-              <div className="relative w-full h-56 md:h-64">
-                <Image
-                    src="https://images.unsplash.com/photo-1519046904884-53103b34b206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaHxlbnwwfHx8fDE3NTAzNDI5NDR8MA&ixlib=rb-4.1.0&q=80&w=1080" 
-                    alt="Gestión de Vacaciones"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="travel vacation"
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 flex-grow">
-              <p className="text-xs text-muted-foreground">
-                  Acceda al portal para solicitar sus vacaciones, verificar los días acumulados y planificar su próximo descanso.
-              </p>
-            </CardContent>
-            <CardFooter className="p-4 border-t">
-              <Button asChild size="default" className="w-full">
-                  <Link href="/dashboard/vacaciones">
-                      Acceder a Gestión de Vacaciones <Plane className="ml-2 h-4 w-4" />
-                  </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-        </SectionWrapper>
-      </div>
-
-      <SectionWrapper 
-        title="Nuestra Póliza HCM"
-        description="Información y gestión de su Póliza de Hospitalización, Cirugía y Maternidad."
-        titleClassName="text-primary"
-        descriptionClassName="text-secondary text-xs"
-      >
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          <Card className="flex flex-col h-full overflow-hidden shadow-lg rounded-lg">
-            <CardHeader className="p-0">
-              <div className="relative w-full h-56 md:h-64">
-                <Image
-                    src="https://images.unsplash.com/photo-1740953448394-86122e98c1be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Q0lSVUdJQXxlbnwwfHx8fDE3NTAzNTMxNjh8MA&ixlib=rb-4.1.0&q=80&w=1080" 
-                    alt="Póliza HCM Banesco Seguros"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="health insurance"
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="p-4 flex-grow">
-              <p className="text-xs text-muted-foreground">
-                  Consulte los detalles de su cobertura, red de clínicas afiliadas, y gestione sus reembolsos o claves de emergencia.
-              </p>
-            </CardContent>
-            <CardFooter className="p-4 border-t">
-              <Button asChild size="default" className="w-full">
-                  <Link href="/dashboard/poliza-hcm">
-                      Conocer Más <ShieldCheck className="ml-2 h-4 w-4" />
-                  </Link>
-              </Button>
-            </CardFooter>
-          </Card>
-
-          <Card className="flex flex-col h-full overflow-hidden rounded-lg bg-card border-none shadow-none">
-            <CardHeader className="bg-primary text-primary-foreground text-center p-4">
-                <CardTitle className="text-xl font-bold">
-                    ¡En caso de Emergencia!
-                </CardTitle>
-                <CardDescription className="text-primary-foreground/80 text-xs">
-                    Números de atención para siniestros y claves de emergencia.
-                </CardDescription>
-            </CardHeader>
-             <CardContent className="flex-grow grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-                <a 
-                    href="https://wa.me/584242668446" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-muted rounded-lg transition-colors"
-                >
-                    <div className="mb-4 rounded-full bg-muted p-5">
-                        <MessageSquare className="h-10 w-10 text-green-600 transition-transform duration-200 group-hover:scale-110" />
-                    </div>
-                    <div className="text-center">
-                        <p className="text-sm font-semibold text-muted-foreground">WhatsApp</p>
-                        <p className="text-xl font-bold text-green-500">0424-Contigo</p>
-                    </div>
-                </a>
-                <a 
-                    href="tel:05007258300"
-                    className="group flex flex-col items-center justify-center p-4 bg-card hover:bg-muted rounded-lg transition-colors"
-                >
-                    <div className="mb-4 rounded-full bg-muted p-5">
-                        <Phone className="h-10 w-10 text-primary transition-transform duration-200 group-hover:scale-110" />
-                    </div>
-                    <div className="text-center">
-                        <p className="text-sm font-semibold text-muted-foreground">Llamar</p>
-                        <p className="text-xl font-bold text-primary">0500-7258300</p>
-                    </div>
-                </a>
-            </CardContent>
-          </Card>
-        </div>
-      </SectionWrapper>
-
-
-      <SectionWrapper title="Cursos Disponibles" description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <div className="mb-4">
-          <Button asChild>
-            <Link href="/dashboard/bienestar#cursos">
-              Ver todos los Cursos <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockCourses.map((course) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
-        </div>
-      </SectionWrapper>
-
-       <SectionWrapper title="Actividades y Bienestar" description="Participe en nuestras próximas actividades y programas de bienestar." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <div className="mb-4">
-            <Button asChild>
-                <Link href="/dashboard/bienestar#actividades">
-                Ver Todas las Actividades <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-            </Button>
-        </div>
-        <ScrollArea className="w-full whitespace-nowrap rounded-md bg-card shadow-sm border-none">
-          <div className="flex w-max space-x-4 p-4">
-            {mockActivities.map((activity) => (
-              <ActivityCard key={activity.id} activity={activity} />
-            ))}
-          </div>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
-      </SectionWrapper>
-
-      <SectionWrapper
-        cardClassName="bg-transparent shadow-none rounded-lg border-none"
-        contentClassName="p-0"
-      >
-        <div className="relative rounded-lg overflow-hidden mb-12">
-            <Image
-                src="https://images.unsplash.com/photo-1508385082359-f38ae991e8f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxuZWdvY2lvc3xlbnwwfHx8fDE3NTA4NzczNzh8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Principios Fundamentales de la Empresa"
+    <div className="bg-background">
+        
+        {/* Hero Section */}
+        <section className="relative h-[500px] w-full bg-card">
+            <Image 
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHRlYW18ZW58MHx8fHwxNzUxNTE5OTMxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Equipo de Banesco Seguros"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="business meeting"
-                className="z-0"
+                data-ai-hint="business team"
+                className="opacity-20"
+                priority
             />
-            <div className="relative z-10 flex flex-col items-center justify-center text-center p-8 md:p-16 bg-black/40 backdrop-blur-sm text-white min-h-[300px]">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                    Nuestros Principios Fundamentales
-                </h2>
-                <div className="max-w-3xl">
-                    <h3 className="text-xl font-semibold mb-2 text-primary-foreground/90">
-                        Nuestra Oferta de Valor
-                    </h3>
-                    <p className="text-sm md:text-base text-primary-foreground/80 leading-relaxed">
-                        Somos una empresa cercana que se comunica de manera clara y sencilla, brindando asesorías y protección con{' '}
-                        <span className="font-semibold text-white">
-                            servicios y soluciones de calidad, ágiles y oportunas adaptadas a la necesidad de cada cliente. ¡Cumplimos lo que prometemos!
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div className="grid md:grid-cols-3 gap-12 items-start">
-            <div className="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left md:sticky md:top-24">
-                <h3 className="text-2xl font-bold text-primary">
-                  {principleCycle[activePrinciple].label}
-                </h3>
-                <p className="text-muted-foreground mt-2 mb-6 text-xs">
-                    {activePrinciple === 'valores' 
-                        ? "Los principios éticos y profesionales que guían cada una de nuestras acciones y decisiones."
-                        : activePrinciple === 'pilares' 
-                        ? "Las columnas fundamentales sobre las que construimos nuestra solidez y confianza en el mercado."
-                        : "Los objetivos centrales que definen nuestro propósito y compromiso con los clientes."
-                    }
+            <div className="container mx-auto h-full flex flex-col justify-center items-start text-left p-4 z-10 relative">
+                <h1 className="text-4xl md:text-6xl font-extrabold max-w-2xl text-foreground">
+                    Tu Portal de Gestión y Bienestar
+                </h1>
+                <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+                    Bienvenido al espacio donde encontrarás todas las herramientas, recursos y actividades para tu día a día en Banesco Seguros.
                 </p>
-                <Button onClick={() => setActivePrinciple(principleCycle[activePrinciple].next as any)} variant="outline">
-                    Ver {principleCycle[activePrinciple].nextLabel}
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                <Button asChild size="lg" className="mt-8">
+                    <Link href="/dashboard/bienestar">
+                        Explorar Bienestar
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
                 </Button>
             </div>
-            
-            <div className="md:col-span-2 space-y-4">
-                {principlesToShow.map((item, index) => (
-                  <TimelineNode
-                    key={item.title}
-                    title={item.title}
-                    text={item.text}
-                    color={item.color}
-                    isLast={index === principlesToShow.length - 1}
-                    icon={item.icon}
-                  />
+        </section>
+
+        {/* Pilares Section */}
+        <SectionWrapper>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pilaresData.map((pilar) => (
+                <Card key={pilar.title} className="text-center p-6 border-none shadow-sm">
+                    <div className="flex justify-center mb-4">
+                        <div className="flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
+                            <pilar.icon className="h-7 w-7" />
+                        </div>
+                    </div>
+                    <CardTitle className="text-xl font-semibold mb-2">{pilar.title}</CardTitle>
+                    <CardDescription className="text-sm">{pilar.text}</CardDescription>
+                </Card>
+            ))}
+          </div>
+        </SectionWrapper>
+      
+        {/* Quick Access Section */}
+        <SectionWrapper
+            title="Accesos Rápidos"
+            description="Encuentre los servicios y portales más utilizados."
+        >
+            <div className="grid md:grid-cols-3 gap-6">
+                {quickAccessLinks.map((link) => (
+                    <Link href={link.href} key={link.title}>
+                        <Card className="p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                            <CardHeader className="flex flex-row items-center gap-4 p-0 mb-4">
+                                <div className="p-3 rounded-lg bg-primary/10">
+                                    <link.icon className="h-6 w-6 text-primary" />
+                                </div>
+                                <CardTitle className="text-lg font-bold">{link.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="p-0">
+                                <p className="text-sm text-muted-foreground">{link.description}</p>
+                            </CardContent>
+                        </Card>
+                    </Link>
                 ))}
             </div>
-        </div>
-      </SectionWrapper>
+        </SectionWrapper>
+
+        {/* Menus Section */}
+        <SectionWrapper
+          title="Menú del Comedor"
+          description="Consulta las opciones de almuerzo para esta semana."
+        >
+            <Tabs defaultValue="general" className="w-full">
+                <TabsList className="grid w-full grid-cols-3 max-w-lg mx-auto h-auto">
+                    <TabsTrigger value="general">Menú General</TabsTrigger>
+                    <TabsTrigger value="dieta">Menú de Dieta</TabsTrigger>
+                    <TabsTrigger value="ejecutivo">Menú Ejecutivo</TabsTrigger>
+                </TabsList>
+                <TabsContent value="general" className="mt-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {mockMenuItems.map((item) => (
+                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="dieta" className="mt-8">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {mockDietMenuItems.map((item) => (
+                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                        ))}
+                    </div>
+                </TabsContent>
+                <TabsContent value="ejecutivo" className="mt-8">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {mockExecutiveMenuItems.map((item) => (
+                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                        ))}
+                    </div>
+                </TabsContent>
+            </Tabs>
+        </SectionWrapper>
+
+        {/* Cursos Section */}
+        <SectionWrapper 
+            title="Cursos Disponibles" 
+            description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa."
+        >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {mockCourses.map((course) => (
+                <CourseCard key={course.id} course={course} />
+              ))}
+            </div>
+            <div className="text-center mt-8">
+                <Button asChild variant="outline">
+                    <Link href="/dashboard/bienestar#cursos">
+                    Ver todos los Cursos <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </div>
+        </SectionWrapper>
+
+        {/* Actividades Section */}
+        <SectionWrapper 
+            title="Actividades y Bienestar" 
+            description="Participe en nuestras próximas actividades y programas de bienestar."
+        >
+            <ScrollArea className="w-full">
+              <div className="flex space-x-4 pb-4">
+                {mockActivities.map((activity) => (
+                  <ActivityCard key={activity.id} activity={activity} />
+                ))}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+             <div className="text-center mt-8">
+                <Button asChild variant="outline">
+                    <Link href="/dashboard/bienestar#actividades">
+                    Ver todas las Actividades <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
+            </div>
+        </SectionWrapper>
+      
+        {/* Mision y Valores Section */}
+        <SectionWrapper>
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+                <div className="relative aspect-square w-full rounded-lg overflow-hidden">
+                     <Image
+                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8MTc1MTUyMDMxM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Reunión de equipo Banesco Seguros"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="meeting team"
+                     />
+                </div>
+                <div className="space-y-6">
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Misión y Oferta de Valor</h2>
+                    <p className="text-muted-foreground">
+                       Somos una empresa de seguros reconocida por su excelencia y calidad, orientada a satisfacer las necesidades de nuestros clientes, intermediarios y organización, brindando asesoría y protección con soluciones ágiles y oportunas.
+                    </p>
+                     <p className="font-semibold text-foreground">
+                        ¡Cumplimos lo que prometemos!
+                    </p>
+                    <Button asChild>
+                        <Link href="/dashboard/mapa-clientes">
+                            Conocer más sobre nosotros
+                        </Link>
+                    </Button>
+                </div>
+            </div>
+        </SectionWrapper>
     </div>
   );
 }

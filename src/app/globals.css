@@ -6,20 +6,20 @@
 
 @layer base {
   :root {
-    --background: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
+    --background: 240 10% 99%; /* Very light gray, almost white */
     --foreground: 0 0% 23%; /* #3A3A3A Gris Grafito */
 
-    --muted: 0 0% 90%; 
+    --muted: 240 5% 96%; 
     --muted-foreground: 0 0% 40%; 
 
-    --popover: 0 0% 95%; /* #F2F2F2 */
+    --popover: 0 0% 100%; /* White */
     --popover-foreground: 0 0% 23%; /* #3A3A3A */
 
-    --card: 0 0% 95%; /* #F2F2F2 */
+    --card: 0 0% 100%; /* White */
     --card-foreground: 0 0% 23%; /* #3A3A3A */
 
-    --border: 0 0% 85%; 
-    --input: 0 0% 90%; 
+    --border: 0 0% 88%; 
+    --input: 0 0% 92%; 
 
     --primary: 208 100% 22%; /* #003C71 Nuevo Azul Principal */
     --primary-foreground: 0 0% 95%; /* #F2F2F2 Blanco Tiza */
@@ -34,7 +34,7 @@
     --destructive-foreground: 0 0% 98%;
 
     --ring: 208 100% 40%; /* Tono más claro del nuevo azul principal #003C71 */
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* Increased radius for a softer look */
 
     --chart-1: 208 100% 22%; /* #003C71 Nuevo Azul Principal */
     --chart-2: 210 70% 39%; /* #1A61AB Nuevo Azul Secundario */
@@ -72,6 +72,7 @@
     --destructive-foreground: 0 0% 98%;
 
     --ring: 223 19% 70%; /* Azul Acero más claro para el anillo de enfoque */
+    --radius: 0.75rem;
 
     --chart-1: 223 19% 52%; /* Azul Acero */
     --chart-2: 210 65% 30%; /* #114477 Variante oscura del Nuevo Azul Secundario */

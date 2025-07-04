@@ -113,11 +113,10 @@ export function Header() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="container flex h-20 items-center justify-center">
+    <header className="sticky top-0 z-50 w-full flex h-20 items-center">
 
         {/* Desktop Header Capsule */}
-        <nav className="hidden md:grid grid-cols-3 items-center w-full max-w-7xl bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
+        <nav className="container hidden md:grid grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
             {/* Left side: Logo */}
             <div className="flex items-center justify-start">
                 <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
@@ -257,7 +256,7 @@ export function Header() {
         </nav>
 
         {/* Mobile Header */}
-        <div className="flex md:hidden w-full items-center justify-between">
+        <div className="flex md:hidden w-full items-center justify-between px-4">
             {/* Logo */}
             <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
             <Image
@@ -312,7 +311,6 @@ export function Header() {
               </SheetContent>
             </Sheet>
         </div>
-      </div>
     </header>
   );
 }

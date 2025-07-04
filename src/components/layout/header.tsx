@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -34,36 +33,58 @@ const navItemsMobile = [
   { name: "Configuración", href: "/dashboard/settings", icon: Settings, activePaths: ["/dashboard/settings"] },
 ];
 
-// Helper function to calculate countdown string
-function calculateCountdown(eventDate: Date, eventTime?: string): string {
-  if (!eventTime) return '';
+// Client-side component for countdown to prevent hydration errors
+function Countdown({ eventDate, eventTime }: { eventDate: Date; eventTime?: string }) {
+  const [countdown, setCountdown] = useState('');
 
-  const now = new Date();
-  const [hours, minutes] = eventTime.split(':').map(Number);
-  const eventDateTime = new Date(eventDate);
-  eventDateTime.setHours(hours, minutes, 0, 0);
+  const calculate = React.useCallback(() => {
+    if (!eventTime) {
+      setCountdown('');
+      return;
+    }
+    const now = new Date();
+    const [hours, minutes] = eventTime.split(':').map(Number);
+    const eventDateTime = new Date(eventDate);
+    eventDateTime.setHours(hours, minutes, 0, 0);
 
-  if (isPast(eventDateTime)) {
-    return 'Comenzó';
-  }
+    if (isPast(eventDateTime)) {
+      setCountdown('Comenzó');
+      return;
+    }
 
-  const duration = intervalToDuration({ start: now, end: eventDateTime });
-  const parts = [];
-  if (duration.days && duration.days > 0) parts.push(`${duration.days}d`);
-  if (duration.hours && duration.hours > 0) parts.push(`${duration.hours}h`);
-  if (duration.minutes && duration.minutes > 0) parts.push(`${duration.minutes}m`);
-  
-  if (parts.length === 0 && duration.seconds && duration.seconds > 0) {
-     parts.push(`${duration.seconds}s`);
-  } else if (parts.length < 2 && duration.seconds && duration.seconds > 0 && !(duration.days || duration.hours) && !(duration.minutes && duration.minutes >=10 )) { // Show seconds if minutes < 10
-     parts.push(`${duration.seconds}s`);
-  }
+    const duration = intervalToDuration({ start: now, end: eventDateTime });
+    const parts = [];
+    if (duration.days && duration.days > 0) parts.push(`${duration.days}d`);
+    if (duration.hours && duration.hours > 0) parts.push(`${duration.hours}h`);
+    if (duration.minutes && duration.minutes > 0) parts.push(`${duration.minutes}m`);
+    
+    if (parts.length === 0 && duration.seconds && duration.seconds > 0) {
+       parts.push(`${duration.seconds}s`);
+    } else if (parts.length < 2 && duration.seconds && duration.seconds > 0 && !(duration.days || duration.hours) && !(duration.minutes && duration.minutes >=10 )) {
+       parts.push(`${duration.seconds}s`);
+    }
 
-  if (parts.length === 0) {
-    return 'Ahora';
-  }
+    if (parts.length === 0) {
+      setCountdown('Ahora');
+      return;
+    }
 
-  return `en ${parts.join(' ')}`;
+    setCountdown(`en ${parts.join(' ')}`);
+  }, [eventDate, eventTime]);
+
+  useEffect(() => {
+    calculate();
+    const timer = setInterval(calculate, 1000);
+    return () => clearInterval(timer);
+  }, [calculate]);
+
+  if (!countdown) return null;
+
+  return (
+    <Badge variant="outline">
+      {countdown}
+    </Badge>
+  );
 }
 
 
@@ -73,7 +94,6 @@ export function Header() {
   const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); 
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
-  const [, setCurrentTimeForCountdown] = useState(new Date());
   const pathname = usePathname();
 
 
@@ -86,21 +106,6 @@ export function Header() {
         return a.time.localeCompare(b.time);
     }));
   }, [allEvents]); 
-
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    if (isRemindersPopoverOpen) {
-      setCurrentTimeForCountdown(new Date()); // Update once immediately when opening
-      intervalId = setInterval(() => {
-        setCurrentTimeForCountdown(new Date());
-      }, 1000); // Update every second
-    }
-    return () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-    };
-  }, [isRemindersPopoverOpen]);
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
     if (item.isSearch || item.isReminders) {
@@ -189,8 +194,7 @@ export function Header() {
                   <div className="p-4 space-y-3">
                     {todaysEvents.map((event) => {
                       const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-                      const countdownStr = calculateCountdown(event.date, event.time);
-
+                      
                       return (
                         <div key={event.id} className="text-xs">
                           <div className="flex justify-between items-start">
@@ -214,10 +218,8 @@ export function Header() {
                                 {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
                               </Badge>
                             )}
-                            {countdownStr && event.time && (
-                              <Badge variant="outline">
-                                {countdownStr}
-                              </Badge>
+                            {event.time && (
+                              <Countdown eventDate={event.date} eventTime={event.time} />
                             )}
                           </div>
                         </div>

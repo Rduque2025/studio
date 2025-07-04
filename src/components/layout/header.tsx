@@ -1,9 +1,9 @@
+
 "use client";
 
 import Link from "next/link";
 import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Bell, Clock, Target } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React, { useEffect, useState } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
@@ -24,7 +24,7 @@ const navItemsDesktop = [
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays, activePaths: ["/dashboard/calendario"] },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake, activePaths: ["/dashboard/bienestar", "/dashboard/cursos", "/dashboard/actividades"] },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos"] },
-  { name: "Biblioteca Digital", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
+  { name: "Biblioteca", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
 ];
 
 const navItemsMobile = [
@@ -183,7 +183,7 @@ export function Header() {
               <div className="p-4">
                 <h4 className="font-medium text-sm text-foreground">Recordatorios de Hoy</h4>
               </div>
-              <Separator />
+              
               {todaysEvents.length > 0 ? (
                 <ScrollArea className="h-[200px]">
                   <div className="p-4 space-y-3">
@@ -228,8 +228,8 @@ export function Header() {
               ) : (
                 <p className="p-4 text-sm text-muted-foreground">No hay recordatorios para hoy.</p>
               )}
-              <Separator />
-              <div className="p-2 text-center">
+              
+              <div className="p-2 text-center border-t">
                 <Button variant="link" size="sm" asChild onClick={() => {setIsRemindersPopoverOpen(false); setIsMobileMenuOpen(false);}}>
                   <Link href="/dashboard/calendario">Ver Calendario</Link>
                 </Button>

@@ -117,9 +117,9 @@ export function Header() {
       <div className="container flex h-20 items-center justify-center">
 
         {/* Desktop Header Capsule */}
-        <nav className="hidden md:flex items-center justify-between w-full max-w-7xl bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
+        <nav className="hidden md:grid grid-cols-3 items-center w-full max-w-7xl bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
             {/* Left side: Logo */}
-            <div className="flex items-center">
+            <div className="flex items-center justify-start">
                 <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
                 <Image
                     src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
@@ -132,7 +132,7 @@ export function Header() {
             </div>
 
             {/* Center: Nav Links */}
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center justify-center space-x-1">
                 {navItemsDesktop.map((item) => {
                     const isActive = item.href === '/dashboard' 
                         ? pathname === '/dashboard' 
@@ -156,7 +156,7 @@ export function Header() {
             </div>
 
             {/* Right side: Action Icons */}
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center justify-end space-x-1">
                 <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
                 <PopoverTrigger asChild>
                     <Button variant="ghost" size="icon">

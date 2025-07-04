@@ -117,7 +117,7 @@ export function Header() {
       <div className="container flex h-20 items-center justify-center">
 
         {/* Desktop Header Capsule */}
-        <nav className="hidden md:flex items-center justify-between w-full max-w-6xl bg-card/95 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border">
+        <nav className="hidden md:flex items-center justify-between w-full max-w-6xl bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
             {/* Left side: Logo */}
             <div className="flex items-center">
                 <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">

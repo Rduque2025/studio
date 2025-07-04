@@ -78,7 +78,7 @@ export default function DashboardPage() {
             />
             <div className="container mx-auto h-full flex flex-col justify-center items-start text-left p-4 z-10 relative">
                 <h1 className="text-4xl md:text-6xl font-extrabold max-w-2xl text-foreground">
-                    Tu Portal de Gestión y Bienestar
+                    Tu Ecosistema Digital Banesco Seguros
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground">
                     Bienvenido al espacio donde encontrarás todas las herramientas, recursos y actividades para tu día a día en Banesco Seguros.
@@ -214,7 +214,7 @@ export default function DashboardPage() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
                 <div className="relative aspect-square w-full rounded-lg overflow-hidden">
                      <Image
-                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8MTc1MTUyMDMxM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8MTc1MDI3NzU0OHww&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Reunión de equipo Banesco Seguros"
                         layout="fill"
                         objectFit="cover"

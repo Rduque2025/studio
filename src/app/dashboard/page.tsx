@@ -67,12 +67,12 @@ export default function DashboardPage() {
         
         {/* Hero Section */}
         <section className="relative h-[500px] w-full bg-card">
-            <Image 
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMHRlYW18ZW58MHx8fHwxNzUxNTE5OTMxfDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Equipo de Banesco Seguros"
+            <Image
+                src="https://images.unsplash.com/photo-1570483358100-6d222cdea6ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8Q0lFTE98ZW58MHx8fHwxNzUxNjYxMjM1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Fondo abstracto del portal"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="business team"
+                data-ai-hint="sky abstract"
                 className="opacity-20"
                 priority
             />

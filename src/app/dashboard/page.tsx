@@ -7,7 +7,7 @@ import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 // DressCodeCard is no longer directly used in the map, but the data is.
-import { mockCourses, mockActivities, mockMenuItems, mockDressCodeItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
@@ -137,7 +137,6 @@ export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
-  const [currentDressCodeImageIndex, setCurrentDressCodeImageIndex] = useState(0);
   const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
   const [activePrinciple, setActivePrinciple] = useState<'valores' | 'pilares' | 'mision'>('valores');
 
@@ -183,18 +182,6 @@ export default function DashboardPage() {
   const handleNextBannerImage = () => {
     setCurrentBannerImageIndex(prevIndex =>
       prevIndex === bannerImagesData.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const handlePrevDressCodeImage = () => {
-    setCurrentDressCodeImageIndex(prevIndex =>
-      prevIndex === 0 ? mockDressCodeItems.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNextDressCodeImage = () => {
-    setCurrentDressCodeImageIndex(prevIndex =>
-      prevIndex === mockDressCodeItems.length - 1 ? 0 : prevIndex + 1
     );
   };
 
@@ -617,54 +604,6 @@ export default function DashboardPage() {
             </div>
         </div>
       </SectionWrapper>
-
-
-      <SectionWrapper title="Código de Vestimenta" description="Guía rápida sobre el código de vestimenta de la empresa." titleClassName="text-primary" descriptionClassName="text-secondary">
-        <div className="flex flex-col md:flex-row items-start justify-center gap-8 py-4">
-          {/* Dress Code Image Viewer */}
-          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
-            {mockDressCodeItems.length > 0 && (
-              <Image
-                key={mockDressCodeItems[currentDressCodeImageIndex].id}
-                src={mockDressCodeItems[currentDressCodeImageIndex].imageUrl}
-                alt={mockDressCodeItems[currentDressCodeImageIndex].title}
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint={mockDressCodeItems[currentDressCodeImageIndex].dataAiHint}
-                priority={currentDressCodeImageIndex === 0}
-              />
-            )}
-            {mockDressCodeItems.length > 1 && (
-              <>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handlePrevDressCodeImage}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                  aria-label="Código de vestimenta anterior"
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={handleNextDressCodeImage}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-                  aria-label="Siguiente código de vestimenta"
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </Button>
-              </>
-            )}
-             {mockDressCodeItems.length === 0 && (
-                <div className="absolute inset-0 flex items-center justify-center bg-muted/50">
-                    <p className="text-muted-foreground">No hay información de código de vestimenta disponible.</p>
-                </div>
-            )}
-          </div>
-        </div>
-      </SectionWrapper>
     </div>
   );
 }
-

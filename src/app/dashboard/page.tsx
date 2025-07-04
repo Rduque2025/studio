@@ -58,24 +58,6 @@ const rotatingImagesData = [
   },
 ];
 
-const bannerImagesData = [
-  {
-    src: "https://placehold.co/677x388.png",
-    alt: "Banner principal del portal de gestión 1",
-    hint: "corporate banner"
-  },
-  {
-    src: "https://placehold.co/677x388/003c71/ffffff.png",
-    alt: "Banner principal del portal de gestión 2",
-    hint: "company values"
-  },
-  {
-    src: "https://placehold.co/677x388/1a61ab/ffffff.png",
-    alt: "Banner principal del portal de gestión 3",
-    hint: "employee portal"
-  },
-];
-
 const valoresData = [
   { title: "Confianza", text: "Relaciones sólidas y duraderas basadas en transparencia.", icon: Handshake, color: "bg-pink-500" },
   { title: "Innovación", text: "Buscamos constantemente nuevas y mejores formas de proteger.", icon: Lightbulb, color: "bg-purple-500" },
@@ -135,7 +117,6 @@ const TimelineNode = ({ title, text, color, isLast, icon: Icon }: { title: strin
 
 export default function DashboardPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [currentBannerImageIndex, setCurrentBannerImageIndex] = useState(0);
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentDeptIndex, setCurrentDeptIndex] = useState(0);
   const [activePrinciple, setActivePrinciple] = useState<'valores' | 'pilares' | 'mision'>('valores');
@@ -173,18 +154,6 @@ export default function DashboardPage() {
     );
   };
 
-  const handlePrevBannerImage = () => {
-    setCurrentBannerImageIndex(prevIndex =>
-      prevIndex === 0 ? bannerImagesData.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNextBannerImage = () => {
-    setCurrentBannerImageIndex(prevIndex =>
-      prevIndex === bannerImagesData.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
   const handlePrevDept = () => {
     setCurrentDeptIndex(prev => (prev === 0 ? featuredDepartments.length - 1 : prev - 1));
   };
@@ -196,41 +165,6 @@ export default function DashboardPage() {
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-12">
-      <section className="mb-12">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 max-w-6xl mx-auto">
-          {/* Banner Carousel */}
-          <div className="relative w-full md:w-[677.33px] h-[388.39px] rounded-lg overflow-hidden shadow-lg mx-auto">
-            <Image
-              key={bannerImagesData[currentBannerImageIndex].src}
-              src={bannerImagesData[currentBannerImageIndex].src}
-              alt={bannerImagesData[currentBannerImageIndex].alt}
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint={bannerImagesData[currentBannerImageIndex].hint}
-              priority={currentBannerImageIndex === 0}
-            />
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handlePrevBannerImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-              aria-label="Banner anterior"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleNextBannerImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-primary/70 hover:bg-primary text-primary-foreground rounded-full"
-              aria-label="Siguiente banner"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
       <SectionWrapper
         title="Banesco Seguros Venezuela"
         description="Nuestra trayectoria y compromiso con Venezuela."

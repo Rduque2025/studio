@@ -18,11 +18,19 @@ import {
   ArrowRight,
   Plane,
   ShieldCheck,
-  FileText
+  FileText,
+  HelpCircle,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 
 const pilaresData = [
   { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
@@ -51,6 +59,35 @@ const quickAccessLinks = [
         icon: ShieldCheck
     }
 ];
+
+const faqData = [
+  {
+    id: "faq1",
+    question: "¿Cómo puedo consultar la cobertura de mi póliza HCM?",
+    answer: "Puedes consultar todos los detalles de tu póliza, incluyendo coberturas, red de clínicas y estatus de reembolsos, accediendo a la sección 'Póliza HCM' desde el menú de Accesos Rápidos en esta misma página."
+  },
+  {
+    id: "faq2",
+    question: "¿Cuál es el procedimiento para solicitar vacaciones?",
+    answer: "Para solicitar tus días libres, dirígete a 'Gestión de Vacaciones' en los Accesos Rápidos. Allí podrás ver tu saldo de días disponibles, seleccionar las fechas deseadas y enviar la solicitud para su aprobación."
+  },
+  {
+    id: "faq3",
+    question: "¿A quién debo contactar para soporte técnico?",
+    answer: "Si tienes algún inconveniente técnico con tu equipo o con alguna de las plataformas, puedes generar un ticket de soporte dirigiéndote al 'Portal de Requerimientos' y seleccionando el departamento de 'Tecnología de Información'."
+  },
+  {
+    id: "faq4",
+    question: "¿Dónde puedo ver el menú del comedor de esta semana?",
+    answer: "El menú semanal del comedor está disponible en la página principal del portal, justo debajo de los Accesos Rápidos. Puedes navegar entre las opciones de Menú General, Dieta y Ejecutivo usando las pestañas."
+  },
+  {
+    id: "faq5",
+    question: "¿Cómo me inscribo en un curso o actividad de bienestar?",
+    answer: "Tanto los cursos como las actividades de bienestar se encuentran en la sección 'Bienestar' accesible desde el menú de navegación principal. Dentro de cada sección, podrás ver los detalles y encontrar los botones para inscribirte o confirmar tu asistencia."
+  }
+];
+
 
 export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
@@ -237,6 +274,38 @@ export default function DashboardPage() {
                 </div>
             </div>
         </SectionWrapper>
+
+        {/* FAQ Section */}
+        <SectionWrapper>
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+            <div className="space-y-4 text-center md:text-left">
+              <div className="flex justify-center md:justify-start">
+                <Badge variant="outline" className="border-primary/50 text-primary bg-primary/10">
+                  <HelpCircle className="mr-2 h-4 w-4" />
+                  Preguntas Frecuentes
+                </Badge>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">¿Necesitas Ayuda?</h2>
+              <p className="text-muted-foreground text-lg">
+                Hemos recopilado las preguntas más habituales para que encuentres la información que necesitas de forma rápida y sencilla. Si no encuentras tu duda, recuerda que puedes usar el Portal de Requerimientos.
+              </p>
+            </div>
+            
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {faqData.map((faq) => (
+                <AccordionItem value={faq.id} key={faq.id} className="bg-card border-0 rounded-lg shadow-sm data-[state=open]:shadow-md transition-shadow">
+                  <AccordionTrigger className="p-6 text-left font-semibold text-base hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-6 pb-6 text-muted-foreground">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </SectionWrapper>
+
     </div>
   );
 }

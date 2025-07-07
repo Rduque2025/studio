@@ -36,7 +36,7 @@ const AccordionTrigger = React.forwardRef<
       {children}
       <div
         className={cn(
-          "ml-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-muted transition-colors",
+          "ml-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 transition-colors",
           "group-data-[state=open]:bg-primary"
         )}
       >

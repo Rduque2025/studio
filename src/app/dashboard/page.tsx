@@ -285,9 +285,9 @@ export default function DashboardPage() {
                   Preguntas Frecuentes
                 </Badge>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">¿Necesitas Ayuda?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Preguntas Frecuentes</h2>
               <p className="text-muted-foreground text-lg">
-                Hemos recopilado las preguntas más habituales para que encuentres la información que necesitas de forma rápida y sencilla. Si no encuentras tu duda, recuerda que puedes usar el Portal de Requerimientos.
+                Respuestas a las dudas más comunes. Si no encuentras lo que buscas, no dudes en contactarnos a través del portal de requerimientos.
               </p>
             </div>
             

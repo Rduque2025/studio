@@ -18,7 +18,6 @@ import {
   ShieldCheck,
   FileText,
   HelpCircle,
-  ChevronDown,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,6 +29,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const pilaresData = [
   { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
@@ -190,50 +190,55 @@ export default function DashboardPage() {
             title="Menú de Hoy"
             description={currentDayName ? `Opciones disponibles para el ${currentDayName}.` : "Consultando menú..."}
         >
-            <div className="space-y-3 max-w-3xl mx-auto">
-                {todaysMenus.length > 0 ? (
-                    todaysMenus.map((menu) => {
-                    const isExpanded = expandedMenu === menu.id;
-                    return (
-                        <Card key={menu.id} className="overflow-hidden transition-all duration-300 rounded-xl shadow-sm hover:shadow-md">
-                        <div 
-                            className="flex items-center gap-4 p-4 cursor-pointer"
-                            onClick={() => setExpandedMenu(prev => prev === menu.id ? null : menu.id)}
-                        >
-                            <Image 
-                                src={menu.imageUrl} 
-                                alt={menu.name}
-                                width={80} 
-                                height={80}
-                                className="rounded-lg object-cover aspect-square"
-                                data-ai-hint={menu.dataAiHint}
-                            />
-                            <div className="flex-grow">
-                                <h3 className="font-bold text-lg leading-tight">{menu.name}</h3>
-                                <p className="text-sm text-muted-foreground">{menu.type}</p>
-                            </div>
-                            <div className="text-right flex-shrink-0 w-24">
-                                <p className="font-bold text-xl text-foreground">{menu.price}</p>
-                            </div>
-                            <ChevronDown className={`ml-4 h-5 w-5 text-muted-foreground transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`} />
-                        </div>
-
-                        {isExpanded && (
-                            <div className="px-6 pb-6 pt-0">
-                                <div className="pl-[96px]">
-                                    <p className="text-sm text-muted-foreground">{menu.description}</p>
-                                </div>
+             <Card className="max-w-4xl mx-auto shadow-md">
+                <CardContent className="p-2 md:p-4">
+                    <div className="space-y-2">
+                        {todaysMenus.length > 0 ? (
+                            todaysMenus.map((menu) => {
+                                const isExpanded = expandedMenu === menu.id;
+                                return (
+                                    <div
+                                        key={menu.id}
+                                        className="border-b last:border-b-0 py-3 cursor-pointer group"
+                                        onClick={() => setExpandedMenu(prev => prev === menu.id ? null : menu.id)}
+                                    >
+                                        <div className="flex items-center gap-4 px-2 md:px-4">
+                                            <Image 
+                                                src={menu.imageUrl} 
+                                                alt={menu.name}
+                                                width={64} 
+                                                height={64}
+                                                className="rounded-md object-cover aspect-square"
+                                                data-ai-hint={menu.dataAiHint}
+                                            />
+                                            <div className="flex-grow">
+                                                <h3 className="font-semibold text-base md:text-lg leading-tight group-hover:text-primary transition-colors">{menu.name}</h3>
+                                                <p className="text-xs md:text-sm text-muted-foreground">{menu.type}</p>
+                                            </div>
+                                            <div className="text-right flex-shrink-0 w-20">
+                                                <p className="font-bold text-base md:text-lg text-foreground">{menu.price}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className={cn(
+                                            "overflow-hidden transition-all duration-300 ease-in-out",
+                                            isExpanded ? "max-h-40 mt-2" : "max-h-0"
+                                        )}>
+                                            <p className="text-sm text-muted-foreground px-2 md:px-4 ml-[calc(64px+1rem)]">
+                                                {menu.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <div className="p-6 text-center text-muted-foreground">
+                                No hay menú disponible para hoy o se está cargando.
                             </div>
                         )}
-                        </Card>
-                    );
-                    })
-                ) : (
-                    <Card className="p-6 text-center text-muted-foreground">
-                        No hay menú disponible para hoy o se está cargando.
-                    </Card>
-                )}
-            </div>
+                    </div>
+                </CardContent>
+            </Card>
         </SectionWrapper>
 
         {/* Cursos Section */}

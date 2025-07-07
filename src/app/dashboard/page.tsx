@@ -87,32 +87,25 @@ const faqData = [
   }
 ];
 
+const MenuSection = ({ title, items, price }: { title: string, items: typeof mockMenuItems, price: string }) => (
+  <div>
+    <div className="inline-block border rounded-full px-4 py-1 text-sm mb-6 text-muted-foreground">{title}</div>
+    <div className="space-y-6">
+      {items.map(item => (
+        <div key={item.id} className="flex justify-between items-start pb-4 border-b border-dashed">
+          <div>
+            <p className="font-semibold text-foreground">{item.name}</p>
+            <p className="text-sm text-muted-foreground mt-1">{item.day}</p>
+          </div>
+          <p className="font-semibold text-foreground flex-shrink-0 ml-4">{price}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 
 export default function DashboardPage() {
-  const [currentDayName, setCurrentDayName] = useState('');
-  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
-
-  useEffect(() => {
-    const today = new Date();
-    const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
-    setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
-  }, []);
-
-  const todaysMenus = useMemo(() => {
-    if (!currentDayName) return [];
-
-    const classicMenu = mockMenuItems.find(item => item.day === currentDayName);
-    const dietMenu = mockDietMenuItems.find(item => item.day === currentDayName);
-    const executiveMenu = mockExecutiveMenuItems.find(item => item.day === currentDayName);
-    
-    const menus = [];
-    if (classicMenu) menus.push({ ...classicMenu, type: 'Menú Clásico', price: '100 Bs.' });
-    if (dietMenu) menus.push({ ...dietMenu, type: 'Menú de Dieta', price: '100 Bs.' });
-    if (executiveMenu) menus.push({ ...executiveMenu, type: 'Menú Ejecutivo', price: '13 $' });
-
-    return menus;
-  }, [currentDayName]);
-
 
   return (
     <div className="bg-background">
@@ -187,59 +180,16 @@ export default function DashboardPage() {
 
         {/* Menus Section */}
         <SectionWrapper
-            title="Menú de Hoy"
-            description={currentDayName ? `Opciones disponibles para el ${currentDayName}.` : "Consultando menú..."}
+            title="Menú Semanal"
+            description="Opciones de almuerzo disponibles para toda la semana en el comedor."
         >
-             <div className="max-w-4xl mx-auto space-y-4">
-                {todaysMenus.length > 0 ? (
-                    todaysMenus.map((menu) => {
-                        const isExpanded = expandedMenu === menu.id;
-                        return (
-                            <Card 
-                                key={menu.id}
-                                className={cn(
-                                    "overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl",
-                                    isExpanded ? "shadow-xl" : "shadow-md"
-                                )}
-                                onClick={() => setExpandedMenu(prev => prev === menu.id ? null : menu.id)}
-                            >
-                                <div className="flex items-center gap-4 p-4">
-                                    <Image 
-                                        src={menu.imageUrl} 
-                                        alt={menu.name}
-                                        width={80} 
-                                        height={80}
-                                        className="rounded-lg object-cover aspect-square"
-                                        data-ai-hint={menu.dataAiHint}
-                                    />
-                                    <div className="flex-grow">
-                                        <h3 className="font-bold text-lg leading-tight text-foreground">{menu.name}</h3>
-                                        <p className="text-sm text-muted-foreground">{menu.type}</p>
-                                    </div>
-                                    <div className="text-right flex-shrink-0 w-24">
-                                        <p className="font-black text-2xl text-primary">{menu.price}</p>
-                                    </div>
-                                </div>
-                                
-                                <div className={cn(
-                                    "transition-all duration-500 ease-in-out",
-                                    isExpanded ? "max-h-40 opacity-100" : "max-h-0 opacity-50"
-                                )}>
-                                    <div className="px-4 pb-4 -mt-2">
-                                        <p className="text-sm text-muted-foreground pl-[calc(80px+1rem)]">
-                                            {menu.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </Card>
-                        );
-                    })
-                ) : (
-                    <Card className="p-6 text-center text-muted-foreground">
-                        No hay menú disponible para hoy o se está cargando.
-                    </Card>
-                )}
-            </div>
+             <Card className="p-6 md:p-10">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+                    <MenuSection title="Menú Clásico" items={mockMenuItems} price="100 Bs." />
+                    <MenuSection title="Menú de Dieta" items={mockDietMenuItems} price="100 Bs." />
+                    <MenuSection title="Menú Ejecutivo" items={mockExecutiveMenuItems} price="13 $" />
+                </div>
+             </Card>
         </SectionWrapper>
 
         {/* Cursos Section */}

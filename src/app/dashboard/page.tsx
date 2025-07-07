@@ -1,15 +1,13 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { MenuItemCard } from "@/components/dashboard/menu-item-card";
 import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Landmark,
   UsersRound,
@@ -20,6 +18,7 @@ import {
   ShieldCheck,
   FileText,
   HelpCircle,
+  ChevronDown,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -91,12 +90,28 @@ const faqData = [
 
 export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
+  const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
 
   useEffect(() => {
     const today = new Date();
     const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
     setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
   }, []);
+
+  const todaysMenus = useMemo(() => {
+    if (!currentDayName) return [];
+
+    const classicMenu = mockMenuItems.find(item => item.day === currentDayName);
+    const dietMenu = mockDietMenuItems.find(item => item.day === currentDayName);
+    const executiveMenu = mockExecutiveMenuItems.find(item => item.day === currentDayName);
+    
+    const menus = [];
+    if (classicMenu) menus.push({ ...classicMenu, type: 'Menú Clásico', price: '100 Bs.' });
+    if (dietMenu) menus.push({ ...dietMenu, type: 'Menú de Dieta', price: '100 Bs.' });
+    if (executiveMenu) menus.push({ ...executiveMenu, type: 'Menú Ejecutivo', price: '13 $' });
+
+    return menus;
+  }, [currentDayName]);
 
 
   return (
@@ -172,37 +187,53 @@ export default function DashboardPage() {
 
         {/* Menus Section */}
         <SectionWrapper
-          title="Menú del Comedor"
-          description="Consulta las opciones de almuerzo para esta semana."
+            title="Menú de Hoy"
+            description={currentDayName ? `Opciones disponibles para el ${currentDayName}.` : "Consultando menú..."}
         >
-            <Tabs defaultValue="general" className="w-full">
-                <TabsList className="grid w-full grid-cols-3 max-w-lg mx-auto h-auto">
-                    <TabsTrigger value="general">Menú General</TabsTrigger>
-                    <TabsTrigger value="dieta">Menú de Dieta</TabsTrigger>
-                    <TabsTrigger value="ejecutivo">Menú Ejecutivo</TabsTrigger>
-                </TabsList>
-                <TabsContent value="general" className="mt-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {mockMenuItems.map((item) => (
-                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                        ))}
-                    </div>
-                </TabsContent>
-                <TabsContent value="dieta" className="mt-8">
-                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {mockDietMenuItems.map((item) => (
-                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                        ))}
-                    </div>
-                </TabsContent>
-                <TabsContent value="ejecutivo" className="mt-8">
-                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {mockExecutiveMenuItems.map((item) => (
-                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                        ))}
-                    </div>
-                </TabsContent>
-            </Tabs>
+            <div className="space-y-3 max-w-3xl mx-auto">
+                {todaysMenus.length > 0 ? (
+                    todaysMenus.map((menu) => {
+                    const isExpanded = expandedMenu === menu.id;
+                    return (
+                        <Card key={menu.id} className="overflow-hidden transition-all duration-300 rounded-xl shadow-sm hover:shadow-md">
+                        <div 
+                            className="flex items-center gap-4 p-4 cursor-pointer"
+                            onClick={() => setExpandedMenu(prev => prev === menu.id ? null : menu.id)}
+                        >
+                            <Image 
+                                src={menu.imageUrl} 
+                                alt={menu.name}
+                                width={80} 
+                                height={80}
+                                className="rounded-lg object-cover aspect-square"
+                                data-ai-hint={menu.dataAiHint}
+                            />
+                            <div className="flex-grow">
+                                <h3 className="font-bold text-lg leading-tight">{menu.name}</h3>
+                                <p className="text-sm text-muted-foreground">{menu.type}</p>
+                            </div>
+                            <div className="text-right flex-shrink-0 w-24">
+                                <p className="font-bold text-xl text-foreground">{menu.price}</p>
+                            </div>
+                            <ChevronDown className={`ml-4 h-5 w-5 text-muted-foreground transition-transform duration-200 flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`} />
+                        </div>
+
+                        {isExpanded && (
+                            <div className="px-6 pb-6 pt-0">
+                                <div className="pl-[96px]">
+                                    <p className="text-sm text-muted-foreground">{menu.description}</p>
+                                </div>
+                            </div>
+                        )}
+                        </Card>
+                    );
+                    })
+                ) : (
+                    <Card className="p-6 text-center text-muted-foreground">
+                        No hay menú disponible para hoy o se está cargando.
+                    </Card>
+                )}
+            </div>
         </SectionWrapper>
 
         {/* Cursos Section */}

@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
@@ -95,6 +95,7 @@ const quickAccessLinks = [
 
 export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
+  const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo' | 'Todos'>('Todos');
   
   const handleMenuScroll = (direction: 'left' | 'right') => {
     const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
@@ -107,11 +108,15 @@ export default function DashboardPage() {
     }
   };
 
-  const allMenuItems = [
+  const allMenuItems: MenuItem[] = [
     ...mockMenuItems,
     ...mockDietMenuItems,
     ...mockExecutiveMenuItems,
   ];
+
+  const filteredMenuItems = allMenuItems.filter(item =>
+    selectedMenu === 'Todos' || item.type === selectedMenu
+  );
 
   return (
     <div className="bg-background">
@@ -193,23 +198,33 @@ export default function DashboardPage() {
                 Opciones de almuerzo disponibles para toda la semana en el comedor.
               </p>
             </div>
-            <div className="md:col-span-8" ref={menuScrollAreaRef}>
-              <div className="flex justify-end mb-4 gap-2">
-                <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
-              </div>
-              <ScrollArea className="w-full">
-                <div className="flex w-max space-x-4 pb-4">
-                  {allMenuItems.map((item) => (
-                    <MenuItemCard key={item.id} item={item} />
-                  ))}
+            <div className="md:col-span-8">
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                 <div className="flex items-center gap-2 flex-wrap">
+                    <Button size="sm" variant={selectedMenu === 'Todos' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Todos')}>Todos</Button>
+                    <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
+                    <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
+                    <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
+                  </div>
+                <div className="flex items-center gap-2">
+                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
                 </div>
-                <ScrollBar orientation="horizontal" />
-              </ScrollArea>
+              </div>
+              <div ref={menuScrollAreaRef}>
+                <ScrollArea className="w-full">
+                  <div className="flex w-max space-x-4 pb-4">
+                    {filteredMenuItems.map((item) => (
+                      <MenuItemCard key={item.id} item={item} />
+                    ))}
+                  </div>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+              </div>
             </div>
           </div>
         </SectionWrapper>

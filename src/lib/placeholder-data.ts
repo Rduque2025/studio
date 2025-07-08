@@ -22,12 +22,13 @@ export interface Activity {
 
 export interface MenuItem {
   id: string;
-  day: string; // For weekly menu, can be repurposed for item type or category for others
+  day: string;
   name: string;
   description: string;
   imageUrl: string;
   dataAiHint?: string;
   price?: string;
+  type?: 'Clásico' | 'Dieta' | 'Ejecutivo';
 }
 
 export interface Department {
@@ -155,6 +156,7 @@ export const mockMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "curry chicken",
     price: "100 Bs.",
+    type: "Clásico",
   },
   {
     id: "M002",
@@ -164,6 +166,7 @@ export const mockMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "lasagna pasta",
     price: "100 Bs.",
+    type: "Clásico",
   },
   {
     id: "M003",
@@ -173,6 +176,7 @@ export const mockMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "salmon dish",
     price: "100 Bs.",
+    type: "Clásico",
   },
   {
     id: "M004",
@@ -182,6 +186,7 @@ export const mockMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "tacos mexican",
     price: "100 Bs.",
+    type: "Clásico",
   },
   {
     id: "M005",
@@ -191,6 +196,7 @@ export const mockMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "pizza pepperoni",
     price: "100 Bs.",
+    type: "Clásico",
   },
 ];
 
@@ -203,6 +209,7 @@ export const mockDietMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "chicken salad",
     price: "100 Bs.",
+    type: "Dieta",
   },
   {
     id: "DM002",
@@ -212,6 +219,7 @@ export const mockDietMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "veggie wrap",
     price: "100 Bs.",
+    type: "Dieta",
   },
   {
     id: "DM003",
@@ -221,6 +229,7 @@ export const mockDietMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "quinoa bowl",
     price: "100 Bs.",
+    type: "Dieta",
   },
   {
     id: "DM004",
@@ -230,6 +239,7 @@ export const mockDietMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "baked fish",
     price: "100 Bs.",
+    type: "Dieta",
   },
   {
     id: "DM005",
@@ -239,6 +249,7 @@ export const mockDietMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "lentil soup",
     price: "100 Bs.",
+    type: "Dieta",
   }
 ];
 
@@ -251,6 +262,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "lomo saltado",
     price: "13 $",
+    type: "Ejecutivo",
   },
   {
     id: "EM002",
@@ -260,6 +272,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "mushroom risotto",
     price: "13 $",
+    type: "Ejecutivo",
   },
   {
     id: "EM003",
@@ -269,6 +282,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "seafood paella",
     price: "13 $",
+    type: "Ejecutivo",
   },
   {
     id: "EM004",
@@ -278,6 +292,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "grilled steak",
     price: "13 $",
+    type: "Ejecutivo",
   },
   {
     id: "EM005",
@@ -287,6 +302,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     imageUrl: "https://placehold.co/400x300.png",
     dataAiHint: "cannelloni ricotta",
     price: "13 $",
+    type: "Ejecutivo",
   }
 ];
 

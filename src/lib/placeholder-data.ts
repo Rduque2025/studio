@@ -27,6 +27,7 @@ export interface MenuItem {
   description: string;
   imageUrl: string;
   dataAiHint?: string;
+  price?: string;
 }
 
 export interface Department {
@@ -152,7 +153,8 @@ export const mockMenuItems: MenuItem[] = [
     name: "Pollo al Curry con Arroz Jazmín",
     description: "Delicioso pollo en salsa de curry acompañado de arroz jazmín y vegetales al vapor.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "curry chicken"
+    dataAiHint: "curry chicken",
+    price: "100 Bs.",
   },
   {
     id: "M002",
@@ -160,7 +162,8 @@ export const mockMenuItems: MenuItem[] = [
     name: "Lasaña de Carne Clásica",
     description: "Capas de pasta, carne molida, salsa bechamel y queso parmesano, horneada a la perfección.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "lasagna pasta"
+    dataAiHint: "lasagna pasta",
+    price: "100 Bs.",
   },
   {
     id: "M003",
@@ -168,7 +171,8 @@ export const mockMenuItems: MenuItem[] = [
     name: "Salmón a la Plancha con Puré de Batata",
     description: "Filete de salmón fresco a la plancha, servido con un suave puré de batata y espárragos.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "salmon dish"
+    dataAiHint: "salmon dish",
+    price: "100 Bs.",
   },
   {
     id: "M004",
@@ -176,7 +180,8 @@ export const mockMenuItems: MenuItem[] = [
     name: "Tacos de Carnitas con Guarniciones",
     description: "Auténticos tacos de carnitas con tortillas de maíz, cebolla, cilantro y salsa.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "tacos mexican"
+    dataAiHint: "tacos mexican",
+    price: "100 Bs.",
   },
   {
     id: "M005",
@@ -184,7 +189,8 @@ export const mockMenuItems: MenuItem[] = [
     name: "Pizza Artesanal de Pepperoni",
     description: "Pizza con masa casera, salsa de tomate natural, mozzarella fresca y pepperoni.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "pizza pepperoni"
+    dataAiHint: "pizza pepperoni",
+    price: "100 Bs.",
   },
 ];
 
@@ -195,7 +201,8 @@ export const mockDietMenuItems: MenuItem[] = [
     name: "Ensalada César con Pollo a la Parrilla",
     description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "chicken salad"
+    dataAiHint: "chicken salad",
+    price: "100 Bs.",
   },
   {
     id: "DM002",
@@ -203,7 +210,8 @@ export const mockDietMenuItems: MenuItem[] = [
     name: "Wrap de Vegetales con Hummus",
     description: "Tortilla integral rellena de hummus, pimientos, pepino, zanahoria y espinacas.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "veggie wrap"
+    dataAiHint: "veggie wrap",
+    price: "100 Bs.",
   },
   {
     id: "DM003",
@@ -211,7 +219,8 @@ export const mockDietMenuItems: MenuItem[] = [
     name: "Bowl de Quinoa con Tofu y Aguacate",
     description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "quinoa bowl"
+    dataAiHint: "quinoa bowl",
+    price: "100 Bs.",
   },
   {
     id: "DM004",
@@ -219,7 +228,8 @@ export const mockDietMenuItems: MenuItem[] = [
     name: "Pescado Blanco al Horno con Brócoli",
     description: "Filete de pescado blanco (merluza o similar) horneado con hierbas, acompañado de brócoli al vapor.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "baked fish"
+    dataAiHint: "baked fish",
+    price: "100 Bs.",
   },
   {
     id: "DM005",
@@ -227,7 +237,8 @@ export const mockDietMenuItems: MenuItem[] = [
     name: "Sopa de Lentejas y Vegetales",
     description: "Contundente sopa de lentejas con zanahoria, apio, cebolla y un toque de pimentón.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "lentil soup"
+    dataAiHint: "lentil soup",
+    price: "100 Bs.",
   }
 ];
 
@@ -238,7 +249,8 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     name: "Lomo Saltado Peruano",
     description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "lomo saltado"
+    dataAiHint: "lomo saltado",
+    price: "13 $",
   },
   {
     id: "EM002",
@@ -246,7 +258,8 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     name: "Risotto de Champiñones y Trufa",
     description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "mushroom risotto"
+    dataAiHint: "mushroom risotto",
+    price: "13 $",
   },
   {
     id: "EM003",
@@ -254,7 +267,8 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     name: "Paella de Mariscos Individual",
     description: "Arroz bomba cocinado en caldo de pescado con camarones, calamares, mejillones y almejas.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "seafood paella"
+    dataAiHint: "seafood paella",
+    price: "13 $",
   },
   {
     id: "EM004",
@@ -262,7 +276,8 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     name: "Entrecot a la Parrilla con Chimichurri",
     description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "grilled steak"
+    dataAiHint: "grilled steak",
+    price: "13 $",
   },
   {
     id: "EM005",
@@ -270,7 +285,8 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     name: "Canelones de Ricota y Espinaca",
     description: "Canelones rellenos de suave ricota y espinacas frescas, bañados en salsa bechamel y gratinados.",
     imageUrl: "https://placehold.co/400x300.png",
-    dataAiHint: "cannelloni ricotta"
+    dataAiHint: "cannelloni ricotta",
+    price: "13 $",
   }
 ];
 

@@ -1,7 +1,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
@@ -18,6 +18,8 @@ import {
   ShieldCheck,
   FileText,
   HelpCircle,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,6 +33,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { MenuItem } from '@/lib/placeholder-data';
+import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 
 
 const faqData = [
@@ -89,27 +92,26 @@ const quickAccessLinks = [
     }
 ];
 
-const MenuCategory = ({ title, items, price }: { title: string, items: MenuItem[], price: string }) => (
-    <div>
-        <h3 className="text-2xl font-bold text-primary mb-6">{title}</h3>
-        <div className="space-y-6">
-            {items.map(item => (
-                <div key={item.id}>
-                    <div className="flex items-center gap-3">
-                        <h4 className="text-lg font-semibold text-foreground">{item.name}</h4>
-                        <Badge variant="outline" className="border-primary/50 text-primary bg-primary/10">
-                            {price}
-                        </Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-1">{item.day} &mdash; {item.description}</p>
-                </div>
-            ))}
-        </div>
-    </div>
-);
-
 
 export default function DashboardPage() {
+  const menuScrollAreaRef = useRef<HTMLDivElement>(null);
+  
+  const handleMenuScroll = (direction: 'left' | 'right') => {
+    const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
+    if (viewport) {
+      const scrollAmount = 320; // Approximately the width of one card plus gap
+      viewport.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const allMenuItems = [
+    ...mockMenuItems,
+    ...mockDietMenuItems,
+    ...mockExecutiveMenuItems,
+  ];
 
   return (
     <div className="bg-background">
@@ -183,18 +185,35 @@ export default function DashboardPage() {
         </SectionWrapper>
 
         {/* Menus Section */}
-        <SectionWrapper
-            title="Menú Semanal"
-            description="Opciones de almuerzo disponibles para toda la semana en el comedor."
-        >
-             <Card className="p-6 md:p-10">
-                <MenuCategory title="Menú Clásico" items={mockMenuItems} price="100 Bs." />
-                <Separator className="my-8 md:my-10" />
-                <MenuCategory title="Menú de Dieta" items={mockDietMenuItems} price="100 Bs." />
-                <Separator className="my-8 md:my-10" />
-                <MenuCategory title="Menú Ejecutivo" items={mockExecutiveMenuItems} price="13 $" />
-             </Card>
+        <SectionWrapper>
+          <div className="grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-4">
+              <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
+              <p className="text-muted-foreground mt-4">
+                Opciones de almuerzo disponibles para toda la semana en el comedor.
+              </p>
+            </div>
+            <div className="md:col-span-8" ref={menuScrollAreaRef}>
+              <div className="flex justify-end mb-4 gap-2">
+                <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+              <ScrollArea className="w-full">
+                <div className="flex w-max space-x-4 pb-4">
+                  {allMenuItems.map((item) => (
+                    <MenuItemCard key={item.id} item={item} />
+                  ))}
+                </div>
+                <ScrollBar orientation="horizontal" />
+              </ScrollArea>
+            </div>
+          </div>
         </SectionWrapper>
+
 
         {/* Cursos Section */}
         <SectionWrapper 

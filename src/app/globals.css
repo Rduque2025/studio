@@ -6,10 +6,10 @@
 
 @layer base {
   :root {
-    --background: 40 50% 97%;
+    --background: 210 30% 98%;
     --foreground: 0 0% 23%; /* #3A3A3A Gris Grafito */
 
-    --muted: 40 30% 95%; 
+    --muted: 210 30% 96%; 
     --muted-foreground: 0 0% 40%; 
 
     --popover: 0 0% 100%; /* White */

@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
@@ -29,35 +29,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
+import type { MenuItem } from '@/lib/placeholder-data';
 
-const pilaresData = [
-  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
-  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound },
-  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
-  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
-];
-
-const quickAccessLinks = [
-    {
-        title: "Portal de Requerimientos",
-        description: "Envíe solicitudes o consultas a los departamentos.",
-        href: "/dashboard/requerimientos",
-        icon: FileText
-    },
-    {
-        title: "Gestión de Vacaciones",
-        description: "Planifique y solicite sus días libres.",
-        href: "/dashboard/vacaciones",
-        icon: Plane
-    },
-    {
-        title: "Póliza HCM",
-        description: "Consulte su cobertura, red de clínicas y más.",
-        href: "/dashboard/poliza-hcm",
-        icon: ShieldCheck
-    }
-];
 
 const faqData = [
   {
@@ -87,21 +61,51 @@ const faqData = [
   }
 ];
 
-const MenuSection = ({ title, items, price }: { title: string, items: typeof mockMenuItems, price: string }) => (
-  <div>
-    <div className="inline-block border rounded-full px-4 py-1 text-sm mb-6 text-muted-foreground">{title}</div>
-    <div className="space-y-6">
-      {items.map(item => (
-        <div key={item.id} className="flex justify-between items-start pb-4 border-b border-dashed">
-          <div>
-            <p className="font-semibold text-foreground">{item.name}</p>
-            <p className="text-sm text-muted-foreground mt-1">{item.day}</p>
-          </div>
-          <p className="font-semibold text-foreground flex-shrink-0 ml-4">{price}</p>
+const pilaresData = [
+  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
+  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound },
+  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
+  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
+];
+
+const quickAccessLinks = [
+    {
+        title: "Portal de Requerimientos",
+        description: "Envíe solicitudes o consultas a los departamentos.",
+        href: "/dashboard/requerimientos",
+        icon: FileText
+    },
+    {
+        title: "Gestión de Vacaciones",
+        description: "Planifique y solicite sus días libres.",
+        href: "/dashboard/vacaciones",
+        icon: Plane
+    },
+    {
+        title: "Póliza HCM",
+        description: "Consulte su cobertura, red de clínicas y más.",
+        href: "/dashboard/poliza-hcm",
+        icon: ShieldCheck
+    }
+];
+
+const MenuCategory = ({ title, items, price }: { title: string, items: MenuItem[], price: string }) => (
+    <div>
+        <h3 className="text-2xl font-bold text-primary mb-6">{title}</h3>
+        <div className="space-y-6">
+            {items.map(item => (
+                <div key={item.id}>
+                    <div className="flex items-center gap-3">
+                        <h4 className="text-lg font-semibold text-foreground">{item.name}</h4>
+                        <Badge variant="outline" className="border-primary/50 text-primary bg-primary/10">
+                            {price}
+                        </Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">{item.day} &mdash; {item.description}</p>
+                </div>
+            ))}
         </div>
-      ))}
     </div>
-  </div>
 );
 
 
@@ -184,11 +188,11 @@ export default function DashboardPage() {
             description="Opciones de almuerzo disponibles para toda la semana en el comedor."
         >
              <Card className="p-6 md:p-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
-                    <MenuSection title="Menú Clásico" items={mockMenuItems} price="100 Bs." />
-                    <MenuSection title="Menú de Dieta" items={mockDietMenuItems} price="100 Bs." />
-                    <MenuSection title="Menú Ejecutivo" items={mockExecutiveMenuItems} price="13 $" />
-                </div>
+                <MenuCategory title="Menú Clásico" items={mockMenuItems} price="100 Bs." />
+                <Separator className="my-8 md:my-10" />
+                <MenuCategory title="Menú de Dieta" items={mockDietMenuItems} price="100 Bs." />
+                <Separator className="my-8 md:my-10" />
+                <MenuCategory title="Menú Ejecutivo" items={mockExecutiveMenuItems} price="13 $" />
              </Card>
         </SectionWrapper>
 

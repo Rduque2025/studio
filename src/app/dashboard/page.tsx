@@ -188,7 +188,7 @@ export default function DashboardPage() {
         </SectionWrapper>
 
         {/* Menus Section */}
-        <SectionWrapper>
+        <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
           <div className="grid md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-4">
               <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>

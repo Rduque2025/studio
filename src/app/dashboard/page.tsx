@@ -95,7 +95,7 @@ const quickAccessLinks = [
 
 export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
-  const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo' | 'Todos'>('Todos');
+  const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   
   const handleMenuScroll = (direction: 'left' | 'right') => {
     const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
@@ -114,9 +114,7 @@ export default function DashboardPage() {
     ...mockExecutiveMenuItems,
   ];
 
-  const filteredMenuItems = allMenuItems.filter(item =>
-    selectedMenu === 'Todos' || item.type === selectedMenu
-  );
+  const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
 
   return (
     <div className="bg-background">
@@ -201,7 +199,6 @@ export default function DashboardPage() {
             <div className="md:col-span-8">
               <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                  <div className="flex items-center gap-2 flex-wrap">
-                    <Button size="sm" variant={selectedMenu === 'Todos' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Todos')}>Todos</Button>
                     <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
                     <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
                     <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>

@@ -13,7 +13,7 @@ interface MenuItemCardProps {
 export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
   return (
     <Card className={cn(
-      "w-72 overflow-hidden transition-shadow hover:shadow-lg flex-shrink-0",
+      "w-80 overflow-hidden transition-shadow hover:shadow-lg flex-shrink-0",
       isCurrentDay && "border-primary"
     )}>
       <CardHeader className="p-0">

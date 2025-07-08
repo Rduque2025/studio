@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
@@ -96,7 +96,14 @@ const quickAccessLinks = [
 export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
   const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
+  const [currentDayName, setCurrentDayName] = useState('');
   
+  useEffect(() => {
+    const today = new Date();
+    const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
+    setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+  }, []);
+
   const handleMenuScroll = (direction: 'left' | 'right') => {
     const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
     if (viewport) {
@@ -216,7 +223,7 @@ export default function DashboardPage() {
                 <ScrollArea className="w-full">
                   <div className="flex w-max space-x-4 pb-4">
                     {filteredMenuItems.map((item) => (
-                      <MenuItemCard key={item.id} item={item} />
+                      <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
                     ))}
                   </div>
                   <ScrollBar orientation="horizontal" />

@@ -23,7 +23,7 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
             alt={item.name}
             layout="fill"
             objectFit="cover"
-            dataAiHint={item.dataAiHint}
+            data-ai-hint={item.dataAiHint}
           />
         </div>
         {isCurrentDay && (

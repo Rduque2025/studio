@@ -13,19 +13,24 @@ interface MenuItemCardProps {
 export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
   return (
     <Card className={cn(
-      "w-80 overflow-hidden transition-shadow hover:shadow-lg flex-shrink-0",
-      isCurrentDay && "border-primary"
+      "w-80 overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg flex-shrink-0",
+      isCurrentDay && "scale-105"
     )}>
-      <CardHeader className="p-0">
+      <CardHeader className="p-0 relative">
         <div className="relative w-full aspect-[4/3]">
           <Image
             src={item.imageUrl}
             alt={item.name}
             layout="fill"
             objectFit="cover"
-            data-ai-hint={item.dataAiHint}
+            dataAiHint={item.dataAiHint}
           />
         </div>
+        {isCurrentDay && (
+          <Badge className="absolute top-2 right-2 z-10">
+            Hoy
+          </Badge>
+        )}
       </CardHeader>
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-1">

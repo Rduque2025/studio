@@ -221,7 +221,7 @@ export default function DashboardPage() {
               </div>
               <div ref={menuScrollAreaRef}>
                 <ScrollArea className="w-full">
-                  <div className="flex w-max space-x-4 pb-4">
+                  <div className="flex w-max space-x-8 py-4">
                     {filteredMenuItems.map((item) => (
                       <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
                     ))}

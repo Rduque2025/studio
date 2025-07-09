@@ -127,7 +127,7 @@ export default function DashboardPage() {
     <div className="bg-background">
         
         {/* Hero Section */}
-        <section className="relative h-[500px] w-full bg-card">
+        <section className="relative h-screen w-full bg-card">
             <Image
                 src="https://images.unsplash.com/photo-1570483358100-6d222cdea6ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8Q0lFTE98ZW58MHx8fHwxNzUxNjYxMjM1fDA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Fondo abstracto del portal"
@@ -338,3 +338,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

@@ -98,7 +98,6 @@ export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
   const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [currentDayName, setCurrentDayName] = useState('');
-  const [hoveredPilar, setHoveredPilar] = useState<string | null>('02');
   
   useEffect(() => {
     const today = new Date();
@@ -169,17 +168,10 @@ export default function DashboardPage() {
               {pilaresData.map((pilar) => (
                 <div 
                   key={pilar.number}
-                  className={cn(
-                    "p-6 rounded-2xl transition-all duration-300 ease-in-out",
-                    hoveredPilar === pilar.number && "bg-card shadow-xl"
-                  )}
-                  onMouseEnter={() => setHoveredPilar(pilar.number)}
+                  className="group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:bg-card hover:shadow-xl hover:scale-105"
                 >
                   <div className="flex items-start gap-4">
-                    <div className={cn(
-                      "flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full text-lg font-bold transition-colors duration-300",
-                      hoveredPilar === pilar.number ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
-                    )}>
+                    <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-muted text-muted-foreground text-lg font-bold transition-colors duration-300 group-hover:bg-primary/10 group-hover:text-primary">
                       {pilar.number}
                     </div>
                     <div>

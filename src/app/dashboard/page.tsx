@@ -123,9 +123,7 @@ export default function DashboardPage() {
     ...mockExecutiveMenuItems,
   ];
 
-  const filteredMenuItems = selectedMenu 
-    ? allMenuItems.filter(item => item.type === selectedMenu)
-    : allMenuItems;
+  const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
 
   return (
     <div className="bg-background">
@@ -185,8 +183,8 @@ export default function DashboardPage() {
                       {pilar.number}
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-foreground mb-1">{pilar.title}</h3>
-                      <p className="text-muted-foreground">{pilar.text}</p>
+                      <h3 className="text-lg font-bold text-foreground mb-1">{pilar.title}</h3>
+                      <p className="text-sm text-muted-foreground">{pilar.text}</p>
                     </div>
                   </div>
                 </div>

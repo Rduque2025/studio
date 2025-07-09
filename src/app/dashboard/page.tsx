@@ -72,27 +72,6 @@ const pilaresData = [
     { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
 ];
 
-const quickAccessLinks = [
-    {
-        title: "Portal de Requerimientos",
-        description: "Envíe solicitudes o consultas a los departamentos.",
-        href: "/dashboard/requerimientos",
-        icon: FileText
-    },
-    {
-        title: "Gestión de Vacaciones",
-        description: "Planifique y solicite sus días libres.",
-        href: "/dashboard/vacaciones",
-        icon: Plane
-    },
-    {
-        title: "Póliza HCM",
-        description: "Consulte su cobertura, red de clínicas y más.",
-        href: "/dashboard/poliza-hcm",
-        icon: ShieldCheck
-    }
-];
-
 
 export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
@@ -185,27 +164,81 @@ export default function DashboardPage() {
           </div>
         </SectionWrapper>
       
-        {/* Quick Access Section */}
-        <SectionWrapper
-            title="Accesos Rápidos"
-            description="Encuentre los servicios y portales más utilizados."
-        >
-            <div className="grid md:grid-cols-3 gap-6">
-                {quickAccessLinks.map((link) => (
-                    <Link href={link.href} key={link.title}>
-                        <Card className="p-6 h-full transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                            <CardHeader className="flex flex-row items-center gap-4 p-0 mb-4">
-                                <div className="p-3 rounded-lg bg-primary/10">
-                                    <link.icon className="h-6 w-6 text-primary" />
-                                </div>
-                                <CardTitle className="text-lg font-bold">{link.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="p-0">
-                                <p className="text-sm text-muted-foreground">{link.description}</p>
-                            </CardContent>
-                        </Card>
-                    </Link>
-                ))}
+        {/* Portal de Requerimientos Section */}
+        <SectionWrapper>
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+                <div className="relative aspect-square w-full rounded-lg overflow-hidden">
+                     <Image
+                        src="https://images.unsplash.com/photo-1554224155-8d044218af68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmb3JtfGVufDB8fHx8MTc1MjI0OTc4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Persona llenando un formulario de requerimiento"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="form document"
+                     />
+                </div>
+                <div className="space-y-6">
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Portal de Requerimientos</h2>
+                    <p className="text-muted-foreground">
+                        Centraliza tus solicitudes. Desde consultas de recursos humanos hasta soporte técnico, envía tus requerimientos a los departamentos correspondientes de forma ágil y organizada.
+                    </p>
+                    <Button asChild>
+                        <Link href="/dashboard/requerimientos">
+                            Ir al Portal
+                        </Link>
+                    </Button>
+                </div>
+            </div>
+        </SectionWrapper>
+
+        {/* Gestión de Vacaciones Section */}
+        <SectionWrapper>
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+                <div className="space-y-6 md:order-last">
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Gestión de Vacaciones</h2>
+                    <p className="text-muted-foreground">
+                        Planifica tu descanso. Consulta tus días disponibles, envía solicitudes de vacaciones y haz seguimiento a su aprobación. Todo en un solo lugar para que gestiones tu tiempo libre sin complicaciones.
+                    </p>
+                    <Button asChild>
+                        <Link href="/dashboard/vacaciones">
+                            Gestionar Vacaciones
+                        </Link>
+                    </Button>
+                </div>
+                 <div className="relative aspect-square w-full rounded-lg overflow-hidden">
+                     <Image
+                        src="https://images.unsplash.com/photo-1507525428034-b723a9ce6890?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiZWFjaHxlbnwwfHx8fDE3NTAzNDI5NDR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Playa tropical para representar vacaciones"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="beach vacation"
+                     />
+                </div>
+            </div>
+        </SectionWrapper>
+
+        {/* Póliza HCM Section */}
+        <SectionWrapper>
+            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+                <div className="relative aspect-square w-full rounded-lg overflow-hidden">
+                     <Image
+                        src="https://images.unsplash.com/photo-1581092580497-c3d25e76326c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoZWFsdGhjYXJlfGVufDB8fHx8MTc1MjI0OTc4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Doctor revisando documentos de póliza de salud"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="healthcare medical"
+                     />
+                </div>
+                <div className="space-y-6">
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Póliza HCM</h2>
+                    <p className="text-muted-foreground">
+                        Tu bienestar es nuestra prioridad. Accede a toda la información de tu Póliza de Hospitalización, Cirugía y Maternidad. Consulta tu cobertura, la red de clínicas afiliadas y gestiona tus reembolsos.
+                    </p>
+                    <Button asChild>
+                        <Link href="/dashboard/poliza-hcm">
+                            Consultar Póliza
+                        </Link>
+                    </Button>
+                </div>
             </div>
         </SectionWrapper>
 

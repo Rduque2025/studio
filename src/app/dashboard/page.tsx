@@ -160,7 +160,7 @@ export default function DashboardPage() {
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="flex items-center justify-center">
               <span className="text-[250px] font-black text-primary/10 leading-none">4</span>
-              <span className="text-7xl font-bold text-foreground -ml-8" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+              <span className="text-7xl font-bold text-foreground -ml-4" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
                 PILARES
               </span>
             </div>

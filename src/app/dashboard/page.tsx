@@ -34,6 +34,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { MenuItem } from '@/lib/placeholder-data';
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
+import { cn } from '@/lib/utils';
 
 
 const faqData = [
@@ -65,10 +66,10 @@ const faqData = [
 ];
 
 const pilaresData = [
-  { title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
-  { title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound },
-  { title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
-  { title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
+    { number: "01", title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
+    { number: "02", title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound },
+    { number: "03", title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
+    { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
 ];
 
 const quickAccessLinks = [
@@ -97,6 +98,7 @@ export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
   const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [currentDayName, setCurrentDayName] = useState('');
+  const [hoveredPilar, setHoveredPilar] = useState<string | null>('02');
   
   useEffect(() => {
     const today = new Date();
@@ -121,7 +123,9 @@ export default function DashboardPage() {
     ...mockExecutiveMenuItems,
   ];
 
-  const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
+  const filteredMenuItems = selectedMenu 
+    ? allMenuItems.filter(item => item.type === selectedMenu)
+    : allMenuItems;
 
   return (
     <div className="bg-background">
@@ -155,18 +159,39 @@ export default function DashboardPage() {
 
         {/* Pilares Section */}
         <SectionWrapper>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {pilaresData.map((pilar) => (
-                <Card key={pilar.title} className="text-center p-6 border-none shadow-sm">
-                    <div className="flex justify-center mb-4">
-                        <div className="flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary">
-                            <pilar.icon className="h-7 w-7" />
-                        </div>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="flex items-center justify-center">
+              <span className="text-[250px] font-black text-primary/10 leading-none">4</span>
+              <span className="text-7xl font-bold text-foreground -ml-8" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+                PILARES
+              </span>
+            </div>
+            
+            <div className="space-y-4">
+              {pilaresData.map((pilar) => (
+                <div 
+                  key={pilar.number}
+                  className={cn(
+                    "p-6 rounded-2xl transition-all duration-300 ease-in-out",
+                    hoveredPilar === pilar.number && "bg-card shadow-xl"
+                  )}
+                  onMouseEnter={() => setHoveredPilar(pilar.number)}
+                >
+                  <div className="flex items-start gap-4">
+                    <div className={cn(
+                      "flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full text-lg font-bold transition-colors duration-300",
+                      hoveredPilar === pilar.number ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
+                    )}>
+                      {pilar.number}
                     </div>
-                    <CardTitle className="text-xl font-semibold mb-2">{pilar.title}</CardTitle>
-                    <CardDescription className="text-sm">{pilar.text}</CardDescription>
-                </Card>
-            ))}
+                    <div>
+                      <h3 className="text-xl font-bold text-foreground mb-1">{pilar.title}</h3>
+                      <p className="text-muted-foreground">{pilar.text}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </SectionWrapper>
       
@@ -338,4 +363,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-

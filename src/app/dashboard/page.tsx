@@ -129,8 +129,6 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
           "absolute top-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
           "transform -translate-y-1/2",
           isClicked ? "left-2" : "right-2",
-          isClicked && type === 'whatsapp' && "translate-x-0",
-          isClicked && type === 'phone' && "translate-x-0",
         )}
       >
          {isClicked ? <Check className="h-6 w-6 text-green-500" /> : <Icon className={cn("h-5 w-5", iconClassName)} />}
@@ -307,17 +305,17 @@ export default function DashboardPage() {
                 </div>
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image 
-                    src="https://images.unsplash.com/photo-1597276144232-6f56f1a7f2e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdWdnZXN0aW9uJTIwYm94fGVufDB8fHx8MTc1MjE3OTE3Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Buzón de Sugerencias"
+                    src="https://images.unsplash.com/photo-1570715722756-53823485743b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxhirplane%20sky|ZW58MHx8fHwxNzUyNTgzNTM0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Fechas Disponibles"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="suggestion box"
+                    data-ai-hint="airplane sky"
                     className="group-hover:scale-105 transition-transform"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                    <div className="absolute bottom-4 left-4 text-white">
-                    <h4 className="font-bold text-lg">Buzón de Sugerencias</h4>
-                    <p className="text-xs">Envía tus ideas para mejorar nuestro portal.</p>
+                    <h4 className="font-bold text-lg">Fechas Disponibles</h4>
+                    <p className="text-xs">Consulta el calendario y planifica tu próximo viaje.</p>
                   </div>
                 </div>
               </div>
@@ -567,6 +565,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

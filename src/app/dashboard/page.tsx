@@ -360,7 +360,7 @@ export default function DashboardPage() {
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
                  <div className="w-full grid grid-cols-2 gap-4">
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1560232657-ffb2e8f5938a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWxsbmVzcyUyMHJlbGF4fGVufDB8fHx8MTc1MjE3MjMxMXww&lib=rb-4.0.3&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="wellness relax" />
+                      <Image src="https://images.unsplash.com/photo-1517685633465-4f63cc33aa55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoYXBwaW5lc3N8ZW58MHx8fHwxNzUyMzM0NTM0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="happiness joy" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <Star className="h-8 w-8" />
@@ -373,7 +373,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1723399726238-cc1b5cdcf8c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm90ZWN0aW9uJTIwc2VjdXJpdHl8ZW58MHx8fHwxNzUyMTcyMzEwfDA&lib=rb-4.0.3&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="protection security" />
+                      <Image src="https://images.unsplash.com/photo-1562887245-f2d59320950a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWN1cml0eSUyMGxvY2t8ZW58MHx8fHwxNzUyMzM0NTYyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security lock" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <ShieldCheck className="h-8 w-8" />
@@ -399,7 +399,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1710834859714-0e6d7e877fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2N1bWVudCUyMGNoZWNrbGlzdHxlbnwwfHx8fDE3NTIxNzIzMTF8MA&lib=rb-4.0.3&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="document checklist" />
+                      <Image src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9jZXNzfGVufDB8fHx8MTc1MjMzNDU4Mnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process workflow" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <FileText className="h-8 w-8" />
@@ -565,6 +565,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

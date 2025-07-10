@@ -284,18 +284,22 @@ export default function DashboardPage() {
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
                 </p>
                 <div className="space-y-4">
-                  <Link href="https://wa.me/584141234567" target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center gap-4 rounded-lg bg-muted p-4 text-sm font-medium ring-offset-background transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                     <MessageSquare className="h-6 w-6 text-primary" />
-                     <div className="flex-1 text-left">
-                       <p className="text-muted-foreground">WhatsApp</p>
-                       <p className="font-semibold text-foreground">+58 414 123 4567</p>
+                   <Link href="https://wa.me/584141234567" target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-between rounded-full bg-green-500 p-2 text-white shadow-lg transition-transform hover:scale-105">
+                     <div className="pl-4">
+                       <p className="text-xs">WhatsApp</p>
+                       <p className="font-semibold">+58 414 123 4567</p>
+                     </div>
+                     <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white">
+                       <MessageSquare className="h-6 w-6 text-green-500" />
                      </div>
                   </Link>
-                  <Link href="tel:+582125011111" className="inline-flex w-full items-center justify-center gap-4 rounded-lg bg-muted p-4 text-sm font-medium ring-offset-background transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    <Phone className="h-6 w-6 text-primary" />
-                    <div className="flex-1 text-left">
-                      <p className="text-sm text-muted-foreground">Teléfono</p>
-                      <p className="font-semibold text-foreground">+58 212 501 1111</p>
+                  <Link href="tel:+582125011111" className="flex w-full items-center justify-between rounded-full bg-blue-500 p-2 text-white shadow-lg transition-transform hover:scale-105">
+                    <div className="pl-4">
+                      <p className="text-xs">Teléfono</p>
+                      <p className="font-semibold">+58 212 501 1111</p>
+                    </div>
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white">
+                      <Phone className="h-5 w-5 text-blue-500" />
                     </div>
                   </Link>
                 </div>
@@ -504,5 +508,4 @@ export default function DashboardPage() {
     </div>
   );
 }
-
     

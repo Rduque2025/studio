@@ -305,22 +305,58 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
-                <div className="w-full grid grid-cols-2 gap-4">
-                    <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
-                        <Star className="h-8 w-8 text-primary mb-2" />
-                        <h4 className="font-semibold text-foreground">Beneficios</h4>
+                 <div className="w-full grid grid-cols-2 gap-4">
+                    <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                      <Image src="https://images.unsplash.com/photo-1550532533-34539351a44c?q=80&w=2000&auto=format&fit=crop" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="wellness relax" />
+                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
+                        <div className="p-3 bg-white/20 rounded-full mb-3">
+                          <Star className="h-8 w-8" />
+                        </div>
+                        <h4 className="text-xl font-bold">Beneficios</h4>
+                        <p className="text-xs mt-1 text-white/90">Descubra todas sus ventajas.</p>
+                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
+                          Consultar
+                        </Button>
+                      </div>
                     </Card>
-                     <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
-                        <ShieldCheck className="h-8 w-8 text-primary mb-2" />
-                        <h4 className="font-semibold text-foreground">Cobertura</h4>
+                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                      <Image src="https://images.unsplash.com/photo-1604880920678-3a7925a3aae7?q=80&w=2000&auto=format&fit=crop" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="protection security" />
+                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
+                        <div className="p-3 bg-white/20 rounded-full mb-3">
+                          <ShieldCheck className="h-8 w-8" />
+                        </div>
+                        <h4 className="text-xl font-bold">Cobertura</h4>
+                        <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>
+                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
+                          Consultar
+                        </Button>
+                      </div>
                     </Card>
-                     <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
-                        <Hospital className="h-8 w-8 text-primary mb-2" />
-                        <h4 className="font-semibold text-foreground">Centros de Atención</h4>
+                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                      <Image src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=2000&auto=format&fit=crop" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
+                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
+                        <div className="p-3 bg-white/20 rounded-full mb-3">
+                          <Hospital className="h-8 w-8" />
+                        </div>
+                        <h4 className="text-xl font-bold">Centros de Atención</h4>
+                        <p className="text-xs mt-1 text-white/90">Encuentre la clínica más cercana.</p>
+                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
+                          Consultar
+                        </Button>
+                      </div>
                     </Card>
-                     <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
-                        <FileText className="h-8 w-8 text-primary mb-2" />
-                        <h4 className="font-semibold text-foreground">Protocolos</h4>
+                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                      <Image src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2000&auto=format&fit=crop" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="document checklist" />
+                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
+                        <div className="p-3 bg-white/20 rounded-full mb-3">
+                          <FileText className="h-8 w-8" />
+                        </div>
+                        <h4 className="text-xl font-bold">Protocolos</h4>
+                        <p className="text-xs mt-1 text-white/90">Siga los pasos para cada caso.</p>
+                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
+                          Consultar
+                        </Button>
+                      </div>
                     </Card>
                 </div>
               </div>

@@ -360,7 +360,7 @@ export default function DashboardPage() {
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
                  <div className="w-full grid grid-cols-2 gap-4">
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1517685633465-4f63cc33aa55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxoYXBwaW5lc3N8ZW58MHx8fHwxNzUyMzM0NTM0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="happiness joy" />
+                      <Image src="https://images.unsplash.com/photo-1644945583064-e4906134ae14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxoYXBwaW5lc3MlMjBqb3l8ZW58MHx8fHwxNzUyMTc3MTE4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="happiness joy" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <Star className="h-8 w-8" />
@@ -373,7 +373,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1562887245-f2d59320950a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWN1cml0eSUyMGxvY2t8ZW58MHx8fHwxNzUyMzM0NTYyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security lock" />
+                      <Image src="https://images.unsplash.com/photo-1698328591458-5340c7c86e55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cml0eSUyMGxvY2t8ZW58MHx8fHwxNzUyMTc3MTE4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security lock" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <ShieldCheck className="h-8 w-8" />
@@ -386,7 +386,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc1MjA4ODI0OXww&lib=rb-4.0.3&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
+                      <Image src="https://images.unsplash.com/photo-1596541223130-5d31a73fb6c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc1MjA4ODI0OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <Hospital className="h-8 w-8" />
@@ -399,7 +399,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9jZXNzfGVufDB8fHx8MTc1MjMzNDU4Mnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process workflow" />
+                      <Image src="https://images.unsplash.com/photo-1553044707-b710ee53ffbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9jZXNzJTIwd29ya2Zsb3d8ZW58MHx8fHwxNzUyMTc3MTE4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process workflow" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <FileText className="h-8 w-8" />
@@ -565,6 +565,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

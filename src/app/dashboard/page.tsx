@@ -27,7 +27,8 @@ import {
   Clock,
   Hospital,
   Mail,
-  Phone
+  Phone,
+  Star
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -280,7 +281,7 @@ export default function DashboardPage() {
                   Consulte su Póliza HCM
                 </h2>
                 <p className="text-muted-foreground mb-8">
-                  ¿Busca información detallada sobre su cobertura o necesita asistencia? Contáctenos.
+                  ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
                 </p>
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
@@ -304,41 +305,24 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
-                <Card className="w-full">
-                  <CardContent className="p-6">
-                    <form className="space-y-4">
-                      <div>
-                        <label htmlFor="name" className="text-sm font-medium text-muted-foreground">Nombre</label>
-                        <Input id="name" type="text" placeholder="Su nombre completo" className="mt-1" />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="text-sm font-medium text-muted-foreground">Email</label>
-                        <Input id="email" type="email" placeholder="sudireccion@email.com" className="mt-1" />
-                      </div>
-                       <div>
-                        <label htmlFor="inquiry-type" className="text-sm font-medium text-muted-foreground">Tipo de Consulta</label>
-                         <Select>
-                          <SelectTrigger id="inquiry-type" className="w-full mt-1">
-                            <SelectValue placeholder="Seleccione una opción" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="cobertura">Consulta de Cobertura</SelectItem>
-                            <SelectItem value="reembolso">Estatus de Reembolso</SelectItem>
-                            <SelectItem value="clave">Solicitud de Clave</SelectItem>
-                            <SelectItem value="otro">Otro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <label htmlFor="message" className="text-sm font-medium text-muted-foreground">Mensaje</label>
-                        <Textarea id="message" placeholder="Escriba su mensaje aquí..." className="mt-1" />
-                      </div>
-                      <Button type="submit" className="w-full">
-                        <ArrowRight className="mr-2 h-4 w-4" /> Enviar Consulta
-                      </Button>
-                    </form>
-                  </CardContent>
-                </Card>
+                <div className="w-full grid grid-cols-2 gap-4">
+                    <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
+                        <Star className="h-8 w-8 text-primary mb-2" />
+                        <h4 className="font-semibold text-foreground">Beneficios</h4>
+                    </Card>
+                     <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
+                        <ShieldCheck className="h-8 w-8 text-primary mb-2" />
+                        <h4 className="font-semibold text-foreground">Cobertura</h4>
+                    </Card>
+                     <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
+                        <Hospital className="h-8 w-8 text-primary mb-2" />
+                        <h4 className="font-semibold text-foreground">Centros de Atención</h4>
+                    </Card>
+                     <Card className="p-4 flex flex-col items-center justify-center text-center aspect-square hover:bg-muted/80 hover:border-primary/50 transition-colors cursor-pointer border">
+                        <FileText className="h-8 w-8 text-primary mb-2" />
+                        <h4 className="font-semibold text-foreground">Protocolos</h4>
+                    </Card>
+                </div>
               </div>
             </div>
           </Card>

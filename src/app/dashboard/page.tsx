@@ -292,32 +292,32 @@ export default function DashboardPage() {
               <div className="space-y-6">
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image 
-                    src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxDYXJpYmJlYW58ZW58MHx8fHwxNzUyMzM0NTk1fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Caribe"
+                    src="https://images.unsplash.com/photo-1554224155-8d044218af68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxyZXF1ZXN0JTIwZm9ybXxlbnwwfHx8fDE3NTI1MDE0MDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Solicitudes de vacaciones"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="Caribbean beach"
+                    data-ai-hint="request form"
                     className="group-hover:scale-105 transition-transform"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                   <div className="absolute bottom-4 left-4 text-white">
-                    <h4 className="font-bold text-lg">Caribe</h4>
-                    <p className="text-xs">Playas de arena blanca y aguas turquesas.</p>
+                    <h4 className="font-bold text-lg">Mis Solicitudes</h4>
+                    <p className="text-xs">Consulta el estado de tus solicitudes de vacaciones.</p>
                   </div>
                 </div>
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image 
-                    src="https://images.unsplash.com/photo-1515238152791-8216bfdf89a7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxNYWxkaXZlc3xlbnwwfHx8fDE3NTIzMzQ2MjV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Maldivas"
+                    src="https://images.unsplash.com/photo-1556075798-4825dfaaf4aa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdWdnZXN0aW9uJTIwYm94fGVufDB8fHx8MTc1MjUwMTQwNXww&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Buzón de Sugerencias"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="Maldives resort"
+                    data-ai-hint="suggestion box"
                     className="group-hover:scale-105 transition-transform"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                    <div className="absolute bottom-4 left-4 text-white">
-                    <h4 className="font-bold text-lg">Maldivas</h4>
-                    <p className="text-xs">Bungalows sobre el agua y lujo tropical.</p>
+                    <h4 className="font-bold text-lg">Buzón de Sugerencias</h4>
+                    <p className="text-xs">Envía tus ideas para mejorar nuestro portal.</p>
                   </div>
                 </div>
               </div>
@@ -567,6 +567,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

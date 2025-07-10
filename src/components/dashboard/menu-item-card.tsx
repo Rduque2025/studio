@@ -17,7 +17,7 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
       isCurrentDay && "scale-105"
     )}>
       <CardHeader className="p-0 relative">
-        <div className="relative w-full aspect-[16/9]">
+        <div className="relative w-full aspect-square">
           <Image
             src={item.imageUrl}
             alt={item.name}

@@ -25,7 +25,9 @@ import {
   Ship,
   Bike,
   Clock,
-  Hospital
+  Hospital,
+  Mail,
+  Phone
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,6 +43,9 @@ import { Separator } from "@/components/ui/separator";
 import type { MenuItem } from '@/lib/placeholder-data';
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 
 const faqData = [
@@ -267,65 +272,76 @@ export default function DashboardPage() {
 
         {/* Póliza HCM Section */}
         <SectionWrapper>
-          <div className="container mx-auto px-4 py-12 md:py-24">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              
-              <div>
-                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-                  Obtenga un Servicio Médico Rápido
-                </h1>
-                <p className="mt-6 text-muted-foreground text-lg max-w-lg">
-                  Acceda a su servicio médico con doctores certificados y profesionales a través de nuestra red.
+          <Card className="overflow-hidden bg-card shadow-lg border-none">
+            <div className="grid md:grid-cols-2">
+              <div className="p-8 md:p-12 flex flex-col justify-center">
+                <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">ESTAMOS AQUÍ PARA AYUDARTE</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-4">
+                  Consulte su Póliza HCM
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                  ¿Busca información detallada sobre su cobertura o necesita asistencia? Contáctenos.
                 </p>
-                <Button asChild size="lg" className="mt-8">
-                  <Link href="#">
-                    Consultar Póliza <ArrowRight className="ml-2" />
-                  </Link>
-                </Button>
+                <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                    <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-lg">
+                      <Mail className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">E-mail</p>
+                      <p className="font-semibold text-foreground">bienestar@banesco.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-lg">
+                      <Phone className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-sm text-muted-foreground">Teléfono</p>
+                      <p className="font-semibold text-foreground">+58 212 501 1111</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <div className="relative mt-12 lg:mt-0">
-                <div className="relative z-10 w-full max-w-md mx-auto">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1550831107-1553da8c8464?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBkb2N0b3J8ZW58MHx8fHwxNzUyMzQ2NjA1fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Doctora Profesional"
-                    width={500}
-                    height={600}
-                    className="rounded-lg object-cover object-top shadow-2xl"
-                    data-ai-hint="female doctor"
-                  />
-                </div>
-
-                <div className="absolute -bottom-16 left-0 right-0 z-20">
-                  <Card className="max-w-xl mx-auto bg-primary text-primary-foreground shadow-xl border">
-                    <CardContent className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-grow">
-                          <h4 className="font-bold text-lg">Servicio Médico Rápido</h4>
-                          <p className="text-sm text-primary-foreground/80">Acceso a nuestra red de especialistas.</p>
-                          <div className="flex items-center gap-2 mt-3">
-                            <Button variant="ghost" size="icon" className="bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground">
-                              <Hospital className="h-5 w-5" />
-                            </Button>
-                            <Button variant="ghost" size="icon" className="bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground">
-                              <Clock className="h-5 w-5" />
-                            </Button>
-                          </div>
-                        </div>
-                        <div className="flex-shrink-0">
-                          <Button asChild className="pl-6 pr-4 h-full bg-primary-foreground hover:bg-primary-foreground/90 text-primary">
-                            <Link href="#">
-                              Agendar Cita <ChevronRight className="ml-2" />
-                            </Link>
-                          </Button>
-                        </div>
+              <div className="bg-muted/50 p-8 md:p-12 flex items-center">
+                <Card className="w-full">
+                  <CardContent className="p-6">
+                    <form className="space-y-4">
+                      <div>
+                        <label htmlFor="name" className="text-sm font-medium text-muted-foreground">Nombre</label>
+                        <Input id="name" type="text" placeholder="Su nombre completo" className="mt-1" />
                       </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                      <div>
+                        <label htmlFor="email" className="text-sm font-medium text-muted-foreground">Email</label>
+                        <Input id="email" type="email" placeholder="sudireccion@email.com" className="mt-1" />
+                      </div>
+                       <div>
+                        <label htmlFor="inquiry-type" className="text-sm font-medium text-muted-foreground">Tipo de Consulta</label>
+                         <Select>
+                          <SelectTrigger id="inquiry-type" className="w-full mt-1">
+                            <SelectValue placeholder="Seleccione una opción" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="cobertura">Consulta de Cobertura</SelectItem>
+                            <SelectItem value="reembolso">Estatus de Reembolso</SelectItem>
+                            <SelectItem value="clave">Solicitud de Clave</SelectItem>
+                            <SelectItem value="otro">Otro</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label htmlFor="message" className="text-sm font-medium text-muted-foreground">Mensaje</label>
+                        <Textarea id="message" placeholder="Escriba su mensaje aquí..." className="mt-1" />
+                      </div>
+                      <Button type="submit" className="w-full">
+                        <ArrowRight className="mr-2 h-4 w-4" /> Enviar Consulta
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
               </div>
             </div>
-          </div>
+          </Card>
         </SectionWrapper>
 
         {/* Menus Section */}
@@ -472,5 +488,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
-    

@@ -322,6 +322,17 @@ export const mockDepartments: Department[] = [
     imageUrl: "https://images.unsplash.com/photo-1579403124614-197f69d8187b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzb2Z0d2FyZXxlbnwwfHx8fDE3NTAzNDM0MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "technology infrastructure"
   },
+  {
+    id: "hcm",
+    name: "Póliza HCM",
+    description: "Consultas, reembolsos y gestión de la póliza de salud.",
+    directLink: "/dashboard/page-hcm" // Example link
+  },
+  { 
+    id: "servicios", 
+    name: "Servicios Generales", 
+    description: "Mantenimiento, limpieza y gestión de instalaciones.",
+  },
   { 
     id: "finanzas", 
     name: "Finanzas y Contabilidad", 
@@ -432,3 +443,4 @@ export const teamDepartments = [
     
     
     
+

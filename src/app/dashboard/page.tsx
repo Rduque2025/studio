@@ -280,14 +280,7 @@ export default function DashboardPage() {
 
             {/* Right Panel */}
             <div className="w-full md:w-1/3 bg-background p-8 flex flex-col">
-              <h3 className="text-2xl font-bold mb-2">Explorar</h3>
-              <div className="flex space-x-4 text-sm mb-6 border-b pb-4">
-                <button className="font-semibold text-primary">Popular</button>
-                <button className="text-muted-foreground hover:text-foreground">Lujo</button>
-                <button className="text-muted-foreground hover:text-foreground">Aventura</button>
-              </div>
-              
-              <div className="space-y-6">
+              <div className="space-y-6 mt-auto mb-auto">
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image 
                     src="https://images.unsplash.com/photo-1676042349618-9f8c85d76b7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXF1ZXN0JTIwZm9ybXxlbnwwfHx8fDE3NTIxNzkxNzZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
@@ -565,6 +558,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

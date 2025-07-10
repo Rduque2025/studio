@@ -259,7 +259,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Lunes",
     name: "Lomo Saltado Peruano",
     description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.",
-    imageUrl: "https://images.unsplash.com/photo-1655217026863-e9d9c3a4e7fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsb21vJTIwc2FsdGFkb3xlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJuZXxlbnwwfHx8fDE3NTIxNzEyODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "lomo saltado",
     price: "13 $",
     type: "Ejecutivo",

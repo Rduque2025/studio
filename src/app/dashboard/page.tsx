@@ -320,7 +320,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1744329629767-80ba7dc0cea6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwcm90ZWN0aW9uJTIwc2VjdXJpdHl8ZW58MHx8fHwxNzUyMTcyMzEwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="protection security" />
+                      <Image src="https://images.unsplash.com/photo-1723399726238-cc1b5cdcf8c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm90ZWN0aW9uJTIwc2VjdXJpdHl8ZW58MHx8fHwxNzUyMTcyMzEwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="protection security" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <ShieldCheck className="h-8 w-8" />
@@ -346,7 +346,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1657212144619-78adb6cacfa2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkb2N1bWVudCUyMGNoZWNrbGlzdHxlbnwwfHx8fDE3NTIxNzIzMTF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="document checklist" />
+                      <Image src="https://images.unsplash.com/photo-1710834859714-0e6d7e877fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2N1bWVudCUyMGNoZWNrbGlzdHxlbnwwfHx8fDE3NTIxNzIzMTF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="document checklist" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <FileText className="h-8 w-8" />

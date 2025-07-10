@@ -283,31 +283,27 @@ export default function DashboardPage() {
                 <p className="text-muted-foreground mb-8">
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
                 </p>
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-lg">
-                      <MessageSquare className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">WhatsApp</p>
-                      <p className="font-semibold text-foreground">+58 414 123 4567</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-lg">
-                      <Phone className="h-6 w-6" />
-                    </div>
-                    <div>
+                <div className="space-y-4">
+                  <Link href="https://wa.me/584141234567" target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center gap-4 rounded-lg bg-muted p-4 text-sm font-medium ring-offset-background transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                     <MessageSquare className="h-6 w-6 text-primary" />
+                     <div className="flex-1 text-left">
+                       <p className="text-muted-foreground">WhatsApp</p>
+                       <p className="font-semibold text-foreground">+58 414 123 4567</p>
+                     </div>
+                  </Link>
+                  <Link href="tel:+582125011111" className="inline-flex w-full items-center justify-center gap-4 rounded-lg bg-muted p-4 text-sm font-medium ring-offset-background transition-colors hover:bg-muted/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                    <Phone className="h-6 w-6 text-primary" />
+                    <div className="flex-1 text-left">
                       <p className="text-sm text-muted-foreground">Teléfono</p>
                       <p className="font-semibold text-foreground">+58 212 501 1111</p>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
                  <div className="w-full grid grid-cols-2 gap-4">
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1560232657-ffb2e8f5938a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWxsbmVzcyUyMHJlbGF4fGVufDB8fHx8MTc1MjE3MjMxMXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="wellness relax" />
+                      <Image src="https://images.unsplash.com/photo-1560232657-ffb2e8f5938a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx3ZWxsbmVzcyUyMHJlbGF4fGVufDB8fHx8MTc1MjE3MjMxMXww&lib=rb-4.0.3&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="wellness relax" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <Star className="h-8 w-8" />
@@ -320,7 +316,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1723399726238-cc1b5cdcf8c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm90ZWN0aW9uJTIwc2VjdXJpdHl8ZW58MHx8fHwxNzUyMTcyMzEwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="protection security" />
+                      <Image src="https://images.unsplash.com/photo-1723399726238-cc1b5cdcf8c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm90ZWN0aW9uJTIwc2VjdXJpdHl8ZW58MHx8fHwxNzUyMTcyMzEwfDA&lib=rb-4.0.3&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="protection security" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <ShieldCheck className="h-8 w-8" />
@@ -333,7 +329,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc1MjA4ODI0OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
+                      <Image src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc1MjA4ODI0OXww&lib=rb-4.0.3&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <Hospital className="h-8 w-8" />
@@ -346,7 +342,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1710834859714-0e6d7e877fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2N1bWVudCUyMGNoZWNrbGlzdHxlbnwwfHx8fDE3NTIxNzIzMTF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="document checklist" />
+                      <Image src="https://images.unsplash.com/photo-1710834859714-0e6d7e877fa3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxkb2N1bWVudCUyMGNoZWNrbGlzdHxlbnwwfHx8fDE3NTIxNzIzMTF8MA&lib=rb-4.0.3&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="document checklist" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <div className="p-3 bg-white/20 rounded-full mb-3">
                           <FileText className="h-8 w-8" />
@@ -508,3 +504,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    

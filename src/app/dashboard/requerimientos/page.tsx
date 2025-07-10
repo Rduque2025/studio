@@ -13,7 +13,7 @@ const iconMap: { [key: string]: React.ElementType } = {
   marketing: Megaphone,
   operaciones: Settings,
   vacaciones: Plane,
-  hcm: ShieldCheck, // Added hcm icon
+  hcm: ShieldCheck,
 };
 
 

@@ -350,14 +350,6 @@ export const mockDepartments: Department[] = [
     imageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaHxlbnwwfHx8fDE3NTAzNDI5NDR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
     dataAiHint: "travel vacation", 
     directLink: "/dashboard/vacaciones"
-  },
-  {
-    id: "hcm",
-    name: "Nuestra Póliza HCM",
-    description: "Información y gestión de su Póliza de Hospitalización, Cirugía y Maternidad.",
-    imageUrl: "https://placehold.co/600x400.png",
-    dataAiHint: "health policy",
-    directLink: "/dashboard/poliza-hcm"
   }
 ];
 

@@ -95,7 +95,6 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
   iconClassName: string;
 }) => {
   const [isClicked, setIsClicked] = useState(false);
-  const router = useRouter();
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

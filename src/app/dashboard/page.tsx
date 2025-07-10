@@ -286,11 +286,25 @@ export default function DashboardPage() {
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0 bg-primary/10 text-primary p-3 rounded-lg">
-                      <Mail className="h-6 w-6" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18.97 3.659a2.25 2.25 0 00-3.182 0l-8.609 8.609a.75.75 0 00-.212.53v2.88a.75.75 0 00.75.75h2.88a.75.75 0 00.53-.212l8.609-8.609a2.25 2.25 0 000-3.182zM13.373 10.373a.75.75 0 011.06 0l1.94 1.94a.75.75 0 010 1.06l-1.94 1.94a.75.75 0 11-1.06-1.06l1.41-1.41-1.41-1.41a.75.75 0 010-1.06z"
+                          clipRule="evenodd"
+                        />
+                        <path
+                          d="M11.999 3a9 9 0 100 18 9 9 0 000-18zM3.249 12a8.75 8.75 0 1117.5 0 8.75 8.75 0 01-17.5 0z"
+                        />
+                      </svg>
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">E-mail</p>
-                      <p className="font-semibold text-foreground">bienestar@banesco.com</p>
+                      <p className="text-sm text-muted-foreground">WhatsApp</p>
+                      <p className="font-semibold text-foreground">+58 414 123 4567</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">

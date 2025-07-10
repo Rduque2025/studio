@@ -123,7 +123,7 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
       </div>
       <div className={cn(
         "absolute right-2 top-1/2 -translate-y-1/2 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
-        isClicked ? "translate-x-[-190%]" : "translate-x-0"
+        isClicked ? "translate-x-[-230%]" : "translate-x-0"
       )}>
          {isClicked ? <Check className="h-6 w-6 text-green-500" /> : <Icon className={cn("h-5 w-5", iconClassName)} />}
       </div>

@@ -98,6 +98,8 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    if (isClicked) return;
+
     setIsClicked(true);
 
     setTimeout(() => {
@@ -109,14 +111,11 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
   };
 
   return (
-    <Link 
-      href={href} 
+    <Link
+      href={href}
       onClick={handleClick}
-      style={{
-        '--tw-translate-x': isClicked ? 'calc(-100% - 0.5rem)' : '0'
-      } as React.CSSProperties}
       className={cn(
-        "relative flex w-full items-center justify-start rounded-full p-2 text-white shadow-lg transition-transform hover:scale-105 overflow-hidden",
+        "relative flex w-full items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px]",
         className
       )}
     >
@@ -124,10 +123,14 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
         <p className="text-xs">{label}</p>
         <p className="font-semibold">{number}</p>
       </div>
-      <div className={cn(
-        "absolute right-2 top-1/2 -translate-y-1/2 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
-        "transform" // ensure transform is applied
-      )} style={{transform: `translateY(-50%) translateX(var(--tw-translate-x))`}}>
+
+      <div
+        className={cn(
+          "absolute right-2 top-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
+          "transform -translate-y-1/2",
+          isClicked && "translate-x-[calc(-100%-1rem)]"
+        )}
+      >
          {isClicked ? <Check className="h-6 w-6 text-green-500" /> : <Icon className={cn("h-5 w-5", iconClassName)} />}
       </div>
     </Link>
@@ -562,5 +565,6 @@ export default function DashboardPage() {
 
 
     
+
 
 

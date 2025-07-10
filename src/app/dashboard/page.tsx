@@ -28,7 +28,8 @@ import {
   Hospital,
   MessageSquare,
   Phone,
-  Star
+  Star,
+  Check
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -83,6 +84,53 @@ const pilaresData = [
     { number: "03", title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
     { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
 ];
+
+const AnimatedContactButton = ({ href, type, label, number, icon: Icon, className, iconClassName }: {
+  href: string;
+  type: 'whatsapp' | 'phone';
+  label: string;
+  number: string;
+  icon: React.ElementType;
+  className: string;
+  iconClassName: string;
+}) => {
+  const [isClicked, setIsClicked] = useState(false);
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsClicked(true);
+
+    setTimeout(() => {
+      window.location.href = href;
+      setTimeout(() => {
+         setIsClicked(false);
+      }, 300);
+    }, 500);
+  };
+
+  return (
+    <Link 
+      href={href} 
+      onClick={handleClick}
+      className={cn(
+        "relative flex w-full items-center justify-between rounded-full p-2 text-white shadow-lg transition-transform hover:scale-105 overflow-hidden",
+        className
+      )}
+    >
+      <div className="pl-4">
+        <p className="text-xs">{label}</p>
+        <p className="font-semibold">{number}</p>
+      </div>
+      <div className={cn(
+        "absolute right-2 top-1/2 -translate-y-1/2 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
+        isClicked ? "translate-x-[-190%]" : "translate-x-0"
+      )}>
+         {isClicked ? <Check className="h-6 w-6 text-green-500" /> : <Icon className={cn("h-5 w-5", iconClassName)} />}
+      </div>
+    </Link>
+  );
+};
 
 
 export default function DashboardPage() {
@@ -284,24 +332,24 @@ export default function DashboardPage() {
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
                 </p>
                 <div className="space-y-4">
-                   <Link href="https://wa.me/584141234567" target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-between rounded-full bg-green-500 p-2 text-white shadow-lg transition-transform hover:scale-105">
-                     <div className="pl-4">
-                       <p className="text-xs">WhatsApp</p>
-                       <p className="font-semibold">+58 414 123 4567</p>
-                     </div>
-                     <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white">
-                       <MessageSquare className="h-6 w-6 text-green-500" />
-                     </div>
-                  </Link>
-                  <Link href="tel:+582125011111" className="flex w-full items-center justify-between rounded-full bg-blue-500 p-2 text-white shadow-lg transition-transform hover:scale-105">
-                    <div className="pl-4">
-                      <p className="text-xs">Teléfono</p>
-                      <p className="font-semibold">+58 212 501 1111</p>
-                    </div>
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white">
-                      <Phone className="h-5 w-5 text-blue-500" />
-                    </div>
-                  </Link>
+                   <AnimatedContactButton 
+                     href="https://wa.me/584141234567"
+                     type="whatsapp"
+                     label="WhatsApp"
+                     number="+58 414 123 4567"
+                     icon={MessageSquare}
+                     className="bg-green-500"
+                     iconClassName="text-green-500"
+                   />
+                  <AnimatedContactButton 
+                     href="tel:+582125011111"
+                     type="phone"
+                     label="Teléfono"
+                     number="+58 212 501 1111"
+                     icon={Phone}
+                     className="bg-blue-500"
+                     iconClassName="text-blue-500"
+                   />
                 </div>
               </div>
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
@@ -508,4 +556,7 @@ export default function DashboardPage() {
     </div>
   );
 }
+    
+
+
     

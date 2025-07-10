@@ -173,7 +173,7 @@ export default function DashboardPage() {
         {/* Portal de Requerimientos Section */}
         <SectionWrapper>
             <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-                <div className="relative aspect-square w-full rounded-lg overflow-hidden">
+                <div className="relative aspect-square w-full rounded-lg overflow-hidden order-last md:order-first">
                      <Image
                         src="https://images.unsplash.com/photo-1554224155-8d044218af68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmb3JtfGVufDB8fHx8MTc1MjI0OTc4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Persona llenando un formulario de requerimiento"
@@ -182,7 +182,7 @@ export default function DashboardPage() {
                         data-ai-hint="form document"
                      />
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-6 order-first md:order-last">
                     <h2 className="text-3xl font-bold text-foreground tracking-tight">Portal de Requerimientos</h2>
                     <p className="text-muted-foreground">
                         Centraliza tus solicitudes. Desde consultas de recursos humanos hasta soporte técnico, envía tus requerimientos a los departamentos correspondientes de forma ágil y organizada.
@@ -270,7 +270,7 @@ export default function DashboardPage() {
           <div className="container mx-auto px-4 py-12 md:py-24">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               
-              <div className="lg:order-2">
+              <div>
                 <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
                   Obtenga un Servicio Médico Rápido
                 </h1>
@@ -284,7 +284,7 @@ export default function DashboardPage() {
                 </Button>
               </div>
 
-              <div className="lg:order-1 relative mt-12 lg:mt-0">
+              <div className="relative mt-12 lg:mt-0">
                 <div className="relative z-10 w-full max-w-md mx-auto">
                   <Image 
                     src="https://images.unsplash.com/photo-1550831107-1553da8c8464?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBkb2N0b3J8ZW58MHx8fHwxNzUyMzQ2NjA1fDA&ixlib=rb-4.1.0&q=80&w=1080"
@@ -297,23 +297,23 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="absolute -bottom-16 left-0 right-0 z-20">
-                  <Card className="max-w-xl mx-auto bg-card/95 backdrop-blur-sm shadow-xl border">
+                  <Card className="max-w-xl mx-auto bg-primary text-primary-foreground shadow-xl border">
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex-grow">
                           <h4 className="font-bold text-lg">Servicio Médico Rápido</h4>
-                          <p className="text-sm text-muted-foreground">Acceso a nuestra red de especialistas.</p>
+                          <p className="text-sm text-primary-foreground/80">Acceso a nuestra red de especialistas.</p>
                           <div className="flex items-center gap-2 mt-3">
-                            <Button variant="ghost" size="icon" className="bg-primary/10 hover:bg-primary/20">
-                              <Hospital className="text-primary h-5 w-5" />
+                            <Button variant="ghost" size="icon" className="bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground">
+                              <Hospital className="h-5 w-5" />
                             </Button>
-                            <Button variant="ghost" size="icon" className="bg-primary/10 hover:bg-primary/20">
-                              <Clock className="text-primary h-5 w-5" />
+                            <Button variant="ghost" size="icon" className="bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground">
+                              <Clock className="h-5 w-5" />
                             </Button>
                           </div>
                         </div>
                         <div className="flex-shrink-0">
-                          <Button asChild className="pl-6 pr-4 h-full bg-foreground hover:bg-foreground/90 text-background">
+                          <Button asChild className="pl-6 pr-4 h-full bg-primary-foreground hover:bg-primary-foreground/90 text-primary">
                             <Link href="#">
                               Agendar Cita <ChevronRight className="ml-2" />
                             </Link>

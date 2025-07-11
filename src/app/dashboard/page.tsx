@@ -269,57 +269,45 @@ export default function DashboardPage() {
             titleClassName="text-4xl md:text-5xl"
             descriptionClassName="text-center max-w-2xl"
         >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                <Card className="p-8 bg-card rounded-2xl shadow-sm">
-                    <CardHeader className="p-0 mb-6">
-                        <CardTitle className="text-2xl font-bold">Acceso Directo a Departamentos</CardTitle>
-                        <CardDescription className="mt-2 text-muted-foreground">
-                            Encuentra el departamento que necesitas y envía tu solicitud con un solo clic. Estamos para ayudarte.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent className="p-0">
-                        <ul className="space-y-4 text-sm text-muted-foreground">
-                            <li className="flex items-start gap-3">
-                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                                <span><span className="font-semibold text-foreground">Gestión Rápida:</span> Envía tus solicitudes de forma rápida y eficiente.</span>
-                            </li>
-                            <li className="flex items-start gap-3">
-                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                                <span><span className="font-semibold text-foreground">Soporte Dedicado:</span> Equipos especializados para cada una de tus necesidades.</span>
-                            </li>
-                             <li className="flex items-start gap-3">
-                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                                <span><span className="font-semibold text-foreground">Seguimiento Fácil:</span> Consulta el estado de tus requerimientos en cualquier momento.</span>
-                            </li>
-                        </ul>
-                         <Button asChild className="mt-8">
-                            <Link href="/dashboard/requerimientos">
-                                Ver Todos los Departamentos <ArrowRight className="ml-2 h-4 w-4" />
-                            </Link>
-                        </Button>
-                    </CardContent>
-                </Card>
-                <div className="grid grid-cols-2 gap-4">
-                    {services.map(id => {
-                        const details = getDepartmentDetails(id);
-                        if (!details) return null;
-                        const IconComponent = iconMap[id] || Settings;
-                        const linkHref = details.directLink ? details.directLink : `/dashboard/requerimientos/${id}`;
-                        
-                        return (
-                            <Link key={id} href={linkHref} className="block group">
-                                <Card className="p-6 rounded-2xl shadow-sm hover:shadow-lg transition-transform duration-300 hover:-translate-y-1 h-full">
-                                    <div className="p-3 rounded-lg bg-primary/10 w-fit mb-4">
-                                        <IconComponent className="h-6 w-6 text-primary" />
-                                    </div>
-                                    <h3 className="font-bold text-foreground">{details.title}</h3>
-                                    <p className="text-xs text-muted-foreground mt-1">{details.description}</p>
-                                </Card>
-                            </Link>
-                        );
-                    })}
-                </div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 h-[500px]">
+              <Link href="/dashboard/requerimientos/rh" className="group block relative overflow-hidden rounded-2xl col-span-2 row-span-2 bg-neutral-800 text-white">
+                 <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
+                    <div className="relative z-10">
+                       <CardTitle>Recursos Humanos</CardTitle>
+                       <CardDescription className="text-neutral-300 mt-2">Gestión de talento, nómina, y solicitudes de constancias o recibos.</CardDescription>
+                    </div>
+                     <div className="relative z-10 mt-auto">
+                      <Button asChild variant="secondary" className="bg-white/10 hover:bg-white/20">
+                          <Link href="/dashboard/requerimientos/rh">
+                              Ir a RRHH <ArrowRight className="ml-2 h-4 w-4" />
+                          </Link>
+                      </Button>
+                    </div>
+                 </Card>
+              </Link>
+              <Link href="/dashboard/requerimientos/it" className="group block relative overflow-hidden rounded-2xl col-span-2 md:col-span-2 bg-sky-500 text-white">
+                 <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
+                    <div className="relative z-10">
+                       <CardTitle>Soporte de TI</CardTitle>
+                       <CardDescription className="text-sky-100 mt-2">Problemas con equipos, software o acceso a sistemas.</CardDescription>
+                    </div>
+                 </Card>
+              </Link>
+              <Link href="/dashboard/requerimientos/servicios" className="group block relative overflow-hidden rounded-2xl col-span-1 bg-amber-400 text-neutral-900">
+                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
+                    <div className="relative z-10">
+                       <CardTitle>Servicios Generales</CardTitle>
+                    </div>
+                 </Card>
+              </Link>
+              <Link href="/dashboard/hcm" className="group block relative overflow-hidden rounded-2xl col-span-1 bg-lime-400 text-neutral-900">
+                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
+                    <div className="relative z-10">
+                       <CardTitle>Póliza HCM</CardTitle>
+                    </div>
+                 </Card>
+              </Link>
+          </div>
         </SectionWrapper>
 
 
@@ -626,6 +614,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

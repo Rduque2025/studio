@@ -265,42 +265,60 @@ export default function DashboardPage() {
         <SectionWrapper
             title="Portal de Requerimientos"
             description="Centraliza tus solicitudes. Desde consultas de recursos humanos hasta soporte técnico, selecciona el departamento para iniciar tu solicitud."
-            headerClassName="text-center mb-8"
+            headerClassName="text-center mb-12"
             titleClassName="text-4xl md:text-5xl"
             descriptionClassName="text-center max-w-2xl"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 h-[600px] max-w-4xl mx-auto">
-            {services.map(id => {
-              const details = getDepartmentDetails(id);
-              const IconComponent = iconMap[id] || Settings;
-              const linkHref = details.directLink ? details.directLink : `/dashboard/requerimientos/${id}`;
-              
-              return (
-                <Link key={id} href={linkHref} className="block group">
-                  <Card className={cn("w-full h-full rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-xl border-none", details.className)}>
-                    <div>
-                      <div className="flex justify-between items-start">
-                        <div className="p-3 rounded-full bg-white/20">
-                          <IconComponent className="h-6 w-6" />
-                        </div>
-                        <ArrowUpRight className="h-6 w-6 opacity-70 group-hover:opacity-100 group-hover:rotate-45 transition-transform duration-300" />
-                      </div>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold opacity-80">{details.description}</p>
-                      <h3 className="text-3xl font-bold mt-1">{details.title}</h3>
-                    </div>
-                  </Card>
-                </Link>
-              );
-            })}
-          </div>
-           <div className="text-center mt-8">
-                <Button asChild variant="default">
-                    <Link href="/dashboard/requerimientos">
-                        Ver Todos los Departamentos <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                </Button>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <Card className="p-8 bg-card rounded-2xl shadow-sm">
+                    <CardHeader className="p-0 mb-6">
+                        <CardTitle className="text-2xl font-bold">Acceso Directo a Departamentos</CardTitle>
+                        <CardDescription className="mt-2 text-muted-foreground">
+                            Encuentra el departamento que necesitas y envía tu solicitud con un solo clic. Estamos para ayudarte.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-0">
+                        <ul className="space-y-4 text-sm text-muted-foreground">
+                            <li className="flex items-start gap-3">
+                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                                <span><span className="font-semibold text-foreground">Gestión Rápida:</span> Envía tus solicitudes de forma rápida y eficiente.</span>
+                            </li>
+                            <li className="flex items-start gap-3">
+                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                                <span><span className="font-semibold text-foreground">Soporte Dedicado:</span> Equipos especializados para cada una de tus necesidades.</span>
+                            </li>
+                             <li className="flex items-start gap-3">
+                                <Check className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                                <span><span className="font-semibold text-foreground">Seguimiento Fácil:</span> Consulta el estado de tus requerimientos en cualquier momento.</span>
+                            </li>
+                        </ul>
+                         <Button asChild className="mt-8">
+                            <Link href="/dashboard/requerimientos">
+                                Ver Todos los Departamentos <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                    </CardContent>
+                </Card>
+                <div className="grid grid-cols-2 gap-4">
+                    {services.map(id => {
+                        const details = getDepartmentDetails(id);
+                        if (!details) return null;
+                        const IconComponent = iconMap[id] || Settings;
+                        const linkHref = details.directLink ? details.directLink : `/dashboard/requerimientos/${id}`;
+                        
+                        return (
+                            <Link key={id} href={linkHref} className="block group">
+                                <Card className="p-6 rounded-2xl shadow-sm hover:shadow-lg transition-transform duration-300 hover:-translate-y-1 h-full">
+                                    <div className="p-3 rounded-lg bg-primary/10 w-fit mb-4">
+                                        <IconComponent className="h-6 w-6 text-primary" />
+                                    </div>
+                                    <h3 className="font-bold text-foreground">{details.title}</h3>
+                                    <p className="text-xs text-muted-foreground mt-1">{details.description}</p>
+                                </Card>
+                            </Link>
+                        );
+                    })}
+                </div>
             </div>
         </SectionWrapper>
 
@@ -608,6 +626,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

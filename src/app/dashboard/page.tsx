@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import {
@@ -29,7 +29,13 @@ import {
   MessageSquare,
   Phone,
   Star,
-  Check
+  Check,
+  ArrowUpRight,
+  Users,
+  DollarSign,
+  Megaphone,
+  Settings,
+  LifeBuoy
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -137,6 +143,24 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
   );
 };
 
+const iconMap: { [key: string]: React.ElementType } = {
+  rh: Users,
+  it: Cpu,
+  finanzas: DollarSign,
+  marketing: Megaphone,
+  operaciones: Settings,
+  vacaciones: Plane,
+  hcm: ShieldCheck,
+  servicios: LifeBuoy
+};
+
+const departmentGridConfig = [
+  { id: 'rh', className: "bg-neutral-800 text-white row-span-2 hover:bg-neutral-900", title: "Recursos Humanos", description: "Constancias, recibos y más." },
+  { id: 'it', className: "bg-neutral-200 text-neutral-900 hover:bg-neutral-300", title: "Soporte TI", description: "Problemas con equipos o software." },
+  { id: 'servicios', className: "bg-sky-400 text-white hover:bg-sky-500", title: "Servicios Generales", description: "Solicitudes de mantenimiento." },
+  { id: 'hcm', className: "bg-lime-300 text-neutral-900 hover:bg-lime-400", title: "Póliza HCM", description: "Consultas y reembolsos." }
+];
+
 
 export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
@@ -167,6 +191,14 @@ export default function DashboardPage() {
   ];
 
   const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
+  
+  const getDepartmentDetails = (id: string) => {
+      const dept = mockDepartments.find(d => d.id === id);
+      const config = departmentGridConfig.find(c => c.id === id);
+      return { ...dept, ...config };
+  };
+
+  const services = ['rh', 'it', 'servicios', 'hcm'];
 
   return (
     <div className="bg-background">
@@ -230,30 +262,48 @@ export default function DashboardPage() {
         </SectionWrapper>
       
         {/* Portal de Requerimientos Section */}
-        <SectionWrapper>
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-                <div className="relative aspect-square w-full rounded-lg overflow-hidden order-last md:order-first">
-                     <Image
-                        src="https://images.unsplash.com/photo-1554224155-8d044218af68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmb3JtfGVufDB8fHx8MTc1MjI0OTc4Nnww&ixlib=rb-4.1.0&q=80&w=1080"
-                        alt="Persona llenando un formulario de requerimiento"
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint="form document"
-                     />
-                </div>
-                <div className="space-y-6 order-first md:order-last">
-                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Portal de Requerimientos</h2>
-                    <p className="text-muted-foreground">
-                        Centraliza tus solicitudes. Desde consultas de recursos humanos hasta soporte técnico, envía tus requerimientos a los departamentos correspondientes de forma ágil y organizada.
-                    </p>
-                    <Button asChild>
-                        <Link href="/dashboard/requerimientos">
-                            Ir al Portal
-                        </Link>
-                    </Button>
-                </div>
+        <SectionWrapper
+            title="Portal de Requerimientos"
+            description="Centraliza tus solicitudes. Desde consultas de recursos humanos hasta soporte técnico, selecciona el departamento para iniciar tu solicitud."
+            headerClassName="text-center mb-8"
+            titleClassName="text-4xl md:text-5xl"
+            descriptionClassName="text-center max-w-2xl"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 h-[600px] max-w-4xl mx-auto">
+            {services.map(id => {
+              const details = getDepartmentDetails(id);
+              const IconComponent = iconMap[id] || Settings;
+              const linkHref = details.directLink ? details.directLink : `/dashboard/requerimientos/${id}`;
+              
+              return (
+                <Link key={id} href={linkHref} className="block group">
+                  <Card className={cn("w-full h-full rounded-2xl p-8 flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-xl border-none", details.className)}>
+                    <div>
+                      <div className="flex justify-between items-start">
+                        <div className="p-3 rounded-full bg-white/20">
+                          <IconComponent className="h-6 w-6" />
+                        </div>
+                        <ArrowUpRight className="h-6 w-6 opacity-70 group-hover:opacity-100 group-hover:rotate-45 transition-transform duration-300" />
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold opacity-80">{details.description}</p>
+                      <h3 className="text-3xl font-bold mt-1">{details.title}</h3>
+                    </div>
+                  </Card>
+                </Link>
+              );
+            })}
+          </div>
+           <div className="text-center mt-8">
+                <Button asChild variant="default">
+                    <Link href="/dashboard/requerimientos">
+                        Ver Todos los Departamentos <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
             </div>
         </SectionWrapper>
+
 
         {/* Gestión de Vacaciones Section */}
         <SectionWrapper>
@@ -558,6 +608,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

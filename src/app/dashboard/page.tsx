@@ -270,31 +270,31 @@ export default function DashboardPage() {
             descriptionClassName="text-center max-w-2xl"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 h-[500px]">
-              <Link href="/dashboard/requerimientos/rh" className="group block relative overflow-hidden rounded-2xl col-span-2 row-span-2 bg-neutral-800 text-white">
+              <Link href="/dashboard/requerimientos" className="group block relative overflow-hidden rounded-2xl col-span-2 row-span-2 bg-neutral-800 text-white">
                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
                     <div className="relative z-10">
-                       <CardTitle>Recursos Humanos</CardTitle>
-                       <CardDescription className="text-neutral-300 mt-2">Gestión de talento, nómina, y solicitudes de constancias o recibos.</CardDescription>
+                       <CardTitle>Portal de Requerimientos</CardTitle>
+                       <CardDescription className="text-neutral-300 mt-2">Centraliza todas tus solicitudes en un solo lugar.</CardDescription>
                     </div>
                      <div className="relative z-10 mt-auto">
                       <Button variant="secondary" className="bg-white/10 hover:bg-white/20">
-                          Ir a RRHH <ArrowRight className="ml-2 h-4 w-4" />
+                          Acceder al Portal <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </div>
                  </Card>
               </Link>
-              <Link href="/dashboard/requerimientos/it" className="group block relative overflow-hidden rounded-2xl col-span-2 md:col-span-2 bg-sky-500 text-white">
+              <Link href="/dashboard/requerimientos/it" className="group block relative overflow-hidden rounded-2xl col-span-2 md:col-span-1 bg-sky-500 text-white">
                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
                     <div className="relative z-10">
                        <CardTitle>Soporte de TI</CardTitle>
-                       <CardDescription className="text-sky-100 mt-2">Problemas con equipos, software o acceso a sistemas.</CardDescription>
+                       <CardDescription className="text-sky-100 mt-2">Equipos y software.</CardDescription>
                     </div>
                  </Card>
               </Link>
-              <Link href="/dashboard/requerimientos/servicios" className="group block relative overflow-hidden rounded-2xl col-span-1 bg-amber-400 text-neutral-900">
+              <Link href="/dashboard/requerimientos/rh" className="group block relative overflow-hidden rounded-2xl col-span-1 bg-amber-400 text-neutral-900">
                   <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
                     <div className="relative z-10">
-                       <CardTitle>Servicios Generales</CardTitle>
+                       <CardTitle>Recursos Humanos</CardTitle>
                     </div>
                  </Card>
               </Link>
@@ -612,6 +612,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

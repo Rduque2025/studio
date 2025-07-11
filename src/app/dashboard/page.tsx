@@ -277,10 +277,8 @@ export default function DashboardPage() {
                        <CardDescription className="text-neutral-300 mt-2">Gestión de talento, nómina, y solicitudes de constancias o recibos.</CardDescription>
                     </div>
                      <div className="relative z-10 mt-auto">
-                      <Button asChild variant="secondary" className="bg-white/10 hover:bg-white/20">
-                          <Link href="/dashboard/requerimientos/rh">
-                              Ir a RRHH <ArrowRight className="ml-2 h-4 w-4" />
-                          </Link>
+                      <Button variant="secondary" className="bg-white/10 hover:bg-white/20">
+                          Ir a RRHH <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </div>
                  </Card>
@@ -614,6 +612,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

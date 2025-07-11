@@ -275,25 +275,25 @@ export default function DashboardPage() {
                       </p>
                   </div>
                   <div className="space-y-3">
-                      <Link href="/dashboard/requerimientos/rh" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                      <Link href="/dashboard/requerimientos/rh" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
                           <span className="text-sm font-medium">Recursos Humanos</span>
                           <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                               <ArrowRight className="h-4 w-4 text-white" />
                           </div>
                       </Link>
-                       <Link href="/dashboard/requerimientos/it" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                       <Link href="/dashboard/requerimientos/it" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
                           <span className="text-sm font-medium">Soporte TI</span>
                           <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                               <ArrowRight className="h-4 w-4 text-white" />
                           </div>
                       </Link>
-                      <Link href="/dashboard/requerimientos/servicios" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                      <Link href="/dashboard/requerimientos/servicios" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
                           <span className="text-sm font-medium">Servicios Generales</span>
                           <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                               <ArrowRight className="h-4 w-4 text-white" />
                           </div>
                       </Link>
-                       <Link href="/dashboard/requerimientos" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                       <Link href="/dashboard/requerimientos" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
                           <span className="text-sm font-medium">Ver todos</span>
                           <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                               <ArrowRight className="h-4 w-4 text-white" />
@@ -608,6 +608,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

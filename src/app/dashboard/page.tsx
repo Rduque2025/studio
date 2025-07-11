@@ -263,43 +263,45 @@ export default function DashboardPage() {
       
         {/* Portal de Requerimientos Section */}
         <SectionWrapper>
-          <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 h-[500px]">
-              <Link href="/dashboard/requerimientos" className="group block relative overflow-hidden rounded-2xl col-span-2 row-span-2 bg-neutral-800 text-white">
-                 <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
-                    <div className="relative z-10">
-                       <CardTitle>Portal de Requerimientos</CardTitle>
-                       <CardDescription className="text-neutral-300 mt-2">Centraliza todas tus solicitudes en un solo lugar.</CardDescription>
-                    </div>
-                     <div className="relative z-10 mt-auto">
-                      <Button variant="secondary" className="bg-white/10 hover:bg-white/20">
-                          Acceder al Portal <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </div>
-                 </Card>
-              </Link>
-              <Link href="/dashboard/requerimientos/it" className="group block relative overflow-hidden rounded-2xl col-span-2 md:col-span-1 bg-sky-500 text-white">
-                 <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
-                    <div className="relative z-10">
-                       <CardTitle>Soporte de TI</CardTitle>
-                       <CardDescription className="text-sky-100 mt-2">Equipos y software.</CardDescription>
-                    </div>
-                 </Card>
-              </Link>
-              <Link href="/dashboard/requerimientos/rh" className="group block relative overflow-hidden rounded-2xl col-span-1 bg-amber-400 text-neutral-900">
-                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
-                    <div className="relative z-10">
-                       <CardTitle>Recursos Humanos</CardTitle>
-                    </div>
-                 </Card>
-              </Link>
-              <Link href="/dashboard/hcm" className="group block relative overflow-hidden rounded-2xl col-span-1 bg-lime-400 text-neutral-900">
-                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
-                    <div className="relative z-10">
-                       <CardTitle>Póliza HCM</CardTitle>
-                    </div>
-                 </Card>
-              </Link>
-          </div>
+          <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl">
+              <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5"></div>
+              <div className="absolute -right-10 -top-10 w-60 h-60 rounded-full bg-white/5"></div>
+              <div className="absolute right-0 top-0 w-40 h-40 rounded-full bg-white/5"></div>
+              <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                  <div className="space-y-4">
+                      <h2 className="text-4xl md:text-5xl font-bold">Portal de Requerimientos</h2>
+                      <p className="max-w-md text-primary-foreground/80">
+                          Centraliza tus solicitudes y gestiona tus necesidades en un solo lugar.
+                      </p>
+                  </div>
+                  <div className="space-y-3">
+                      <Link href="/dashboard/requerimientos/rh" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                          <span className="font-medium">Recursos Humanos</span>
+                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <ArrowRight className="h-4 w-4 text-white" />
+                          </div>
+                      </Link>
+                       <Link href="/dashboard/requerimientos/it" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                          <span className="font-medium">Soporte TI</span>
+                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <ArrowRight className="h-4 w-4 text-white" />
+                          </div>
+                      </Link>
+                      <Link href="/dashboard/requerimientos/servicios" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                          <span className="font-medium">Servicios Generales</span>
+                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <ArrowRight className="h-4 w-4 text-white" />
+                          </div>
+                      </Link>
+                       <Link href="/dashboard/requerimientos" className="group flex items-center justify-between p-3 pr-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                          <span className="font-medium">Ver todos</span>
+                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <ArrowRight className="h-4 w-4 text-white" />
+                          </div>
+                      </Link>
+                  </div>
+              </div>
+          </Card>
         </SectionWrapper>
 
 
@@ -606,6 +608,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

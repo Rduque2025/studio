@@ -262,13 +262,7 @@ export default function DashboardPage() {
         </SectionWrapper>
       
         {/* Portal de Requerimientos Section */}
-        <SectionWrapper
-            title="Portal de Requerimientos"
-            description="Centraliza tus solicitudes. Desde consultas de recursos humanos hasta soporte técnico, selecciona el departamento para iniciar tu solicitud."
-            headerClassName="text-center mb-12"
-            titleClassName="text-4xl md:text-5xl"
-            descriptionClassName="text-center max-w-2xl"
-        >
+        <SectionWrapper>
           <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-4 h-[500px]">
               <Link href="/dashboard/requerimientos" className="group block relative overflow-hidden rounded-2xl col-span-2 row-span-2 bg-neutral-800 text-white">
                  <Card className="w-full h-full p-6 flex flex-col justify-between transition-all duration-300 bg-transparent border-none shadow-none">
@@ -612,6 +606,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

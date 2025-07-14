@@ -423,7 +423,7 @@ export default function DashboardPage() {
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
                  <div className="w-full grid grid-cols-2 gap-4">
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1541533000593-c3501a10526b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYW1pbHklMjBoYXBwaW5lc3N8ZW58MHx8fHwxNzUyNzA5MjIxfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="family happiness" />
+                      <Image src="https://images.unsplash.com/photo-1647616927583-1d44a79a38a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmYW1pbHklMjBoYXBwaW5lc3N8ZW58MHx8fHwxNzUyNTAzMjk1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="family happiness" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <h4 className="text-xl font-bold">Beneficios</h4>
                         <p className="text-xs mt-1 text-white/90">Descubra todas sus ventajas.</p>
@@ -433,7 +433,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1723399726195-1fc25450f80d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzZWN1cml0eSUyMHByb3RlY3Rpb258ZW58MHx8fHwxNzUyNTAzMjk1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
+                      <Image src="https://images.unsplash.com/photo-1618371731836-2b9bff9ac72a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWN1cml0eSUyMHByb3RlY3Rpb258ZW58MHx8fHwxNzUyNTAzMjk1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <h4 className="text-xl font-bold">Cobertura</h4>
                         <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>
@@ -453,7 +453,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1667372525822-d226d23018dc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHJvY2VzcyUyMGRpYWdyYW18ZW58MHx8fHwxNzUyNTAzMjk1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process diagram" />
+                      <Image src="https://images.unsplash.com/photo-1647032713701-a80d2b69e502?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwcm9jZXNzJTIwZGlhZ3JhbXxlbnwwfHx8fDE3NTI1MDMyOTV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process diagram" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <h4 className="text-xl font-bold">Protocolos</h4>
                         <p className="text-xs mt-1 text-white/90">Siga los pasos para cada caso.</p>
@@ -616,5 +616,6 @@ export default function DashboardPage() {
 
 
     
+
 
 

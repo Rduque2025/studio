@@ -408,8 +408,9 @@ export default function DashboardPage() {
             <div className="grid md:grid-cols-2">
               <div className="p-8 md:p-12 flex flex-col">
                 <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">ESTAMOS AQUÍ PARA AYUDARTE</p>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-4">
-                  Consulte su Póliza HCM
+                <h2 className="text-3xl md:text-4xl text-foreground leading-tight mb-4">
+                  <span className="block font-normal text-2xl md:text-3xl text-muted-foreground">Consulte su</span>
+                  <span className="block font-bold text-4xl md:text-5xl">Póliza HCM</span>
                 </h2>
                 <p className="text-muted-foreground mb-8">
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.

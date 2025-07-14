@@ -226,11 +226,11 @@ export default function DashboardPage() {
         {/* Hero Section */}
         <section className="relative h-screen w-full bg-card">
             <Image
-                src="https://images.unsplash.com/photo-1570483358100-6d222cdea6ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8Q0lFTE98ZW58MHx8fHwxNzUxNjYxMjM1fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbG91ZHN8ZW58MHx8fHwxNzUyNTA5MDM5fDA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Fondo abstracto del portal"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="sky abstract"
+                data-ai-hint="clouds"
                 className="opacity-20"
                 priority
             />
@@ -357,7 +357,7 @@ export default function DashboardPage() {
                     alt="Solicitudes de vacaciones"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="request form"
+                    data-ai-hint="plane"
                     className="group-hover:scale-105 transition-transform"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>

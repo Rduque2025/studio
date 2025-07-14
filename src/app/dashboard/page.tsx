@@ -406,11 +406,12 @@ export default function DashboardPage() {
         <SectionWrapper>
           <Card className="overflow-hidden bg-card shadow-lg border-none">
             <div className="grid md:grid-cols-2">
-              <div className="p-8 md:p-12 flex flex-col">
+              <div className="p-12 flex flex-col">
                 <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">ESTAMOS AQUÍ PARA AYUDARTE</p>
-                <h2 className="flex items-baseline gap-2 text-foreground leading-tight mb-4">
-                  <span className="font-normal text-xl md:text-2xl text-muted-foreground">Consulte su</span>
-                  <span className="font-bold text-4xl md:text-5xl">Póliza HCM</span>
+                <h2 className="text-foreground leading-tight mb-4 flex flex-col">
+                  <span className="text-xl text-muted-foreground">Consulte su</span>
+                  <span className="font-extrabold text-7xl -mt-2">PÓLIZA</span>
+                  <span className="font-extrabold text-7xl -mt-4">HCM</span>
                 </h2>
                 <p className="text-muted-foreground mb-8">
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.

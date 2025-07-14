@@ -330,8 +330,8 @@ export default function DashboardPage() {
           <div className="bg-card shadow-lg rounded-2xl overflow-hidden min-h-[700px] flex flex-col md:flex-row">
             {/* Left Panel */}
             <div className="w-full md:w-2/3 relative min-h-[400px] md:min-h-full">
-              <Image 
-                src="https://images.unsplash.com/photo-1602088113235-229c19758e9f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8dmFjYXRpb258ZW58MHx8fHwxNzUyNTA2ODg5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+              <Image
+                src="https://images.unsplash.com/photo-1519046904884-53103b34b206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaHxlbnwwfHx8fDE3NTI1MDcxNTV8MA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Playa tropical para representar vacaciones"
                 layout="fill"
                 objectFit="cover"
@@ -352,7 +352,7 @@ export default function DashboardPage() {
             <div className="w-full md:w-1/3 bg-background p-8 flex flex-col">
               <div className="space-y-6 mt-auto mb-auto">
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
-                  <Image 
+                  <Image
                     src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Solicitudes de vacaciones"
                     layout="fill"
@@ -367,7 +367,7 @@ export default function DashboardPage() {
                   </div>
                 </div>
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
-                  <Image 
+                  <Image
                     src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8cGxhbmV8ZW58MHx8fHwxNzUyNTA2MTEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Fechas Disponibles"
                     layout="fill"

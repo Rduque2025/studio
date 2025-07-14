@@ -410,8 +410,7 @@ export default function DashboardPage() {
                 <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">ESTAMOS AQUÍ PARA AYUDARTE</p>
                 <h2 className="text-foreground leading-tight mb-4 flex flex-col">
                   <span className="text-xl text-muted-foreground">Consulte su</span>
-                  <span className="font-extrabold text-7xl">PÓLIZA</span>
-                  <span className="font-extrabold text-7xl">HCM</span>
+                  <span className="font-extrabold text-7xl">PÓLIZA HCM</span>
                 </h2>
                 <p className="text-muted-foreground mb-8">
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.

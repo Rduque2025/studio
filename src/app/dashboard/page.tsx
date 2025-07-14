@@ -360,8 +360,8 @@ export default function DashboardPage() {
                     data-ai-hint="request form"
                     className="group-hover:scale-105 transition-transform"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                  <div className="absolute bottom-4 left-4 text-white pointer-events-none">
                     <h4 className="font-bold text-lg">Mis Solicitudes</h4>
                     <p className="text-xs">Consulta el estado de tus solicitudes de vacaciones.</p>
                   </div>
@@ -375,8 +375,8 @@ export default function DashboardPage() {
                     data-ai-hint="airplane sky"
                     className="group-hover:scale-105 transition-transform"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                   <div className="absolute bottom-4 left-4 text-white">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                   <div className="absolute bottom-4 left-4 text-white pointer-events-none">
                     <h4 className="font-bold text-lg">Fechas Disponibles</h4>
                     <p className="text-xs">Consulta el calendario y planifica tu próximo viaje.</p>
                   </div>

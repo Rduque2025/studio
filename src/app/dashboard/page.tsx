@@ -433,7 +433,7 @@ export default function DashboardPage() {
                       </div>
                     </Card>
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1618371731836-2b9bff9ac72a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWN1cml0eSUyMHByb3RlY3Rpb258ZW58MHx8fHwxNzUyNTAzMjk1fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
+                      <Image src="https://images.unsplash.com/photo-1602444307048-952df9146135?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmbG9hdHxlbnwwfHx8fDE3NTI1MDUwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
                         <h4 className="text-xl font-bold">Cobertura</h4>
                         <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>
@@ -616,6 +616,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

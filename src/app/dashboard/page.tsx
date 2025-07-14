@@ -423,7 +423,7 @@ export default function DashboardPage() {
               <div className="bg-muted/50 p-8 md:p-12 flex items-center">
                  <div className="w-full grid grid-cols-2 gap-4">
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1649768151184-2277b6efdaf9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxoYXBwaW5lc3MlMjBqb3l8ZW58MHx8fHwxNzUyNTAyNTUwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="happiness joy" />
+                      <Image src="https://images.unsplash.com/photo-1509909756405-be0199881695?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoYXBwaW5lc3N8ZW58MHx8fHwxNzUyNzA5MjIxfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="happiness joy" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
                         <h4 className="text-xl font-bold">Beneficios</h4>
                         <p className="text-xs mt-1 text-white/90">Descubra todas sus ventajas.</p>
@@ -616,6 +616,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

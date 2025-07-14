@@ -409,7 +409,7 @@ export default function DashboardPage() {
             <div className="grid md:grid-cols-2">
               <div className="p-12 flex flex-col justify-center">
                 <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">Estamos aquí para ayudarte en caso de emergencia</p>
-                <h2 className="text-4xl font-bold text-foreground leading-tight mb-4">
+                <h2 className="text-4xl font-extrabold text-foreground leading-tight mb-4">
                   NUESTRA PÓLIZA HCM
                 </h2>
                 <p className="text-muted-foreground mb-8">
@@ -662,6 +662,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

@@ -410,8 +410,8 @@ export default function DashboardPage() {
                 <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">ESTAMOS AQUÍ PARA AYUDARTE</p>
                 <h2 className="text-foreground leading-tight mb-4 flex flex-col">
                   <span className="text-xl text-muted-foreground">Consulte su</span>
-                  <span className="font-extrabold text-7xl -mt-2">PÓLIZA</span>
-                  <span className="font-extrabold text-7xl -mt-4">HCM</span>
+                  <span className="font-extrabold text-7xl">PÓLIZA</span>
+                  <span className="font-extrabold text-7xl">HCM</span>
                 </h2>
                 <p className="text-muted-foreground mb-8">
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
@@ -437,7 +437,7 @@ export default function DashboardPage() {
                    />
                 </div>
               </div>
-              <div className="bg-muted/50 p-6 md:p-10 flex items-center">
+              <div className="bg-muted/50 p-10 flex items-center">
                  <div className="w-full grid grid-cols-2 gap-6">
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                       <Image src="https://images.unsplash.com/photo-1525268771113-32d9e9021a97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxiYWxsb25zfGVufDB8fHx8MTc1MjUwNDk3M3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="family happiness" />

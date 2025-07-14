@@ -338,7 +338,7 @@ export default function DashboardPage() {
                 data-ai-hint="beach vacation"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-12 text-white pointer-events-none">
-                <h2 className="text-5xl font-bold leading-tight">¡Gestiona tus Próximas Vacaciones!</h2>
+                <h2 className="text-5xl font-extrabold leading-tight">¡Gestiona tus Próximas Vacaciones!</h2>
                 <p className="mt-4 max-w-md text-white/90">
                   Planifica tu viaje con las mejores recomendaciones y gestiona tus solicitudes de forma sencilla.
                 </p>
@@ -383,7 +383,7 @@ export default function DashboardPage() {
                 </div>
                  <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image
-                    src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBndWlkZXxlbnwwfHx8fDE3NTI1MDgzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    src="https://images.unsplash.com/photo-1514896856000-91cb6de818e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxpdGFseXxlbnwwfHx8fDE3NTI1MDg5NTl8MA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Recomendaciones de viaje"
                     layout="fill"
                     objectFit="cover"

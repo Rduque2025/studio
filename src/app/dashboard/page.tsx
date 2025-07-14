@@ -350,7 +350,7 @@ export default function DashboardPage() {
 
             {/* Right Panel */}
             <div className="w-full md:w-1/3 bg-background p-8 flex flex-col">
-              <div className="space-y-6 mt-auto mb-auto">
+              <div className="space-y-4 my-auto">
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image
                     src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
@@ -379,6 +379,21 @@ export default function DashboardPage() {
                    <div className="absolute bottom-4 left-4 text-white pointer-events-none">
                     <h4 className="font-bold text-lg">Fechas Disponibles</h4>
                     <p className="text-xs">Consulta el calendario y planifica tu próximo viaje.</p>
+                  </div>
+                </div>
+                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
+                  <Image
+                    src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0cmF2ZWwlMjBndWlkZXxlbnwwfHx8fDE3NTI1MDgzMjN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Recomendaciones de viaje"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="travel guide"
+                    className="group-hover:scale-105 transition-transform"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                   <div className="absolute bottom-4 left-4 text-white pointer-events-none">
+                    <h4 className="font-bold text-lg">Recomendaciones</h4>
+                    <p className="text-xs">Descubre destinos y consejos para tu próximo viaje.</p>
                   </div>
                 </div>
               </div>

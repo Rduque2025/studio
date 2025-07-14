@@ -14,7 +14,7 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
   return (
     <Card className={cn(
       "w-[350px] overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg flex-shrink-0 flex flex-col",
-      isCurrentDay && "scale-105"
+      isCurrentDay && "scale-105 bg-primary text-primary-foreground"
     )}>
       <CardHeader className="p-0 relative">
         <div className="relative w-full aspect-square">
@@ -27,7 +27,7 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
           />
         </div>
         {isCurrentDay && (
-          <Badge className="absolute top-2 right-2 z-10">
+          <Badge variant="secondary" className="absolute top-2 right-2 z-10 bg-white/20 text-white backdrop-blur-sm">
             Hoy
           </Badge>
         )}
@@ -36,14 +36,17 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
         <div className="flex justify-between items-start mb-2">
           <p className={cn(
             "text-sm font-semibold",
-            isCurrentDay ? "text-primary" : "text-muted-foreground"
+            isCurrentDay ? "text-primary-foreground/80" : "text-muted-foreground"
           )}>{item.day}</p>
           {item.price && (
-            <Badge variant="outline">{item.price}</Badge>
+            <Badge variant={isCurrentDay ? "secondary" : "outline"}>{item.price}</Badge>
           )}
         </div>
         <CardTitle className="text-base font-bold leading-tight mb-2">{item.name}</CardTitle>
-        <CardDescription className="text-xs text-muted-foreground flex-grow">
+        <CardDescription className={cn(
+          "text-xs flex-grow",
+           isCurrentDay ? "text-primary-foreground/90" : "text-muted-foreground"
+        )}>
           {item.description}
         </CardDescription>
       </CardContent>

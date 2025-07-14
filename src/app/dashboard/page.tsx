@@ -128,7 +128,7 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
     >
       <div className={cn("pl-4 transition-opacity duration-200", isClicked ? "opacity-0" : "opacity-100")}>
         <p className="text-xs">{label}</p>
-        <p className="font-semibold">{number}</p>
+        <p className="text-sm font-semibold">{number}</p>
       </div>
 
       <div
@@ -662,6 +662,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

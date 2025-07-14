@@ -337,12 +337,12 @@ export default function DashboardPage() {
                 objectFit="cover"
                 data-ai-hint="beach vacation"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-12 text-white">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-12 text-white pointer-events-none">
                 <h2 className="text-5xl font-bold leading-tight">Gestión de Vacaciones</h2>
                 <p className="mt-4 max-w-md text-white/90">
                   Planifica tu viaje con las mejores recomendaciones y gestiona tus solicitudes de forma sencilla.
                 </p>
-                <Button asChild className="mt-6 w-fit">
+                <Button asChild className="mt-6 w-fit pointer-events-auto">
                   <Link href="/dashboard/vacaciones">Explorar</Link>
                 </Button>
               </div>
@@ -631,5 +631,7 @@ export default function DashboardPage() {
 
 
 
+
+    
 
     

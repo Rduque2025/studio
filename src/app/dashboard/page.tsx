@@ -440,8 +440,8 @@ export default function DashboardPage() {
                      label="Correo Electrónico"
                      number="asistencia@banescoseguros.com"
                      icon={Mail}
-                     className="bg-purple-500"
-                     iconClassName="text-purple-500"
+                     className="bg-[#EA4335]"
+                     iconClassName="text-[#EA4335]"
                    />
                 </div>
               </div>
@@ -662,6 +662,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

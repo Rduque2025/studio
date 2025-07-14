@@ -122,7 +122,7 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
       href={href}
       onClick={handleClick}
       className={cn(
-        "relative flex w-[280px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px]",
+        "relative flex w-[340px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px]",
         className
       )}
     >
@@ -662,5 +662,6 @@ export default function DashboardPage() {
     
 
     
+
 
 

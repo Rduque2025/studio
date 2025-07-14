@@ -35,7 +35,8 @@ import {
   DollarSign,
   Megaphone,
   Settings,
-  LifeBuoy
+  LifeBuoy,
+  Mail
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -93,7 +94,7 @@ const pilaresData = [
 
 const AnimatedContactButton = ({ href, type, label, number, icon: Icon, className, iconClassName }: {
   href: string;
-  type: 'whatsapp' | 'phone';
+  type: 'whatsapp' | 'phone' | 'email';
   label: string;
   number: string;
   icon: React.ElementType;
@@ -433,6 +434,15 @@ export default function DashboardPage() {
                      className="bg-blue-500"
                      iconClassName="text-blue-500"
                    />
+                   <AnimatedContactButton 
+                     href="mailto:asistencia@banescoseguros.com"
+                     type="email"
+                     label="Correo Electrónico"
+                     number="asistencia@banescoseguros.com"
+                     icon={Mail}
+                     className="bg-purple-500"
+                     iconClassName="text-purple-500"
+                   />
                 </div>
               </div>
               <div className="bg-muted/50 p-12 flex items-center">
@@ -652,4 +662,5 @@ export default function DashboardPage() {
     
 
     
+
 

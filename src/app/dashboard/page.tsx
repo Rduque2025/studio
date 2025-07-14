@@ -405,9 +405,6 @@ export default function DashboardPage() {
                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                       <Image src="https://images.unsplash.com/photo-1644945583064-e4906134ae14?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxoYXBwaW5lc3MlMjBqb3l8ZW58MHx8fHwxNzUyMTc3MTE4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="happiness joy" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
-                        <div className="p-3 bg-white/20 rounded-full mb-3">
-                          
-                        </div>
                         <h4 className="text-xl font-bold">Beneficios</h4>
                         <p className="text-xs mt-1 text-white/90">Descubra todas sus ventajas.</p>
                         <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
@@ -418,9 +415,6 @@ export default function DashboardPage() {
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                       <Image src="https://images.unsplash.com/photo-1698328591458-5340c7c86e55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzZWN1cml0eSUyMGxvY2t8ZW58MHx8fHwxNzUyMTc3MTE4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security lock" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
-                        <div className="p-3 bg-white/20 rounded-full mb-3">
-                          
-                        </div>
                         <h4 className="text-xl font-bold">Cobertura</h4>
                         <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>
                         <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
@@ -431,9 +425,6 @@ export default function DashboardPage() {
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                       <Image src="https://images.unsplash.com/photo-1596541223130-5d31a73fb6c6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxob3NwaXRhbCUyMGJ1aWxkaW5nfGVufDB8fHx8MTc1MjA4ODI0OXww&ixlib=rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
-                        <div className="p-3 bg-white/20 rounded-full mb-3">
-                          
-                        </div>
                         <h4 className="text-xl font-bold">Centros de Atención</h4>
                         <p className="text-xs mt-1 text-white/90">Encuentre la clínica más cercana.</p>
                         <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
@@ -444,9 +435,6 @@ export default function DashboardPage() {
                      <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                       <Image src="https://images.unsplash.com/photo-1542744173-05336fcc7ad4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwcm9jZXNzJTIwd29ya2Zsb3d8ZW58MHx8fHwxNzUyNTgzMjA0fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process workflow" />
                       <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white">
-                        <div className="p-3 bg-white/20 rounded-full mb-3">
-                          
-                        </div>
                         <h4 className="text-xl font-bold">Protocolos</h4>
                         <p className="text-xs mt-1 text-white/90">Siga los pasos para cada caso.</p>
                         <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm">
@@ -608,6 +596,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

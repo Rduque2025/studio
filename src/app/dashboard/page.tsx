@@ -353,7 +353,7 @@ export default function DashboardPage() {
               <div className="space-y-6 mt-auto mb-auto">
                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                   <Image 
-                    src="https://images.unsplash.com/photo-1676042349618-9f8c85d76b7f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXF1ZXN0JTIwZm9ybXxlbnwwfHx8fDE3NTIxNzkxNzZ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    src="https://images.unsplash.com/photo-1549964336-67d7d7d74ac2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhcmNoaXZlfGVufDB8fHx8MTc1MjUwNjA2NHww&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Solicitudes de vacaciones"
                     layout="fill"
                     objectFit="cover"
@@ -628,3 +628,4 @@ export default function DashboardPage() {
     
 
     
+

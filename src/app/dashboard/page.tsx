@@ -293,6 +293,62 @@ export default function DashboardPage() {
             </div>
         </section>
 
+        {/* Mision y Valores Section */}
+        <SectionWrapper>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="flex flex-col justify-center space-y-6">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+                Nuestra Misión y <br /> Oferta de Valor
+              </h2>
+              <p className="text-muted-foreground max-w-lg">
+                Somos una empresa de seguros reconocida por su excelencia y calidad, orientada a satisfacer las necesidades de nuestros clientes, intermediarios y organización, brindando asesoría y protección con soluciones ágiles y oportunas.
+              </p>
+              <p className="font-semibold text-foreground">
+                ¡Cumplimos lo que prometemos!
+              </p>
+              <div className="flex gap-4">
+                <Button asChild>
+                  <Link href="/dashboard/mapa-clientes">Conocer más</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
+              
+              
+              <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                      src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxLSURTfGVufDB8fHx8MTc1MjYwMzgxM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                      alt="Equipo de Banesco Seguros"
+                      width={400}
+                      height={600}
+                      className="w-full h-full object-cover"
+                      data-ai-hint="team meeting"
+                  />
+              </div>
+              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                      src="https://images.unsplash.com/photo-1538964173425-93884d739596?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxWRU5FWlVFTEF8ZW58MHx8fHwxNzUyNjAyNzY0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                      alt="Cliente satisfecho"
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover"
+                      data-ai-hint="happy client"
+                  />
+              </div>
+              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                      src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8Q0FSfGVufDB8fHx8MTc1MjYwMjg0NXww&ixlib=rb-4.1.0&q=80&w=1080"
+                      alt="Oficina de Banesco"
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover"
+                      data-ai-hint="modern office"
+                  />
+              </div>
+            </div>
+          </div>
+        </SectionWrapper>
+
         {/* Pilares Section */}
         <SectionWrapper>
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -701,62 +757,6 @@ export default function DashboardPage() {
           </div>
         </SectionWrapper>
       
-        {/* Mision y Valores Section */}
-        <SectionWrapper>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="flex flex-col justify-center space-y-6">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-                Nuestra Misión y <br /> Oferta de Valor
-              </h2>
-              <p className="text-muted-foreground max-w-lg">
-                Somos una empresa de seguros reconocida por su excelencia y calidad, orientada a satisfacer las necesidades de nuestros clientes, intermediarios y organización, brindando asesoría y protección con soluciones ágiles y oportunas.
-              </p>
-              <p className="font-semibold text-foreground">
-                ¡Cumplimos lo que prometemos!
-              </p>
-              <div className="flex gap-4">
-                <Button asChild>
-                  <Link href="/dashboard/mapa-clientes">Conocer más</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
-              
-              
-              <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
-                  <Image
-                      src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxLSURTfGVufDB8fHx8MTc1MjYwMzgxM3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                      alt="Equipo de Banesco Seguros"
-                      width={400}
-                      height={600}
-                      className="w-full h-full object-cover"
-                      data-ai-hint="team meeting"
-                  />
-              </div>
-              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
-                  <Image
-                      src="https://images.unsplash.com/photo-1538964173425-93884d739596?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxWRU5FWlVFTEF8ZW58MHx8fHwxNzUyNjAyNzY0fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                      alt="Cliente satisfecho"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                      data-ai-hint="happy client"
-                  />
-              </div>
-              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
-                  <Image
-                      src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8Q0FSfGVufDB8fHx8MTc1MjYwMjg0NXww&ixlib=rb-4.1.0&q=80&w=1080"
-                      alt="Oficina de Banesco"
-                      width={400}
-                      height={400}
-                      className="w-full h-full object-cover"
-                      data-ai-hint="modern office"
-                  />
-              </div>
-            </div>
-          </div>
-        </SectionWrapper>
-
         {/* FAQ Section */}
         <SectionWrapper>
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">

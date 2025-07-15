@@ -723,24 +723,6 @@ export default function DashboardPage() {
           </div>
         </SectionWrapper>
       
-        {/* Playlist Section */}
-        <SectionWrapper>
-           <div className="flex items-center justify-between mb-8">
-              <div className="space-y-1">
-                <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Playlist Banesco Seguros</h2>
-                <p className="text-muted-foreground">La banda sonora para un día de trabajo productivo y agradable.</p>
-              </div>
-              <Button variant="outline">
-                <Music2 className="mr-2 h-4 w-4" /> Escuchar en Spotify
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {mockPlaylist.map(item => (
-                <PlaylistCard key={item.id} item={item} />
-              ))}
-            </div>
-        </SectionWrapper>
-
         {/* Pilares Section */}
         <SectionWrapper>
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -773,6 +755,21 @@ export default function DashboardPage() {
               })}
             </div>
           </div>
+        </SectionWrapper>
+
+        {/* Playlist Section */}
+        <SectionWrapper>
+           <div className="flex flex-col items-center text-center mb-8">
+              <div className="space-y-1">
+                <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Playlist Banesco Seguros</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {mockPlaylist.map(item => (
+                <PlaylistCard key={item.id} item={item} />
+              ))}
+            </div>
         </SectionWrapper>
 
         {/* FAQ Section */}
@@ -848,6 +845,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

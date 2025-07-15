@@ -61,9 +61,9 @@ export interface Employee {
 export interface PlaylistItem {
   id: string;
   title: string;
-  artist: string;
+  description: string;
   albumArtUrl: string;
-  duration: string;
+  linkUrl: string;
   dataAiHint: string;
 }
 
@@ -451,10 +451,38 @@ export const teamDepartments = [
 ];
 
 export const mockPlaylist: PlaylistItem[] = [
-  { id: "P001", title: "Alma Llanera", artist: "Simón Díaz", albumArtUrl: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "3:15", dataAiHint: "folk music" },
-  { id: "P002", title: "Caballo Viejo", artist: "Simón Díaz", albumArtUrl: "https://images.unsplash.com/photo-1525886312204-148386de6e03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "3:05", dataAiHint: "classic folk" },
-  { id: "P003", title: "Venezuela", artist: "Luis Silva", albumArtUrl: "https://images.unsplash.com/photo-1520282428582-e33dd99a04a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "3:50", dataAiHint: "acoustic guitar" },
-  { id: "P004", title: "Moliendo Café", artist: "Hugo Blanco", albumArtUrl: "https://images.unsplash.com/photo-1507980599298-5c2423985b55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "2:55", dataAiHint: "latin rhythm" },
+  { 
+    id: "P001", 
+    title: "Clásicos en Inglés", 
+    description: "Los éxitos que marcaron una época.",
+    albumArtUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbGFzc2ljJTIwcm9ja3xlbnwwfHx8fDE3NTI2MjAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "classic rock" 
+  },
+  { 
+    id: "P002", 
+    title: "Rock Suave", 
+    description: "La selección perfecta para concentrarse.",
+    albumArtUrl: "https://images.unsplash.com/photo-1499415474447-813c24ba6a45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2Z0JTIwcm9ja3xlbnwwfHx8fDE3NTI2MjAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "soft rock" 
+  },
+  { 
+    id: "P003", 
+    title: "Salsa y Merengue", 
+    description: "Ritmos latinos para subir el ánimo.",
+    albumArtUrl: "https://images.unsplash.com/photo-1594125347942-7c41b6d1e4c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsYXRpbiUyMGRhbmNlfGVufDB8fHx8MTc1MjYyMDA2NHww&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "latin dance" 
+  },
+  { 
+    id: "P004", 
+    title: "Solo Éxitos Pop", 
+    description: "Las canciones más populares del momento.",
+    albumArtUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3AlMjBtdXNpY3xlbnwwfHx8fDE3NTI2MjAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "pop music"
+  },
 ];
     
     

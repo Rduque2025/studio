@@ -58,6 +58,15 @@ export interface Employee {
   dataAiHint: string;
 }
 
+export interface PlaylistItem {
+  id: string;
+  title: string;
+  artist: string;
+  albumArtUrl: string;
+  duration: string;
+  dataAiHint: string;
+}
+
 export const mockCourses: Course[] = [
   {
     id: "C001",
@@ -439,6 +448,13 @@ export const teamDepartments = [
   { id: 'finanzas', name: 'Finanzas' },
   { id: 'operaciones', name: 'Operaciones' },
   { id: 'marketing', name: 'Marketing' },
+];
+
+export const mockPlaylist: PlaylistItem[] = [
+  { id: "P001", title: "Alma Llanera", artist: "Simón Díaz", albumArtUrl: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "3:15", dataAiHint: "folk music" },
+  { id: "P002", title: "Caballo Viejo", artist: "Simón Díaz", albumArtUrl: "https://images.unsplash.com/photo-1525886312204-148386de6e03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "3:05", dataAiHint: "classic folk" },
+  { id: "P003", title: "Venezuela", artist: "Luis Silva", albumArtUrl: "https://images.unsplash.com/photo-1520282428582-e33dd99a04a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "3:50", dataAiHint: "acoustic guitar" },
+  { id: "P004", title: "Moliendo Café", artist: "Hugo Blanco", albumArtUrl: "https://images.unsplash.com/photo-1507980599298-5c2423985b55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxWT0xLfGVufDB8fHx8MTc1MjYxMTc3MHww&ixlib=rb-4.1.0&q=80&w=1080", duration: "2:55", dataAiHint: "latin rhythm" },
 ];
     
     

@@ -455,7 +455,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P001", 
     title: "Clásicos en Inglés", 
     description: "Los éxitos que marcaron una época.",
-    albumArtUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbGFzc2ljJTIwcm9ja3xlbnwwfHx8fDE3NTI2MjAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "classic rock" 
   },

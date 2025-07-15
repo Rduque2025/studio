@@ -653,38 +653,33 @@ export default function DashboardPage() {
           <div className="bg-card p-8 md:p-12 rounded-2xl shadow-sm">
             <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8 md:mb-12">
               <div>
-                <Badge variant="outline" className="mb-2">AI-Infused</Badge>
                 <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-                  Redefiniendo el Cuidado con Inteligencia
+                  Explore Nuestras Actividades de Bienestar
                 </h2>
               </div>
               <div className="flex flex-col justify-center">
                 <p className="text-muted-foreground mb-6">
-                  Una nueva dimensión de bienestar con Armonía Holística, donde las estrategias de bienestar infundidas por IA lo apoyan en cada etapa de la vida.
+                  Descubra un mundo de bienestar con nuestras actividades exclusivas, diseñadas para apoyar su salud física y mental en cada etapa de la vida.
                 </p>
                 <div className="flex flex-wrap gap-3">
-                   <Button variant="outline" size="lg">¿Alguna pregunta?</Button>
-                   <Button variant="default" size="lg">Contáctanos</Button>
+                  <Button asChild variant="default" size="lg">
+                    <Link href="/dashboard/bienestar">Ver Todas las Actividades</Link>
+                  </Button>
                 </div>
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-                    <Image src="https://placehold.co/600x800.png" alt="Cuidado Holístico" layout="fill" objectFit="cover" data-ai-hint="holistic care" className="group-hover:scale-105 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-                    <Image src="https://placehold.co/600x800.png" alt="Tecnología de Bienestar" layout="fill" objectFit="cover" data-ai-hint="wellness technology" className="group-hover:scale-105 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-                    <Image src="https://placehold.co/600x800.png" alt="Salud Inteligente" layout="fill" objectFit="cover" data-ai-hint="smart health" className="group-hover:scale-105 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
-                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
-                    <Image src="https://placehold.co/600x800.png" alt="Soporte Personalizado" layout="fill" objectFit="cover" data-ai-hint="personalized support" className="group-hover:scale-105 transition-transform duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
+              {activityHighlights.map((activity, index) => (
+                <Card key={index} className="bg-muted/50 border-0 p-6 rounded-xl flex flex-col items-start gap-4 text-left">
+                  <div className="p-3 rounded-full bg-primary/10 text-primary">
+                    <activity.icon className="h-6 w-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-foreground">{activity.title}</h3>
+                    <p className="text-sm text-muted-foreground">{activity.description}</p>
+                  </div>
+                </Card>
+              ))}
             </div>
           </div>
         </SectionWrapper>

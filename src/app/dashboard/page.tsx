@@ -40,7 +40,11 @@ import {
   BookCheck,
   TrendingUp as TrendingUpIcon,
   Award,
-  CalendarCheck
+  CalendarCheck,
+  HeartHandshake,
+  Dumbbell,
+  Music,
+  Drama
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -185,6 +189,29 @@ const departmentGridConfig = [
     description: "Consultas y reembolsos." 
   }
 ];
+
+const activityHighlights = [
+    {
+      icon: HeartHandshake,
+      title: "Clases de Yoga",
+      description: "Conecta cuerpo y mente para reducir el estrés y mejorar tu salud.",
+    },
+    {
+      icon: Dumbbell,
+      title: "Ejercicios Funcionales",
+      description: "Mejora tu fuerza, resistencia y coordinación con entrenamientos dinámicos.",
+    },
+    {
+      icon: Music,
+      title: "Clases de Cuatro",
+      description: "Aprende a tocar un instrumento tradicional y únete al ensamble musical.",
+    },
+    {
+      icon: Drama,
+      title: "Taller de Teatro",
+      description: "Desarrolla tus habilidades de comunicación, oratoria y expresión corporal.",
+    },
+  ];
 
 
 export default function DashboardPage() {
@@ -622,25 +649,44 @@ export default function DashboardPage() {
 
 
         {/* Actividades Section */}
-        <SectionWrapper 
-            title="Actividades y Bienestar" 
-            description="Participe en nuestras próximas actividades y programas de bienestar."
-        >
-            <ScrollArea className="w-full">
-              <div className="flex space-x-4 pb-4">
-                {mockActivities.map((activity) => (
-                  <ActivityCard key={activity.id} activity={activity} />
-                ))}
+        <SectionWrapper>
+          <Card className="overflow-hidden bg-card rounded-2xl shadow-sm">
+            <div className="grid md:grid-cols-2">
+              <div className="relative aspect-[4/3] md:aspect-auto">
+                <Image
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8MTc1MDI3NzU0OHww&ixlib=rb-4.1.0&q=80&w=1080"
+                  alt="Actividades de bienestar corporativo"
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint="woman professional"
+                  className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none"
+                />
               </div>
-              <ScrollBar orientation="horizontal" />
-            </ScrollArea>
-             <div className="text-center mt-8">
-                <Button asChild variant="outline">
+              <div className="p-8 md:p-12 flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-foreground mb-6">Explore Nuestras Actividades de Bienestar</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
+                  {activityHighlights.map((activity, index) => (
+                    <div key={index} className="flex gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
+                          <activity.icon className="h-5 w-5" />
+                        </div>
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-foreground mb-1">{activity.title}</h3>
+                        <p className="text-sm text-muted-foreground">{activity.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                 <Button asChild variant="outline" className="mt-8 self-start">
                     <Link href="/dashboard/bienestar#actividades">
                     Ver todas las Actividades <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                 </Button>
+              </div>
             </div>
+          </Card>
         </SectionWrapper>
       
         {/* Mision y Valores Section */}

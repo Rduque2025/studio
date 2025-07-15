@@ -81,7 +81,7 @@ export const mockCourses: Course[] = [
     id: "C003",
     title: "Introducción a Seguros Digitales",
     description: "Conoce las últimas tendencias en el sector asegurador.",
-    imageUrl: "https://placehold.co/600x400.png",
+    imageUrl: "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8Y29tcHV0ZXJ8ZW58MHx8fHwxNzUyNDk1ODkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "digital insurance",
     category: "Tecnología",
     duration: "8 semanas",
@@ -443,4 +443,3 @@ export const teamDepartments = [
     
     
     
-

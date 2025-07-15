@@ -650,43 +650,43 @@ export default function DashboardPage() {
 
         {/* Actividades Section */}
         <SectionWrapper>
-          <Card className="overflow-hidden bg-card rounded-2xl shadow-sm">
-            <div className="grid md:grid-cols-2">
-              <div className="relative aspect-[4/3] md:aspect-auto">
-                <Image
-                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8MTc1MDI3NzU0OHww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Actividades de bienestar corporativo"
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint="woman professional"
-                  className="rounded-t-2xl md:rounded-l-2xl md:rounded-tr-none"
-                />
+          <div className="bg-card p-8 md:p-12 rounded-2xl shadow-sm">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8 md:mb-12">
+              <div>
+                <Badge variant="outline" className="mb-2">AI-Infused</Badge>
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                  Redefiniendo el Cuidado con Inteligencia
+                </h2>
               </div>
-              <div className="p-8 md:p-12 flex flex-col justify-center">
-                <h2 className="text-3xl font-bold text-foreground mb-6">Explore Nuestras Actividades de Bienestar</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8">
-                  {activityHighlights.map((activity, index) => (
-                    <div key={index} className="flex gap-4">
-                      <div className="flex-shrink-0">
-                        <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
-                          <activity.icon className="h-5 w-5" />
-                        </div>
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">{activity.title}</h3>
-                        <p className="text-sm text-muted-foreground">{activity.description}</p>
-                      </div>
-                    </div>
-                  ))}
+              <div className="flex flex-col justify-center">
+                <p className="text-muted-foreground mb-6">
+                  Una nueva dimensión de bienestar con Armonía Holística, donde las estrategias de bienestar infundidas por IA lo apoyan en cada etapa de la vida.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                   <Button variant="outline" size="lg">¿Alguna pregunta?</Button>
+                   <Button variant="default" size="lg">Contáctanos</Button>
                 </div>
-                 <Button asChild variant="outline" className="mt-8 self-start">
-                    <Link href="/dashboard/bienestar#actividades">
-                    Ver todas las Actividades <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                </Button>
               </div>
             </div>
-          </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
+                    <Image src="https://placehold.co/600x800.png" alt="Cuidado Holístico" layout="fill" objectFit="cover" data-ai-hint="holistic care" className="group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
+                    <Image src="https://placehold.co/600x800.png" alt="Tecnología de Bienestar" layout="fill" objectFit="cover" data-ai-hint="wellness technology" className="group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
+                    <Image src="https://placehold.co/600x800.png" alt="Salud Inteligente" layout="fill" objectFit="cover" data-ai-hint="smart health" className="group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+                 <div className="relative aspect-[3/4] rounded-xl overflow-hidden group">
+                    <Image src="https://placehold.co/600x800.png" alt="Soporte Personalizado" layout="fill" objectFit="cover" data-ai-hint="personalized support" className="group-hover:scale-105 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                </div>
+            </div>
+          </div>
         </SectionWrapper>
       
         {/* Mision y Valores Section */}

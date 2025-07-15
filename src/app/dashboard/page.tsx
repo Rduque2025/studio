@@ -221,6 +221,10 @@ export default function DashboardPage() {
   const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
+  const [heroImage, setHeroImage] = useState({
+    src: "https://images.unsplash.com/photo-1559762164-b685958434d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjbGVhciUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    hint: "clear sky"
+  });
   
   const handleCourseChange = (direction: 'next' | 'prev') => {
     if (direction === 'next') {
@@ -234,8 +238,28 @@ export default function DashboardPage() {
   
   useEffect(() => {
     const today = new Date();
+    const currentHour = today.getHours();
     const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
     setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+    
+    // Set hero image based on time of day
+    if (currentHour >= 6 && currentHour < 14) { // Morning (6am to 1:59pm)
+      setHeroImage({
+        src: "https://images.unsplash.com/photo-1559762164-b685958434d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjbGVhciUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        hint: "clear sky"
+      });
+    } else if (currentHour >= 14 && currentHour < 17) { // Afternoon (2pm to 4:59pm)
+      setHeroImage({
+        src: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdW5zZXQlMjBza3l8ZW58MHx8fHwxNzUyNjI4NzQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        hint: "sunset sky"
+      });
+    } else { // Evening/Night (5pm onwards)
+      setHeroImage({
+        src: "https://images.unsplash.com/photo-1507499739999-097706ad8914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxuaWdodCUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        hint: "night sky"
+      });
+    }
+
   }, []);
 
   const handleMenuScroll = (direction: 'left' | 'right') => {
@@ -271,11 +295,11 @@ export default function DashboardPage() {
         {/* Hero Section */}
         <section className="relative h-screen w-full bg-card">
             <Image
-                src="https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src={heroImage.src}
                 alt="Fondo abstracto del portal"
                 layout="fill"
                 objectFit="cover"
-                data-ai-hint="clouds"
+                data-ai-hint={heroImage.hint}
                 className="opacity-20"
                 priority
             />
@@ -845,6 +869,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

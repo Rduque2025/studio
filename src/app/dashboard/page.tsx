@@ -725,7 +725,7 @@ export default function DashboardPage() {
               
               <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8RkFNSUxZfGVufDB8fHx8MTc1MjYwMzA0Mnww&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxLSURTfGVufDB8fHx8MTc1MjYwMzgxM3ww&ixlib=rb-4.1.0&q=80&w=1080"
                       alt="Equipo de Banesco Seguros"
                       width={400}
                       height={600}

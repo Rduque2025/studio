@@ -304,40 +304,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </SectionWrapper>
-
-        {/* Pilares Section */}
-        <SectionWrapper>
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="flex items-center justify-center">
-              <span className="text-[250px] font-black text-primary/10 leading-none">4</span>
-              <span className="text-7xl font-bold text-foreground -ml-4" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
-                PILARES
-              </span>
-            </div>
-            
-            <div className="space-y-4">
-              {pilaresData.map((pilar, index) => {
-                const colors = ["bg-primary", "bg-secondary", "bg-[#3f94cd]", "bg-[#59d1ff]"];
-                return (
-                  <div 
-                    key={pilar.number}
-                    className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", colors[index % colors.length])}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white/20 text-white text-lg font-bold">
-                        {pilar.number}
-                      </div>
-                      <div className="text-white">
-                        <h3 className="text-lg font-bold mb-1">{pilar.title}</h3>
-                        <p className="text-sm opacity-90">{pilar.text}</p>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </SectionWrapper>
       
         {/* Portal de Requerimientos Section */}
         <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
@@ -380,6 +346,40 @@ export default function DashboardPage() {
                   </div>
               </div>
           </Card>
+        </SectionWrapper>
+
+        {/* Pilares Section */}
+        <SectionWrapper>
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="flex items-center justify-center">
+              <span className="text-[250px] font-black text-primary/10 leading-none">4</span>
+              <span className="text-7xl font-bold text-foreground -ml-4" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+                PILARES
+              </span>
+            </div>
+            
+            <div className="space-y-4">
+              {pilaresData.map((pilar, index) => {
+                const colors = ["bg-primary", "bg-secondary", "bg-[#3f94cd]", "bg-[#59d1ff]"];
+                return (
+                  <div 
+                    key={pilar.number}
+                    className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", colors[index % colors.length])}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white/20 text-white text-lg font-bold">
+                        {pilar.number}
+                      </div>
+                      <div className="text-white">
+                        <h3 className="text-lg font-bold mb-1">{pilar.title}</h3>
+                        <p className="text-sm opacity-90">{pilar.text}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </SectionWrapper>
 
 
@@ -555,7 +555,7 @@ export default function DashboardPage() {
           <div className="grid md:grid-cols-2 min-h-[600px]">
             <div className="p-8 md:p-12 flex flex-col justify-center">
               <div className="space-y-4">
-                <div className="space-y-4">
+                 <div className="space-y-4">
                   <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
                     Cursos <br />
                     <span className="text-primary font-bold">Disponibles</span>

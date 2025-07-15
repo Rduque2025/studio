@@ -589,7 +589,7 @@ export default function DashboardPage() {
                   className="brightness-90"
                   key={currentCourse.id}
                 />
-                <div className="absolute inset-x-0 bottom-0 top-1/2 flex items-center justify-center p-8">
+                <div className="absolute inset-0 flex items-center justify-center p-8">
                     <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
                         <CardHeader>
                           <div className="flex justify-between items-center">

@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
@@ -736,7 +735,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://placehold.co/400x400.png"
+                      src="https://images.unsplash.com/photo-1538964524798-581b17c6b5ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2ZW5lenVlbGF8ZW58MHx8fHwxNzUyNTA4ODQ1fDA&ixlib=rb-4.1.0&q=80&w=1080"
                       alt="Cliente satisfecho"
                       width={400}
                       height={400}

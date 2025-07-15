@@ -63,7 +63,7 @@ export const mockCourses: Course[] = [
     id: "C001",
     title: "Gestión Efectiva del Tiempo",
     description: "Aprende técnicas para optimizar tu jornada laboral y personal.",
-    imageUrl: "https://images.unsplash.com/photo-1495364141860-b0d03eccd065?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHx0aW1lfGVufDB8fHx8MTc1MjU4ODk1NXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1594581857766-ea2d5e0bea95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8dGllbXBvfGVufDB8fHx8MTc1MjU5MTQwM3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "time management",
     category: "Desarrollo Personal",
     duration: "4 semanas",
@@ -443,3 +443,4 @@ export const teamDepartments = [
     
     
     
+

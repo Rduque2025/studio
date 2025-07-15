@@ -250,7 +250,7 @@ export default function DashboardPage() {
       });
     } else if (currentHour >= 14 && currentHour < 17) { // Afternoon (2pm to 4:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1512641406448-6574e777bec6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxTVU5TRVR8ZW58MHx8fHwxNzUyNjA5ODQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "sunset sky"
       });
     } else { // Evening/Night (5pm onwards)
@@ -869,6 +869,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

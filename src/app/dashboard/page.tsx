@@ -754,6 +754,12 @@ export default function DashboardPage() {
                 <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Playlist Banesco Seguros</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.</p>
               </div>
+              <Button asChild variant="link" className="mt-2">
+                <Link href="/dashboard/playlist">
+                  Ver Catálogo
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {mockPlaylist.map(item => (
@@ -761,7 +767,7 @@ export default function DashboardPage() {
               ))}
             </div>
         </SectionWrapper>
-
+        
         {/* Pilares Section */}
         <SectionWrapper>
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -869,6 +875,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

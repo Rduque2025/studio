@@ -7,7 +7,7 @@ import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
   Landmark,
   UsersRound,
@@ -551,28 +551,10 @@ export default function DashboardPage() {
         <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
           <div className="grid md:grid-cols-2 min-h-[600px]">
             <div className="p-8 md:p-12 flex flex-col justify-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Amplía tus Habilidades y Potencia tu Carrera</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{currentCourse.title}</h2>
               <p className="text-muted-foreground mb-8 max-w-lg">
-                Nuestra plataforma de formación te ofrece cursos y recursos para impulsar tu desarrollo profesional.
+                {currentCourse.description}
               </p>
-              <div className="space-y-3 mb-8">
-                  <div className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-primary" />
-                      <span className="text-foreground">Cursos para cada rol</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-primary" />
-                      <span className="text-foreground">Nuevas habilidades y competencias</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-primary" />
-                      <span className="text-foreground">Certificados al finalizar</span>
-                  </div>
-                   <div className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-primary" />
-                      <span className="text-foreground">Flexibilidad de horarios</span>
-                  </div>
-              </div>
               <Button asChild size="lg" className="w-fit">
                 <Link href="/dashboard/bienestar#cursos">
                   Explorar Cursos

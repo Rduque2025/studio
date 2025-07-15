@@ -36,7 +36,11 @@ import {
   Megaphone,
   Settings,
   LifeBuoy,
-  Mail
+  Mail,
+  BookCheck,
+  TrendingUp as TrendingUpIcon,
+  Award,
+  CalendarCheck
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -187,6 +191,17 @@ export default function DashboardPage() {
   const menuScrollAreaRef = useRef<HTMLDivElement>(null);
   const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [currentDayName, setCurrentDayName] = useState('');
+  const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
+  
+  const handleCourseChange = (direction: 'next' | 'prev') => {
+    if (direction === 'next') {
+      setCurrentCourseIndex((prevIndex) => (prevIndex + 1) % mockCourses.length);
+    } else {
+      setCurrentCourseIndex((prevIndex) => (prevIndex - 1 + mockCourses.length) % mockCourses.length);
+    }
+  };
+
+  const currentCourse = mockCourses[currentCourseIndex];
   
   useEffect(() => {
     const today = new Date();
@@ -410,7 +425,7 @@ export default function DashboardPage() {
               <div className="p-12 flex flex-col justify-center">
                 <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">Estamos aquí para ayudarte en caso de emergencia</p>
                 <h2 className="text-4xl font-extrabold text-foreground leading-tight mb-4">
-                  NUESTRA <span className="font-extrabold text-primary">PÓLIZA HCM</span>
+                  NUESTRA <span className="text-primary font-extrabold">PÓLIZA HCM</span>
                 </h2>
                 <p className="text-muted-foreground mb-8">
                   ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
@@ -532,25 +547,88 @@ export default function DashboardPage() {
           </div>
         </SectionWrapper>
 
-
         {/* Cursos Section */}
-        <SectionWrapper 
-            title="Cursos Disponibles" 
-            description="Amplíe sus conocimientos y habilidades con nuestra oferta formativa."
-        >
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {mockCourses.map((course) => (
-                <CourseCard key={course.id} course={course} />
-              ))}
+        <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
+          <div className="grid md:grid-cols-2 min-h-[600px]">
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Amplía tus Habilidades y Potencia tu Carrera</h2>
+              <p className="text-muted-foreground mb-8 max-w-lg">
+                Nuestra plataforma de formación te ofrece cursos y recursos para impulsar tu desarrollo profesional.
+              </p>
+              <div className="space-y-3 mb-8">
+                  <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-primary" />
+                      <span className="text-foreground">Cursos para cada rol</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-primary" />
+                      <span className="text-foreground">Nuevas habilidades y competencias</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-primary" />
+                      <span className="text-foreground">Certificados al finalizar</span>
+                  </div>
+                   <div className="flex items-center gap-3">
+                      <Check className="h-5 w-5 text-primary" />
+                      <span className="text-foreground">Flexibilidad de horarios</span>
+                  </div>
+              </div>
+              <Button asChild size="lg" className="w-fit">
+                <Link href="/dashboard/bienestar#cursos">
+                  Explorar Cursos
+                </Link>
+              </Button>
             </div>
-            <div className="text-center mt-8">
-                <Button asChild variant="outline">
-                    <Link href="/dashboard/bienestar#cursos">
-                    Ver todos los Cursos <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                </Button>
+            <div className="relative min-h-[400px] md:min-h-full">
+               <Image
+                  src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                  alt="Equipo colaborando en un curso"
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint="team collaboration"
+                  className="brightness-90"
+                />
+                <div className="absolute inset-x-0 bottom-0 top-1/2 flex items-center justify-center p-8">
+                    <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
+                        <CardHeader>
+                          <div className="flex justify-between items-center">
+                            <Badge variant="secondary" className="flex items-center gap-1">
+                              <Star className="h-3 w-3" /> {currentCourse.category}
+                            </Badge>
+                             <div className="flex gap-1">
+                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('prev')}>
+                                    <ChevronLeft className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('next')}>
+                                    <ChevronRight className="h-4 w-4" />
+                                </Button>
+                            </div>
+                          </div>
+                          <CardTitle className="text-lg pt-2">{currentCourse.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                           <p className="text-sm text-muted-foreground h-10 text-ellipsis overflow-hidden">{currentCourse.description}</p>
+                           <Separator />
+                           <div className="flex justify-between text-sm">
+                                <div className="flex items-center gap-2 text-muted-foreground"><Award className="h-4 w-4 text-primary" /><span>Certificado</span></div>
+                                <div className="font-medium text-foreground">Sí</div>
+                           </div>
+                           <div className="flex justify-between text-sm">
+                                <div className="flex items-center gap-2 text-muted-foreground"><Clock className="h-4 w-4 text-primary" /><span>Duración</span></div>
+                                <div className="font-medium text-foreground">{currentCourse.duration}</div>
+                           </div>
+                        </CardContent>
+                         <CardContent>
+                          <Button asChild className="w-full">
+                            <Link href={`/dashboard/cursos/${currentCourse.id}`}>Más Información</Link>
+                          </Button>
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
+          </div>
         </SectionWrapper>
+
 
         {/* Actividades Section */}
         <SectionWrapper 
@@ -662,6 +740,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

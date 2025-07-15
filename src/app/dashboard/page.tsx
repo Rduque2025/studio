@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
@@ -294,7 +295,7 @@ export default function DashboardPage() {
         </section>
 
         {/* Portal de Requerimientos Section */}
-        <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
+        <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
           <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl min-h-[500px] flex flex-col justify-center">
               <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5"></div>
               <div className="absolute -right-10 -top-10 w-60 h-60 rounded-full bg-white/5"></div>
@@ -337,7 +338,7 @@ export default function DashboardPage() {
         </SectionWrapper>
 
         {/* Menus Section */}
-        <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
+        <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
           <div className="grid md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-4">
               <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
@@ -703,31 +704,59 @@ export default function DashboardPage() {
       
         {/* Mision y Valores Section */}
         <SectionWrapper>
-            <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-                <div className="relative aspect-square w-full rounded-lg overflow-hidden">
-                     <Image
-                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8MTc1MDI3NzU0OHww&ixlib=rb-4.1.0&q=80&w=1080"
-                        alt="Reunión de equipo Banesco Seguros"
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint="meeting team"
-                     />
-                </div>
-                <div className="space-y-6">
-                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Misión y Oferta de Valor</h2>
-                    <p className="text-muted-foreground">
-                       Somos una empresa de seguros reconocida por su excelencia y calidad, orientada a satisfacer las necesidades de nuestros clientes, intermediarios y organización, brindando asesoría y protección con soluciones ágiles y oportunas.
-                    </p>
-                     <p className="font-semibold text-foreground">
-                        ¡Cumplimos lo que prometemos!
-                    </p>
-                    <Button asChild>
-                        <Link href="/dashboard/mapa-clientes">
-                            Conocer más sobre nosotros
-                        </Link>
-                    </Button>
-                </div>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="flex flex-col justify-center space-y-6">
+              <h2 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
+                Nuestra Misión y <br /> Oferta de Valor
+              </h2>
+              <p className="text-muted-foreground max-w-lg">
+                Somos una empresa de seguros reconocida por su excelencia y calidad, orientada a satisfacer las necesidades de nuestros clientes, intermediarios y organización, brindando asesoría y protección con soluciones ágiles y oportunas.
+              </p>
+              <p className="font-semibold text-foreground">
+                ¡Cumplimos lo que prometemos!
+              </p>
+              <div className="flex gap-4">
+                <Button asChild>
+                  <Link href="/dashboard/mapa-clientes">Conocer más</Link>
+                </Button>
+              </div>
             </div>
+            <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
+              <Sun className="absolute -top-4 -left-4 h-10 w-10 text-amber-400" />
+              <ShieldCheck className="absolute -bottom-4 -right-4 h-10 w-10 text-sky-400" />
+              
+              <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                      src="https://placehold.co/400x600.png"
+                      alt="Equipo de Banesco Seguros"
+                      width={400}
+                      height={600}
+                      className="w-full h-full object-cover"
+                      data-ai-hint="team meeting"
+                  />
+              </div>
+              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                      src="https://placehold.co/400x400.png"
+                      alt="Cliente satisfecho"
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover"
+                      data-ai-hint="happy client"
+                  />
+              </div>
+              <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                      src="https://placehold.co/400x400.png"
+                      alt="Oficina de Banesco"
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover"
+                      data-ai-hint="modern office"
+                  />
+              </div>
+            </div>
+          </div>
         </SectionWrapper>
 
         {/* FAQ Section */}

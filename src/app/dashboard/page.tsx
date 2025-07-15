@@ -581,12 +581,13 @@ export default function DashboardPage() {
             </div>
             <div className="relative min-h-[400px] md:min-h-full">
                <Image
-                  src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHx0ZWFtJTIwY29sbGFib3JhdGlvbnxlbnwwfHx8fDE3NTA4Nzk4MDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Equipo colaborando en un curso"
+                  src={currentCourse.imageUrl}
+                  alt={currentCourse.title}
                   layout="fill"
                   objectFit="cover"
-                  data-ai-hint="team collaboration"
+                  data-ai-hint={currentCourse.dataAiHint}
                   className="brightness-90"
+                  key={currentCourse.id}
                 />
                 <div className="absolute inset-x-0 bottom-0 top-1/2 flex items-center justify-center p-8">
                     <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
@@ -751,3 +752,6 @@ export default function DashboardPage() {
 
 
 
+
+
+    

@@ -424,6 +424,78 @@ export default function DashboardPage() {
           </div>
         </SectionWrapper>
         
+        {/* Cursos Section */}
+        <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
+          <div className="grid md:grid-cols-2 min-h-[600px]">
+            <div className="p-8 md:p-12 flex flex-col justify-center">
+              <div className="space-y-4">
+                 <div className="space-y-4">
+                  <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
+                    Cursos <br />
+                    <span className="text-primary font-bold">Disponibles</span>
+                  </h2>
+                  <p className="text-muted-foreground mb-4 max-w-lg">
+                    {currentCourse.description}
+                  </p>
+                </div>
+              </div>
+              <Button asChild size="lg" className="w-fit mt-4">
+                <Link href="/dashboard/bienestar#cursos">
+                  Explorar Cursos
+                </Link>
+              </Button>
+            </div>
+            <div className="relative min-h-[400px] md:min-h-full">
+               <Image
+                  src={currentCourse.imageUrl}
+                  alt={currentCourse.title}
+                  layout="fill"
+                  objectFit="cover"
+                  data-ai-hint={currentCourse.dataAiHint}
+                  className="brightness-90"
+                  key={currentCourse.id}
+                />
+                <div className="absolute inset-0 flex items-center justify-center p-8">
+                    <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
+                        <CardHeader>
+                          <div className="flex justify-between items-center">
+                            <Badge variant="secondary" className="flex items-center gap-1">
+                              <Star className="h-3 w-3" /> {currentCourse.category}
+                            </Badge>
+                             <div className="flex gap-1">
+                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('prev')}>
+                                    <ChevronLeft className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('next')}>
+                                    <ChevronRight className="h-4 w-4" />
+                                </Button>
+                            </div>
+                          </div>
+                          <CardTitle className="text-lg pt-2">{currentCourse.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                           <p className="text-sm text-muted-foreground h-10 text-ellipsis overflow-hidden">{currentCourse.description}</p>
+                           <Separator />
+                           <div className="flex justify-between text-sm">
+                                <div className="flex items-center gap-2 text-muted-foreground"><Award className="h-4 w-4 text-primary" /><span>Certificado</span></div>
+                                <div className="font-medium text-foreground">Sí</div>
+                           </div>
+                           <div className="flex justify-between text-sm">
+                                <div className="flex items-center gap-2 text-muted-foreground"><Clock className="h-4 w-4 text-primary" /><span>Duración</span></div>
+                                <div className="font-medium text-foreground">{currentCourse.duration}</div>
+                           </div>
+                        </CardContent>
+                         <CardContent>
+                          <Button asChild className="w-full">
+                            <Link href={`/dashboard/cursos/${currentCourse.id}`}>Más Información</Link>
+                          </Button>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+          </div>
+        </SectionWrapper>
+
         {/* Pilares Section */}
         <SectionWrapper>
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -546,78 +618,6 @@ export default function DashboardPage() {
               </div>
             </div>
           </Card>
-        </SectionWrapper>
-
-        {/* Cursos Section */}
-        <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
-          <div className="grid md:grid-cols-2 min-h-[600px]">
-            <div className="p-8 md:p-12 flex flex-col justify-center">
-              <div className="space-y-4">
-                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
-                    Cursos <br />
-                    <span className="text-primary font-bold">Disponibles</span>
-                  </h2>
-                  <p className="text-muted-foreground mb-4 max-w-lg">
-                    {currentCourse.description}
-                  </p>
-                </div>
-              </div>
-              <Button asChild size="lg" className="w-fit mt-4">
-                <Link href="/dashboard/bienestar#cursos">
-                  Explorar Cursos
-                </Link>
-              </Button>
-            </div>
-            <div className="relative min-h-[400px] md:min-h-full">
-               <Image
-                  src={currentCourse.imageUrl}
-                  alt={currentCourse.title}
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint={currentCourse.dataAiHint}
-                  className="brightness-90"
-                  key={currentCourse.id}
-                />
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
-                        <CardHeader>
-                          <div className="flex justify-between items-center">
-                            <Badge variant="secondary" className="flex items-center gap-1">
-                              <Star className="h-3 w-3" /> {currentCourse.category}
-                            </Badge>
-                             <div className="flex gap-1">
-                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('prev')}>
-                                    <ChevronLeft className="h-4 w-4" />
-                                </Button>
-                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('next')}>
-                                    <ChevronRight className="h-4 w-4" />
-                                </Button>
-                            </div>
-                          </div>
-                          <CardTitle className="text-lg pt-2">{currentCourse.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                           <p className="text-sm text-muted-foreground h-10 text-ellipsis overflow-hidden">{currentCourse.description}</p>
-                           <Separator />
-                           <div className="flex justify-between text-sm">
-                                <div className="flex items-center gap-2 text-muted-foreground"><Award className="h-4 w-4 text-primary" /><span>Certificado</span></div>
-                                <div className="font-medium text-foreground">Sí</div>
-                           </div>
-                           <div className="flex justify-between text-sm">
-                                <div className="flex items-center gap-2 text-muted-foreground"><Clock className="h-4 w-4 text-primary" /><span>Duración</span></div>
-                                <div className="font-medium text-foreground">{currentCourse.duration}</div>
-                           </div>
-                        </CardContent>
-                         <CardContent>
-                          <Button asChild className="w-full">
-                            <Link href={`/dashboard/cursos/${currentCourse.id}`}>Más Información</Link>
-                          </Button>
-                        </CardContent>
-                    </Card>
-                </div>
-            </div>
-          </div>
         </SectionWrapper>
 
 

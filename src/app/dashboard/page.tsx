@@ -266,6 +266,45 @@ export default function DashboardPage() {
             </div>
         </section>
 
+        {/* Menus Section */}
+        <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
+          <div className="grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-4">
+              <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
+              <p className="text-muted-foreground mt-4">
+                Opciones de almuerzo disponibles para toda la semana en el comedor.
+              </p>
+            </div>
+            <div className="md:col-span-8">
+              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                 <div className="flex items-center gap-2 flex-wrap">
+                    <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
+                    <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
+                    <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
+                  </div>
+                <div className="flex items-center gap-2">
+                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                </div>
+              </div>
+              <div ref={menuScrollAreaRef}>
+                <ScrollArea className="w-full">
+                  <div className="flex w-max space-x-8 py-4">
+                    {filteredMenuItems.map((item) => (
+                      <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                    ))}
+                  </div>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
+              </div>
+            </div>
+          </div>
+        </SectionWrapper>
+
         {/* Pilares Section */}
         <SectionWrapper>
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -511,57 +550,20 @@ export default function DashboardPage() {
           </Card>
         </SectionWrapper>
 
-        {/* Menus Section */}
-        <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-4">
-              <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
-              <p className="text-muted-foreground mt-4">
-                Opciones de almuerzo disponibles para toda la semana en el comedor.
-              </p>
-            </div>
-            <div className="md:col-span-8">
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                 <div className="flex items-center gap-2 flex-wrap">
-                    <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
-                    <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
-                    <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
-                  </div>
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
-                      <ChevronLeft className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
-                      <ChevronRight className="h-4 w-4" />
-                    </Button>
-                </div>
-              </div>
-              <div ref={menuScrollAreaRef}>
-                <ScrollArea className="w-full">
-                  <div className="flex w-max space-x-8 py-4">
-                    {filteredMenuItems.map((item) => (
-                      <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                    ))}
-                  </div>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea>
-              </div>
-            </div>
-          </div>
-        </SectionWrapper>
-
         {/* Cursos Section */}
         <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
           <div className="grid md:grid-cols-2 min-h-[600px]">
             <div className="p-8 md:p-12 flex flex-col justify-center">
               <div className="space-y-4">
-                <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
-                  Cursos <br />
-                  <span className="text-primary font-bold">Disponibles</span>
-                </h2>
-                <p className="text-muted-foreground mb-4 max-w-lg">
-                  {currentCourse.description}
-                </p>
+                <div className="space-y-4">
+                  <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
+                    Cursos <br />
+                    <span className="text-primary font-bold">Disponibles</span>
+                  </h2>
+                  <p className="text-muted-foreground mb-4 max-w-lg">
+                    {currentCourse.description}
+                  </p>
+                </div>
               </div>
               <Button asChild size="lg" className="w-fit mt-4">
                 <Link href="/dashboard/bienestar#cursos">

@@ -670,13 +670,30 @@ export default function DashboardPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {activityHighlights.map((activity, index) => (
-                <Card key={index} className="bg-muted/50 border-0 p-6 rounded-xl flex flex-col items-start gap-4 text-left">
-                  <div className="p-3 rounded-full bg-primary/10 text-primary">
+                <Card 
+                  key={index} 
+                  className={cn(
+                    "border-0 p-6 rounded-xl flex flex-col items-start gap-4 text-left transition-colors",
+                    index === 0 
+                      ? "bg-primary text-primary-foreground" 
+                      : "bg-muted/50"
+                  )}
+                >
+                  <div className={cn(
+                    "p-3 rounded-full",
+                     index === 0 ? "bg-primary-foreground/10 text-primary-foreground" : "bg-primary/10 text-primary"
+                  )}>
                     <activity.icon className="h-6 w-6" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="font-semibold text-foreground">{activity.title}</h3>
-                    <p className="text-sm text-muted-foreground">{activity.description}</p>
+                    <h3 className={cn(
+                      "font-semibold",
+                      index === 0 ? "text-primary-foreground" : "text-foreground"
+                    )}>{activity.title}</h3>
+                    <p className={cn(
+                      "text-sm",
+                      index === 0 ? "text-primary-foreground/80" : "text-muted-foreground"
+                    )}>{activity.description}</p>
                   </div>
                 </Card>
               ))}

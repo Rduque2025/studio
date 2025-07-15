@@ -422,8 +422,8 @@ export default function DashboardPage() {
                      label="WhatsApp"
                      number="+58 414 123 4567"
                      icon={MessageSquare}
-                     className="bg-green-500"
-                     iconClassName="text-green-500"
+                     className="bg-primary"
+                     iconClassName="text-primary"
                    />
                   <AnimatedContactButton 
                      href="tel:+582125011111"
@@ -431,8 +431,8 @@ export default function DashboardPage() {
                      label="Teléfono"
                      number="+58 212 501 1111"
                      icon={Phone}
-                     className="bg-blue-500"
-                     iconClassName="text-blue-500"
+                     className="bg-secondary"
+                     iconClassName="text-secondary"
                    />
                    <AnimatedContactButton 
                      href="mailto:asistencia@banescoseguros.com"
@@ -440,8 +440,8 @@ export default function DashboardPage() {
                      label="Correo Electrónico"
                      number="asistencia@banescoseguros.com"
                      icon={Mail}
-                     className="bg-[#EA4335]"
-                     iconClassName="text-[#EA4335]"
+                     className="bg-accent"
+                     iconClassName="text-accent-foreground"
                    />
                 </div>
               </div>
@@ -662,6 +662,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

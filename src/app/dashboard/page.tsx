@@ -268,7 +268,7 @@ export default function DashboardPage() {
 
         {/* Portal de Requerimientos Section */}
         <SectionWrapper className="min-h-screen flex flex-col justify-center py-0 md:py-0">
-          <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl">
+          <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl min-h-[500px] flex flex-col justify-center">
               <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5"></div>
               <div className="absolute -right-10 -top-10 w-60 h-60 rounded-full bg-white/5"></div>
               <div className="absolute right-0 top-0 w-40 h-40 rounded-full bg-white/5"></div>

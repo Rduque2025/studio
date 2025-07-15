@@ -479,7 +479,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P004", 
     title: "Solo Éxitos Pop", 
     description: "Las canciones más populares del momento.",
-    albumArtUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3AlMjBtdXNpY3xlbnwwfHx8fDE3NTI2MjAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "pop music"
   },
@@ -487,3 +487,4 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+

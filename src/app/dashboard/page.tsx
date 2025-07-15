@@ -91,7 +91,7 @@ const faqData = [
 
 const pilaresData = [
     { number: "01", title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, color: "bg-primary" },
-    { number: "02", title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound, color: "bg-secondary" },
+    { number: "02", title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: "bg-secondary" },
     { number: "03", title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, color: "bg-blue-400" },
     { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, color: "bg-sky-400" },
 ];
@@ -551,11 +551,16 @@ export default function DashboardPage() {
         <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
           <div className="grid md:grid-cols-2 min-h-[600px]">
             <div className="p-8 md:p-12 flex flex-col justify-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{currentCourse.title}</h2>
-              <p className="text-muted-foreground mb-8 max-w-lg">
-                {currentCourse.description}
-              </p>
-              <Button asChild size="lg" className="w-fit">
+               <div className="space-y-4">
+                  <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
+                    Cursos <br />
+                    <span className="text-primary">Disponibles</span>
+                  </h2>
+                  <p className="text-muted-foreground mb-4 max-w-lg">
+                    {currentCourse.description}
+                  </p>
+                </div>
+              <Button asChild size="lg" className="w-fit mt-4">
                 <Link href="/dashboard/bienestar#cursos">
                   Explorar Cursos
                 </Link>

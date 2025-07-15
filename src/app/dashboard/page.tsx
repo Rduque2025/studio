@@ -86,10 +86,10 @@ const faqData = [
 ];
 
 const pilaresData = [
-    { number: "01", title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark },
-    { number: "02", title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound },
-    { number: "03", title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu },
-    { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork },
+    { number: "01", title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, color: "bg-primary" },
+    { number: "02", title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: UsersRound, color: "bg-secondary" },
+    { number: "03", title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, color: "bg-blue-400" },
+    { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, color: "bg-sky-400" },
 ];
 
 const AnimatedContactButton = ({ href, type, label, number, icon: Icon, className, iconClassName }: {
@@ -265,15 +265,15 @@ export default function DashboardPage() {
               {pilaresData.map((pilar) => (
                 <div 
                   key={pilar.number}
-                  className="group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:bg-card hover:shadow-xl hover:scale-105"
+                  className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", pilar.color)}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-muted text-muted-foreground text-lg font-bold transition-colors duration-300 group-hover:bg-primary/10 group-hover:text-primary">
+                    <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white/20 text-white text-lg font-bold">
                       {pilar.number}
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-foreground mb-1">{pilar.title}</h3>
-                      <p className="text-sm text-muted-foreground">{pilar.text}</p>
+                    <div className="text-white">
+                      <h3 className="text-lg font-bold mb-1">{pilar.title}</h3>
+                      <p className="text-sm opacity-90">{pilar.text}</p>
                     </div>
                   </div>
                 </div>
@@ -662,6 +662,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

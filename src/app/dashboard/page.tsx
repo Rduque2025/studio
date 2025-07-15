@@ -269,7 +269,7 @@ export default function DashboardPage() {
         {/* Hero Section */}
         <section className="relative h-screen w-full bg-card">
             <Image
-                src="https://images.unsplash.com/photo-1542349314-b0ceb4d9021a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjbG91ZHN8ZW58MHx8fHwxNzUyNTA5MDM5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Fondo abstracto del portal"
                 layout="fill"
                 objectFit="cover"
@@ -295,10 +295,10 @@ export default function DashboardPage() {
 
         {/* Mision y Valores Section */}
         <SectionWrapper>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="flex flex-col justify-center space-y-6">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">
-                Nuestra Misión y <br /> Oferta de Valor
+                Nuestra Misión y Oferta de Valor
               </h2>
               <p className="text-muted-foreground max-w-lg">
                 Somos una empresa de seguros reconocida por su excelencia y calidad, orientada a satisfacer las necesidades de nuestros clientes, intermediarios y organización, brindando asesoría y protección con soluciones ágiles y oportunas.

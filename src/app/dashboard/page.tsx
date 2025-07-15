@@ -314,7 +314,6 @@ export default function DashboardPage() {
             </div>
             <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
               
-              
               <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
                   <Image
                       src="https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxLSURTfGVufDB8fHx8MTc1MjYwMzgxM3ww&ixlib=rb-4.1.0&q=80&w=1080"
@@ -337,7 +336,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8Q0FSfGVufDB8fHx8MTc1MjYwMjg0NXww&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8bmklQzMlQjFvc3xlbnwwfHx8fDE3NTI2MDQ4NDl8MA&ixlib=rb-4.1.0&q=80&w=1080"
                       alt="Oficina de Banesco"
                       width={400}
                       height={400}
@@ -348,7 +347,7 @@ export default function DashboardPage() {
             </div>
           </div>
         </SectionWrapper>
-
+        
         {/* Portal de Requerimientos Section */}
         <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
           <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl min-h-[500px] flex flex-col justify-center">

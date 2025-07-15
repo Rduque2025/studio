@@ -463,7 +463,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P002", 
     title: "Rock Suave", 
     description: "La selección perfecta para concentrarse.",
-    albumArtUrl: "https://images.unsplash.com/photo-1499415474447-813c24ba6a45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzb2Z0JTIwcm9ja3xlbnwwfHx8fDE3NTI2MjAwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxndWl0YXJ8ZW58MHx8fHwxNzUyNjA3MjEwfDA&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "soft rock" 
   },

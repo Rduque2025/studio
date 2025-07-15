@@ -722,8 +722,7 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
-              <Sun className="absolute -top-4 -left-4 h-10 w-10 text-amber-400" />
-              <ShieldCheck className="absolute -bottom-4 -right-4 h-10 w-10 text-sky-400" />
+              
               
               <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
                   <Image

@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments, mockPlaylist } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments, mockPlaylist, faqData } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
@@ -45,7 +45,10 @@ import {
   Dumbbell,
   Music,
   Drama,
-  Music2
+  Music2,
+  Home,
+  User,
+  Cog
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -66,34 +69,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PlaylistCard } from '@/components/dashboard/playlist-card';
 
-
-const faqData = [
-  {
-    id: "faq1",
-    question: "¿Cómo puedo consultar la cobertura de mi póliza HCM?",
-    answer: "Puedes consultar todos los detalles de tu póliza, incluyendo coberturas, red de clínicas y estatus de reembolsos, accediendo a la sección 'Póliza HCM' desde el menú de Accesos Rápidos en esta misma página."
-  },
-  {
-    id: "faq2",
-    question: "¿Cuál es el procedimiento para solicitar vacaciones?",
-    answer: "Para solicitar tus días libres, dirígete a 'Gestión de Vacaciones' en los Accesos Rápidos. Allí podrás ver tu saldo de días disponibles, seleccionar las fechas deseadas y enviar la solicitud para su aprobación."
-  },
-  {
-    id: "faq3",
-    question: "¿A quién debo contactar para soporte técnico?",
-    answer: "Si tienes algún inconveniente técnico con tu equipo o con alguna de las plataformas, puedes generar un ticket de soporte dirigiéndote al 'Portal de Requerimientos' y seleccionando el departamento de 'Tecnología de Información'."
-  },
-  {
-    id: "faq4",
-    question: "¿Dónde puedo ver el menú del comedor de esta semana?",
-    answer: "El menú semanal del comedor está disponible en la página principal del portal, justo debajo de los Accesos Rápidos. Puedes navegar entre las opciones de Menú General, Dieta y Ejecutivo usando las pestañas."
-  },
-  {
-    id: "faq5",
-    question: "¿Cómo me inscribo en un curso o actividad de bienestar?",
-    answer: "Tanto los cursos como las actividades de bienestar se encuentran en la sección 'Bienestar' accesible desde el menú de navegación principal. Dentro de cada sección, podrás ver los detalles y encontrar los botones para inscribirte o confirmar tu asistencia."
-  }
-];
 
 const pilaresData = [
     { number: "01", title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, color: "bg-primary" },
@@ -225,6 +200,13 @@ export default function DashboardPage() {
     src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
     hint: "clear sky"
   });
+  const [activeFaqCategory, setActiveFaqCategory] = useState<'General' | 'Soporte' | 'Otros'>('General');
+
+  const faqCategories = [
+    { id: 'General', label: 'General', icon: Home },
+    { id: 'Soporte', label: 'Soporte', icon: User },
+    { id: 'Otros', label: 'Otros', icon: Cog },
+  ];
   
   const handleCourseChange = (direction: 'next' | 'prev') => {
     if (direction === 'next') {
@@ -803,35 +785,45 @@ export default function DashboardPage() {
 
         {/* FAQ Section */}
         <SectionWrapper>
-          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
-            <div className="space-y-4 text-center md:text-left">
-              <div className="flex justify-center md:justify-start">
-                <Badge variant="outline" className="border-primary/50 text-primary bg-primary/10">
-                  <HelpCircle className="mr-2 h-4 w-4" />
-                  Preguntas Frecuentes
-                </Badge>
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="md:col-span-1 space-y-4">
+              <div>
+                <p className="font-semibold text-primary uppercase tracking-wider">¿Tienes Dudas?</p>
+                <h2 className="text-3xl font-bold text-foreground tracking-tight mt-1">Preguntas Frecuentes</h2>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">Preguntas Frecuentes</h2>
-              <p className="text-muted-foreground text-lg">
-                Respuestas a las dudas más comunes. Si no encuentras lo que buscas, no dudes en contactarnos a través del portal de requerimientos.
-              </p>
+              <div className="space-y-2">
+                {faqCategories.map((cat) => {
+                  const Icon = cat.icon;
+                  return (
+                    <Button
+                      key={cat.id}
+                      variant={activeFaqCategory === cat.id ? "secondary" : "ghost"}
+                      className="w-full justify-start gap-3"
+                      onClick={() => setActiveFaqCategory(cat.id as any)}
+                    >
+                      <Icon className="h-5 w-5" />
+                      <span>{cat.label}</span>
+                    </Button>
+                  )
+                })}
+              </div>
             </div>
-            
-            <Accordion type="single" collapsible className="w-full space-y-4">
-              {faqData.map((faq) => (
-                <AccordionItem value={faq.id} key={faq.id} className="bg-card border-0 rounded-lg shadow-sm data-[state=open]:shadow-md transition-shadow">
-                  <AccordionTrigger className="p-6 text-left font-semibold text-base hover:no-underline">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-6 text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <div className="md:col-span-2">
+              <Accordion type="single" collapsible className="w-full space-y-3" defaultValue={faqData.find(faq => faq.category === activeFaqCategory)?.id}>
+                {faqData.filter(faq => faq.category === activeFaqCategory).map((faq) => (
+                  <AccordionItem value={faq.id} key={faq.id} className="bg-muted/50 border-0 rounded-lg">
+                    <AccordionTrigger className="p-4 text-left font-semibold text-base hover:no-underline">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="px-4 pb-4 text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </SectionWrapper>
-
     </div>
   );
 }
@@ -874,6 +866,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

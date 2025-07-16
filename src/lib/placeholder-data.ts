@@ -67,6 +67,13 @@ export interface PlaylistItem {
   dataAiHint: string;
 }
 
+export interface FaqItem {
+  id: string;
+  question: string;
+  answer: string;
+  category: 'General' | 'Soporte' | 'Otros';
+}
+
 export const mockCourses: Course[] = [
   {
     id: "C001",
@@ -450,6 +457,39 @@ export const teamDepartments = [
   { id: 'marketing', name: 'Marketing' },
 ];
 
+export const faqData: FaqItem[] = [
+  {
+    id: "faq1",
+    question: "¿Cómo puedo consultar la cobertura de mi póliza HCM?",
+    answer: "Puedes consultar todos los detalles de tu póliza, incluyendo coberturas, red de clínicas y estatus de reembolsos, accediendo a la sección 'Póliza HCM' desde el menú de Accesos Rápidos en esta misma página.",
+    category: "General",
+  },
+  {
+    id: "faq2",
+    question: "¿Cuál es el procedimiento para solicitar vacaciones?",
+    answer: "Para solicitar tus días libres, dirígete a 'Gestión de Vacaciones' en los Accesos Rápidos. Allí podrás ver tu saldo de días disponibles, seleccionar las fechas deseadas y enviar la solicitud para su aprobación.",
+    category: "General",
+  },
+  {
+    id: "faq3",
+    question: "¿A quién debo contactar para soporte técnico?",
+    answer: "Si tienes algún inconveniente técnico con tu equipo o con alguna de las plataformas, puedes generar un ticket de soporte dirigiéndote al 'Portal de Requerimientos' y seleccionando el departamento de 'Tecnología de Información'.",
+    category: "Soporte",
+  },
+  {
+    id: "faq4",
+    question: "¿Dónde puedo ver el menú del comedor de esta semana?",
+    answer: "El menú semanal del comedor está disponible en la página principal del portal, justo debajo de los Accesos Rápidos. Puedes navegar entre las opciones de Menú General, Dieta y Ejecutivo usando las pestañas.",
+    category: "General",
+  },
+  {
+    id: "faq5",
+    question: "¿Cómo me inscribo en un curso o actividad de bienestar?",
+    answer: "Tanto los cursos como las actividades de bienestar se encuentran en la sección 'Bienestar' accesible desde el menú de navegación principal. Dentro de cada sección, podrás ver los detalles y encontrar los botones para inscribirte o confirmar tu asistencia.",
+    category: "Otros",
+  }
+];
+
 export const mockPlaylist: PlaylistItem[] = [
   { 
     id: "P001", 
@@ -487,4 +527,3 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
-

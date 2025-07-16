@@ -515,7 +515,7 @@ export default function DashboardPage() {
         
         {/* Cursos Section */}
         <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
-          <div className="grid md:grid-cols-2 min-h-[600px]">
+          <div className="grid md:grid-cols-2 gap-8 min-h-[600px]">
             <div className="p-8 md:p-12 flex flex-col justify-center">
               <div className="space-y-4">
                  <div className="space-y-4">
@@ -866,6 +866,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

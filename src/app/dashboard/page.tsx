@@ -754,10 +754,9 @@ export default function DashboardPage() {
                 <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Playlist Banesco Seguros</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto">La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.</p>
               </div>
-              <Button asChild variant="link" className="mt-2">
+               <Button asChild variant="secondary" className="mt-4 rounded-full bg-muted text-muted-foreground hover:bg-muted/90 hover:text-foreground transition-colors">
                 <Link href="/dashboard/playlist">
-                  Ver Catálogo
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Playlists
                 </Link>
               </Button>
             </div>
@@ -875,6 +874,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

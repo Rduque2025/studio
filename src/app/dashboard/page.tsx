@@ -222,7 +222,7 @@ export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [heroImage, setHeroImage] = useState({
-    src: "https://images.unsplash.com/photo-1559762164-b685958434d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjbGVhciUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
     hint: "clear sky"
   });
   
@@ -245,7 +245,7 @@ export default function DashboardPage() {
     // Set hero image based on time of day
     if (currentHour >= 6 && currentHour < 14) { // Morning (6am to 1:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1559762164-b685958434d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjbGVhciUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3MDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "clear sky"
       });
     } else if (currentHour >= 14 && currentHour < 17) { // Afternoon (2pm to 4:59pm)
@@ -874,6 +874,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

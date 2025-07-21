@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, Flag, ToyBrick } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities } from "@/lib/placeholder-data";
@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import { EventHighlightCard, type EventHighlightProps } from '@/components/dashboard/event-highlight-card';
 
 const benefits = [
   {
@@ -31,6 +32,25 @@ const benefits = [
     icon: BrainCircuit,
     title: "Desarróllate",
     description: "Descubre las herramientas y recursos que necesitas para desarrollar nuevas habilidades y potenciar tu crecimiento."
+  }
+];
+
+const importantEvents: EventHighlightProps[] = [
+  {
+    icon: Flag,
+    title: "Día de la Independencia",
+    date: "5 de Julio",
+    description: "Conmemoramos un hito histórico de nuestra nación. Habrá actividades especiales y sorpresas en la oficina.",
+    imageUrl: "https://images.unsplash.com/photo-1621208030917-a4170d18b6e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxWZW5lenVlbGElMjBmbGFnfGVufDB8fHx8MTc1MzEyODg2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "Venezuela flag"
+  },
+  {
+    icon: ToyBrick,
+    title: "Día del Niño",
+    date: "21 de Julio",
+    description: "Celebremos a los más pequeños de la casa. Un día lleno de alegría, juegos y actividades para las familias.",
+    imageUrl: "https://images.unsplash.com/photo-1546422401-63b7829a231f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGlsZHJlbiUyMHBsYXlpbmd8ZW58MHx8fHwxNzUzMTI4ODkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "children playing"
   }
 ];
 
@@ -72,26 +92,22 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* Benefits Section */}
+      {/* Important Events Section */}
       <SectionWrapper
-        title="Comienza tu viaje."
-        description="Aporta tus talentos, tu energía, tus frustraciones y tus retos, y convirtámoslos en algo increíble."
+        title="Eventos Importantes del Mes"
+        description="Mantente al día con las celebraciones y fechas especiales que tenemos en Banesco Seguros."
         titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
         descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
       >
-        <div className="grid md:grid-cols-3 gap-12 mt-16">
-          {benefits.map((benefit, index) => (
-            <div key={index} className="flex flex-col items-center md:items-start text-center md:text-left">
-              <benefit.icon className="h-10 w-10 text-primary mb-6" />
-              <h3 className="text-xl font-bold mb-3">{benefit.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
-            </div>
+        <div className="grid md:grid-cols-2 gap-8 mt-16">
+          {importantEvents.map((event, index) => (
+            <EventHighlightCard key={index} {...event} />
           ))}
         </div>
         <div className="text-center mt-16">
            <Button asChild variant="link" className="text-sm font-semibold tracking-widest text-muted-foreground hover:text-primary">
-            <Link href="#explorar">
-              DA EL PRIMER PASO HOY <ArrowRight className="ml-2 h-4 w-4" />
+            <Link href="/dashboard/calendario">
+              VER CALENDARIO COMPLETO <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>
         </div>

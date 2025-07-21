@@ -49,7 +49,7 @@ const importantEvents: EventHighlightProps[] = [
     title: "Día del Niño",
     date: "21 de Julio",
     description: "Celebremos a los más pequeños de la casa. Un día lleno de alegría, juegos y actividades para las familias.",
-    imageUrl: "https://images.unsplash.com/photo-1546422401-63b7829a231f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGlsZHJlbiUyMHBsYXlpbmd8ZW58MHx8fHwxNzUzMTI4ODkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1531984929664-2fb2be468d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMnx8bmklQzMlQjFvfGVufDB8fHx8MTc1MzEyNzg5NXww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "children playing"
   }
 ];

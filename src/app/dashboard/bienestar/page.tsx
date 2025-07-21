@@ -41,7 +41,7 @@ const importantEvents: EventHighlightProps[] = [
     title: "Día de la Independencia",
     date: "5 de Julio",
     description: "Conmemoramos un hito histórico de nuestra nación. Habrá actividades especiales y sorpresas en la oficina.",
-    imageUrl: "https://images.unsplash.com/photo-1621208030917-a4170d18b6e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxWZW5lenVlbGElMjBmbGFnfGVufDB8fHx8MTc1MzEyODg2Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1663699786481-f457f366e70a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2ZW5lenVlbGElMjBmbGFnfGVufDB8fHx8MTc1MzEyNzc3OHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "Venezuela flag"
   },
   {

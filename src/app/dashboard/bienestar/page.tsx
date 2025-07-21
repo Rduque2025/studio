@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit, Flag, ToyBrick } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, Flag, ToyBrick, Mail } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities } from "@/lib/placeholder-data";
@@ -113,53 +113,35 @@ export default function BienestarPage() {
         </div>
       </SectionWrapper>
       
-       {/* Get Started Today Section */}
-      <div id="empezar" className="scroll-mt-20">
+       {/* Subscription Section */}
+       <div id="empezar" className="scroll-mt-20">
         <SectionWrapper
           className="bg-muted/50"
-          title="Empieza hoy."
-          description="Descubre nuestro marco de bienestar para tu crecimiento."
+          title="Mantente al Día"
+          description="Suscríbete para recibir notificaciones sobre novedades, eventos y más directamente en tu correo."
           titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
           descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
         >
-          <div className="grid lg:grid-cols-2 gap-16 mt-16 items-start">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-              <div className="space-y-2">
-                <h4 className="text-lg font-bold">Bienestar Físico</h4>
-                <p className="text-muted-foreground text-sm">Actividades y recursos para mantener tu cuerpo activo y saludable.</p>
-              </div>
-               <div className="space-y-2">
-                <h4 className="text-lg font-bold">Bienestar Mental</h4>
-                <p className="text-muted-foreground text-sm">Herramientas para gestionar el estrés y fomentar una mentalidad positiva.</p>
-              </div>
-               <div className="space-y-2">
-                <h4 className="text-lg font-bold">Crecimiento Profesional</h4>
-                <p className="text-muted-foreground text-sm">Cursos y talleres para desarrollar nuevas habilidades y avanzar en tu carrera.</p>
-              </div>
-               <div className="space-y-2">
-                <h4 className="text-lg font-bold">Conexión Social</h4>
-                <p className="text-muted-foreground text-sm">Eventos y grupos para construir relaciones significativas con tus compañeros.</p>
-              </div>
-            </div>
-            <Card className="p-8">
+            <Card className="mt-16 max-w-2xl mx-auto p-8 shadow-lg">
               <CardHeader className="text-center p-0">
-                <BrainCircuit className="h-10 w-10 text-primary mx-auto mb-4" />
-                <CardTitle className="font-bold text-2xl">Únete a la comunidad</CardTitle>
+                <Mail className="h-10 w-10 text-primary mx-auto mb-4" />
+                <CardTitle className="font-bold text-2xl">Únete a nuestra comunidad</CardTitle>
                 <CardDescription className="text-sm">Recibe notificaciones sobre nuevas actividades y recursos de bienestar.</CardDescription>
               </CardHeader>
               <CardContent className="p-0 mt-6 space-y-4">
-                <Input placeholder="Nombre" />
-                <Input type="email" placeholder="Correo electrónico" />
-                <div className="flex items-center space-x-2">
-                    <Checkbox id="terms" />
-                    <Label htmlFor="terms" className="text-xs text-muted-foreground">Acepto los términos de servicio y la política de privacidad.</Label>
+                <div className="flex flex-col sm:flex-row gap-2">
+                    <Input type="email" placeholder="Tu correo electrónico" className="flex-grow" />
+                    <Button className="w-full sm:w-auto bg-foreground hover:bg-foreground/90 text-background" size="lg">Suscribirse</Button>
                 </div>
-                 <Button className="w-full bg-foreground hover:bg-foreground/90 text-background" size="lg">Comenzar</Button>
+                <div className="flex items-center space-x-2 pt-2">
+                    <Checkbox id="terms-sub" />
+                    <Label htmlFor="terms-sub" className="text-xs text-muted-foreground">Acepto los términos de servicio y la política de privacidad.</Label>
+                </div>
               </CardContent>
             </Card>
-          </div>
         </SectionWrapper>
       </div>
+
 
       {/* Content Section */}
       <div id="explorar" className="scroll-mt-20">

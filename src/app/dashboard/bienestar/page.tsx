@@ -42,7 +42,7 @@ export default function BienestarPage() {
       {/* Hero Section */}
       <section className="relative h-[500px] md:h-[600px] w-full flex items-center justify-center text-center px-4">
         <Image
-          src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMG5hdHVyZXxlbnwwfHx8fDE3NTI3ODk0ODF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+          src="https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwYWlzYWplfGVufDB8fHx8MTc1MzEyNzUyOHww&ixlib=rb-4.1.0&q=80&w=1080"
           alt="Paisaje natural inspirador"
           layout="fill"
           objectFit="cover"

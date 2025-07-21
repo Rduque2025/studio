@@ -51,7 +51,7 @@ export default function BienestarPage() {
         />
         <div className="relative z-10 text-white max-w-4xl mx-auto">
            <h2 className="text-xl md:text-2xl font-light">Bienvenido a tu</h2>
-          <h1 className="text-5xl md:text-8xl font-black tracking-tighter">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight">
             Espacio de Bienestar.
           </h1>
           <p className="mt-4 text-base md:text-lg text-white/90 max-w-xl mx-auto">
@@ -76,7 +76,7 @@ export default function BienestarPage() {
       <SectionWrapper
         title="Comienza tu viaje."
         description="Aporta tus talentos, tu energía, tus frustraciones y tus retos, y convirtámoslos en algo increíble."
-        titleClassName="text-4xl md:text-5xl font-black tracking-tighter"
+        titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
         descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
       >
         <div className="grid md:grid-cols-3 gap-12 mt-16">
@@ -103,7 +103,7 @@ export default function BienestarPage() {
           className="bg-muted/50"
           title="Empieza hoy."
           description="Descubre nuestro marco de bienestar para tu crecimiento."
-          titleClassName="text-4xl md:text-5xl font-black tracking-tighter"
+          titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
           descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
         >
           <div className="grid lg:grid-cols-2 gap-16 mt-16 items-start">
@@ -150,7 +150,7 @@ export default function BienestarPage() {
         <SectionWrapper
           title="Explora nuestros programas"
           description="Descubre todas las actividades y cursos que hemos preparado para ti."
-          titleClassName="text-4xl md:text-5xl font-black tracking-tighter"
+          titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
           descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
         >
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-12">

@@ -78,29 +78,14 @@ const menuItems = [
 // --- AUTHENTICATION COMPONENT ---
 const CORRECT_COMBINATION = [12, 34, 56];
 
-const PinTumber = ({ value, onValueChange }: { value: number; onValueChange: (newValue: number) => void }) => {
-  const increment = () => onValueChange((value + 1) % 100);
-  const decrement = () => onValueChange((value - 1 + 100) % 100);
-
+const PinTumber = ({ value }: { value: number }) => {
   const formatNumber = (num: number) => num.toString().padStart(2, '0');
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <Button variant="ghost" size="icon" onClick={increment} className="h-8 w-8 text-muted-foreground hover:text-foreground">
-        <ChevronUp className="h-5 w-5" />
-      </Button>
-      <div className="h-24 w-20 bg-neutral-800 rounded-lg flex flex-col items-center justify-center text-white relative overflow-hidden shadow-inner">
-        <div className="absolute transition-transform duration-200 ease-in-out" style={{ transform: `translateY(0)` }}>
-            <div className="h-24 flex flex-col items-center justify-center">
-                <span className="text-xl font-mono text-white/30">{formatNumber((value - 1 + 100) % 100)}</span>
-                <span className="text-3xl font-bold font-mono text-white my-2">{formatNumber(value)}</span>
-                <span className="text-xl font-mono text-white/30">{formatNumber((value + 1) % 100)}</span>
-            </div>
-        </div>
-      </div>
-      <Button variant="ghost" size="icon" onClick={decrement} className="h-8 w-8 text-muted-foreground hover:text-foreground">
-        <ChevronDown className="h-5 w-5" />
-      </Button>
+    <div className="relative w-28 h-20 rounded-2xl bg-[#333] shadow-lg flex items-center justify-center overflow-hidden">
+        <span className="font-mono text-2xl text-white/40 absolute left-4">{formatNumber((value - 1 + 100) % 100)}</span>
+        <span className="font-mono text-4xl font-bold text-white z-10">{formatNumber(value)}</span>
+        <span className="font-mono text-2xl text-white/40 absolute right-4">{formatNumber((value + 1) % 100)}</span>
     </div>
   );
 };
@@ -108,12 +93,12 @@ const PinTumber = ({ value, onValueChange }: { value: number; onValueChange: (ne
 // --- MAIN COMPONENT ---
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [combination, setCombination] = useState([15, 16, 17]);
+  const [combination, setCombination] = useState([12, 34, 56]);
   const [error, setError] = useState('');
 
-  const handleCombinationChange = (index: number, newValue: number) => {
+  const handleCombinationChange = (index: number, delta: number) => {
     const newCombination = [...combination];
-    newCombination[index] = newValue;
+    newCombination[index] = (newCombination[index] + delta + 100) % 100;
     setCombination(newCombination);
     setError('');
   };
@@ -140,31 +125,31 @@ export default function GerenciaComercialDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-muted">
-        <Card className="w-full max-w-md p-8 text-center shadow-2xl rounded-2xl bg-card">
-          <div className="mb-6">
-             <Lock className="mx-auto h-8 w-8 text-primary" />
-             <CardTitle className="mt-4">Acceso Restringido</CardTitle>
-             <CardDescription className="mt-2 text-muted-foreground">Introduzca la combinación para continuar</CardDescription>
-          </div>
-          
-          <div className={cn(
-            "flex justify-center gap-4 transition-all",
-            error && "animate-shake"
+      <div className="flex flex-col items-center justify-center min-h-screen bg-muted">
+        <div className={cn(
+            "flex justify-center items-center gap-1 transition-all p-2 bg-[#2a2a2a] rounded-3xl shadow-2xl",
+            error ? "animate-shake" : ""
           )}>
-            {combination.map((value, index) => (
-              <PinTumber key={index} value={value} onValueChange={(newValue) => handleCombinationChange(index, newValue)} />
-            ))}
-          </div>
+          {combination.map((value, index) => (
+            <div key={index} className="flex flex-col items-center gap-2">
+               <Button variant="ghost" size="icon" onClick={() => handleCombinationChange(index, 1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                    <ChevronUp className="h-5 w-5" />
+                </Button>
+                <PinTumber value={value} />
+                <Button variant="ghost" size="icon" onClick={() => handleCombinationChange(index, -1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                    <ChevronDown className="h-5 w-5" />
+                </Button>
+            </div>
+          ))}
+        </div>
+        
+        <div className="h-6 mt-6">
+            {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+        </div>
 
-          <div className="h-6 mt-6">
-             {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-          </div>
-
-          <Button size="lg" className="w-full mt-4" onClick={checkCombination}>
+        <Button size="lg" className="w-48 mt-4" onClick={checkCombination}>
             Desbloquear
-          </Button>
-        </Card>
+        </Button>
       </div>
     );
   }

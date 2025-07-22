@@ -147,7 +147,7 @@ const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }
         </div>
       </div>
       <Image
-        src="https://placehold.co/200x200.png"
+        src="https://images.unsplash.com/photo-1518365050014-70fe7232897f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjb2hldGV8ZW58MHx8fHwxNzUzMTk5MDg5fDA&ixlib=rb-4.1.0&q=80&w=1080"
         alt="Abstract 3D shape"
         width={160}
         height={160}

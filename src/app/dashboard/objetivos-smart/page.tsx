@@ -174,58 +174,51 @@ export default function ObjetivosSmartPage() {
                         </div>
                     </Card>
                 ) : (
-                    <div>
-                        <h2 className="text-2xl font-bold text-foreground mb-1">
-                            Detalle de Desafíos: {smartGoalsData[selectedCategory].title}
-                        </h2>
-                        <p className="text-muted-foreground mb-4">{smartGoalsData[selectedCategory].description}</p>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {smartGoalsData[selectedCategory].challenges.map((challenge) => (
-                                <Card key={challenge.id} className="bg-card shadow-sm border-none flex flex-col">
-                                    <CardHeader>
-                                        <div className="flex justify-between items-start">
-                                            <div className="p-2.5 bg-muted rounded-md flex-shrink-0 shadow-sm border">
-                                                <challenge.icon className="h-5 w-5 text-primary" />
-                                            </div>
-                                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                                                <MoreVertical className="h-4 w-4" />
-                                            </Button>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {smartGoalsData[selectedCategory].challenges.map((challenge) => (
+                            <Card key={challenge.id} className="bg-card shadow-sm border-none flex flex-col">
+                                <CardHeader>
+                                    <div className="flex justify-between items-start">
+                                        <div className="p-2.5 bg-muted rounded-md flex-shrink-0 shadow-sm border">
+                                            <challenge.icon className="h-5 w-5 text-primary" />
                                         </div>
-                                        <CardTitle className="text-base font-semibold pt-2">{challenge.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex-grow">
-                                        <p className="text-xs text-muted-foreground">{challenge.description}</p>
-                                    </CardContent>
-                                    <CardFooter className="flex flex-col items-start gap-3">
-                                        <div className="w-full">
-                                            <div className="flex justify-between items-center mb-1">
-                                                <span className={cn(
-                                                    "text-xs font-medium",
-                                                    challenge.status === 'En riesgo' && 'text-destructive',
-                                                    challenge.status === 'Completado' && 'text-green-600',
-                                                    challenge.status === 'Normal' && 'text-primary'
-                                                )}>{challenge.status}</span>
-                                                <span className="text-xs text-muted-foreground">{challenge.progress}%</span>
-                                            </div>
-                                            <Progress 
-                                                value={challenge.progress} 
-                                                indicatorClassName={cn(
-                                                    challenge.status === 'En riesgo' && 'bg-destructive',
-                                                    challenge.status === 'Completado' && 'bg-green-600'
-                                                )}
-                                            />
+                                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                                            <MoreVertical className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                    <CardTitle className="text-base font-semibold pt-2">{challenge.title}</CardTitle>
+                                </CardHeader>
+                                <CardContent className="flex-grow">
+                                    <p className="text-xs text-muted-foreground">{challenge.description}</p>
+                                </CardContent>
+                                <CardFooter className="flex flex-col items-start gap-3">
+                                    <div className="w-full">
+                                        <div className="flex justify-between items-center mb-1">
+                                            <span className={cn(
+                                                "text-xs font-medium",
+                                                challenge.status === 'En riesgo' && 'text-destructive',
+                                                challenge.status === 'Completado' && 'text-green-600',
+                                                challenge.status === 'Normal' && 'text-primary'
+                                            )}>{challenge.status}</span>
+                                            <span className="text-xs text-muted-foreground">{challenge.progress}%</span>
                                         </div>
-                                        <div className="flex justify-between w-full items-center">
-                                          <p className="text-xs font-medium text-foreground">{challenge.value}</p>
-                                          <Button variant="link" size="sm" className="p-0 h-auto text-xs">
-                                              Ver detalles
-                                          </Button>
-                                        </div>
-                                    </CardFooter>
-                                </Card>
-                            ))}
-                        </div>
+                                        <Progress 
+                                            value={challenge.progress} 
+                                            indicatorClassName={cn(
+                                                challenge.status === 'En riesgo' && 'bg-destructive',
+                                                challenge.status === 'Completado' && 'bg-green-600'
+                                            )}
+                                        />
+                                    </div>
+                                    <div className="flex justify-between w-full items-center">
+                                        <p className="text-xs font-medium text-foreground">{challenge.value}</p>
+                                        <Button variant="link" size="sm" className="p-0 h-auto text-xs">
+                                            Ver detalles
+                                        </Button>
+                                    </div>
+                                </CardFooter>
+                            </Card>
+                        ))}
                     </div>
                 )}
               </div>

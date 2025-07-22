@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { 
   ArrowLeft, 
@@ -147,26 +146,26 @@ export default function ObjetivosSmartPage() {
                       key={key}
                       onClick={() => handleTabClick(key)}
                       className={cn(
-                        "group rounded-xl p-4 text-left transition-all duration-200",
+                        "group rounded-xl p-4 text-left transition-all duration-200 border-2 border-transparent",
                         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                        activeTab === key ? "bg-primary/10" : "bg-muted/50 hover:bg-muted"
+                        activeTab === key ? "ring-2 ring-primary bg-muted/50" : "bg-muted/30 hover:bg-muted/60"
                       )}
                     >
-                      <div className="flex justify-between items-start">
+                      <div className="flex justify-between items-start mb-4">
                         <div className={cn(
-                          "p-2 rounded-lg bg-background group-hover:bg-white transition-colors",
-                           activeTab === key && "bg-primary text-primary-foreground"
+                          "p-2 rounded-lg transition-colors",
+                           activeTab === key ? "bg-primary text-primary-foreground" : "bg-background group-hover:bg-muted"
                         )}>
-                           <goal.icon className={cn("h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors", activeTab === key && "text-primary-foreground")} />
+                           <goal.icon className={cn("h-5 w-5 transition-colors", activeTab === key ? "text-primary-foreground" : "text-muted-foreground group-hover:text-primary")} />
                         </div>
                         <span className={cn(
-                          "text-xs font-medium px-2 py-1 rounded-full",
+                          "text-xs font-medium px-2 py-0.5 rounded-full",
                            activeTab === key ? "bg-primary text-primary-foreground" : "bg-background"
                         )}>
                           {goal.challenges.length}
                         </span>
                       </div>
-                      <div className="mt-4">
+                      <div className="space-y-1">
                         <p className="font-semibold text-sm text-foreground">{goal.title}</p>
                         <p className="text-xs text-muted-foreground">{goal.letter}</p>
                       </div>

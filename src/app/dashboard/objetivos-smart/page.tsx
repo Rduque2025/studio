@@ -187,7 +187,7 @@ export default function ObjetivosSmartPage() {
                             </div>
                         </CardContent>
                         <CardFooter className="p-0">
-                           <div className="w-full relative h-20 flex items-center justify-center">
+                           <div className="w-full relative h-28 flex items-center justify-center">
                                 <svg className="w-full h-auto" viewBox="0 0 120 70">
                                     <circle
                                         className="stroke-muted"
@@ -308,3 +308,4 @@ export default function ObjetivosSmartPage() {
 }
 
     
+

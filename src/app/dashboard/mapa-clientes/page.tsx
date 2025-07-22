@@ -65,26 +65,31 @@ const statsData = [
 
 // --- Animation Hook ---
 const useAnimatedNumber = (end: number, duration = 2000) => {
-  const [count, setCount] = useState(0);
+  const startValue = Math.floor(end / 2); // Start from 50% of the final value
+  const [count, setCount] = useState(startValue);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          let start = 0;
+          let start = startValue;
           const endValue = end;
-          if (start === endValue) return;
+          if (start === endValue) {
+            setCount(endValue); // Ensure final value is set if it's already there
+            return;
+          }
 
+          const range = endValue - start;
           const totalFrames = Math.round(duration / (1000 / 60));
-          const increment = endValue / totalFrames;
+          const increment = range / totalFrames;
           
           let currentFrame = 0;
           const timer = setInterval(() => {
             currentFrame++;
             start += increment;
             setCount(Math.floor(start));
-            if (currentFrame === totalFrames) {
+            if (currentFrame >= totalFrames) {
               setCount(endValue);
               clearInterval(timer);
             }
@@ -95,16 +100,17 @@ const useAnimatedNumber = (end: number, duration = 2000) => {
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
-  }, [end, duration]);
+  }, [end, duration, startValue]);
 
   return { count, ref };
 };
@@ -328,5 +334,7 @@ export default function NosotrosPage() {
       </div>
     </div>
   );
+
+    
 
     

@@ -86,11 +86,15 @@ const PinTumber = ({ value, isFocused, onClick }: { value: number; isFocused: bo
       onClick={onClick}
       className={cn(
         "relative w-28 h-20 rounded-2xl bg-[#333] shadow-lg flex items-center justify-center overflow-hidden transition-all duration-200 outline-none",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-muted",
-        isFocused && "ring-2 ring-primary ring-offset-2"
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-muted"
       )}
     >
-      <span className="font-mono text-4xl font-bold text-white z-10">{formatNumber(value)}</span>
+      <span className={cn(
+        "font-mono text-4xl font-bold z-10 transition-all duration-300",
+        isFocused ? "scale-110 text-white" : "scale-90 text-white/50"
+      )}>
+        {formatNumber(value)}
+      </span>
     </button>
   );
 };
@@ -435,5 +439,6 @@ export default function GerenciaComercialDashboard() {
     
 
     
+
 
 

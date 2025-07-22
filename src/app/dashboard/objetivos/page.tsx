@@ -142,9 +142,9 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
                     "left-[calc(100%-3.25rem)]": isToggled || status === 'error',
                 }
             )}>
-                {status === 'idle' && <Lock className="h-6 w-6 text-gray-400" />}
-                {status === 'success' && <Check className="h-6 w-6 text-green-500" />}
-                {status === 'error' && <XIcon className="h-6 w-6 text-red-500" />}
+                {status === 'idle' && <Lock className="h-5 w-5 text-gray-400" />}
+                {status === 'success' && <Check className="h-5 w-5 text-green-500" />}
+                {status === 'error' && <XIcon className="h-5 w-5 text-red-500" />}
             </div>
         </button>
     );
@@ -502,3 +502,4 @@ export default function GerenciaComercialDashboard() {
 
 
     
+

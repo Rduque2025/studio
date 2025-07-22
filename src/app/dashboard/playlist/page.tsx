@@ -10,9 +10,11 @@ export default function PlaylistPage() {
   return (
     <div className="container mx-auto py-8 px-4">
       <div className="mb-8">
-        <Button asChild variant="outline">
-          <Link href="/dashboard">
-            <ArrowLeft className="mr-2 h-4 w-4" />
+        <Button asChild variant="link" className="text-foreground hover:no-underline p-0 h-auto">
+          <Link href="/dashboard" className="flex items-center gap-2 group">
+             <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
+              <ArrowLeft className="h-4 w-4" />
+            </span>
             Volver al Inicio
           </Link>
         </Button>

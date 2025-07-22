@@ -135,7 +135,7 @@ const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive 
           ? "bg-primary text-primary-foreground shadow-xl scale-105" 
-          : "bg-card shadow-md hover:shadow-lg hover:scale-105"
+          : "bg-muted shadow-md hover:shadow-lg hover:scale-105"
       )}
     >
       <div className="relative z-10 flex flex-col h-full">

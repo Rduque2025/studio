@@ -92,8 +92,8 @@ const smartGoalsData = {
     title: "Temporal",
     icon: Timer,
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    imageUrl: "https://images.unsplash.com/photo-1506193095-80bc749473f2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3YXRjaHxlbnwwfHx8fDE3NTMyMDE3MDR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "watch",
+    imageUrl: "https://images.unsplash.com/photo-1617882494853-1398971c349e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhbGFybWF8ZW58MHx8fHwxNzUzMjAxODA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "alarm",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },

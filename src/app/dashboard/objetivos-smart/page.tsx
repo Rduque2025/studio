@@ -157,29 +157,16 @@ export default function ObjetivosSmartPage() {
               
               <div className="lg:col-span-2">
                 {!selectedCategory ? (
-                    <Card className="shadow-sm border-none bg-card p-6 flex flex-col justify-between h-full">
-                        <div>
-                            <CardHeader className="p-0">
-                            </CardHeader>
-                            <CardContent className="p-0 mt-4">
-                                <p className="text-4xl font-bold text-primary">+42% Crecimiento</p>
-                                <p className="text-sm text-muted-foreground">vs. año anterior</p>
-                            </CardContent>
-                        </div>
-                        <div className="h-48 -ml-6 -mr-2 -mb-6">
+                    <Card className="shadow-sm border-none bg-card flex flex-col justify-between h-full">
+                        <div className="h-96 w-full p-4">
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={progressData}>
+                                <AreaChart data={progressData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
                                     <defs>
-                                        <linearGradient id="colorLogrado" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                                        </linearGradient>
                                         <linearGradient id="colorProyectado" x1="0" y1="0" x2="0" y2="1">
                                             <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
                                             <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                                         </linearGradient>
                                     </defs>
-                                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={false} />
                                     <Tooltip
                                         contentStyle={{
                                             backgroundColor: 'hsl(var(--background))',
@@ -195,8 +182,8 @@ export default function ObjetivosSmartPage() {
                                         }}
                                         itemSorter={(item) => item.name === 'logrado' ? -1 : 1}
                                     />
-                                    <Area type="monotone" dataKey="proyectado" strokeWidth={0} fill="url(#colorProyectado)" />
-                                    <Area type="monotone" dataKey="logrado" strokeWidth={0} fill="url(#colorLogrado)" />
+                                    <Area type="monotone" dataKey="proyectado" strokeWidth={2} stroke="hsl(var(--primary))" fillOpacity={0.4} fill="url(#colorProyectado)" />
+                                    <Area type="monotone" dataKey="logrado" strokeWidth={2} stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>

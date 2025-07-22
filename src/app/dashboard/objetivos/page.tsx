@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -25,9 +25,10 @@ import {
   Users,
   Package,
   FolderKanban,
-  Delete,
+  ChevronUp,
+  ChevronDown,
   Lock,
-  ChevronLeft,
+  ChevronLeft as ChevronLeftIcon,
   MoreHorizontal
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -74,103 +75,95 @@ const menuItems = [
   { name: 'Proyectos', icon: FolderKanban, href: '#' },
 ];
 
-// --- COMPONENT ---
+// --- AUTHENTICATION COMPONENT ---
+const CORRECT_COMBINATION = [12, 34, 56];
+
+const PinTumber = ({ value, onValueChange }: { value: number; onValueChange: (newValue: number) => void }) => {
+  const increment = () => onValueChange((value + 1) % 100);
+  const decrement = () => onValueChange((value - 1 + 100) % 100);
+
+  const formatNumber = (num: number) => num.toString().padStart(2, '0');
+
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <Button variant="ghost" size="icon" onClick={increment} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+        <ChevronUp className="h-5 w-5" />
+      </Button>
+      <div className="h-24 w-20 bg-neutral-800 rounded-lg flex flex-col items-center justify-center text-white relative overflow-hidden shadow-inner">
+        <div className="absolute transition-transform duration-200 ease-in-out" style={{ transform: `translateY(0)` }}>
+            <div className="h-24 flex flex-col items-center justify-center">
+                <span className="text-xl font-mono text-white/30">{formatNumber((value - 1 + 100) % 100)}</span>
+                <span className="text-3xl font-bold font-mono text-white my-2">{formatNumber(value)}</span>
+                <span className="text-xl font-mono text-white/30">{formatNumber((value + 1) % 100)}</span>
+            </div>
+        </div>
+      </div>
+      <Button variant="ghost" size="icon" onClick={decrement} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+        <ChevronDown className="h-5 w-5" />
+      </Button>
+    </div>
+  );
+};
+
+// --- MAIN COMPONENT ---
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pin, setPin] = useState('');
+  const [combination, setCombination] = useState([15, 16, 17]);
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState('General');
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
-  const PIN_LENGTH = 4;
-  const CORRECT_PIN = '1234';
-
-  const handlePinInput = (digit: string) => {
-    if (pin.length < PIN_LENGTH) {
-      setPin(pin + digit);
-      setError('');
-    }
-  };
-
-  const handleBackspace = () => {
-    setPin(pin.slice(0, -1));
+  const handleCombinationChange = (index: number, newValue: number) => {
+    const newCombination = [...combination];
+    newCombination[index] = newValue;
+    setCombination(newCombination);
     setError('');
   };
 
+  const checkCombination = useCallback(() => {
+    if (JSON.stringify(combination) === JSON.stringify(CORRECT_COMBINATION)) {
+      setIsAuthenticated(true);
+      setError('');
+    } else {
+      setError('Combinación incorrecta');
+    }
+  }, [combination]);
+
   useEffect(() => {
     if (error) {
-      const timer = setTimeout(() => {
-        setError('');
-        setPin('');
-      }, 1000);
+      const timer = setTimeout(() => setError(''), 1500);
       return () => clearTimeout(timer);
     }
   }, [error]);
+  
+  const [activeTab, setActiveTab] = useState('General');
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
 
-  useEffect(() => {
-    if (pin.length === PIN_LENGTH) {
-      if (pin === CORRECT_PIN) {
-        setIsAuthenticated(true);
-        setError('');
-      } else {
-        setError('PIN incorrecto');
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pin]);
 
   if (!isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-muted">
-        <Card className="w-full max-w-xs p-8 text-center shadow-lg rounded-2xl">
-          <div className="mb-8">
+        <Card className="w-full max-w-md p-8 text-center shadow-2xl rounded-2xl bg-card">
+          <div className="mb-6">
              <Lock className="mx-auto h-8 w-8 text-primary" />
+             <CardTitle className="mt-4">Acceso Restringido</CardTitle>
+             <CardDescription className="mt-2 text-muted-foreground">Introduzca la combinación para continuar</CardDescription>
           </div>
-          <div className="flex justify-center gap-4 mb-10">
-            {[...Array(PIN_LENGTH)].map((_, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "h-4 w-4 rounded-full border transition-colors duration-300",
-                  error 
-                    ? "bg-destructive/20 border-destructive" 
-                    : pin.length > i 
-                    ? "bg-primary border-primary" 
-                    : "border-muted-foreground/30 bg-transparent"
-                )}
-              />
+          
+          <div className={cn(
+            "flex justify-center gap-4 transition-all",
+            error && "animate-shake"
+          )}>
+            {combination.map((value, index) => (
+              <PinTumber key={index} value={value} onValueChange={(newValue) => handleCombinationChange(index, newValue)} />
             ))}
           </div>
-          <div className="grid grid-cols-3 gap-4">
-            {[...'123456789'].map((num) => (
-              <Button
-                key={num}
-                variant="ghost"
-                className="text-2xl font-light h-16 w-16 rounded-full"
-                onClick={() => handlePinInput(num)}
-              >
-                {num}
-              </Button>
-            ))}
-            <div />
-            <Button
-              variant="ghost"
-              className="text-2xl font-light h-16 w-16 rounded-full"
-              onClick={() => handlePinInput('0')}
-            >
-              0
-            </Button>
-            <Button
-              variant="ghost"
-              className="text-2xl h-16 w-16 rounded-full flex items-center justify-center"
-              onClick={handleBackspace}
-            >
-              <Delete className="h-6 w-6" />
-            </Button>
-          </div>
-           <div className="h-6 mt-4">
+
+          <div className="h-6 mt-6">
              {error && <p className="text-sm font-medium text-destructive">{error}</p>}
           </div>
+
+          <Button size="lg" className="w-full mt-4" onClick={checkCombination}>
+            Desbloquear
+          </Button>
         </Card>
       </div>
     );
@@ -190,7 +183,7 @@ export default function GerenciaComercialDashboard() {
                 className="rounded-full h-6 w-6 bg-card hover:bg-muted"
                 onClick={() => setIsSidebarExpanded(!isSidebarExpanded)}
               >
-                <ChevronLeft className={cn("h-4 w-4 transition-transform", !isSidebarExpanded && "rotate-180")} />
+                <ChevronLeftIcon className={cn("h-4 w-4 transition-transform", !isSidebarExpanded && "rotate-180")} />
               </Button>
             </div>
             

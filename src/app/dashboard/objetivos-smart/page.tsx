@@ -92,7 +92,7 @@ const smartGoalsData = {
     title: "Temporal",
     icon: Timer,
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    imageUrl: "https://images.unsplash.com/photo-1617882494853-1398971c349e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxhbGFybWF8ZW58MHx8fHwxNzUzMjAxODA0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjbG9ja3xlbnwwfHx8fDE3NTMyMDEyMjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "alarm",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
@@ -198,12 +198,12 @@ export default function ObjetivosSmartPage() {
             <div className="min-h-screen flex items-center">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
-                        <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
-                        <p className="text-muted-foreground text-base leading-relaxed">
+                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
+                        <p className="text-muted-foreground text-lg leading-relaxed">
                             Los objetivos SMART son una herramienta estratégica que transforma las aspiraciones de una empresa en metas tangibles y funcionales. Al ser Específicos, Medibles, Alcanzables, Relevantes y con un plazo Temporal, proporcionan una claridad absoluta y un enfoque preciso. Esta metodología facilita el seguimiento riguroso del progreso y asegura que cada esfuerzo esté perfectamente alineado con la visión global de la compañía. De este modo, se garantiza que los recursos se utilicen eficientemente para impulsar el éxito corporativo.
                         </p>
                     </div>
-                     <div className="relative rounded-2xl overflow-hidden shadow-lg h-80 md:h-96">
+                     <div className="relative rounded-2xl overflow-hidden shadow-lg h-80 md:h-[500px]">
                         <Image
                             src="https://images.unsplash.com/photo-1516850228053-a807778c4e0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxN3x8Y29oZXRlfGVufDB8fHx8MTc1MzE5OTA4OXww&ixlib=rb-4.1.0&q=80&w=1080"
                             alt="Equipo trabajando en objetivos"

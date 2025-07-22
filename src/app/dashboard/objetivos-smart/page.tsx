@@ -145,10 +145,6 @@ export default function ObjetivosSmartPage() {
                         <p className="text-sm text-muted-foreground">
                             Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025.
                         </p>
-                         <div className="mt-2 flex items-center gap-2">
-                            <Button variant="outline" size="sm">Exportar</Button>
-                            <Button size="sm">Nuevo Desafío</Button>
-                        </div>
                     </div>
                 </Card>
             </div>

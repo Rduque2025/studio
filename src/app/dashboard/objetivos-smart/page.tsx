@@ -67,8 +67,8 @@ const smartGoalsData = {
     title: "Alcanzable",
     icon: Goal,
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
-    imageUrl: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract shape",
+    imageUrl: "https://images.unsplash.com/photo-1588680152893-a4b533646c6e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdGFpcnxlbnwwfHx8fDE3NTMyMDA2OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "stairs",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },

@@ -95,8 +95,16 @@ const smartGoalsData = {
 type SmartKey = keyof typeof smartGoalsData;
 
 export default function ObjetivosSmartPage() {
-    const [activeTab, setActiveTab] = useState<SmartKey>('S');
-    const activeGoal = smartGoalsData[activeTab];
+    const [activeTab, setActiveTab] = useState<SmartKey | null>(null);
+    const activeGoal = activeTab ? smartGoalsData[activeTab] : null;
+
+    const handleTabClick = (key: SmartKey) => {
+      if (activeTab === key) {
+        setActiveTab(null); // Deselect if the same tab is clicked again
+      } else {
+        setActiveTab(key);
+      }
+    };
 
     return (
         <div className="container mx-auto py-8 md:py-16 px-4 space-y-8">
@@ -138,7 +146,7 @@ export default function ObjetivosSmartPage() {
                     return (
                       <button
                         key={key}
-                        onClick={() => setActiveTab(key)}
+                        onClick={() => handleTabClick(key)}
                         className={cn(
                           "group rounded-xl p-4 text-left transition-all duration-200",
                           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
@@ -168,28 +176,30 @@ export default function ObjetivosSmartPage() {
                   })}
                 </div>
 
-                <div className="space-y-4 pt-4">
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground">
-                      <span className="text-primary">{activeGoal.letter}</span> — {activeGoal.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">{activeGoal.description}</p>
+                {activeGoal && (
+                  <div className="space-y-4 pt-4">
+                    <div>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        <span className="text-primary">{activeGoal.letter}</span> — {activeGoal.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">{activeGoal.description}</p>
+                    </div>
+                    
+                    <div className="space-y-3 pt-2">
+                        {activeGoal.challenges.map((challenge, index) => (
+                            <div key={index} className="flex items-start gap-4 p-3 bg-muted/30 rounded-lg">
+                                <div className="p-2.5 bg-background rounded-md flex-shrink-0 mt-1 shadow-sm border">
+                                    <challenge.icon className="h-4 w-4 text-primary" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-medium leading-tight text-foreground">{challenge.title}</p>
+                                    <p className="text-xs text-muted-foreground mt-1">{challenge.description}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                   </div>
-                  
-                  <div className="space-y-3 pt-2">
-                      {activeGoal.challenges.map((challenge, index) => (
-                          <div key={index} className="flex items-start gap-4 p-3 bg-muted/30 rounded-lg">
-                              <div className="p-2.5 bg-background rounded-md flex-shrink-0 mt-1 shadow-sm border">
-                                  <challenge.icon className="h-4 w-4 text-primary" />
-                              </div>
-                              <div>
-                                  <p className="text-sm font-medium leading-tight text-foreground">{challenge.title}</p>
-                                  <p className="text-xs text-muted-foreground mt-1">{challenge.description}</p>
-                              </div>
-                          </div>
-                      ))}
-                  </div>
-                </div>
+                )}
               </CardContent>
             </Card>
         </div>

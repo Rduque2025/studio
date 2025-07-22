@@ -92,7 +92,7 @@ const smartGoalsData = {
     title: "Temporal",
     icon: Timer,
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    imageUrl: "https://images.unsplash.com/photo-1575203091586-611fe505bb0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMnx8Y2xvY2t8ZW58MHx8fHwxNzUzMjAxMjI1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1541480601022-2308c0f02487?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjbG9ja3xlbnwwfHx8fDE3NTMyMDEyMjV8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "abstract clock",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },

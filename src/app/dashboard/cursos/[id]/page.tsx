@@ -32,7 +32,7 @@ export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
               <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
               </span>
-              Volver al inicio
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al inicio</span>
             </Link>
           </Button>
         </SectionWrapper>
@@ -47,7 +47,7 @@ export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
            <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
             <ArrowLeft className="h-4 w-4" />
           </span>
-          Volver a Cursos
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Cursos</span>
         </Link>
       </Button>
       <Card className="overflow-hidden">

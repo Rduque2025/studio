@@ -33,7 +33,7 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
               </span>
-              Volver al portal
+              <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al portal</span>
             </Link>
           </Button>
         </SectionWrapper>
@@ -48,7 +48,7 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
           <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
             <ArrowLeft className="h-4 w-4" />
           </span>
-          Volver al portal
+          <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al portal</span>
         </Link>
       </Button>
       <SectionWrapper 

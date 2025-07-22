@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { 
   ArrowLeft, 
@@ -106,7 +106,7 @@ export default function ObjetivosSmartPage() {
                        <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
                         <ArrowLeft className="h-4 w-4" />
                       </span>
-                      Volver a Nosotros
+                       <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Nosotros</span>
                     </Link>
                 </Button>
             </div>

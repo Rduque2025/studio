@@ -15,7 +15,7 @@ export default function PlaylistPage() {
              <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
               <ArrowLeft className="h-4 w-4" />
             </span>
-            Volver al Inicio
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al Inicio</span>
           </Link>
         </Button>
       </div>

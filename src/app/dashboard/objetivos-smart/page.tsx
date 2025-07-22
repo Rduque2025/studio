@@ -37,8 +37,8 @@ const smartGoalsData = {
     title: "Específico",
     icon: Target,
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    imageUrl: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract wave",
+    imageUrl: "https://images.unsplash.com/photo-1519709042477-8de6eaf1fdc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYXNzfGVufDB8fHx8MTc1MzIwMDYzOHww&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "compass",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },
       { icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados." },

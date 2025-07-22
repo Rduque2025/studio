@@ -90,7 +90,7 @@ const PinTumber = ({ value, isFocused, onClick }: { value: number; isFocused: bo
       )}
     >
       <span className={cn(
-        "font-mono text-4xl font-bold z-10 transition-all duration-300",
+        "font-sans text-4xl font-bold z-10 transition-all duration-300",
         isFocused ? "scale-110 text-white" : "scale-90 text-white/50"
       )}>
         {formatNumber(value)}
@@ -439,6 +439,7 @@ export default function GerenciaComercialDashboard() {
     
 
     
+
 
 
 

@@ -179,7 +179,7 @@ export default function ObjetivosSmartPage() {
                                             <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                                         </linearGradient>
                                     </defs>
-                                    <XAxis dataKey="month" axisLine={false} tickLine={false} fontSize={12} stroke="hsl(var(--muted-foreground))" />
+                                    <XAxis dataKey="month" axisLine={false} tickLine={false} tick={false} />
                                     <Tooltip
                                         contentStyle={{
                                             backgroundColor: 'hsl(var(--background))',
@@ -187,7 +187,13 @@ export default function ObjetivosSmartPage() {
                                             borderRadius: 'var(--radius)'
                                         }}
                                         labelClassName="font-bold"
-                                        formatter={(value: number, name: string) => [`${value}%`, name.charAt(0).toUpperCase() + name.slice(1)]}
+                                        formatter={(value: number, name: string) => {
+                                            if (name === 'logrado') {
+                                                return [`${value}%`, "Logrado"];
+                                            }
+                                            return null;
+                                        }}
+                                        itemSorter={(item) => item.name === 'logrado' ? -1 : 1}
                                     />
                                     <Area type="monotone" dataKey="proyectado" strokeWidth={0} fill="url(#colorProyectado)" />
                                     <Area type="monotone" dataKey="logrado" strokeWidth={0} fill="url(#colorLogrado)" />

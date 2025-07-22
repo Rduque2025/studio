@@ -83,9 +83,7 @@ const PinTumber = ({ value }: { value: number }) => {
 
   return (
     <div className="relative w-28 h-20 rounded-2xl bg-[#333] shadow-lg flex items-center justify-center overflow-hidden">
-        <span className="font-mono text-2xl text-white/40 absolute left-4">{formatNumber((value - 1 + 100) % 100)}</span>
         <span className="font-mono text-4xl font-bold text-white z-10">{formatNumber(value)}</span>
-        <span className="font-mono text-2xl text-white/40 absolute right-4">{formatNumber((value + 1) % 100)}</span>
     </div>
   );
 };
@@ -379,3 +377,4 @@ export default function GerenciaComercialDashboard() {
     
 
     
+

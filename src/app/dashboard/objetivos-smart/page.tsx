@@ -90,13 +90,19 @@ const smartGoalsData = {
   },
 };
 
-const progressChartData = [
-  { month: 'Ene', value: 10 },
-  { month: 'Feb', value: 15 },
-  { month: 'Mar', value: 25 },
-  { month: 'Abr', value: 30 },
-  { month: 'May', value: 38 },
-  { month: 'Jun', value: 42 },
+const progressData = [
+    { month: "Ene", logrado: 18, proyectado: 20 },
+    { month: "Feb", logrado: 22, proyectado: 25 },
+    { month: "Mar", logrado: 30, proyectado: 35 },
+    { month: "Abr", logrado: 35, proyectado: 40 },
+    { month: "May", logrado: 42, proyectado: 48 },
+    { month: "Jun", logrado: 50, proyectado: 55 },
+    { month: "Jul", logrado: 53, proyectado: 60 },
+    { month: "Ago", logrado: 58, proyectado: 65 },
+    { month: "Sep", logrado: 62, proyectado: 70 },
+    { month: "Oct", logrado: 68, proyectado: 75 },
+    { month: "Nov", logrado: 75, proyectado: 80 },
+    { month: "Dic", logrado: 82, proyectado: 90 },
 ];
 
 export default function ObjetivosSmartPage() {
@@ -162,22 +168,29 @@ export default function ObjetivosSmartPage() {
                         </div>
                         <div className="h-48 -ml-6 -mr-2 -mb-6">
                             <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={progressChartData}>
-                                <defs>
-                                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                                    </linearGradient>
-                                </defs>
-                                <Tooltip
-                                    contentStyle={{
-                                    backgroundColor: 'hsl(var(--background))',
-                                    border: '1px solid hsl(var(--border))'
-                                    }}
-                                    labelClassName="font-bold"
-                                    formatter={(value: number) => [`${value}%`, "Progreso"]}
-                                />
-                                <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#colorUv)" />
+                                <AreaChart data={progressData}>
+                                    <defs>
+                                        <linearGradient id="colorLogrado" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
+                                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                                        </linearGradient>
+                                        <linearGradient id="colorProyectado" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis dataKey="month" axisLine={false} tickLine={false} fontSize={12} stroke="hsl(var(--muted-foreground))" />
+                                    <Tooltip
+                                        contentStyle={{
+                                            backgroundColor: 'hsl(var(--background))',
+                                            border: '1px solid hsl(var(--border))',
+                                            borderRadius: 'var(--radius)'
+                                        }}
+                                        labelClassName="font-bold"
+                                        formatter={(value: number, name: string) => [`${value}%`, name.charAt(0).toUpperCase() + name.slice(1)]}
+                                    />
+                                    <Area type="monotone" dataKey="proyectado" strokeWidth={0} fill="url(#colorProyectado)" />
+                                    <Area type="monotone" dataKey="logrado" strokeWidth={0} fill="url(#colorLogrado)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>

@@ -120,12 +120,12 @@ export default function ObjetivosSmartPage() {
                 </div>
                  <div className="relative rounded-2xl overflow-hidden shadow-lg h-80 md:h-96">
                     <Image
-                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc1MzE5MzYyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1570050785780-3c79854c7813?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlc2NhbGVyYXxlbnwwfHx8fDE3NTMxOTcwNDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Equipo trabajando en objetivos"
                         layout="fill"
                         objectFit="cover"
                         className="brightness-90"
-                        data-ai-hint="office brainstorming"
+                        data-ai-hint="escalera"
                     />
                 </div>
             </div>

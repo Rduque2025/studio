@@ -77,19 +77,19 @@ export default function NosotrosPage() {
     {
       title: "Mercadeo",
       description: "Guía experta para optimizar el rendimiento de tus campañas.",
-      href: "/dashboard/objetivos",
+      href: "/dashboard/mercadeo",
       icon: Megaphone,
     },
     {
       title: "Suscripción",
       description: "Soluciones tecnológicas innovadoras para mejorar la eficiencia.",
-      href: "/dashboard/objetivos",
+      href: "/dashboard/suscripcion",
       icon: FileCheck2,
     },
     {
       title: "Siniestros",
       description: "Identifica, evalúa y mitiga los riesgos para proteger tus activos.",
-      href: "/dashboard/objetivos",
+      href: "/dashboard/siniestros",
       icon: ClipboardCheck,
     },
   ];

@@ -150,7 +150,7 @@ export default function ObjetivosSmartPage() {
               
               <div className="lg:col-span-2">
                 {!selectedCategory ? (
-                    <Card className="shadow-sm border-none bg-card p-6 flex flex-col justify-between min-h-[360px]">
+                    <Card className="shadow-sm border-none bg-card p-6 flex flex-col justify-between h-full">
                         <div>
                             <CardHeader className="p-0">
                                 <CardTitle>Progreso General 2025</CardTitle>

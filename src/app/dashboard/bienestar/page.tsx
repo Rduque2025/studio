@@ -5,17 +5,17 @@ import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit, Flag, ToyBrick, Mail } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities } from "@/lib/placeholder-data";
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { EventHighlightCard, type EventHighlightProps } from '@/components/dashboard/event-highlight-card';
+import type { LucideIcon } from 'lucide-react';
 
 const benefits = [
   {
@@ -36,26 +36,23 @@ const benefits = [
 ];
 
 const importantEvents: EventHighlightProps[] = [
-  {
-    icon: Flag,
-    title: "Día de la Independencia",
-    date: "5 de Julio",
-    description: "Conmemoramos un hito histórico de nuestra nación. Habrá actividades especiales y sorpresas en la oficina.",
-    imageUrl: "https://images.unsplash.com/photo-1663699786481-f457f366e70a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2ZW5lenVlbGElMjBmbGFnfGVufDB8fHx8MTc1MzEyNzc3OHww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "Venezuela flag"
-  },
-  {
-    icon: ToyBrick,
-    title: "Día del Niño",
-    date: "21 de Julio",
-    description: "Celebremos a los más pequeños de la casa. Un día lleno de alegría, juegos y actividades para las familias.",
-    imageUrl: "https://images.unsplash.com/photo-1531984929664-2fb2be468d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMnx8bmklQzMlQjFvfGVufDB8fHx8MTc1MzEyNzg5NXww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "children playing"
-  }
+    {
+      title: "Día de la Independencia",
+      date: "5 de Julio",
+      description: "Conmemoramos un hito histórico de nuestra nación. Habrá actividades especiales y sorpresas en la oficina.",
+      imageUrl: "https://images.unsplash.com/photo-1663699786481-f457f366e70a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2ZW5lenVlbGElMjBmbGFnfGVufDB8fHx8MTc1MzEyNzc3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      dataAiHint: "Venezuela flag"
+    },
+    {
+      title: "Día del Niño",
+      date: "21 de Julio",
+      description: "Celebremos a los más pequeños de la casa. Un día lleno de alegría, juegos y actividades para las familias.",
+      imageUrl: "https://images.unsplash.com/photo-1531984929664-2fb2be468d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMnx8bmklQzMlQjFvfGVufDB8fHx8MTc1MzEyNzg5NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      dataAiHint: "children playing"
+    }
 ];
 
 export default function BienestarPage() {
-  const [activeTab, setActiveTab] = useState('actividades');
 
   return (
     <div className="bg-background text-foreground">
@@ -79,7 +76,7 @@ export default function BienestarPage() {
           </p>
           <div className="mt-8 flex gap-4 justify-center">
             <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground">
-              <Link href="#explorar">
+              <Link href="#explorar-actividades">
                 Comienza tu Viaje
               </Link>
             </Button>
@@ -143,34 +140,36 @@ export default function BienestarPage() {
       </div>
 
 
-      {/* Content Section */}
-      <div id="explorar" className="scroll-mt-20">
+      {/* Activities Section */}
+      <div id="explorar-actividades" className="scroll-mt-20">
         <SectionWrapper
-          title="Explora nuestros programas"
-          description="Descubre todas las actividades y cursos que hemos preparado para ti."
+          title="Explora Nuestras Actividades"
+          description="Desde yoga hasta talleres creativos, encuentra la actividad perfecta para ti."
           titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
           descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
         >
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mt-12">
-            <TabsList className="grid w-full grid-cols-2 max-w-md mx-auto mb-10">
-              <TabsTrigger value="actividades">Actividades</TabsTrigger>
-              <TabsTrigger value="cursos">Cursos</TabsTrigger>
-            </TabsList>
-            <TabsContent value="actividades">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {mockActivities.map((activity) => (
-                  <ActivityCard key={activity.id} activity={activity} />
-                ))}
-              </div>
-            </TabsContent>
-            <TabsContent value="cursos">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {mockCourses.map((course) => (
-                  <CourseCard key={course.id} course={course} />
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockActivities.map((activity) => (
+              <ActivityCard key={activity.id} activity={activity} />
+            ))}
+          </div>
+        </SectionWrapper>
+      </div>
+
+      {/* Courses Section */}
+      <div id="explorar-cursos" className="scroll-mt-20">
+        <SectionWrapper
+          title="Desarrolla Nuevas Habilidades"
+          description="Amplía tus conocimientos con nuestros cursos de desarrollo profesional y personal."
+          className="bg-muted/50"
+          titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
+          descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
+        >
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockCourses.map((course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+          </div>
         </SectionWrapper>
       </div>
 

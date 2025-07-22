@@ -5,7 +5,6 @@ import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
 
 export interface EventHighlightProps {
-  icon: LucideIcon;
   title: string;
   date: string;
   description: string;
@@ -13,7 +12,7 @@ export interface EventHighlightProps {
   dataAiHint: string;
 }
 
-export function EventHighlightCard({ icon: Icon, title, date, description, imageUrl, dataAiHint }: EventHighlightProps) {
+export function EventHighlightCard({ title, date, description, imageUrl, dataAiHint }: EventHighlightProps) {
   return (
     <Card className="relative overflow-hidden rounded-2xl group border-none shadow-lg h-96">
       <Image

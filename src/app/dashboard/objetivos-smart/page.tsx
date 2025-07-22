@@ -37,7 +37,7 @@ const smartGoalsData = {
     title: "Específico",
     icon: Target,
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
-    imageUrl: "https://images.unsplash.com/photo-1519709042477-8de6eaf1fdc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjb21wYXNzfGVufDB8fHx8MTc1MzIwMDYzOHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1597945161640-9366e6d4253b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjb21wYXNzfGVufDB8fHx8MTc1MzIwMDYzOHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "compass",
     challenges: [
       { icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas." },

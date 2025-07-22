@@ -193,12 +193,12 @@ export default function ObjetivosSmartPage() {
                 </div>
                  <div className="relative rounded-2xl overflow-hidden shadow-lg h-80 md:h-96">
                     <Image
-                        src="https://images.unsplash.com/photo-1556009756-5a06dce4729d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlc2NhbGVyYXxlbnwwfHx8fDE3NTMxOTcwNDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1516850228053-a807778c4e0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxN3x8Y29oZXRlfGVufDB8fHx8MTc1MzE5OTA4OXww&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Equipo trabajando en objetivos"
                         layout="fill"
                         objectFit="cover"
                         className="brightness-90"
-                        data-ai-hint="escalera"
+                        data-ai-hint="cohete"
                     />
                 </div>
             </div>

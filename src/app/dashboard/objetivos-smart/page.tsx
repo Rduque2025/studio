@@ -124,7 +124,7 @@ export default function ObjetivosSmartPage() {
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Nosotros</span>
                       </Link>
                   </Button>
-                  <h1 className="text-4xl font-bold tracking-tight text-foreground">Pulso Estratégico</h1>
+                  <h1 className="text-4xl font-bold tracking-tight text-foreground">En Sintonía con Nuestros Objetivos</h1>
                   <p className="mt-2 text-muted-foreground max-w-2xl">
                     Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025.
                   </p>
@@ -263,3 +263,5 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
+
+    

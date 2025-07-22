@@ -119,7 +119,7 @@ export function Header() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full flex h-20 items-center justify-center px-4">
+    <header className="sticky top-0 z-50 w-full flex h-24 items-center justify-center px-4">
       {/* Desktop Header Capsule */}
       <nav className="hidden md:grid w-full max-w-7xl grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
         {/* Left side: Logo */}

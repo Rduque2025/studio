@@ -117,6 +117,12 @@ export default function ObjetivosSmartPage() {
 
     const status = getStatus(progressData.current);
 
+    const radius = 52;
+    const strokeWidth = 8;
+    const size = (radius + strokeWidth) * 2;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (progressData.current / 100) * circumference;
+
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
             
@@ -174,23 +180,41 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                            <div className="my-6">
+                           <div className="relative h-40 w-40">
+                                <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
+                                    <circle
+                                        className="text-muted/50"
+                                        stroke="currentColor"
+                                        strokeWidth={strokeWidth}
+                                        fill="transparent"
+                                        r={radius}
+                                        cx={size / 2}
+                                        cy={size / 2}
+                                    />
+                                    <circle
+                                        className={cn("transform -rotate-90 origin-center transition-all duration-1000", status.stroke)}
+                                        stroke="currentColor"
+                                        strokeWidth={strokeWidth}
+                                        strokeDasharray={circumference}
+                                        strokeDashoffset={offset}
+                                        strokeLinecap="round"
+                                        fill="transparent"
+                                        r={radius}
+                                        cx={size / 2}
+                                        cy={size / 2}
+                                    />
+                                </svg>
+                                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                    <p className="text-3xl font-bold text-foreground">{progressData.current}%</p>
+                                </div>
+                            </div>
+                            <div className="text-center mt-4">
                                 <Badge className={cn("font-semibold tracking-wider", status.bg, status.color, `hover:${status.bg}`)}>
                                     {status.label}
                                 </Badge>
-                            </div>
-                            <div className="text-center">
-                                <p className="text-5xl font-bold text-foreground">{progressData.current}%</p>
-                                <p className="text-muted-foreground">/ {progressData.goal}%</p>
+                                <p className="text-muted-foreground text-xs mt-2">Objetivo: {progressData.goal}%</p>
                             </div>
                         </CardContent>
-                        <CardFooter className="p-0 pt-4">
-                           <Progress 
-                                value={progressData.current} 
-                                className="h-3"
-                                indicatorClassName={status.progressClass}
-                            />
-                        </CardFooter>
                     </Card>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -290,3 +314,4 @@ export default function ObjetivosSmartPage() {
     
 
     
+

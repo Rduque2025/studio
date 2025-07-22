@@ -98,9 +98,9 @@ const progressData = {
 };
 
 const getStatus = (progress: number) => {
-    if (progress < 40) return { label: "EN RIESGO", color: "text-red-600", bg: "bg-red-100", ring: "ring-red-200", stroke: "stroke-red-500" };
-    if (progress < 75) return { label: "EN PROGRESO", color: "text-amber-600", bg: "bg-amber-100", ring: "ring-amber-200", stroke: "stroke-amber-500" };
-    return { label: "EN CAMINO", color: "text-green-600", bg: "bg-green-100", ring: "ring-green-200", stroke: "stroke-green-500" };
+    if (progress < 40) return { label: "EN RIESGO", color: "text-red-600", bg: "bg-red-100", ring: "ring-red-200", stroke: "stroke-red-500", progressClass: "bg-destructive" };
+    if (progress < 75) return { label: "EN PROGRESO", color: "text-amber-600", bg: "bg-amber-100", ring: "ring-amber-200", stroke: "stroke-amber-500", progressClass: "bg-amber-500" };
+    return { label: "EN CAMINO", color: "text-green-600", bg: "bg-green-100", ring: "ring-green-200", stroke: "stroke-green-500", progressClass: "bg-green-500" };
 };
 
 
@@ -116,8 +116,6 @@ export default function ObjetivosSmartPage() {
     };
 
     const status = getStatus(progressData.current);
-    const circumference = 2 * Math.PI * 52; // 2 * pi * radius
-    const strokeDashoffset = circumference - (progressData.current / progressData.goal) * circumference;
 
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
@@ -186,34 +184,12 @@ export default function ObjetivosSmartPage() {
                                 <p className="text-muted-foreground">/ {progressData.goal}%</p>
                             </div>
                         </CardContent>
-                        <CardFooter className="p-0">
-                           <div className="w-full relative h-28 flex items-center justify-center">
-                                <svg className="w-full h-auto" viewBox="0 0 120 70">
-                                    <circle
-                                        className="stroke-muted"
-                                        cx="60"
-                                        cy="60"
-                                        r="52"
-                                        fill="transparent"
-                                        strokeWidth="8"
-                                        strokeDasharray={circumference}
-                                        strokeDashoffset={0}
-                                        transform="rotate(-180 60 60)"
-                                    />
-                                    <circle
-                                        className={cn("transition-all duration-1000 ease-out", status.stroke)}
-                                        cx="60"
-                                        cy="60"
-                                        r="52"
-                                        fill="transparent"
-                                        strokeWidth="8"
-                                        strokeDasharray={circumference}
-                                        strokeDashoffset={strokeDashoffset}
-                                        strokeLinecap="round"
-                                        transform="rotate(-180 60 60)"
-                                    />
-                                </svg>
-                            </div>
+                        <CardFooter className="p-0 pt-4">
+                           <Progress 
+                                value={progressData.current} 
+                                className="h-3"
+                                indicatorClassName={status.progressClass}
+                            />
                         </CardFooter>
                     </Card>
                 ) : (

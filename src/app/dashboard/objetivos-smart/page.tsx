@@ -51,8 +51,8 @@ const smartGoalsData = {
     title: "Medible",
     icon: Scaling,
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
-    imageUrl: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract wave",
+    imageUrl: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "abstract color",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },
       { icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos." },
@@ -67,8 +67,8 @@ const smartGoalsData = {
     title: "Alcanzable",
     icon: Goal,
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
-    imageUrl: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract wave",
+    imageUrl: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "abstract shape",
     challenges: [
       { icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento." },
       { icon: Workflow, title: "Sinergia de Funciones Corporativas", description: "Mejorar la colaboración y sinergia entre las áreas y con BBU." },
@@ -81,8 +81,8 @@ const smartGoalsData = {
     title: "Relevante",
     icon: Sparkles,
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
-    imageUrl: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract wave",
+    imageUrl: "https://images.unsplash.com/photo-1528695078803-b6d41810de05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "abstract light",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]
@@ -92,8 +92,8 @@ const smartGoalsData = {
     title: "Temporal",
     icon: Timer,
     description: "Un marco de tiempo definido para la consecución de las metas.",
-    imageUrl: "https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract wave",
+    imageUrl: "https://images.unsplash.com/photo-1543286386-713bdd548da4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "abstract graph",
     challenges: [
        { icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre." },
        { icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre." },

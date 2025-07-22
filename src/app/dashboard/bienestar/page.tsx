@@ -110,36 +110,6 @@ export default function BienestarPage() {
         </div>
       </SectionWrapper>
       
-       {/* Subscription Section */}
-       <div id="empezar" className="scroll-mt-20">
-        <SectionWrapper
-          className="bg-muted/50"
-          title="Mantente al Día"
-          description="Suscríbete para recibir notificaciones sobre novedades, eventos y más directamente en tu correo."
-          titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
-          descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
-        >
-            <Card className="mt-16 max-w-2xl mx-auto p-8 shadow-lg">
-              <CardHeader className="text-center p-0">
-                <Mail className="h-10 w-10 text-primary mx-auto mb-4" />
-                <CardTitle className="font-bold text-2xl">Únete a nuestra comunidad</CardTitle>
-                <CardDescription className="text-sm">Recibe notificaciones sobre nuevas actividades y recursos de bienestar.</CardDescription>
-              </CardHeader>
-              <CardContent className="p-0 mt-6 space-y-4">
-                <div className="flex flex-col sm:flex-row gap-2">
-                    <Input type="email" placeholder="Tu correo electrónico" className="flex-grow" />
-                    <Button className="w-full sm:w-auto bg-foreground hover:bg-foreground/90 text-background" size="lg">Suscribirse</Button>
-                </div>
-                <div className="flex items-center space-x-2 pt-2">
-                    <Checkbox id="terms-sub" />
-                    <Label htmlFor="terms-sub" className="text-xs text-muted-foreground">Acepto los términos de servicio y la política de privacidad.</Label>
-                </div>
-              </CardContent>
-            </Card>
-        </SectionWrapper>
-      </div>
-
-
       {/* Activities Section */}
       <div id="explorar-actividades" className="scroll-mt-20">
         <SectionWrapper
@@ -170,6 +140,35 @@ export default function BienestarPage() {
               <CourseCard key={course.id} course={course} />
             ))}
           </div>
+        </SectionWrapper>
+      </div>
+      
+      {/* Subscription Section */}
+      <div id="empezar" className="scroll-mt-20">
+        <SectionWrapper
+          className="bg-muted/50"
+          title="Mantente al Día"
+          description="Suscríbete para recibir notificaciones sobre novedades, eventos y más directamente en tu correo."
+          titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
+          descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
+        >
+            <Card className="mt-16 max-w-2xl mx-auto p-8 shadow-lg">
+              <CardHeader className="text-center p-0">
+                <Mail className="h-10 w-10 text-primary mx-auto mb-4" />
+                <CardTitle className="font-bold text-2xl">Únete a nuestra comunidad</CardTitle>
+                <CardDescription className="text-sm">Recibe notificaciones sobre nuevas actividades y recursos de bienestar.</CardDescription>
+              </CardHeader>
+              <CardContent className="p-0 mt-6 space-y-4">
+                <div className="flex flex-col sm:flex-row gap-2">
+                    <Input type="email" placeholder="Tu correo electrónico" className="flex-grow" />
+                    <Button className="w-full sm:w-auto bg-foreground hover:bg-foreground/90 text-background" size="lg">Suscribirse</Button>
+                </div>
+                <div className="flex items-center space-x-2 pt-2">
+                    <Checkbox id="terms-sub" />
+                    <Label htmlFor="terms-sub" className="text-xs text-muted-foreground">Acepto los términos de servicio y la política de privacidad.</Label>
+                </div>
+              </CardContent>
+            </Card>
         </SectionWrapper>
       </div>
 

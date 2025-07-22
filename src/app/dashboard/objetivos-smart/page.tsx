@@ -100,8 +100,16 @@ const progressChartData = [
 ];
 
 export default function ObjetivosSmartPage() {
-    const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData>('S');
+    const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData | null>(null);
     
+    const handleCategoryClick = (categoryKey: keyof typeof smartGoalsData) => {
+        if (selectedCategory === categoryKey) {
+            setSelectedCategory(null); // Deselect if clicked again
+        } else {
+            setSelectedCategory(categoryKey);
+        }
+    };
+
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
             
@@ -130,40 +138,97 @@ export default function ObjetivosSmartPage() {
             {/* Dashboard Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
               
-              {/* Left Column: Progress Chart */}
-              <Card className="lg:col-span-2 shadow-sm border-none bg-card p-6 flex flex-col justify-between min-h-[360px]">
-                <div>
-                  <CardHeader className="p-0">
-                    <CardTitle>Progreso General 2025</CardTitle>
-                    <CardDescription>Crecimiento acumulado de objetivos completados.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="p-0 mt-4">
-                    <p className="text-4xl font-bold text-primary">+42% Crecimiento</p>
-                    <p className="text-sm text-muted-foreground">vs. año anterior</p>
-                  </CardContent>
-                </div>
-                <div className="h-48 -ml-6 -mr-2 -mb-6">
-                   <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={progressChartData}>
-                      <defs>
-                        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <Tooltip
-                        contentStyle={{
-                          backgroundColor: 'hsl(var(--background))',
-                          border: '1px solid hsl(var(--border))'
-                        }}
-                        labelClassName="font-bold"
-                        formatter={(value: number) => [`${value}%`, "Progreso"]}
-                      />
-                      <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#colorUv)" />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </Card>
+              <div className="lg:col-span-2">
+                {!selectedCategory ? (
+                    <Card className="shadow-sm border-none bg-card p-6 flex flex-col justify-between min-h-[360px]">
+                        <div>
+                            <CardHeader className="p-0">
+                                <CardTitle>Progreso General 2025</CardTitle>
+                                <CardDescription>Crecimiento acumulado de objetivos completados.</CardDescription>
+                            </CardHeader>
+                            <CardContent className="p-0 mt-4">
+                                <p className="text-4xl font-bold text-primary">+42% Crecimiento</p>
+                                <p className="text-sm text-muted-foreground">vs. año anterior</p>
+                            </CardContent>
+                        </div>
+                        <div className="h-48 -ml-6 -mr-2 -mb-6">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={progressChartData}>
+                                <defs>
+                                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                    </linearGradient>
+                                </defs>
+                                <Tooltip
+                                    contentStyle={{
+                                    backgroundColor: 'hsl(var(--background))',
+                                    border: '1px solid hsl(var(--border))'
+                                    }}
+                                    labelClassName="font-bold"
+                                    formatter={(value: number) => [`${value}%`, "Progreso"]}
+                                />
+                                <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#colorUv)" />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </Card>
+                ) : (
+                    <div>
+                        <h2 className="text-2xl font-bold text-foreground mb-1">
+                            Detalle de Desafíos: {smartGoalsData[selectedCategory].title}
+                        </h2>
+                        <p className="text-muted-foreground mb-4">{smartGoalsData[selectedCategory].description}</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {smartGoalsData[selectedCategory].challenges.map((challenge) => (
+                                <Card key={challenge.id} className="bg-card shadow-sm border-none flex flex-col">
+                                    <CardHeader>
+                                        <div className="flex justify-between items-start">
+                                            <div className="p-2.5 bg-muted rounded-md flex-shrink-0 shadow-sm border">
+                                                <challenge.icon className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                                                <MoreVertical className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                        <CardTitle className="text-base font-semibold pt-2">{challenge.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-grow">
+                                        <p className="text-xs text-muted-foreground">{challenge.description}</p>
+                                    </CardContent>
+                                    <CardFooter className="flex flex-col items-start gap-3">
+                                        <div className="w-full">
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className={cn(
+                                                    "text-xs font-medium",
+                                                    challenge.status === 'En riesgo' && 'text-destructive',
+                                                    challenge.status === 'Completado' && 'text-green-600',
+                                                    challenge.status === 'Normal' && 'text-primary'
+                                                )}>{challenge.status}</span>
+                                                <span className="text-xs text-muted-foreground">{challenge.progress}%</span>
+                                            </div>
+                                            <Progress 
+                                                value={challenge.progress} 
+                                                indicatorClassName={cn(
+                                                    challenge.status === 'En riesgo' && 'bg-destructive',
+                                                    challenge.status === 'Completado' && 'bg-green-600'
+                                                )}
+                                            />
+                                        </div>
+                                        <div className="flex justify-between w-full items-center">
+                                          <p className="text-xs font-medium text-foreground">{challenge.value}</p>
+                                          <Button variant="link" size="sm" className="p-0 h-auto text-xs">
+                                              Ver detalles
+                                          </Button>
+                                        </div>
+                                    </CardFooter>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                )}
+              </div>
 
               {/* Right Column: SMART Categories */}
               <div className="flex flex-col gap-4">
@@ -179,7 +244,7 @@ export default function ObjetivosSmartPage() {
                           ? "bg-primary text-primary-foreground shadow-lg -translate-y-1" 
                           : "bg-card hover:bg-muted/50 hover:shadow-md"
                       )}
-                      onClick={() => setSelectedCategory(key)}
+                      onClick={() => handleCategoryClick(key)}
                     >
                       <CardHeader className="p-4">
                         <div className="flex items-center gap-4">
@@ -201,61 +266,6 @@ export default function ObjetivosSmartPage() {
                   );
                 })}
               </div>
-            </div>
-
-            {/* Challenges Grid */}
-            <div className="mt-8">
-                <h2 className="text-2xl font-bold text-foreground mb-1">
-                  Detalle de Desafíos: {smartGoalsData[selectedCategory].title}
-                </h2>
-                <p className="text-muted-foreground mb-4">{smartGoalsData[selectedCategory].description}</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {smartGoalsData[selectedCategory].challenges.map((challenge) => (
-                        <Card key={challenge.id} className="bg-card shadow-sm border-none flex flex-col">
-                            <CardHeader>
-                                <div className="flex justify-between items-start">
-                                    <div className="p-2.5 bg-muted rounded-md flex-shrink-0 shadow-sm border">
-                                        <challenge.icon className="h-5 w-5 text-primary" />
-                                    </div>
-                                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                                        <MoreVertical className="h-4 w-4" />
-                                    </Button>
-                                </div>
-                                <CardTitle className="text-base font-semibold pt-2">{challenge.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent className="flex-grow">
-                                <p className="text-xs text-muted-foreground">{challenge.description}</p>
-                            </CardContent>
-                            <CardFooter className="flex flex-col items-start gap-3">
-                                <div className="w-full">
-                                    <div className="flex justify-between items-center mb-1">
-                                        <span className={cn(
-                                            "text-xs font-medium",
-                                            challenge.status === 'En riesgo' && 'text-destructive',
-                                            challenge.status === 'Completado' && 'text-green-600',
-                                            challenge.status === 'Normal' && 'text-primary'
-                                        )}>{challenge.status}</span>
-                                        <span className="text-xs text-muted-foreground">{challenge.progress}%</span>
-                                    </div>
-                                    <Progress 
-                                        value={challenge.progress} 
-                                        indicatorClassName={cn(
-                                            challenge.status === 'En riesgo' && 'bg-destructive',
-                                            challenge.status === 'Completado' && 'bg-green-600'
-                                        )}
-                                    />
-                                </div>
-                                <div className="flex justify-between w-full items-center">
-                                  <p className="text-xs font-medium text-foreground">{challenge.value}</p>
-                                  <Button variant="link" size="sm" className="p-0 h-auto text-xs">
-                                      Ver detalles
-                                  </Button>
-                                </div>
-                            </CardFooter>
-                        </Card>
-                    ))}
-                </div>
             </div>
         </div>
     );

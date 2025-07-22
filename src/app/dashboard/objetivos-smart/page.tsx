@@ -3,6 +3,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { 
@@ -110,16 +111,26 @@ export default function ObjetivosSmartPage() {
                 </Button>
             </div>
             
-            <Card className="shadow-lg rounded-2xl">
-              <CardHeader>
-                <CardTitle className="text-2xl font-semibold tracking-tight">Nuestros Desafíos Estratégicos</CardTitle>
-                <CardDescription>
-                  Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean claras y alcanzables.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-8">
+            <Card className="shadow-lg rounded-2xl overflow-hidden">
+              <div className="relative">
+                <Image
+                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc1MzE5MzYyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                  alt="Equipo trabajando en objetivos"
+                  layout="fill"
+                  objectFit="cover"
+                  className="brightness-50"
+                  data-ai-hint="office brainstorming"
+                />
+                <div className="relative p-8 md:p-12 text-white">
+                    <h2 className="text-3xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h2>
+                    <p className="max-w-xl mt-2 text-white/90">
+                      Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean claras y alcanzables.
+                    </p>
+                </div>
+              </div>
+              <CardContent className="p-6 md:p-8 space-y-8">
                 {/* Grid of categories */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => {
                     const goal = smartGoalsData[key];
                     return (
@@ -156,7 +167,7 @@ export default function ObjetivosSmartPage() {
                 </div>
 
                 {/* Details of selected category */}
-                <div className="space-y-4">
+                <div className="space-y-4 pt-4">
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">
                       <span className="text-primary">{activeGoal.letter}</span> — {activeGoal.title}
@@ -167,7 +178,7 @@ export default function ObjetivosSmartPage() {
                   <div className="space-y-3 pt-2">
                       {activeGoal.challenges.map((challenge, index) => (
                           <div key={index} className="flex items-start gap-4 p-3 bg-muted/30 rounded-lg">
-                              <div className="p-2.5 bg-background rounded-md flex-shrink-0 mt-1 shadow-sm">
+                              <div className="p-2.5 bg-background rounded-md flex-shrink-0 mt-1 shadow-sm border">
                                   <challenge.icon className="h-4 w-4 text-primary" />
                               </div>
                               <div>

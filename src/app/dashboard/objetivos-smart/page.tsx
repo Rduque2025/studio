@@ -128,7 +128,7 @@ export default function ObjetivosSmartPage() {
             
             {/* Back Button */}
             <div className="mb-8">
-                <Button asChild variant="ghost" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs pl-2">
+                <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs pl-2">
                     <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
                         <span className="flex items-center justify-center h-7 w-7 rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                             <ArrowLeft className="h-4 w-4" />
@@ -316,3 +316,6 @@ export default function ObjetivosSmartPage() {
     
 
 
+
+
+    

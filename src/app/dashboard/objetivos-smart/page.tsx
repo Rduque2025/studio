@@ -51,7 +51,7 @@ const smartGoalsData = {
     title: "Medible",
     icon: Scaling,
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
-    imageUrl: "https://images.unsplash.com/photo-1620121692029-d088224ddc74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdHxlbnwwfHx8fDE3NTMyMDAwOTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1640958899059-7fd295c17aac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8bWV0ZXJ8ZW58MHx8fHwxNzUzMjAwMzEwfDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "abstract color",
     challenges: [
       { icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios." },

@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
 import { 
   ArrowLeft, 
   PackagePlus, 
@@ -29,6 +30,7 @@ import {
   Timer
 } from "lucide-react";
 import { cn } from '@/lib/utils';
+import type { LucideIcon } from 'lucide-react';
 
 const smartGoalsData = {
   S: {
@@ -93,6 +95,51 @@ const smartGoalsData = {
 
 type SmartKey = keyof typeof smartGoalsData;
 
+interface SmartGoalCardProps {
+  goal: {
+    letter: string;
+    title: string;
+    icon: LucideIcon;
+    challenges: any[];
+  };
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "group relative w-full h-80 rounded-2xl p-6 text-left transition-all duration-300 overflow-hidden",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        isActive ? "ring-2 ring-primary bg-card" : "bg-card shadow-md hover:shadow-lg"
+      )}
+    >
+      <div className="relative z-10 flex flex-col h-full">
+        <div className="flex-grow">
+          <p className="text-xl font-bold text-foreground">{goal.title}</p>
+          <p className="text-4xl font-extrabold text-muted-foreground/30 mt-1">{goal.letter}</p>
+        </div>
+        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-auto">
+          <Button size="sm" variant="default" className="w-full">
+            Explorar
+          </Button>
+        </div>
+      </div>
+      <Image
+        src="https://placehold.co/200x200.png"
+        alt="Abstract 3D shape"
+        width={160}
+        height={160}
+        className="absolute -bottom-10 -right-10 z-0 opacity-80 group-hover:scale-110 transition-transform duration-500 ease-in-out"
+        data-ai-hint="abstract 3d"
+      />
+    </button>
+  );
+};
+
+
 export default function ObjetivosSmartPage() {
     const [activeTab, setActiveTab] = useState<SmartKey | null>(null);
     const activeGoal = activeTab ? smartGoalsData[activeTab] : null;
@@ -138,40 +185,15 @@ export default function ObjetivosSmartPage() {
             </div>
 
             <div className="space-y-8">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => {
-                  const goal = smartGoalsData[key];
-                  return (
-                    <button
-                      key={key}
-                      onClick={() => handleTabClick(key)}
-                      className={cn(
-                        "group rounded-xl p-4 text-left transition-all duration-200 border-2 border-transparent",
-                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                        activeTab === key ? "ring-2 ring-primary bg-muted/50" : "bg-muted/30 hover:bg-muted/60"
-                      )}
-                    >
-                      <div className="flex justify-between items-start mb-4">
-                        <div className={cn(
-                          "p-2 rounded-lg transition-colors",
-                           activeTab === key ? "bg-primary text-primary-foreground" : "bg-background group-hover:bg-muted"
-                        )}>
-                           <goal.icon className={cn("h-5 w-5 transition-colors", activeTab === key ? "text-primary-foreground" : "text-muted-foreground group-hover:text-primary")} />
-                        </div>
-                        <span className={cn(
-                          "text-xs font-medium px-2 py-0.5 rounded-full",
-                           activeTab === key ? "bg-primary text-primary-foreground" : "bg-background"
-                        )}>
-                          {goal.challenges.length}
-                        </span>
-                      </div>
-                      <div className="space-y-1">
-                        <p className="font-semibold text-sm text-foreground">{goal.title}</p>
-                        <p className="text-xs text-muted-foreground">{goal.letter}</p>
-                      </div>
-                    </button>
-                  )
-                })}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => (
+                  <SmartGoalCard
+                    key={key}
+                    goal={smartGoalsData[key]}
+                    isActive={activeTab === key}
+                    onClick={() => handleTabClick(key)}
+                  />
+                ))}
               </div>
 
               {activeGoal && (

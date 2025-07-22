@@ -1,11 +1,10 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   ArrowLeft, 
   PackagePlus, 
@@ -24,6 +23,7 @@ import {
   Gavel, 
   Calculator 
 } from "lucide-react";
+import { cn } from '@/lib/utils';
 
 const smartGoalsData = {
   S: {
@@ -94,56 +94,69 @@ const smartGoalsData = {
 type SmartKey = keyof typeof smartGoalsData;
 
 export default function ObjetivosSmartPage() {
+    const [activeTab, setActiveTab] = useState<SmartKey>('S');
+    const activeGoal = smartGoalsData[activeTab];
+
     return (
-        <div className="container mx-auto py-8 px-4">
+        <div className="container mx-auto py-8 md:py-16 px-4">
             <div className="mb-8 flex justify-start">
-                <Button asChild variant="outline">
+                <Button asChild variant="outline" className="rounded-full">
                     <Link href="/dashboard/mapa-clientes">
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Volver a Nosotros
                     </Link>
                 </Button>
             </div>
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold text-foreground tracking-tight">Nuestros Desafíos Estratégicos</h1>
-                <p className="text-muted-foreground mt-3 text-lg max-w-3xl mx-auto">Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales.</p>
+            
+            <div className="text-left mb-12">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">Nuestros Desafíos Estratégicos</h1>
+                <p className="text-muted-foreground mt-4 text-base md:text-lg max-w-3xl">
+                  Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean Específicas, Medibles, Alcanzables, Relevantes y Temporales.
+                </p>
             </div>
-            <Tabs defaultValue="S" className="w-full">
-                <TabsList className="grid w-full max-w-2xl mx-auto grid-cols-5 bg-muted/60 p-1.5 h-auto rounded-xl">
-                {Object.keys(smartGoalsData).map((key) => {
-                    const goal = smartGoalsData[key as SmartKey];
-                    return (
-                        <TabsTrigger key={key} value={key} className="flex flex-col items-center gap-1 py-3 data-[state=active]:shadow-md rounded-lg">
-                            <span className="font-extrabold text-2xl">{goal.letter}</span>
-                            <span className="text-xs font-semibold uppercase tracking-wider">{goal.title}</span>
-                        </TabsTrigger>
-                    )
-                })}
-                </TabsList>
 
-                {Object.keys(smartGoalsData).map((key) => {
-                    const goal = smartGoalsData[key as SmartKey];
-                    return (
-                        <TabsContent key={key} value={key} className="mt-8">
-                            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                {goal.challenges.map((challenge, index) => (
-                                    <Card key={index} className="border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300 bg-card/50">
-                                    <CardHeader className="flex flex-row items-center gap-4 space-y-0 pb-3">
-                                        <div className="p-3 rounded-lg bg-primary/10">
-                                            <challenge.icon className="h-6 w-6 text-primary" />
-                                        </div>
-                                        <CardTitle className="text-base font-semibold leading-tight">{challenge.title}</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <p className="text-sm text-muted-foreground">{challenge.description}</p>
-                                    </CardContent>
-                                    </Card>
-                                ))}
+            <div className="border-b mb-12">
+                <div className="flex items-center space-x-2 sm:space-x-4 overflow-x-auto pb-px">
+                    {Object.keys(smartGoalsData).map((key) => {
+                        const goal = smartGoalsData[key as SmartKey];
+                        return (
+                            <button 
+                                key={key} 
+                                onClick={() => setActiveTab(key as SmartKey)}
+                                className={cn(
+                                    "px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors border-b-2",
+                                    activeTab === key
+                                        ? "border-primary text-primary"
+                                        : "border-transparent text-muted-foreground hover:text-foreground"
+                                )}
+                            >
+                                {goal.title}
+                            </button>
+                        )
+                    })}
+                </div>
+            </div>
+
+            <div className="space-y-4">
+                <h2 className="text-2xl font-bold text-foreground">
+                    <span className="text-primary">{activeGoal.letter}</span> — {activeGoal.title}
+                </h2>
+                <p className="text-muted-foreground text-base max-w-2xl">{activeGoal.description}</p>
+                
+                <div className="pt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {activeGoal.challenges.map((challenge, index) => (
+                        <Card key={index} className="border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300 bg-card/50 flex items-start gap-4 p-4">
+                            <div className="p-3 rounded-lg bg-primary/10 flex-shrink-0 mt-1">
+                                <challenge.icon className="h-5 w-5 text-primary" />
                             </div>
-                        </TabsContent>
-                    )
-                })}
-            </Tabs>
+                            <div>
+                                <h3 className="text-sm font-semibold leading-tight">{challenge.title}</h3>
+                                <p className="text-xs text-muted-foreground mt-1">{challenge.description}</p>
+                            </div>
+                        </Card>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }

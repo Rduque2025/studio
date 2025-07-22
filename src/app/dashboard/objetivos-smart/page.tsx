@@ -113,27 +113,46 @@ export default function ObjetivosSmartPage() {
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
             
-            {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start mb-8">
-                <div>
-                  <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs mb-4">
-                      <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
+            {/* Back Button */}
+            <div className="mb-8">
+                <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs">
+                    <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
                         <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
-                          <ArrowLeft className="h-4 w-4" />
+                            <ArrowLeft className="h-4 w-4" />
                         </span>
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Nosotros</span>
-                      </Link>
-                  </Button>
-                  <h1 className="text-4xl font-bold tracking-tight text-foreground">En Sintonía con Nuestros Objetivos</h1>
-                  <p className="mt-2 text-muted-foreground max-w-2xl">
-                    Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025.
-                  </p>
-                </div>
-                <div className="mt-4 md:mt-0 flex items-center gap-2">
-                  <Button variant="outline">Exportar</Button>
-                  <Button>Nuevo Desafío</Button>
-                </div>
+                    </Link>
+                </Button>
             </div>
+
+            {/* Header */}
+            <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
+                <div>
+                    <h1 className="text-4xl font-bold tracking-tight text-foreground">En Sintonía con Nuestros Objetivos</h1>
+                </div>
+                <Card className="flex items-center gap-4 p-4 rounded-xl shadow-sm">
+                    <div className="relative h-24 w-24 flex-shrink-0">
+                        <Image
+                            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0ZWFtfGVufDB8fHx8MTc1Mzc4NTkwMHww&ixlib=rb-4.1.0&q=80&w=1080"
+                            alt="Equipo trabajando en objetivos"
+                            layout="fill"
+                            objectFit="cover"
+                            data-ai-hint="team collaboration"
+                            className="rounded-lg"
+                        />
+                    </div>
+                    <div>
+                        <p className="text-sm text-muted-foreground">
+                            Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025.
+                        </p>
+                         <div className="mt-2 flex items-center gap-2">
+                            <Button variant="outline" size="sm">Exportar</Button>
+                            <Button size="sm">Nuevo Desafío</Button>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+
 
             {/* Dashboard Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">

@@ -154,7 +154,7 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
 // --- MAIN COMPONENT ---
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [combination, setCombination] = useState([12, 34, 56]);
+  const [combination, setCombination] = useState([0, 0, 0]);
   const [error, setError] = useState('');
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [inputBuffer, setInputBuffer] = useState('');
@@ -504,5 +504,7 @@ export default function GerenciaComercialDashboard() {
     
 
 
+
+    
 
     

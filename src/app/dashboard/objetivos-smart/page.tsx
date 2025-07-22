@@ -122,16 +122,26 @@ const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }
       className={cn(
         "group relative w-full h-80 rounded-2xl p-6 text-left transition-all duration-300 overflow-hidden cursor-pointer",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        isActive ? "ring-2 ring-primary bg-card" : "bg-card shadow-md hover:shadow-lg"
+        isActive 
+          ? "bg-primary text-primary-foreground shadow-xl scale-105" 
+          : "bg-card shadow-md hover:shadow-lg hover:scale-105"
       )}
     >
       <div className="relative z-10 flex flex-col h-full">
         <div className="flex-grow">
-          <p className="text-xl font-bold text-foreground">{goal.title}</p>
-          <p className="text-4xl font-extrabold text-muted-foreground/30 mt-1">{goal.letter}</p>
+          <p className="text-xl font-bold">{goal.title}</p>
+          <p className={cn(
+            "text-4xl font-extrabold mt-1 transition-colors",
+            isActive ? "text-primary-foreground/30" : "text-muted-foreground/30"
+            )}>{goal.letter}</p>
         </div>
         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-auto">
-          <Button size="sm" variant="default" className="w-full" tabIndex={-1}>
+          <Button 
+            size="sm" 
+            variant={isActive ? "secondary" : "default"} 
+            className="w-full" 
+            tabIndex={-1}
+          >
             Explorar
           </Button>
         </div>

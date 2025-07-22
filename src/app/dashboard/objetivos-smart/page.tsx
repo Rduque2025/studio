@@ -116,7 +116,7 @@ export default function ObjetivosSmartPage() {
     };
 
     const status = getStatus(progressData.current);
-    const circumference = 2 * Math.PI * 52; // 2 * pi * radius (52)
+    const circumference = 2 * Math.PI * 52; // 2 * pi * radius
     const strokeDashoffset = circumference - (progressData.current / progressData.goal) * circumference;
 
     return (
@@ -309,3 +309,6 @@ export default function ObjetivosSmartPage() {
 
     
 
+
+
+    

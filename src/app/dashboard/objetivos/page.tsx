@@ -135,14 +135,6 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
                 }
             )}
         >
-            <span className={cn(
-                "absolute font-bold text-sm text-white/50 transition-opacity",
-                "right-6",
-                (isToggled || status === 'error') && "opacity-0"
-            )}>
-                OFF
-            </span>
-
             <div className={cn(
                 "absolute top-1/2 -translate-y-1/2 flex items-center justify-center h-12 w-12 bg-white rounded-full shadow-lg transform transition-transform duration-300 ease-in-out",
                 {
@@ -150,6 +142,7 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
                     "left-[calc(100%-3.25rem)]": isToggled || status === 'error',
                 }
             )}>
+                {status === 'idle' && <Lock className="h-6 w-6 text-gray-400" />}
                 {status === 'success' && <Check className="h-6 w-6 text-green-500" />}
                 {status === 'error' && <XIcon className="h-6 w-6 text-red-500" />}
             </div>

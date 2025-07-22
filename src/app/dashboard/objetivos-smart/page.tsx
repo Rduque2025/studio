@@ -136,6 +136,7 @@ export default function ObjetivosSmartPage() {
                       <p className="text-8xl font-black text-white/80">01</p>
                   </div>
                   <div className="md:col-span-11 md:pl-8">
+                      <p className="text-primary-foreground/80 mb-2">En Sintonía con</p>
                       <h1 className="text-4xl md:text-5xl font-bold">Nuestros Objetivos</h1>
                       <p className="mt-4 max-w-2xl text-primary-foreground/80">
                           Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025. Seleccione una categoría para ver los detalles.

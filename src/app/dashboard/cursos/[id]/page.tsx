@@ -27,7 +27,7 @@ export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
       <div className="container mx-auto py-8 px-4">
         <SectionWrapper title="Curso no encontrado">
           <p>El curso que busca no existe o no está disponible.</p>
-           <Button asChild variant="link" className="mt-4 text-muted-foreground hover:no-underline p-0 h-auto text-sm">
+           <Button asChild variant="link" className="mt-4 text-muted-foreground hover:no-underline p-0 h-auto text-xs">
             <Link href="/dashboard" className="flex items-center gap-2 group">
               <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
@@ -42,7 +42,7 @@ export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
 
   return (
     <div className="container mx-auto py-8 px-4">
-       <Button asChild variant="link" className="mb-6 text-muted-foreground hover:no-underline p-0 h-auto text-sm">
+       <Button asChild variant="link" className="mb-6 text-muted-foreground hover:no-underline p-0 h-auto text-xs">
         <Link href="/dashboard/bienestar" className="flex items-center gap-2 group">
            <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
             <ArrowLeft className="h-4 w-4" />

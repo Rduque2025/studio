@@ -78,27 +78,39 @@ const menuItems = [
 // --- AUTHENTICATION COMPONENT ---
 const CORRECT_COMBINATION = [12, 34, 56];
 
-const PinTumber = ({ value }: { value: number }) => {
+const PinTumber = ({ value, isFocused, onClick }: { value: number; isFocused: boolean; onClick: () => void }) => {
   const formatNumber = (num: number) => num.toString().padStart(2, '0');
 
   return (
-    <div className="relative w-28 h-20 rounded-2xl bg-[#333] shadow-lg flex items-center justify-center overflow-hidden">
-        <span className="font-mono text-4xl font-bold text-white z-10">{formatNumber(value)}</span>
-    </div>
+    <button
+      onClick={onClick}
+      className={cn(
+        "relative w-28 h-20 rounded-2xl bg-[#333] shadow-lg flex items-center justify-center overflow-hidden transition-all duration-200 outline-none",
+        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-muted",
+        isFocused && "ring-2 ring-primary ring-offset-2"
+      )}
+    >
+      <span className="font-mono text-4xl font-bold text-white z-10">{formatNumber(value)}</span>
+    </button>
   );
 };
+
 
 // --- MAIN COMPONENT ---
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [combination, setCombination] = useState([12, 34, 56]);
   const [error, setError] = useState('');
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
+  const [inputBuffer, setInputBuffer] = useState('');
 
-  const handleCombinationChange = (index: number, delta: number) => {
+
+  const handleArrowChange = (index: number, delta: number) => {
     const newCombination = [...combination];
     newCombination[index] = (newCombination[index] + delta + 100) % 100;
     setCombination(newCombination);
     setError('');
+    setInputBuffer('');
   };
 
   const checkCombination = useCallback(() => {
@@ -116,6 +128,46 @@ export default function GerenciaComercialDashboard() {
       return () => clearTimeout(timer);
     }
   }, [error]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (focusedIndex === null) return;
+      
+      e.preventDefault();
+
+      if (e.key >= '0' && e.key <= '9') {
+        const newBuffer = inputBuffer + e.key;
+        if (newBuffer.length <= 2) {
+          setInputBuffer(newBuffer);
+          if (newBuffer.length === 2) {
+            const newCombination = [...combination];
+            newCombination[focusedIndex] = parseInt(newBuffer, 10);
+            setCombination(newCombination);
+            setInputBuffer('');
+            // Move to next input
+            setFocusedIndex((prev) => (prev !== null ? (prev + 1) % 3 : 0));
+          }
+        }
+      } else if (e.key === 'ArrowUp') {
+        handleArrowChange(focusedIndex, 1);
+      } else if (e.key === 'ArrowDown') {
+        handleArrowChange(focusedIndex, -1);
+      } else if (e.key === 'ArrowRight') {
+        setFocusedIndex((prev) => (prev !== null ? (prev + 1) % 3 : 0));
+      } else if (e.key === 'ArrowLeft') {
+        setFocusedIndex((prev) => (prev !== null ? (prev - 1 + 3) % 3 : 0));
+      } else if (e.key === 'Enter') {
+        checkCombination();
+      } else if (e.key === 'Backspace') {
+        setInputBuffer(inputBuffer.slice(0, -1));
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [focusedIndex, inputBuffer, combination, handleArrowChange, checkCombination]);
   
   const [activeTab, setActiveTab] = useState('General');
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -123,18 +175,24 @@ export default function GerenciaComercialDashboard() {
 
   if (!isAuthenticated) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-muted">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-muted" onClick={() => setFocusedIndex(null)}>
         <div className={cn(
             "flex justify-center items-center gap-1 transition-all p-2 bg-[#2a2a2a] rounded-3xl shadow-2xl",
             error ? "animate-shake" : ""
-          )}>
+          )}
+          onClick={(e) => e.stopPropagation()}
+        >
           {combination.map((value, index) => (
             <div key={index} className="flex flex-col items-center gap-2">
-               <Button variant="ghost" size="icon" onClick={() => handleCombinationChange(index, 1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+               <Button variant="ghost" size="icon" onClick={() => handleArrowChange(index, 1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
                     <ChevronUp className="h-5 w-5" />
                 </Button>
-                <PinTumber value={value} />
-                <Button variant="ghost" size="icon" onClick={() => handleCombinationChange(index, -1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                <PinTumber 
+                  value={value}
+                  isFocused={focusedIndex === index}
+                  onClick={() => setFocusedIndex(index)}
+                />
+                <Button variant="ghost" size="icon" onClick={() => handleArrowChange(index, -1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
                     <ChevronDown className="h-5 w-5" />
                 </Button>
             </div>
@@ -377,4 +435,5 @@ export default function GerenciaComercialDashboard() {
     
 
     
+
 

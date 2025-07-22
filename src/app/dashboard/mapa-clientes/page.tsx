@@ -22,7 +22,9 @@ import {
   Settings,
   HeartHandshake,
   Twitter,
-  Instagram
+  Instagram,
+  Workflow,
+  GraduationCap
 } from "lucide-react";
 import { mockEmployees } from "@/lib/placeholder-data";
 import { cn } from '@/lib/utils';
@@ -39,8 +41,6 @@ import {
   Zap, 
   ListChecks, 
   Award, 
-  Workflow, 
-  GraduationCap, 
   Gem, 
   Gavel 
 } from "lucide-react";
@@ -157,6 +157,18 @@ export default function NosotrosPage() {
       description: "Identifica, evalúa y mitiga los riesgos para proteger tus activos.",
       href: "/dashboard/siniestros",
       icon: ClipboardCheck,
+    },
+     {
+      title: "Procesos",
+      description: "Optimiza los flujos de trabajo para una mayor eficiencia operativa.",
+      href: "/dashboard/procesos",
+      icon: Workflow,
+    },
+    {
+      title: "Capital Humano",
+      description: "Potencia el talento y fomenta un ambiente laboral de excelencia.",
+      href: "/dashboard/capital-humano",
+      icon: GraduationCap,
     },
   ];
 
@@ -338,3 +350,4 @@ export default function NosotrosPage() {
     
 
     
+

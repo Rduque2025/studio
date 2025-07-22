@@ -81,8 +81,8 @@ const smartGoalsData = {
     title: "Relevante",
     icon: Sparkles,
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
-    imageUrl: "https://images.unsplash.com/photo-1528695078803-b6d41810de05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMHdhdmVzfGVufDB8fHx8MTc1NDA0MzQ4Mnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "abstract light",
+    imageUrl: "https://images.unsplash.com/photo-1606768666853-403c90a981ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwbGFuZXxlbnwwfHx8fDE3NTMyMDEwOTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "planets",
     challenges: [
       { icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector." },
     ]

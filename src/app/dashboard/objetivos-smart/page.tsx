@@ -32,6 +32,7 @@ import {
   MoreVertical,
   ArrowRight
 } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
 import type { LucideIcon } from 'lucide-react';
 
@@ -89,9 +90,14 @@ const smartGoalsData = {
   },
 };
 
-const allChallenges = (Object.keys(smartGoalsData) as (keyof typeof smartGoalsData)[])
-  .flatMap(key => smartGoalsData[key].challenges.map(c => ({...c, category: key})));
-
+const progressChartData = [
+  { month: 'Ene', value: 10 },
+  { month: 'Feb', value: 15 },
+  { month: 'Mar', value: 25 },
+  { month: 'Abr', value: 30 },
+  { month: 'May', value: 38 },
+  { month: 'Jun', value: 42 },
+];
 
 export default function ObjetivosSmartPage() {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData>('S');
@@ -113,7 +119,6 @@ export default function ObjetivosSmartPage() {
                   <h1 className="text-4xl font-bold tracking-tight text-foreground">Pulso Estratégico</h1>
                   <p className="mt-2 text-muted-foreground max-w-2xl">
                     Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025.
-                    Estos son los objetivos que nos guían hacia el éxito.
                   </p>
                 </div>
                 <div className="mt-4 md:mt-0 flex items-center gap-2">
@@ -122,41 +127,80 @@ export default function ObjetivosSmartPage() {
                 </div>
             </div>
 
-            {/* SMART Category Selection */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-              {(Object.keys(smartGoalsData) as (keyof typeof smartGoalsData)[]).map((key) => {
-                const category = smartGoalsData[key];
-                const isActive = selectedCategory === key;
-                return (
-                  <Card 
-                    key={key} 
-                    className={cn(
-                      "cursor-pointer transition-all duration-300 shadow-sm border",
-                      isActive 
-                        ? "bg-primary text-primary-foreground shadow-lg -translate-y-1" 
-                        : "bg-card hover:bg-muted/50 hover:shadow-md"
-                    )}
-                    onClick={() => setSelectedCategory(key)}
-                  >
-                    <CardHeader>
-                      <div className="flex items-center gap-4">
-                        <div className={cn(
-                            "p-2.5 rounded-md flex-shrink-0",
-                            isActive ? "bg-white/20" : "bg-muted"
-                          )}>
-                          <category.icon className={cn("h-6 w-6", isActive ? "text-primary-foreground" : "text-primary")} />
+            {/* Dashboard Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+              
+              {/* Left Column: Progress Chart */}
+              <Card className="lg:col-span-2 shadow-sm border-none bg-card p-6 flex flex-col justify-between min-h-[360px]">
+                <div>
+                  <CardHeader className="p-0">
+                    <CardTitle>Progreso General 2025</CardTitle>
+                    <CardDescription>Crecimiento acumulado de objetivos completados.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-0 mt-4">
+                    <p className="text-4xl font-bold text-primary">+42% Crecimiento</p>
+                    <p className="text-sm text-muted-foreground">vs. año anterior</p>
+                  </CardContent>
+                </div>
+                <div className="h-48 -ml-6 -mr-2 -mb-6">
+                   <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={progressChartData}>
+                      <defs>
+                        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                        </linearGradient>
+                      </defs>
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: 'hsl(var(--background))',
+                          border: '1px solid hsl(var(--border))'
+                        }}
+                        labelClassName="font-bold"
+                        formatter={(value: number) => [`${value}%`, "Progreso"]}
+                      />
+                      <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#colorUv)" />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+              </Card>
+
+              {/* Right Column: SMART Categories */}
+              <div className="flex flex-col gap-4">
+                {(Object.keys(smartGoalsData) as (keyof typeof smartGoalsData)[]).map((key) => {
+                  const category = smartGoalsData[key];
+                  const isActive = selectedCategory === key;
+                  return (
+                    <Card 
+                      key={key} 
+                      className={cn(
+                        "cursor-pointer transition-all duration-300 shadow-sm border flex-1",
+                        isActive 
+                          ? "bg-primary text-primary-foreground shadow-lg -translate-y-1" 
+                          : "bg-card hover:bg-muted/50 hover:shadow-md"
+                      )}
+                      onClick={() => setSelectedCategory(key)}
+                    >
+                      <CardHeader className="p-4">
+                        <div className="flex items-center gap-4">
+                          <div className={cn(
+                              "p-2 rounded-md flex-shrink-0",
+                              isActive ? "bg-white/20" : "bg-muted"
+                            )}>
+                            <category.icon className={cn("h-5 w-5", isActive ? "text-primary-foreground" : "text-primary")} />
+                          </div>
+                          <div>
+                            <CardTitle className="text-base font-bold">{category.title}</CardTitle>
+                            <p className={cn("text-xs", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>
+                              {category.challenges.length} {category.challenges.length === 1 ? 'desafío' : 'desafíos'}
+                            </p>
+                          </div>
                         </div>
-                        <div>
-                          <CardTitle className="text-lg font-bold">{category.title}</CardTitle>
-                          <p className={cn("text-xs", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>
-                            {category.challenges.length} {category.challenges.length === 1 ? 'desafío' : 'desafíos'}
-                          </p>
-                        </div>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                );
-              })}
+                      </CardHeader>
+                    </Card>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Challenges Grid */}

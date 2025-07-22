@@ -112,6 +112,7 @@ interface SmartGoalCardProps {
     challenges: any[];
     imageUrl: string;
     dataAiHint: string;
+    description: string;
   };
   isActive: boolean;
   onClick: () => void;
@@ -131,40 +132,28 @@ const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }
       role="button"
       tabIndex={0}
       className={cn(
-        "group relative w-full h-80 rounded-2xl p-6 text-left transition-all duration-300 overflow-hidden cursor-pointer",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "group w-full rounded-2xl p-4 transition-all duration-300 overflow-hidden cursor-pointer flex items-center gap-6",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive 
-          ? "bg-primary text-primary-foreground shadow-xl scale-105" 
-          : "bg-muted shadow-md hover:shadow-lg hover:scale-105"
+          ? "bg-muted ring-2 ring-primary" 
+          : "bg-muted hover:bg-muted/80"
       )}
     >
-      <div className="relative z-10 flex flex-col h-full">
+        <div className="relative w-24 h-24 md:w-32 md:h-32 flex-shrink-0 rounded-xl overflow-hidden">
+            <Image
+                src={goal.imageUrl}
+                alt={`Imagen para ${goal.title}`}
+                layout="fill"
+                objectFit="cover"
+                className="transition-transform duration-500 ease-in-out group-hover:scale-110"
+                data-ai-hint={goal.dataAiHint}
+            />
+        </div>
         <div className="flex-grow">
-          <p className="text-xl font-bold">{goal.title}</p>
-          <p className={cn(
-            "text-4xl font-extrabold mt-1 transition-colors",
-            isActive ? "text-primary-foreground/30" : "text-muted-foreground/30"
-            )}>{goal.letter}</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider">{goal.title}</p>
+            <h3 className="text-lg md:text-xl font-bold text-foreground mt-1">{`Desafío ${goal.letter}: ${goal.title}`}</h3>
+            <p className="text-sm text-muted-foreground mt-2">{goal.description}</p>
         </div>
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-auto">
-          <Button 
-            size="sm" 
-            variant={isActive ? "secondary" : "default"} 
-            className="w-full" 
-            tabIndex={-1}
-          >
-            Explorar
-          </Button>
-        </div>
-      </div>
-      <Image
-        src={goal.imageUrl}
-        alt="Abstract background image"
-        layout="fill"
-        objectFit="cover"
-        className="absolute bottom-0 right-0 z-0 opacity-80 group-hover:scale-110 transition-transform duration-500 ease-in-out"
-        data-ai-hint={goal.dataAiHint}
-      />
     </div>
   );
 };
@@ -176,7 +165,7 @@ export default function ObjetivosSmartPage() {
 
     const handleTabClick = (key: SmartKey) => {
       if (activeTab === key) {
-        setActiveTab(null); // Deselect if the same tab is clicked again
+        setActiveTab(null);
       } else {
         setActiveTab(key);
       }
@@ -196,6 +185,7 @@ export default function ObjetivosSmartPage() {
             </div>
             
             <div className="min-h-screen flex items-center">
+              <div className="w-full">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6">
                         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
@@ -214,10 +204,11 @@ export default function ObjetivosSmartPage() {
                         />
                     </div>
                 </div>
+              </div>
             </div>
 
             <div className="space-y-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
                 {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => (
                   <SmartGoalCard
                     key={key}
@@ -256,3 +247,5 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
+
+    

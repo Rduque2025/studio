@@ -129,7 +129,7 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
             className={cn(
                 "relative flex items-center h-14 w-32 rounded-full transition-colors duration-300",
                 {
-                    "bg-[#2d3748]": status === 'idle' || status === 'checking',
+                    "bg-[#333]": status === 'idle' || status === 'checking',
                     "bg-green-500": status === 'success',
                     "bg-red-500": status === 'error',
                 }
@@ -503,3 +503,6 @@ export default function GerenciaComercialDashboard() {
 
     
 
+
+
+    

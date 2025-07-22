@@ -64,7 +64,7 @@ const statsData = [
   ];
 
 // --- Animation Hook ---
-const useAnimatedNumber = (end: number, duration = 2000) => {
+const useAnimatedNumber = (end: number, duration = 7000) => {
   const startValue = Math.floor(end / 2); // Start from 50% of the final value
   const [count, setCount] = useState(startValue);
   const ref = useRef<HTMLDivElement>(null);

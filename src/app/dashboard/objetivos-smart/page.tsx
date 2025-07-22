@@ -93,7 +93,7 @@ const allChallenges = (Object.keys(smartGoalsData) as (keyof typeof smartGoalsDa
   .flatMap(key => smartGoalsData[key].challenges.map(c => ({...c, category: key})));
 
 
-export default function ObjetivosSmartPage() {
+export default function ObjetivosSmartPage({ params: { objectiveId } }: { params: { objectiveId: string } }) {
     
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
@@ -245,3 +245,5 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
+
+    

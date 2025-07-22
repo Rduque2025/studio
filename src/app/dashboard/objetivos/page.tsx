@@ -180,36 +180,38 @@ export default function GerenciaComercialDashboard() {
   if (!isAuthenticated) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-muted" onClick={() => setFocusedIndex(null)}>
-        <div className={cn(
-            "flex justify-center items-center gap-1 transition-all p-2 bg-[#2a2a2a] rounded-3xl shadow-2xl",
-            error ? "animate-shake" : ""
-          )}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {combination.map((value, index) => (
-            <div key={index} className="flex flex-col items-center gap-2">
-               <Button variant="ghost" size="icon" onClick={() => handleArrowChange(index, 1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
-                    <ChevronUp className="h-5 w-5" />
-                </Button>
-                <PinTumber 
-                  value={value}
-                  isFocused={focusedIndex === index}
-                  onClick={() => setFocusedIndex(index)}
-                />
-                <Button variant="ghost" size="icon" onClick={() => handleArrowChange(index, -1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
-                    <ChevronDown className="h-5 w-5" />
-                </Button>
+        <div className="w-full max-w-xs flex flex-col items-center">
+            <div className={cn(
+                "flex justify-center items-center gap-1 transition-all p-2 bg-[#2a2a2a] rounded-3xl shadow-2xl w-full",
+                error ? "animate-shake" : ""
+              )}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {combination.map((value, index) => (
+                <div key={index} className="flex flex-col items-center gap-2">
+                   <Button variant="ghost" size="icon" onClick={() => handleArrowChange(index, 1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                        <ChevronUp className="h-5 w-5" />
+                    </Button>
+                    <PinTumber 
+                      value={value}
+                      isFocused={focusedIndex === index}
+                      onClick={() => setFocusedIndex(index)}
+                    />
+                    <Button variant="ghost" size="icon" onClick={() => handleArrowChange(index, -1)} className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                        <ChevronDown className="h-5 w-5" />
+                    </Button>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        
-        <div className="h-6 mt-6">
-            {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-        </div>
+            
+            <div className="h-6 mt-6">
+                {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+            </div>
 
-        <Button size="lg" className="w-48 mt-4" onClick={checkCombination}>
-            Desbloquear
-        </Button>
+            <Button size="lg" className="w-full mt-4" onClick={checkCombination}>
+                Desbloquear
+            </Button>
+        </div>
       </div>
     );
   }
@@ -443,3 +445,6 @@ export default function GerenciaComercialDashboard() {
 
 
 
+
+
+    

@@ -93,7 +93,8 @@ const allChallenges = (Object.keys(smartGoalsData) as (keyof typeof smartGoalsDa
   .flatMap(key => smartGoalsData[key].challenges.map(c => ({...c, category: key})));
 
 
-export default function ObjetivosSmartPage({ params: { objectiveId } }: { params: { objectiveId: string } }) {
+export default function ObjetivosSmartPage() {
+    const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData>('S');
     
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
@@ -121,82 +122,52 @@ export default function ObjetivosSmartPage({ params: { objectiveId } }: { params
                 </div>
             </div>
 
-            {/* Main Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-
-                {/* Left Panel - Main Visualization */}
-                <div className="lg:col-span-2">
-                    <Card className="h-full min-h-[400px] flex flex-col relative overflow-hidden bg-card shadow-sm border-none">
-                        <Image 
-                            src="https://images.unsplash.com/photo-1678830209439-d0032f90143a?q=80&w=2699&auto=format&fit=crop"
-                            alt="AI Data Visualization"
-                            layout="fill"
-                            objectFit="cover"
-                            data-ai-hint="abstract glass"
-                            className="opacity-20"
-                        />
-                        <CardHeader className="relative z-10">
-                            <CardTitle>Visualización Estratégica</CardTitle>
-                            <CardDescription>Análisis de progreso general.</CardDescription>
-                        </CardHeader>
-                        <CardContent className="relative z-10 flex-grow flex items-center justify-center">
-                            {/* Placeholder for a larger chart or visualization */}
-                            <p className="text-muted-foreground text-sm">Visualización de datos coming soon.</p>
-                        </CardContent>
-                        <CardFooter className="relative z-10">
-                           <Button variant="outline" className="w-full bg-background/50 backdrop-blur-sm">
-                                Explorar Datos <ArrowRight className="ml-2 h-4 w-4" />
-                           </Button>
-                        </CardFooter>
-                    </Card>
-                </div>
-                
-                {/* Right Panel - Key Metrics */}
-                <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <Card className="bg-card shadow-sm border-none">
-                        <CardHeader>
-                            <CardTitle className="text-sm font-medium text-muted-foreground">Progreso Total</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-5xl font-bold text-foreground">72%</p>
-                            <p className="text-xs text-muted-foreground mt-1">+5% desde la semana pasada</p>
-                        </CardContent>
-                    </Card>
-                     <Card className="bg-card shadow-sm border-none">
-                        <CardHeader>
-                            <CardTitle className="text-sm font-medium text-muted-foreground">Desafíos Completados</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-5xl font-bold text-foreground">1</p>
-                            <p className="text-xs text-muted-foreground mt-1">de {allChallenges.length} desafíos totales</p>
-                        </CardContent>
-                    </Card>
-                     <Card className="bg-card shadow-sm border-none">
-                        <CardHeader>
-                            <CardTitle className="text-sm font-medium text-muted-foreground">Desafíos en Riesgo</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-5xl font-bold text-destructive">2</p>
-                             <p className="text-xs text-muted-foreground mt-1">Requieren atención inmediata</p>
-                        </CardContent>
-                    </Card>
-                     <Card className="bg-card shadow-sm border-none">
-                        <CardHeader>
-                            <CardTitle className="text-sm font-medium text-muted-foreground">Objetivos Activos</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                             <p className="text-5xl font-bold text-foreground">{allChallenges.length - 1}</p>
-                             <p className="text-xs text-muted-foreground mt-1">Actualmente en seguimiento</p>
-                        </CardContent>
-                    </Card>
-                </div>
+            {/* SMART Category Selection */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+              {(Object.keys(smartGoalsData) as (keyof typeof smartGoalsData)[]).map((key) => {
+                const category = smartGoalsData[key];
+                const isActive = selectedCategory === key;
+                return (
+                  <Card 
+                    key={key} 
+                    className={cn(
+                      "cursor-pointer transition-all duration-300 shadow-sm border",
+                      isActive 
+                        ? "bg-primary text-primary-foreground shadow-lg -translate-y-1" 
+                        : "bg-card hover:bg-muted/50 hover:shadow-md"
+                    )}
+                    onClick={() => setSelectedCategory(key)}
+                  >
+                    <CardHeader>
+                      <div className="flex items-center gap-4">
+                        <div className={cn(
+                            "p-2.5 rounded-md flex-shrink-0",
+                            isActive ? "bg-white/20" : "bg-muted"
+                          )}>
+                          <category.icon className={cn("h-6 w-6", isActive ? "text-primary-foreground" : "text-primary")} />
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg font-bold">{category.title}</CardTitle>
+                          <p className={cn("text-xs", isActive ? "text-primary-foreground/80" : "text-muted-foreground")}>
+                            {category.challenges.length} {category.challenges.length === 1 ? 'desafío' : 'desafíos'}
+                          </p>
+                        </div>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                );
+              })}
             </div>
 
             {/* Challenges Grid */}
             <div className="mt-8">
-                <h2 className="text-2xl font-bold text-foreground mb-4">Detalle de Desafíos</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-1">
+                  Detalle de Desafíos: {smartGoalsData[selectedCategory].title}
+                </h2>
+                <p className="text-muted-foreground mb-4">{smartGoalsData[selectedCategory].description}</p>
+                
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {allChallenges.map((challenge) => (
+                    {smartGoalsData[selectedCategory].challenges.map((challenge) => (
                         <Card key={challenge.id} className="bg-card shadow-sm border-none flex flex-col">
                             <CardHeader>
                                 <div className="flex justify-between items-start">
@@ -245,5 +216,3 @@ export default function ObjetivosSmartPage({ params: { objectiveId } }: { params
         </div>
     );
 }
-
-    

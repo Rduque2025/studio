@@ -115,39 +115,34 @@ export default function ObjetivosSmartPage() {
             
             {/* Back Button */}
             <div className="mb-8">
-                <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs">
+                <Button asChild variant="ghost" className="text-muted-foreground hover:text-foreground p-0 h-auto text-xs pl-2">
                     <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
-                        <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
+                        <span className="flex items-center justify-center h-7 w-7 rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                             <ArrowLeft className="h-4 w-4" />
                         </span>
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Nosotros</span>
+                        <span className="group-hover:text-primary transition-colors">Volver a Nosotros</span>
                     </Link>
                 </Button>
             </div>
 
             {/* Header */}
-            <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
-                <div>
-                    <h1 className="text-4xl font-bold tracking-tight text-foreground">En Sintonía con Nuestros Objetivos</h1>
-                </div>
-                <Card className="flex items-center gap-4 p-4 rounded-xl shadow-sm">
-                    <div className="relative h-24 w-24 flex-shrink-0">
-                        <Image
-                            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0ZWFtfGVufDB8fHx8MTc1Mzc4NTkwMHww&ixlib=rb-4.1.0&q=80&w=1080"
-                            alt="Equipo trabajando en objetivos"
-                            layout="fill"
-                            objectFit="cover"
-                            data-ai-hint="team collaboration"
-                            className="rounded-lg"
-                        />
-                    </div>
-                    <div>
-                        <p className="text-sm text-muted-foreground">
-                            Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025.
-                        </p>
-                    </div>
-                </Card>
-            </div>
+            <Card className="relative w-full overflow-hidden rounded-2xl bg-primary text-primary-foreground shadow-2xl min-h-[300px] flex flex-col justify-center p-8 md:p-12 mb-12">
+              <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
+              <div className="absolute right-10 top-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
+              <div className="absolute -left-10 bottom-10 w-40 h-40 rounded-full bg-white/5 pointer-events-none"></div>
+
+              <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center">
+                  <div className="md:col-span-1">
+                      <p className="text-8xl font-black text-white/80">01</p>
+                  </div>
+                  <div className="md:col-span-11 md:pl-8">
+                      <h1 className="text-4xl md:text-5xl font-bold">Nuestros Objetivos</h1>
+                      <p className="mt-4 max-w-2xl text-primary-foreground/80">
+                          Un vistazo en tiempo real al progreso de nuestros desafíos estratégicos para 2025. Seleccione una categoría para ver los detalles.
+                      </p>
+                  </div>
+              </div>
+            </Card>
 
 
             {/* Dashboard Grid */}

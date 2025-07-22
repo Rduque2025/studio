@@ -107,11 +107,20 @@ interface SmartGoalCardProps {
 }
 
 const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onClick();
+    }
+  };
+
   return (
-    <button
+    <div
       onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
       className={cn(
-        "group relative w-full h-80 rounded-2xl p-6 text-left transition-all duration-300 overflow-hidden",
+        "group relative w-full h-80 rounded-2xl p-6 text-left transition-all duration-300 overflow-hidden cursor-pointer",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         isActive ? "ring-2 ring-primary bg-card" : "bg-card shadow-md hover:shadow-lg"
       )}
@@ -122,7 +131,7 @@ const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }
           <p className="text-4xl font-extrabold text-muted-foreground/30 mt-1">{goal.letter}</p>
         </div>
         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 mt-auto">
-          <Button size="sm" variant="default" className="w-full">
+          <Button size="sm" variant="default" className="w-full" tabIndex={-1}>
             Explorar
           </Button>
         </div>
@@ -135,7 +144,7 @@ const SmartGoalCard: React.FC<SmartGoalCardProps> = ({ goal, isActive, onClick }
         className="absolute -bottom-10 -right-10 z-0 opacity-80 group-hover:scale-110 transition-transform duration-500 ease-in-out"
         data-ai-hint="abstract 3d"
       />
-    </button>
+    </div>
   );
 };
 

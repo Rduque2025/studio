@@ -126,10 +126,10 @@ export function Header() {
         <div className="flex items-center justify-start">
           <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
             <Image
-              src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
+              src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
               alt="Banesco Seguros Logo"
-              width={86}
-              height={20}
+              width={40}
+              height={40}
               priority
             />
           </Link>
@@ -262,11 +262,11 @@ export function Header() {
         {/* Logo */}
         <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
           <Image
-            src="https://www.banescoseguros.com/wp-content/uploads/2024/06/Logo-bs-horizontal-1.png"
+            src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
             alt="Banesco Seguros Logo"
-            width={86}
-            height={16}
-            className="h-4 w-auto"
+            width={32}
+            height={32}
+            className="h-8 w-auto"
             priority
           />
         </Link>

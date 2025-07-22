@@ -154,8 +154,6 @@ export default function ObjetivosSmartPage() {
                     <Card className="shadow-sm border-none bg-card p-6 flex flex-col justify-between h-full">
                         <div>
                             <CardHeader className="p-0">
-                                <CardTitle>Progreso General 2025</CardTitle>
-                                <CardDescription>Crecimiento acumulado de objetivos completados.</CardDescription>
                             </CardHeader>
                             <CardContent className="p-0 mt-4">
                                 <p className="text-4xl font-bold text-primary">+42% Crecimiento</p>

@@ -287,7 +287,7 @@ export default function DashboardPage() {
             />
             <div className="container mx-auto h-full flex flex-col justify-center items-start text-left p-4 z-10 relative">
                 <h1 className="text-4xl md:text-6xl font-extrabold max-w-2xl text-foreground">
-                    Tu Ecosistema Digital Banesco Seguros
+                    Nuestro Espacio Banesco Seguros
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground">
                     Bienvenido al espacio donde encontrarás todas las herramientas, recursos y actividades para tu día a día en Banesco Seguros.
@@ -866,6 +866,7 @@ export default function DashboardPage() {
 
 
     
+
 
 
 

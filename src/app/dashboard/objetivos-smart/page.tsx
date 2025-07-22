@@ -107,7 +107,7 @@ export default function ObjetivosSmartPage() {
     };
 
     return (
-        <div className="container mx-auto py-8 md:py-16 px-4 space-y-8">
+        <div className="container mx-auto py-8 md:py-16 px-4 space-y-12">
             <div className="flex justify-start">
                 <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs">
                     <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
@@ -138,70 +138,68 @@ export default function ObjetivosSmartPage() {
                 </div>
             </div>
 
-            <Card className="shadow-lg rounded-2xl overflow-hidden">
-              <CardContent className="p-6 md:p-8 space-y-8">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                  {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => {
-                    const goal = smartGoalsData[key];
-                    return (
-                      <button
-                        key={key}
-                        onClick={() => handleTabClick(key)}
-                        className={cn(
-                          "group rounded-xl p-4 text-left transition-all duration-200",
-                          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                          activeTab === key ? "bg-primary/10" : "bg-muted/50 hover:bg-muted"
-                        )}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div className={cn(
-                            "p-2 rounded-lg bg-background group-hover:bg-white transition-colors",
-                             activeTab === key && "bg-primary text-primary-foreground"
-                          )}>
-                             <goal.icon className={cn("h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors", activeTab === key && "text-primary-foreground")} />
-                          </div>
-                          <span className={cn(
-                            "text-xs font-medium px-2 py-1 rounded-full",
-                             activeTab === key ? "bg-primary text-primary-foreground" : "bg-background"
-                          )}>
-                            {goal.challenges.length}
-                          </span>
+            <div className="space-y-8">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => {
+                  const goal = smartGoalsData[key];
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handleTabClick(key)}
+                      className={cn(
+                        "group rounded-xl p-4 text-left transition-all duration-200",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                        activeTab === key ? "bg-primary/10" : "bg-muted/50 hover:bg-muted"
+                      )}
+                    >
+                      <div className="flex justify-between items-start">
+                        <div className={cn(
+                          "p-2 rounded-lg bg-background group-hover:bg-white transition-colors",
+                           activeTab === key && "bg-primary text-primary-foreground"
+                        )}>
+                           <goal.icon className={cn("h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors", activeTab === key && "text-primary-foreground")} />
                         </div>
-                        <div className="mt-4">
-                          <p className="font-semibold text-sm text-foreground">{goal.title}</p>
-                          <p className="text-xs text-muted-foreground">{goal.letter}</p>
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
+                        <span className={cn(
+                          "text-xs font-medium px-2 py-1 rounded-full",
+                           activeTab === key ? "bg-primary text-primary-foreground" : "bg-background"
+                        )}>
+                          {goal.challenges.length}
+                        </span>
+                      </div>
+                      <div className="mt-4">
+                        <p className="font-semibold text-sm text-foreground">{goal.title}</p>
+                        <p className="text-xs text-muted-foreground">{goal.letter}</p>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
 
-                {activeGoal && (
-                  <div className="space-y-4 pt-4">
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">
-                        <span className="text-primary">{activeGoal.letter}</span> — {activeGoal.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">{activeGoal.description}</p>
-                    </div>
-                    
-                    <div className="space-y-3 pt-2">
-                        {activeGoal.challenges.map((challenge, index) => (
-                            <div key={index} className="flex items-start gap-4 p-3 bg-muted/30 rounded-lg">
-                                <div className="p-2.5 bg-background rounded-md flex-shrink-0 mt-1 shadow-sm border">
-                                    <challenge.icon className="h-4 w-4 text-primary" />
-                                </div>
-                                <div>
-                                    <p className="text-sm font-medium leading-tight text-foreground">{challenge.title}</p>
-                                    <p className="text-xs text-muted-foreground mt-1">{challenge.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+              {activeGoal && (
+                <div className="space-y-4 pt-4">
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground">
+                      <span className="text-primary">{activeGoal.letter}</span> — {activeGoal.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground">{activeGoal.description}</p>
                   </div>
-                )}
-              </CardContent>
-            </Card>
+                  
+                  <div className="space-y-3 pt-2">
+                      {activeGoal.challenges.map((challenge, index) => (
+                          <div key={index} className="flex items-start gap-4 p-3 bg-muted/30 rounded-lg">
+                              <div className="p-2.5 bg-background rounded-md flex-shrink-0 mt-1 shadow-sm border">
+                                  <challenge.icon className="h-4 w-4 text-primary" />
+                              </div>
+                              <div>
+                                  <p className="text-sm font-medium leading-tight text-foreground">{challenge.title}</p>
+                                  <p className="text-xs text-muted-foreground mt-1">{challenge.description}</p>
+                              </div>
+                          </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
         </div>
     );
 }

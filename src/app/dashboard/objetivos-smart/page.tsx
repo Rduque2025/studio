@@ -30,11 +30,13 @@ import {
   Sparkles,
   Timer,
   MoreVertical,
-  ArrowRight
+  ArrowRight,
+  Clock
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
 import type { LucideIcon } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const smartGoalsData = {
   S: {
@@ -90,20 +92,17 @@ const smartGoalsData = {
   },
 };
 
-const progressData = [
-    { month: "Ene", logrado: 18, proyectado: 20 },
-    { month: "Feb", logrado: 22, proyectado: 25 },
-    { month: "Mar", logrado: 30, proyectado: 35 },
-    { month: "Abr", logrado: 35, proyectado: 40 },
-    { month: "May", logrado: 42, proyectado: 48 },
-    { month: "Jun", logrado: 50, proyectado: 55 },
-    { month: "Jul", logrado: 53, proyectado: 60 },
-    { month: "Ago", logrado: 58, proyectado: 65 },
-    { month: "Sep", logrado: 62, proyectado: 70 },
-    { month: "Oct", logrado: 68, proyectado: 75 },
-    { month: "Nov", logrado: 75, proyectado: 80 },
-    { month: "Dic", logrado: 82, proyectado: 90 },
-];
+const progressData = {
+    current: 58,
+    goal: 100
+};
+
+const getStatus = (progress: number) => {
+    if (progress < 40) return { label: "EN RIESGO", color: "text-red-600", bg: "bg-red-100", ring: "ring-red-200", stroke: "stroke-red-500" };
+    if (progress < 75) return { label: "EN PROGRESO", color: "text-amber-600", bg: "bg-amber-100", ring: "ring-amber-200", stroke: "stroke-amber-500" };
+    return { label: "EN CAMINO", color: "text-green-600", bg: "bg-green-100", ring: "ring-green-200", stroke: "stroke-green-500" };
+};
+
 
 export default function ObjetivosSmartPage() {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData | null>(null);
@@ -115,6 +114,10 @@ export default function ObjetivosSmartPage() {
             setSelectedCategory(categoryKey);
         }
     };
+
+    const status = getStatus(progressData.current);
+    const circumference = 2 * Math.PI * 52; // 2 * pi * radius
+    const strokeDashoffset = circumference - (progressData.current / progressData.goal) * circumference;
 
     return (
         <div className="container mx-auto py-8 px-4 bg-background">
@@ -157,36 +160,61 @@ export default function ObjetivosSmartPage() {
               
               <div className="lg:col-span-2">
                 {!selectedCategory ? (
-                    <Card className="shadow-sm border-none bg-card flex flex-col justify-between h-full">
-                        <div className="h-96 w-full p-4">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={progressData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                    <defs>
-                                        <linearGradient id="colorProyectado" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
-                                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                                        </linearGradient>
-                                    </defs>
-                                    <Tooltip
-                                        contentStyle={{
-                                            backgroundColor: 'hsl(var(--background))',
-                                            border: '1px solid hsl(var(--border))',
-                                            borderRadius: 'var(--radius)'
-                                        }}
-                                        labelClassName="font-bold"
-                                        formatter={(value: number, name: string) => {
-                                            if (name === 'logrado') {
-                                                return [`${value}%`, "Logrado"];
-                                            }
-                                            return null;
-                                        }}
-                                        itemSorter={(item) => item.name === 'logrado' ? -1 : 1}
+                    <Card className="shadow-sm border-none bg-card flex flex-col justify-between h-full p-6">
+                        <CardHeader className="flex flex-row justify-between items-start p-0">
+                            <div className="flex items-center gap-2">
+                                <div className="p-2 bg-muted rounded-md">
+                                    <Clock className="h-5 w-5 text-muted-foreground" />
+                                </div>
+                                <div>
+                                    <CardTitle className="text-sm font-medium">Progreso Anual</CardTitle>
+                                    <CardDescription className="text-xs">Estado general de objetivos</CardDescription>
+                                </div>
+                            </div>
+                            <Button variant="ghost" size="icon" className="h-8 w-8">
+                                <MoreVertical className="h-4 w-4" />
+                            </Button>
+                        </CardHeader>
+                        <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
+                            <div className="my-6">
+                                <Badge className={cn("font-semibold tracking-wider", status.bg, status.color, `hover:${status.bg}`)}>
+                                    {status.label}
+                                </Badge>
+                            </div>
+                            <div className="text-center">
+                                <p className="text-5xl font-bold text-foreground">{progressData.current}%</p>
+                                <p className="text-muted-foreground">/ {progressData.goal}%</p>
+                            </div>
+                        </CardContent>
+                        <CardFooter className="p-0">
+                           <div className="w-full relative h-20 flex items-center justify-center">
+                                <svg className="w-full h-auto" viewBox="0 0 120 70">
+                                    <circle
+                                        className="stroke-muted"
+                                        cx="60"
+                                        cy="60"
+                                        r="52"
+                                        fill="transparent"
+                                        strokeWidth="8"
+                                        strokeDasharray={circumference}
+                                        strokeDashoffset={0}
+                                        transform="rotate(-180 60 60)"
                                     />
-                                    <Area type="monotone" dataKey="proyectado" strokeWidth={2} stroke="hsl(var(--primary))" fillOpacity={0.4} fill="url(#colorProyectado)" />
-                                    <Area type="monotone" dataKey="logrado" strokeWidth={2} stroke="hsl(var(--primary))" fill="hsl(var(--primary))" />
-                                </AreaChart>
-                            </ResponsiveContainer>
-                        </div>
+                                    <circle
+                                        className={cn("transition-all duration-1000 ease-out", status.stroke)}
+                                        cx="60"
+                                        cy="60"
+                                        r="52"
+                                        fill="transparent"
+                                        strokeWidth="8"
+                                        strokeDasharray={circumference}
+                                        strokeDashoffset={strokeDashoffset}
+                                        strokeLinecap="round"
+                                        transform="rotate(-180 60 60)"
+                                    />
+                                </svg>
+                            </div>
+                        </CardFooter>
                     </Card>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -102,7 +102,7 @@ const PinTumber = ({ value, isFocused, onClick }: { value: number; isFocused: bo
 };
 
 
-const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
+const AuthToggle = ({ onCheck, onError, onIdle }: { onCheck: () => boolean; onError: () => void; onIdle: () => void; }) => {
     const [status, setStatus] = useState<'idle' | 'checking' | 'success' | 'error'>('idle');
 
     const handleClick = () => {
@@ -116,7 +116,11 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
                 setStatus('success');
             } else {
                 setStatus('error');
-                setTimeout(() => setStatus('idle'), 1000);
+                onError();
+                setTimeout(() => {
+                    setStatus('idle');
+                    onIdle();
+                }, 1000);
             }
         }, 500);
     };
@@ -155,7 +159,7 @@ const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [combination, setCombination] = useState([0, 0, 0]);
-  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [inputBuffer, setInputBuffer] = useState('');
 
@@ -164,7 +168,6 @@ export default function GerenciaComercialDashboard() {
     const newCombination = [...combination];
     newCombination[index] = (newCombination[index] + delta + 100) % 100;
     setCombination(newCombination);
-    setError('');
     setInputBuffer('');
   };
 
@@ -174,18 +177,9 @@ export default function GerenciaComercialDashboard() {
         setTimeout(() => {
             setIsAuthenticated(true);
         }, 800);
-    } else {
-      setError('Combinación incorrecta');
     }
     return isCorrect;
   }, [combination]);
-
-  useEffect(() => {
-    if (error) {
-      const timer = setTimeout(() => setError(''), 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [error]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -237,7 +231,7 @@ export default function GerenciaComercialDashboard() {
         <div className="w-full max-w-xs flex flex-col items-center">
             <div className={cn(
                 "flex justify-center items-center gap-1 transition-all p-2 bg-[#2a2a2a] rounded-3xl shadow-2xl w-full",
-                error ? "animate-shake" : ""
+                isError ? "animate-shake" : ""
               )}
               onClick={(e) => e.stopPropagation()}
             >
@@ -258,12 +252,14 @@ export default function GerenciaComercialDashboard() {
               ))}
             </div>
             
-            <div className="h-6 mt-6">
-                {error && <p className="text-sm font-medium text-destructive">{error}</p>}
-            </div>
+            <div className="h-6 mt-6" />
 
             <div className="mt-4">
-               <AuthToggle onCheck={checkCombination} />
+               <AuthToggle 
+                  onCheck={checkCombination} 
+                  onError={() => setIsError(true)} 
+                  onIdle={() => setIsError(false)} 
+                />
             </div>
         </div>
       </div>

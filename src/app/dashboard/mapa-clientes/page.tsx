@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
@@ -57,11 +57,71 @@ const commercialProcessSteps = [
 ];
 
 const statsData = [
-    { value: "+32", description: "Años de servicio continuo y confianza." },
-    { value: "+200k", description: "Clientes que han depositado su confianza en nosotros." },
-    { value: "+100", description: "Clínicas afiliadas a nuestra red a nivel nacional." },
-    { value: "+200", description: "Empleados comprometidos con nuestra misión y valores." }
+    { value: 32, prefix: "+", suffix: "", description: "Años de servicio continuo y confianza." },
+    { value: 200, prefix: "+", suffix: "k", description: "Clientes que han depositado su confianza en nosotros." },
+    { value: 100, prefix: "+", suffix: "", description: "Clínicas afiliadas a nuestra red a nivel nacional." },
+    { value: 200, prefix: "+", suffix: "", description: "Empleados comprometidos con nuestra misión y valores." }
   ];
+
+// --- Animation Hook ---
+const useAnimatedNumber = (end: number, duration = 2000) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          let start = 0;
+          const endValue = end;
+          if (start === endValue) return;
+
+          const totalFrames = Math.round(duration / (1000 / 60));
+          const increment = endValue / totalFrames;
+          
+          let currentFrame = 0;
+          const timer = setInterval(() => {
+            currentFrame++;
+            start += increment;
+            setCount(Math.floor(start));
+            if (currentFrame === totalFrames) {
+              setCount(endValue);
+              clearInterval(timer);
+            }
+          }, duration / totalFrames);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [end, duration]);
+
+  return { count, ref };
+};
+
+
+// --- Stat Card Component ---
+const StatCard = ({ value, prefix, suffix, description }: { value: number, prefix: string, suffix: string, description: string }) => {
+  const { count, ref } = useAnimatedNumber(value);
+  return (
+    <div ref={ref} className="md:px-8 flex-1 first:md:pl-0 last:md:pr-0">
+      <p className="text-5xl lg:text-6xl font-extrabold text-primary mb-3">
+        {prefix}{count}{suffix}
+      </p>
+      <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">{description}</p>
+    </div>
+  );
+};
 
 
 export default function NosotrosPage() {
@@ -157,10 +217,7 @@ export default function NosotrosPage() {
             </div>
             <div className="flex flex-col md:flex-row md:divide-x md:divide-border/70 space-y-8 md:space-y-0 text-center md:text-left">
               {statsData.map((stat, index) => (
-                <div key={index} className="md:px-8 flex-1 first:md:pl-0 last:md:pr-0">
-                  <p className="text-5xl lg:text-6xl font-extrabold text-primary mb-3">{stat.value}</p>
-                  <p className="text-sm text-muted-foreground max-w-xs mx-auto md:mx-0">{stat.description}</p>
-                </div>
+                <StatCard key={index} {...stat} />
               ))}
             </div>
           </div>
@@ -271,4 +328,5 @@ export default function NosotrosPage() {
       </div>
     </div>
   );
-}
+
+    

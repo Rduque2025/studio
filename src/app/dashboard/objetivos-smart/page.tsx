@@ -122,8 +122,8 @@ export default function ObjetivosSmartPage() {
               />
               <div className="relative p-8 md:p-12 text-white">
                   <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
-                  <p className="max-w-xl mt-2 text-white/90">
-                    Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean claras y alcanzables.
+                  <p className="max-w-xl mt-2 text-white/90 text-sm">
+                    Los objetivos SMART son una herramienta estratégica que transforma las aspiraciones de una empresa en metas tangibles y funcionales. Al ser Específicos, Medibles, Alcanzables, Relevantes y con un plazo Temporal, proporcionan una claridad absoluta y un enfoque preciso. Esta metodología facilita el seguimiento riguroso del progreso y asegura que cada esfuerzo esté perfectamente alineado con la visión global de la compañía. De este modo, se garantiza que los recursos se utilicen eficientemente para impulsar el éxito corporativo.
                   </p>
               </div>
             </div>

@@ -111,21 +111,23 @@ export default function ObjetivosSmartPage() {
                 </Button>
             </div>
             
-            <div className="relative rounded-2xl overflow-hidden shadow-lg">
-              <Image
-                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc1MzE5MzYyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Equipo trabajando en objetivos"
-                layout="fill"
-                objectFit="cover"
-                className="brightness-50"
-                data-ai-hint="office brainstorming"
-              />
-              <div className="relative p-8 md:p-12 text-white">
-                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
-                  <p className="max-w-xl mt-2 text-white/90 text-sm">
-                    Los objetivos SMART son una herramienta estratégica que transforma las aspiraciones de una empresa en metas tangibles y funcionales. Al ser Específicos, Medibles, Alcanzables, Relevantes y con un plazo Temporal, proporcionan una claridad absoluta y un enfoque preciso. Esta metodología facilita el seguimiento riguroso del progreso y asegura que cada esfuerzo esté perfectamente alineado con la visión global de la compañía. De este modo, se garantiza que los recursos se utilicen eficientemente para impulsar el éxito corporativo.
-                  </p>
-              </div>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
+                    <p className="text-muted-foreground text-sm leading-relaxed">
+                        Los objetivos SMART son una herramienta estratégica que transforma las aspiraciones de una empresa en metas tangibles y funcionales. Al ser Específicos, Medibles, Alcanzables, Relevantes y con un plazo Temporal, proporcionan una claridad absoluta y un enfoque preciso. Esta metodología facilita el seguimiento riguroso del progreso y asegura que cada esfuerzo esté perfectamente alineado con la visión global de la compañía. De este modo, se garantiza que los recursos se utilicen eficientemente para impulsar el éxito corporativo.
+                    </p>
+                </div>
+                 <div className="relative rounded-2xl overflow-hidden shadow-lg h-80 md:h-96">
+                    <Image
+                        src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc1MzE5MzYyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Equipo trabajando en objetivos"
+                        layout="fill"
+                        objectFit="cover"
+                        className="brightness-90"
+                        data-ai-hint="office brainstorming"
+                    />
+                </div>
             </div>
 
             <Card className="shadow-lg rounded-2xl overflow-hidden">

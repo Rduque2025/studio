@@ -99,8 +99,8 @@ export default function ObjetivosSmartPage() {
     const activeGoal = smartGoalsData[activeTab];
 
     return (
-        <div className="container mx-auto py-8 md:py-16 px-4">
-            <div className="mb-8 flex justify-start">
+        <div className="container mx-auto py-8 md:py-16 px-4 space-y-8">
+            <div className="flex justify-start">
                 <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs">
                     <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
                        <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
@@ -111,25 +111,25 @@ export default function ObjetivosSmartPage() {
                 </Button>
             </div>
             
-            <Card className="shadow-lg rounded-2xl overflow-hidden">
-              <div className="relative">
-                <Image
-                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc1MzE5MzYyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
-                  alt="Equipo trabajando en objetivos"
-                  layout="fill"
-                  objectFit="cover"
-                  className="brightness-50"
-                  data-ai-hint="office brainstorming"
-                />
-                <div className="relative p-8 md:p-12 text-white">
-                    <h2 className="text-3xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h2>
-                    <p className="max-w-xl mt-2 text-white/90">
-                      Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean claras y alcanzables.
-                    </p>
-                </div>
+            <div className="relative rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc1MzE5MzYyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
+                alt="Equipo trabajando en objetivos"
+                layout="fill"
+                objectFit="cover"
+                className="brightness-50"
+                data-ai-hint="office brainstorming"
+              />
+              <div className="relative p-8 md:p-12 text-white">
+                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Nuestros Desafíos Estratégicos</h1>
+                  <p className="max-w-xl mt-2 text-white/90">
+                    Organizados bajo la metodología S.M.A.R.T. para asegurar que nuestras metas sean claras y alcanzables.
+                  </p>
               </div>
+            </div>
+
+            <Card className="shadow-lg rounded-2xl overflow-hidden">
               <CardContent className="p-6 md:p-8 space-y-8">
-                {/* Grid of categories */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {(Object.keys(smartGoalsData) as SmartKey[]).map((key) => {
                     const goal = smartGoalsData[key];
@@ -166,7 +166,6 @@ export default function ObjetivosSmartPage() {
                   })}
                 </div>
 
-                {/* Details of selected category */}
                 <div className="space-y-4 pt-4">
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">

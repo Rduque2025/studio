@@ -29,7 +29,9 @@ import {
   ChevronDown,
   Lock,
   ChevronLeft as ChevronLeftIcon,
-  MoreHorizontal
+  MoreHorizontal,
+  Check,
+  X as XIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -100,6 +102,62 @@ const PinTumber = ({ value, isFocused, onClick }: { value: number; isFocused: bo
 };
 
 
+const AuthToggle = ({ onCheck }: { onCheck: () => boolean }) => {
+    const [status, setStatus] = useState<'idle' | 'checking' | 'success' | 'error'>('idle');
+
+    const handleClick = () => {
+        if (status !== 'idle') return;
+
+        setStatus('checking');
+        const isCorrect = onCheck();
+
+        setTimeout(() => {
+            if (isCorrect) {
+                setStatus('success');
+            } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 1000);
+            }
+        }, 500);
+    };
+
+    const isToggled = status === 'success' || status === 'checking';
+    
+    return (
+        <button
+            onClick={handleClick}
+            className={cn(
+                "relative flex items-center h-14 w-32 rounded-full transition-colors duration-300",
+                {
+                    "bg-[#2d3748]": status === 'idle' || status === 'checking',
+                    "bg-green-500": status === 'success',
+                    "bg-red-500": status === 'error',
+                }
+            )}
+        >
+            <span className={cn(
+                "absolute font-bold text-sm text-white/50 transition-opacity",
+                "right-6",
+                (isToggled || status === 'error') && "opacity-0"
+            )}>
+                OFF
+            </span>
+
+            <div className={cn(
+                "absolute top-1/2 -translate-y-1/2 flex items-center justify-center h-12 w-12 bg-white rounded-full shadow-lg transform transition-transform duration-300 ease-in-out",
+                {
+                    "left-1": status === 'idle',
+                    "left-[calc(100%-3.25rem)]": isToggled || status === 'error',
+                }
+            )}>
+                {status === 'success' && <Check className="h-6 w-6 text-green-500" />}
+                {status === 'error' && <XIcon className="h-6 w-6 text-red-500" />}
+            </div>
+        </button>
+    );
+};
+
+
 // --- MAIN COMPONENT ---
 export default function GerenciaComercialDashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -118,12 +176,15 @@ export default function GerenciaComercialDashboard() {
   };
 
   const checkCombination = useCallback(() => {
-    if (JSON.stringify(combination) === JSON.stringify(CORRECT_COMBINATION)) {
-      setIsAuthenticated(true);
-      setError('');
+    const isCorrect = JSON.stringify(combination) === JSON.stringify(CORRECT_COMBINATION);
+    if (isCorrect) {
+        setTimeout(() => {
+            setIsAuthenticated(true);
+        }, 800);
     } else {
       setError('Combinación incorrecta');
     }
+    return isCorrect;
   }, [combination]);
 
   useEffect(() => {
@@ -161,7 +222,7 @@ export default function GerenciaComercialDashboard() {
       } else if (e.key === 'ArrowLeft') {
         setFocusedIndex((prev) => (prev !== null ? (prev - 1 + 3) % 3 : 0));
       } else if (e.key === 'Enter') {
-        checkCombination();
+        // The toggle now handles the check
       } else if (e.key === 'Backspace') {
         setInputBuffer(inputBuffer.slice(0, -1));
       }
@@ -208,9 +269,9 @@ export default function GerenciaComercialDashboard() {
                 {error && <p className="text-sm font-medium text-destructive">{error}</p>}
             </div>
 
-            <Button size="lg" className="w-full mt-4" onClick={checkCombination}>
-                Desbloquear
-            </Button>
+            <div className="mt-4">
+               <AuthToggle onCheck={checkCombination} />
+            </div>
         </div>
       </div>
     );

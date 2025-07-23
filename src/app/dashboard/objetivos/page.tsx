@@ -36,6 +36,8 @@ import {
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Tooltip as ShadTooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { getCommercialData, type CommercialData } from '@/ai/flows/get-commercial-data-flow';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 // --- MOCK DATA ---
@@ -162,7 +164,8 @@ export default function GerenciaComercialDashboard() {
   const [isError, setIsError] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [inputBuffer, setInputBuffer] = useState('');
-
+  const [dashboardData, setDashboardData] = useState<CommercialData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleArrowChange = (index: number, delta: number) => {
     const newCombination = [...combination];
@@ -223,6 +226,24 @@ export default function GerenciaComercialDashboard() {
   
   const [activeTab, setActiveTab] = useState('General');
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchData = async () => {
+        setIsLoading(true);
+        try {
+          const data = await getCommercialData();
+          setDashboardData(data);
+        } catch (error) {
+          console.error("Error fetching commercial data:", error);
+          // Handle error state if needed
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [isAuthenticated]);
 
 
   if (!isAuthenticated) {
@@ -372,116 +393,161 @@ export default function GerenciaComercialDashboard() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {/* Stat Cards */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">Ventas (Mes)</CardTitle>
-                <CardDescription className="text-xs text-green-600">
-                  +15.2% vs. mes anterior
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold">{formatCurrency(750000)}</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">Cobranza (Mes)</CardTitle>
-                <CardDescription className="text-xs text-green-600">
-                  +5.7% vs. mes anterior
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold">{formatCurrency(690000)}</p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-sm font-medium text-muted-foreground">Nuevos Clientes</CardTitle>
-                 <CardDescription className="text-xs text-red-600">
-                  -2.1% vs. mes anterior
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold">+1,230</p>
-              </CardContent>
-            </Card>
+            {isLoading || !dashboardData ? (
+              <>
+                <Card><CardHeader><Skeleton className="h-5 w-24" /><Skeleton className="h-4 w-32" /></CardHeader><CardContent><Skeleton className="h-10 w-36" /></CardContent></Card>
+                <Card><CardHeader><Skeleton className="h-5 w-24" /><Skeleton className="h-4 w-32" /></CardHeader><CardContent><Skeleton className="h-10 w-36" /></CardContent></Card>
+                <Card><CardHeader><Skeleton className="h-5 w-24" /><Skeleton className="h-4 w-32" /></CardHeader><CardContent><Skeleton className="h-10 w-36" /></CardContent></Card>
+              </>
+            ) : (
+              <>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">Ventas (Mes)</CardTitle>
+                    <CardDescription className={cn(
+                      "text-xs",
+                      dashboardData.kpis.monthlySales.change >= 0 ? 'text-green-600' : 'text-red-600'
+                    )}>
+                      {dashboardData.kpis.monthlySales.change >= 0 ? '+' : ''}
+                      {dashboardData.kpis.monthlySales.change.toFixed(1)}% vs. mes anterior
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-4xl font-bold">{formatCurrency(dashboardData.kpis.monthlySales.value)}</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">Cobranza (Mes)</CardTitle>
+                     <CardDescription className={cn(
+                      "text-xs",
+                      dashboardData.kpis.monthlyCollection.change >= 0 ? 'text-green-600' : 'text-red-600'
+                    )}>
+                      {dashboardData.kpis.monthlyCollection.change >= 0 ? '+' : ''}
+                      {dashboardData.kpis.monthlyCollection.change.toFixed(1)}% vs. mes anterior
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-4xl font-bold">{formatCurrency(dashboardData.kpis.monthlyCollection.value)}</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-sm font-medium text-muted-foreground">Nuevos Clientes</CardTitle>
+                     <CardDescription className={cn(
+                      "text-xs",
+                      dashboardData.kpis.newClients.change >= 0 ? 'text-green-600' : 'text-red-600'
+                    )}>
+                      {dashboardData.kpis.newClients.change >= 0 ? '+' : ''}
+                      {dashboardData.kpis.newClients.change.toFixed(1)}% vs. mes anterior
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-4xl font-bold">+{dashboardData.kpis.newClients.value.toLocaleString()}</p>
+                  </CardContent>
+                </Card>
+              </>
+            )}
           </div>
 
           <div className="grid grid-cols-1 gap-6">
-            {/* Main Trend Chart */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold">Resumen de Ventas</CardTitle>
-              </CardHeader>
-              <CardContent className="h-[350px] w-full">
-                <ResponsiveContainer>
-                  <AreaChart data={salesTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <defs>
-                      <linearGradient id="fillVentas" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
-                    <Tooltip
-                      cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}
-                      contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
-                    />
-                    <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{paddingBottom: '20px'}} />
-                    <Area type="monotone" dataKey="Ventas" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#fillVentas)" activeDot={{ r: 8, style: { fill: 'hsl(var(--primary))' } }} />
-                    <Area type="monotone" dataKey="Mes Anterior" stroke="hsl(var(--muted-foreground))" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            {isLoading || !dashboardData ? (
+                <Card>
+                  <CardHeader><Skeleton className="h-6 w-40" /></CardHeader>
+                  <CardContent><Skeleton className="h-[350px] w-full" /></CardContent>
+                </Card>
+            ) : (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg font-semibold">Resumen de Ventas</CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-[350px] w-full">
+                    <ResponsiveContainer>
+                      <AreaChart data={dashboardData.salesTrend} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="fillVentas" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `$${Number(value) / 1000}k`} />
+                        <Tooltip
+                          cursor={{ stroke: 'hsl(var(--primary))', strokeWidth: 1 }}
+                          contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' }}
+                        />
+                        <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{paddingBottom: '20px'}} />
+                        <Area type="monotone" dataKey="currentMonth" name="Ventas" stroke="hsl(var(--primary))" strokeWidth={2} fill="url(#fillVentas)" activeDot={{ r: 8, style: { fill: 'hsl(var(--primary))' } }} />
+                        <Area type="monotone" dataKey="previousMonth" name="Mes Anterior" stroke="hsl(var(--muted-foreground))" strokeWidth={2} strokeDasharray="5 5" fill="transparent" />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </CardContent>
+                </Card>
+            )}
           </div>
           
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            {/* Sales Force Chart */}
-            <Card className="lg:col-span-2">
-                <CardHeader>
-                    <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
-                    <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
-                </CardHeader>
-                <CardContent className="h-[300px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={salesForceData} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                            <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
-                            <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
-                            <Tooltip
-                                cursor={{ fill: 'hsl(var(--muted))' }}
-                                contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}
-                            />
-                            <Legend verticalAlign="top" align="right" iconType="circle" />
-                            <Bar dataKey="budget" name="Presupuesto" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
-                            <Bar dataKey="value" name="Ventas" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </CardContent>
-            </Card>
+            {isLoading || !dashboardData ? (
+              <>
+                <Card className="lg:col-span-2">
+                  <CardHeader><Skeleton className="h-6 w-32" /><Skeleton className="h-4 w-48" /></CardHeader>
+                  <CardContent><Skeleton className="h-[300px] w-full" /></CardContent>
+                </Card>
+                <Card>
+                  <CardHeader><Skeleton className="h-6 w-32" /><Skeleton className="h-4 w-48" /></CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center gap-4"><Skeleton className="h-10 w-10 rounded-full" /><div className="space-y-2"><Skeleton className="h-4 w-[150px]" /><Skeleton className="h-4 w-[100px]" /></div></div>
+                    <div className="flex items-center gap-4"><Skeleton className="h-10 w-10 rounded-full" /><div className="space-y-2"><Skeleton className="h-4 w-[150px]" /><Skeleton className="h-4 w-[100px]" /></div></div>
+                    <div className="flex items-center gap-4"><Skeleton className="h-10 w-10 rounded-full" /><div className="space-y-2"><Skeleton className="h-4 w-[150px]" /><Skeleton className="h-4 w-[100px]" /></div></div>
+                    <div className="flex items-center gap-4"><Skeleton className="h-10 w-10 rounded-full" /><div className="space-y-2"><Skeleton className="h-4 w-[150px]" /><Skeleton className="h-4 w-[100px]" /></div></div>
+                  </CardContent>
+                </Card>
+              </>
+            ) : (
+            <>
+              <Card className="lg:col-span-2">
+                  <CardHeader>
+                      <CardTitle className="text-lg font-semibold">Fuerza de Ventas</CardTitle>
+                      <CardDescription className="text-xs">Volumen de primas suscritas mensualmente.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="h-[300px]">
+                      <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={dashboardData.salesForce} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                              <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `${value}`} />
+                              <Tooltip
+                                  cursor={{ fill: 'hsl(var(--muted))' }}
+                                  contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}
+                              />
+                              <Legend verticalAlign="top" align="right" iconType="circle" />
+                              <Bar dataKey="budget" name="Presupuesto" fill="hsl(var(--muted))" radius={[4, 4, 0, 0]} />
+                              <Bar dataKey="value" name="Ventas" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                          </BarChart>
+                      </ResponsiveContainer>
+                  </CardContent>
+              </Card>
 
-            {/* Top Executives */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg font-semibold">Rendimiento de Ejecutivos</CardTitle>
-                 <CardDescription className="text-xs">Top 4 por ventas en el mes.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {topExecutivesData.map((exec) => (
-                  <div key={exec.name} className="flex items-center gap-4">
-                    <Avatar className="h-10 w-10">
-                      <AvatarFallback>{exec.avatar}</AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <p className="text-sm font-medium truncate">{exec.name}</p>
-                      <p className="text-xs text-muted-foreground">{formatCurrency(exec.sales)}</p>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg font-semibold">Rendimiento de Ejecutivos</CardTitle>
+                   <CardDescription className="text-xs">Top 4 por ventas en el mes.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {dashboardData.topExecutives.map((exec) => (
+                    <div key={exec.name} className="flex items-center gap-4">
+                      <Avatar className="h-10 w-10">
+                        <AvatarFallback>{exec.avatar}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium truncate">{exec.name}</p>
+                        <p className="text-xs text-muted-foreground">{formatCurrency(exec.sales)}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+                  ))}
+                </CardContent>
+              </Card>
+            </>
+            )}
           </div>
         </div>
       </main>

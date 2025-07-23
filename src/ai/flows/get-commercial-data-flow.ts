@@ -73,6 +73,11 @@ const getCommercialDataFlow = ai.defineFlow(
     // const formattedData = transformSheetDataToCommercialData(sheetData);
     // return formattedData;
     //
+    // Or calling your Apps Script endpoint:
+    // const response = await fetch('YOUR_APPS_SCRIPT_WEB_APP_URL');
+    // const sheetData = await response.json();
+    // const formattedData = transformSheetDataToCommercialData(sheetData.data);
+    // return formattedData;
 
     // Returning mock data for now
     return {

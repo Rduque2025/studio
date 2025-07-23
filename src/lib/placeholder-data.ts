@@ -327,55 +327,43 @@ export const mockDepartments: Department[] = [
   { 
     id: "rh", 
     name: "Recursos Humanos", 
-    description: "Gestión de talento, nómina y bienestar del empleado.",
-    imageUrl: "https://images.unsplash.com/photo-1664575602276-acd073f104c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxlbXByZXNhfGVufDB8fHx8MTc1MDI3NzU0OHww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "human resources" 
+    description: "Solicita constancias de trabajo, recibos de pago y otros documentos personales."
   },
   { 
     id: "it", 
-    name: "Tecnología de Información", 
-    description: "Soporte técnico, infraestructura y desarrollo de sistemas.",
-    imageUrl: "https://images.unsplash.com/photo-1579403124614-197f69d8187b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzb2Z0d2FyZXxlbnwwfHx8fDE3NTAzNDM0MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "technology infrastructure"
+    name: "Soporte TI", 
+    description: "Reporta problemas con tu equipo, solicita software o gestiona accesos a sistemas."
   },
   {
     id: "hcm",
     name: "Póliza HCM",
-    description: "Consultas, reembolsos y gestión de la póliza de salud.",
+    description: "Realiza consultas sobre tu cobertura, solicita cartas aval o gestiona reembolsos médicos.",
     directLink: "/dashboard/page-hcm" // Example link
   },
   { 
     id: "servicios", 
     name: "Servicios Generales", 
-    description: "Mantenimiento, limpieza y gestión de instalaciones.",
+    description: "Coordina mantenimiento, limpieza o solicita reparaciones para las instalaciones."
   },
   { 
     id: "finanzas", 
-    name: "Finanzas y Contabilidad", 
-    description: "Presupuestos, reportes financieros y contabilidad general.",
-    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxmaW5hbmNlfGVufDB8fHx8MTc1MDM0MzYzMnww&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "financial planning"
+    name: "Finanzas", 
+    description: "Gestiona reportes de gastos, consulta presupuestos o realiza solicitudes contables."
   },
   { 
     id: "marketing", 
     name: "Marketing y Ventas", 
-    description: "Estrategias de mercado, publicidad y gestión de ventas.",
-    imageUrl: "https://placehold.co/600x400.png",
-    dataAiHint: "marketing strategy"
+    description: "Estrategias de mercado, publicidad y gestión de ventas."
   },
   { 
     id: "operaciones", 
     name: "Operaciones", 
-    description: "Procesos internos, logística y gestión de calidad.",
-    imageUrl: "https://placehold.co/600x400.png",
-    dataAiHint: "operational efficiency"
+    description: "Procesos internos, logística y gestión de calidad."
   },
   { 
     id: "vacaciones", 
     name: "Gestión de Vacaciones", 
-    description: "Solicite sus vacaciones, verifique días acumulados y planifique su próximo descanso.",
-    imageUrl: "https://images.unsplash.com/photo-1519046904884-53103b34b206?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiZWFjaHxlbnwwfHx8fDE3NTAzNDI5NDR8MA&ixlib=rb-4.1.0&q=80&w=1080", 
-    dataAiHint: "travel vacation", 
+    description: "Planifica y solicita tus días libres, consulta tu saldo de vacaciones y revisa el calendario.",
     directLink: "/dashboard/vacaciones"
   }
 ];

@@ -12,7 +12,7 @@ const DepartmentCard = ({ id, title, description, href, step }: { id: string, ti
     <Link href={href} className="block group">
       <Card className="flex flex-col h-full bg-card hover:border-primary/50 transition-colors shadow-sm hover:shadow-lg border p-6 rounded-xl">
         <div className="flex items-center justify-start mb-4">
-          <div className="flex items-center justify-center h-8 w-8 rounded-full border-2 border-red-500 text-red-500 font-bold text-sm">
+          <div className="flex items-center justify-center h-8 w-8 rounded-full border-2 border-primary text-primary font-bold text-sm">
             {step}
           </div>
         </div>
@@ -34,7 +34,7 @@ export default function RequerimientosPage() {
         
         <header className="grid md:grid-cols-2 gap-8 mb-16">
             <div>
-                 <p className="text-sm font-semibold text-red-500 mb-2">NUESTRO PROCESO DE SOLICITUD</p>
+                 <p className="text-sm font-semibold text-primary mb-2">NUESTRO PROCESO DE SOLICITUD</p>
                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">Portal de Requerimientos</h1>
             </div>
             <div className="flex items-center">

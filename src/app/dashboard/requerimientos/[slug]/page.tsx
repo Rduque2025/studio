@@ -19,8 +19,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
-  const slug = params.slug;
+export default function DepartmentRequestPage({ params: { slug } }: DepartmentPageProps) {
   const department = mockDepartments.find(d => d.id === slug);
 
   if (!department) {

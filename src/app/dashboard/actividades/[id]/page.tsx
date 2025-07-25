@@ -21,8 +21,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ActivityDetailsPage({ params }: ActivityDetailsPageProps) {
-  const id = params.id;
+export default function ActivityDetailsPage({ params: { id } }: ActivityDetailsPageProps) {
   const activity = mockActivities.find(a => a.id === id);
 
   if (!activity) {

@@ -18,8 +18,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CourseDetailsPage({ params }: CourseDetailsPageProps) {
-  const id = params.id;
+export default function CourseDetailsPage({ params: { id } }: CourseDetailsPageProps) {
   const course = mockCourses.find(c => c.id === id);
 
   if (!course) {

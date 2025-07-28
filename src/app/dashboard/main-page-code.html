@@ -65,6 +65,14 @@
         .border-border {
             border-color: hsl(var(--border));
         }
+
+        /* Styles for FAQ Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -183,55 +191,23 @@
                 </div>
                 <div class="md:col-span-8">
                     <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 px-3 button-primary">Clásico</button>
-                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">Dieta</button>
-                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">Ejecutivo</button>
+                        <div id="menu-filters" class="flex items-center gap-2 flex-wrap">
+                            <button data-filter="Clásico" class="menu-filter-btn button-primary inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-9 px-3">Clásico</button>
+                            <button data-filter="Dieta" class="menu-filter-btn inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">Dieta</button>
+                            <button data-filter="Ejecutivo" class="menu-filter-btn inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3">Ejecutivo</button>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                            <button id="scroll-left-btn" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m15 18-6-6 6-6"/></svg>
                             </button>
-                            <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
+                            <button id="scroll-right-btn" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><path d="m9 18 6-6-6-6"/></svg>
                             </button>
                         </div>
                     </div>
-                    <div class="w-full overflow-x-auto">
-                        <div class="flex w-max space-x-8 py-4">
-                            <!-- Menu Items -->
-                            <div class="w-[350px] overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg flex-shrink-0 flex flex-col card scale-105 bg-primary text-primary-foreground">
-                                <div class="p-0 relative">
-                                    <div class="relative w-full aspect-square">
-                                        <img src="https://images.unsplash.com/photo-1628294895933-4360614f39dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXJyeSUyMGNoaWNrZW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Pollo al Curry con Arroz Jazmín" class="absolute inset-0 w-full h-full object-cover">
-                                    </div>
-                                    <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 absolute top-2 right-2 z-10 bg-white/20 text-white backdrop-blur-sm">Hoy</div>
-                                </div>
-                                <div class="p-4 flex flex-col flex-grow">
-                                    <div class="flex justify-between items-start mb-2">
-                                        <p class="text-sm font-semibold text-primary-foreground/80" style="color: hsla(var(--primary-foreground), 0.8)">Lunes</p>
-                                        <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">100 Bs.</div>
-                                    </div>
-                                    <h3 class="text-base font-bold leading-tight mb-2">Pollo al Curry con Arroz Jazmín</h3>
-                                    <p class="text-xs flex-grow text-primary-foreground/90" style="color: hsla(var(--primary-foreground), 0.9)">Delicioso pollo en salsa de curry acompañado de arroz jazmín y vegetales al vapor.</p>
-                                </div>
-                            </div>
-                            <!-- Repeat for other menu items -->
-                             <div class="w-[350px] overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg flex-shrink-0 flex flex-col card">
-                                <div class="p-0 relative">
-                                    <div class="relative w-full aspect-square">
-                                        <img src="https://images.unsplash.com/photo-1574894709920-11b28e7367e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXNhZ25hJTIwcGFzdGF8ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Lasaña de Carne Clásica" class="absolute inset-0 w-full h-full object-cover">
-                                    </div>
-                                </div>
-                                <div class="p-4 flex flex-col flex-grow">
-                                    <div class="flex justify-between items-start mb-2">
-                                        <p class="text-sm font-semibold text-muted-foreground">Martes</p>
-                                        <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">100 Bs.</div>
-                                    </div>
-                                    <h3 class="text-base font-bold leading-tight mb-2">Lasaña de Carne Clásica</h3>
-                                    <p class="text-xs flex-grow text-muted-foreground">Capas de pasta, carne molida, salsa bechamel y queso parmesano, horneada a la perfección.</p>
-                                </div>
-                            </div>
+                    <div id="menu-scroll-container" class="w-full overflow-x-auto" style="scrollbar-width: none;">
+                        <div id="menu-items-wrapper" class="flex w-max space-x-8 py-4">
+                            <!-- Menu Items will be injected by JavaScript -->
                         </div>
                     </div>
                 </div>
@@ -373,38 +349,23 @@
                 <p class="font-semibold text-primary uppercase tracking-wider">¿Tienes Dudas?</p>
                 <h2 class="text-3xl font-bold text-foreground tracking-tight mt-1">Preguntas Frecuentes</h2>
               </div>
-              <div class="space-y-2">
-                 <button class="bg-secondary text-secondary-foreground w-full justify-start gap-3 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2">
+              <div id="faq-filters" class="space-y-2">
+                 <button data-category="General" class="faq-filter-btn bg-secondary text-secondary-foreground w-full justify-start gap-3 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
                     <span>General</span>
                  </button>
-                 <button class="hover:bg-accent hover:text-accent-foreground w-full justify-start gap-3 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2">
+                 <button data-category="Soporte" class="faq-filter-btn hover:bg-accent hover:text-accent-foreground w-full justify-start gap-3 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2">
                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                     <span>Soporte</span>
                  </button>
-                 <button class="hover:bg-accent hover:text-accent-foreground w-full justify-start gap-3 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                 <button data-category="Otros" class="faq-filter-btn hover:bg-accent hover:text-accent-foreground w-full justify-start gap-3 inline-flex items-center whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                     <span>Otros</span>
                  </button>
               </div>
             </div>
-            <div class="md:col-span-2 space-y-3">
-               <div class="bg-muted/50 border-0 rounded-lg">
-                  <div class="flex flex-1 items-center justify-between py-4 font-semibold text-base hover:no-underline">
-                     ¿Cómo puedo consultar la cobertura de mi póliza HCM?
-                     <div class="ml-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-primary transition-transform duration-200"><path d="m6 9 6 6 6-6"/></svg>
-                     </div>
-                  </div>
-               </div>
-               <div class="bg-muted/50 border-0 rounded-lg">
-                  <div class="flex flex-1 items-center justify-between py-4 font-semibold text-base hover:no-underline">
-                     ¿Cuál es el procedimiento para solicitar vacaciones?
-                     <div class="ml-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4 text-primary transition-transform duration-200"><path d="m6 9 6 6 6-6"/></svg>
-                     </div>
-                  </div>
-               </div>
+            <div id="faq-accordion-container" class="md:col-span-2 space-y-3">
+               <!-- Accordion items will be injected by JavaScript -->
             </div>
           </div>
         </div>
@@ -462,5 +423,178 @@
         </div>
     </section>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // --- MENU SECTION ---
+        const allMenuItems = [
+            { id: "M001", day: "Lunes", name: "Pollo al Curry con Arroz Jazmín", description: "Delicioso pollo en salsa de curry acompañado de arroz jazmín y vegetales al vapor.", imageUrl: "https://images.unsplash.com/photo-1628294895933-4360614f39dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXJyeSUyMGNoaWNrZW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Clásico" },
+            { id: "M002", day: "Martes", name: "Lasaña de Carne Clásica", description: "Capas de pasta, carne molida, salsa bechamel y queso parmesano, horneada a la perfección.", imageUrl: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXNhZ25hJTIwcGFzdGF8ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Clásico" },
+            { id: "M003", day: "Miércoles", name: "Salmón a la Plancha con Puré de Batata", description: "Filete de salmón fresco a la plancha, servido con un suave puré de batata y espárragos.", imageUrl: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxtb24lMjBkaXNofGVufDB8fHx8MTc1MjE1MzAyOXww&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Clásico" },
+            { id: "M004", day: "Jueves", name: "Tacos de Carnitas con Guarniciones", description: "Auténticos tacos de carnitas con tortillas de maíz, cebolla, cilantro y salsa.", imageUrl: "https://images.unsplash.com/photo-1633271306917-a668495ba567?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0YWNvcyUyMG1leGljYW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Clásico" },
+            { id: "M005", day: "Viernes", name: "Pizza Artesanal de Pepperoni", description: "Pizza con masa casera, salsa de tomate natural, mozzarella fresca y pepperoni.", imageUrl: "https://images.unsplash.com/photo-1628840042765-356cda07504e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXp6YSUyMHBlcHBlcm9uaXxlbnwwfHx8fDE3NTIxNTMwMjl8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Clásico" },
+            { id: "DM001", day: "Lunes", name: "Ensalada César con Pollo a la Parrilla", description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.", imageUrl: "https://images.unsplash.com/photo-1604909052743-94e838986d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlja2VuJTIwc2FsYWR8ZW58MHx8fHwxNzUyMTcwNjUzfDA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
+            { id: "DM002", day: "Martes", name: "Wrap de Vegetales con Hummus", description: "Tortilla integral rellena de hummus, pimientos, pepino, zanahoria y espinacas.", imageUrl: "https://images.unsplash.com/photo-1630914441316-6d95bbd00caf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2ZWdnaWUlMjB3cmFwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
+            { id: "EM001", day: "Lunes", name: "Lomo Saltado Peruano", description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.", imageUrl: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJuZXxlbnwwfHx8fDE3NTIxNzEyODN8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
+            { id: "EM002", day: "Martes", name: "Risotto de Champiñones y Trufa", description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.", imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
+        ];
+        
+        const menuItemsWrapper = document.getElementById('menu-items-wrapper');
+        const filterButtons = document.querySelectorAll('.menu-filter-btn');
+        const scrollContainer = document.getElementById('menu-scroll-container');
+        const scrollLeftBtn = document.getElementById('scroll-left-btn');
+        const scrollRightBtn = document.getElementById('scroll-right-btn');
+        const currentDayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
+
+        function renderMenuItems(filter) {
+            menuItemsWrapper.innerHTML = '';
+            const filteredItems = allMenuItems.filter(item => item.type === filter);
+
+            filteredItems.forEach(item => {
+                const isCurrentDay = item.day.toLowerCase() === currentDayName.toLowerCase();
+                const cardClasses = isCurrentDay
+                    ? 'w-[350px] overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg flex-shrink-0 flex flex-col card scale-105 bg-primary text-primary-foreground'
+                    : 'w-[350px] overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg flex-shrink-0 flex flex-col card';
+
+                const dayClasses = isCurrentDay ? 'text-sm font-semibold text-primary-foreground/80' : 'text-sm font-semibold text-muted-foreground';
+                const priceBadgeClasses = isCurrentDay ? 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80' : '';
+                const descriptionClasses = isCurrentDay ? 'text-xs flex-grow text-primary-foreground/90' : 'text-xs flex-grow text-muted-foreground';
+
+                const cardHTML = `
+                    <div class="${cardClasses}">
+                        <div class="p-0 relative">
+                            <div class="relative w-full aspect-square">
+                                <img src="${item.imageUrl}" alt="${item.name}" class="absolute inset-0 w-full h-full object-cover">
+                            </div>
+                            ${isCurrentDay ? `<div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 absolute top-2 right-2 z-10 bg-white/20 text-white backdrop-blur-sm">Hoy</div>` : ''}
+                        </div>
+                        <div class="p-4 flex flex-col flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <p class="${dayClasses}" style="${isCurrentDay ? 'color: hsla(var(--primary-foreground), 0.8)' : ''}">${item.day}</p>
+                                <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${priceBadgeClasses}">${item.price}</div>
+                            </div>
+                            <h3 class="text-base font-bold leading-tight mb-2">${item.name}</h3>
+                            <p class="${descriptionClasses}" style="${isCurrentDay ? 'color: hsla(var(--primary-foreground), 0.9)' : ''}">${item.description}</p>
+                        </div>
+                    </div>
+                `;
+                menuItemsWrapper.innerHTML += cardHTML;
+            });
+        }
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                renderMenuItems(filter);
+
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('button-primary');
+                    btn.classList.add('border', 'border-input', 'bg-background', 'hover:bg-accent', 'hover:text-accent-foreground');
+                });
+                button.classList.add('button-primary');
+                button.classList.remove('border', 'border-input', 'bg-background', 'hover:bg-accent', 'hover:text-accent-foreground');
+            });
+        });
+
+        scrollLeftBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: -370, behavior: 'smooth' });
+        });
+
+        scrollRightBtn.addEventListener('click', () => {
+            scrollContainer.scrollBy({ left: 370, behavior: 'smooth' });
+        });
+
+        // Initial render
+        renderMenuItems('Clásico');
+
+
+        // --- FAQ SECTION ---
+        const faqData = [
+            { id: "faq1", question: "¿Cómo puedo consultar la cobertura de mi póliza HCM?", answer: "Puedes consultar todos los detalles de tu póliza, incluyendo coberturas, red de clínicas y estatus de reembolsos, accediendo a la sección 'Póliza HCM' desde el menú de Accesos Rápidos en esta misma página.", category: "General" },
+            { id: "faq2", question: "¿Cuál es el procedimiento para solicitar vacaciones?", answer: "Para solicitar tus días libres, dirígete a 'Gestión de Vacaciones' en los Accesos Rápidos. Allí podrás ver tu saldo de días disponibles, seleccionar las fechas deseadas y enviar la solicitud para su aprobación.", category: "General" },
+            { id: "faq3", question: "¿A quién debo contactar para soporte técnico?", answer: "Si tienes algún inconveniente técnico con tu equipo o con alguna de las plataformas, puedes generar un ticket de soporte dirigiéndote al 'Portal de Requerimientos' y seleccionando el departamento de 'Tecnología de Información'.", category: "Soporte" },
+            { id: "faq4", question: "¿Dónde puedo ver el menú del comedor de esta semana?", answer: "El menú semanal del comedor está disponible en la página principal del portal, justo debajo de los Accesos Rápidos. Puedes navegar entre las opciones de Menú General, Dieta y Ejecutivo usando las pestañas.", category: "General" },
+            { id: "faq5", question: "¿Cómo me inscribo en un curso o actividad de bienestar?", answer: "Tanto los cursos como las actividades de bienestar se encuentran en la sección 'Bienestar' accesible desde el menú de navegación principal. Dentro de cada sección, podrás ver los detalles y encontrar los botones para inscribirte o confirmar tu asistencia.", category: "Otros" }
+        ];
+
+        const faqContainer = document.getElementById('faq-accordion-container');
+        const faqFilterButtons = document.querySelectorAll('.faq-filter-btn');
+        let openAccordionItem = null;
+
+        function renderFaqItems(category) {
+            faqContainer.innerHTML = '';
+            const filteredFaqs = faqData.filter(faq => faq.category === category);
+
+            filteredFaqs.forEach(faq => {
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'bg-muted/50 border-0 rounded-lg';
+                accordionItem.innerHTML = `
+                    <div class="faq-trigger flex flex-1 items-center justify-between py-4 px-4 font-semibold text-base hover:no-underline cursor-pointer">
+                        <span>${faq.question}</span>
+                        <div class="ml-4 flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 transition-transform duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron h-4 w-4 text-primary transition-transform duration-200"><path d="m6 9 6 6 6-6"/></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-content px-4">
+                        <p class="pb-4 text-muted-foreground">${faq.answer}</p>
+                    </div>
+                `;
+                faqContainer.appendChild(accordionItem);
+            });
+            
+            // Add click listeners to new triggers
+            const triggers = faqContainer.querySelectorAll('.faq-trigger');
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const content = trigger.nextElementSibling;
+                    const chevronContainer = trigger.querySelector('div');
+                    const chevron = chevronContainer.querySelector('.chevron');
+                    const isOpen = content.style.maxHeight;
+
+                    // Close currently open item if it exists and is not the one being clicked
+                    if (openAccordionItem && openAccordionItem.content !== content) {
+                        openAccordionItem.content.style.maxHeight = null;
+                        openAccordionItem.chevron.classList.remove('rotate-180');
+                        openAccordionItem.chevronContainer.classList.remove('bg-primary');
+                        openAccordionItem.chevron.classList.remove('text-primary-foreground');
+                    }
+
+                    if (isOpen) {
+                        content.style.maxHeight = null;
+                        chevronContainer.classList.remove('bg-primary');
+                        chevron.classList.remove('rotate-180', 'text-primary-foreground');
+                        openAccordionItem = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        chevronContainer.classList.add('bg-primary');
+                        chevron.classList.add('rotate-180', 'text-primary-foreground');
+                        openAccordionItem = { content, chevron, chevronContainer };
+                    }
+                });
+            });
+        }
+
+        faqFilterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.getAttribute('data-category');
+                renderFaqItems(category);
+                openAccordionItem = null; // Reset open item on category change
+                
+                faqFilterButtons.forEach(btn => {
+                    btn.classList.remove('bg-secondary', 'text-secondary-foreground');
+                    btn.classList.add('hover:bg-accent', 'hover:text-accent-foreground');
+                });
+                button.classList.add('bg-secondary', 'text-secondary-foreground');
+                button.classList.remove('hover:bg-accent', 'hover:text-accent-foreground');
+            });
+        });
+
+        // Initial render for FAQ
+        renderFaqItems('General');
+
+    });
+    </script>
 </body>
 </html>
+
+    

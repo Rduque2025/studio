@@ -2,20 +2,19 @@
 'use client';
 
 import Link from "next/link";
-import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Pencil, Plus, RefreshCw } from "lucide-react";
+import { MoreHorizontal, Pencil, Plus, ArrowRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Department } from "@/lib/placeholder-data";
+import { Separator } from "@/components/ui/separator";
 
 const DepartmentCard = ({ department }: { department: Department }) => {
   const linkHref = department.directLink ? department.directLink : `/dashboard/requerimientos/${department.id}`;
   
   return (
-    <Card className="bg-card hover:border-primary/20 transition-colors shadow-sm border p-6 rounded-2xl flex flex-col min-h-[220px]">
+    <Card className="bg-card hover:border-primary/20 transition-colors shadow-sm border p-6 rounded-2xl flex flex-col">
       <CardHeader className="p-0 flex-row justify-between items-start">
         <CardTitle className="text-base font-semibold text-foreground">{department.name}</CardTitle>
         <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
@@ -23,10 +22,25 @@ const DepartmentCard = ({ department }: { department: Department }) => {
         </Button>
       </CardHeader>
       <CardContent className="p-0 flex-grow flex flex-col justify-between mt-2">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground mb-4">
           {department.description}
         </p>
-        <div className="flex justify-end mt-4">
+        
+        {department.requests && department.requests.length > 0 && (
+          <div className="space-y-2 mb-4">
+            {department.requests.slice(0, 3).map((req, index) => (
+               <div key={index} className="flex items-center text-xs text-muted-foreground">
+                  <ArrowRight className="h-3 w-3 mr-2 text-primary" />
+                  <span>{req.title}</span>
+               </div>
+            ))}
+            {department.requests.length > 3 && (
+               <div className="text-xs text-muted-foreground font-medium pl-5">y más...</div>
+            )}
+          </div>
+        )}
+        
+        <div className="flex justify-end mt-auto pt-4">
           <Button asChild variant="default" className="rounded-full h-10 w-10 p-0 bg-foreground hover:bg-foreground/80">
             <Link href={linkHref}>
               <Pencil className="h-4 w-4" />
@@ -39,11 +53,11 @@ const DepartmentCard = ({ department }: { department: Department }) => {
 };
 
 export default function RequerimientosPage() {
-  const categories = ["ALL", "TI", "RRHH", "General"];
+  const categories = ["ALL", "Capital Humano", "Mercadeo", "Proyectos", "Otros"];
   
   const getDepartmentsByCategory = (category: string) => {
     if (category === "ALL") {
-      return mockDepartments.filter(d => ['rh', 'it', 'servicios', 'hcm', 'vacaciones', 'finanzas'].includes(d.id));
+      return mockDepartments;
     }
     return mockDepartments.filter(d => d.category === category);
   }
@@ -60,7 +74,7 @@ export default function RequerimientosPage() {
         </header>
         
         <Tabs defaultValue="ALL" className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-4 mb-12 bg-transparent p-0">
+          <TabsList className="grid w-full max-w-xl grid-cols-5 mb-12 bg-transparent p-0">
             {categories.map(cat => (
               <TabsTrigger 
                 key={cat} 
@@ -88,7 +102,6 @@ export default function RequerimientosPage() {
         <Button className="rounded-full h-12 shadow-lg">
           <Plus className="mr-2 h-4 w-4" />
           Añadir Área
-          <RefreshCw className="ml-2 h-4 w-4" />
         </Button>
       </div>
 

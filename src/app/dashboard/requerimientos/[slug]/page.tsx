@@ -198,7 +198,7 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Solicitudes Especiales
                     </Button>
-                    <Button variant="link" className="text-background/80 hover:text-background">
+                    <Button variant="link" className="text-background/80 hover:text-background hover:no-underline">
                         Aprender más
                     </Button>
                 </div>

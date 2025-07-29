@@ -39,10 +39,10 @@ const DepartmentCard = ({ department }: { department: Department }) => {
 };
 
 export default function RequerimientosPage() {
-  const categories = ["General", "TI", "RRHH", "Servicios Generales"];
+  const categories = ["ALL", "TI", "RRHH", "General"];
   
   const getDepartmentsByCategory = (category: string) => {
-    if (category === "General") {
+    if (category === "ALL") {
       return mockDepartments.filter(d => ['rh', 'it', 'servicios', 'hcm', 'vacaciones', 'finanzas'].includes(d.id));
     }
     return mockDepartments.filter(d => d.category === category);
@@ -59,7 +59,7 @@ export default function RequerimientosPage() {
             </p>
         </header>
         
-        <Tabs defaultValue="General" className="w-full">
+        <Tabs defaultValue="ALL" className="w-full">
           <TabsList className="grid w-full max-w-md grid-cols-4 mb-12 bg-transparent p-0">
             {categories.map(cat => (
               <TabsTrigger 

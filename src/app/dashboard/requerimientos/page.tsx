@@ -3,10 +3,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal } from "lucide-react";
+import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, ChevronRight } from "lucide-react";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -29,7 +29,7 @@ const DepartmentCard = ({ department }: DepartmentCardProps) => {
     <Card
       className={cn(
         "cursor-pointer transition-all duration-200 flex flex-col items-center justify-center p-4 aspect-square text-center",
-        "bg-card hover:bg-primary hover:text-primary-foreground"
+        "bg-card hover:bg-primary hover:text-primary-foreground rounded-2xl"
       )}
     >
       <Icon className="h-8 w-8 mb-2" />
@@ -47,29 +47,26 @@ export default function RequerimientosPage() {
     : mockDepartments.filter(dept => dept.category === activeCategory);
 
   return (
-    <div className="min-h-[calc(100vh-6rem)] bg-muted/40 p-4 sm:p-6 md:p-8 flex items-center justify-center">
-      <Card className="w-full max-w-6xl min-h-[70vh] rounded-3xl shadow-2xl p-6 sm:p-8 flex flex-col">
-        {/* Header */}
+    <div className="min-h-[calc(100vh-6rem)] bg-background p-4 sm:p-6 md:p-8">
+      <Card className="w-full rounded-3xl bg-card p-6 sm:p-8 flex flex-col border-none shadow-none">
+        
         <header className="flex justify-between items-center mb-8">
-            <div></div>
-            <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon" asChild>
-                    <Link href="/dashboard">
-                        <ArrowLeft className="h-5 w-5" />
-                    </Link>
-                </Button>
-                <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Nueva Solicitud
-                </Button>
-            </div>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="icon" asChild>
+              <Link href="/dashboard">
+                <ArrowLeft className="h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            Nueva Solicitud
+          </Button>
         </header>
 
-        {/* Main Content */}
         <div className="flex-grow grid md:grid-cols-12 gap-8">
           
-          {/* Left Navigation */}
-          <nav className="md:col-span-3 lg:col-span-3">
+          <nav className="md:col-span-3 lg:col-span-2">
             <div className="flex flex-col space-y-2">
               {categories.map((category) => {
                 const isActive = activeCategory === category.id;
@@ -79,15 +76,17 @@ export default function RequerimientosPage() {
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
                     className={cn(
-                      "flex items-center gap-3 w-full p-3 rounded-lg text-left transition-colors relative",
-                      isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-primary"
+                      "flex items-center justify-between gap-3 w-full p-3 rounded-lg text-left transition-colors",
+                      isActive 
+                        ? "text-primary font-bold" 
+                        : "text-muted-foreground hover:text-primary"
                     )}
                   >
-                     {isActive && (
-                      <div className="absolute left-0 h-full w-1 bg-primary rounded-full" />
-                    )}
-                    <Icon className="h-5 w-5 flex-shrink-0 ml-4" />
-                    <span className="font-medium text-sm">{category.name}</span>
+                    <div className="flex items-center gap-3">
+                      <Icon className="h-5 w-5 flex-shrink-0" />
+                      <span className="font-medium text-sm">{category.name}</span>
+                    </div>
+                    {isActive && <div className="h-full w-1 bg-primary rounded-full" />}
                   </button>
                 );
               })}
@@ -96,9 +95,8 @@ export default function RequerimientosPage() {
 
           <Separator orientation="vertical" className="hidden md:block h-auto" />
 
-          {/* Right Content */}
-           <div className="md:col-span-8 lg:col-span-8">
-             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+           <div className="md:col-span-8 lg:col-span-9">
+             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                 {filteredDepartments.map((dept) => {
                     const departmentDetails = mockDepartments.find(d => d.id === dept.id);
                     if (!departmentDetails) return null;
@@ -113,7 +111,6 @@ export default function RequerimientosPage() {
                 })}
             </div>
           </div>
-
         </div>
       </Card>
     </div>

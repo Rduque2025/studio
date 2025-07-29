@@ -11,7 +11,6 @@ import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
-
 const categories = [
     { id: "ALL", name: "ALL", icon: LayoutGrid },
     { id: "Capital Humano", name: "Capital Humano", icon: Users },
@@ -20,9 +19,35 @@ const categories = [
     { id: "Otros", name: "Otros", icon: MoreHorizontal }
 ];
 
+interface DepartmentCardProps {
+  department: Department;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const DepartmentCard = ({ department, isActive, onClick }: DepartmentCardProps) => {
+  const Icon = department.icon || MoreHorizontal;
+  return (
+    <Card
+      onClick={onClick}
+      className={cn(
+        "cursor-pointer transition-all duration-200 flex flex-col items-center justify-center p-4 aspect-square text-center",
+        isActive
+          ? "bg-primary text-primary-foreground shadow-lg -translate-y-1"
+          : "bg-card hover:bg-primary hover:text-primary-foreground"
+      )}
+    >
+      <Icon className="h-8 w-8 mb-2" />
+      <p className="text-xs font-semibold">{department.name}</p>
+    </Card>
+  );
+};
+
+
 export default function RequerimientosPage() {
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
-  const selectedCategoryDetails = categories.find(c => c.id === activeCategory);
+  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
+
 
   const filteredDepartments = activeCategory === 'ALL'
     ? mockDepartments
@@ -33,22 +58,25 @@ export default function RequerimientosPage() {
       <Card className="w-full max-w-6xl min-h-[70vh] rounded-3xl shadow-2xl p-6 sm:p-8 flex flex-col">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
-          <Button variant="ghost" size="icon" asChild>
-            <Link href="/dashboard">
-              <ArrowLeft className="h-5 w-5" />
-            </Link>
-          </Button>
-          <Button>
-            <Plus className="h-4 w-4 mr-2" />
-            Nueva Solicitud
-          </Button>
+            <h1 className="text-2xl font-bold text-foreground">Portal de Requerimientos</h1>
+            <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon" asChild>
+                    <Link href="/dashboard">
+                        <ArrowLeft className="h-5 w-5" />
+                    </Link>
+                </Button>
+                <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Nueva Solicitud
+                </Button>
+            </div>
         </header>
 
         {/* Main Content */}
         <div className="flex-grow grid md:grid-cols-12 gap-8">
           
           {/* Left Navigation */}
-          <nav className="md:col-span-3 lg:col-span-2 relative">
+          <nav className="md:col-span-3 lg:col-span-3">
             <div className="flex flex-col space-y-2">
               {categories.map((category) => {
                 const isActive = activeCategory === category.id;
@@ -58,8 +86,8 @@ export default function RequerimientosPage() {
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
                     className={cn(
-                      "flex items-center gap-3 w-full p-3 rounded-lg text-left transition-colors",
-                      isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                      "flex items-center gap-3 w-full p-3 rounded-lg text-left transition-colors relative",
+                      isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
                     )}
                   >
                     <Icon className="h-5 w-5 flex-shrink-0" />
@@ -76,28 +104,25 @@ export default function RequerimientosPage() {
           <Separator orientation="vertical" className="hidden md:block h-auto" />
 
           {/* Right Content */}
-          <div className="md:col-span-8 lg:col-span-9 flex flex-col">
-              {selectedCategoryDetails && (
-                 <div className="flex-grow flex flex-col items-center justify-center text-center p-8">
-                   <div className="p-4 bg-muted rounded-full mb-4">
-                     <selectedCategoryDetails.icon className="h-12 w-12 text-muted-foreground" />
-                   </div>
-                   <h2 className="text-2xl font-bold text-foreground mb-2">
-                      {selectedCategoryDetails.id === 'ALL' ? 'Todos los Requerimientos' : `Categoría: ${selectedCategoryDetails.name}`}
-                   </h2>
-                   <p className="text-muted-foreground max-w-md">
-                      {selectedCategoryDetails.id === 'ALL' 
-                        ? 'Explore todas las solicitudes disponibles en las diferentes unidades y gerencias.'
-                        : `Encuentre todas las solicitudes y recursos relacionados con ${selectedCategoryDetails.name}.`
-                      }
-                   </p>
-                    <div className="mt-8 w-full">
-                       <Link href={`/dashboard/requerimientos`} className="text-sm font-semibold text-primary hover:underline">
-                          Ver todas las solicitudes de esta categoría
-                       </Link>
-                    </div>
-                 </div>
-              )}
+           <div className="md:col-span-8 lg:col-span-8">
+             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {filteredDepartments.map((dept) => {
+                    const departmentDetails = mockDepartments.find(d => d.id === dept.id);
+                    if (!departmentDetails) return null;
+                    
+                    const href = departmentDetails.directLink ? departmentDetails.directLink : `/dashboard/requerimientos/${departmentDetails.id}`;
+
+                    return (
+                        <Link href={href} key={dept.id}>
+                           <DepartmentCard
+                                department={dept}
+                                isActive={selectedDepartment === dept.id}
+                                onClick={() => setSelectedDepartment(dept.id)}
+                            />
+                        </Link>
+                    );
+                })}
+            </div>
           </div>
 
         </div>

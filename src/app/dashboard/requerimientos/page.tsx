@@ -6,14 +6,14 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, MoreVertical, Flag, ArrowRight, BookOpen, Scale, FileSignature, HardHat, Shield, BarChart2, Briefcase, FileText, Bot } from "lucide-react";
+import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, MoreVertical, Flag, ArrowRight } from "lucide-react";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const categories = [
     { id: "ALL", name: "ALL", icon: LayoutGrid },
@@ -108,7 +108,11 @@ export default function RequerimientosPage() {
       <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
         
         <header className="flex justify-between items-center mb-8">
-            <div/>
+            <Button asChild variant="ghost" size="icon">
+                <Link href="/dashboard">
+                    <ArrowLeft className="h-4 w-4" />
+                </Link>
+            </Button>
             <Button>
                 <Plus className="h-4 w-4 mr-2" />
                 Nueva Solicitud
@@ -128,9 +132,7 @@ export default function RequerimientosPage() {
                     onClick={() => setActiveCategory(category.id)}
                     className={cn(
                       "flex items-center justify-between gap-3 w-full p-3 rounded-lg text-left transition-colors",
-                      isActive 
-                        ? "text-primary font-semibold" 
-                        : "text-muted-foreground hover:text-primary"
+                      "hover:bg-muted"
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -140,7 +142,10 @@ export default function RequerimientosPage() {
                       )}>
                         <Icon className="h-5 w-5 flex-shrink-0" />
                       </div>
-                      <span className="font-medium text-sm">{category.name}</span>
+                      <span className={cn(
+                          "font-medium text-sm",
+                          isActive ? "text-primary font-semibold" : "text-muted-foreground"
+                      )}>{category.name}</span>
                     </div>
                      {isActive && <div className="h-1.5 w-1.5 bg-primary rounded-full" />}
                   </button>
@@ -163,7 +168,7 @@ export default function RequerimientosPage() {
                         <Link href={href} key={dept.id} className="block h-full">
                            <DepartmentCard 
                                 department={dept} 
-                                isActive={false} // Visual active state handled by menu now
+                                isActive={false}
                                 onReportError={handleReportError}
                             />
                         </Link>

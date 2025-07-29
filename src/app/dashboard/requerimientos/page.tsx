@@ -58,7 +58,7 @@ export default function RequerimientosPage() {
         </header>
         
         <Tabs defaultValue="ALL" className="w-full">
-          <TabsList className="grid w-full max-w-xl grid-cols-5 mb-12 bg-transparent p-0">
+          <TabsList className="flex items-center justify-between w-full max-w-xl mb-12 bg-transparent p-0">
             {categories.map(cat => (
               <TabsTrigger 
                 key={cat} 

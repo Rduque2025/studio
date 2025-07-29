@@ -2,7 +2,7 @@
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight, PlusCircle } from "lucide-react";
+import { AlertTriangle, ArrowRight, PlusCircle, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -193,14 +193,19 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                 <Badge variant="secondary" className="mb-4 bg-background/20 text-background backdrop-blur-sm">Tipos de Solicitud</Badge>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3">{department.name}</h1>
                 <p className="max-w-2xl text-background/80 mb-6 text-sm">{department.description}</p>
-                 <div className="flex gap-4">
+                 <div className="flex gap-4 items-center">
                     <Button variant="destructive" size="sm">
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Solicitudes Especiales
                     </Button>
-                    <Button variant="link" className="text-background/80 hover:text-background hover:no-underline">
-                        Aprender más
-                    </Button>
+                    {department.id === 'capital-humano' && (
+                       <Button asChild variant="ghost" size="icon" className="text-background/80 hover:text-background hover:bg-white/10">
+                        <Link href="mailto:capital_humano_ve@banescoseguros.com">
+                            <Mail className="h-5 w-5" />
+                            <span className="sr-only">Enviar correo a Capital Humano</span>
+                        </Link>
+                      </Button>
+                    )}
                 </div>
              </div>
          </div>

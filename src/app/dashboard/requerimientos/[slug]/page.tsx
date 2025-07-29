@@ -192,7 +192,7 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
              <div className="relative">
                 <Badge variant="secondary" className="mb-4 bg-background/20 text-background backdrop-blur-sm">Tipos de Solicitud</Badge>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3">{department.name}</h1>
-                <p className="max-w-2xl text-background/80 mb-6">{department.description}</p>
+                <p className="max-w-2xl text-background/80 mb-6 text-sm">{department.description}</p>
                  <div className="flex gap-4">
                     <Button variant="destructive" size="sm">
                         <PlusCircle className="mr-2 h-4 w-4" />

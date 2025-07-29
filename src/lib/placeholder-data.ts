@@ -1,4 +1,4 @@
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane } from 'lucide-react';
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu } from 'lucide-react';
 
 export interface Course {
   id: string;
@@ -47,7 +47,7 @@ export interface Department {
   imageUrl?: string;
   dataAiHint?: string;
   directLink?: string; 
-  category: 'Capital Humano' | 'Mercadeo' | 'Proyectos' | 'Otros';
+  category: 'Capital Humano' | 'Comercial' | 'Legal' | 'Seguridad' | 'Proyectos' | 'Otros';
 }
 
 
@@ -365,7 +365,7 @@ export const mockDepartments: Department[] = [
     id: "mercadeo",
     name: "Mercadeo",
     description: "Canaliza comunicados masivos, SMS, mailings y gestiona redes sociales.",
-    category: "Mercadeo",
+    category: "Comercial",
     icon: Megaphone,
   },
   {
@@ -377,30 +377,37 @@ export const mockDepartments: Department[] = [
   },
   {
     id: "seguridad-informacion",
-    name: "Seguridad",
+    name: "Seguridad de la Información",
     description: "Portal de peticiones y gestión de la seguridad de la información.",
-    category: "Otros",
+    category: "Seguridad",
     icon: Shield,
+  },
+   {
+    id: "ti",
+    name: "Tecnología de la Información",
+    description: "Soporte técnico, gestión de equipos y software.",
+    category: "Seguridad",
+    icon: Cpu,
   },
   {
     id: "control",
     name: "Control",
     description: "Procesos de control y auditoría interna.",
-    category: "Otros",
+    category: "Seguridad",
     icon: BarChart2,
   },
   {
     id: "procura",
     name: "Procura",
     description: "Gestión de compras y proveedores.",
-    category: "Otros",
+    category: "Legal",
     icon: Briefcase,
   },
   {
     id: "inteligencia-comercial",
     name: "Inteligencia Comercial",
     description: "Análisis de datos y estrategias para el desarrollo comercial.",
-    category: "Mercadeo",
+    category: "Comercial",
     icon: FileText,
   },
   {
@@ -415,14 +422,14 @@ export const mockDepartments: Department[] = [
     id: "consultoria-juridica",
     name: "Consultoría Jurídica",
     description: "Asesoramiento y gestión de asuntos legales.",
-    category: "Otros",
+    category: "Legal",
     icon: Scale,
   },
   {
     id: "sistematica-comercial",
     name: "Sistemática Comercial",
     description: "Recursos y herramientas para el equipo comercial.",
-    category: "Mercadeo",
+    category: "Comercial",
     icon: HardHat,
   },
   {
@@ -558,7 +565,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P001", 
     title: "Clásicos en Inglés", 
     description: "Los éxitos que marcaron una época.",
-    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib-rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "classic rock" 
   },
@@ -590,4 +597,5 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 

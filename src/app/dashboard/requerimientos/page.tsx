@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, MoreVertical, Flag, ArrowRight } from "lucide-react";
+import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, MoreVertical, Flag, ArrowRight, Briefcase, Shield, Scale } from "lucide-react";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -18,7 +18,9 @@ import { useToast } from "@/hooks/use-toast";
 const categories = [
     { id: "ALL", name: "ALL", icon: LayoutGrid },
     { id: "Capital Humano", name: "Capital Humano", icon: Users },
-    { id: "Mercadeo", name: "Mercadeo", icon: Megaphone },
+    { id: "Comercial", name: "Comercial", icon: Briefcase },
+    { id: "Legal", name: "Legal", icon: Scale },
+    { id: "Seguridad", name: "Seguridad", icon: Shield },
     { id: "Proyectos", name: "Proyectos", icon: FolderKanban },
     { id: "Otros", name: "Otros", icon: MoreHorizontal }
 ];

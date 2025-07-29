@@ -48,7 +48,7 @@ const DepartmentCard = ({ department, isActive, onReportError }: DepartmentCardP
     >
       <CardContent className="p-6 flex flex-col flex-grow">
           <div className="flex justify-between items-start mb-4">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary/10 group-hover:bg-primary-foreground/20">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-muted group-hover:bg-primary-foreground/20">
                   <Icon className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
               </div>
               <DropdownMenu>
@@ -139,7 +139,7 @@ export default function RequerimientosPage() {
                         <Icon className="h-5 w-5 flex-shrink-0" />
                       </div>
                       <span className={cn(
-                          "font-medium text-sm",
+                          "font-medium text-xs",
                           isActive ? "text-primary font-semibold" : "text-muted-foreground"
                       )}>{category.name}</span>
                     </div>
@@ -164,7 +164,7 @@ export default function RequerimientosPage() {
                         <Link href={href} key={dept.id} className="block h-full">
                            <DepartmentCard 
                                 department={dept} 
-                                isActive={false}
+                                isActive={activeCategory === dept.category}
                                 onReportError={handleReportError}
                             />
                         </Link>

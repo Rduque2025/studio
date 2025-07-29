@@ -337,7 +337,7 @@ export const mockDepartments: Department[] = [
   {
     id: "capital-humano",
     name: "Capital Humano",
-    description: "Gestiona tus solicitudes relacionadas con el personal y bienestar.",
+    description: "Pensando en tu comodidad y bienestar, hemos creado este portal para que realices tus gestiones de forma simple, directa y accesible.",
     category: "Capital Humano",
     icon: Users,
     requests: [
@@ -565,7 +565,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P001", 
     title: "Clásicos en Inglés", 
     description: "Los éxitos que marcaron una época.",
-    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "classic rock" 
   },
@@ -597,5 +597,6 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 

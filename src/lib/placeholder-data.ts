@@ -39,7 +39,9 @@ export interface Department {
   imageUrl?: string;
   dataAiHint?: string;
   directLink?: string; // Added for direct links like /dashboard/vacaciones
+  category?: 'TI' | 'RRHH' | 'Servicios Generales' | 'Finanzas' | 'HCM' | 'Otros'; // Added for filtering
 }
+
 
 export interface DressCodeItem {
   id: string;
@@ -88,7 +90,7 @@ export const mockCourses: Course[] = [
     id: "C002",
     title: "Comunicación Asertiva",
     description: "Mejora tus habilidades de comunicación en el entorno laboral.",
-    imageUrl: "https://images.unsplash.com/photo-1586806974856-c55e8b9364e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb252ZXJzYXRpb258ZW58MHx8fHwxNzUyNTkxODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1586806974856-c55e8b9364e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb252ZXJzYXRpb258ZW58MHx8fHwxNzUyNTkxODc0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "communication team",
     category: "Habilidades Blandas",
     duration: "6 semanas",
@@ -97,7 +99,7 @@ export const mockCourses: Course[] = [
     id: "C003",
     title: "Introducción a Seguros Digitales",
     description: "Conoce las últimas tendencias en el sector asegurador.",
-    imageUrl: "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8Y29tcHV0ZXJ8ZW58MHx8fHwxNzUyNDk1ODkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8Y29tcHV0ZXJ8ZW58MHx8fHwxNzUyNDk1ODkyfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "digital insurance",
     category: "Tecnología",
     duration: "8 semanas",
@@ -110,7 +112,7 @@ export const mockActivities: Activity[] = [
     title: "Yoga",
     date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx5b2dhfGVufDB8fHx8MTc1MDk0NDg2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx5b2dhfGVufDB8fHx8MTc1MDk0NDg2M3ww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "yoga fitness",
     description: "¡Conecta tu cuerpo y mente!\nAcompáñanos en la clase de yoga, conformada por una serie de ejercicios físicos y de respiración diseñados para disminuir el estrés y las dolencias corporales, con el propósito de mejorar la salud, tanto física como mental.\nPara asistir a las clases solo necesitas:\n- Un mat o esterilla de yoga.\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M."
   },
@@ -119,7 +121,7 @@ export const mockActivities: Activity[] = [
     title: "Ejercicios funcionales",
     date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1591291621164-2c6367723315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxleGNlcmNpc2V8ZW58MHx8fHwxNzUwOTQ0OTE1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1591291621164-2c6367723315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxleGNlcmNpc2V8ZW58MHx8fHwxNzUwOTQ0OTE1fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "functional training",
     description: "¡Mejora tu rendimiento físico y cuida tu salud!\n\nTe invitamos a participar en la actividad de entrenamiento funcional y en circuito, la cual ayuda a mejorar las capacidades físicas como  fuerza, resistencia, velocidad, coordinación y flexibilidad. Se puede realizar con o sin implementos.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M.",
     isRecommended: true,
@@ -129,7 +131,7 @@ export const mockActivities: Activity[] = [
     title: "Clases de cuatro",
     date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "music lessons",
     description: "Si tienes talento para tocar un instrumento musical o quieres aprender, es tú momento.\nÚnete al grupo, no necesitas experiencia previa para formar parte de la actividad.\nPara asistir a las clases solo necesitas:\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes o jueves, 5:00 P.M."
   },
@@ -138,7 +140,7 @@ export const mockActivities: Activity[] = [
     title: "Clases de bailoterapia",
     date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1495791185843-c73f2269f669?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8ZGFuY2V8ZW58MHx8fHwxNzUwOTQ1MTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1495791185843-c73f2269f669?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8ZGFuY2V8ZW58MHx8fHwxNzUwOTQ1MTc0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "dance therapy",
     description: "Sorpréndete con la variedad de estilos y ritmos en nuestra clase de bailoterapia y disfruta de los múltiples beneficios de esta técnica:\n- Fortalece el corazón y la circulación de la sangre.\n- Reduce el estrés, la ansiedad y la tristeza.\n- Combate los dolores musculares.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\nDónde y cuándo son las clases:\nJueves, 5:00 P.M."
   },
@@ -147,7 +149,7 @@ export const mockActivities: Activity[] = [
     title: "Cross combat",
     date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Qk9YSU5HfGVufDB8fHx8MTc1MDk1NDMyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Qk9YSU5HfGVufDB8fHx8MTc1MDk1NDMyOXww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "combat fitness",
     description: "Te invitamos a esta emocionante actividad física musicalizada, donde de forma equilibrada y en conjunto se estimulan capacidades, como la aérobica o cardiovascular, la resistencia muscular, flexibilidad y otra habilidades y destrezas de ejercicios tomados del Boxeo, las Artes marciales y la Danza aeróbica o gimnasia aeróbica.\n\nDónde y cuándo son las clases:\nMartes, 5:00 P.M."
   },
@@ -156,7 +158,7 @@ export const mockActivities: Activity[] = [
     title: "Teatro",
     date: "2025-07-01",
     location: "Tríadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxBQ1RPUnxlbnwwfHx8fDE3NTA5NTkwODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxBQ1RPUnxlbnwwfHx8fDE3NTA5NTkwODh8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "theater workshop",
     description: "Te invitamos a esta maravillosa actividad, en la que desarrollarás competencias para romper el hielo, desenvolverte en diversos contextos con tranquilidad, mejorarás la dicción y oratoria para comunicarte asertivamente.  A partir del 12 de marzo.\n\nDónde y cuándo son las clases:\nMartes y Jueves, 5:00 P.M."
   },
@@ -169,7 +171,7 @@ export const mockMenuItems: MenuItem[] = [
     day: "Lunes",
     name: "Pollo al Curry con Arroz Jazmín",
     description: "Delicioso pollo en salsa de curry acompañado de arroz jazmín y vegetales al vapor.",
-    imageUrl: "https://images.unsplash.com/photo-1628294895933-4360614f39dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXJyeSUyMGNoaWNrZW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1628294895933-4360614f39dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXJyeSUyMGNoaWNrZW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "curry chicken",
     price: "100 Bs.",
     type: "Clásico",
@@ -179,7 +181,7 @@ export const mockMenuItems: MenuItem[] = [
     day: "Martes",
     name: "Lasaña de Carne Clásica",
     description: "Capas de pasta, carne molida, salsa bechamel y queso parmesano, horneada a la perfección.",
-    imageUrl: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXNhZ25hJTIwcGFzdGF8ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxsYXNhZ25hJTIwcGFzdGF8ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "lasagna pasta",
     price: "100 Bs.",
     type: "Clásico",
@@ -189,7 +191,7 @@ export const mockMenuItems: MenuItem[] = [
     day: "Miércoles",
     name: "Salmón a la Plancha con Puré de Batata",
     description: "Filete de salmón fresco a la plancha, servido con un suave puré de batata y espárragos.",
-    imageUrl: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxtb24lMjBkaXNofGVufDB8fHx8MTc1MjE1MzAyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxtb24lMjBkaXNofGVufDB8fHx8MTc1MjE1MzAyOXww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "salmon dish",
     price: "100 Bs.",
     type: "Clásico",
@@ -199,7 +201,7 @@ export const mockMenuItems: MenuItem[] = [
     day: "Jueves",
     name: "Tacos de Carnitas con Guarniciones",
     description: "Auténticos tacos de carnitas con tortillas de maíz, cebolla, cilantro y salsa.",
-    imageUrl: "https://images.unsplash.com/photo-1633271306917-a668495ba567?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0YWNvcyUyMG1leGljYW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1633271306917-a668495ba567?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx0YWNvcyUyMG1leGljYW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "tacos mexican",
     price: "100 Bs.",
     type: "Clásico",
@@ -209,7 +211,7 @@ export const mockMenuItems: MenuItem[] = [
     day: "Viernes",
     name: "Pizza Artesanal de Pepperoni",
     description: "Pizza con masa casera, salsa de tomate natural, mozzarella fresca y pepperoni.",
-    imageUrl: "https://images.unsplash.com/photo-1628840042765-356cda07504e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXp6YSUyMHBlcHBlcm9uaXxlbnwwfHx8fDE3NTIxNTMwMjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1628840042765-356cda07504e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXp6YSUyMHBlcHBlcm9uaXxlbnwwfHx8fDE3NTIxNTMwMjl8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "pizza pepperoni",
     price: "100 Bs.",
     type: "Clásico",
@@ -222,7 +224,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Lunes",
     name: "Ensalada César con Pollo a la Parrilla",
     description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.",
-    imageUrl: "https://images.unsplash.com/photo-1604909052743-94e838986d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlja2VuJTIwc2FsYWR8ZW58MHx8fHwxNzUyMTcwNjUzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1604909052743-94e838986d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlja2VuJTIwc2FsYWR8ZW58MHx8fHwxNzUyMTcwNjUzfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "chicken salad",
     price: "100 Bs.",
     type: "Dieta",
@@ -232,7 +234,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Martes",
     name: "Wrap de Vegetales con Hummus",
     description: "Tortilla integral rellena de hummus, pimientos, pepino, zanahoria y espinacas.",
-    imageUrl: "https://images.unsplash.com/photo-1630914441316-6d95bbd00caf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2ZWdnaWUlMjB3cmFwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1630914441316-6d95bbd00caf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2ZWdnaWUlMjB3cmFwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "veggie wrap",
     price: "100 Bs.",
     type: "Dieta",
@@ -242,7 +244,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Miércoles",
     name: "Bowl de Quinoa con Tofu y Aguacate",
     description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.",
-    imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "quinoa bowl",
     price: "100 Bs.",
     type: "Dieta",
@@ -252,7 +254,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Jueves",
     name: "Pescado Blanco al Horno con Brócoli",
     description: "Filete de pescado blanco (merluza o similar) horneado con hierbas, acompañado de brócoli al vapor.",
-    imageUrl: "https://images.unsplash.com/photo-1575835638288-74138ce93c0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWtlZCUyMGZpc2h8ZW58MHx8fHwxNzUyMTcwNjU0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1575835638288-74138ce93c0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWtlZCUyMGZpc2h8ZW58MHx8fHwxNzUyMTcwNjU0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "baked fish",
     price: "100 Bs.",
     type: "Dieta",
@@ -262,7 +264,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Viernes",
     name: "Sopa de Lentejas y Vegetales",
     description: "Contundente sopa de lentejas con zanahoria, apio, cebolla y un toque de pimentón.",
-    imageUrl: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW50aWwlMjBzb3VwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW50aWwlMjBzb3VwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "lentil soup",
     price: "100 Bs.",
     type: "Dieta",
@@ -275,7 +277,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Lunes",
     name: "Lomo Saltado Peruano",
     description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.",
-    imageUrl: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJuZXxlbnwwfHx8fDE3NTIxNzEyODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJuZXxlbnwwfHx8fDE3NTIxNzEyODN8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "lomo saltado",
     price: "13 $",
     type: "Ejecutivo",
@@ -285,7 +287,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Martes",
     name: "Risotto de Champiñones y Trufa",
     description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.",
-    imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "mushroom risotto",
     price: "13 $",
     type: "Ejecutivo",
@@ -295,7 +297,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Miércoles",
     name: "Paella de Mariscos Individual",
     description: "Arroz bomba cocinado en caldo de pescado con camarones, calamares, mejillones y almejas.",
-    imageUrl: "https://images.unsplash.com/photo-1623961990059-28356e226a77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWFmb29kJTIwcGFlbGxhfGVufDB8fHx8MTc1MjE3MDg4NHww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1623961990059-28356e226a77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWFmb29kJTIwcGFlbGxhfGVufDB8fHx8MTc1MjE3MDg4NHww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "seafood paella",
     price: "13 $",
     type: "Ejecutivo",
@@ -305,7 +307,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Jueves",
     name: "Entrecot a la Parrilla con Chimichurri",
     description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.",
-    imageUrl: "https://images.unsplash.com/photo-1657143375273-75371e23f7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmlsbGVkJTIwc3RlYWt8ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1657143375273-75371e23f7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmlsbGVkJTIwc3RlYWt8ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "grilled steak",
     price: "13 $",
     type: "Ejecutivo",
@@ -315,7 +317,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Viernes",
     name: "Canelones de Ricota y Espinaca",
     description: "Canelones rellenos de suave ricota y espinacas frescas, bañados en salsa bechamel y gratinados.",
-    imageUrl: "https://images.unsplash.com/photo-1741448682476-55786f461576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYW5uZWxsb25pJTIwcmljb3R0YXxlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1741448682476-55786f461576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYW5uZWxsb25pJTIwcmljb3R0YXxlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "cannelloni ricotta",
     price: "13 $",
     type: "Ejecutivo",
@@ -327,44 +329,52 @@ export const mockDepartments: Department[] = [
   { 
     id: "rh", 
     name: "Recursos Humanos", 
-    description: "Solicita constancias de trabajo, recibos de pago y otros documentos personales."
+    description: "Solicita constancias de trabajo, recibos de pago y otros documentos personales.",
+    category: "RRHH"
   },
   { 
     id: "it", 
     name: "Soporte TI", 
-    description: "Reporta problemas con tu equipo, solicita software o gestiona accesos a sistemas."
+    description: "Reporta problemas con tu equipo, solicita software o gestiona accesos a sistemas.",
+    category: "TI"
   },
   {
     id: "hcm",
     name: "Póliza HCM",
     description: "Realiza consultas sobre tu cobertura, solicita cartas aval o gestiona reembolsos médicos.",
-    directLink: "/dashboard/page-hcm" // Example link
+    directLink: "/dashboard/page-hcm",
+    category: "HCM"
   },
   { 
     id: "servicios", 
     name: "Servicios Generales", 
-    description: "Coordina mantenimiento, limpieza o solicita reparaciones para las instalaciones."
+    description: "Coordina mantenimiento, limpieza o solicita reparaciones para las instalaciones.",
+    category: "Servicios Generales"
   },
   { 
     id: "finanzas", 
     name: "Finanzas", 
-    description: "Gestiona reportes de gastos, consulta presupuestos o realiza solicitudes contables."
+    description: "Gestiona reportes de gastos, consulta presupuestos o realiza solicitudes contables.",
+    category: "Finanzas"
   },
   { 
     id: "marketing", 
     name: "Marketing y Ventas", 
-    description: "Estrategias de mercado, publicidad y gestión de ventas."
+    description: "Estrategias de mercado, publicidad y gestión de ventas.",
+    category: "Otros"
   },
   { 
     id: "operaciones", 
     name: "Operaciones", 
-    description: "Procesos internos, logística y gestión de calidad."
+    description: "Procesos internos, logística y gestión de calidad.",
+    category: "Otros"
   },
   { 
     id: "vacaciones", 
     name: "Gestión de Vacaciones", 
     description: "Planifica y solicita tus días libres, consulta tu saldo de vacaciones y revisa el calendario.",
-    directLink: "/dashboard/vacaciones"
+    directLink: "/dashboard/vacaciones",
+    category: "RRHH"
   }
 ];
 
@@ -483,7 +493,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P001", 
     title: "Clásicos en Inglés", 
     description: "Los éxitos que marcaron una época.",
-    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "classic rock" 
   },
@@ -491,7 +501,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P002", 
     title: "Rock Suave", 
     description: "La selección perfecta para concentrarse.",
-    albumArtUrl: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxndWl0YXJ8ZW58MHx8fHwxNzUyNjA3MjEwfDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxndWl0YXJ8ZW58MHx8fHwxNzUyNjA3MjEwfDA&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "soft rock" 
   },
@@ -499,7 +509,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P003", 
     title: "Salsa y Merengue", 
     description: "Ritmos latinos para subir el ánimo.",
-    albumArtUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "latin dance" 
   },
@@ -507,7 +517,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P004", 
     title: "Solo Éxitos Pop", 
     description: "Las canciones más populares del momento.",
-    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "pop music"
   },

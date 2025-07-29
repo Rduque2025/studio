@@ -3,66 +3,89 @@
 
 import Link from "next/link";
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { MoreHorizontal, Pencil, Plus, RefreshCw } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import type { Department } from "@/lib/placeholder-data";
 
-const DepartmentCard = ({ id, title, description, href, step }: { id: string, title: string, description: string, href: string, step: number }) => {
+const DepartmentCard = ({ department }: { department: Department }) => {
+  const linkHref = department.directLink ? department.directLink : `/dashboard/requerimientos/${department.id}`;
+  
   return (
-    <Link href={href} className="block group">
-      <Card className="flex flex-col h-full bg-card hover:border-primary/50 transition-colors shadow-sm hover:shadow-lg border p-6 rounded-xl">
-        <div className="flex items-center justify-start mb-4">
-          <div className="flex items-center justify-center h-8 w-8 rounded-full border-2 border-primary text-primary font-bold text-sm">
-            {step}
-          </div>
-        </div>
-        <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
-        <p className="text-sm text-muted-foreground flex-grow">
-          {description}
+    <Card className="bg-card hover:border-primary/20 transition-colors shadow-sm border p-6 rounded-2xl flex flex-col min-h-[220px]">
+      <CardHeader className="p-0 flex-row justify-between items-start">
+        <CardTitle className="text-base font-semibold text-foreground">{department.name}</CardTitle>
+        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </CardHeader>
+      <CardContent className="p-0 flex-grow flex flex-col justify-between mt-2">
+        <p className="text-sm text-muted-foreground">
+          {department.description}
         </p>
-      </Card>
-    </Link>
+        <div className="flex justify-end mt-4">
+          <Button asChild variant="default" className="rounded-full h-10 w-10 p-0 bg-foreground hover:bg-foreground/80">
+            <Link href={linkHref}>
+              <Pencil className="h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 
 export default function RequerimientosPage() {
-  const departmentsToShow = mockDepartments.filter(d => ['rh', 'it', 'servicios', 'hcm', 'vacaciones', 'finanzas'].includes(d.id));
+  const categories = ["General", "TI", "RRHH", "Servicios Generales"];
+  
+  const getDepartmentsByCategory = (category: string) => {
+    if (category === "General") {
+      return mockDepartments.filter(d => ['rh', 'it', 'servicios', 'hcm', 'vacaciones', 'finanzas'].includes(d.id));
+    }
+    return mockDepartments.filter(d => d.category === category);
+  }
 
   return (
-    <div className="bg-muted/50 min-h-[calc(100vh-10rem)] py-12 md:py-24">
-      <div className="container mx-auto px-4">
+    <div className="bg-muted/30 min-h-[calc(100vh-6rem)] relative">
+      <div className="container mx-auto py-12 px-4">
         
-        <header className="grid md:grid-cols-2 gap-8 mb-16">
-            <div>
-                 <p className="text-sm font-semibold text-primary mb-2">NUESTRO PROCESO DE SOLICITUD</p>
-                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">Portal de Requerimientos</h1>
-            </div>
-            <div className="flex items-center">
-                 <p className="text-base text-muted-foreground">
-                    Para realizar una solicitud, simplemente seleccione el departamento correcto de la lista a continuación. Cada sección lo guiará a través del formulario apropiado para garantizar que su solicitud se gestione de manera rápida y eficiente. A continuación, se presenta un resumen de cada portal.
-                </p>
-            </div>
+        <header className="mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Portal de Requerimientos</h1>
+            <p className="text-base text-muted-foreground mt-2 max-w-2xl">
+              Gestiona todas tus solicitudes en un solo lugar. Selecciona una categoría y accede al formulario que necesites.
+            </p>
         </header>
         
-        <main>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {departmentsToShow.map((dept, index) => {
-              const linkHref = dept.directLink ? dept.directLink : `/dashboard/requerimientos/${dept.id}`;
-              
-              return (
-                <DepartmentCard 
-                  key={dept.id}
-                  id={dept.id}
-                  title={dept.name}
-                  description={dept.description}
-                  href={linkHref}
-                  step={index + 1}
-                />
-              );
-            })}
-          </div>
-        </main>
+        <Tabs defaultValue="General" className="w-full">
+          <TabsList className="grid w-full max-w-md grid-cols-4 mb-8">
+            {categories.map(cat => (
+              <TabsTrigger key={cat} value={cat}>{cat}</TabsTrigger>
+            ))}
+          </TabsList>
+
+          {categories.map(cat => (
+             <TabsContent key={cat} value={cat}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                  {getDepartmentsByCategory(cat).map((dept) => (
+                    <DepartmentCard key={dept.id} department={dept} />
+                  ))}
+                </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
+
+      <div className="fixed bottom-8 right-8">
+        <Button className="rounded-full h-12 shadow-lg">
+          <Plus className="mr-2 h-4 w-4" />
+          Añadir Área
+          <RefreshCw className="ml-2 h-4 w-4" />
+        </Button>
+      </div>
+
     </div>
   );
 }

@@ -3,10 +3,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, ChevronRight } from "lucide-react";
+import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, ChevronRight, ArrowRight } from "lucide-react";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
@@ -21,19 +21,33 @@ const categories = [
 
 interface DepartmentCardProps {
   department: Department;
+  isActive: boolean;
 }
 
-const DepartmentCard = ({ department }: DepartmentCardProps) => {
+const DepartmentCard = ({ department, isActive }: DepartmentCardProps) => {
   const Icon = department.icon || MoreHorizontal;
   return (
     <Card
       className={cn(
-        "cursor-pointer transition-all duration-200 flex flex-col items-center justify-center p-4 aspect-square text-center",
-        "bg-card hover:bg-primary hover:text-primary-foreground rounded-2xl"
+        "group cursor-pointer transition-all duration-300 flex flex-col text-left rounded-2xl h-full",
+        "bg-card shadow-sm hover:shadow-xl hover:-translate-y-1",
+        isActive ? "shadow-xl ring-2 ring-primary" : "shadow-sm"
       )}
     >
-      <Icon className="h-8 w-8 mb-2" />
-      <p className="text-xs font-semibold">{department.name}</p>
+      <CardContent className="p-6 flex flex-col flex-grow">
+          <div className="mb-4">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary/10">
+                  <Icon className="h-5 w-5 text-primary" />
+              </div>
+          </div>
+          <div className="flex-grow">
+            <p className="text-base font-semibold text-foreground mb-1">{department.name}</p>
+            <p className="text-xs text-muted-foreground">{department.description}</p>
+          </div>
+          <div className="mt-4 text-right">
+              <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
+      </CardContent>
     </Card>
   );
 };
@@ -47,17 +61,17 @@ export default function RequerimientosPage() {
     : mockDepartments.filter(dept => dept.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
+    <div className="min-h-screen bg-transparent p-4 sm:p-6 md:p-8">
       <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
         
         <header className="flex justify-between items-center mb-8">
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" asChild>
-              <Link href="/dashboard">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
+            <div>
+                 <Button variant="ghost" size="icon" asChild className="hidden">
+                    <Link href="/dashboard">
+                        <ArrowLeft className="h-5 w-5" />
+                    </Link>
+                </Button>
+            </div>
           <Button>
             <Plus className="h-4 w-4 mr-2" />
             Nueva Solicitud
@@ -96,7 +110,7 @@ export default function RequerimientosPage() {
           <Separator orientation="vertical" className="hidden md:block h-auto" />
 
            <div className="md:col-span-8 lg:col-span-9">
-             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredDepartments.map((dept) => {
                     const departmentDetails = mockDepartments.find(d => d.id === dept.id);
                     if (!departmentDetails) return null;
@@ -104,8 +118,11 @@ export default function RequerimientosPage() {
                     const href = departmentDetails.directLink ? departmentDetails.directLink : `/dashboard/requerimientos/${departmentDetails.id}`;
 
                     return (
-                        <Link href={href} key={dept.id} className="block">
-                           <DepartmentCard department={dept} />
+                        <Link href={href} key={dept.id} className="block h-full">
+                           <DepartmentCard 
+                                department={dept} 
+                                isActive={false} // Visual active state handled by menu now
+                            />
                         </Link>
                     );
                 })}

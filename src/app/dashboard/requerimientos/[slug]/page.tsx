@@ -8,6 +8,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface DepartmentPageProps {
   params: { slug: string };
@@ -27,22 +28,26 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
       return (
         <>
           {department.requests?.map((req, index) => (
-            <Card key={index} className="bg-card shadow-sm hover:shadow-md transition-shadow">
-              <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div className="p-2 bg-muted rounded-md">
-                        <defaultIcon className="h-5 w-5 text-primary" />
+             <Card 
+                key={index} 
+                className="bg-card shadow-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 group cursor-pointer"
+              >
+              <CardContent className="p-4 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                    <div className="p-2 bg-muted rounded-md group-hover:bg-primary-foreground/10">
+                        <defaultIcon className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
                     </div>
-                  </div>
-              </CardHeader>
-              <CardContent>
-                <h3 className="font-semibold text-base mb-1">{req.title}</h3>
-                <p className="text-muted-foreground text-xs">Haga clic para iniciar su gestión.</p>
-              </CardContent>
-              <CardContent>
-                 <Button variant="outline" size="sm">
-                    {req.type === 'info' ? 'Consultar' : 'Solicitar'}
-                  </Button>
+                    <div>
+                        <h3 className="font-semibold text-sm">{req.title}</h3>
+                        <p className="text-muted-foreground text-xs group-hover:text-primary-foreground/80">Haga clic para iniciar su gestión.</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-2">
+                    <span className="text-xs font-medium text-primary group-hover:text-primary-foreground">
+                       {req.type === 'info' ? 'Consultar' : 'Solicitar'}
+                    </span>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary-foreground transition-opacity" />
+                </div>
               </CardContent>
             </Card>
           ))}

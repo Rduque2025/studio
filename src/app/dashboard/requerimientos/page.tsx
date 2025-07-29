@@ -1,10 +1,10 @@
 'use client';
 
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Pencil, Plus, ArrowRight } from "lucide-react";
+import { Plus, ArrowRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
@@ -12,28 +12,20 @@ import Image from "next/image";
 
 const DepartmentCard = ({ department }: { department: Department }) => {
   const linkHref = department.directLink ? department.directLink : `/dashboard/requerimientos/${department.id}`;
-  const isColored = department.category === 'Capital Humano' || department.category === 'Proyectos';
-
+  
   return (
-    <Card className={cn(
-      "overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 rounded-3xl",
-      isColored ? "text-primary-foreground" : "bg-card"
-    )}
-    style={ isColored ? {
-        background: department.category === 'Capital Humano' 
-          ? 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))' 
-          : 'linear-gradient(135deg, hsl(var(--accent)), hsl(var(--secondary)))'
-      } : {}}
+    <Card 
+      className="overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 rounded-3xl text-primary-foreground h-full"
+      style={{
+        background: 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))'
+      }}
     >
       <div className="flex flex-col md:flex-row items-center h-full">
-        <div className="p-6 md:p-8 flex-grow">
-          <CardTitle className="text-xl font-bold mb-4">{department.name}</CardTitle>
-          <Button asChild variant="link" className={cn("p-0 h-auto font-semibold", isColored ? "text-primary-foreground/80 hover:text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>
+        <div className="p-6 md:p-8 flex-grow flex flex-col">
+          <CardTitle className="text-base font-bold mb-4 flex-grow">{department.name}</CardTitle>
+          <Button asChild variant="link" className="p-0 h-auto font-semibold text-primary-foreground/80 hover:text-primary-foreground self-start">
             <Link href={linkHref} className="flex items-center gap-2">
-              <span className={cn(
-                "flex items-center justify-center h-6 w-6 rounded-full",
-                isColored ? "bg-black/20" : "bg-foreground text-background"
-              )}>
+              <span className="flex items-center justify-center h-6 w-6 rounded-full bg-black/20">
                 <ArrowRight className="h-4 w-4" />
               </span>
               Saber más

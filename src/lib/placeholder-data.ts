@@ -1,4 +1,5 @@
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu } from 'lucide-react';
+
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils } from 'lucide-react';
 
 export interface Course {
   id: string;
@@ -36,6 +37,7 @@ export interface DepartmentRequest {
   title: string;
   link?: string; // Optional link for specific requests
   type: 'request' | 'info'; // Differentiate between requests and informational items
+  icon?: React.ElementType; // Lucide icon for the specific request
 }
 
 
@@ -90,7 +92,7 @@ export const mockCourses: Course[] = [
     id: "C001",
     title: "Gestión Efectiva del Tiempo",
     description: "Aprende técnicas para optimizar tu jornada laboral y personal.",
-    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "time management",
     category: "Desarrollo Personal",
     duration: "4 semanas",
@@ -342,16 +344,16 @@ export const mockDepartments: Department[] = [
     category: "Capital Humano",
     icon: Users,
     requests: [
-      { title: "Solicitud de Prestaciones Sociales", type: 'request' },
-      { title: "Solicitud de Carta de Trabajo", type: 'request' },
-      { title: "Solicitud de Carnet y Tarjeta Todoticket", type: 'request' },
-      { title: "Solicitud de IVSS y FAOV", type: 'request' },
-      { title: "Solicitud de Vacaciones y Permisos", type: 'request' },
-      { title: "Inquietudes o Sugerencias", type: 'request' },
-      { title: "Actividades de Clima e Integración", type: 'info' },
-      { title: "Postúlate", type: 'request' },
-      { title: "Encuesta de Satisfacción", type: 'request' },
-      { title: "Horario del Comedor", type: 'info' },
+      { title: "Solicitud de Prestaciones Sociales", type: 'request', icon: PiggyBank },
+      { title: "Solicitud de Carta de Trabajo", type: 'request', icon: FileText },
+      { title: "Solicitud de Carnet y Tarjeta Todoticket", type: 'request', icon: CreditCard },
+      { title: "Solicitud de IVSS y FAOV", type: 'request', icon: Landmark },
+      { title: "Solicitud de Vacaciones y Permisos", type: 'request', icon: Plane },
+      { title: "Inquietudes o Sugerencias", type: 'request', icon: MessageCircleQuestion },
+      { title: "Actividades de Clima e Integración", type: 'info', icon: Bell },
+      { title: "Postúlate", type: 'request', icon: Briefcase },
+      { title: "Encuesta de Satisfacción", type: 'request', icon: Users },
+      { title: "Horario del Comedor", type: 'info', icon: Utensils },
     ]
   },
   {
@@ -598,6 +600,7 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 
 

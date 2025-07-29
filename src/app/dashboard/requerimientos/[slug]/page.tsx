@@ -27,30 +27,33 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
     case 'capital-humano':
       return (
         <>
-          {department.requests?.map((req, index) => (
-             <Card 
-                key={index} 
-                className="bg-card shadow-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 group cursor-pointer"
-              >
-              <CardContent className="p-4 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                    <div className="p-2 bg-muted rounded-md group-hover:bg-primary-foreground/10">
-                        <defaultIcon className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
-                    </div>
-                    <div>
-                        <h3 className="font-semibold text-sm">{req.title}</h3>
-                        <p className="text-muted-foreground text-xs group-hover:text-primary-foreground/80">Haga clic para iniciar su gestión.</p>
-                    </div>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-primary group-hover:text-primary-foreground">
-                       {req.type === 'info' ? 'Consultar' : 'Solicitar'}
-                    </span>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary-foreground transition-opacity" />
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {department.requests?.map((req, index) => {
+             const RequestIcon = req.icon || defaultIcon;
+             return (
+              <Card 
+                  key={index} 
+                  className="bg-card shadow-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 group cursor-pointer flex flex-col h-full"
+                >
+                <CardContent className="p-4 flex items-center justify-between flex-grow">
+                  <div className="flex items-center gap-4">
+                      <div className="p-2 bg-muted rounded-md group-hover:bg-primary-foreground/10">
+                          <RequestIcon className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
+                      </div>
+                      <div>
+                          <h3 className="font-semibold text-sm">{req.title}</h3>
+                          <p className="text-muted-foreground text-xs group-hover:text-primary-foreground/80">Haga clic para iniciar su gestión.</p>
+                      </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium text-primary group-hover:text-primary-foreground">
+                         {req.type === 'info' ? 'Consultar' : 'Solicitar'}
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary-foreground transition-opacity" />
+                  </div>
+                </CardContent>
+              </Card>
+             )
+          })}
         </>
       );
     case 'mercadeo':

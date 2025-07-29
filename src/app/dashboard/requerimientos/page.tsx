@@ -59,20 +59,6 @@ export default function RequerimientosPage() {
         
         <Card className="w-full max-w-4xl rounded-3xl shadow-2xl p-6 sm:p-8">
             <CardContent className="p-0">
-                <header className="flex justify-between items-center mb-8">
-                    <div className="flex items-center gap-4">
-                        <Button variant="ghost" size="icon" asChild>
-                            <Link href="/dashboard">
-                                <ArrowLeft className="h-5 w-5" />
-                            </Link>
-                        </Button>
-                        <h1 className="text-lg font-semibold text-foreground">Portal de Requerimientos</h1>
-                    </div>
-                    <Button size="sm" className="bg-rose-500 hover:bg-rose-600 text-white rounded-full">
-                        Nueva Solicitud
-                    </Button>
-                </header>
-
                 <main>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                       {mockDepartments.map((dept) => (

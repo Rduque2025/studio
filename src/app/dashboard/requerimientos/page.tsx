@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from "next/link";
@@ -16,7 +15,7 @@ const DepartmentCard = ({ department }: { department: Department }) => {
   return (
     <Card className="bg-card hover:border-primary/20 transition-colors shadow-sm border p-6 rounded-2xl flex flex-col">
       <CardHeader className="p-0 flex-row justify-between items-start">
-        <CardTitle className="text-base font-semibold text-foreground">{department.name}</CardTitle>
+        <CardTitle className="text-base font-bold text-foreground">{department.name}</CardTitle>
         <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
           <MoreHorizontal className="h-4 w-4" />
         </Button>

@@ -43,10 +43,6 @@ export default function RequerimientosPage() {
     if (category === "ALL") {
       return mockDepartments;
     }
-    // Updated to handle "General" category for "Servicios Generales"
-    if (category === "General") {
-        return mockDepartments.filter(d => d.category === "General");
-    }
     return mockDepartments.filter(d => d.category === category);
   }
 
@@ -67,7 +63,7 @@ export default function RequerimientosPage() {
               <TabsTrigger 
                 key={cat} 
                 value={cat}
-                className="text-muted-foreground data-[state=active]:text-primary data-[state=active]:text-base data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:bg-transparent relative data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-[-8px] data-[state=active]:after:left-1/2 data-[state=active]:after:-translate-x-1/2 data-[state=active]:after:w-1/2 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-primary transition-all"
+                className="text-muted-foreground data-[state=active]:text-primary data-[state=active]:text-sm data-[state=active]:font-bold data-[state=active]:shadow-none data-[state=active]:bg-transparent relative data-[state=active]:after:content-[''] data-[state=active]:after:absolute data-[state=active]:after:bottom-[-8px] data-[state=active]:after:left-1/2 data-[state=active]:after:-translate-x-1/2 data-[state=active]:after:w-1/2 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-primary transition-all"
               >
                 {cat}
               </TabsTrigger>

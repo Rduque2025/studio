@@ -41,7 +41,8 @@ const DepartmentCard = ({ department, isActive, onReportError }: DepartmentCardP
     <Card
       className={cn(
         "group cursor-pointer transition-all duration-300 flex flex-col text-left rounded-2xl h-full relative",
-        "bg-card shadow-sm hover:shadow-xl hover:-translate-y-1 hover:bg-primary hover:text-primary-foreground",
+        "bg-card shadow-sm hover:shadow-xl hover:-translate-y-1",
+        "hover:bg-primary hover:text-primary-foreground",
         isActive ? "shadow-xl ring-2 ring-primary" : "shadow-sm"
       )}
     >
@@ -70,7 +71,7 @@ const DepartmentCard = ({ department, isActive, onReportError }: DepartmentCardP
               </DropdownMenu>
           </div>
           <div className="flex-grow">
-            <p className="text-base font-semibold mb-1">{department.name}</p>
+            <p className="font-semibold mb-1">{department.name}</p>
             <p className="text-xs text-muted-foreground group-hover:text-primary-foreground/80">{department.description}</p>
           </div>
           <div className="mt-4 text-right">
@@ -107,15 +108,10 @@ export default function RequerimientosPage() {
     <div className="min-h-screen bg-transparent p-4 sm:p-6 md:p-8">
       <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
         
-        <header className="flex justify-between items-center mb-8">
-            <Button asChild variant="ghost" size="icon">
-                <Link href="/dashboard">
-                    <ArrowLeft className="h-4 w-4" />
-                </Link>
-            </Button>
-            <Button>
+        <header className="flex justify-end items-center mb-8">
+            <Button variant="destructive" size="sm">
                 <Plus className="h-4 w-4 mr-2" />
-                Nueva Solicitud
+                Solicitudes Especiales
             </Button>
         </header>
 
@@ -131,7 +127,7 @@ export default function RequerimientosPage() {
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
                     className={cn(
-                      "flex items-center justify-between gap-3 w-full p-3 rounded-lg text-left transition-colors",
+                      "flex items-center justify-between w-full p-3 rounded-lg text-left transition-colors relative",
                       "hover:bg-muted"
                     )}
                   >
@@ -147,7 +143,7 @@ export default function RequerimientosPage() {
                           isActive ? "text-primary font-semibold" : "text-muted-foreground"
                       )}>{category.name}</span>
                     </div>
-                     {isActive && <div className="h-1.5 w-1.5 bg-primary rounded-full" />}
+                     {isActive && <div className="absolute right-0 h-5 w-1 bg-primary rounded-full" />}
                   </button>
                 );
               })}
@@ -157,7 +153,7 @@ export default function RequerimientosPage() {
           <Separator orientation="vertical" className="hidden md:block h-auto" />
 
            <div className="md:col-span-8 lg:col-span-9">
-             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredDepartments.map((dept) => {
                     const departmentDetails = mockDepartments.find(d => d.id === dept.id);
                     if (!departmentDetails) return null;

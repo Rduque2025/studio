@@ -229,7 +229,7 @@
                             ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
                         </p>
                         <div class="space-y-4">
-                           <button class="relative flex w-[340px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px] bg-primary">
+                           <a href="https://wa.me/584141234567" target="_blank" class="relative flex w-[340px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px] bg-primary">
                               <div class="pl-4 transition-opacity duration-200 opacity-100">
                                 <p class="text-xs">WhatsApp</p>
                                 <p class="text-sm font-semibold">+58 414 123 4567</p>
@@ -237,8 +237,8 @@
                               <div class="absolute top-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out transform -translate-y-1/2 right-2">
                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                               </div>
-                            </button>
-                             <button class="relative flex w-[340px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px] bg-secondary">
+                            </a>
+                             <a href="tel:+582125011111" class="relative flex w-[340px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px] bg-secondary">
                               <div class="pl-4 transition-opacity duration-200 opacity-100">
                                 <p class="text-xs">Teléfono</p>
                                 <p class="text-sm font-semibold">+58 212 501 1111</p>
@@ -246,7 +246,7 @@
                               <div class="absolute top-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out transform -translate-y-1/2 right-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-secondary"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                               </div>
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="bg-muted/50 p-12 flex items-center">
@@ -435,8 +435,14 @@
             { id: "M005", day: "Viernes", name: "Pizza Artesanal de Pepperoni", description: "Pizza con masa casera, salsa de tomate natural, mozzarella fresca y pepperoni.", imageUrl: "https://images.unsplash.com/photo-1628840042765-356cda07504e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwaXp6YSUyMHBlcHBlcm9uaXxlbnwwfHx8fDE3NTIxNTMwMjl8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Clásico" },
             { id: "DM001", day: "Lunes", name: "Ensalada César con Pollo a la Parrilla", description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.", imageUrl: "https://images.unsplash.com/photo-1604909052743-94e838986d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlja2VuJTIwc2FsYWR8ZW58MHx8fHwxNzUyMTcwNjUzfDA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
             { id: "DM002", day: "Martes", name: "Wrap de Vegetales con Hummus", description: "Tortilla integral rellena de hummus, pimientos, pepino, zanahoria y espinacas.", imageUrl: "https://images.unsplash.com/photo-1630914441316-6d95bbd00caf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx2ZWdnaWUlMjB3cmFwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
+            { id: "DM003", day: "Miércoles", name: "Bowl de Quinoa con Tofu y Aguacate", description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.", imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
+            { id: "DM004", day: "Jueves", name: "Pescado Blanco al Horno con Brócoli", description: "Filete de pescado blanco (merluza o similar) horneado con hierbas, acompañado de brócoli al vapor.", imageUrl: "https://images.unsplash.com/photo-1575835638288-74138ce93c0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWtlZCUyMGZpc2h8ZW58MHx8fHwxNzUyMTcwNjU0fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
+            { id: "DM005", day: "Viernes", name: "Sopa de Lentejas y Vegetales", description: "Contundente sopa de lentejas con zanahoria, apio, cebolla y un toque de pimentón.", imageUrl: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW50aWwlMjBzb3VwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib=rb-4.1.0&q=80&w=1080", price: "100 Bs.", type: "Dieta" },
             { id: "EM001", day: "Lunes", name: "Lomo Saltado Peruano", description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.", imageUrl: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJuZXxlbnwwfHx8fDE3NTIxNzEyODN8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
             { id: "EM002", day: "Martes", name: "Risotto de Champiñones y Trufa", description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.", imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
+            { id: "EM003", day: "Miércoles", name: "Paella de Mariscos Individual", description: "Arroz bomba cocinado en caldo de pescado con camarones, calamares, mejillones y almejas.", imageUrl: "https://images.unsplash.com/photo-1623961990059-28356e226a77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWFmb29kJTIwcGFlbGxhfGVufDB8fHx8MTc1MjE3MDg4NHww&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
+            { id: "EM004", day: "Jueves", name: "Entrecot a la Parrilla con Chimichurri", description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.", imageUrl: "https://images.unsplash.com/photo-1657143375273-75371e23f7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmlsbGVkJTIwc3RlYWt8ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
+            { id: "EM005", day: "Viernes", name: "Canelones de Ricota y Espinaca", description: "Canelones rellenos de suave ricota y espinacas frescas, bañados en salsa bechamel y gratinados.", imageUrl: "https://images.unsplash.com/photo-1741448682476-55786f461576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYW5uZWxsb25pJTIwcmljb3R0YXxlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo" },
         ];
         
         const menuItemsWrapper = document.getElementById('menu-items-wrapper');
@@ -596,5 +602,3 @@
     </script>
 </body>
 </html>
-
-    

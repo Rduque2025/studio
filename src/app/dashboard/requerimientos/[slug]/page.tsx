@@ -37,11 +37,11 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
               </CardHeader>
               <CardContent>
                 <h3 className="font-semibold text-base mb-1">{req.title}</h3>
-                <p className="text-muted-foreground text-xs">Haga clic para iniciar su solicitud.</p>
+                <p className="text-muted-foreground text-xs">Haga clic para iniciar su gestión.</p>
               </CardContent>
               <CardContent>
                  <Button variant="outline" size="sm">
-                    Solicitar
+                    {req.type === 'info' ? 'Consultar' : 'Solicitar'}
                   </Button>
               </CardContent>
             </Card>
@@ -190,7 +190,6 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
          <div className="p-8 md:p-12 relative">
              <div className="absolute inset-0 bg-gradient-to-br from-foreground to-neutral-800 opacity-50"></div>
              <div className="relative">
-                <Badge variant="secondary" className="mb-4 bg-background/20 text-background backdrop-blur-sm">Tipos de Solicitud</Badge>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3">{department.name}</h1>
                 <p className="max-w-2xl text-background/80 mb-6 text-sm">{department.description}</p>
                  <div className="flex gap-4 items-center">

@@ -35,6 +35,7 @@ export interface MenuItem {
 export interface DepartmentRequest {
   title: string;
   link?: string; // Optional link for specific requests
+  type: 'request' | 'info'; // Differentiate between requests and informational items
 }
 
 
@@ -89,7 +90,7 @@ export const mockCourses: Course[] = [
     id: "C001",
     title: "Gestión Efectiva del Tiempo",
     description: "Aprende técnicas para optimizar tu jornada laboral y personal.",
-    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "time management",
     category: "Desarrollo Personal",
     duration: "4 semanas",
@@ -341,16 +342,16 @@ export const mockDepartments: Department[] = [
     category: "Capital Humano",
     icon: Users,
     requests: [
-      { title: "Solicitud de Prestaciones Sociales" },
-      { title: "Solicitud de Carta de Trabajo" },
-      { title: "Solicitud de Carnet y Tarjeta Todoticket" },
-      { title: "Solicitud de IVSS y FAOV" },
-      { title: "Solicitud de Vacaciones y Permisos" },
-      { title: "Inquietudes o Sugerencias" },
-      { title: "Actividades de Clima e Integración" },
-      { title: "Postúlate" },
-      { title: "Encuesta de Satisfacción" },
-      { title: "Horario del Comedor" },
+      { title: "Solicitud de Prestaciones Sociales", type: 'request' },
+      { title: "Solicitud de Carta de Trabajo", type: 'request' },
+      { title: "Solicitud de Carnet y Tarjeta Todoticket", type: 'request' },
+      { title: "Solicitud de IVSS y FAOV", type: 'request' },
+      { title: "Solicitud de Vacaciones y Permisos", type: 'request' },
+      { title: "Inquietudes o Sugerencias", type: 'request' },
+      { title: "Actividades de Clima e Integración", type: 'info' },
+      { title: "Postúlate", type: 'request' },
+      { title: "Encuesta de Satisfacción", type: 'request' },
+      { title: "Horario del Comedor", type: 'info' },
     ]
   },
   {
@@ -597,6 +598,7 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 
 

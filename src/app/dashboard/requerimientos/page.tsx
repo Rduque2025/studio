@@ -47,8 +47,8 @@ export default function RequerimientosPage() {
     : mockDepartments.filter(dept => dept.category === activeCategory);
 
   return (
-    <div className="min-h-[calc(100vh-6rem)] bg-background p-4 sm:p-6 md:p-8">
-      <Card className="w-full rounded-3xl bg-card p-6 sm:p-8 flex flex-col border-none shadow-none">
+    <div className="min-h-screen bg-background p-4 sm:p-6 md:p-8">
+      <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
         
         <header className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ export default function RequerimientosPage() {
                       <Icon className="h-5 w-5 flex-shrink-0" />
                       <span className="font-medium text-sm">{category.name}</span>
                     </div>
-                    {isActive && <div className="h-full w-1 bg-primary rounded-full" />}
+                     {isActive && <div className="h-6 w-1 bg-primary rounded-full" />}
                   </button>
                 );
               })}

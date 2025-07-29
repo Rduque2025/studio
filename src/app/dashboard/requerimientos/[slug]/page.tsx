@@ -2,7 +2,7 @@
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight } from "lucide-react";
+import { AlertTriangle, ArrowRight, PlusCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -21,35 +21,43 @@ export async function generateStaticParams() {
 }
 
 const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
+  const defaultIcon = department.icon || AlertTriangle;
   switch (department.id) {
     case 'capital-humano':
       return (
-        <Card>
-          <CardHeader>
-            <CardTitle>Solicitudes de Capital Humano</CardTitle>
-            <CardDescription>Seleccione una de las siguientes opciones para continuar.</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {department.requests?.map((req, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                  <span className="font-medium">{req.title}</span>
-                  <Button variant="outline" size="sm">
-                    Solicitar <ArrowRight className="ml-2 h-4 w-4" />
+        <>
+          {department.requests?.map((req, index) => (
+            <Card key={index} className="bg-card shadow-sm hover:shadow-md transition-shadow">
+              <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div className="p-2 bg-muted rounded-md">
+                        <defaultIcon className="h-5 w-5 text-primary" />
+                    </div>
+                  </div>
+              </CardHeader>
+              <CardContent>
+                <h3 className="font-semibold text-base mb-1">{req.title}</h3>
+                <p className="text-muted-foreground text-xs">Haga clic para iniciar su solicitud.</p>
+              </CardContent>
+              <CardContent>
+                 <Button variant="outline" size="sm">
+                    Solicitar
                   </Button>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          ))}
+        </>
       );
     case 'mercadeo':
         return (
-            <Card>
+            <Card className="col-span-1 md:col-span-2 lg:col-span-3">
                 <CardHeader>
+                     <div className="p-2 bg-muted rounded-md w-fit">
+                        <defaultIcon className="h-5 w-5 text-primary" />
+                    </div>
                     <CardTitle>Unidad de Mercadeo y Experiencia del Cliente</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4 text-muted-foreground">
+                <CardContent className="space-y-4 text-muted-foreground text-sm">
                     <p>
                         La Unidad de Mercadeo es el área encargada de difundir comunicaciones a toda la Organización y clientes externos, por ello la información de carácter masivo debe ser canalizada a través de este departamento.
                     </p>
@@ -76,9 +84,12 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
         );
     case 'pmo':
         return (
-            <Card>
+            <Card className="col-span-1 md:col-span-2 lg:col-span-3">
                 <CardHeader>
-                    <CardTitle>Unidad de Gestión de Proyectos (PMO) - Nivel de Prioridad</CardTitle>
+                     <div className="p-2 bg-muted rounded-md w-fit">
+                        <defaultIcon className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle>Nivel de Prioridad - Unidad de Gestión de Proyectos (PMO)</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <Table>
@@ -125,7 +136,7 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
         )
     default:
       return (
-        <Card className="border-dashed border-2">
+        <Card className="border-dashed border-2 col-span-1 md:col-span-2 lg:col-span-3">
           <CardContent className="p-6 text-center">
             <AlertTriangle className="mx-auto h-12 w-12 text-amber-500 mb-4" />
             <h3 className="text-xl font-semibold mb-2">Página en Construcción</h3>
@@ -163,21 +174,42 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
   }
 
   return (
-    <div className="container mx-auto py-8 px-4">
-       <Button asChild variant="link" className="mb-6 text-muted-foreground hover:no-underline p-0 h-auto text-xs">
-        <Link href="/dashboard/requerimientos" className="flex items-center gap-2 group">
-          <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
-            <ArrowLeft className="h-4 w-4" />
-          </span>
-          <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al portal</span>
-        </Link>
-      </Button>
-      <SectionWrapper 
-        title={`${department.name}`}
-        description={`Utilice esta sección para gestionar sus solicitudes con ${department.name}.`}
-      >
+    <div className="container mx-auto py-8 px-4 space-y-8">
+      <div>
+        <Button asChild variant="link" className="mb-6 text-muted-foreground hover:no-underline p-0 h-auto text-xs">
+          <Link href="/dashboard/requerimientos" className="flex items-center gap-2 group">
+            <span className="flex items-center justify-center h-8 w-8 rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+              <ArrowLeft className="h-4 w-4" />
+            </span>
+            <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al portal de requerimientos</span>
+          </Link>
+        </Button>
+      </div>
+
+      <Card className="bg-foreground text-background rounded-2xl overflow-hidden">
+         <div className="p-8 md:p-12 relative">
+             <div className="absolute inset-0 bg-gradient-to-br from-foreground to-neutral-800 opacity-50"></div>
+             <div className="relative">
+                <Badge variant="secondary" className="mb-4 bg-background/20 text-background backdrop-blur-sm">Tipos de Solicitud</Badge>
+                <h1 className="text-3xl md:text-4xl font-bold mb-3">{department.name}</h1>
+                <p className="max-w-2xl text-background/80 mb-6">{department.description}</p>
+                 <div className="flex gap-4">
+                    <Button>
+                        <PlusCircle className="mr-2 h-4 w-4" />
+                        Crear Solicitud
+                    </Button>
+                    <Button variant="link" className="text-background/80 hover:text-background">
+                        Aprender más
+                    </Button>
+                </div>
+             </div>
+         </div>
+      </Card>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {renderDepartmentContent(department)}
-      </SectionWrapper>
+      </div>
+
     </div>
   );
 }

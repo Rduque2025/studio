@@ -25,21 +25,6 @@ const DepartmentCard = ({ department }: { department: Department }) => {
         <p className="text-sm text-muted-foreground mb-4">
           {department.description}
         </p>
-        
-        {department.requests && department.requests.length > 0 && (
-          <div className="space-y-2 mb-4">
-            {department.requests.slice(0, 3).map((req, index) => (
-               <div key={index} className="flex items-center text-xs text-muted-foreground">
-                  <ArrowRight className="h-3 w-3 mr-2 text-primary" />
-                  <span>{req.title}</span>
-               </div>
-            ))}
-            {department.requests.length > 3 && (
-               <div className="text-xs text-muted-foreground font-medium pl-5">y más...</div>
-            )}
-          </div>
-        )}
-        
         <div className="flex justify-end mt-auto pt-4">
           <Button asChild variant="default" className="rounded-full h-10 w-10 p-0 bg-foreground hover:bg-foreground/80">
             <Link href={linkHref}>

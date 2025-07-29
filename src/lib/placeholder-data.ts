@@ -1,4 +1,4 @@
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat } from 'lucide-react';
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane } from 'lucide-react';
 
 export interface Course {
   id: string;
@@ -354,6 +354,14 @@ export const mockDepartments: Department[] = [
     ]
   },
   {
+    id: "vacaciones",
+    name: "Gestión de Vacaciones",
+    description: "Planifica y solicita tus días libres y consulta tu saldo disponible.",
+    category: "Capital Humano",
+    icon: Plane,
+    directLink: "/dashboard/vacaciones"
+  },
+  {
     id: "mercadeo",
     name: "Mercadeo",
     description: "Canaliza comunicados masivos, SMS, mailings y gestiona redes sociales.",
@@ -582,3 +590,4 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+

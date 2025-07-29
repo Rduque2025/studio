@@ -48,7 +48,8 @@ export function SidebarNav({ activeCategory, setActiveCategory }: SidebarNavProp
     <TooltipProvider delayDuration={0}>
       <aside
         className={cn(
-          'relative flex flex-col bg-card text-card-foreground border-r transition-all duration-300 ease-in-out h-auto',
+          'relative flex flex-col bg-card text-card-foreground border transition-all duration-300 ease-in-out rounded-2xl shadow-lg',
+          'h-[calc(100vh-8rem)]', // Adjust height to be less than full viewport height
           isCollapsed ? 'w-20' : 'w-64'
         )}
       >

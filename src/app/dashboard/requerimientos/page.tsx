@@ -21,20 +21,15 @@ const categories = [
 
 interface DepartmentCardProps {
   department: Department;
-  isActive: boolean;
-  onClick: () => void;
 }
 
-const DepartmentCard = ({ department, isActive, onClick }: DepartmentCardProps) => {
+const DepartmentCard = ({ department }: DepartmentCardProps) => {
   const Icon = department.icon || MoreHorizontal;
   return (
     <Card
-      onClick={onClick}
       className={cn(
         "cursor-pointer transition-all duration-200 flex flex-col items-center justify-center p-4 aspect-square text-center",
-        isActive
-          ? "bg-primary text-primary-foreground shadow-lg -translate-y-1"
-          : "bg-card hover:bg-primary hover:text-primary-foreground"
+        "bg-card hover:bg-primary hover:text-primary-foreground"
       )}
     >
       <Icon className="h-8 w-8 mb-2" />
@@ -46,8 +41,6 @@ const DepartmentCard = ({ department, isActive, onClick }: DepartmentCardProps) 
 
 export default function RequerimientosPage() {
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
-  const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null);
-
 
   const filteredDepartments = activeCategory === 'ALL'
     ? mockDepartments
@@ -58,7 +51,7 @@ export default function RequerimientosPage() {
       <Card className="w-full max-w-6xl min-h-[70vh] rounded-3xl shadow-2xl p-6 sm:p-8 flex flex-col">
         {/* Header */}
         <header className="flex justify-between items-center mb-8">
-            <h1 className="text-2xl font-bold text-foreground">Portal de Requerimientos</h1>
+            <div></div>
             <div className="flex items-center gap-2">
                 <Button variant="ghost" size="icon" asChild>
                     <Link href="/dashboard">
@@ -87,14 +80,14 @@ export default function RequerimientosPage() {
                     onClick={() => setActiveCategory(category.id)}
                     className={cn(
                       "flex items-center gap-3 w-full p-3 rounded-lg text-left transition-colors relative",
-                      isActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+                      isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-primary"
                     )}
                   >
-                    <Icon className="h-5 w-5 flex-shrink-0" />
-                    <span className="font-medium text-sm">{category.name}</span>
-                    {isActive && (
-                      <div className="absolute right-0 h-full w-1 bg-primary rounded-full" />
+                     {isActive && (
+                      <div className="absolute left-0 h-full w-1 bg-primary rounded-full" />
                     )}
+                    <Icon className="h-5 w-5 flex-shrink-0 ml-4" />
+                    <span className="font-medium text-sm">{category.name}</span>
                   </button>
                 );
               })}
@@ -113,12 +106,8 @@ export default function RequerimientosPage() {
                     const href = departmentDetails.directLink ? departmentDetails.directLink : `/dashboard/requerimientos/${departmentDetails.id}`;
 
                     return (
-                        <Link href={href} key={dept.id}>
-                           <DepartmentCard
-                                department={dept}
-                                isActive={selectedDepartment === dept.id}
-                                onClick={() => setSelectedDepartment(dept.id)}
-                            />
+                        <Link href={href} key={dept.id} className="block">
+                           <DepartmentCard department={dept} />
                         </Link>
                     );
                 })}

@@ -7,31 +7,49 @@ import { Button } from "@/components/ui/button";
 import { MoreHorizontal, Pencil, Plus, ArrowRight } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type { Department } from "@/lib/placeholder-data";
-import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const DepartmentCard = ({ department }: { department: Department }) => {
   const linkHref = department.directLink ? department.directLink : `/dashboard/requerimientos/${department.id}`;
-  
+  const isColored = department.category === 'Capital Humano' || department.category === 'Proyectos';
+
   return (
-    <Card className="bg-card hover:border-primary/20 transition-colors shadow-sm border p-6 rounded-2xl flex flex-col">
-      <CardHeader className="p-0 flex-row justify-between items-start">
-        <CardTitle className="text-base font-bold text-foreground">{department.name}</CardTitle>
-        <Button variant="ghost" size="icon" className="h-7 w-7 text-muted-foreground">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </CardHeader>
-      <CardContent className="p-0 flex-grow flex flex-col justify-between mt-2">
-        <p className="text-sm text-muted-foreground mb-4">
-          {department.description}
-        </p>
-        <div className="flex justify-end mt-auto pt-4">
-          <Button asChild variant="default" className="rounded-full h-10 w-10 p-0 bg-foreground hover:bg-foreground/80">
-            <Link href={linkHref}>
-              <Pencil className="h-4 w-4" />
+    <Card className={cn(
+      "overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 rounded-3xl",
+      isColored ? "text-primary-foreground" : "bg-card"
+    )}
+    style={ isColored ? {
+        background: department.category === 'Capital Humano' 
+          ? 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))' 
+          : 'linear-gradient(135deg, hsl(var(--accent)), hsl(var(--secondary)))'
+      } : {}}
+    >
+      <div className="flex flex-col md:flex-row items-center h-full">
+        <div className="p-6 md:p-8 flex-grow">
+          <CardTitle className="text-xl font-bold mb-4">{department.name}</CardTitle>
+          <Button asChild variant="link" className={cn("p-0 h-auto font-semibold", isColored ? "text-primary-foreground/80 hover:text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>
+            <Link href={linkHref} className="flex items-center gap-2">
+              <span className={cn(
+                "flex items-center justify-center h-6 w-6 rounded-full",
+                isColored ? "bg-black/20" : "bg-foreground text-background"
+              )}>
+                <ArrowRight className="h-4 w-4" />
+              </span>
+              Saber más
             </Link>
           </Button>
         </div>
-      </CardContent>
+        <div className="w-full md:w-40 h-32 md:h-full flex-shrink-0 relative">
+          <Image 
+            src={`https://placehold.co/300x300.png`} 
+            alt={department.name} 
+            layout="fill"
+            objectFit="cover"
+            className="md:rounded-l-none md:rounded-r-3xl"
+          />
+        </div>
+      </div>
     </Card>
   );
 };
@@ -50,15 +68,15 @@ export default function RequerimientosPage() {
     <div className="bg-muted/30 min-h-[calc(100vh-6rem)] relative">
       <div className="container mx-auto py-12 px-4">
         
-        <header className="mb-8">
+        <header className="mb-8 text-center">
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Portal de Requerimientos</h1>
-            <p className="text-base text-muted-foreground mt-2 max-w-2xl">
+            <p className="text-base text-muted-foreground mt-2 max-w-2xl mx-auto">
               Gestiona todas tus solicitudes en un solo lugar. Selecciona una categoría y accede al formulario que necesites.
             </p>
         </header>
         
         <Tabs defaultValue="ALL" className="w-full">
-          <TabsList className="flex items-center justify-between w-full max-w-xl mb-12 bg-transparent p-0">
+          <TabsList className="flex items-center justify-between w-full max-w-xl mx-auto mb-12 bg-transparent p-0">
             {categories.map(cat => (
               <TabsTrigger 
                 key={cat} 
@@ -72,7 +90,7 @@ export default function RequerimientosPage() {
 
           {categories.map(cat => (
              <TabsContent key={cat} value={cat}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {getDepartmentsByCategory(cat).map((dept) => (
                     <DepartmentCard key={dept.id} department={dept} />
                   ))}

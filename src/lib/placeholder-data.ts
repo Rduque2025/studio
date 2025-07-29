@@ -1,3 +1,4 @@
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat } from 'lucide-react';
 
 export interface Course {
   id: string;
@@ -335,9 +336,10 @@ export const mockExecutiveMenuItems: MenuItem[] = [
 export const mockDepartments: Department[] = [
   {
     id: "capital-humano",
-    name: "Unidad de Capital Humano",
+    name: "Capital Humano",
     description: "Gestiona tus solicitudes relacionadas con el personal y bienestar.",
     category: "Capital Humano",
+    icon: Users,
     requests: [
       { title: "Solicitud de Prestaciones Sociales" },
       { title: "Solicitud de Carta de Trabajo" },
@@ -353,39 +355,45 @@ export const mockDepartments: Department[] = [
   },
   {
     id: "mercadeo",
-    name: "Unidad de Mercadeo y Experiencia del Cliente",
+    name: "Mercadeo",
     description: "Canaliza comunicados masivos, SMS, mailings y gestiona redes sociales.",
     category: "Mercadeo",
+    icon: Megaphone,
   },
   {
     id: "pmo",
-    name: "Unidad de Gestión de Proyectos (PMO)",
+    name: "Gestión de Proyectos",
     description: "Gestiona y prioriza los proyectos tecnológicos de la organización.",
     category: "Proyectos",
+    icon: FolderKanban,
   },
   {
     id: "seguridad-informacion",
-    name: "Seguridad de la Información",
+    name: "Seguridad",
     description: "Portal de peticiones y gestión de la seguridad de la información.",
     category: "Otros",
+    icon: Shield,
   },
   {
     id: "control",
-    name: "Gerencia de Control",
+    name: "Control",
     description: "Procesos de control y auditoría interna.",
     category: "Otros",
+    icon: BarChart2,
   },
   {
     id: "procura",
-    name: "Unidad de Procura",
+    name: "Procura",
     description: "Gestión de compras y proveedores.",
     category: "Otros",
+    icon: Briefcase,
   },
   {
     id: "inteligencia-comercial",
-    name: "Gcia. de Inteligencia y Desarrollo Comercial",
+    name: "Inteligencia Comercial",
     description: "Análisis de datos y estrategias para el desarrollo comercial.",
     category: "Mercadeo",
+    icon: FileText,
   },
   {
     id: "biblioteca-digital",
@@ -393,31 +401,36 @@ export const mockDepartments: Department[] = [
     description: "Acceso a documentos y recursos digitales de la empresa.",
     directLink: "/dashboard/biblioteca",
     category: "Otros",
+    icon: BookOpen,
   },
   {
     id: "consultoria-juridica",
-    name: "Gerencia de Consultoría Jurídica",
+    name: "Consultoría Jurídica",
     description: "Asesoramiento y gestión de asuntos legales.",
     category: "Otros",
+    icon: Scale,
   },
   {
     id: "sistematica-comercial",
-    name: "Site de Sistemática Comercial",
+    name: "Sistemática Comercial",
     description: "Recursos y herramientas para el equipo comercial.",
     category: "Mercadeo",
+    icon: HardHat,
   },
   {
     id: "suscripcion",
-    name: "Gcia. de Suscripción",
+    name: "Suscripción",
     description: "Procesos de suscripción y emisión de pólizas.",
     directLink: "/dashboard/suscripcion",
     category: "Otros",
+    icon: FileSignature,
   },
   {
     id: "robotizacion",
-    name: "Site de Robotización",
+    name: "Robotización",
     description: "Información y estado de los proyectos de automatización (RPA).",
     category: "Proyectos",
+    icon: Bot,
   }
 ];
 

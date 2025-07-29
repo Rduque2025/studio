@@ -2,79 +2,91 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Card, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle, CardContent } from "@/components/ui/card";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowRight } from "lucide-react";
+import { Plus, ArrowLeft, Users, Megaphone, FolderKanban, MoreHorizontal } from "lucide-react";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { SidebarNav } from "@/components/dashboard/sidebar-nav";
+import type { LucideIcon } from "lucide-react";
 
-const DepartmentCard = ({ department }: { department: Department }) => {
+
+const DepartmentCard = ({ 
+  department, 
+  isActive, 
+  onClick 
+}: { 
+  department: Department, 
+  isActive: boolean, 
+  onClick: () => void 
+}) => {
+  const Icon = department.icon || MoreHorizontal;
   const linkHref = department.directLink ? department.directLink : `/dashboard/requerimientos/${department.id}`;
-  const isBlue = department.category === 'Capital Humano' || department.category === 'Proyectos';
 
   return (
-    <Card 
-      className={cn(
-        "overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1 rounded-3xl h-full flex flex-col",
-        isBlue ? "bg-gradient-to-br from-secondary to-primary text-primary-foreground" : "bg-card text-card-foreground"
-      )}
-    >
-      <div className="p-6 flex-grow flex flex-col">
-        <CardTitle className={cn("text-base font-bold mb-4", isBlue ? "text-primary-foreground" : "text-foreground")}>{department.name}</CardTitle>
-        <Button asChild variant="link" className={cn("p-0 h-auto font-semibold self-start mt-auto", isBlue ? "text-primary-foreground/80 hover:text-primary-foreground" : "text-muted-foreground hover:text-foreground")}>
-          <Link href={linkHref} className="flex items-center gap-2">
-            <span className={cn("flex items-center justify-center h-6 w-6 rounded-full", isBlue ? "bg-black/20" : "bg-muted")}>
-              <ArrowRight className="h-4 w-4" />
-            </span>
-            Saber más
-          </Link>
-        </Button>
-      </div>
-      <div className="w-full h-32 flex-shrink-0 relative">
-        <Image 
-          src={`https://placehold.co/300x200.png`} 
-          alt={department.name} 
-          layout="fill"
-          objectFit="cover"
-        />
-      </div>
-    </Card>
+    <Link href={linkHref} onClick={onClick}>
+        <div className={cn(
+            "rounded-2xl p-4 text-center transition-all duration-300 h-32 flex flex-col justify-center items-center gap-2",
+            isActive 
+              ? "bg-amber-300 shadow-lg scale-105" 
+              : "bg-card hover:shadow-md hover:-translate-y-1"
+          )}>
+            <div className={cn(
+                "flex items-center justify-center h-12 w-12 rounded-full mb-1 transition-colors",
+                isActive ? "bg-white/50" : "bg-muted"
+            )}>
+              <Icon className={cn(
+                  "h-6 w-6",
+                  isActive ? "text-amber-800" : "text-muted-foreground"
+              )} />
+            </div>
+            <p className={cn(
+                "text-xs font-semibold",
+                 isActive ? "text-amber-900" : "text-foreground"
+            )}>{department.name}</p>
+        </div>
+    </Link>
   );
 };
 
+
 export default function RequerimientosPage() {
-  const [activeCategory, setActiveCategory] = useState("ALL");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   
-  const getDepartmentsByCategory = (category: string) => {
-    if (category === "ALL") {
-      return mockDepartments;
-    }
-    return mockDepartments.filter(d => d.category === category);
-  }
-
-  const filteredDepartments = getDepartmentsByCategory(activeCategory);
-
   return (
-    <div className="flex min-h-[calc(100vh-6rem)] bg-muted/30 p-4 gap-4">
-      <SidebarNav activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
-      
-      <main className="flex-1">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredDepartments.map((dept) => (
-            <DepartmentCard key={dept.id} department={dept} />
-          ))}
-        </div>
-      </main>
+    <div className="min-h-[calc(100vh-6rem)] bg-muted/40 p-4 flex items-center justify-center">
+        
+        <Card className="w-full max-w-4xl rounded-3xl shadow-2xl p-6 sm:p-8">
+            <CardContent className="p-0">
+                <header className="flex justify-between items-center mb-8">
+                    <div className="flex items-center gap-4">
+                        <Button variant="ghost" size="icon" asChild>
+                            <Link href="/dashboard">
+                                <ArrowLeft className="h-5 w-5" />
+                            </Link>
+                        </Button>
+                        <h1 className="text-lg font-semibold text-foreground">Portal de Requerimientos</h1>
+                    </div>
+                    <Button size="sm" className="bg-rose-500 hover:bg-rose-600 text-white rounded-full">
+                        Nueva Solicitud
+                    </Button>
+                </header>
 
-      <div className="fixed bottom-8 right-8 z-20">
-        <Button className="rounded-full h-12 shadow-lg">
-          <Plus className="mr-2 h-4 w-4" />
-          Añadir Área
-        </Button>
-      </div>
+                <main>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                      {mockDepartments.map((dept) => (
+                        <DepartmentCard 
+                          key={dept.id} 
+                          department={dept}
+                          isActive={activeCategory === dept.id}
+                          onClick={() => setActiveCategory(dept.id)}
+                        />
+                      ))}
+                    </div>
+                </main>
+            </CardContent>
+        </Card>
 
     </div>
   );

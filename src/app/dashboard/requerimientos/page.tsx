@@ -60,13 +60,6 @@ export default function RequerimientosPage() {
     <div className="bg-muted/30 min-h-[calc(100vh-6rem)] relative">
       <div className="container mx-auto py-12 px-4">
         
-        <header className="mb-8 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">Portal de Requerimientos</h1>
-            <p className="text-base text-muted-foreground mt-2 max-w-2xl mx-auto">
-              Gestiona todas tus solicitudes en un solo lugar. Selecciona una categoría y accede al formulario que necesites.
-            </p>
-        </header>
-        
         <Tabs defaultValue="ALL" className="w-full">
           <TabsList className="flex items-center justify-between w-full max-w-xl mx-auto mb-12 bg-transparent p-0">
             {categories.map(cat => (

@@ -2,7 +2,7 @@
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments } from "@/lib/placeholder-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight, PlusCircle, Mail } from "lucide-react";
+import { AlertTriangle, ArrowRight, PlusCircle, Mail, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
@@ -199,12 +199,20 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                         Solicitudes Especiales
                     </Button>
                     {department.id === 'capital-humano' && (
-                       <Button asChild variant="ghost" size="icon" className="text-background/80 hover:text-background hover:bg-white/10">
-                        <Link href="mailto:capital_humano_ve@banescoseguros.com">
-                            <Mail className="h-5 w-5" />
-                            <span className="sr-only">Enviar correo a Capital Humano</span>
-                        </Link>
-                      </Button>
+                       <>
+                        <Button asChild variant="ghost" size="icon" className="text-background/80 hover:text-background hover:bg-white/10">
+                          <Link href="mailto:capital_humano_ve@banescoseguros.com">
+                              <Mail className="h-5 w-5" />
+                              <span className="sr-only">Enviar correo a Capital Humano</span>
+                          </Link>
+                        </Button>
+                        <Button asChild variant="ghost" size="icon" className="text-background/80 hover:text-background hover:bg-white/10">
+                          <Link href="tel:+582125011111">
+                              <Phone className="h-5 w-5" />
+                              <span className="sr-only">Llamar a Capital Humano</span>
+                          </Link>
+                        </Button>
+                      </>
                     )}
                 </div>
              </div>

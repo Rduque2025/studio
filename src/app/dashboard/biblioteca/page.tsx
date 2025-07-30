@@ -77,7 +77,7 @@ export default function BibliotecaPage() {
             {/* Left Sidebar - Categories */}
             <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
                 <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm">
-                    <nav className="flex flex-col h-full justify-around">
+                    <nav className="flex flex-col space-y-2">
                         {categories.map(cat => {
                             const Icon = cat.icon;
                             const isActive = activeCategory === cat.id;

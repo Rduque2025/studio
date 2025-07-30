@@ -117,11 +117,6 @@ export default function BibliotecaPage() {
             <Separator orientation="vertical" className="h-auto hidden md:block" />
             {/* Main Content */}
             <main className="flex-1 p-4 flex flex-col">
-                <div className="pb-4">
-                   <h1 className="text-2xl font-bold text-foreground">Biblioteca de Recursos</h1>
-                   <p className="text-muted-foreground text-sm mt-1">Encuentre manuales, presentaciones y más, utilice los filtros para navegar por el contenido.</p>
-                </div>
-
                 <div className="py-4">
                     <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
                         {areas.map(area => (

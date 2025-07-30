@@ -54,7 +54,8 @@ export default function BibliotecaPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearchExpanded, setIsSearchExpanded] = useState(false);
     const [isSendButtonExpanded, setIsSendButtonExpanded] = useState(false);
-    const [selectedDoc, setSelectedDoc] = useState<DocumentResource | null>(null);
+    const [isDownloadButtonExpanded, setIsDownloadButtonExpanded] = useState(false);
+    const [selectedDocIds, setSelectedDocIds] = useState<string[]>([]);
     const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState('');
     const { toast } = useToast();
@@ -83,34 +84,39 @@ export default function BibliotecaPage() {
     }, [activeCategory, activeArea, searchTerm]);
     
     const handleSendClick = () => {
-        if (selectedDoc) {
+        if (selectedDocIds.length === 1) {
             setIsSendDialogOpen(true);
         }
     };
     
     const handleSendEmail = () => {
-        if (selectedDoc && recipientEmail) {
-            const subject = `Enlace al documento: ${selectedDoc.title}`;
-            const body = `Hola,\n\nAquí tienes el enlace para ver el documento "${selectedDoc.title}":\n\nhttps://portal.banesco.com/biblioteca/${selectedDoc.id}\n\nSaludos.`;
-            window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            
-            setIsSendDialogOpen(false);
-            setRecipientEmail('');
-            setSelectedDoc(null);
-            
-            toast({
-                title: "Correo listo para enviar",
-                description: `Se ha abierto tu cliente de correo para enviar "${selectedDoc.title}".`,
-            });
+        if (selectedDocIds.length === 1 && recipientEmail) {
+            const selectedDoc = mockDocuments.find(doc => doc.id === selectedDocIds[0]);
+            if (selectedDoc) {
+                const subject = `Enlace al documento: ${selectedDoc.title}`;
+                const body = `Hola,\n\nAquí tienes el enlace para ver el documento "${selectedDoc.title}":\n\nhttps://portal.banesco.com/biblioteca/${selectedDoc.id}\n\nSaludos.`;
+                window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                setIsSendDialogOpen(false);
+                setRecipientEmail('');
+                setSelectedDocIds([]);
+                
+                toast({
+                    title: "Correo listo para enviar",
+                    description: `Se ha abierto tu cliente de correo para enviar "${selectedDoc.title}".`,
+                });
+            }
         }
     };
     
-    const handleCardClick = (doc: DocumentResource) => {
-        if (selectedDoc?.id === doc.id) {
-            setSelectedDoc(null); // Deselect if clicking the same card
-        } else {
-            setSelectedDoc(doc);
-        }
+    const handleCardClick = (docId: string) => {
+        setSelectedDocIds(prevSelected => {
+            if (prevSelected.includes(docId)) {
+                return prevSelected.filter(id => id !== docId);
+            } else {
+                return [...prevSelected, docId];
+            }
+        });
     };
 
 
@@ -192,9 +198,9 @@ export default function BibliotecaPage() {
                             onMouseLeave={() => setIsSendButtonExpanded(false)}
                         >
                             <Button
-                                variant={selectedDoc ? 'outline' : 'ghost'}
+                                variant={selectedDocIds.length === 1 ? 'outline' : 'ghost'}
                                 onClick={handleSendClick}
-                                disabled={!selectedDoc}
+                                disabled={selectedDocIds.length !== 1}
                                 className={cn(
                                     "transition-all duration-300 ease-in-out flex items-center justify-center disabled:opacity-50 disabled:bg-transparent disabled:border-transparent",
                                     isSendButtonExpanded ? "w-28" : "w-10 px-0"
@@ -209,6 +215,28 @@ export default function BibliotecaPage() {
                                 </span>
                             </Button>
                         </div>
+                        <div
+                            className="relative flex items-center"
+                            onMouseEnter={() => setIsDownloadButtonExpanded(true)}
+                            onMouseLeave={() => setIsDownloadButtonExpanded(false)}
+                        >
+                            <Button
+                                variant={selectedDocIds.length > 0 ? 'outline' : 'ghost'}
+                                disabled={selectedDocIds.length === 0}
+                                className={cn(
+                                    "transition-all duration-300 ease-in-out flex items-center justify-center disabled:opacity-50 disabled:bg-transparent disabled:border-transparent",
+                                    isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
+                                )}
+                            >
+                                <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
+                                <span className={cn(
+                                    "text-xs transition-opacity duration-200",
+                                    isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
+                                )}>
+                                    Descargar
+                                </span>
+                            </Button>
+                        </div>
                     </div>
 
                     <div className="flex-grow overflow-auto -mx-2 px-2 mt-4">
@@ -217,11 +245,11 @@ export default function BibliotecaPage() {
                               {filteredDocuments.map(doc => {
                                   const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
                                   const Icon = categoryInfo!.icon;
-                                  const isSelected = selectedDoc?.id === doc.id;
+                                  const isSelected = selectedDocIds.includes(doc.id);
                                   return (
                                     <Card 
                                         key={doc.id} 
-                                        onClick={() => handleCardClick(doc)}
+                                        onClick={() => handleCardClick(doc.id)}
                                         className={cn(
                                             "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer text-foreground",
                                             isSelected 
@@ -274,7 +302,7 @@ export default function BibliotecaPage() {
                     <DialogHeader>
                         <DialogTitle>Enviar Documento por Correo</DialogTitle>
                         <DialogDescription>
-                           Se enviará un enlace al documento <span className="font-semibold">{selectedDoc?.title}</span>. Por favor, introduzca el correo del destinatario.
+                           Se enviará un enlace al documento <span className="font-semibold">{selectedDocIds.length === 1 && mockDocuments.find(d => d.id === selectedDocIds[0])?.title}</span>. Por favor, introduzca el correo del destinatario.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">

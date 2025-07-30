@@ -134,10 +134,10 @@ export default function BibliotecaPage() {
                                     <Button 
                                         key={cat.id} 
                                         variant={isActive ? "secondary" : "ghost"}
-                                        className="w-full justify-start gap-2"
+                                        className="w-full justify-start gap-2 whitespace-normal h-auto"
                                         onClick={() => setActiveCategory(cat.id)}
                                     >
-                                        <Icon className="h-4 w-4" />
+                                        <Icon className="h-4 w-4 flex-shrink-0" />
                                         <span>{cat.label}</span>
                                     </Button>
                                 )

@@ -139,8 +139,8 @@ export function Header() {
         <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
             const isActive = item.name === 'General'
-              ? pathname === '/dashboard'
-              : item.activePaths.some(p => pathname.startsWith(p) && p !== '/dashboard');
+              ? pathname === item.href
+              : item.activePaths.some(p => pathname.startsWith(p));
 
             return (
               <Link
@@ -282,8 +282,8 @@ export function Header() {
             <nav className="flex flex-col space-y-4 mt-8">
               {navItemsMobile.map((item) => {
                  const isActive = item.name === 'General'
-                    ? pathname === '/dashboard'
-                    : item.activePaths.some(p => pathname.startsWith(p) && p !== '/dashboard');
+                    ? pathname === item.href
+                    : item.activePaths.some(p => pathname.startsWith(p));
                 return (
                   <Link
                     key={item.name}

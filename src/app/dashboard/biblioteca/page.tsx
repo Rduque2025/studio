@@ -24,11 +24,14 @@ import {
   Users,
   GitFork,
   FileCheck2,
+  Mail,
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { useToast } from "@/hooks/use-toast";
+import { Label } from '@/components/ui/label';
 
 const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
     { id: "Destacados", label: "Destacados", icon: Star },
@@ -56,7 +59,10 @@ export default function BibliotecaPage() {
     const [activeArea, setActiveArea] = useState('ALL');
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearchExpanded, setIsSearchExpanded] = useState(false);
-
+    const [selectedDoc, setSelectedDoc] = useState<DocumentResource | null>(null);
+    const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
+    const [recipientEmail, setRecipientEmail] = useState('');
+    const { toast } = useToast();
 
     const filteredDocuments = useMemo(() => {
         let documents = mockDocuments;
@@ -80,6 +86,38 @@ export default function BibliotecaPage() {
         return documents;
 
     }, [activeCategory, activeArea, searchTerm]);
+    
+    const handleSendClick = () => {
+        if (selectedDoc) {
+            setIsSendDialogOpen(true);
+        }
+    };
+    
+    const handleSendEmail = () => {
+        if (selectedDoc && recipientEmail) {
+            const subject = `Enlace al documento: ${selectedDoc.title}`;
+            const body = `Hola,\n\nAquí tienes el enlace para ver el documento "${selectedDoc.title}":\n\nhttps://portal.banesco.com/biblioteca/${selectedDoc.id}\n\nSaludos.`;
+            window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            setIsSendDialogOpen(false);
+            setRecipientEmail('');
+            setSelectedDoc(null);
+            
+            toast({
+                title: "Correo listo para enviar",
+                description: `Se ha abierto tu cliente de correo para enviar "${selectedDoc.title}".`,
+            });
+        }
+    };
+    
+    const handleCardClick = (doc: DocumentResource) => {
+        if (selectedDoc?.id === doc.id) {
+            setSelectedDoc(null); // Deselect if clicking the same card
+        } else {
+            setSelectedDoc(doc);
+        }
+    };
+
 
     return (
         <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
@@ -153,9 +191,9 @@ export default function BibliotecaPage() {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
-                        <Button variant="outline">
-                            <Download className="mr-2 h-4 w-4" />
-                            <span className="text-xs">Exportar</span>
+                        <Button variant="outline" onClick={handleSendClick} disabled={!selectedDoc}>
+                            <Mail className="mr-2 h-4 w-4" />
+                            <span className="text-xs">Enviar</span>
                         </Button>
                     </div>
 
@@ -165,21 +203,31 @@ export default function BibliotecaPage() {
                               {filteredDocuments.map(doc => {
                                   const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
                                   const Icon = categoryInfo!.icon;
+                                  const isSelected = selectedDoc?.id === doc.id;
                                   return (
-                                    <Card key={doc.id} className="group relative flex flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 shadow-sm hover:shadow-lg transition-shadow duration-300 border-none">
-                                        <CardContent className="p-4">
-                                            <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
-                                                <Icon className="h-5 w-5 text-primary" />
-                                            </div>
-                                            <h3 className="text-base font-semibold text-foreground pr-10">{doc.title}</h3>
-                                        </CardContent>
-                                        <CardContent className="p-4 pt-0">
-                                            <div className="flex gap-2">
-                                                <Badge variant="outline" className="text-xs">{doc.area}</Badge>
-                                                <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
-                                            </div>
-                                        </CardContent>
-                                        <CardContent className="p-4 flex gap-2">
+                                    <Card 
+                                        key={doc.id} 
+                                        onClick={() => handleCardClick(doc)}
+                                        className={cn(
+                                            "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border-2 cursor-pointer",
+                                            isSelected ? "border-primary" : "border-transparent"
+                                        )}
+                                    >
+                                        <div className="bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50">
+                                            <CardContent className="p-4">
+                                                <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
+                                                    <Icon className="h-5 w-5 text-primary" />
+                                                </div>
+                                                <h3 className="text-base font-semibold text-foreground pr-10">{doc.title}</h3>
+                                            </CardContent>
+                                            <CardContent className="p-4 pt-0">
+                                                <div className="flex gap-2">
+                                                    <Badge variant="outline" className="text-xs">{doc.area}</Badge>
+                                                    <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
+                                                </div>
+                                            </CardContent>
+                                        </div>
+                                        <CardContent className="p-4 flex gap-2 bg-card">
                                             <Button variant="outline" size="sm" className="w-full text-xs">
                                                 <Eye className="mr-2 h-4 w-4" />
                                                 Consultar
@@ -201,6 +249,36 @@ export default function BibliotecaPage() {
                     </div>
                 </Card>
             </main>
+
+            <Dialog open={isSendDialogOpen} onOpenChange={setIsSendDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Enviar Documento por Correo</DialogTitle>
+                        <DialogDescription>
+                           Se enviará un enlace al documento <span className="font-semibold">{selectedDoc?.title}</span>. Por favor, introduzca el correo del destinatario.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="email" className="text-right">
+                                Correo
+                            </Label>
+                            <Input
+                                id="email"
+                                type="email"
+                                placeholder="destinatario@ejemplo.com"
+                                className="col-span-3"
+                                value={recipientEmail}
+                                onChange={(e) => setRecipientEmail(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsSendDialogOpen(false)}>Cancelar</Button>
+                        <Button onClick={handleSendEmail} disabled={!recipientEmail}>Enviar Correo</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 }

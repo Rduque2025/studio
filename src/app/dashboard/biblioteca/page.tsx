@@ -55,6 +55,8 @@ export default function BibliotecaPage() {
     const [activeCategory, setActiveCategory] = useState<DocumentResource['category']>('Destacados');
     const [activeArea, setActiveArea] = useState('ALL');
     const [searchTerm, setSearchTerm] = useState('');
+    const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+
 
     const filteredDocuments = useMemo(() => {
         let documents = mockDocuments;
@@ -135,11 +137,18 @@ export default function BibliotecaPage() {
 
                 <Card className="flex-grow rounded-2xl shadow-sm p-6 flex flex-col">
                     <div className="flex items-center gap-4 mb-6">
-                        <div className="relative w-full">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                         <div 
+                            className="relative flex items-center"
+                            onMouseEnter={() => setIsSearchExpanded(true)}
+                            onMouseLeave={() => setIsSearchExpanded(false)}
+                        >
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
                             <Input 
-                                placeholder="Buscar por nombre..." 
-                                className="pl-9"
+                                placeholder="Buscar..." 
+                                className={cn(
+                                    "pl-9 transition-all duration-300 ease-in-out",
+                                    isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
+                                )}
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />

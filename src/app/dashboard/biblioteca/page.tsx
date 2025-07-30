@@ -239,7 +239,7 @@ export default function BibliotecaPage() {
                         </div>
                     </div>
 
-                    <div className="flex-grow overflow-auto -mx-2 px-2 mt-4">
+                    <div className="flex-grow overflow-auto -mx-2 px-2 py-4">
                          {filteredDocuments.length > 0 ? (
                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                               {filteredDocuments.map(doc => {

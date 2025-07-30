@@ -138,10 +138,10 @@ export function Header() {
         {/* Center: Nav Links */}
         <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
-            const isActive = item.href === '/dashboard' 
-                ? pathname === '/dashboard' 
-                : item.activePaths.some(p => pathname.startsWith(p));
-            
+            const isActive = item.name === 'General'
+              ? pathname === '/dashboard'
+              : item.activePaths.some(p => pathname.startsWith(p) && p !== '/dashboard');
+
             return (
               <Link
                 key={item.name}
@@ -281,9 +281,9 @@ export function Header() {
           <SheetContent side="left" className="w-[300px] sm:w-[400px]">
             <nav className="flex flex-col space-y-4 mt-8">
               {navItemsMobile.map((item) => {
-                const isActive = item.href === '/dashboard' 
-                    ? pathname === '/dashboard' 
-                    : item.activePaths.some(p => p !== '/dashboard' && pathname.startsWith(p));
+                 const isActive = item.name === 'General'
+                    ? pathname === '/dashboard'
+                    : item.activePaths.some(p => pathname.startsWith(p) && p !== '/dashboard');
                 return (
                   <Link
                     key={item.name}

@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -25,7 +26,7 @@ import type { LucideIcon } from 'lucide-react';
 const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
     { id: "Destacados", label: "Destacados", icon: Star },
     { id: "Recursos Visuales", label: "Recursos Visuales", icon: ImageIcon },
-    { id: "Herramientas de Código", label: "Herramientas", icon: Code },
+    { id: "Herramientas", label: "Herramientas", icon: Code },
     { id: "Presentaciones", label: "Presentaciones", icon: Presentation },
     { id: "Manuales", label: "Manuales", icon: BookOpen },
     { id: "Documentos", label: "Documentos", icon: FileText },
@@ -76,7 +77,7 @@ export default function BibliotecaPage() {
             {/* Left Sidebar - Categories */}
             <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
                 <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm">
-                    <nav className="space-y-1">
+                    <nav className="flex flex-col h-full justify-around">
                         {categories.map(cat => {
                             const Icon = cat.icon;
                             const isActive = activeCategory === cat.id;

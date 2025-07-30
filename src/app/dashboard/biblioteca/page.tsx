@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Download, Search, Star, Book, Video, Presentation, Image as ImageIcon } from "lucide-react";
@@ -11,6 +11,8 @@ import { mockDocuments, type DocumentResource } from '@/lib/placeholder-data';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
 
 const featuredDocuments = mockDocuments.filter(doc => doc.isFeatured);
 
@@ -21,6 +23,19 @@ const categories = [
     { id: "documentos", label: "Documentos", icon: FileText },
     { id: "videos", label: "Videos", icon: Video },
     { id: "recursos-visuales", label: "Recursos Visuales", icon: ImageIcon },
+];
+
+const sections = [
+    "Todas las Secciones",
+    "Gerencia de Suscripción",
+    "Nuestro Código de Ética",
+    "Guiones de Atención",
+    "Nuestra Imagen de Marca",
+    "Música",
+    "Procesos",
+    "Guía de Inspecciones Digitales para Póliza de Auto",
+    "Hemeroteca de LC/FT/FPADM",
+    "General",
 ];
 
 const FeaturedCard = ({ doc }: { doc: DocumentResource }) => (
@@ -73,20 +88,27 @@ const ResourceCard = ({ doc }: { doc: DocumentResource }) => (
 
 export default function BibliotecaPage() {
     const [activeTab, setActiveTab] = useState('destacados');
+    const [selectedSection, setSelectedSection] = useState('Todas las Secciones');
 
-    const getFilteredDocuments = () => {
+    const filteredDocuments = useMemo(() => {
+        let documents = mockDocuments;
+
+        // 1. Filter by section
+        if (selectedSection !== 'Todas las Secciones') {
+            documents = documents.filter(doc => doc.section === selectedSection);
+        }
+
+        // 2. Filter by category tab
         if (activeTab === 'destacados') {
-            return mockDocuments.filter(doc => doc.isFeaturedInGrid);
+            return documents.filter(doc => doc.isFeaturedInGrid);
         }
         if (activeTab === 'recursos-visuales') {
-            // Special case for visual resources which might include multiple categories
-            return mockDocuments.filter(doc => ['Video', 'Presentación'].includes(doc.category));
+            return documents.filter(doc => ['Video', 'Presentación', 'Recurso Visual'].includes(doc.category));
         }
-        const formattedTab = activeTab.slice(0, -1); // manuales -> manual
-        return mockDocuments.filter(doc => doc.category.toLowerCase().startsWith(formattedTab));
-    };
+        const formattedTab = activeTab.slice(0, -1);
+        return documents.filter(doc => doc.category.toLowerCase().startsWith(formattedTab));
 
-    const filteredDocuments = getFilteredDocuments();
+    }, [activeTab, selectedSection]);
 
   return (
     <div className="container mx-auto py-8 px-4">
@@ -105,6 +127,19 @@ export default function BibliotecaPage() {
       </SectionWrapper>
 
       <div className="my-12">
+        <div className="mb-8">
+          <Select value={selectedSection} onValueChange={setSelectedSection}>
+            <SelectTrigger className="w-full md:w-[300px]">
+              <SelectValue placeholder="Filtrar por sección" />
+            </SelectTrigger>
+            <SelectContent>
+              {sections.map(section => (
+                <SelectItem key={section} value={section}>{section}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-transparent p-0">
             {categories.map(cat => {
@@ -125,11 +160,17 @@ export default function BibliotecaPage() {
             })}
           </TabsList>
            <div className="mt-12">
-               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {filteredDocuments.map(doc => (
-                    <ResourceCard key={doc.id} doc={doc} />
-                  ))}
-                </div>
+               {filteredDocuments.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {filteredDocuments.map(doc => (
+                            <ResourceCard key={doc.id} doc={doc} />
+                        ))}
+                    </div>
+               ) : (
+                    <div className="text-center py-16 text-muted-foreground">
+                        <p>No se encontraron documentos para los filtros seleccionados.</p>
+                    </div>
+               )}
            </div>
         </Tabs>
       </div>

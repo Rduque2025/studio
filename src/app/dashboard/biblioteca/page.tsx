@@ -192,11 +192,11 @@ export default function BibliotecaPage() {
                             onMouseLeave={() => setIsSendButtonExpanded(false)}
                         >
                             <Button
-                                variant="outline"
+                                variant={selectedDoc ? 'outline' : 'ghost'}
                                 onClick={handleSendClick}
                                 disabled={!selectedDoc}
                                 className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-center",
+                                    "transition-all duration-300 ease-in-out flex items-center justify-center disabled:opacity-50 disabled:bg-transparent disabled:border-transparent",
                                     isSendButtonExpanded ? "w-28" : "w-10 px-0"
                                 )}
                             >

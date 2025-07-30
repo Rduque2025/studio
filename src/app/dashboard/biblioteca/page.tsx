@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -77,7 +76,6 @@ export default function BibliotecaPage() {
             {/* Left Sidebar - Categories */}
             <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
                 <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm">
-                    <h2 className="text-lg font-bold px-2 mb-4">Biblioteca</h2>
                     <nav className="space-y-1">
                         {categories.map(cat => {
                             const Icon = cat.icon;

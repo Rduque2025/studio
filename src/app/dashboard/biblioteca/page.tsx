@@ -102,85 +102,84 @@ export default function BibliotecaPage() {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-4">
-                <Card className="h-full rounded-2xl shadow-sm p-6">
-                    <div className="flex flex-col h-full">
-                        <div className="border-b pb-4">
-                           <h1 className="text-2xl font-bold text-foreground">Biblioteca de Recursos</h1>
-                           <p className="text-muted-foreground text-sm mt-1">Encuentre manuales, presentaciones y más, utilice los filtros para navegar por el contenido.</p>
-                        </div>
-                        
-                        <div className="py-4">
-                            <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
-                                {areas.map(area => (
-                                    <Button
-                                        key={area.id}
-                                        variant={activeArea === area.id ? "secondary" : "ghost"}
-                                        size="sm"
-                                        className="rounded-full flex-shrink-0"
-                                        onClick={() => setActiveArea(area.id)}
-                                    >
-                                        <span className="text-xs">{area.label}</span>
-                                    </Button>
-                                ))}
-                            </div>
-                             <div className="flex items-center gap-4">
-                                <div className="relative w-full">
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                    <Input 
-                                        placeholder="Buscar por nombre..." 
-                                        className="pl-9"
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                </div>
-                                <Button variant="outline">
-                                    <Download className="mr-2 h-4 w-4" />
-                                    <span className="text-xs">Exportar</span>
-                                </Button>
-                            </div>
-                        </div>
+            <main className="flex-1 p-4 flex flex-col">
+                <div className="pb-4">
+                   <h1 className="text-2xl font-bold text-foreground">Biblioteca de Recursos</h1>
+                   <p className="text-muted-foreground text-sm mt-1">Encuentre manuales, presentaciones y más, utilice los filtros para navegar por el contenido.</p>
+                </div>
 
-                        <div className="flex-grow overflow-auto pt-4 -mx-2 px-2">
-                             {filteredDocuments.length > 0 ? (
-                               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                                  {filteredDocuments.map(doc => {
-                                      const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
-                                      const Icon = categoryInfo!.icon;
-                                      return (
-                                        <Card key={doc.id} className="group relative flex flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 shadow-sm hover:shadow-lg transition-shadow duration-300 border-none">
-                                            <CardHeader className="p-4">
-                                                <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
-                                                    <Icon className="h-5 w-5 text-primary" />
-                                                </div>
-                                                <CardTitle className="text-base font-semibold text-foreground pr-10">{doc.title}</CardTitle>
-                                            </CardHeader>
-                                            <CardContent className="p-4 pt-0">
-                                                <div className="flex gap-2">
-                                                    <Badge variant="outline" className="text-xs">{doc.area}</Badge>
-                                                    <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
-                                                </div>
-                                            </CardContent>
-                                            <CardFooter className="p-4 flex gap-2">
-                                                <Button variant="outline" size="sm" className="w-full text-xs">
-                                                    <Eye className="mr-2 h-4 w-4" />
-                                                    Consultar
-                                                </Button>
-                                                <Button size="sm" className="w-full text-xs">
-                                                    <Download className="mr-2 h-4 w-4" />
-                                                    Descargar
-                                                </Button>
-                                            </CardFooter>
-                                        </Card>
-                                      );
-                                  })}
-                               </div>
-                             ) : (
-                                <div className="text-center py-16 text-muted-foreground">
-                                    <p>No se encontraron documentos para los filtros seleccionados.</p>
-                                </div>
-                             )}
+                <div className="py-4">
+                    <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
+                        {areas.map(area => (
+                            <Button
+                                key={area.id}
+                                variant={activeArea === area.id ? "secondary" : "ghost"}
+                                size="sm"
+                                className="rounded-full flex-shrink-0"
+                                onClick={() => setActiveArea(area.id)}
+                            >
+                                <span className="text-xs">{area.label}</span>
+                            </Button>
+                        ))}
+                    </div>
+                </div>
+
+                <Card className="flex-grow rounded-2xl shadow-sm p-6 flex flex-col">
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="relative w-full">
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                            <Input 
+                                placeholder="Buscar por nombre..." 
+                                className="pl-9"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
                         </div>
+                        <Button variant="outline">
+                            <Download className="mr-2 h-4 w-4" />
+                            <span className="text-xs">Exportar</span>
+                        </Button>
+                    </div>
+
+                    <div className="flex-grow overflow-auto -mx-2 px-2">
+                         {filteredDocuments.length > 0 ? (
+                           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                              {filteredDocuments.map(doc => {
+                                  const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
+                                  const Icon = categoryInfo!.icon;
+                                  return (
+                                    <Card key={doc.id} className="group relative flex flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 shadow-sm hover:shadow-lg transition-shadow duration-300 border-none">
+                                        <CardHeader className="p-4">
+                                            <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
+                                                <Icon className="h-5 w-5 text-primary" />
+                                            </div>
+                                            <CardTitle className="text-base font-semibold text-foreground pr-10">{doc.title}</CardTitle>
+                                        </CardHeader>
+                                        <CardContent className="p-4 pt-0">
+                                            <div className="flex gap-2">
+                                                <Badge variant="outline" className="text-xs">{doc.area}</Badge>
+                                                <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
+                                            </div>
+                                        </CardContent>
+                                        <CardFooter className="p-4 flex gap-2">
+                                            <Button variant="outline" size="sm" className="w-full text-xs">
+                                                <Eye className="mr-2 h-4 w-4" />
+                                                Consultar
+                                            </Button>
+                                            <Button size="sm" className="w-full text-xs">
+                                                <Download className="mr-2 h-4 w-4" />
+                                                Descargar
+                                            </Button>
+                                        </CardFooter>
+                                    </Card>
+                                  );
+                              })}
+                           </div>
+                         ) : (
+                            <div className="text-center py-16 text-muted-foreground">
+                                <p>No se encontraron documentos para los filtros seleccionados.</p>
+                            </div>
+                         )}
                     </div>
                 </Card>
             </main>

@@ -26,7 +26,7 @@ import type { LucideIcon } from 'lucide-react';
 const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
     { id: "Destacados", label: "Destacados", icon: Star },
     { id: "Recursos Visuales", label: "Recursos Visuales", icon: ImageIcon },
-    { id: "Herramientas de Código", label: "Herramientas de Código", icon: Code },
+    { id: "Herramientas de Código", label: "Herramientas", icon: Code },
     { id: "Presentaciones", label: "Presentaciones", icon: Presentation },
     { id: "Manuales", label: "Manuales", icon: BookOpen },
     { id: "Documentos", label: "Documentos", icon: FileText },

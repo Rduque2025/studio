@@ -76,24 +76,27 @@ export default function BibliotecaPage() {
         <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
             {/* Left Sidebar - Categories */}
             <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
-                <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm">
+                <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm relative">
+                    <div className="absolute right-0 top-0 bottom-0 w-px bg-border" />
                     <nav className="flex flex-col space-y-2">
                         {categories.map(cat => {
                             const Icon = cat.icon;
                             const isActive = activeCategory === cat.id;
                             return (
-                                <Button 
-                                    key={cat.id} 
-                                    variant={isActive ? "default" : "ghost"}
-                                    className={cn(
-                                      "w-full justify-start gap-3 text-sm whitespace-normal h-auto",
-                                      isActive && "shadow"
-                                    )}
-                                    onClick={() => setActiveCategory(cat.id)}
-                                >
-                                    <Icon className="h-4 w-4 flex-shrink-0" />
-                                    <span className="text-xs">{cat.label}</span>
-                                </Button>
+                                <div key={cat.id} className="relative">
+                                    <Button 
+                                        variant="ghost"
+                                        className={cn(
+                                            "w-full justify-start gap-4 text-sm font-medium h-12 px-4",
+                                            isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                                        )}
+                                        onClick={() => setActiveCategory(cat.id)}
+                                    >
+                                        <Icon className="h-5 w-5 flex-shrink-0" />
+                                        <span>{cat.label}</span>
+                                    </Button>
+                                    {isActive && <div className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-1 bg-primary rounded-full" />}
+                                </div>
                             )
                         })}
                     </nav>

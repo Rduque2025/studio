@@ -3,7 +3,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { mockDocuments, type DocumentResource } from '@/lib/placeholder-data';
 import { cn } from '@/lib/utils';
@@ -18,9 +18,16 @@ import {
   Search,
   Download,
   Eye,
+  Briefcase,
+  Scale,
+  Megaphone,
+  Users,
+  GitFork,
+  FileCheck2,
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 
 const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
@@ -76,33 +83,38 @@ export default function BibliotecaPage() {
         <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
             {/* Left Sidebar - Categories */}
             <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
-                <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm relative">
-                    <div className="absolute right-0 top-0 bottom-0 w-px bg-border" />
-                    <nav className="flex flex-col space-y-2">
-                        {categories.map(cat => {
-                            const Icon = cat.icon;
-                            const isActive = activeCategory === cat.id;
-                            return (
-                                <div key={cat.id} className="relative">
-                                    <Button 
-                                        variant="ghost"
-                                        className={cn(
-                                            "w-full justify-start gap-4 text-sm font-medium h-12 px-4",
-                                            isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                                        )}
-                                        onClick={() => setActiveCategory(cat.id)}
-                                    >
+                <nav className="flex flex-col space-y-1">
+                    {categories.map(cat => {
+                        const Icon = cat.icon;
+                        const isActive = activeCategory === cat.id;
+                        return (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveCategory(cat.id)}
+                                className={cn(
+                                    "flex items-center justify-between w-full p-3 rounded-lg text-left transition-colors relative",
+                                    "hover:bg-muted"
+                                )}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <div className={cn(
+                                        "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+                                        isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                                    )}>
                                         <Icon className="h-5 w-5 flex-shrink-0" />
-                                        <span>{cat.label}</span>
-                                    </Button>
-                                    {isActive && <div className="absolute right-0 top-1/2 -translate-y-1/2 h-6 w-1 bg-primary rounded-full" />}
+                                    </div>
+                                    <span className={cn(
+                                        "font-medium text-xs",
+                                        isActive ? "text-primary font-semibold" : "text-muted-foreground"
+                                    )}>{cat.label}</span>
                                 </div>
-                            )
-                        })}
-                    </nav>
-                </div>
+                                {isActive && <div className="absolute right-0 h-5 w-1 bg-primary rounded-full" />}
+                            </button>
+                        )
+                    })}
+                </nav>
             </aside>
-
+            <Separator orientation="vertical" className="h-auto hidden md:block" />
             {/* Main Content */}
             <main className="flex-1 p-4 flex flex-col">
                 <div className="pb-4">
@@ -151,19 +163,19 @@ export default function BibliotecaPage() {
                                   const Icon = categoryInfo!.icon;
                                   return (
                                     <Card key={doc.id} className="group relative flex flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 shadow-sm hover:shadow-lg transition-shadow duration-300 border-none">
-                                        <CardHeader className="p-4">
+                                        <CardContent className="p-4">
                                             <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
                                                 <Icon className="h-5 w-5 text-primary" />
                                             </div>
-                                            <CardTitle className="text-base font-semibold text-foreground pr-10">{doc.title}</CardTitle>
-                                        </CardHeader>
+                                            <h3 className="text-base font-semibold text-foreground pr-10">{doc.title}</h3>
+                                        </CardContent>
                                         <CardContent className="p-4 pt-0">
                                             <div className="flex gap-2">
                                                 <Badge variant="outline" className="text-xs">{doc.area}</Badge>
                                                 <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
                                             </div>
                                         </CardContent>
-                                        <CardFooter className="p-4 flex gap-2">
+                                        <CardContent className="p-4 flex gap-2">
                                             <Button variant="outline" size="sm" className="w-full text-xs">
                                                 <Eye className="mr-2 h-4 w-4" />
                                                 Consultar
@@ -172,7 +184,7 @@ export default function BibliotecaPage() {
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Descargar
                                             </Button>
-                                        </CardFooter>
+                                        </CardContent>
                                     </Card>
                                   );
                               })}

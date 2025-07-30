@@ -2,9 +2,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { mockDocuments, type DocumentResource } from '@/lib/placeholder-data';
 import { cn } from '@/lib/utils';
@@ -17,20 +16,14 @@ import {
   BookOpen,
   Code,
   Search,
-  Users,
-  Briefcase,
-  Scale,
-  Megaphone,
-  Workflow,
-  Calculator,
-  FileSignature,
-  Download
+  Download,
+  Eye,
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import type { LucideIcon } from 'lucide-react';
 
 
-const categories = [
+const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
     { id: "Destacados", label: "Destacados", icon: Star },
     { id: "Recursos Visuales", label: "Recursos Visuales", icon: ImageIcon },
     { id: "Herramientas de Código", label: "Herramientas de Código", icon: Code },
@@ -52,17 +45,17 @@ const areas = [
 ];
 
 export default function BibliotecaPage() {
-    const [activeCategory, setActiveCategory] = useState('Destacados');
+    const [activeCategory, setActiveCategory] = useState<DocumentResource['category']>('Destacados');
     const [activeArea, setActiveArea] = useState('ALL');
     const [searchTerm, setSearchTerm] = useState('');
 
     const filteredDocuments = useMemo(() => {
         let documents = mockDocuments;
 
-        if (activeCategory === 'Destacados') {
-            documents = documents.filter(doc => doc.isFeatured);
-        } else {
+        if (activeCategory !== 'Destacados') {
             documents = documents.filter(doc => doc.category === activeCategory);
+        } else {
+             documents = documents.filter(doc => doc.isFeatured);
         }
 
         if (activeArea !== 'ALL') {
@@ -79,14 +72,13 @@ export default function BibliotecaPage() {
 
     }, [activeCategory, activeArea, searchTerm]);
 
-
     return (
-        <div className="flex min-h-[calc(100vh-6rem)] bg-muted/40">
+        <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
             {/* Left Sidebar - Categories */}
-            <aside className="w-64 flex-shrink-0 p-4">
+            <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
                 <div className="bg-card h-full rounded-2xl p-4 flex flex-col shadow-sm">
                     <h2 className="text-lg font-bold px-2 mb-4">Biblioteca</h2>
-                    <nav className="space-y-2">
+                    <nav className="space-y-1">
                         {categories.map(cat => {
                             const Icon = cat.icon;
                             const isActive = activeCategory === cat.id;
@@ -95,13 +87,13 @@ export default function BibliotecaPage() {
                                     key={cat.id} 
                                     variant={isActive ? "default" : "ghost"}
                                     className={cn(
-                                      "w-full justify-start gap-3 text-sm",
+                                      "w-full justify-start gap-3 text-sm whitespace-normal h-auto",
                                       isActive && "shadow"
                                     )}
                                     onClick={() => setActiveCategory(cat.id)}
                                 >
                                     <Icon className="h-4 w-4 flex-shrink-0" />
-                                    <span>{cat.label}</span>
+                                    <span className="text-xs">{cat.label}</span>
                                 </Button>
                             )
                         })}
@@ -119,16 +111,16 @@ export default function BibliotecaPage() {
                         </div>
                         
                         <div className="py-4">
-                            <div className="flex items-center gap-2 mb-4">
+                            <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
                                 {areas.map(area => (
                                     <Button
                                         key={area.id}
                                         variant={activeArea === area.id ? "secondary" : "ghost"}
                                         size="sm"
-                                        className="rounded-full"
+                                        className="rounded-full flex-shrink-0"
                                         onClick={() => setActiveArea(area.id)}
                                     >
-                                        {area.label}
+                                        <span className="text-xs">{area.label}</span>
                                     </Button>
                                 ))}
                             </div>
@@ -144,43 +136,50 @@ export default function BibliotecaPage() {
                                 </div>
                                 <Button variant="outline">
                                     <Download className="mr-2 h-4 w-4" />
-                                    Exportar
+                                    <span className="text-xs">Exportar</span>
                                 </Button>
                             </div>
                         </div>
 
-                        <div className="flex-grow overflow-auto">
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Nombre del Recurso</TableHead>
-                                        <TableHead>Área</TableHead>
-                                        <TableHead>Categoría</TableHead>
-                                        <TableHead className="text-right">Acciones</TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {filteredDocuments.map(doc => (
-                                        <TableRow key={doc.id}>
-                                            <TableCell className="font-medium">{doc.title}</TableCell>
-                                            <TableCell>
-                                                <Badge variant="outline">{doc.area}</Badge>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Badge variant="secondary">{doc.category}</Badge>
-                                            </TableCell>
-                                            <TableCell className="text-right">
-                                                <Button variant="ghost" size="sm">Ver</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                            {filteredDocuments.length === 0 && (
-                               <div className="text-center py-16 text-muted-foreground">
+                        <div className="flex-grow overflow-auto pt-4 -mx-2 px-2">
+                             {filteredDocuments.length > 0 ? (
+                               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                  {filteredDocuments.map(doc => {
+                                      const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
+                                      const Icon = categoryInfo!.icon;
+                                      return (
+                                        <Card key={doc.id} className="group relative flex flex-col justify-between overflow-hidden rounded-xl bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 shadow-sm hover:shadow-lg transition-shadow duration-300 border-none">
+                                            <CardHeader className="p-4">
+                                                <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
+                                                    <Icon className="h-5 w-5 text-primary" />
+                                                </div>
+                                                <CardTitle className="text-base font-semibold text-foreground pr-10">{doc.title}</CardTitle>
+                                            </CardHeader>
+                                            <CardContent className="p-4 pt-0">
+                                                <div className="flex gap-2">
+                                                    <Badge variant="outline" className="text-xs">{doc.area}</Badge>
+                                                    <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
+                                                </div>
+                                            </CardContent>
+                                            <CardFooter className="p-4 flex gap-2">
+                                                <Button variant="outline" size="sm" className="w-full text-xs">
+                                                    <Eye className="mr-2 h-4 w-4" />
+                                                    Consultar
+                                                </Button>
+                                                <Button size="sm" className="w-full text-xs">
+                                                    <Download className="mr-2 h-4 w-4" />
+                                                    Descargar
+                                                </Button>
+                                            </CardFooter>
+                                        </Card>
+                                      );
+                                  })}
+                               </div>
+                             ) : (
+                                <div className="text-center py-16 text-muted-foreground">
                                     <p>No se encontraron documentos para los filtros seleccionados.</p>
                                 </div>
-                            )}
+                             )}
                         </div>
                     </div>
                 </Card>

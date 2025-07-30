@@ -209,11 +209,14 @@ export default function BibliotecaPage() {
                                         key={doc.id} 
                                         onClick={() => handleCardClick(doc)}
                                         className={cn(
-                                            "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border-2 cursor-pointer",
-                                            isSelected ? "border-primary" : "border-transparent"
+                                            "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer",
+                                            isSelected ? "scale-105 bg-primary text-primary-foreground" : "border-transparent"
                                         )}
                                     >
-                                        <div className="bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50">
+                                        <div className={cn(
+                                            "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50",
+                                            isSelected && "hidden"
+                                            )}>
                                             <CardContent className="p-4">
                                                 <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
                                                     <Icon className="h-5 w-5 text-primary" />
@@ -227,12 +230,24 @@ export default function BibliotecaPage() {
                                                 </div>
                                             </CardContent>
                                         </div>
-                                        <CardContent className="p-4 flex gap-2 bg-card">
-                                            <Button variant="outline" size="sm" className="w-full text-xs">
+                                         {isSelected && (
+                                            <div className="p-4 flex-grow flex flex-col">
+                                                <div className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-lg">
+                                                    <Icon className="h-5 w-5 text-primary-foreground" />
+                                                </div>
+                                                <h3 className="text-base font-semibold text-primary-foreground pr-10">{doc.title}</h3>
+                                                <div className="flex gap-2 mt-auto pt-4">
+                                                    <Badge variant="secondary" className="text-xs bg-white/20 text-white">{doc.area}</Badge>
+                                                    <Badge variant="secondary" className="text-xs bg-white/20 text-white">{doc.category}</Badge>
+                                                </div>
+                                            </div>
+                                        )}
+                                        <CardContent className={cn("p-4 flex gap-2", isSelected ? "bg-primary/80" : "bg-card")}>
+                                            <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="w-full text-xs">
                                                 <Eye className="mr-2 h-4 w-4" />
                                                 Consultar
                                             </Button>
-                                            <Button size="sm" className="w-full text-xs">
+                                            <Button size="sm" className={cn("w-full text-xs", isSelected && "bg-white/90 hover:bg-white text-primary")}>
                                                 <Download className="mr-2 h-4 w-4" />
                                                 Descargar
                                             </Button>
@@ -282,3 +297,4 @@ export default function BibliotecaPage() {
         </div>
     );
 }
+

@@ -18,12 +18,6 @@ import {
   Search,
   Download,
   Eye,
-  Briefcase,
-  Scale,
-  Megaphone,
-  Users,
-  GitFork,
-  FileCheck2,
   Mail,
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
@@ -197,7 +191,7 @@ export default function BibliotecaPage() {
                         </Button>
                     </div>
 
-                    <div className="flex-grow overflow-auto -mx-2 px-2">
+                    <div className="flex-grow overflow-auto -mx-2 px-2 mt-4">
                          {filteredDocuments.length > 0 ? (
                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                               {filteredDocuments.map(doc => {
@@ -215,7 +209,7 @@ export default function BibliotecaPage() {
                                                 : "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50"
                                         )}
                                     >
-                                        <CardContent className="p-4 flex flex-col flex-grow">
+                                        <CardContent className="p-3 flex flex-col flex-grow">
                                             <div className={cn(
                                                 "absolute top-4 right-4 p-2 rounded-lg",
                                                 isSelected ? "bg-white/20 backdrop-blur-sm" : "bg-white/50 dark:bg-black/50 backdrop-blur-sm"

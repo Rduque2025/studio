@@ -134,7 +134,7 @@ export default function BibliotecaPage() {
                                     <Button 
                                         key={cat.id} 
                                         variant={isActive ? "secondary" : "ghost"}
-                                        className="w-full justify-start gap-2 whitespace-normal h-auto"
+                                        className="w-full justify-start gap-2 whitespace-normal h-auto text-sm"
                                         onClick={() => setActiveCategory(cat.id)}
                                     >
                                         <Icon className="h-4 w-4 flex-shrink-0" />

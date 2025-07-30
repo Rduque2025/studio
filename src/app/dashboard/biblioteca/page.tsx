@@ -53,6 +53,7 @@ export default function BibliotecaPage() {
     const [activeArea, setActiveArea] = useState('ALL');
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearchExpanded, setIsSearchExpanded] = useState(false);
+    const [isSendButtonExpanded, setIsSendButtonExpanded] = useState(false);
     const [selectedDoc, setSelectedDoc] = useState<DocumentResource | null>(null);
     const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState('');
@@ -185,10 +186,29 @@ export default function BibliotecaPage() {
                                 onChange={(e) => setSearchTerm(e.target.value)}
                             />
                         </div>
-                        <Button variant="outline" onClick={handleSendClick} disabled={!selectedDoc}>
-                            <Mail className="mr-2 h-4 w-4" />
-                            <span className="text-xs">Enviar</span>
-                        </Button>
+                        <div
+                            className="relative flex items-center"
+                            onMouseEnter={() => setIsSendButtonExpanded(true)}
+                            onMouseLeave={() => setIsSendButtonExpanded(false)}
+                        >
+                            <Button
+                                variant="outline"
+                                onClick={handleSendClick}
+                                disabled={!selectedDoc}
+                                className={cn(
+                                    "transition-all duration-300 ease-in-out flex items-center justify-center",
+                                    isSendButtonExpanded ? "w-28" : "w-10 px-0"
+                                )}
+                            >
+                                <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
+                                <span className={cn(
+                                    "text-xs transition-opacity duration-200",
+                                    isSendButtonExpanded ? "opacity-100" : "opacity-0"
+                                )}>
+                                    Enviar
+                                </span>
+                            </Button>
+                        </div>
                     </div>
 
                     <div className="flex-grow overflow-auto -mx-2 px-2 mt-4">

@@ -209,48 +209,38 @@ export default function BibliotecaPage() {
                                         key={doc.id} 
                                         onClick={() => handleCardClick(doc)}
                                         className={cn(
-                                            "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer",
-                                            isSelected ? "scale-105 bg-primary text-primary-foreground" : "border-transparent"
+                                            "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer text-foreground",
+                                            isSelected 
+                                                ? "scale-105 bg-gradient-to-br from-primary to-blue-400 text-primary-foreground"
+                                                : "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50"
                                         )}
                                     >
-                                        <div className={cn(
-                                            "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50",
-                                            isSelected && "hidden"
+                                        <CardContent className="p-4 flex flex-col flex-grow">
+                                            <div className={cn(
+                                                "absolute top-4 right-4 p-2 rounded-lg",
+                                                isSelected ? "bg-white/20 backdrop-blur-sm" : "bg-white/50 dark:bg-black/50 backdrop-blur-sm"
                                             )}>
-                                            <CardContent className="p-4">
-                                                <div className="absolute top-4 right-4 p-2 bg-white/50 dark:bg-black/50 backdrop-blur-sm rounded-lg">
-                                                    <Icon className="h-5 w-5 text-primary" />
-                                                </div>
-                                                <h3 className="text-base font-semibold text-foreground pr-10">{doc.title}</h3>
-                                            </CardContent>
-                                            <CardContent className="p-4 pt-0">
-                                                <div className="flex gap-2">
-                                                    <Badge variant="outline" className="text-xs">{doc.area}</Badge>
-                                                    <Badge variant="secondary" className="text-xs">{doc.category}</Badge>
-                                                </div>
-                                            </CardContent>
-                                        </div>
-                                         {isSelected && (
-                                            <div className="p-4 flex-grow flex flex-col">
-                                                <div className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                                                    <Icon className="h-5 w-5 text-primary-foreground" />
-                                                </div>
-                                                <h3 className="text-base font-semibold text-primary-foreground pr-10">{doc.title}</h3>
-                                                <div className="flex gap-2 mt-auto pt-4">
-                                                    <Badge variant="secondary" className="text-xs bg-white/20 text-white">{doc.area}</Badge>
-                                                    <Badge variant="secondary" className="text-xs bg-white/20 text-white">{doc.category}</Badge>
-                                                </div>
+                                                <Icon className={cn("h-5 w-5", isSelected ? "text-primary-foreground" : "text-primary")} />
                                             </div>
-                                        )}
-                                        <CardContent className={cn("p-4 flex gap-2", isSelected ? "bg-primary/80" : "bg-card")}>
-                                            <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="w-full text-xs">
-                                                <Eye className="mr-2 h-4 w-4" />
-                                                Consultar
-                                            </Button>
-                                            <Button size="sm" className={cn("w-full text-xs", isSelected && "bg-white/90 hover:bg-white text-primary")}>
-                                                <Download className="mr-2 h-4 w-4" />
-                                                Descargar
-                                            </Button>
+                                            <h3 className="text-base font-semibold pr-10 mb-4">{doc.title}</h3>
+                                            
+                                            <div className="flex-grow" />
+                                            
+                                            <div className="flex gap-2 mb-4">
+                                                <Badge variant={isSelected ? "secondary" : "outline"} className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.area}</Badge>
+                                                <Badge variant="secondary" className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.category}</Badge>
+                                            </div>
+                                            
+                                            <div className="flex gap-2">
+                                                <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="w-full text-xs">
+                                                    <Eye className="mr-2 h-4 w-4" />
+                                                    Consultar
+                                                </Button>
+                                                <Button size="sm" className={cn("w-full text-xs", isSelected && "bg-white/90 hover:bg-white text-primary")}>
+                                                    <Download className="mr-2 h-4 w-4" />
+                                                    Descargar
+                                                </Button>
+                                            </div>
                                         </CardContent>
                                     </Card>
                                   );
@@ -297,4 +287,3 @@ export default function BibliotecaPage() {
         </div>
     );
 }
-

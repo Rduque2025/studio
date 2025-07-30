@@ -225,14 +225,14 @@ export default function BibliotecaPage() {
                                                 <Badge variant="secondary" className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.category}</Badge>
                                             </div>
                                             
-                                            <div className="flex gap-2">
-                                                <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="w-full text-xs">
-                                                    <Eye className="mr-2 h-4 w-4" />
-                                                    Consultar
+                                            <div className="flex items-center justify-center gap-2">
+                                                <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="group/button flex-grow justify-center text-xs transition-all duration-300">
+                                                    <Eye className="h-4 w-4" />
+                                                    <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Consultar</span>
                                                 </Button>
-                                                <Button size="sm" className={cn("w-full text-xs", isSelected && "bg-white/90 hover:bg-white text-primary")}>
-                                                    <Download className="mr-2 h-4 w-4" />
-                                                    Descargar
+                                                <Button size="sm" className={cn("group/button flex-grow justify-center text-xs transition-all duration-300", isSelected && "bg-white/90 hover:bg-white text-primary")}>
+                                                    <Download className="h-4 w-4" />
+                                                    <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Descargar</span>
                                                 </Button>
                                             </div>
                                         </CardContent>

@@ -1,5 +1,5 @@
 
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils } from 'lucide-react';
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code } from 'lucide-react';
 
 export interface Course {
   id: string;
@@ -56,14 +56,12 @@ export interface Department {
 export interface DocumentResource {
   id: string;
   title: string;
-  category: 'Manual' | 'Documento' | 'Presentación' | 'Video' | 'Informe' | 'Recurso Visual';
-  section: 'Gerencia de Suscripción' | 'Nuestro Código de Ética' | 'Guiones de Atención' | 'Nuestra Imagen de Marca' | 'Música' | 'Procesos' | 'Guía de Inspecciones Digitales para Póliza de Auto' | 'Hemeroteca de LC/FT/FPADM' | 'General';
+  category: 'Recursos Visuales' | 'Herramientas de Código' | 'Presentaciones' | 'Manuales' | 'Documentos' | 'Videos' | 'Destacados';
+  area: 'Comercial' | 'Suscripción' | 'Legal' | 'Mercadeo' | 'Capital Humano' | 'Procesos' | 'Actuarial' | 'General';
   description: string;
   imageUrl: string;
   dataAiHint: string;
   isFeatured: boolean;
-  isFeaturedInGrid?: boolean;
-  bgColor?: string;
 }
 
 
@@ -105,7 +103,7 @@ export const mockCourses: Course[] = [
     id: "C001",
     title: "Gestión Efectiva del Tiempo",
     description: "Aprende técnicas para optimizar tu jornada laboral y personal.",
-    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "time management",
     category: "Desarrollo Personal",
     duration: "4 semanas",
@@ -114,7 +112,7 @@ export const mockCourses: Course[] = [
     id: "C002",
     title: "Comunicación Asertiva",
     description: "Mejora tus habilidades de comunicación en el entorno laboral.",
-    imageUrl: "https://images.unsplash.com/photo-1586806974856-c55e8b9364e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb252ZXJzYXRpb258ZW58MHx8fHwxNzUyNTkxODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1586806974856-c55e8b9364e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb252ZXJzYXRpb258ZW58MHx8fHwxNzUyNTkxODc0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "communication team",
     category: "Habilidades Blandas",
     duration: "6 semanas",
@@ -136,7 +134,7 @@ export const mockActivities: Activity[] = [
     title: "Yoga",
     date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx5b2dhfGVufDB8fHx8MTc1MDk0NDg2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx5b2dhfGVufDB8fHx8MTc1MDk0NDg2M3ww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "yoga fitness",
     description: "¡Conecta tu cuerpo y mente!\nAcompáñanos en la clase de yoga, conformada por una serie de ejercicios físicos y de respiración diseñados para disminuir el estrés y las dolencias corporales, con el propósito de mejorar la salud, tanto física como mental.\nPara asistir a las clases solo necesitas:\n- Un mat o esterilla de yoga.\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M."
   },
@@ -145,7 +143,7 @@ export const mockActivities: Activity[] = [
     title: "Ejercicios funcionales",
     date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1591291621164-2c6367723315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxleGNlcmNpc2V8ZW58MHx8fHwxNzUwOTQ0OTE1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1591291621164-2c6367723315?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxleGNlcmNpc2V8ZW58MHx8fHwxNzUwOTQ0OTE1fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "functional training",
     description: "¡Mejora tu rendimiento físico y cuida tu salud!\n\nTe invitamos a participar en la actividad de entrenamiento funcional y en circuito, la cual ayuda a mejorar las capacidades físicas como  fuerza, resistencia, velocidad, coordinación y flexibilidad. Se puede realizar con o sin implementos.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes y miércoles, 5:00 P.M.",
     isRecommended: true,
@@ -248,7 +246,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Lunes",
     name: "Ensalada César con Pollo a la Parrilla",
     description: "Lechuga romana fresca, crutones, queso parmesano, aderezo César ligero y pechuga de pollo a la parrilla.",
-    imageUrl: "https://images.unsplash.com/photo-1604909052743-94e838986d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlja2VuJTIwc2FsYWR8ZW58MHx8fHwxNzUyMTcwNjUzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1604909052743-94e838986d24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjaGlja2VuJTIwc2FsYWR8ZW58MHx8fHwxNzUyMTcwNjUzfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "chicken salad",
     price: "100 Bs.",
     type: "Dieta",
@@ -469,32 +467,28 @@ export const mockDocuments: DocumentResource[] = [
   { 
     id: "doc1", 
     title: "Comprendiendo la Brecha de Entrega Móvil", 
-    category: "Manual", 
-    section: "Procesos",
+    category: "Manuales", 
+    area: "Procesos",
     description: "Un análisis profundo de los desafíos en la entrega de servicios móviles y cómo superarlos.", 
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib-rb-4.1.0&q=80&w=1080", 
     dataAiHint: "bridge landscape",
     isFeatured: true,
-    isFeaturedInGrid: true,
-    bgColor: "#8EABD5"
   },
   { 
     id: "doc2", 
     title: "Nuestro Código de Ética", 
-    category: "Documento", 
-    section: "Nuestro Código de Ética",
+    category: "Documentos", 
+    area: "Legal",
     description: "Principios y valores que guían nuestro comportamiento y toma de decisiones.", 
     imageUrl: "https://images.unsplash.com/photo-1446776811953-b23d5795b4e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZXxlbnwwfHx8fDE3NTMzMDY4MTZ8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "earth from space",
     isFeatured: true,
-    isFeaturedInGrid: true,
-    bgColor: "#D5A78E"
   },
   { 
     id: "doc3", 
     title: "Guiones de Atención al Cliente", 
-    category: "Manual", 
-    section: "Guiones de Atención",
+    category: "Manuales", 
+    area: "Comercial",
     description: "Guía para ofrecer un servicio de excelencia y estandarizado a nuestros clientes.",
     imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "team meeting",
@@ -503,72 +497,62 @@ export const mockDocuments: DocumentResource[] = [
   { 
     id: "doc4", 
     title: "Manual de Marca", 
-    category: "Manual", 
-    section: "Nuestra Imagen de Marca",
+    category: "Recursos Visuales", 
+    area: "Mercadeo",
     description: "Directrices para el uso correcto de nuestra identidad visual y verbal.",
     imageUrl: "https://images.unsplash.com/photo-1598289431512-b970a521d892?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFwZXN8ZW58MHx8fHwxNzUzMzA2OTI4fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "grapes fruit",
     isFeatured: false,
-    isFeaturedInGrid: true,
-    bgColor: "#6C63AC"
   },
   { 
     id: "doc5", 
     title: "Guía de Inspección Digital de Autos", 
-    category: "Documento", 
-    section: "Guía de Inspecciones Digitales para Póliza de Auto",
+    category: "Documentos", 
+    area: "Suscripción",
     description: "Procedimiento para realizar inspecciones de vehículos de forma remota y eficiente.",
     imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxydW5uaW5nfGVufDB8fHx8fDE3NTMzMDcwMDd8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "woman running",
     isFeatured: false,
-    isFeaturedInGrid: true,
-    bgColor: "#D5B88E"
   },
   { 
     id: "doc6", 
     title: "Procesos de Suscripción", 
-    category: "Manual", 
-    section: "Gerencia de Suscripción",
+    category: "Manuales", 
+    area: "Suscripción",
     description: "Documentación detallada sobre los flujos y políticas de suscripción de pólizas.",
     imageUrl: "https://images.unsplash.com/photo-1575478422368-2793b2e35b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxpY29wdGVyfGVufDB8fHx8fDE3NTMzMDcwNjN8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "helicopter sky",
     isFeatured: false,
-    isFeaturedInGrid: true,
-    bgColor: "#8EB5D5"
   },
   { 
     id: "doc7", 
     title: "Hemeroteca de Cumplimiento", 
-    category: "Documento", 
-    section: "Hemeroteca de LC/FT/FPADM",
+    category: "Documentos", 
+    area: "Legal",
     description: "Archivo de noticias y documentos relevantes para el cumplimiento normativo.",
     imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2Rpbmd8ZW58MHx8fHwxNzUzMzA3MTIwfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "coding programming",
     isFeatured: false,
-    isFeaturedInGrid: true,
-    bgColor: "#8ED5C0"
   },
   {
     id: "doc8",
     title: "Guía de Inducción para Nuevos Empleados",
-    category: "Documento",
-    section: "General",
+    category: "Documentos",
+    area: "Capital Humano",
     description: "Todo lo que necesitas saber para empezar con buen pie en nuestra organización.",
     imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmJvYXJkaW5nfGVufDB8fHx8fDE3NTMzMDczNjJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "onboarding meeting",
     isFeatured: false,
-    bgColor: "#AC638D"
   },
   {
     id: "doc9",
     title: "Presentación Corporativa Q1 2025",
-    category: "Presentación",
-    section: "General",
+    category: "Presentaciones",
+    area: "General",
     description: "Resumen de los resultados y objetivos del primer trimestre del año.",
     imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "business presentation",
     isFeatured: false,
-    bgColor: "#63ACA8"
   }
 ];
 
@@ -689,7 +673,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P001", 
     title: "Clásicos en Inglés", 
     description: "Los éxitos que marcaron una época.",
-    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "classic rock" 
   },
@@ -705,7 +689,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P003", 
     title: "Salsa y Merengue", 
     description: "Ritmos latinos para subir el ánimo.",
-    albumArtUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "latin dance" 
   },
@@ -721,6 +705,7 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 
 

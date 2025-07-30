@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Download, Search, Star, Book, Video, Presentation } from "lucide-react";
+import { FileText, Download, Search, Star, Book, Video, Presentation, Image as ImageIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { mockDocuments, type DocumentResource } from '@/lib/placeholder-data';
@@ -18,8 +18,9 @@ const categories = [
     { id: "destacados", label: "Destacados", icon: Star },
     { id: "manuales", label: "Manuales", icon: Book },
     { id: "presentaciones", label: "Presentaciones", icon: Presentation },
-    { id: "guias", label: "Guías", icon: FileText },
+    { id: "documentos", label: "Documentos", icon: FileText },
     { id: "videos", label: "Videos", icon: Video },
+    { id: "recursos-visuales", label: "Recursos Visuales", icon: ImageIcon },
 ];
 
 const FeaturedCard = ({ doc }: { doc: DocumentResource }) => (
@@ -77,8 +78,12 @@ export default function BibliotecaPage() {
         if (activeTab === 'destacados') {
             return mockDocuments.filter(doc => doc.isFeaturedInGrid);
         }
-        const formattedTab = activeTab.slice(0, -1);
-        return mockDocuments.filter(doc => doc.category.toLowerCase() === formattedTab);
+        if (activeTab === 'recursos-visuales') {
+            // Special case for visual resources which might include multiple categories
+            return mockDocuments.filter(doc => ['Video', 'Presentación'].includes(doc.category));
+        }
+        const formattedTab = activeTab.slice(0, -1); // manuales -> manual
+        return mockDocuments.filter(doc => doc.category.toLowerCase().startsWith(formattedTab));
     };
 
     const filteredDocuments = getFilteredDocuments();
@@ -101,7 +106,7 @@ export default function BibliotecaPage() {
 
       <div className="my-12">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-transparent p-0">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-transparent p-0">
             {categories.map(cat => {
                 const Icon = cat.icon;
                 return (

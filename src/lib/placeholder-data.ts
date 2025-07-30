@@ -56,7 +56,7 @@ export interface Department {
 export interface DocumentResource {
   id: string;
   title: string;
-  category: 'Manual' | 'Guía' | 'Presentación' | 'Video' | 'Informe';
+  category: 'Manual' | 'Documento' | 'Presentación' | 'Video' | 'Informe' | 'Recurso Visual';
   description: string;
   imageUrl: string;
   dataAiHint: string;
@@ -104,7 +104,7 @@ export const mockCourses: Course[] = [
     id: "C001",
     title: "Gestión Efectiva del Tiempo",
     description: "Aprende técnicas para optimizar tu jornada laboral y personal.",
-    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "time management",
     category: "Desarrollo Personal",
     duration: "4 semanas",
@@ -470,7 +470,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Comprendiendo la Brecha de Entrega Móvil", 
     category: "Manual", 
     description: "Un análisis profundo de los desafíos en la entrega de servicios móviles y cómo superarlos.", 
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib-rb-4.1.0&q=80&w=1080", 
     dataAiHint: "bridge landscape",
     isFeatured: true,
     isFeaturedInGrid: true,
@@ -481,7 +481,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Construyendo la Nueva Aplicación Marketwatch", 
     category: "Manual", 
     description: "Un caso de estudio sobre el desarrollo y lanzamiento de la aplicación Marketwatch.", 
-    imageUrl: "https://images.unsplash.com/photo-1446776811953-b23d5795b4e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZXxlbnwwfHx8fDE3NTMzMDY4MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1446776811953-b23d5795b4e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZXxlbnwwfHx8fDE3NTMzMDY4MTZ8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "earth from space",
     isFeatured: true,
     isFeaturedInGrid: true,
@@ -492,7 +492,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Uso de Web Components en Ionic", 
     category: "Video", 
     description: "Un video tutorial sobre cómo implementar Web Components en proyectos de Ionic.",
-    imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "team meeting",
     isFeatured: true
   },
@@ -512,7 +512,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Sworkit se Vuelve Multiplataforma", 
     category: "Manual", 
     description: "La transición de Sworkit a una plataforma compatible con múltiples dispositivos.",
-    imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxydW5uaW5nfGVufDB8fHx8fDE3NTMzMDcwMDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxydW5uaW5nfGVufDB8fHx8fDE3NTMzMDcwMDd8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "woman running",
     isFeatured: false,
     isFeaturedInGrid: true,
@@ -534,7 +534,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Sense Corp Acelera el Ciclo de Vida de su App", 
     category: "Manual", 
     description: "Cómo Sense Corp optimizó su ciclo de vida de desarrollo de aplicaciones.",
-    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2Rpbmd8ZW58MHx8fHwxNzUzMzA3MTIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2Rpbmd8ZW58MHx8fHwxNzUzMzA3MTIwfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "coding programming",
     isFeatured: false,
     isFeaturedInGrid: true,
@@ -543,9 +543,9 @@ export const mockDocuments: DocumentResource[] = [
   {
     id: "doc8",
     title: "Guía de Inducción para Nuevos Empleados",
-    category: "Guía",
+    category: "Documento",
     description: "Todo lo que necesitas saber para empezar con buen pie en nuestra organización.",
-    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmJvYXJkaW5nfGVufDB8fHx8fDE3NTMzMDczNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmJvYXJkaW5nfGVufDB8fHx8fDE3NTMzMDczNjJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "onboarding meeting",
     isFeatured: false,
     bgColor: "#AC638D"
@@ -555,7 +555,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Presentación Corporativa Q1 2025",
     category: "Presentación",
     description: "Resumen de los resultados y objetivos del primer trimestre del año.",
-    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "business presentation",
     isFeatured: false,
     bgColor: "#63ACA8"
@@ -711,6 +711,7 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 
 

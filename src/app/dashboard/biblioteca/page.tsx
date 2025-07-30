@@ -202,7 +202,7 @@ export default function BibliotecaPage() {
                                 onClick={handleSendClick}
                                 disabled={selectedDocIds.length !== 1}
                                 className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-center disabled:opacity-50",
+                                    "transition-all duration-300 ease-in-out flex items-center justify-start disabled:opacity-50",
                                     isSendButtonExpanded ? "w-28" : "w-10 px-0"
                                 )}
                             >
@@ -224,7 +224,7 @@ export default function BibliotecaPage() {
                                 variant="ghost"
                                 disabled={selectedDocIds.length === 0}
                                 className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-center disabled:opacity-50",
+                                    "transition-all duration-300 ease-in-out flex items-center justify-start disabled:opacity-50",
                                     isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
                                 )}
                             >

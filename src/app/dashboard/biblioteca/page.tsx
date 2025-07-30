@@ -23,7 +23,8 @@ import {
   Megaphone,
   Workflow,
   Calculator,
-  Check
+  Check,
+  FileSignature
 } from "lucide-react";
 
 

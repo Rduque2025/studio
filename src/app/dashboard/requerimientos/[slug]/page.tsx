@@ -35,16 +35,16 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
                   className="bg-card shadow-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300 group cursor-pointer flex flex-col h-full"
                 >
                 <CardContent className="p-4 flex items-center justify-between flex-grow">
-                  <div className="flex items-center gap-4">
-                      <div className="p-2 bg-muted rounded-md group-hover:bg-primary-foreground/10">
+                  <div className="flex items-center gap-4 flex-grow min-w-0">
+                      <div className="p-2 bg-muted rounded-md group-hover:bg-primary-foreground/10 flex-shrink-0">
                           <RequestIcon className="h-5 w-5 text-primary group-hover:text-primary-foreground" />
                       </div>
-                      <div>
-                          <h3 className="font-semibold text-sm">{req.title}</h3>
-                          <p className="text-muted-foreground text-xs group-hover:text-primary-foreground/80">Haga clic para iniciar su gestión.</p>
+                      <div className="min-w-0">
+                          <h3 className="font-semibold text-sm truncate">{req.title}</h3>
+                          <p className="text-muted-foreground text-xs group-hover:text-primary-foreground/80 truncate">Haga clic para iniciar su gestión.</p>
                       </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-shrink-0 ml-4">
                       <span className="text-xs font-medium text-primary group-hover:text-primary-foreground">
                          {req.type === 'info' ? 'Consultar' : 'Solicitar'}
                       </span>

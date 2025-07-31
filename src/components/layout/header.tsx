@@ -147,7 +147,7 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "transition-colors px-3 py-1.5 rounded-full text-xs font-medium",
+                  "transition-colors px-3 py-1.5 rounded-full text-xs",
                   isActive
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"

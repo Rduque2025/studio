@@ -29,8 +29,8 @@ function CustomCaption(props: CaptionProps) {
           onClick={() => previousMonth && goToMonth(previousMonth)}
           disabled={!previousMonth}
           className={cn(
-            buttonVariants({ variant: "outline" }),
-            "h-7 w-7 bg-transparent p-0 text-muted-foreground"
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "h-7 w-7"
           )}
           aria-label="Mes anterior"
         >
@@ -40,9 +40,9 @@ function CustomCaption(props: CaptionProps) {
           type="button"
           onClick={() => nextMonth && goToMonth(nextMonth)}
           disabled={!nextMonth}
-          className={cn(
-            buttonVariants({ variant: "outline" }),
-            "h-7 w-7 bg-transparent p-0 text-muted-foreground"
+           className={cn(
+            buttonVariants({ variant: "outline", size: "icon" }),
+            "h-7 w-7"
           )}
           aria-label="Mes siguiente"
         >

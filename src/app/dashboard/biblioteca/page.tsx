@@ -194,7 +194,7 @@ export default function BibliotecaPage() {
                     </div>
                 </div>
 
-                <Card className="flex-grow rounded-2xl shadow-sm p-6 flex flex-col">
+                <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">
                     <div className="flex items-center gap-4 mb-6">
                          <div 
                             className="relative flex items-center"

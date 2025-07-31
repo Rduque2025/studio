@@ -1,5 +1,6 @@
 
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code } from 'lucide-react';
+
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code, Music } from 'lucide-react';
 
 export interface Course {
   id: string;
@@ -56,12 +57,13 @@ export interface Department {
 export interface DocumentResource {
   id: string;
   title: string;
-  category: 'Recursos Visuales' | 'Herramientas de Código' | 'Presentaciones' | 'Manuales' | 'Documentos' | 'Videos' | 'Destacados';
-  area: 'Comercial' | 'Suscripción' | 'Legal' | 'Mercadeo' | 'Capital Humano' | 'Procesos' | 'Actuarial' | 'General' | 'Finanzas';
+  category: 'Recursos Visuales' | 'Herramientas' | 'Presentaciones' | 'Manuales' | 'Documentos' | 'Videos' | 'Destacados' | 'Música';
+  area: 'Comercial' | 'Suscripción' | 'Legal' | 'Mercadeo' | 'Capital Humano' | 'Procesos' | 'Actuarial' | 'General' | 'Finanzas' | 'Bienestar';
   description: string;
   imageUrl: string;
   dataAiHint: string;
   isFeatured: boolean;
+  linkUrl?: string; // For playlists
 }
 
 
@@ -162,7 +164,7 @@ export const mockActivities: Activity[] = [
     title: "Clases de cuatro",
     date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "music lessons",
     description: "Si tienes talento para tocar un instrumento musical o quieres aprender, es tú momento.\nÚnete al grupo, no necesitas experiencia previa para formar parte de la actividad.\nPara asistir a las clases solo necesitas:\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes o jueves, 5:00 P.M."
   },
@@ -171,7 +173,7 @@ export const mockActivities: Activity[] = [
     title: "Clases de bailoterapia",
     date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1495791185843-c73f2269f669?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8ZGFuY2V8ZW58MHx8fHwxNzUwOTQ1MTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1495791185843-c73f2269f669?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8ZGFuY2V8ZW58MHx8fHwxNzUwOTQ1MTc0fDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "dance therapy",
     description: "Sorpréndete con la variedad de estilos y ritmos en nuestra clase de bailoterapia y disfruta de los múltiples beneficios de esta técnica:\n- Fortalece el corazón y la circulación de la sangre.\n- Reduce el estrés, la ansiedad y la tristeza.\n- Combate los dolores musculares.\nPara asistir a las clases solo necesitas:\n- Ropa deportiva y cómoda, preferiblemente licras o monos largos y camisas cómodas.\n- Una botella de agua para tu hidratación.\nDónde y cuándo son las clases:\nJueves, 5:00 P.M."
   },
@@ -189,7 +191,7 @@ export const mockActivities: Activity[] = [
     title: "Teatro",
     date: "2025-07-01",
     location: "Tríadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxBQ1RPUnxlbnwwfHx8fDE3NTA5NTkwODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxBQ1RPUnxlbnwwfHx8fDE3NTA5NTkwODh8MA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "theater workshop",
     description: "Te invitamos a esta maravillosa actividad, en la que desarrollarás competencias para romper el hielo, desenvolverte en diversos contextos con tranquilidad, mejorarás la dicción y oratoria para comunicarte asertivamente.  A partir del 12 de marzo.\n\nDónde y cuándo son las clases:\nMartes y Jueves, 5:00 P.M."
   },
@@ -275,7 +277,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Miércoles",
     name: "Bowl de Quinoa con Tofu y Aguacate",
     description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.",
-    imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "quinoa bowl",
     price: "100 Bs.",
     type: "Dieta",
@@ -572,7 +574,52 @@ export const mockDocuments: DocumentResource[] = [
     imageUrl: "https://images.unsplash.com/photo-1554224155-8d04421cd6c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhY2NvdW50aW5nfGVufDB8fHx8fDE3NTMzMDc1MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "accounting calculator",
     isFeatured: true,
-  }
+  },
+  // Playlists as DocumentResources
+  { 
+    id: "P001", 
+    title: "Clásicos en Inglés", 
+    category: "Música", 
+    area: "Bienestar",
+    description: "Los éxitos que marcaron una época.",
+    imageUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "classic rock",
+    isFeatured: false,
+  },
+  { 
+    id: "P002", 
+    title: "Rock Suave", 
+    category: "Música", 
+    area: "Bienestar",
+    description: "La selección perfecta para concentrarse.",
+    imageUrl: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxndWl0YXJ8ZW58MHx8fHwxNzUyNjA3MjEwfDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "soft rock",
+    isFeatured: false,
+  },
+  { 
+    id: "P003", 
+    title: "Salsa y Merengue", 
+    category: "Música", 
+    area: "Bienestar",
+    description: "Ritmos latinos para subir el ánimo.",
+    imageUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "latin dance",
+    isFeatured: false,
+  },
+  { 
+    id: "P004", 
+    title: "Solo Éxitos Pop", 
+    category: "Música", 
+    area: "Bienestar",
+    description: "Las canciones más populares del momento.",
+    imageUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    linkUrl: "#", 
+    dataAiHint: "pop music",
+    isFeatured: false,
+  },
 ];
 
 
@@ -724,6 +771,7 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 
 

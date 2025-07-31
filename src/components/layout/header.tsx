@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import Link from "next/link";
@@ -25,7 +26,6 @@ const navItemsDesktop = [
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake, activePaths: ["/dashboard/bienestar", "/dashboard/cursos", "/dashboard/actividades"] },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos"] },
   { name: "Biblioteca", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
-  { name: "Playlist", href: "/dashboard/playlist", icon: Music, activePaths: ["/dashboard/playlist"] },
 ];
 
 const navItemsMobile = [

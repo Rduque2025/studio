@@ -1,7 +1,9 @@
 
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -27,7 +29,8 @@ import {
   Info,
   MessageSquare,
   CheckCircle,
-  Check
+  Check,
+  Music
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
@@ -37,6 +40,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import Image from 'next/image';
+import { Music2 } from 'lucide-react';
 
 const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
     { id: "Destacados", label: "Destacados", icon: Star },
@@ -46,6 +51,7 @@ const categories: { id: DocumentResource['category'], label: string, icon: Lucid
     { id: "Manuales", label: "Manuales", icon: BookOpen },
     { id: "Documentos", label: "Documentos", icon: FileText },
     { id: "Videos", label: "Videos", icon: Video },
+    { id: "Música", label: "Música", icon: Music },
 ];
 
 const areas = [
@@ -58,6 +64,7 @@ const areas = [
     { id: "Capital Humano", label: "Capital Humano" },
     { id: "Procesos", label: "Procesos" },
     { id: "Actuarial", label: "Actuarial" },
+    { id: "Bienestar", label: "Bienestar" },
 ];
 
 const specialRequestAreas = [
@@ -162,7 +169,8 @@ export default function BibliotecaPage() {
         }
     };
     
-    const handleCardClick = (docId: string) => {
+    const handleCardClick = (docId: string, isPlaylist: boolean) => {
+        if (isPlaylist) return; // Don't select playlists
         setSelectedDocIds(prevSelected => {
             if (prevSelected.includes(docId)) {
                 return prevSelected.filter(id => id !== docId);
@@ -545,13 +553,41 @@ export default function BibliotecaPage() {
                             {filteredDocuments.length > 0 ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                 {filteredDocuments.map(doc => {
+                                    if (doc.category === 'Música') {
+                                        return (
+                                            <Link href={doc.linkUrl || '#'} key={doc.id} target="_blank" rel="noopener noreferrer" className="group block">
+                                                <Card className="overflow-hidden rounded-lg border-none shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+                                                    <div className="relative aspect-square w-full">
+                                                        <Image
+                                                            src={doc.imageUrl}
+                                                            alt={`Portada de la playlist ${doc.title}`}
+                                                            layout="fill"
+                                                            objectFit="cover"
+                                                            data-ai-hint={doc.dataAiHint}
+                                                            className="transition-transform duration-300 group-hover:scale-105"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                            <Button variant="ghost" size="icon" className="h-16 w-16 bg-white/20 text-white backdrop-blur-sm rounded-full hover:bg-white/30 hover:text-white">
+                                                            <Music2 className="h-8 w-8" />
+                                                            </Button>
+                                                        </div>
+                                                        <div className="absolute bottom-4 left-4 text-white">
+                                                            <h3 className="font-bold text-lg">{doc.title}</h3>
+                                                            <p className="text-xs text-white/90">{doc.description}</p>
+                                                        </div>
+                                                    </div>
+                                                </Card>
+                                            </Link>
+                                        )
+                                    }
                                     const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
                                     const Icon = categoryInfo!.icon;
                                     const isSelected = selectedDocIds.includes(doc.id);
                                     return (
                                         <Card 
                                             key={doc.id} 
-                                            onClick={() => handleCardClick(doc.id)}
+                                            onClick={() => handleCardClick(doc.id, false)}
                                             className={cn(
                                                 "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer text-foreground",
                                                 isSelected 

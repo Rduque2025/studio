@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { mockDepartments, specialRequestAreas } from "@/lib/placeholder-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight, PlusCircle, Mail, Phone, ArrowLeft, User, Info, MessageSquare, CheckCircle, Check } from "lucide-react";
+import { AlertTriangle, ArrowRight, PlusCircle, Mail, Phone, ArrowLeft, User, Info, MessageSquare, CheckCircle, Check, ExternalLink, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -303,24 +303,29 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                                                 </DialogHeader>
 
                                                 {requestType === 'simple' && (
-                                                    <div className="mt-8 space-y-2">
+                                                    <div className="mt-8">
                                                         {requestSteps.map((step, index) => {
                                                             const isCompleted = currentStep > step.id;
                                                             const isCurrent = currentStep === step.id;
                                                             return (
-                                                                <div key={step.id} className="flex items-start gap-4">
-                                                                    <div className="flex flex-col items-center">
-                                                                        <div className={cn(
-                                                                            "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-                                                                            isCompleted ? "bg-primary text-primary-foreground" :
-                                                                            isCurrent ? "bg-primary text-primary-foreground ring-4 ring-background ring-offset-2 ring-offset-primary" :
-                                                                            "bg-border text-muted-foreground"
-                                                                        )}>
-                                                                            {isCompleted ? <Check className="h-4 w-4" /> : <span className="text-xs font-bold">{step.id}</span>}
-                                                                        </div>
-                                                                        {index < requestSteps.length - 1 && <div className={cn("w-0.5 h-8 transition-colors", isCompleted ? "bg-primary" : "bg-border")}></div>}
+                                                                <div key={step.id} className="flex items-start gap-4 relative">
+                                                                     {index < requestSteps.length - 1 && (
+                                                                        <div
+                                                                            className={cn(
+                                                                                "absolute left-[15px] top-[32px] w-0.5 h-full transition-colors -z-10",
+                                                                                isCompleted ? "bg-primary" : "bg-border"
+                                                                            )}
+                                                                        />
+                                                                    )}
+                                                                    <div className={cn(
+                                                                        "relative w-8 h-8 rounded-full flex items-center justify-center transition-colors flex-shrink-0",
+                                                                        isCompleted ? "bg-primary text-primary-foreground" :
+                                                                        isCurrent ? "bg-primary text-primary-foreground ring-4 ring-background ring-offset-2 ring-offset-primary" :
+                                                                        "bg-border text-muted-foreground"
+                                                                    )}>
+                                                                        {isCompleted ? <Check className="h-4 w-4" /> : <span className="text-xs font-bold">{step.id}</span>}
                                                                     </div>
-                                                                    <div>
+                                                                    <div className={cn("pb-8", index === requestSteps.length - 1 && "pb-0")}>
                                                                         <h4 className="font-semibold text-sm text-foreground">{step.title}</h4>
                                                                         <p className="text-xs text-muted-foreground">{step.description}</p>
                                                                     </div>
@@ -356,13 +361,13 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                                 <Button variant="outline" size="lg" className="h-20" onClick={() => {setRequestType('formal'); handleFormalRequest();}}>
                                                                     <div className="flex flex-col items-center gap-2">
-                                                                        <Mail className="h-5 w-5" />
+                                                                        <ExternalLink className="h-5 w-5" />
                                                                         <span className="text-sm">Solicitud Formal</span>
                                                                     </div>
                                                                 </Button>
                                                                 <Button size="lg" className="h-20" onClick={() => setRequestType('simple')}>
                                                                     <div className="flex flex-col items-center gap-2">
-                                                                        <PlusCircle className="h-5 w-5" />
+                                                                        <Send className="h-5 w-5" />
                                                                         <span className="text-sm">Solicitud Simple</span>
                                                                     </div>
                                                                 </Button>

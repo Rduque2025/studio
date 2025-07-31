@@ -15,71 +15,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// Define colors for categories to be used as capsules in day cells
-const EVENT_ITEM_STYLES = {
-  PAGO: { bg: 'bg-green-200', text: 'text-green-800', label: 'Pago' },
-  ESPECIAL: { bg: 'bg-purple-200', text: 'text-purple-800', label: 'Especial' },
-  REUNION: { bg: 'bg-rose-200', text: 'text-rose-800', label: 'Reunión' },
-  TRABAJO: { bg: 'bg-sky-200', text: 'text-sky-800', label: 'Trabajo' }, // User event - trabajo
-  PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal' }, // User event - personal
-  DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: ''} // Fallback
-};
-
-// Specific styles for certain event titles
-const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; label: string } } = {
-  "Beneficio de Transporte": { bg: 'bg-[#543db8]', text: 'text-white', label: '' },
-  "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-white', label: '' },
-  "Asignación Especial": { bg: 'bg-[#1a61ab]', text: 'text-white', label: '' },
-  "Pago Quincena": { bg: 'bg-[#128d5d]', text: 'text-white', label: '' },
-  "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
-  "Beneficio Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
-  "Feriado Bancario": { bg: 'bg-slate-700', text: 'text-white', label: '' },
-};
-
-// Keywords for categorization - keep these specific to avoid miscategorization
-const PAGO_KEYWORDS = ['pago', 'beneficio', 'asignación', 'quincena', 'transporte', 'alimentación', 'sociales'];
-const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario', 'independencia', 'mujer', 'trabajador', 'resistencia', 'navidad', 'noche buena', 'festivo', 'resultados anuales'];
-const REUNION_KEYWORDS = ['reunión', 'reunion', 'comité', 'comite', 'presentación', 'presentacion', 'cierre', 'trimestral', 'planificación', 'planning', 'sprint', 'review', 'taller', 'charla', 'workshop', 'q1', 'q2', 'q3', 'q4'];
-
-
-function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string } {
-  // Check for specific event titles first
-  if (SPECIFIC_EVENT_STYLES[event.title]) {
-    return SPECIFIC_EVENT_STYLES[event.title];
-  }
-
-  const title = event.title.toLowerCase();
-  const description = event.description.toLowerCase();
-  const fullText = `${title} ${description}`;
-
-  if (PAGO_KEYWORDS.some(kw => fullText.includes(kw))) {
-    return EVENT_ITEM_STYLES.PAGO;
-  }
-  if (ESPECIAL_KEYWORDS.some(kw => fullText.includes(kw))) {
-    return EVENT_ITEM_STYLES.ESPECIAL;
-  }
-  if (REUNION_KEYWORDS.some(kw => fullText.includes(kw))) {
-    return EVENT_ITEM_STYLES.REUNION;
-  }
-
-  if (event.isUserEvent && event.category) {
-    if (event.category === 'trabajo') return EVENT_ITEM_STYLES.TRABAJO;
-    if (event.category === 'personal') return EVENT_ITEM_STYLES.PERSONAL;
-  }
-  
-  // Fallback for mock events that don't fit above categories, using their predefined color if it's a bg class
-  if (event.color && event.color.startsWith('bg-')) {
-     const darkBgs = ['bg-pink-500', 'bg-red-500', 'bg-purple-500', 'bg-green-500', 'bg-blue-500', 'bg-orange-500', 'bg-yellow-500', 'bg-teal-500', 'bg-cyan-500', 'bg-sky-500', 'bg-emerald-500', 'bg-lime-500', 
-                      'bg-pink-600', 'bg-red-600', 'bg-purple-600', 'bg-green-600', 'bg-blue-600', 'bg-orange-600', 'bg-yellow-600', 'bg-teal-600', 'bg-cyan-600', 'bg-sky-600', 'bg-emerald-600', 'bg-lime-600',
-                      'bg-slate-700', 'bg-gray-700', 'bg-zinc-700', 'bg-neutral-700', 'bg-stone-700',
-                      'bg-slate-800', 'bg-gray-800', 'bg-zinc-800', 'bg-neutral-800', 'bg-stone-800',
-                     ];
-     const isDarkBg = darkBgs.some(c => event.color.includes(c));
-     return { bg: event.color, text: isDarkBg ? 'text-white' : 'text-gray-800', label: '' };
-  }
-
-  return EVENT_ITEM_STYLES.DEFAULT;
-}
 
 const monthsOfYear = Array.from({ length: 12 }, (_, i) => ({
   value: i,
@@ -252,84 +187,16 @@ export default function CalendarioPage() {
       });
   
     if (eventsOnDay.length === 0) {
-      return <div className="flex-grow min-h-[4rem]"></div>; 
+      return null;
     }
-  
-    const maxEventsToShowInCell = 3; 
-    const isCellCurrentlySelectedDay = selectedDay && format(selectedDay, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
 
     return (
-      <div className="flex-grow space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
-        {eventsOnDay.slice(0, selectedEvent && isCellCurrentlySelectedDay && eventsOnDay.find(e => e.id === selectedEvent.id) ? eventsOnDay.length : maxEventsToShowInCell).map(event => {
-          const renderProps = getEventRenderProps(event);
-          const isClickedEventItem = selectedEvent?.id === event.id && isCellCurrentlySelectedDay;
-          
-          return (
-            <div 
-              key={event.id} 
-              className={cn(
-                "px-1 py-0.5 rounded text-xs leading-tight cursor-pointer",
-                renderProps.bg,
-                renderProps.text,
-                isClickedEventItem && "ring-2 ring-offset-1 ring-white/70 shadow-md" 
-              )}
-              onClick={(e) => {
-                e.stopPropagation(); 
-                if (selectedEvent?.id === event.id) {
-                  setSelectedEvent(null); 
-                } else {
-                  setSelectedEvent(event);
-                  setSelectedDay(dayCellDate); 
-                }
-              }}
-            >
-              <div className="flex items-start justify-between gap-1">
-                <p className={cn(
-                  "font-medium",
-                  isClickedEventItem ? "truncate-none whitespace-normal" : "truncate", 
-                  renderProps.text
-                )}>{event.title}</p>
-              </div>
-              {event.time && <p className={cn("text-[10px] opacity-80", renderProps.text)}>{format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}</p>}
-              
-              {isClickedEventItem && (
-                <div className="mt-1 pt-1 border-t border-current/20">
-                  <p className={cn("text-[11px] opacity-90 whitespace-normal leading-snug", renderProps.text)}>{event.description || "Sin descripción."}</p>
-                  {event.isUserEvent && (
-                    <div className="mt-1 text-right">
-                      <Button
-                        asChild
-                        variant="ghost"
-                        size="icon"
-                        className={cn(
-                          "h-5 w-5 p-0", 
-                          renderProps.text.startsWith('text-white') ? "text-white/80 hover:text-white hover:bg-destructive/50" : "text-current/80 hover:text-destructive hover:bg-destructive/10"
-                        )}
-                        onClick={(e) => {
-                          e.stopPropagation(); 
-                          handleDeleteEvent(event.id);
-                        }}
-                        aria-label="Eliminar evento"
-                      >
-                        <span>
-                          <Trash2 className="h-3 w-3" />
-                        </span>
-                      </Button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          );
-        })}
-        {eventsOnDay.length > maxEventsToShowInCell && !(selectedEvent && isCellCurrentlySelectedDay && eventsOnDay.find(e => e.id === selectedEvent.id)) && (
-          <div className={cn(
-            "text-center text-[9px] mt-1",
-            isCellCurrentlySelectedDay ? "text-primary-foreground/70" : "text-muted-foreground"
-            )}>
-            + {eventsOnDay.length - maxEventsToShowInCell} más
-          </div>
-        )}
+      <div className="flex-grow space-y-1 text-xs leading-tight mt-2">
+        {eventsOnDay.map(event => (
+          <p key={event.id} className="truncate" title={event.title}>
+            {event.title}
+          </p>
+        ))}
       </div>
     );
   };
@@ -347,8 +214,8 @@ export default function CalendarioPage() {
     <div className="container mx-auto py-8 px-4">
         <div className="flex flex-col items-center w-full">
             <div className="w-full"> 
-                <div className="flex justify-between items-center mb-4 px-1">
-                    <h2 className="text-2xl font-bold text-foreground">
+                <div className="flex justify-between items-center mb-8 px-1">
+                    <h2 className="text-2xl font-bold text-foreground capitalize">
                         {format(month, "MMMM yyyy", { locale: es })}
                     </h2>
                     <Select
@@ -381,22 +248,6 @@ export default function CalendarioPage() {
                   locale={es}
                   renderDayContent={renderDayEventsContent}
                   onAddEventTrigger={handleOpenAddEventDialog}
-                  footer={
-                      <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
-                      <div className="min-h-[20px] flex-grow"> 
-                          {selectedDay ? (
-                          <p className="text-xs text-muted-foreground">
-                              Día seleccionado: {format(selectedDay, 'PPP', { locale: es })}.
-                              {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(selectedDay, 'yyyy-MM-dd') 
-                              ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
-                              : " Seleccione un evento o añada uno nuevo."}
-                          </p>
-                          ) : (
-                          <p className="text-xs text-muted-foreground">Seleccione una fecha.</p>
-                          )}
-                      </div>
-                      </div>
-                  }
                 />
             </div>
 

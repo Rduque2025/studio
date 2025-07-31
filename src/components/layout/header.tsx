@@ -114,13 +114,11 @@ export function Header() {
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const pathname = usePathname();
 
-  const checkIsActive = (item: { activePaths: string[] }) => {
-    // Exact match for '/dashboard'
-    if (item.href === '/dashboard') {
+  const checkIsActive = (item: { href: string, activePaths: string[] }) => {
+    if (item.href === '/dashboard' && item.activePaths.includes('/dashboard')) {
         return pathname === '/dashboard';
     }
-    // For other paths, check if the current pathname starts with any of the activePaths
-    return item.activePaths.some(p => pathname.startsWith(p));
+    return item.activePaths.some(p => pathname.startsWith(p) && p !== '/dashboard');
   };
 
 
@@ -148,7 +146,7 @@ export function Header() {
       {/* Desktop Header Capsule */}
       <nav className="hidden md:grid w-full max-w-7xl grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
         {/* Left side: Logo */}
-        <div className="flex items-center justify-start z-10">
+        <div className="flex items-center justify-start">
           <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
             <Image
               src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
@@ -161,7 +159,7 @@ export function Header() {
         </div>
 
         {/* Center: Nav Links */}
-        <div className="flex items-center justify-center space-x-1 z-10">
+        <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
             const isActive = checkIsActive(item);
             return (
@@ -271,7 +269,7 @@ export function Header() {
       {/* Mobile Header */}
       <div className="flex md:hidden w-full items-center justify-between">
         {/* Logo */}
-        <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0 z-10">
+        <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
           <Image
             src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
             alt="Banesco Seguros Logo"

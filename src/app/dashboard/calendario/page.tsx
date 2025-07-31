@@ -82,7 +82,7 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 
 
 export default function CalendarioPage() {
-  const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); 
+  const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date(2025, 5, 1));
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
@@ -170,12 +170,12 @@ export default function CalendarioPage() {
 
 
   const handleDayClick = (day: Date) => {
-    setDate(day);
+    setSelectedDay(day);
     setSelectedEvent(null); 
   };
   
   const handleSaveNewEvent = () => {
-    if (!date || !newEventTitle) {
+    if (!selectedDay || !newEventTitle) {
       toast({ title: "Error", description: "Por favor, seleccione una fecha e ingrese un título para el evento.", variant: "destructive" });
       return;
     }
@@ -185,7 +185,7 @@ export default function CalendarioPage() {
 
     const newEventToAdd: CalendarEvent = {
       id: `user-${Date.now()}`,
-      date,
+      date: selectedDay,
       title: newEventTitle,
       description: newEventDescription,
       color: userEventStyles.dotColor, 
@@ -249,7 +249,7 @@ export default function CalendarioPage() {
     }
   
     const maxEventsToShowInCell = 3; 
-    const isCellCurrentlySelectedDay = date && format(date, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
+    const isCellCurrentlySelectedDay = selectedDay && format(selectedDay, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
 
     return (
       <div className="flex-grow space-y-0.5 text-[10px] leading-tight pr-0.5 pt-1">
@@ -272,7 +272,7 @@ export default function CalendarioPage() {
                   setSelectedEvent(null); 
                 } else {
                   setSelectedEvent(event);
-                  setDate(dayCellDate); 
+                  setSelectedDay(dayCellDate); 
                 }
               }}
             >
@@ -328,7 +328,7 @@ export default function CalendarioPage() {
   };
   
   const handleOpenAddEventDialog = (selectedDate: Date) => {
-    setDate(selectedDate); 
+    setSelectedDay(selectedDate); 
     setNewEventTitle(''); 
     setNewEventDescription('');
     setNewEventTime('');
@@ -342,8 +342,8 @@ export default function CalendarioPage() {
             <div className="w-full"> 
                 <Calendar
                 mode="single"
-                selected={date}
-                onSelect={setDate} 
+                selected={selectedDay}
+                onSelect={setSelectedDay} 
                 onDayClick={handleDayClick}
                 className="w-full" 
                 defaultMonth={new Date(2025, 5, 1)}
@@ -353,10 +353,10 @@ export default function CalendarioPage() {
                 footer={
                     <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
                     <div className="min-h-[20px] flex-grow"> 
-                        {date ? (
+                        {selectedDay ? (
                         <p className="text-xs text-muted-foreground">
-                            Día seleccionado: {format(date, 'PPP', { locale: es })}.
-                            {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') 
+                            Día seleccionado: {format(selectedDay, 'PPP', { locale: es })}.
+                            {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(selectedDay, 'yyyy-MM-dd') 
                             ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
                             : " Seleccione un evento o añada uno nuevo."}
                         </p>
@@ -374,7 +374,7 @@ export default function CalendarioPage() {
                 <DialogHeader>
                     <DialogTitle>Añadir Nuevo Evento</DialogTitle>
                     <DialogDescription>
-                    Añada un título, descripción y hora (opcional) para su evento en {date ? format(date, 'PPP', { locale: es }) : 'la fecha seleccionada'}. Se categorizará automáticamente como 'Personal' o 'Trabajo'.
+                    Añada un título, descripción y hora (opcional) para su evento en {selectedDay ? format(selectedDay, 'PPP', { locale: es }) : 'la fecha seleccionada'}. Se categorizará automáticamente como 'Personal' o 'Trabajo'.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">

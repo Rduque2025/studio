@@ -90,7 +90,7 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 
 
 export default function CalendarioPage() {
-  const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date(2025, 5, 1));
+  const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
   const [month, setMonth] = useState<Date>(new Date(2025, 5, 1));
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   

@@ -1,13 +1,12 @@
+'use client';
 
-"use client";
-
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
-import { PlusCircle, Trash2, Clock } from 'lucide-react';
+import { PlusCircle, Trash2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -81,7 +80,7 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 }
 
 
-export function CalendarWithEvents() {
+export default function CalendarioPage() {
   const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1)); 
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
@@ -337,84 +336,85 @@ export function CalendarWithEvents() {
 
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <div className="w-full"> 
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate} 
-          onDayClick={handleDayClick}
-          className="w-full" 
-          defaultMonth={new Date(2025, 5, 1)}
-          locale={es} 
-          renderDayContent={renderDayEventsContent}
-          onAddEventTrigger={handleOpenAddEventDialog} 
-          footer={
-            <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
-              <div className="min-h-[20px] flex-grow"> 
-                {date ? (
-                  <p className="text-xs text-muted-foreground">
-                    Día seleccionado: {format(date, 'PPP', { locale: es })}.
-                    {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') 
-                      ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
-                      : " Seleccione un evento o añada uno nuevo."}
-                  </p>
-                ) : (
-                   <p className="text-xs text-muted-foreground">Seleccione una fecha.</p>
-                )}
-              </div>
+    <div className="container mx-auto py-8 px-4">
+        <div className="flex flex-col items-center w-full">
+            <div className="w-full"> 
+                <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate} 
+                onDayClick={handleDayClick}
+                className="w-full" 
+                defaultMonth={new Date(2025, 5, 1)}
+                locale={es} 
+                renderDayContent={renderDayEventsContent}
+                onAddEventTrigger={handleOpenAddEventDialog} 
+                footer={
+                    <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
+                    <div className="min-h-[20px] flex-grow"> 
+                        {date ? (
+                        <p className="text-xs text-muted-foreground">
+                            Día seleccionado: {format(date, 'PPP', { locale: es })}.
+                            {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd') 
+                            ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
+                            : " Seleccione un evento o añada uno nuevo."}
+                        </p>
+                        ) : (
+                        <p className="text-xs text-muted-foreground">Seleccione una fecha.</p>
+                        )}
+                    </div>
+                    </div>
+                }
+                />
             </div>
-          }
-        />
-      </div>
 
-      <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Añadir Nuevo Evento</DialogTitle>
-            <DialogDescription>
-              Añada un título, descripción y hora (opcional) para su evento en {date ? format(date, 'PPP', { locale: es }) : 'la fecha seleccionada'}. Se categorizará automáticamente como 'Personal' o 'Trabajo'.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="event-title" className="text-right">Título</label>
-              <Input 
-                id="event-title" 
-                value={newEventTitle} 
-                onChange={(e) => setNewEventTitle(e.target.value)} 
-                className="col-span-3" 
-                placeholder="Título del evento"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="event-description" className="text-right">Descripción</label>
-              <Textarea 
-                id="event-description" 
-                value={newEventDescription} 
-                onChange={(e) => setNewEventDescription(e.target.value)} 
-                className="col-span-3" 
-                placeholder="Descripción (opcional)"
-              />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="event-time" className="text-right">Hora</label>
-              <Input 
-                id="event-time" 
-                type="time"
-                value={newEventTime} 
-                onChange={(e) => setNewEventTime(e.target.value)} 
-                className="col-span-3" 
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
-            <Button type="submit" onClick={handleSaveNewEvent}>Guardar Evento</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+            <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
+                <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Añadir Nuevo Evento</DialogTitle>
+                    <DialogDescription>
+                    Añada un título, descripción y hora (opcional) para su evento en {date ? format(date, 'PPP', { locale: es }) : 'la fecha seleccionada'}. Se categorizará automáticamente como 'Personal' o 'Trabajo'.
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <label htmlFor="event-title" className="text-right">Título</label>
+                    <Input 
+                        id="event-title" 
+                        value={newEventTitle} 
+                        onChange={(e) => setNewEventTitle(e.target.value)} 
+                        className="col-span-3" 
+                        placeholder="Título del evento"
+                    />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <label htmlFor="event-description" className="text-right">Descripción</label>
+                    <Textarea 
+                        id="event-description" 
+                        value={newEventDescription} 
+                        onChange={(e) => setNewEventDescription(e.target.value)} 
+                        className="col-span-3" 
+                        placeholder="Descripción (opcional)"
+                    />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                    <label htmlFor="event-time" className="text-right">Hora</label>
+                    <Input 
+                        id="event-time" 
+                        type="time"
+                        value={newEventTime} 
+                        onChange={(e) => setNewEventTime(e.target.value)} 
+                        className="col-span-3" 
+                    />
+                    </div>
+                </div>
+                <DialogFooter>
+                    <Button type="button" variant="outline" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
+                    <Button type="submit" onClick={handleSaveNewEvent}>Guardar Evento</Button>
+                </DialogFooter>
+                </DialogContent>
+            </Dialog>
+        </div>
     </div>
   );
 }
-

@@ -4,10 +4,10 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
-import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth } from 'date-fns';
+import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { PlusCircle, Trash2, Check } from 'lucide-react';
+import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -313,24 +313,29 @@ export default function CalendarioPage() {
                     <h2 className="text-2xl font-bold text-foreground capitalize">
                         {format(month, "MMMM yyyy", { locale: es })}
                     </h2>
-                    <Select
-                        value={getMonth(month).toString()}
-                        onValueChange={(value) => {
-                            const newMonth = setMonthDateFns(month, parseInt(value, 10));
-                            setMonth(newMonth);
-                        }}
-                    >
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Seleccionar mes" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {monthsOfYear.map(m => (
-                                <SelectItem key={m.value} value={m.value.toString()}>
-                                    {m.label}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
+                    <div className="flex items-center gap-2">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-10 w-10 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => setMonth(subMonths(month, 1))}
+                        >
+                            <ChevronLeft className="h-5 w-5" />
+                        </Button>
+                        <div className="flex items-center justify-center h-12 w-24 rounded-2xl bg-primary text-primary-foreground shadow-lg">
+                            <span className="font-bold text-lg capitalize">
+                                {format(month, 'MMM', { locale: es })}
+                            </span>
+                        </div>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-10 w-10 text-muted-foreground hover:text-foreground transition-colors"
+                            onClick={() => setMonth(addMonths(month, 1))}
+                        >
+                            <ChevronRight className="h-5 w-5" />
+                        </Button>
+                    </div>
                 </div>
                 <Calendar
                   mode="single"

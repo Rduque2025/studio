@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { UserAuthForm } from "@/components/auth/user-auth-form";
+import { useToast } from "@/hooks/use-toast";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home, activePaths: ["/dashboard"] },
@@ -59,6 +60,31 @@ export function Header() {
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>(initialMockNotifications);
   const pathname = usePathname();
+  const [searchTerm, setSearchTerm] = useState('');
+  const { toast } = useToast();
+
+  const handleSearch = () => {
+    if (pathname === '/dashboard') {
+      const normalizedSearchTerm = searchTerm.toLowerCase().trim();
+      const element = document.getElementById(normalizedSearchTerm);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        setIsSearchPopoverOpen(false);
+        setSearchTerm('');
+      } else {
+        toast({
+            title: "No se encontró la sección",
+            description: `No se pudo encontrar una sección llamada "${searchTerm}" en esta página.`,
+            variant: "destructive"
+        })
+      }
+    } else {
+        toast({
+            title: "Búsqueda no disponible",
+            description: "La búsqueda por sección solo está disponible en la página principal.",
+        })
+    }
+  };
 
   const checkIsActive = (item: { href: string, activePaths: string[] }) => {
     if (item.href === '/dashboard' && pathname === '/dashboard') {
@@ -133,13 +159,16 @@ export function Header() {
                 <Input
                   type="search"
                   placeholder="Buscar..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
                   className="h-12 w-full rounded-full border-0 bg-transparent pl-6 pr-14 text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Button
                   type="submit"
                   size="icon"
                   className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-foreground text-background shadow-md transition-transform hover:scale-105"
-                  onClick={() => setIsSearchPopoverOpen(false)}
+                  onClick={handleSearch}
                 >
                   <Search className="h-5 w-5" />
                 </Button>

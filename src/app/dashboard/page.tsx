@@ -237,7 +237,7 @@ export default function DashboardPage() {
       });
     } else { // Evening/Night (5pm onwards)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1507499739999-097706ad8914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxuaWdodCUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1507499739999-097706ad8914?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxuaWdodCUyMHNreXxlbnwwfHx8fDE3NTI2Mjg3NDJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
         hint: "night sky"
       });
     }
@@ -343,7 +343,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8bmklQzMlQjFvc3xlbnwwfHx8fDE3NTI2MDQ4NDl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8bmklQzMlQjFvc3xlbnwwfHx8fDE3NTI2MDQ4NDl8MA&ixlib-rb-4.1.0&q=80&w=1080"
                       alt="Oficina de Banesco"
                       width={400}
                       height={400}
@@ -356,474 +356,492 @@ export default function DashboardPage() {
         </SectionWrapper>
         
         {/* Portal de Requerimientos Section */}
-        <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
-          <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl min-h-[500px] flex flex-col justify-center">
-              <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5"></div>
-              <div className="absolute -right-10 -top-10 w-60 h-60 rounded-full bg-white/5"></div>
-              <div className="absolute right-0 top-0 w-40 h-40 rounded-full bg-white/5"></div>
-              <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
-                  <div className="space-y-4">
-                      <h2 className="text-4xl md:text-5xl font-bold">Portal de Requerimientos</h2>
-                      <p className="max-w-md text-primary-foreground/80">
-                          Centraliza tus solicitudes y gestiona tus necesidades en un solo lugar.
-                      </p>
-                  </div>
-                  <div className="space-y-3">
-                      <Link href="/dashboard/requerimientos/rh" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
-                          <span className="text-sm font-medium">Recursos Humanos</span>
-                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <ArrowRight className="h-4 w-4 text-white" />
-                          </div>
-                      </Link>
-                       <Link href="/dashboard/requerimientos/it" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
-                          <span className="text-sm font-medium">Soporte TI</span>
-                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <ArrowRight className="h-4 w-4 text-white" />
-                          </div>
-                      </Link>
-                      <Link href="/dashboard/requerimientos/servicios" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
-                          <span className="text-sm font-medium">Servicios Generales</span>
-                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <ArrowRight className="h-4 w-4 text-white" />
-                          </div>
-                      </Link>
-                       <Link href="/dashboard/requerimientos" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
-                          <span className="text-sm font-medium">Ver todos</span>
-                          <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                              <ArrowRight className="h-4 w-4 text-white" />
-                          </div>
-                      </Link>
-                  </div>
-              </div>
-          </Card>
-        </SectionWrapper>
+        <div id="requerimientos">
+            <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
+            <Card className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-primary p-8 md:p-12 text-primary-foreground shadow-2xl min-h-[500px] flex flex-col justify-center">
+                <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5"></div>
+                <div className="absolute -right-10 -top-10 w-60 h-60 rounded-full bg-white/5"></div>
+                <div className="absolute right-0 top-0 w-40 h-40 rounded-full bg-white/5"></div>
+                <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center">
+                    <div className="space-y-4">
+                        <h2 className="text-4xl md:text-5xl font-bold">Portal de Requerimientos</h2>
+                        <p className="max-w-md text-primary-foreground/80">
+                            Centraliza tus solicitudes y gestiona tus necesidades en un solo lugar.
+                        </p>
+                    </div>
+                    <div className="space-y-3">
+                        <Link href="/dashboard/requerimientos/rh" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                            <span className="text-sm font-medium">Recursos Humanos</span>
+                            <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <ArrowRight className="h-4 w-4 text-white" />
+                            </div>
+                        </Link>
+                        <Link href="/dashboard/requerimientos/it" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                            <span className="text-sm font-medium">Soporte TI</span>
+                            <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <ArrowRight className="h-4 w-4 text-white" />
+                            </div>
+                        </Link>
+                        <Link href="/dashboard/requerimientos/servicios" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                            <span className="text-sm font-medium">Servicios Generales</span>
+                            <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <ArrowRight className="h-4 w-4 text-white" />
+                            </div>
+                        </Link>
+                        <Link href="/dashboard/requerimientos" className="group flex items-center justify-between p-3 pl-4 bg-black/20 rounded-full hover:bg-black/30 transition-colors">
+                            <span className="text-sm font-medium">Ver todos</span>
+                            <div className="h-6 w-6 rounded-full bg-primary-foreground/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <ArrowRight className="h-4 w-4 text-white" />
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </Card>
+            </SectionWrapper>
+        </div>
 
         {/* Menus Section */}
-        <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
-          <div className="grid md:grid-cols-12 gap-12 items-center">
-            <div className="md:col-span-4">
-              <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
-              <p className="text-muted-foreground mt-4">
-                Opciones de almuerzo disponibles para toda la semana en el comedor.
-              </p>
-            </div>
-            <div className="md:col-span-8">
-              <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                 <div className="flex items-center gap-2 flex-wrap">
-                    <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
-                    <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
-                    <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
-                  </div>
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
-                      <ChevronLeft className="h-4 w-4" />
-                    </Button>
-                    <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
-                      <ChevronRight className="h-4 w-4" />
-                    </Button>
+        <div id="menu">
+            <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
+            <div className="grid md:grid-cols-12 gap-12 items-center">
+                <div className="md:col-span-4">
+                <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
+                <p className="text-muted-foreground mt-4">
+                    Opciones de almuerzo disponibles para toda la semana en el comedor.
+                </p>
                 </div>
-              </div>
-              <div ref={menuScrollAreaRef}>
-                <ScrollArea className="w-full">
-                  <div className="flex w-max space-x-8 py-4">
-                    {filteredMenuItems.map((item) => (
-                      <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                    ))}
-                  </div>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea>
-              </div>
+                <div className="md:col-span-8">
+                <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+                    <div className="flex items-center gap-2 flex-wrap">
+                        <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
+                        <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
+                        <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
+                        <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
+                        <ChevronRight className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+                <div ref={menuScrollAreaRef}>
+                    <ScrollArea className="w-full">
+                    <div className="flex w-max space-x-8 py-4">
+                        {filteredMenuItems.map((item) => (
+                        <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                        ))}
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
+                </div>
+                </div>
             </div>
-          </div>
-        </SectionWrapper>
+            </SectionWrapper>
+        </div>
       
         {/* Gestión de Vacaciones Section */}
-        <SectionWrapper>
-          <div className="bg-card shadow-lg rounded-2xl overflow-hidden min-h-[700px] flex flex-col md:flex-row">
-            {/* Left Panel */}
-            <div className="w-full md:w-2/3 relative min-h-[400px] md:min-h-full">
-              <Image
-                src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8QkVBQ0h8ZW58MHx8fHwxNzUyNTA3OTA0fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Playa tropical para representar vacaciones"
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint="beach vacation"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-12 text-white pointer-events-none">
-                <h2 className="text-5xl font-extrabold leading-tight">¡Gestiona tus Próximas Vacaciones!</h2>
-                <p className="mt-4 max-w-md text-white/90">
-                  Planifica tu viaje con las mejores recomendaciones y gestiona tus solicitudes de forma sencilla.
-                </p>
-                <Button asChild className="mt-6 w-fit pointer-events-auto">
-                  <Link href="/dashboard/vacaciones">Explorar</Link>
-                </Button>
-              </div>
-            </div>
+        <div id="vacaciones">
+            <SectionWrapper>
+            <div className="bg-card shadow-lg rounded-2xl overflow-hidden min-h-[700px] flex flex-col md:flex-row">
+                {/* Left Panel */}
+                <div className="w-full md:w-2/3 relative min-h-[400px] md:min-h-full">
+                <Image
+                    src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOXx8QkVBQ0h8ZW58MHx8fHwxNzUyNTA3OTA0fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Playa tropical para representar vacaciones"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="beach vacation"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-12 text-white pointer-events-none">
+                    <h2 className="text-5xl font-extrabold leading-tight">¡Gestiona tus Próximas Vacaciones!</h2>
+                    <p className="mt-4 max-w-md text-white/90">
+                    Planifica tu viaje con las mejores recomendaciones y gestiona tus solicitudes de forma sencilla.
+                    </p>
+                    <Button asChild className="mt-6 w-fit pointer-events-auto">
+                    <Link href="/dashboard/vacaciones">Explorar</Link>
+                    </Button>
+                </div>
+                </div>
 
-            {/* Right Panel */}
-            <div className="w-full md:w-1/3 bg-background p-8 flex flex-col">
-              <div className="space-y-4 my-auto">
-                <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
-                  <Image
-                    src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Solicitudes de vacaciones"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="plane"
-                    className="group-hover:scale-105 transition-transform"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-                  <div className="absolute bottom-4 left-4 text-white pointer-events-none">
-                    <h4 className="font-bold text-lg">Mis Solicitudes</h4>
-                    <p className="text-xs">Consulta el estado de tus solicitudes de vacaciones.</p>
-                  </div>
+                {/* Right Panel */}
+                <div className="w-full md:w-1/3 bg-background p-8 flex flex-col">
+                <div className="space-y-4 my-auto">
+                    <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
+                    <Image
+                        src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Solicitudes de vacaciones"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="plane"
+                        className="group-hover:scale-105 transition-transform"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                    <div className="absolute bottom-4 left-4 text-white pointer-events-none">
+                        <h4 className="font-bold text-lg">Mis Solicitudes</h4>
+                        <p className="text-xs">Consulta el estado de tus solicitudes de vacaciones.</p>
+                    </div>
+                    </div>
+                    <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
+                    <Image
+                        src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8cGxhbmV8ZW58MHx8fHwxNzUyNTA2MTEzfDA&ixlib-rb-4.1.0&q=80&w=1080"
+                        alt="Fechas Disponibles"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="plane"
+                        className="group-hover:scale-105 transition-transform"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                    <div className="absolute bottom-4 left-4 text-white pointer-events-none">
+                        <h4 className="font-bold text-lg">Fechas Disponibles</h4>
+                        <p className="text-xs">Consulta el calendario y planifica tu próximo viaje.</p>
+                    </div>
+                    </div>
+                    <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
+                    <Image
+                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib=rb-4.1.0&q=80&w=1080"
+                        alt="Recomendaciones de viaje"
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint="travel guide"
+                        className="group-hover:scale-105 transition-transform"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                    <div className="absolute bottom-4 left-4 text-white pointer-events-none">
+                        <h4 className="font-bold text-lg">Recomendaciones</h4>
+                        <p className="text-xs">Descubre destinos y consejos para tu próximo viaje.</p>
+                    </div>
+                    </div>
                 </div>
-                <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
-                  <Image
-                    src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8cGxhbmV8ZW58MHx8fHwxNzUyNTA2MTEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Fechas Disponibles"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="plane"
-                    className="group-hover:scale-105 transition-transform"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-                   <div className="absolute bottom-4 left-4 text-white pointer-events-none">
-                    <h4 className="font-bold text-lg">Fechas Disponibles</h4>
-                    <p className="text-xs">Consulta el calendario y planifica tu próximo viaje.</p>
-                  </div>
                 </div>
-                 <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
-                  <Image
-                    src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Recomendaciones de viaje"
-                    layout="fill"
-                    objectFit="cover"
-                    data-ai-hint="travel guide"
-                    className="group-hover:scale-105 transition-transform"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
-                   <div className="absolute bottom-4 left-4 text-white pointer-events-none">
-                    <h4 className="font-bold text-lg">Recomendaciones</h4>
-                    <p className="text-xs">Descubre destinos y consejos para tu próximo viaje.</p>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
-        </SectionWrapper>
+            </SectionWrapper>
+        </div>
         
         {/* Cursos Section */}
-        <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
-          <div className="grid md:grid-cols-2 gap-8 min-h-[600px]">
-            <div className="p-8 md:p-12 flex flex-col justify-center">
-              <div className="space-y-4">
-                 <div className="space-y-4">
-                  <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
-                    Cursos <br />
-                    <span className="text-primary font-bold">Disponibles</span>
-                  </h2>
-                  <p className="text-muted-foreground mb-4 max-w-lg">
-                    {currentCourse.description}
-                  </p>
+        <div id="cursos">
+            <SectionWrapper className="overflow-hidden bg-card rounded-2xl shadow-sm">
+            <div className="grid md:grid-cols-2 gap-8 min-h-[600px]">
+                <div className="p-8 md:p-12 flex flex-col justify-center">
+                <div className="space-y-4">
+                    <div className="space-y-4">
+                    <h2 className="text-3xl md:text-5xl font-bold text-foreground leading-tight">
+                        Cursos <br />
+                        <span className="text-primary font-bold">Disponibles</span>
+                    </h2>
+                    <p className="text-muted-foreground mb-4 max-w-lg">
+                        {currentCourse.description}
+                    </p>
+                    </div>
                 </div>
-              </div>
-              <Button asChild size="lg" className="w-fit mt-4">
-                <Link href="/dashboard/bienestar#cursos">
-                  Explorar Cursos
-                </Link>
-              </Button>
-            </div>
-            <div className="relative min-h-[400px] md:min-h-full">
-               <Image
-                  src={currentCourse.imageUrl}
-                  alt={currentCourse.title}
-                  layout="fill"
-                  objectFit="cover"
-                  data-ai-hint={currentCourse.dataAiHint}
-                  className="brightness-90"
-                  key={currentCourse.id}
-                />
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                    <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
-                        <CardHeader>
-                          <div className="flex justify-between items-center">
-                            <Badge variant="secondary" className="flex items-center gap-1">
-                              <Star className="h-3 w-3" /> {currentCourse.category}
-                            </Badge>
-                             <div className="flex gap-1">
-                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('prev')}>
-                                    <ChevronLeft className="h-4 w-4" />
-                                </Button>
-                                <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('next')}>
-                                    <ChevronRight className="h-4 w-4" />
-                                </Button>
+                <Button asChild size="lg" className="w-fit mt-4">
+                    <Link href="/dashboard/bienestar#cursos">
+                    Explorar Cursos
+                    </Link>
+                </Button>
+                </div>
+                <div className="relative min-h-[400px] md:min-h-full">
+                <Image
+                    src={currentCourse.imageUrl}
+                    alt={currentCourse.title}
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint={currentCourse.dataAiHint}
+                    className="brightness-90"
+                    key={currentCourse.id}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                        <Card className="w-full max-w-sm bg-background/80 backdrop-blur-lg shadow-2xl rounded-xl">
+                            <CardHeader>
+                            <div className="flex justify-between items-center">
+                                <Badge variant="secondary" className="flex items-center gap-1">
+                                <Star className="h-3 w-3" /> {currentCourse.category}
+                                </Badge>
+                                <div className="flex gap-1">
+                                    <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('prev')}>
+                                        <ChevronLeft className="h-4 w-4" />
+                                    </Button>
+                                    <Button variant="outline" size="icon" className="h-7 w-7" onClick={() => handleCourseChange('next')}>
+                                        <ChevronRight className="h-4 w-4" />
+                                    </Button>
+                                </div>
                             </div>
-                          </div>
-                          <CardTitle className="text-lg pt-2">{currentCourse.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                           <p className="text-sm text-muted-foreground h-10 text-ellipsis overflow-hidden">{currentCourse.description}</p>
-                           <Separator />
-                           <div className="flex justify-between text-sm">
-                                <div className="flex items-center gap-2 text-muted-foreground"><Award className="h-4 w-4 text-primary" /><span>Certificado</span></div>
-                                <div className="font-medium text-foreground">Sí</div>
-                           </div>
-                           <div className="flex justify-between text-sm">
-                                <div className="flex items-center gap-2 text-muted-foreground"><Clock className="h-4 w-4 text-primary" /><span>Duración</span></div>
-                                <div className="font-medium text-foreground">{currentCourse.duration}</div>
-                           </div>
-                        </CardContent>
-                         <CardContent>
-                          <Button asChild className="w-full">
-                            <Link href={`/dashboard/cursos/${currentCourse.id}`}>Más Información</Link>
-                          </Button>
-                        </CardContent>
-                    </Card>
+                            <CardTitle className="text-lg pt-2">{currentCourse.title}</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4">
+                            <p className="text-sm text-muted-foreground h-10 text-ellipsis overflow-hidden">{currentCourse.description}</p>
+                            <Separator />
+                            <div className="flex justify-between text-sm">
+                                    <div className="flex items-center gap-2 text-muted-foreground"><Award className="h-4 w-4 text-primary" /><span>Certificado</span></div>
+                                    <div className="font-medium text-foreground">Sí</div>
+                            </div>
+                            <div className="flex justify-between text-sm">
+                                    <div className="flex items-center gap-2 text-muted-foreground"><Clock className="h-4 w-4 text-primary" /><span>Duración</span></div>
+                                    <div className="font-medium text-foreground">{currentCourse.duration}</div>
+                            </div>
+                            </CardContent>
+                            <CardContent>
+                            <Button asChild className="w-full">
+                                <Link href={`/dashboard/cursos/${currentCourse.id}`}>Más Información</Link>
+                            </Button>
+                            </CardContent>
+                        </Card>
+                    </div>
                 </div>
             </div>
-          </div>
-        </SectionWrapper>
+            </SectionWrapper>
+        </div>
 
         {/* Póliza HCM Section */}
-        <SectionWrapper>
-          <Card className="overflow-hidden bg-card shadow-lg border-none">
-            <div className="grid md:grid-cols-2">
-              <div className="p-12 flex flex-col justify-center">
-                <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">Estamos aquí para ayudarte en caso de emergencia</p>
-                <h2 className="text-4xl font-extrabold text-foreground leading-tight mb-4">
-                  NUESTRA <span className="text-primary font-extrabold">PÓLIZA HCM</span>
-                </h2>
-                <p className="text-muted-foreground mb-8">
-                  ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
-                </p>
-                <div className="space-y-4">
-                   <AnimatedContactButton 
-                     href="https://wa.me/584141234567"
-                     type="whatsapp"
-                     label="WhatsApp"
-                     number="+58 414 123 4567"
-                     icon={MessageSquare}
-                     className="bg-primary"
-                     iconClassName="text-primary"
-                   />
-                  <AnimatedContactButton 
-                     href="tel:+582125011111"
-                     type="phone"
-                     label="Teléfono"
-                     number="+58 212 501 1111"
-                     icon={Phone}
-                     className="bg-secondary"
-                     iconClassName="text-secondary"
-                   />
-                   <AnimatedContactButton 
-                     href="mailto:asistencia@banescoseguros.com"
-                     type="email"
-                     label="Correo Electrónico"
-                     number="asistencia@banescoseguros.com"
-                     icon={Mail}
-                     className="bg-accent"
-                     iconClassName="text-accent-foreground"
-                   />
+        <div id="poliza">
+            <SectionWrapper>
+            <Card className="overflow-hidden bg-card shadow-lg border-none">
+                <div className="grid md:grid-cols-2">
+                <div className="p-12 flex flex-col justify-center">
+                    <p className="text-sm font-semibold text-primary mb-2 uppercase tracking-wider">Estamos aquí para ayudarte en caso de emergencia</p>
+                    <h2 className="text-4xl font-extrabold text-foreground leading-tight mb-4">
+                    NUESTRA <span className="text-primary font-extrabold">PÓLIZA HCM</span>
+                    </h2>
+                    <p className="text-muted-foreground mb-8">
+                    ¿Busca información detallada sobre su cobertura o necesita asistencia? Navegue por nuestras opciones o contáctenos directamente.
+                    </p>
+                    <div className="space-y-4">
+                    <AnimatedContactButton 
+                        href="https://wa.me/584141234567"
+                        type="whatsapp"
+                        label="WhatsApp"
+                        number="+58 414 123 4567"
+                        icon={MessageSquare}
+                        className="bg-primary"
+                        iconClassName="text-primary"
+                    />
+                    <AnimatedContactButton 
+                        href="tel:+582125011111"
+                        type="phone"
+                        label="Teléfono"
+                        number="+58 212 501 1111"
+                        icon={Phone}
+                        className="bg-secondary"
+                        iconClassName="text-secondary"
+                    />
+                    <AnimatedContactButton 
+                        href="mailto:asistencia@banescoseguros.com"
+                        type="email"
+                        label="Correo Electrónico"
+                        number="asistencia@banescoseguros.com"
+                        icon={Mail}
+                        className="bg-accent"
+                        iconClassName="text-accent-foreground"
+                    />
+                    </div>
                 </div>
-              </div>
-              <div className="bg-muted/50 p-12 flex items-center">
-                 <div className="w-full grid grid-cols-2 gap-8">
-                    <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1429305336325-b84ace7eba3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdGFyc3xlbnwwfHx8fDE3NTI1OTk5ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="stars" />
-                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
-                        <h4 className="text-xl font-bold">Beneficios</h4>
-                        <p className="text-xs mt-1 text-white/90">Descubra todas sus ventajas.</p>
-                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
-                          Consultar
-                        </Button>
-                      </div>
-                    </Card>
-                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1651069381046-8db0c209a5e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8c3Vuc2hhZGV8ZW58MHx8fHwxNzUyNjAwMzQ4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
-                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
-                        <h4 className="text-xl font-bold">Cobertura</h4>
-                        <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>
-                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
-                          Consultar
-                        </Button>
-                      </div>
-                    </Card>
-                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1601588243681-2fa6a06300d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8TUVESUNBTCUyMENFTlRFUnxlbnwwfHx8fDE3NTI1MDU1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
-                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
-                        <h4 className="text-xl font-bold">Centros de Atención</h4>
-                        <p className="text-xs mt-1 text-white/90">Encuentre la clínica más cercana.</p>
-                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
-                          Consultar
-                        </Button>
-                      </div>
-                    </Card>
-                     <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image src="https://images.unsplash.com/photo-1502101872923-d48509bff386?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdGFpcnN8ZW58MHx8fHwxNzUyNjAwMzk4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process diagram" />
-                      <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
-                        <h4 className="text-xl font-bold">Protocolos</h4>
-                        <p className="text-xs mt-1 text-white/90">Siga los pasos para cada caso.</p>
-                        <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
-                          Consultar
-                        </Button>
-                      </div>
-                    </Card>
+                <div className="bg-muted/50 p-12 flex items-center">
+                    <div className="w-full grid grid-cols-2 gap-8">
+                        <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <Image src="https://images.unsplash.com/photo-1429305336325-b84ace7eba3b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzdGFyc3xlbnwwfHx8fDE3NTI1OTk5ODZ8MA&ixlib-rb-4.1.0&q=80&w=1080" alt="Beneficios" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="stars" />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
+                            <h4 className="text-xl font-bold">Beneficios</h4>
+                            <p className="text-xs mt-1 text-white/90">Descubra todas sus ventajas.</p>
+                            <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
+                            Consultar
+                            </Button>
+                        </div>
+                        </Card>
+                        <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <Image src="https://images.unsplash.com/photo-1651069381046-8db0c209a5e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8c3Vuc2hhZGV8ZW58MHx8fHwxNzUyNjAwMzQ4fDA&ixlib-rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
+                            <h4 className="text-xl font-bold">Cobertura</h4>
+                            <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>
+                            <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
+                            Consultar
+                            </Button>
+                        </div>
+                        </Card>
+                        <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <Image src="https://images.unsplash.com/photo-1601588243681-2fa6a06300d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8TUVESUNBTCUyMENFTlRFUnxlbnwwfHx8fDE3NTI1MDU1MjB8MA&ixlib-rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
+                            <h4 className="text-xl font-bold">Centros de Atención</h4>
+                            <p className="text-xs mt-1 text-white/90">Encuentre la clínica más cercana.</p>
+                            <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
+                            Consultar
+                            </Button>
+                        </div>
+                        </Card>
+                        <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                        <Image src="https://images.unsplash.com/photo-1502101872923-d48509bff386?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdGFpcnN8ZW58MHx8fHwxNzUyNjAwMzk4fDA&ixlib-rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process diagram" />
+                        <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
+                            <h4 className="text-xl font-bold">Protocolos</h4>
+                            <p className="text-xs mt-1 text-white/90">Siga los pasos para cada caso.</p>
+                            <Button variant="secondary" size="sm" className="mt-4 bg-white/20 hover:bg-white/30 backdrop-blur-sm pointer-events-auto">
+                            Consultar
+                            </Button>
+                        </div>
+                        </Card>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </Card>
-        </SectionWrapper>
+                </div>
+            </Card>
+            </SectionWrapper>
+        </div>
 
 
         {/* Actividades Section */}
-        <SectionWrapper>
-          <div className="bg-card p-8 md:p-12 rounded-2xl shadow-sm">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8 md:mb-12">
-              <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
-                  Explore Nuestras Actividades de Bienestar
-                </h2>
-              </div>
-              <div className="flex flex-col justify-center">
-                <p className="text-muted-foreground mb-6">
-                  Descubra un mundo de bienestar con nuestras actividades exclusivas, diseñadas para apoyar su salud física y mental en cada etapa de la vida.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild variant="default" size="lg">
-                    <Link href="/dashboard/bienestar">Ver Todas las Actividades</Link>
-                  </Button>
+        <div id="actividades">
+            <SectionWrapper>
+            <div className="bg-card p-8 md:p-12 rounded-2xl shadow-sm">
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 mb-8 md:mb-12">
+                <div>
+                    <h2 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
+                    Explore Nuestras Actividades de Bienestar
+                    </h2>
                 </div>
-              </div>
+                <div className="flex flex-col justify-center">
+                    <p className="text-muted-foreground mb-6">
+                    Descubra un mundo de bienestar con nuestras actividades exclusivas, diseñadas para apoyar su salud física y mental en cada etapa de la vida.
+                    </p>
+                    <div className="flex flex-wrap gap-3">
+                    <Button asChild variant="default" size="lg">
+                        <Link href="/dashboard/bienestar">Ver Todas las Actividades</Link>
+                    </Button>
+                    </div>
+                </div>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {activityHighlights.map((activity, index) => (
+                    <Card 
+                    key={index} 
+                    className={cn(
+                        "border-0 p-6 rounded-xl flex flex-col items-start gap-4 text-left transition-colors",
+                        index === 0 
+                        ? "bg-primary text-primary-foreground" 
+                        : "bg-muted/50"
+                    )}
+                    >
+                    <div className={cn(
+                        "p-3 rounded-full",
+                        index === 0 ? "bg-primary-foreground/10 text-primary-foreground" : "bg-primary/10 text-primary"
+                    )}>
+                        <activity.icon className="h-6 w-6" />
+                    </div>
+                    <div className="space-y-1">
+                        <h3 className={cn(
+                        "font-semibold",
+                        index === 0 ? "text-primary-foreground" : "text-foreground"
+                        )}>{activity.title}</h3>
+                        <p className={cn(
+                        "text-sm",
+                        index === 0 ? "text-primary-foreground/80" : "text-muted-foreground"
+                        )}>{activity.description}</p>
+                    </div>
+                    </Card>
+                ))}
+                </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {activityHighlights.map((activity, index) => (
-                <Card 
-                  key={index} 
-                  className={cn(
-                    "border-0 p-6 rounded-xl flex flex-col items-start gap-4 text-left transition-colors",
-                    index === 0 
-                      ? "bg-primary text-primary-foreground" 
-                      : "bg-muted/50"
-                  )}
-                >
-                  <div className={cn(
-                    "p-3 rounded-full",
-                     index === 0 ? "bg-primary-foreground/10 text-primary-foreground" : "bg-primary/10 text-primary"
-                  )}>
-                    <activity.icon className="h-6 w-6" />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className={cn(
-                      "font-semibold",
-                      index === 0 ? "text-primary-foreground" : "text-foreground"
-                    )}>{activity.title}</h3>
-                    <p className={cn(
-                      "text-sm",
-                      index === 0 ? "text-primary-foreground/80" : "text-muted-foreground"
-                    )}>{activity.description}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </SectionWrapper>
+            </SectionWrapper>
+        </div>
       
         {/* Playlist Section */}
-        <SectionWrapper>
-           <div className="flex flex-col items-center text-center mb-8">
-              <div className="space-y-1">
-                <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Playlist Banesco Seguros</h2>
-                <p className="text-muted-foreground max-w-2xl mx-auto">La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.</p>
-              </div>
-               <Button asChild variant="secondary" className="mt-4 rounded-full bg-muted text-muted-foreground hover:bg-muted/90 hover:text-foreground transition-colors">
-                <Link href="/dashboard/playlist">
-                  Playlists
-                </Link>
-              </Button>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {mockPlaylist.map(item => (
-                <PlaylistCard key={item.id} item={item} />
-              ))}
-            </div>
-        </SectionWrapper>
+        <div id="playlist">
+            <SectionWrapper>
+            <div className="flex flex-col items-center text-center mb-8">
+                <div className="space-y-1">
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Nuestra Playlist Banesco Seguros</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto">La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.</p>
+                </div>
+                <Button asChild variant="secondary" className="mt-4 rounded-full bg-muted text-muted-foreground hover:bg-muted/90 hover:text-foreground transition-colors">
+                    <Link href="/dashboard/playlist">
+                    Playlists
+                    </Link>
+                </Button>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {mockPlaylist.map(item => (
+                    <PlaylistCard key={item.id} item={item} />
+                ))}
+                </div>
+            </SectionWrapper>
+        </div>
         
         {/* FAQ Section */}
-        <SectionWrapper>
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="md:col-span-1 space-y-4">
-              <div>
-                <p className="font-semibold text-primary uppercase tracking-wider">¿Tienes Dudas?</p>
-                <h2 className="text-3xl font-bold text-foreground tracking-tight mt-1">Preguntas Frecuentes</h2>
-              </div>
-              <div className="space-y-2">
-                {faqCategories.map((cat) => {
-                  const Icon = cat.icon;
-                  return (
-                    <Button
-                      key={cat.id}
-                      variant={activeFaqCategory === cat.id ? "secondary" : "ghost"}
-                      className="w-full justify-start gap-3"
-                      onClick={() => setActiveFaqCategory(cat.id as any)}
-                    >
-                      <Icon className="h-5 w-5" />
-                      <span>{cat.label}</span>
-                    </Button>
-                  )
-                })}
-              </div>
+        <div id="faq">
+            <SectionWrapper>
+            <div className="grid md:grid-cols-3 gap-12">
+                <div className="md:col-span-1 space-y-4">
+                <div>
+                    <p className="font-semibold text-primary uppercase tracking-wider">¿Tienes Dudas?</p>
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight mt-1">Preguntas Frecuentes</h2>
+                </div>
+                <div className="space-y-2">
+                    {faqCategories.map((cat) => {
+                    const Icon = cat.icon;
+                    return (
+                        <Button
+                        key={cat.id}
+                        variant={activeFaqCategory === cat.id ? "secondary" : "ghost"}
+                        className="w-full justify-start gap-3"
+                        onClick={() => setActiveFaqCategory(cat.id as any)}
+                        >
+                        <Icon className="h-5 w-5" />
+                        <span>{cat.label}</span>
+                        </Button>
+                    )
+                    })}
+                </div>
+                </div>
+                <div className="md:col-span-2">
+                <Accordion type="single" collapsible className="w-full space-y-3" defaultValue={faqData.find(faq => faq.category === activeFaqCategory)?.id}>
+                    {faqData.filter(faq => faq.category === activeFaqCategory).map((faq) => (
+                    <AccordionItem value={faq.id} key={faq.id} className="bg-muted/50 border-0 rounded-lg">
+                        <AccordionTrigger className="p-4 text-left font-semibold text-base hover:no-underline">
+                        {faq.question}
+                        </AccordionTrigger>
+                        <AccordionContent className="px-4 pb-4 text-muted-foreground">
+                        {faq.answer}
+                        </AccordionContent>
+                    </AccordionItem>
+                    ))}
+                </Accordion>
+                </div>
             </div>
-            <div className="md:col-span-2">
-              <Accordion type="single" collapsible className="w-full space-y-3" defaultValue={faqData.find(faq => faq.category === activeFaqCategory)?.id}>
-                {faqData.filter(faq => faq.category === activeFaqCategory).map((faq) => (
-                  <AccordionItem value={faq.id} key={faq.id} className="bg-muted/50 border-0 rounded-lg">
-                    <AccordionTrigger className="p-4 text-left font-semibold text-base hover:no-underline">
-                      {faq.question}
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-4 text-muted-foreground">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </div>
-          </div>
-        </SectionWrapper>
+            </SectionWrapper>
+        </div>
 
         {/* Pilares Section */}
-        <SectionWrapper>
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="flex items-center justify-center">
-              <span className="text-[250px] font-black text-primary/10 leading-none">4</span>
-              <span className="text-7xl font-bold text-foreground -ml-4" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
-                PILARES
-              </span>
-            </div>
-            
-            <div className="space-y-4">
-              {pilaresData.map((pilar, index) => {
-                const colors = ["bg-primary", "bg-secondary", "bg-[#3f94cd]", "bg-[#59d1ff]"];
-                return (
-                  <div 
-                    key={pilar.number}
-                    className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", colors[index % colors.length])}
-                  >
-                    <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white/20 text-white text-lg font-bold">
-                        {pilar.number}
-                      </div>
-                      <div className="text-white">
-                        <h3 className="text-lg font-bold mb-1">{pilar.title}</h3>
-                        <p className="text-sm opacity-90">{pilar.text}</p>
-                      </div>
+        <div id="pilares">
+            <SectionWrapper>
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+                <div className="flex items-center justify-center">
+                <span className="text-[250px] font-black text-primary/10 leading-none">4</span>
+                <span className="text-7xl font-bold text-foreground -ml-4" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
+                    PILARES
+                </span>
+                </div>
+                
+                <div className="space-y-4">
+                {pilaresData.map((pilar, index) => {
+                    const colors = ["bg-primary", "bg-secondary", "bg-[#3f94cd]", "bg-[#59d1ff]"];
+                    return (
+                    <div 
+                        key={pilar.number}
+                        className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", colors[index % colors.length])}
+                    >
+                        <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white/20 text-white text-lg font-bold">
+                            {pilar.number}
+                        </div>
+                        <div className="text-white">
+                            <h3 className="text-lg font-bold mb-1">{pilar.title}</h3>
+                            <p className="text-sm opacity-90">{pilar.text}</p>
+                        </div>
+                        </div>
                     </div>
-                  </div>
-                )
-              })}
+                    )
+                })}
+                </div>
             </div>
-          </div>
-        </SectionWrapper>
+            </SectionWrapper>
+        </div>
     </div>
   );
 }
@@ -866,21 +884,3 @@ export default function DashboardPage() {
 
 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

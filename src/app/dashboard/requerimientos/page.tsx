@@ -111,7 +111,7 @@ export default function RequerimientosPage() {
       <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
         
         <header className="flex justify-end items-center mb-8">
-            <Button variant="destructive" size="sm">
+            <Button variant="destructive" size="sm" className="text-xs">
                 <Plus className="h-4 w-4 mr-2" />
                 Solicitudes Especiales
             </Button>

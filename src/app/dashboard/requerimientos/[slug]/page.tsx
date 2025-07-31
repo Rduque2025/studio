@@ -201,7 +201,7 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                 <h1 className="text-3xl md:text-4xl font-bold mb-3">{department.name}</h1>
                 <p className="max-w-2xl text-background/80 mb-6 text-sm">{department.description}</p>
                  <div className="flex gap-4 items-center">
-                    <Button variant="destructive" size="sm">
+                    <Button variant="destructive" size="sm" className="text-xs">
                         <PlusCircle className="mr-2 h-4 w-4" />
                         Solicitudes Especiales
                     </Button>

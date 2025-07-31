@@ -197,7 +197,7 @@ export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [heroImage, setHeroImage] = useState({
-    src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib-rb-4.1.0&q=80&w=1080",
     hint: "clear sky"
   });
   const [activeFaqCategory, setActiveFaqCategory] = useState<'General' | 'Soporte' | 'Otros'>('General');
@@ -237,7 +237,7 @@ export default function DashboardPage() {
       });
     } else { // Evening/Night (5pm onwards)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOSUdIVHxlbnwwfHx8fDE3NTM5OTY3NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOSUdIVHxlbnwwfHx8fDE3NTM5OTY3NjN8MA&ixlib-rb-4.1.0&q=80&w=1080",
         hint: "night sky"
       });
     }
@@ -282,7 +282,7 @@ export default function DashboardPage() {
                 layout="fill"
                 objectFit="cover"
                 data-ai-hint={heroImage.hint}
-                className="opacity-20"
+                className="opacity-10"
                 priority
             />
             <div className="container mx-auto h-full flex flex-col justify-center items-start text-left p-4 z-10 relative">

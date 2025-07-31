@@ -4,7 +4,6 @@
 import React from "react";
 import { Header } from "@/components/layout/header";
 import { EventsProvider } from "@/contexts/events-context"; // Import the provider
-import { AuthProvider } from "@/contexts/auth-context";
 
 export default function DashboardLayout({
   children,
@@ -12,7 +11,6 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AuthProvider>
       <EventsProvider> {/* Wrap with EventsProvider */}
         <div className="flex flex-col min-h-screen">
           <Header />
@@ -28,6 +26,5 @@ export default function DashboardLayout({
           </footer>
         </div>
       </EventsProvider>
-    </AuthProvider>
   );
 }

@@ -6,13 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { auth } from "@/config/firebase";
 import { Chrome } from "lucide-react";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -26,40 +19,26 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   const handleAuthAction = async (action: "login" | "signup") => {
     setIsLoading(true);
-    try {
-      if (action === "signup") {
-        await createUserWithEmailAndPassword(auth, email, password);
-        toast({ title: "Cuenta creada", description: "¡Bienvenido!" });
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        toast({ title: "Inicio de sesión exitoso", description: "¡Bienvenido de vuelta!" });
-      }
-    } catch (error: any) {
+    // Placeholder for future Google Sheets authentication
+    setTimeout(() => {
       toast({
-        variant: "destructive",
-        title: "Error de autenticación",
-        description: error.message,
+        title: "Función no implementada",
+        description: `La autenticación con ${action === 'login' ? 'inicio de sesión' : 'registro'} se conectará a Google Sheets.`,
       });
-    } finally {
       setIsLoading(false);
-    }
+    }, 1000);
   };
   
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
-    const provider = new GoogleAuthProvider();
-    try {
-        await signInWithPopup(auth, provider);
-        toast({ title: "Inicio de sesión con Google exitoso" });
-    } catch (error: any) {
-        toast({
-            variant: "destructive",
-            title: "Error de autenticación con Google",
-            description: error.message,
-        });
-    } finally {
-        setIsGoogleLoading(false);
-    }
+    // Placeholder for future Google Sheets authentication
+     setTimeout(() => {
+      toast({
+        title: "Función no implementada",
+        description: "La autenticación con Google se conectará a Google Sheets.",
+      });
+      setIsGoogleLoading(false);
+    }, 1000);
   }
 
   return (

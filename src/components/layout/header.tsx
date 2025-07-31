@@ -17,10 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { useAuth } from "@/contexts/auth-context";
 import { UserAuthForm } from "@/components/auth/user-auth-form";
-import { signOut } from "firebase/auth";
-import { auth } from "@/config/firebase";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 
@@ -30,7 +27,7 @@ const navItemsDesktop = [
   { name: "Nosotros", href: "/dashboard/mapa-clientes", icon: Target, activePaths: ["/dashboard/mapa-clientes", "/dashboard/objetivos", "/dashboard/objetivos-smart"] },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays, activePaths: ["/dashboard/calendario"] },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake, activePaths: ["/dashboard/bienestar", "/dashboard/cursos", "/dashboard/actividades"] },
-  { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos"] },
+  { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos", "/dashboard/requerimientos/"] },
   { name: "Biblioteca", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
 ];
 
@@ -38,7 +35,7 @@ const navItemsMobile = [
   ...navItemsDesktop,
   { name: "Recordatorios", href: "#", icon: Bell, isReminders: true, activePaths: [] }, 
   { name: "Buscar", href: "#", icon: Search, isSearch: true, activePaths: [] }, 
-  { name: "Configuración", href: "/dashboard/settings", icon: Settings, activePaths: ["/dashboard/settings"] },
+  { name: "Perfil", href: "#", icon: User, isUser: true, activePaths: [] },
 ];
 
 // Client-side component for countdown to prevent hydration errors
@@ -103,7 +100,6 @@ export function Header() {
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const pathname = usePathname();
-  const { user, loading } = useAuth();
 
 
   useEffect(() => {
@@ -117,7 +113,7 @@ export function Header() {
   }, [allEvents]); 
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
-    if (item.isSearch || item.isReminders) {
+    if (item.isSearch || item.isReminders || item.isUser) {
       // Handled by popover
     } else {
       setIsMobileMenuOpen(false);
@@ -145,22 +141,7 @@ export function Header() {
         {/* Center: Nav Links */}
         <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
-            const isActive = item.activePaths.some(p => pathname.startsWith(p));
-            if (item.href === '/dashboard' && pathname !== '/dashboard') {
-              // Special case for General link to not be active on sub-routes
-              return (
-                 <Link
-                  key={item.name}
-                  href={item.href}
-                  className={cn(
-                    "transition-colors px-3 py-1.5 rounded-full text-xs font-medium",
-                    "text-muted-foreground hover:text-foreground"
-                  )}
-                >
-                  {item.name}
-                </Link>
-              )
-            }
+            const isActive = item.activePaths.some(p => pathname.startsWith(p) && (p !== '/dashboard' || pathname === '/dashboard'));
             return (
               <Link
                 key={item.name}
@@ -268,29 +249,7 @@ export function Header() {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-80">
-              {loading ? (
-                <p>Cargando...</p>
-              ) : user ? (
-                <div className="flex flex-col space-y-4">
-                  <div className="flex items-center space-x-4">
-                    <Avatar>
-                      <AvatarImage src={user.photoURL || undefined} />
-                      <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <p className="text-sm font-medium">{user.displayName || "Usuario"}</p>
-                      <p className="text-xs text-muted-foreground">{user.email}</p>
-                    </div>
-                  </div>
-                  <Separator />
-                  <Button variant="outline" onClick={() => signOut(auth)}>
-                    <LogOut className="mr-2 h-4 w-4" />
-                    Cerrar Sesión
-                  </Button>
-                </div>
-              ) : (
                 <UserAuthForm />
-              )}
             </PopoverContent>
           </Popover>
 

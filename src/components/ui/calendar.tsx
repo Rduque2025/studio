@@ -3,8 +3,9 @@
 
 import * as React from "react"
 import { DayPicker, DayPickerProps } from "react-day-picker" 
-import { format } from "date-fns"
+import { format, isToday } from "date-fns"
 import { es } from "date-fns/locale" 
+import { Check } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -39,14 +40,12 @@ function Calendar({
         
         row: "grid grid-cols-7 w-full gap-px", 
         cell: cn( 
-          "w-full text-sm p-2 relative focus-within:relative focus-within:z-20 bg-muted/20",
-          "min-h-[8rem] h-auto",
-          "has-[[aria-selected=true]]:bg-background has-[[aria-selected=true]]:shadow-md has-[[aria-selected=true]]:rounded-lg"
+          "w-full text-sm p-2 relative focus-within:relative focus-within:z-20 bg-muted/20"
         ),
         day: cn(
           "h-full w-full p-1 text-left align-top font-normal flex flex-col" 
         ),
-        day_selected: "",
+        day_selected: "bg-background shadow-md rounded-lg",
         day_today: "bg-background shadow-inner rounded-lg", 
         day_outside: "day-outside text-muted-foreground/30 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
@@ -61,10 +60,11 @@ function Calendar({
           <div className="flex flex-col h-full w-full">
             <div className="flex items-start justify-between"> 
               <div className={cn(
-                  "text-2xl font-bold",
+                  "text-2xl font-bold flex items-center gap-1",
                    activeModifiers.outside && "text-muted-foreground/30"
                 )}>
                 {format(cellDate, "dd")}
+                {isToday(cellDate) && <Check className="h-4 w-4 text-green-600" />}
               </div>
             </div>
             {renderDayContent ? renderDayContent(cellDate) : null}

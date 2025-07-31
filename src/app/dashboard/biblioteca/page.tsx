@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -419,7 +418,7 @@ export default function BibliotecaPage() {
                                                 )}>
                                                     <Icon className={cn("h-5 w-5", isSelected ? "text-primary-foreground" : "text-primary")} />
                                                 </div>
-                                                <h3 className="text-base font-semibold pr-10 mb-4">{doc.title}</h3>
+                                                <h3 className="text-sm font-semibold pr-10 mb-4">{doc.title}</h3>
                                                 
                                                 <div className="flex-grow" />
                                                 

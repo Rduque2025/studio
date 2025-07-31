@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Bell, Clock, Target, Music } from "lucide-react"; 
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Bell, Clock, Target, Music, User, LogOut } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React, { useEffect, useState } from "react";
@@ -17,6 +17,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
+import { UserAuthForm } from "@/components/auth/user-auth-form";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 
 const navItemsDesktop = [
@@ -97,6 +103,7 @@ export function Header() {
   const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const pathname = usePathname();
+  const { user, loading } = useAuth();
 
 
   useEffect(() => {
@@ -138,10 +145,22 @@ export function Header() {
         {/* Center: Nav Links */}
         <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
-            const isActive = item.href === '/dashboard' 
-              ? pathname === item.href 
-              : item.activePaths.some(p => pathname.startsWith(p));
-
+            const isActive = item.activePaths.some(p => pathname.startsWith(p));
+            if (item.href === '/dashboard' && pathname !== '/dashboard') {
+              // Special case for General link to not be active on sub-routes
+              return (
+                 <Link
+                  key={item.name}
+                  href={item.href}
+                  className={cn(
+                    "transition-colors px-3 py-1.5 rounded-full text-xs font-medium",
+                    "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {item.name}
+                </Link>
+              )
+            }
             return (
               <Link
                 key={item.name}
@@ -240,20 +259,41 @@ export function Header() {
               </div>
             </PopoverContent>
           </Popover>
+          
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+                <span className="sr-only">Perfil de Usuario</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              {loading ? (
+                <p>Cargando...</p>
+              ) : user ? (
+                <div className="flex flex-col space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <Avatar>
+                      <AvatarImage src={user.photoURL || undefined} />
+                      <AvatarFallback>{user.email?.[0].toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="text-sm font-medium">{user.displayName || "Usuario"}</p>
+                      <p className="text-xs text-muted-foreground">{user.email}</p>
+                    </div>
+                  </div>
+                  <Separator />
+                  <Button variant="outline" onClick={() => signOut(auth)}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Cerrar Sesión
+                  </Button>
+                </div>
+              ) : (
+                <UserAuthForm />
+              )}
+            </PopoverContent>
+          </Popover>
 
-          <Link href="/dashboard/settings" legacyBehavior passHref>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              asChild
-              className={cn(pathname === "/dashboard/settings" && "bg-accent text-accent-foreground")}
-            >
-              <a> 
-                <Settings className="h-5 w-5" />
-                <span className="sr-only">Configuración</span>
-              </a>
-            </Button>
-          </Link>
         </div>
       </nav>
 

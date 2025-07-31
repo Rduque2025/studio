@@ -131,8 +131,8 @@ export function Header() {
             <Image
               src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
               alt="Banesco Seguros Logo"
-              width={40}
-              height={40}
+              width={32}
+              height={32}
               priority
             />
           </Link>

@@ -184,7 +184,7 @@ export default function BibliotecaPage() {
 
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
+            <div className="flex min-h-[calc(100vh-6rem)]">
                 {/* Left Sidebar - Categories */}
                 <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
                     <nav className="flex flex-col space-y-1">

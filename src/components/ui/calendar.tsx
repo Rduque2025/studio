@@ -40,7 +40,7 @@ function Calendar({
         
         row: "grid grid-cols-7 w-full gap-px", 
         cell: cn( 
-          "w-full text-sm p-2 relative focus-within:relative focus-within:z-20 bg-muted/20"
+          "w-full text-sm p-4 relative focus-within:relative focus-within:z-20 bg-muted/20"
         ),
         day: cn(
           "h-full w-full p-1 text-left align-top font-normal flex flex-col" 

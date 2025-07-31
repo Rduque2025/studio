@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil } from 'lucide-react';
+import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -353,52 +353,47 @@ export default function CalendarioPage() {
             </div>
 
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-                <DialogContent className="sm:max-w-md">
-                    <DialogHeader>
-                        <DialogTitle>Añadir Evento</DialogTitle>
-                        <DialogDescription>
-                            Organiza tu día. Añade un nuevo evento para el{' '}
+                <DialogContent className="sm:max-w-md p-0">
+                    <div className="p-6 space-y-4">
+                        <DialogDescription className="text-center text-sm">
+                            Añadir evento para el{' '}
                             <span className="font-semibold text-foreground">
                                 {selectedDay ? format(selectedDay, 'd \'de\' MMMM', { locale: es }) : 'día seleccionado'}
                             </span>.
                         </DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-4 py-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="event-title">Título del Evento</Label>
-                            <Input
-                                id="event-title"
-                                value={newEventTitle}
-                                onChange={(e) => setNewEventTitle(e.target.value)}
-                                placeholder="Ej: Reunión de equipo"
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="event-description">Descripción (Opcional)</Label>
-                            <Textarea
-                                id="event-description"
-                                value={newEventDescription}
-                                onChange={(e) => setNewEventDescription(e.target.value)}
-                                placeholder="Ej: Discutir avances del proyecto Q3"
-                                rows={3}
-                            />
-                        </div>
-                        <div className="space-y-2">
-                            <Label htmlFor="event-time">Hora (Opcional)</Label>
-                             <div className="relative">
+                        <div className="space-y-3">
+                            <div className="relative">
+                                <Pencil className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                <Input
+                                    value={newEventTitle}
+                                    onChange={(e) => setNewEventTitle(e.target.value)}
+                                    placeholder="Añadir Título"
+                                    className="pl-9"
+                                />
+                            </div>
+                            <div className="relative">
                                 <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                                 <Input
-                                    id="event-time"
                                     type="time"
                                     value={newEventTime}
                                     onChange={(e) => setNewEventTime(e.target.value)}
-                                    className="pl-10"
+                                    className="pl-9"
+                                />
+                            </div>
+                            <div className="relative">
+                                <Info className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                                <Textarea
+                                    value={newEventDescription}
+                                    onChange={(e) => setNewEventDescription(e.target.value)}
+                                    placeholder="Descripción (Opcional)"
+                                    className="pl-9"
+                                    rows={3}
                                 />
                             </div>
                         </div>
                     </div>
-                    <DialogFooter>
-                        <Button type="button" variant="outline" onClick={() => setIsAddEventDialogOpen(false)}>
+                    <DialogFooter className="bg-muted/50 p-4 flex sm:justify-between">
+                        <Button type="button" variant="ghost" onClick={() => setIsAddEventDialogOpen(false)}>
                             Cancelar
                         </Button>
                         <Button type="submit" onClick={handleSaveNewEvent}>

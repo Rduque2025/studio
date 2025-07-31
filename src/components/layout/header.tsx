@@ -115,7 +115,7 @@ export function Header() {
         </div>
 
         {/* Right side: Action Icons */}
-        <div className="flex items-center justify-end space-x-1">
+        <div className="flex items-center justify-self-end space-x-1">
           <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
             <PopoverTrigger asChild>
               <Button variant="ghost" size="icon" className="group hover:bg-transparent">

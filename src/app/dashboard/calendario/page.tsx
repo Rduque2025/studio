@@ -14,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from '@/components/ui/badge';
 
 
 const monthsOfYear = Array.from({ length: 12 }, (_, i) => ({
@@ -186,17 +187,28 @@ export default function CalendarioPage() {
           return 0;
       });
   
-    if (eventsOnDay.length === 0) {
-      return null;
-    }
+    const isSelected = selectedDay && format(selectedDay, 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd');
 
     return (
-      <div className="flex-grow space-y-1 text-xs leading-tight mt-2">
-        {eventsOnDay.map(event => (
-          <p key={event.id} className="truncate" title={event.title}>
-            {event.title}
-          </p>
-        ))}
+      <div className="flex flex-col h-full w-full">
+        <div className="flex items-start justify-between">
+          <div className={cn(
+              "text-2xl font-bold flex items-center gap-1",
+              format(dayCellDate, 'yyyy-MM') !== format(month, 'yyyy-MM') && "text-muted-foreground/30",
+              isSelected && "text-primary-foreground"
+            )}>
+            {format(dayCellDate, "dd")}
+            {isToday(dayCellDate) && !isSelected && <Badge variant="secondary" className="text-xs">HOY</Badge>}
+            {isSelected && <Check className="h-4 w-4 text-primary-foreground" />}
+          </div>
+        </div>
+        <div className="flex-grow space-y-1 text-xs leading-tight mt-2">
+          {eventsOnDay.map(event => (
+            <p key={event.id} className={cn("truncate", isSelected && "text-primary-foreground/90")} title={event.title}>
+              {event.title}
+            </p>
+          ))}
+        </div>
       </div>
     );
   };

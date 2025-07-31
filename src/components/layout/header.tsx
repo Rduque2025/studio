@@ -60,10 +60,11 @@ export function Header() {
   const pathname = usePathname();
 
   const checkIsActive = (item: { href: string, activePaths: string[] }) => {
-    if (item.href === '/dashboard') {
-        return pathname === '/dashboard';
+    if (item.href === '/dashboard' && pathname === '/dashboard') {
+      return true;
     }
-    return item.activePaths.some(p => pathname.startsWith(p));
+    // Check if the current pathname starts with any of the active paths, but isn't just the root dashboard path
+    return item.href !== '/dashboard' && item.activePaths.some(p => pathname.startsWith(p));
   };
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
@@ -158,22 +159,22 @@ export function Header() {
               <ScrollArea className="h-96">
                 <div className="p-4 space-y-2">
                   {mockNotifications.map((notification, index) => (
-                    <div key={notification.id} className="relative flex gap-4 items-start timeline-item">
+                    <div key={notification.id} className="relative flex gap-3 items-start timeline-item">
                       {/* Timeline line */}
                       <div className="timeline-line"></div>
 
                       {/* Icon */}
-                      <div className={cn("mt-1 flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center z-10", notification.iconColor)}>
-                        <notification.icon className="h-5 w-5" />
+                      <div className={cn("mt-1 flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center z-10", notification.iconColor)}>
+                        <notification.icon className="h-4 w-4" />
                       </div>
 
                       {/* Content */}
                       <div className="flex-grow">
                         <div className="flex justify-between items-center">
-                          <p className="font-medium text-sm">{notification.title}</p>
-                          <p className="text-xs text-muted-foreground">{notification.time}</p>
+                          <p className="font-medium text-xs">{notification.title}</p>
+                          <p className="text-[10px] text-muted-foreground">{notification.time}</p>
                         </div>
-                        <p className="text-sm text-muted-foreground">{notification.description}</p>
+                        <p className="text-xs text-muted-foreground">{notification.description}</p>
                       </div>
                     </div>
                   ))}

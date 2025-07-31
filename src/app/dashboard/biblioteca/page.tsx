@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -30,7 +29,8 @@ import {
   MessageSquare,
   CheckCircle,
   Check,
-  Music
+  Music,
+  LayoutGrid
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
@@ -43,7 +43,10 @@ import { Textarea } from '@/components/ui/textarea';
 import Image from 'next/image';
 import { Music2 } from 'lucide-react';
 
-const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
+type CategoryFilter = DocumentResource['category'] | 'ALL';
+
+const categories: { id: CategoryFilter, label: string, icon: LucideIcon }[] = [
+    { id: "ALL", label: "Todos", icon: LayoutGrid },
     { id: "Destacados", label: "Destacados", icon: Star },
     { id: "Recursos Visuales", label: "Recursos Visuales", icon: ImageIcon },
     { id: "Herramientas", label: "Herramientas", icon: Code },
@@ -84,7 +87,7 @@ const requestSteps = [
 ];
 
 export default function BibliotecaPage() {
-    const [activeCategory, setActiveCategory] = useState<DocumentResource['category']>('Destacados');
+    const [activeCategory, setActiveCategory] = useState<CategoryFilter>('ALL');
     const [activeArea, setActiveArea] = useState('ALL');
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearchExpanded, setIsSearchExpanded] = useState(false);
@@ -110,10 +113,10 @@ export default function BibliotecaPage() {
     const filteredDocuments = useMemo(() => {
         let documents = mockDocuments;
 
-        if (activeCategory !== 'Destacados') {
-            documents = documents.filter(doc => doc.category === activeCategory);
-        } else {
+        if (activeCategory === 'Destacados') {
              documents = documents.filter(doc => doc.isFeatured);
+        } else if (activeCategory !== 'ALL') {
+            documents = documents.filter(doc => doc.category === activeCategory);
         }
 
         if (activeArea !== 'ALL') {
@@ -321,8 +324,9 @@ export default function BibliotecaPage() {
                                                                      {index < requestSteps.length - 1 && (
                                                                         <div
                                                                             className={cn(
-                                                                                "absolute left-[15px] top-[32px] w-0.5 h-full transition-colors -z-10",
-                                                                                isCompleted ? "bg-primary" : "bg-border"
+                                                                                "absolute left-[15px] top-[32px] w-0.5 h-full transition-colors",
+                                                                                isCompleted ? "bg-primary" : "bg-border",
+                                                                                "z-[-10]"
                                                                             )}
                                                                         />
                                                                     )}

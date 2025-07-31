@@ -27,7 +27,7 @@ const navItemsDesktop = [
   { name: "Nosotros", href: "/dashboard/mapa-clientes", icon: Target, activePaths: ["/dashboard/mapa-clientes", "/dashboard/objetivos", "/dashboard/objetivos-smart"] },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays, activePaths: ["/dashboard/calendario"] },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake, activePaths: ["/dashboard/bienestar", "/dashboard/cursos", "/dashboard/actividades"] },
-  { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos", "/dashboard/requerimientos/"] },
+  { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos"] },
   { name: "Biblioteca", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
 ];
 
@@ -101,6 +101,14 @@ export function Header() {
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const pathname = usePathname();
 
+  const checkIsActive = (item: { activePaths: string[] }) => {
+    if (item.activePaths.includes(pathname)) {
+        return true;
+    }
+    // Check for parent paths
+    return item.activePaths.some(p => pathname.startsWith(p + '/') && p !== '/dashboard');
+  };
+
 
   useEffect(() => {
     const filtered = allEvents.filter(event => isToday(event.date));
@@ -141,7 +149,7 @@ export function Header() {
         {/* Center: Nav Links */}
         <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
-            const isActive = item.activePaths.some(p => pathname.startsWith(p) && (p !== '/dashboard' || pathname === '/dashboard'));
+            const isActive = checkIsActive(item);
             return (
               <Link
                 key={item.name}
@@ -280,9 +288,7 @@ export function Header() {
           <SheetContent side="left" className="w-[300px] sm:w-[400px]">
             <nav className="flex flex-col space-y-4 mt-8">
               {navItemsMobile.map((item) => {
-                 const isActive = item.href === '/dashboard' 
-                    ? pathname === item.href 
-                    : item.activePaths.some(p => pathname.startsWith(p));
+                 const isActive = checkIsActive(item);
                 return (
                   <Link
                     key={item.name}

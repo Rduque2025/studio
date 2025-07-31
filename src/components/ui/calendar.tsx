@@ -58,24 +58,25 @@ function Calendar({
       }}
       components={{
         DayContent: ({ date: cellDate, activeModifiers }) => (
-          <>
+          <div className="relative h-full w-full">
             {renderDayContent ? renderDayContent(cellDate) : <div />}
              {onAddEventTrigger && !activeModifiers.outside && (
-              <button
+              <div
+                role="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   onAddEventTrigger(cellDate);
                 }}
                 className={cn(
-                  "absolute top-3 right-3 h-6 w-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity",
+                  "absolute top-0 right-0 h-6 w-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity",
                    activeModifiers.selected ? "bg-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/30" : "bg-primary/10 text-primary hover:bg-primary/20"
                 )}
                 aria-label={`Añadir evento a ${format(cellDate, "PPP", { locale })}`}
               >
                 <PlusCircle className="h-4 w-4" />
-              </button>
+              </div>
             )}
-          </>
+          </div>
         ),
       }}
       {...props}

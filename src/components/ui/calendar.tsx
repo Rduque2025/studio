@@ -17,7 +17,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
 }
 
 function CustomCaption(props: CaptionProps) {
-  const { goToMonth, nextMonth, previousMonth, displayMonth } = useDayPicker();
+  const { goToMonth, nextMonth, previousMonth } = useDayPicker();
 
   return (
     <div className="flex justify-between items-center mb-4 px-1">
@@ -164,5 +164,3 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
-
-

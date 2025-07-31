@@ -154,9 +154,7 @@ export default function BibliotecaPage() {
 
     const handleFormalRequest = () => {
         if (selectedRequestArea) {
-            const subject = `Solicitud Formal de Recurso para ${selectedRequestArea.name}`;
-            const body = `Estimado equipo de ${selectedRequestArea.name},\n\nEscribo para solicitar formalmente el siguiente recurso:\n\n[Describa detalladamente el recurso que necesita]\n\nGracias de antemano por su colaboración.\n\nSaludos cordiales,`;
-            window.location.href = `mailto:${selectedRequestArea.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = `mailto:${selectedRequestArea.email}`;
         }
     };
 
@@ -523,5 +521,3 @@ export default function BibliotecaPage() {
 
     
 }
-
-    

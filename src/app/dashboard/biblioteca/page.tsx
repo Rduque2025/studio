@@ -67,7 +67,7 @@ const areas = [
     { id: "Capital Humano", label: "Capital Humano" },
     { id: "Procesos", label: "Procesos" },
     { id: "Actuarial", label: "Actuarial" },
-    { id: "Bienestar", label: "Bienestar" },
+    { id: "Tecnologia", label: "Tecnología" },
 ];
 
 const specialRequestAreas = [
@@ -680,3 +680,5 @@ export default function BibliotecaPage() {
 
     
 }
+
+    

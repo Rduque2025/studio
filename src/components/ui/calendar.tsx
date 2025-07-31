@@ -3,7 +3,7 @@
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react" 
-import { DayPicker, CaptionProps } from "react-day-picker" 
+import { DayPicker, CaptionProps, useDayPicker } from "react-day-picker" 
 import { format } from "date-fns"
 import { es } from "date-fns/locale" 
 
@@ -17,11 +17,12 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
 }
 
 function CustomCaption(props: CaptionProps) {
-  const { displayMonth, goToMonth, previousMonth, nextMonth } = props;
+  const { goToMonth, nextMonth, previousMonth, displayMonth } = useDayPicker();
+
   return (
     <div className="flex justify-between items-center mb-4 px-1">
       <h2 className="text-2xl font-bold text-foreground">
-        {format(displayMonth, "MMMM yyyy", { locale: es })}.
+        {format(props.displayMonth, "MMMM yyyy", { locale: es })}.
       </h2>
       <div className="space-x-1 flex items-center">
         <button
@@ -163,4 +164,5 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+
 

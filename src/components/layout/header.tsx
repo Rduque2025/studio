@@ -128,12 +128,12 @@ export function Header() {
                 <span className="sr-only">Buscar</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-96 p-0 border-0 bg-transparent shadow-none" align="center">
+            <PopoverContent className="w-80 p-0 border-0 bg-transparent shadow-none" align="end" sideOffset={8}>
               <div className="relative flex w-full items-center rounded-full bg-card shadow-lg">
                 <Input
                   type="search"
                   placeholder="Buscar..."
-                  className="h-12 w-full rounded-full border-0 bg-transparent pl-6 pr-14 text-base focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="h-12 w-full rounded-full border-0 bg-transparent pl-6 pr-14 text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
                 />
                 <Button
                   type="submit"

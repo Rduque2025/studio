@@ -84,17 +84,21 @@ export default function BibliotecaPage() {
     }, [activeCategory, activeArea, searchTerm]);
     
     const handleSendClick = () => {
-        if (selectedDocIds.length === 1) {
+        if (selectedDocIds.length > 0) {
             setIsSendDialogOpen(true);
         }
     };
     
     const handleSendEmail = () => {
-        if (selectedDocIds.length === 1 && recipientEmail) {
-            const selectedDoc = mockDocuments.find(doc => doc.id === selectedDocIds[0]);
-            if (selectedDoc) {
-                const subject = `Enlace al documento: ${selectedDoc.title}`;
-                const body = `Hola,\n\nAquí tienes el enlace para ver el documento "${selectedDoc.title}":\n\nhttps://portal.banesco.com/biblioteca/${selectedDoc.id}\n\nSaludos.`;
+        if (selectedDocIds.length > 0 && recipientEmail) {
+            const selectedDocs = mockDocuments.filter(doc => selectedDocIds.includes(doc.id));
+            if (selectedDocs.length > 0) {
+                const subject = selectedDocs.length > 1 
+                    ? `Enlaces a ${selectedDocs.length} documentos`
+                    : `Enlace al documento: ${selectedDocs[0].title}`;
+                
+                const body = `Hola,\n\nAquí tienes el/los enlace(s) para ver el/los documento(s) solicitado(s):\n\n${selectedDocs.map(doc => `* "${doc.title}":\n  https://portal.banesco.com/biblioteca/${doc.id}`).join('\n\n')}\n\nSaludos.`;
+                
                 window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                 
                 setIsSendDialogOpen(false);
@@ -103,7 +107,7 @@ export default function BibliotecaPage() {
                 
                 toast({
                     title: "Correo listo para enviar",
-                    description: `Se ha abierto tu cliente de correo para enviar "${selectedDoc.title}".`,
+                    description: `Se ha abierto tu cliente de correo para enviar ${selectedDocs.length > 1 ? `${selectedDocs.length} documentos` : `"${selectedDocs[0].title}"`}.`,
                 });
             }
         }
@@ -118,6 +122,11 @@ export default function BibliotecaPage() {
             }
         });
     };
+
+    const selectedDocsForDialog = useMemo(() => 
+        mockDocuments.filter(doc => selectedDocIds.includes(doc.id)), 
+        [selectedDocIds]
+    );
 
 
     return (
@@ -200,9 +209,10 @@ export default function BibliotecaPage() {
                             <Button
                                 variant="ghost"
                                 onClick={handleSendClick}
-                                disabled={selectedDocIds.length !== 1}
+                                disabled={selectedDocIds.length === 0}
                                 className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-start disabled:opacity-50",
+                                    "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                    "disabled:opacity-50",
                                     isSendButtonExpanded ? "w-28" : "w-10 px-0"
                                 )}
                             >
@@ -224,7 +234,8 @@ export default function BibliotecaPage() {
                                 variant="ghost"
                                 disabled={selectedDocIds.length === 0}
                                 className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-start disabled:opacity-50",
+                                    "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                    "disabled:opacity-50",
                                     isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
                                 )}
                             >
@@ -300,9 +311,15 @@ export default function BibliotecaPage() {
             <Dialog open={isSendDialogOpen} onOpenChange={setIsSendDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Enviar Documento por Correo</DialogTitle>
+                        <DialogTitle>Enviar Documento(s) por Correo</DialogTitle>
                         <DialogDescription>
-                           Se enviará un enlace al documento <span className="font-semibold">{selectedDocIds.length === 1 && mockDocuments.find(d => d.id === selectedDocIds[0])?.title}</span>. Por favor, introduzca el correo del destinatario.
+                           Se enviará(n) enlace(s) al/los siguiente(s) documento(s):{' '}
+                           {selectedDocsForDialog.map((doc, index) => (
+                                <span key={doc.id} className="font-semibold">
+                                    "{doc.title}"{index < selectedDocsForDialog.length - 1 ? ', ' : ''}
+                                </span>
+                            ))}.
+                           Por favor, introduzca el correo del destinatario.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">

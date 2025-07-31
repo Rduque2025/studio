@@ -4,15 +4,16 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
-import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration } from 'date-fns';
+import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 import { PlusCircle, Trash2 } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useEvents, type CalendarEvent } from '@/contexts/events-context'; 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Define colors for categories to be used as capsules in day cells
 const EVENT_ITEM_STYLES = {
@@ -79,6 +80,11 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 
   return EVENT_ITEM_STYLES.DEFAULT;
 }
+
+const monthsOfYear = Array.from({ length: 12 }, (_, i) => ({
+  value: i,
+  label: format(new Date(2025, i, 1), 'MMMM', { locale: es }),
+}));
 
 
 export default function CalendarioPage() {
@@ -341,6 +347,29 @@ export default function CalendarioPage() {
     <div className="container mx-auto py-8 px-4">
         <div className="flex flex-col items-center w-full">
             <div className="w-full"> 
+                <div className="flex justify-between items-center mb-4 px-1">
+                    <h2 className="text-2xl font-bold text-foreground">
+                        {format(month, "MMMM yyyy", { locale: es })}
+                    </h2>
+                    <Select
+                        value={getMonth(month).toString()}
+                        onValueChange={(value) => {
+                            const newMonth = setMonthDateFns(month, parseInt(value, 10));
+                            setMonth(newMonth);
+                        }}
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Seleccionar mes" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {monthsOfYear.map(m => (
+                                <SelectItem key={m.value} value={m.value.toString()}>
+                                    {m.label}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
                 <Calendar
                   mode="single"
                   selected={selectedDay}

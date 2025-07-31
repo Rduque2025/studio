@@ -2,57 +2,17 @@
 "use client"
 
 import * as React from "react"
-import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react" 
-import { DayPicker, CaptionProps, useDayPicker, DayPickerProps } from "react-day-picker" 
+import { PlusCircle } from "lucide-react" 
+import { DayPicker, DayPickerProps } from "react-day-picker" 
 import { format } from "date-fns"
 import { es } from "date-fns/locale" 
 
 import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
 
 export type CalendarProps = DayPickerProps & {
   renderDayContent?: (date: Date) => React.ReactNode;
   onAddEventTrigger?: (date: Date) => void;
 }
-
-function CustomCaption(props: CaptionProps) {
-  const { goToMonth, nextMonth, previousMonth } = useDayPicker();
-
-  return (
-    <div className="flex justify-between items-center mb-4 px-1">
-      <h2 className="text-2xl font-bold text-foreground">
-        {format(props.displayMonth, "MMMM yyyy", { locale: es })}.
-      </h2>
-      <div className="space-x-1 flex items-center">
-        <button
-          type="button"
-          onClick={() => previousMonth && goToMonth(previousMonth)}
-          disabled={!previousMonth}
-          className={cn(
-            buttonVariants({ variant: "outline", size: "icon" }),
-            "h-7 w-7"
-          )}
-          aria-label="Mes anterior"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <button
-          type="button"
-          onClick={() => nextMonth && goToMonth(nextMonth)}
-          disabled={!nextMonth}
-           className={cn(
-            buttonVariants({ variant: "outline", size: "icon" }),
-            "h-7 w-7"
-          )}
-          aria-label="Mes siguiente"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
-    </div>
-  );
-}
-
 
 function Calendar({
   className,
@@ -72,17 +32,7 @@ function Calendar({
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 w-full",
         month: "space-y-3 w-full", 
         
-        caption: "flex justify-center pt-1 relative items-center", 
-        caption_label: "text-lg font-medium text-foreground", 
-        caption_dropdowns: "flex gap-1", 
-
-        nav: "space-x-1 flex items-center", 
-        nav_button: cn( 
-          buttonVariants({ variant: "outline" }),
-          "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
-        ),
-        nav_button_previous: "absolute left-1", 
-        nav_button_next: "absolute right-1",   
+        caption: "hidden", // Hide the default caption
         
         table: "w-full border-collapse space-y-1",
         head_row: "flex mb-1", 
@@ -112,7 +62,6 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        Caption: CustomCaption,
         DayContent: ({ date: cellDate, activeModifiers }) => (
           <div className={cn("flex flex-col h-full w-full", activeModifiers.selected && "text-foreground")}>
             <div className="flex items-start justify-between space-x-1 mb-1"> 
@@ -148,12 +97,6 @@ function Calendar({
             </div>
             {renderDayContent ? renderDayContent(cellDate) : null}
           </div>
-        ),
-        IconLeft: ({ ...rest }) => ( 
-          <ChevronLeft className={cn("h-4 w-4")} {...rest} />
-        ),
-        IconRight: ({ ...rest }) => ( 
-          <ChevronRight className={cn("h-4 w-4")} {...rest} />
         ),
       }}
       {...props}

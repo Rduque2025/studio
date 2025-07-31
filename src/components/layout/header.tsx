@@ -142,7 +142,7 @@ export function Header() {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-96 p-0" align="end">
-              <div className="p-4">
+              <div className="p-4 pr-6">
                 <div className="flex justify-between items-center">
                   <div>
                     <h4 className="font-semibold text-sm">Notificaciones</h4>
@@ -157,7 +157,7 @@ export function Header() {
               <div className="w-full border-b border-dashed border-border"></div>
               
               <ScrollArea className="h-96">
-                <div className="p-4 space-y-2">
+                <div className="p-4 pr-6 space-y-2">
                   {mockNotifications.map((notification, index) => (
                     <div key={notification.id} className="relative flex gap-3 items-start timeline-item">
                       {/* Timeline line */}

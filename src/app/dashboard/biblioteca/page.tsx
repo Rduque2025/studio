@@ -183,309 +183,311 @@ export default function BibliotecaPage() {
 
 
     return (
-        <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
-            {/* Left Sidebar - Categories */}
-            <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
-                <nav className="flex flex-col space-y-1">
-                    {categories.map(cat => {
-                        const Icon = cat.icon;
-                        const isActive = activeCategory === cat.id;
-                        return (
-                            <button
-                                key={cat.id}
-                                onClick={() => setActiveCategory(cat.id)}
-                                className={cn(
-                                    "flex items-center justify-between w-full p-3 rounded-lg text-left transition-colors relative",
-                                    "hover:bg-muted"
-                                )}
-                            >
-                                <div className="flex items-center gap-3">
-                                    <div className={cn(
-                                        "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-                                        isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                                    )}>
-                                        <Icon className="h-5 w-5 flex-shrink-0" />
-                                    </div>
-                                    <span className={cn(
-                                        "font-medium text-xs",
-                                        isActive ? "text-primary font-semibold" : "text-muted-foreground"
-                                    )}>{cat.label}</span>
-                                </div>
-                                {isActive && <div className="absolute right-0 h-5 w-1 bg-primary rounded-full" />}
-                            </button>
-                        )
-                    })}
-                </nav>
-            </aside>
-            <Separator orientation="vertical" className="h-auto hidden md:block" />
-            {/* Main Content */}
-            <main className="flex-1 p-8 flex flex-col">
-                <div className="py-4">
-                    <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
-                        {areas.map(area => (
-                            <Button
-                                key={area.id}
-                                variant={activeArea === area.id ? "secondary" : "ghost"}
-                                size="sm"
-                                className="rounded-full flex-shrink-0"
-                                onClick={() => setActiveArea(area.id)}
-                            >
-                                <span className="text-xs">{area.label}</span>
-                            </Button>
-                        ))}
-                    </div>
-                </div>
-
-                <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-4">
-                             <div 
-                                className="relative flex items-center"
-                                onMouseEnter={() => setIsSearchExpanded(true)}
-                                onMouseLeave={() => setIsSearchExpanded(false)}
-                            >
-                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
-                                <Input 
-                                    placeholder="Buscar..." 
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex min-h-[calc(100vh-6rem)] bg-muted/50">
+                {/* Left Sidebar - Categories */}
+                <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
+                    <nav className="flex flex-col space-y-1">
+                        {categories.map(cat => {
+                            const Icon = cat.icon;
+                            const isActive = activeCategory === cat.id;
+                            return (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => setActiveCategory(cat.id)}
                                     className={cn(
-                                        "pl-9 transition-all duration-300 ease-in-out",
-                                        isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
-                                    )}
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <div
-                                className="relative flex items-center"
-                                onMouseEnter={() => setIsSendButtonExpanded(true)}
-                                onMouseLeave={() => setIsSendButtonExpanded(false)}
-                            >
-                                <Button
-                                    variant="ghost"
-                                    onClick={handleSendClick}
-                                    disabled={selectedDocIds.length === 0}
-                                    className={cn(
-                                        "transition-all duration-300 ease-in-out flex items-center justify-start",
-                                        "disabled:opacity-50",
-                                        isSendButtonExpanded ? "w-28" : "w-10 px-0"
+                                        "flex items-center justify-between w-full p-3 rounded-lg text-left transition-colors relative",
+                                        "hover:bg-muted"
                                     )}
                                 >
-                                    <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
-                                    <span className={cn(
-                                        "text-xs transition-opacity duration-200",
-                                        isSendButtonExpanded ? "opacity-100" : "opacity-0"
-                                    )}>
-                                        Enviar
-                                    </span>
-                                </Button>
-                            </div>
-                            <div
-                                className="relative flex items-center"
-                                onMouseEnter={() => setIsDownloadButtonExpanded(true)}
-                                onMouseLeave={() => setIsDownloadButtonExpanded(false)}
-                            >
-                                <Button
-                                    variant="ghost"
-                                    disabled={selectedDocIds.length === 0}
-                                    className={cn(
-                                        "transition-all duration-300 ease-in-out flex items-center justify-start",
-                                        "disabled:opacity-50",
-                                        isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
-                                    )}
-                                >
-                                    <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
-                                    <span className={cn(
-                                        "text-xs transition-opacity duration-200",
-                                        isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
-                                    )}>
-                                        Descargar
-                                    </span>
-                                </Button>
-                            </div>
-                        </div>
-                        
-                        <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
-                            <DialogTrigger asChild>
-                                <Button variant="destructive">
-                                    <Plus className="h-4 w-4 mr-2" />
-                                    Solicitudes Especiales
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
-                                    <DialogTitle>Solicitud Especial de Recurso</DialogTitle>
-                                    <DialogDescription>
-                                        Si no encuentras lo que buscas, puedes realizar una solicitud al área correspondiente.
-                                    </DialogDescription>
-                                </DialogHeader>
-                                <div className="py-4 space-y-4">
-                                    <div className="space-y-2">
-                                        <Label>Área a la que solicita</Label>
-                                        <Select onValueChange={(value) => { setSelectedRequestArea(value); setRequestType(null); }}>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Seleccione un área" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {specialRequestAreas.map(area => (
-                                                    <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-
-                                    {selectedRequestArea && (
-                                        <div className="pt-4 space-y-4">
-                                            <p className="text-sm font-medium">Elija el tipo de solicitud:</p>
-                                            <div className="grid grid-cols-2 gap-4">
-                                                <Button variant="outline" onClick={() => {setRequestType('formal'); handleFormalRequest();}}>
-                                                    <ExternalLink className="mr-2 h-4 w-4" />
-                                                    Solicitud Formal
-                                                </Button>
-                                                <Button onClick={() => setRequestType('simple')}>
-                                                    <Send className="mr-2 h-4 w-4" />
-                                                    Solicitud Simple
-                                                </Button>
-                                            </div>
+                                    <div className="flex items-center gap-3">
+                                        <div className={cn(
+                                            "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+                                            isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                                        )}>
+                                            <Icon className="h-5 w-5 flex-shrink-0" />
                                         </div>
-                                    )}
-
-                                    {requestType === 'simple' && (
-                                        <form onSubmit={handleSimpleRequestSubmit} className="pt-4 border-t mt-4 space-y-4">
-                                            <div className="space-y-2">
-                                                <Label htmlFor="fullName">Nombre y Apellido</Label>
-                                                <Input id="fullName" placeholder="Ej: Ana Pérez" required />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="position">Cargo</Label>
-                                                <Input id="position" placeholder="Ej: Analista de Suscripción" required />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="requestType">Tipo de Solicitud</Label>
-                                                <Select required>
-                                                    <SelectTrigger id="requestType">
-                                                        <SelectValue placeholder="Seleccione un tipo" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="Documento">Documento</SelectItem>
-                                                        <SelectItem value="Manual">Manual</SelectItem>
-                                                        <SelectItem value="Presentacion">Presentación</SelectItem>
-                                                        <SelectItem value="Recurso Visual">Recurso Visual</SelectItem>
-                                                        <SelectItem value="Video">Video</SelectItem>
-                                                        <SelectItem value="Otro">Otro</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                             <div className="space-y-2">
-                                                <Label htmlFor="reason">Razón de Solicitud</Label>
-                                                <Textarea id="reason" placeholder="Describa brevemente por qué necesita este recurso" required />
-                                            </div>
-                                            <div className="space-y-2">
-                                                <Label htmlFor="details">Solicitud</Label>
-                                                <Textarea id="details" placeholder="Describa detalladamente el recurso que necesita" required />
-                                            </div>
-                                            <DialogFooter className="pt-4">
-                                                <Button type="submit">Enviar Solicitud Simple</Button>
-                                            </DialogFooter>
-                                        </form>
-                                    )}
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                                        <span className={cn(
+                                            "font-medium text-xs",
+                                            isActive ? "text-primary font-semibold" : "text-muted-foreground"
+                                        )}>{cat.label}</span>
+                                    </div>
+                                    {isActive && <div className="absolute right-0 h-5 w-1 bg-primary rounded-full" />}
+                                </button>
+                            )
+                        })}
+                    </nav>
+                </aside>
+                <Separator orientation="vertical" className="h-auto hidden md:block" />
+                {/* Main Content */}
+                <main className="flex-1 p-8 flex flex-col">
+                    <div className="py-4">
+                        <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
+                            {areas.map(area => (
+                                <Button
+                                    key={area.id}
+                                    variant={activeArea === area.id ? "secondary" : "ghost"}
+                                    size="sm"
+                                    className="rounded-full flex-shrink-0"
+                                    onClick={() => setActiveArea(area.id)}
+                                >
+                                    <span className="text-xs">{area.label}</span>
+                                </Button>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="flex-grow overflow-auto -mx-2 px-2 py-4">
-                         {filteredDocuments.length > 0 ? (
-                           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                              {filteredDocuments.map(doc => {
-                                  const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
-                                  const Icon = categoryInfo!.icon;
-                                  const isSelected = selectedDocIds.includes(doc.id);
-                                  return (
-                                    <Card 
-                                        key={doc.id} 
-                                        onClick={() => handleCardClick(doc.id)}
+                    <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-4">
+                                <div 
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setIsSearchExpanded(true)}
+                                    onMouseLeave={() => setIsSearchExpanded(false)}
+                                >
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
+                                    <Input 
+                                        placeholder="Buscar..." 
                                         className={cn(
-                                            "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer text-foreground",
-                                            isSelected 
-                                                ? "scale-105 bg-gradient-to-br from-primary to-blue-400 text-primary-foreground"
-                                                : "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50"
+                                            "pl-9 transition-all duration-300 ease-in-out",
+                                            isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
+                                        )}
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+                                <div
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setIsSendButtonExpanded(true)}
+                                    onMouseLeave={() => setIsSendButtonExpanded(false)}
+                                >
+                                    <Button
+                                        variant="ghost"
+                                        onClick={handleSendClick}
+                                        disabled={selectedDocIds.length === 0}
+                                        className={cn(
+                                            "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                            "disabled:opacity-50",
+                                            isSendButtonExpanded ? "w-28" : "w-10 px-0"
                                         )}
                                     >
-                                        <CardContent className="p-3 flex flex-col flex-grow">
-                                            <div className={cn(
-                                                "absolute top-4 right-4 p-2 rounded-lg",
-                                                isSelected ? "bg-white/20 backdrop-blur-sm" : "bg-white/50 dark:bg-black/50 backdrop-blur-sm"
-                                            )}>
-                                                <Icon className={cn("h-5 w-5", isSelected ? "text-primary-foreground" : "text-primary")} />
-                                            </div>
-                                            <h3 className="text-base font-semibold pr-10 mb-4">{doc.title}</h3>
-                                            
-                                            <div className="flex-grow" />
-                                            
-                                            <div className="flex gap-2 mb-4">
-                                                <Badge variant={isSelected ? "secondary" : "outline"} className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.area}</Badge>
-                                                <Badge variant="secondary" className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.category}</Badge>
-                                            </div>
-                                            
-                                            <div className="flex items-center justify-center gap-2">
-                                                <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="group/button flex-grow justify-center text-xs transition-all duration-300">
-                                                    <Eye className="h-4 w-4" />
-                                                    <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Consultar</span>
-                                                </Button>
-                                                <Button size="sm" className={cn("group/button flex-grow justify-center text-xs transition-all duration-300", isSelected && "bg-white/90 hover:bg-white text-primary")}>
-                                                    <Download className="h-4 w-4" />
-                                                    <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Descargar</span>
-                                                </Button>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                  );
-                              })}
-                           </div>
-                         ) : (
-                            <div className="text-center py-16 text-muted-foreground">
-                                <p>No se encontraron documentos para los filtros seleccionados.</p>
+                                        <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
+                                        <span className={cn(
+                                            "text-xs transition-opacity duration-200",
+                                            isSendButtonExpanded ? "opacity-100" : "opacity-0"
+                                        )}>
+                                            Enviar
+                                        </span>
+                                    </Button>
+                                </div>
+                                <div
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setIsDownloadButtonExpanded(true)}
+                                    onMouseLeave={() => setIsDownloadButtonExpanded(false)}
+                                >
+                                    <Button
+                                        variant="ghost"
+                                        disabled={selectedDocIds.length === 0}
+                                        className={cn(
+                                            "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                            "disabled:opacity-50",
+                                            isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
+                                        )}
+                                    >
+                                        <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
+                                        <span className={cn(
+                                            "text-xs transition-opacity duration-200",
+                                            isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
+                                        )}>
+                                            Descargar
+                                        </span>
+                                    </Button>
+                                </div>
                             </div>
-                         )}
-                    </div>
-                </Card>
-            </main>
+                            
+                            <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
+                                <DialogTrigger asChild>
+                                    <Button variant="destructive">
+                                        <Plus className="h-4 w-4 mr-2" />
+                                        Solicitudes Especiales
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        <DialogTitle>Solicitud Especial de Recurso</DialogTitle>
+                                        <DialogDescription>
+                                            Si no encuentras lo que buscas, puedes realizar una solicitud al área correspondiente.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="py-4 space-y-4">
+                                        <div className="space-y-2">
+                                            <Label>Área a la que solicita</Label>
+                                            <Select onValueChange={(value) => { setSelectedRequestArea(value); setRequestType(null); }}>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Seleccione un área" />
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {specialRequestAreas.map(area => (
+                                                        <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
 
-            <Dialog open={isSendDialogOpen} onOpenChange={setIsSendDialogOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Enviar Documento(s) por Correo</DialogTitle>
-                        <DialogDescription>
-                           Se enviará(n) enlace(s) al/los siguiente(s) documento(s):{' '}
-                           {selectedDocsForDialog.map((doc, index) => (
-                                <span key={doc.id} className="font-semibold">
-                                    "{doc.title}"{index < selectedDocsForDialog.length - 1 ? ', ' : ''}
-                                </span>
-                            ))}.
-                           Por favor, introduzca el correo del destinatario. Solo se permiten correos del dominio @banescoseguros.com.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="email" className="text-right">
-                                Correo
-                            </Label>
-                            <Input
-                                id="email"
-                                type="email"
-                                placeholder="destinatario@banescoseguros.com"
-                                className="col-span-3"
-                                value={recipientEmail}
-                                onChange={(e) => setRecipientEmail(e.target.value)}
-                            />
+                                        {selectedRequestArea && (
+                                            <div className="pt-4 space-y-4">
+                                                <p className="text-sm font-medium">Elija el tipo de solicitud:</p>
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <Button variant="outline" onClick={() => {setRequestType('formal'); handleFormalRequest();}}>
+                                                        <ExternalLink className="mr-2 h-4 w-4" />
+                                                        Solicitud Formal
+                                                    </Button>
+                                                    <Button onClick={() => setRequestType('simple')}>
+                                                        <Send className="mr-2 h-4 w-4" />
+                                                        Solicitud Simple
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {requestType === 'simple' && (
+                                            <form onSubmit={handleSimpleRequestSubmit} className="pt-4 border-t mt-4 space-y-4">
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="fullName">Nombre y Apellido</Label>
+                                                    <Input id="fullName" placeholder="Ej: Ana Pérez" required />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="position">Cargo</Label>
+                                                    <Input id="position" placeholder="Ej: Analista de Suscripción" required />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="requestType">Tipo de Solicitud</Label>
+                                                    <Select required>
+                                                        <SelectTrigger id="requestType">
+                                                            <SelectValue placeholder="Seleccione un tipo" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectItem value="Documento">Documento</SelectItem>
+                                                            <SelectItem value="Manual">Manual</SelectItem>
+                                                            <SelectItem value="Presentacion">Presentación</SelectItem>
+                                                            <SelectItem value="Recurso Visual">Recurso Visual</SelectItem>
+                                                            <SelectItem value="Video">Video</SelectItem>
+                                                            <SelectItem value="Otro">Otro</SelectItem>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="reason">Razón de Solicitud</Label>
+                                                    <Textarea id="reason" placeholder="Describa brevemente por qué necesita este recurso" required />
+                                                </div>
+                                                <div className="space-y-2">
+                                                    <Label htmlFor="details">Solicitud</Label>
+                                                    <Textarea id="details" placeholder="Describa detalladamente el recurso que necesita" required />
+                                                </div>
+                                                <DialogFooter className="pt-4">
+                                                    <Button type="submit">Enviar Solicitud Simple</Button>
+                                                </DialogFooter>
+                                            </form>
+                                        )}
+                                    </div>
+                                </DialogContent>
+                            </Dialog>
                         </div>
-                    </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsSendDialogOpen(false)}>Cancelar</Button>
-                        <Button onClick={handleSendEmail} disabled={!isEmailValid}>Enviar Correo</Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+
+                        <div className="flex-grow overflow-auto -mx-2 px-2 py-4">
+                            {filteredDocuments.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                {filteredDocuments.map(doc => {
+                                    const categoryInfo = categories.find(c => c.id === doc.category) || categories.find(c => c.id === "Documentos");
+                                    const Icon = categoryInfo!.icon;
+                                    const isSelected = selectedDocIds.includes(doc.id);
+                                    return (
+                                        <Card 
+                                            key={doc.id} 
+                                            onClick={() => handleCardClick(doc.id)}
+                                            className={cn(
+                                                "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer text-foreground",
+                                                isSelected 
+                                                    ? "scale-105 bg-gradient-to-br from-primary to-blue-400 text-primary-foreground"
+                                                    : "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50"
+                                            )}
+                                        >
+                                            <CardContent className="p-3 flex flex-col flex-grow">
+                                                <div className={cn(
+                                                    "absolute top-4 right-4 p-2 rounded-lg",
+                                                    isSelected ? "bg-white/20 backdrop-blur-sm" : "bg-white/50 dark:bg-black/50 backdrop-blur-sm"
+                                                )}>
+                                                    <Icon className={cn("h-5 w-5", isSelected ? "text-primary-foreground" : "text-primary")} />
+                                                </div>
+                                                <h3 className="text-base font-semibold pr-10 mb-4">{doc.title}</h3>
+                                                
+                                                <div className="flex-grow" />
+                                                
+                                                <div className="flex gap-2 mb-4">
+                                                    <Badge variant={isSelected ? "secondary" : "outline"} className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.area}</Badge>
+                                                    <Badge variant="secondary" className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.category}</Badge>
+                                                </div>
+                                                
+                                                <div className="flex items-center justify-center gap-2">
+                                                    <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="group/button flex-grow justify-center text-xs transition-all duration-300">
+                                                        <Eye className="h-4 w-4" />
+                                                        <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Consultar</span>
+                                                    </Button>
+                                                    <Button size="sm" className={cn("group/button flex-grow justify-center text-xs transition-all duration-300", isSelected && "bg-white/90 hover:bg-white text-primary")}>
+                                                        <Download className="h-4 w-4" />
+                                                        <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Descargar</span>
+                                                    </Button>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    );
+                                })}
+                            </div>
+                            ) : (
+                                <div className="text-center py-16 text-muted-foreground">
+                                    <p>No se encontraron documentos para los filtros seleccionados.</p>
+                                </div>
+                            )}
+                        </div>
+                    </Card>
+                </main>
+
+                <Dialog open={isSendDialogOpen} onOpenChange={setIsSendDialogOpen}>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Enviar Documento(s) por Correo</DialogTitle>
+                            <DialogDescription>
+                            Se enviará(n) enlace(s) al/los siguiente(s) documento(s):{' '}
+                            {selectedDocsForDialog.map((doc, index) => (
+                                    <span key={doc.id} className="font-semibold">
+                                        "{doc.title}"{index < selectedDocsForDialog.length - 1 ? ', ' : ''}
+                                    </span>
+                                ))}.
+                            Por favor, introduzca el correo del destinatario. Solo se permiten correos del dominio @banescoseguros.com.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="email" className="text-right">
+                                    Correo
+                                </Label>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    placeholder="destinatario@banescoseguros.com"
+                                    className="col-span-3"
+                                    value={recipientEmail}
+                                    onChange={(e) => setRecipientEmail(e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <DialogFooter>
+                            <Button variant="outline" onClick={() => setIsSendDialogOpen(false)}>Cancelar</Button>
+                            <Button onClick={handleSendEmail} disabled={!isEmailValid}>Enviar Correo</Button>
+                        </DialogFooter>
+                    </DialogContent>
+                </Dialog>
+            </div>
         </div>
     );
 }

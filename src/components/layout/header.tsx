@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Settings, Bell, Clock, Target, Music, User, LogOut } from "lucide-react"; 
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Bell, Clock, Target, User, Music } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React, { useEffect, useState } from "react";
@@ -18,9 +18,6 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { UserAuthForm } from "@/components/auth/user-auth-form";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
-
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home, activePaths: ["/dashboard"] },
@@ -92,6 +89,22 @@ function Countdown({ eventDate, eventTime }: { eventDate: Date; eventTime?: stri
   );
 }
 
+const UserProfileButton = () => {
+    return (
+        <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <User className="h-5 w-5" />
+                <span className="sr-only">Perfil de Usuario</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+                <UserAuthForm />
+            </PopoverContent>
+          </Popover>
+    );
+}
+
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -102,11 +115,12 @@ export function Header() {
   const pathname = usePathname();
 
   const checkIsActive = (item: { activePaths: string[] }) => {
-    if (item.activePaths.includes(pathname)) {
-        return true;
+    // Exact match for '/dashboard'
+    if (item.href === '/dashboard') {
+        return pathname === '/dashboard';
     }
-    // Check for parent paths
-    return item.activePaths.some(p => pathname.startsWith(p + '/') && p !== '/dashboard');
+    // For other paths, check if the current pathname starts with any of the activePaths
+    return item.activePaths.some(p => pathname.startsWith(p));
   };
 
 
@@ -249,17 +263,7 @@ export function Header() {
             </PopoverContent>
           </Popover>
           
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Perfil de Usuario</span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80">
-                <UserAuthForm />
-            </PopoverContent>
-          </Popover>
+          <UserProfileButton />
 
         </div>
       </nav>

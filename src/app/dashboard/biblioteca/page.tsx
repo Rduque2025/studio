@@ -21,7 +21,8 @@ import {
   Mail,
   Plus,
   ExternalLink,
-  Send
+  Send,
+  ArrowLeft
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
@@ -74,7 +75,7 @@ export default function BibliotecaPage() {
     const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState('');
     const [isSpecialRequestOpen, setIsSpecialRequestOpen] = useState(false);
-    const [selectedRequestArea, setSelectedRequestArea] = useState<string | null>(null);
+    const [selectedRequestArea, setSelectedRequestArea] = useState<(typeof specialRequestAreas)[0] | null>(null);
     const [requestType, setRequestType] = useState<'formal' | 'simple' | null>(null);
 
     const { toast } = useToast();
@@ -152,11 +153,10 @@ export default function BibliotecaPage() {
     };
 
     const handleFormalRequest = () => {
-        const area = specialRequestAreas.find(a => a.id === selectedRequestArea);
-        if (area) {
-            const subject = `Solicitud Formal de Recurso para ${area.name}`;
-            const body = `Estimado equipo de ${area.name},\n\nEscribo para solicitar formalmente el siguiente recurso:\n\n[Describa detalladamente el recurso que necesita]\n\nGracias de antemano por su colaboración.\n\nSaludos cordiales,`;
-            window.location.href = `mailto:${area.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        if (selectedRequestArea) {
+            const subject = `Solicitud Formal de Recurso para ${selectedRequestArea.name}`;
+            const body = `Estimado equipo de ${selectedRequestArea.name},\n\nEscribo para solicitar formalmente el siguiente recurso:\n\n[Describa detalladamente el recurso que necesita]\n\nGracias de antemano por su colaboración.\n\nSaludos cordiales,`;
+            window.location.href = `mailto:${selectedRequestArea.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
     };
 
@@ -225,89 +225,116 @@ export default function BibliotecaPage() {
                 <main className="flex-1 p-8 flex flex-col">
                     <div className="py-4">
                         <div className="flex justify-end items-center mb-4">
-                            <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
+                            <Dialog open={isSpecialRequestOpen} onOpenChange={(isOpen) => {
+                                setIsSpecialRequestOpen(isOpen);
+                                if (!isOpen) {
+                                    setSelectedRequestArea(null);
+                                    setRequestType(null);
+                                }
+                            }}>
                                 <DialogTrigger asChild>
                                     <Button variant="destructive" size="sm" className="text-xs">
                                         <Plus className="h-4 w-4 mr-2" />
                                         Solicitudes Especiales
                                     </Button>
                                 </DialogTrigger>
-                                <DialogContent>
+                                <DialogContent className="max-w-2xl">
                                     <DialogHeader>
-                                        <DialogTitle>Solicitud Especial de Recurso</DialogTitle>
-                                        <DialogDescription>
-                                            Si no encuentras lo que buscas, puedes realizar una solicitud al área correspondiente.
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <div className="py-4 space-y-4">
-                                        <div className="space-y-2">
-                                            <Label>Área a la que solicita</Label>
-                                            <Select onValueChange={(value) => { setSelectedRequestArea(value); setRequestType(null); }}>
-                                                <SelectTrigger>
-                                                    <SelectValue placeholder="Seleccione un área" />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {specialRequestAreas.map(area => (
-                                                        <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-
-                                        {selectedRequestArea && (
-                                            <div className="pt-4 space-y-4">
-                                                <p className="text-sm font-medium">Elija el tipo de solicitud:</p>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <Button variant="outline" onClick={() => {setRequestType('formal'); handleFormalRequest();}}>
-                                                        <ExternalLink className="mr-2 h-4 w-4" />
-                                                        Solicitud Formal
-                                                    </Button>
-                                                    <Button onClick={() => setRequestType('simple')}>
-                                                        <Send className="mr-2 h-4 w-4" />
-                                                        Solicitud Simple
-                                                    </Button>
+                                        {selectedRequestArea ? (
+                                            <div className="flex items-center gap-3">
+                                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => { setSelectedRequestArea(null); setRequestType(null); }}>
+                                                    <ArrowLeft className="h-4 w-4"/>
+                                                </Button>
+                                                <div>
+                                                    <DialogTitle>Solicitud para {selectedRequestArea.name}</DialogTitle>
+                                                    <DialogDescription>Elija el tipo de solicitud que desea realizar.</DialogDescription>
                                                 </div>
                                             </div>
+                                        ) : (
+                                            <div>
+                                                <DialogTitle>Solicitud Especial de Recurso</DialogTitle>
+                                                <DialogDescription>
+                                                    Si no encuentra lo que busca, seleccione el área a la que desea realizar la solicitud.
+                                                </DialogDescription>
+                                            </div>
                                         )}
+                                    </DialogHeader>
+                                    <div className="py-4 space-y-4">
+                                        {!selectedRequestArea ? (
+                                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                                {specialRequestAreas.map(area => (
+                                                    <Card 
+                                                        key={area.id} 
+                                                        className="group flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
+                                                        onClick={() => setSelectedRequestArea(area)}
+                                                    >
+                                                        <h3 className="font-semibold text-sm">{area.name}</h3>
+                                                    </Card>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <>
+                                                {requestType === null && (
+                                                    <div className="pt-4 space-y-4">
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <Button variant="outline" size="lg" className="h-20" onClick={() => {setRequestType('formal'); handleFormalRequest();}}>
+                                                                <div className="flex flex-col items-center gap-2">
+                                                                    <ExternalLink className="h-5 w-5" />
+                                                                    <span className="text-sm">Solicitud Formal</span>
+                                                                </div>
+                                                            </Button>
+                                                            <Button size="lg" className="h-20" onClick={() => setRequestType('simple')}>
+                                                                <div className="flex flex-col items-center gap-2">
+                                                                    <Send className="h-5 w-5" />
+                                                                    <span className="text-sm">Solicitud Simple</span>
+                                                                </div>
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                )}
 
-                                        {requestType === 'simple' && (
-                                            <form onSubmit={handleSimpleRequestSubmit} className="pt-4 border-t mt-4 space-y-4">
-                                                <div className="space-y-2">
-                                                    <Label htmlFor="fullName">Nombre y Apellido</Label>
-                                                    <Input id="fullName" placeholder="Ej: Ana Pérez" required />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <Label htmlFor="position">Cargo</Label>
-                                                    <Input id="position" placeholder="Ej: Analista de Suscripción" required />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <Label htmlFor="requestType">Tipo de Solicitud</Label>
-                                                    <Select required>
-                                                        <SelectTrigger id="requestType">
-                                                            <SelectValue placeholder="Seleccione un tipo" />
-                                                        </SelectTrigger>
-                                                        <SelectContent>
-                                                            <SelectItem value="Documento">Documento</SelectItem>
-                                                            <SelectItem value="Manual">Manual</SelectItem>
-                                                            <SelectItem value="Presentacion">Presentacion</SelectItem>
-                                                            <SelectItem value="Recurso Visual">Recurso Visual</SelectItem>
-                                                            <SelectItem value="Video">Video</SelectItem>
-                                                            <SelectItem value="Otro">Otro</SelectItem>
-                                                        </SelectContent>
-                                                    </Select>
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <Label htmlFor="reason">Razón de Solicitud</Label>
-                                                    <Textarea id="reason" placeholder="Describa brevemente por qué necesita este recurso" required />
-                                                </div>
-                                                <div className="space-y-2">
-                                                    <Label htmlFor="details">Solicitud</Label>
-                                                    <Textarea id="details" placeholder="Describa detalladamente el recurso que necesita" required />
-                                                </div>
-                                                <DialogFooter className="pt-4">
-                                                    <Button type="submit">Enviar Solicitud Simple</Button>
-                                                </DialogFooter>
-                                            </form>
+                                                {requestType === 'simple' && (
+                                                    <form onSubmit={handleSimpleRequestSubmit} className="pt-4 border-t mt-4 space-y-4">
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <div className="space-y-2">
+                                                                <Label htmlFor="fullName">Nombre y Apellido</Label>
+                                                                <Input id="fullName" placeholder="Ej: Ana Pérez" required />
+                                                            </div>
+                                                            <div className="space-y-2">
+                                                                <Label htmlFor="position">Cargo</Label>
+                                                                <Input id="position" placeholder="Ej: Analista de Suscripción" required />
+                                                            </div>
+                                                        </div>
+                                                        <div className="space-y-2">
+                                                            <Label htmlFor="requestType">Tipo de Solicitud</Label>
+                                                            <Select required>
+                                                                <SelectTrigger id="requestType">
+                                                                    <SelectValue placeholder="Seleccione un tipo" />
+                                                                </SelectTrigger>
+                                                                <SelectContent>
+                                                                    <SelectItem value="Documento">Documento</SelectItem>
+                                                                    <SelectItem value="Manual">Manual</SelectItem>
+                                                                    <SelectItem value="Presentacion">Presentación</SelectItem>
+                                                                    <SelectItem value="Recurso Visual">Recurso Visual</SelectItem>
+                                                                    <SelectItem value="Video">Video</SelectItem>
+                                                                    <SelectItem value="Otro">Otro</SelectItem>
+                                                                </SelectContent>
+                                                            </Select>
+                                                        </div>
+                                                        <div className="space-y-2">
+                                                            <Label htmlFor="reason">Razón de Solicitud</Label>
+                                                            <Textarea id="reason" placeholder="Describa brevemente por qué necesita este recurso" required />
+                                                        </div>
+                                                        <div className="space-y-2">
+                                                            <Label htmlFor="details">Solicitud</Label>
+                                                            <Textarea id="details" placeholder="Describa detalladamente el recurso que necesita" required />
+                                                        </div>
+                                                        <DialogFooter className="pt-4">
+                                                            <Button type="submit">Enviar Solicitud Simple</Button>
+                                                        </DialogFooter>
+                                                    </form>
+                                                )}
+                                            </>
                                         )}
                                     </div>
                                 </DialogContent>
@@ -493,5 +520,8 @@ export default function BibliotecaPage() {
             </div>
         </div>
     );
+
+    
+}
 
     

@@ -225,7 +225,7 @@ export default function BibliotecaPage() {
                         <div className="flex justify-end items-center mb-4">
                             <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
                                 <DialogTrigger asChild>
-                                    <Button variant="destructive" size="sm">
+                                    <Button variant="destructive" size="sm" className="text-xs">
                                         <Plus className="h-4 w-4 mr-2" />
                                         Solicitudes Especiales
                                     </Button>

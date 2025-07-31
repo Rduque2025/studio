@@ -11,7 +11,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useEvents, type CalendarEvent } from "@/contexts/events-context"; 
-import { mockNotifications, type NotificationItem } from "@/lib/placeholder-data";
+import { mockNotifications as initialMockNotifications, type NotificationItem } from "@/lib/placeholder-data";
 import { format, isToday, intervalToDuration, isPast } from "date-fns"; 
 import { es } from "date-fns/locale"; 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -57,6 +57,7 @@ const UserProfileButton = () => {
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
+  const [notifications, setNotifications] = useState<NotificationItem[]>(initialMockNotifications);
   const pathname = usePathname();
 
   const checkIsActive = (item: { href: string, activePaths: string[] }) => {
@@ -73,6 +74,10 @@ export function Header() {
     } else {
       setIsMobileMenuOpen(false);
     }
+  };
+  
+  const handleArchiveAll = () => {
+    setNotifications([]);
   };
 
 
@@ -135,9 +140,9 @@ export function Header() {
             <PopoverTrigger asChild>
                <Button variant="ghost" size="icon" className="relative group hover:bg-transparent">
                 <Bell className="h-5 w-5 transition-transform group-hover:scale-110" />
-                {mockNotifications.length > 0 && (
+                {notifications.length > 0 && (
                   <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
-                    {mockNotifications.length}
+                    {notifications.length}
                   </span>
                 )}
                 <span className="sr-only">Notificaciones</span>
@@ -148,10 +153,10 @@ export function Header() {
                 <div className="flex justify-between items-center">
                   <div>
                     <h4 className="font-semibold text-sm">Notificaciones</h4>
-                    <p className="text-xs text-muted-foreground">Tienes {mockNotifications.length} notificaciones nuevas.</p>
+                    <p className="text-xs text-muted-foreground">Tienes {notifications.length} notificaciones nuevas.</p>
                   </div>
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
-                    <Archive className="h-4 w-4" />
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground group hover:bg-transparent" onClick={handleArchiveAll}>
+                    <Archive className="h-4 w-4 transition-transform group-hover:scale-110" />
                   </Button>
                 </div>
               </div>
@@ -160,26 +165,32 @@ export function Header() {
               
               <ScrollArea className="h-96">
                 <div className="p-4 pr-6 space-y-2">
-                  {mockNotifications.map((notification, index) => (
-                    <div key={notification.id} className="relative flex gap-3 items-start timeline-item">
-                      {/* Timeline line */}
-                      <div className="timeline-line"></div>
+                  {notifications.length > 0 ? (
+                    notifications.map((notification) => (
+                      <div key={notification.id} className="relative flex gap-3 items-start timeline-item">
+                        {/* Timeline line */}
+                        <div className="timeline-line"></div>
 
-                      {/* Icon */}
-                      <div className={cn("mt-1 flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center z-10", notification.iconColor)}>
-                        <notification.icon className="h-4 w-4" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex-grow">
-                        <div className="flex justify-between items-center">
-                          <p className="font-medium text-xs">{notification.title}</p>
-                          <p className="text-[10px] text-muted-foreground">{notification.time}</p>
+                        {/* Icon */}
+                        <div className={cn("mt-1 flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center z-10", notification.iconColor)}>
+                          <notification.icon className="h-4 w-4" />
                         </div>
-                        <p className="text-xs text-muted-foreground">{notification.description}</p>
+
+                        {/* Content */}
+                        <div className="flex-grow">
+                          <div className="flex justify-between items-center">
+                            <p className="font-medium text-xs">{notification.title}</p>
+                            <p className="text-[10px] text-muted-foreground">{notification.time}</p>
+                          </div>
+                          <p className="text-xs text-muted-foreground">{notification.description}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))
+                  ) : (
+                     <div className="text-center py-16 text-muted-foreground">
+                        <p className="text-sm">No tienes notificaciones nuevas.</p>
+                      </div>
+                  )}
                 </div>
               </ScrollArea>
             </PopoverContent>
@@ -234,9 +245,9 @@ export function Header() {
                         : "text-muted-foreground"
                      )} />
                     <span>{item.name}</span>
-                    {item.icon === Bell && mockNotifications.length > 0 && (
+                    {item.icon === Bell && notifications.length > 0 && (
                        <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
-                         {mockNotifications.length}
+                         {notifications.length}
                        </span>
                     )}
                   </Link>

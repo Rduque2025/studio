@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info } from 'lucide-react';
+import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -99,7 +99,8 @@ export default function CalendarioPage() {
   
   const [newEventTitle, setNewEventTitle] = useState('');
   const [newEventDescription, setNewEventDescription] = useState('');
-  const [newEventTime, setNewEventTime] = useState(''); 
+  const [newEventStartTime, setNewEventStartTime] = useState('09:00'); 
+  const [newEventEndTime, setNewEventEndTime] = useState('10:00');
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
@@ -185,23 +186,26 @@ export default function CalendarioPage() {
   };
   
   const handleSaveNewEvent = () => {
-    if (!selectedDay || !newEventTitle) {
-      toast({ title: "Error", description: "Por favor, seleccione una fecha e ingrese un título para el evento.", variant: "destructive" });
+    if (!selectedDay) {
+      toast({ title: "Error", description: "Por favor, seleccione una fecha para el evento.", variant: "destructive" });
       return;
     }
+
+    const title = `Evento de ${newEventStartTime} a ${newEventEndTime}`;
+    const description = `Evento programado para el día ${format(selectedDay, 'd \'de\' MMMM', { locale: es })}.`
     
-    const mainCategory = categorizeEvent(newEventTitle, newEventDescription); 
+    const mainCategory = categorizeEvent(title, description); 
     const userEventStyles = getCategoryDisplayStyles(mainCategory); 
 
     const newEventToAdd: CalendarEvent = {
       id: `user-${Date.now()}`,
       date: selectedDay,
-      title: newEventTitle,
-      description: newEventDescription,
+      title: title,
+      description: description,
       color: userEventStyles.dotColor, 
       isUserEvent: true,
       category: mainCategory, 
-      time: newEventTime || undefined,
+      time: newEventStartTime || undefined,
     };
     addUserEvent(newEventToAdd); 
 
@@ -214,10 +218,9 @@ export default function CalendarioPage() {
       });
       setRemindedEventIds(prev => new Set(prev).add(`today-${newEventToAdd.id}`));
     }
-
-    setNewEventTitle('');
-    setNewEventDescription('');
-    setNewEventTime(''); 
+    
+    setNewEventStartTime('09:00');
+    setNewEventEndTime('10:00');
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${userEventStyles.badgeText}) añadido al calendario.` });
     setSelectedEvent(newEventToAdd); 
@@ -299,9 +302,8 @@ export default function CalendarioPage() {
   
   const handleOpenAddEventDialog = (selectedDate: Date) => {
     setSelectedDay(selectedDate); 
-    setNewEventTitle(''); 
-    setNewEventDescription('');
-    setNewEventTime('');
+    setNewEventStartTime('09:00');
+    setNewEventEndTime('10:00');
     setIsAddEventDialogOpen(true);
   };
 
@@ -353,57 +355,39 @@ export default function CalendarioPage() {
             </div>
 
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-                <DialogContent className="sm:max-w-md p-0">
-                     <DialogHeader className="p-6 pb-0">
-                        <DialogTitle className="sr-only">Añadir Nuevo Evento</DialogTitle>
-                        <DialogDescription className="text-center text-sm">
-                            Añadir evento para el{' '}
-                            <span className="font-semibold text-foreground">
-                                {selectedDay ? format(selectedDay, 'd \'de\' MMMM', { locale: es }) : 'día seleccionado'}
-                            </span>.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="p-6 pt-2 space-y-4">
-                        <div className="space-y-3">
-                            <div className="relative">
-                                <Pencil className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                <Input
-                                    value={newEventTitle}
-                                    onChange={(e) => setNewEventTitle(e.target.value)}
-                                    placeholder="Añadir Título"
-                                    className="pl-9"
-                                />
-                            </div>
-                            <div className="relative">
-                                <Clock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                                <Input
-                                    type="time"
-                                    value={newEventTime}
-                                    onChange={(e) => setNewEventTime(e.target.value)}
-                                    className="pl-9"
-                                />
-                            </div>
-                            <div className="relative">
-                                <Info className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                                <Textarea
-                                    value={newEventDescription}
-                                    onChange={(e) => setNewEventDescription(e.target.value)}
-                                    placeholder="Descripción (Opcional)"
-                                    className="pl-9"
-                                    rows={3}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <DialogFooter className="bg-muted/50 p-4 flex sm:justify-between">
-                        <Button type="button" variant="ghost" onClick={() => setIsAddEventDialogOpen(false)}>
-                            Cancelar
-                        </Button>
-                        <Button type="submit" onClick={handleSaveNewEvent}>
-                            Guardar Evento
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
+              <DialogContent className="sm:max-w-md p-8 flex flex-col justify-between min-h-[400px]">
+                <DialogHeader className="text-center">
+                  <DialogTitle className="text-xl font-bold">Selecciona la hora</DialogTitle>
+                  <DialogDescription>
+                    Elige la hora de inicio y fin para tu evento en el día <br />
+                    <span className="font-semibold text-foreground">
+                        {selectedDay ? format(selectedDay, 'd \'de\' MMMM', { locale: es }) : 'seleccionado'}
+                    </span>.
+                  </DialogDescription>
+                </DialogHeader>
+
+                <div className="flex items-center justify-center gap-4 my-8">
+                  <Input
+                      type="time"
+                      value={newEventStartTime}
+                      onChange={(e) => setNewEventStartTime(e.target.value)}
+                      className="text-2xl font-bold text-center border-none shadow-none focus-visible:ring-0 w-32"
+                  />
+                  <ArrowRight className="h-6 w-6 text-muted-foreground" />
+                  <Input
+                      type="time"
+                      value={newEventEndTime}
+                      onChange={(e) => setNewEventEndTime(e.target.value)}
+                      className="text-2xl font-bold text-center border-none shadow-none focus-visible:ring-0 w-32"
+                  />
+                </div>
+
+                <DialogFooter>
+                  <Button type="submit" onClick={handleSaveNewEvent} className="w-full" size="lg">
+                    Guardar
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
             </Dialog>
         </div>
     </div>

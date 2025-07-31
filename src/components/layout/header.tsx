@@ -41,8 +41,8 @@ const UserProfileButton = () => {
     return (
         <Popover>
             <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="group hover:bg-transparent">
+                <User className="h-5 w-5 transition-transform group-hover:scale-110" />
                 <span className="sr-only">Perfil de Usuario</span>
               </Button>
             </PopoverTrigger>
@@ -118,8 +118,8 @@ export function Header() {
         <div className="flex items-center justify-end space-x-1">
           <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
             <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Search className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="group hover:bg-transparent">
+                <Search className="h-5 w-5 transition-transform group-hover:scale-110" />
                 <span className="sr-only">Buscar</span>
               </Button>
             </PopoverTrigger>
@@ -133,8 +133,8 @@ export function Header() {
 
           <Popover>
             <PopoverTrigger asChild>
-               <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
+               <Button variant="ghost" size="icon" className="relative group hover:bg-transparent">
+                <Bell className="h-5 w-5 transition-transform group-hover:scale-110" />
                 {mockNotifications.length > 0 && (
                   <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
                     {mockNotifications.length}

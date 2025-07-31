@@ -354,13 +354,16 @@ export default function CalendarioPage() {
 
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
                 <DialogContent className="sm:max-w-md p-0">
-                    <div className="p-6 space-y-4">
+                     <DialogHeader className="p-6 pb-0">
+                        <DialogTitle className="sr-only">Añadir Nuevo Evento</DialogTitle>
                         <DialogDescription className="text-center text-sm">
                             Añadir evento para el{' '}
                             <span className="font-semibold text-foreground">
                                 {selectedDay ? format(selectedDay, 'd \'de\' MMMM', { locale: es }) : 'día seleccionado'}
                             </span>.
                         </DialogDescription>
+                    </DialogHeader>
+                    <div className="p-6 pt-2 space-y-4">
                         <div className="space-y-3">
                             <div className="relative">
                                 <Pencil className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

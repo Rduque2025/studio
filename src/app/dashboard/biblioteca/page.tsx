@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -221,7 +222,7 @@ export default function BibliotecaPage() {
                 {/* Main Content */}
                 <main className="flex-1 p-8 flex flex-col">
                     <div className="py-4">
-                        <div className="flex justify-between items-center mb-4">
+                        <div className="flex justify-end items-center mb-4">
                             <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
                                 <DialogTrigger asChild>
                                     <Button variant="destructive">

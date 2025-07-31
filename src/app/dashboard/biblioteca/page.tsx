@@ -473,9 +473,12 @@ export default function BibliotecaPage() {
                             {areas.map(area => (
                                 <Button
                                     key={area.id}
-                                    variant={activeArea === area.id ? "secondary" : "ghost"}
+                                    variant={activeArea === area.id ? "default" : "ghost"}
                                     size="sm"
-                                    className="rounded-full flex-shrink-0"
+                                    className={cn(
+                                        "rounded-full flex-shrink-0",
+                                        activeArea !== area.id && "hover:bg-muted"
+                                    )}
                                     onClick={() => setActiveArea(area.id)}
                                 >
                                     <span className="text-xs">{area.label}</span>

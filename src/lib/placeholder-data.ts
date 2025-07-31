@@ -1,6 +1,6 @@
 
 
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code, Music, AlertTriangle, CheckCircle, CalendarDays, MessageSquare as MessageSquareIcon } from 'lucide-react';
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code, Music, AlertTriangle, CheckCircle, CalendarDays, MessageSquare as MessageSquareIcon, Music2 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface Course {
@@ -103,7 +103,7 @@ export interface FaqItem {
 
 export interface NotificationItem {
   id: string;
-  type: 'message' | 'event' | 'task' | 'alert';
+  type: 'message' | 'event' | 'task' | 'alert' | 'update';
   title: string;
   description: string;
   time: string;
@@ -784,40 +784,13 @@ export const mockPlaylist: PlaylistItem[] = [
     
 export const mockNotifications: NotificationItem[] = [
   {
-    id: '1',
-    type: 'message',
-    title: 'Nuevo mensaje de Jane',
-    description: 'Hola, solo quería hacer seguimiento de nuestra reunión de ayer.',
-    time: 'Hace 2 horas',
-    icon: MessageSquareIcon,
-    iconColor: 'bg-orange-100 text-orange-500'
-  },
-  {
-    id: '2',
-    type: 'event',
-    title: 'Próximo evento',
-    description: 'Reunión de equipo programada para el viernes a las 2 p.m.',
-    time: 'Hace 1 día',
-    icon: CalendarDays,
-    iconColor: 'bg-blue-100 text-blue-500'
-  },
-  {
-    id: '3',
-    type: 'task',
-    title: 'Tarea completada',
-    description: 'Has completado la tarea "Actualizar contenido del sitio web".',
-    time: 'Hace 3 días',
-    icon: CheckCircle,
-    iconColor: 'bg-green-100 text-green-500'
-  },
-  {
-    id: '4',
-    type: 'alert',
-    title: 'Cuenta suspendida',
-    description: 'Tu cuenta ha sido suspendida debido a un problema de facturación.',
-    time: 'Hace 1 semana',
-    icon: AlertTriangle,
-    iconColor: 'bg-yellow-100 text-yellow-500'
+    id: 'update-music',
+    type: 'update',
+    title: '¡Nueva Música en la Biblioteca!',
+    description: 'Hemos añadido nuevas playlists para que disfrutes mientras trabajas.',
+    time: 'Reciente',
+    icon: Music2,
+    iconColor: 'bg-purple-100 text-purple-500'
   }
 ];
     

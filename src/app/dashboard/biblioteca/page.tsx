@@ -19,13 +19,18 @@ import {
   Download,
   Eye,
   Mail,
+  Plus,
+  ExternalLink,
+  Send
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from "@/hooks/use-toast";
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 const categories: { id: DocumentResource['category'], label: string, icon: LucideIcon }[] = [
     { id: "Destacados", label: "Destacados", icon: Star },
@@ -49,6 +54,15 @@ const areas = [
     { id: "Actuarial", label: "Actuarial" },
 ];
 
+const specialRequestAreas = [
+    { id: 'Finanzas y Contabilidad', name: 'Finanzas y Contabilidad', email: 'gcia_nacional_finanzas_ve@banescoseguros.com' },
+    { id: 'Capital Humano', name: 'Capital Humano', email: 'capital_humano_ve@banescoseguros.com' },
+    { id: 'Mercadeo', name: 'Mercadeo', email: 'comunicaciones@banescoseguros.com' },
+    { id: 'Procesos', name: 'Procesos', email: 'procesos@banescoseguros.com' },
+    { id: 'Actuarial', name: 'Actuarial', email: 'gerencia_actuarial_ve@banescoseguros.com' },
+    { id: 'Legal', name: 'Legal', email: 'bsv_consultoria_juridica@banescoseguros.com' },
+];
+
 export default function BibliotecaPage() {
     const [activeCategory, setActiveCategory] = useState<DocumentResource['category']>('Destacados');
     const [activeArea, setActiveArea] = useState('ALL');
@@ -59,6 +73,10 @@ export default function BibliotecaPage() {
     const [selectedDocIds, setSelectedDocIds] = useState<string[]>([]);
     const [isSendDialogOpen, setIsSendDialogOpen] = useState(false);
     const [recipientEmail, setRecipientEmail] = useState('');
+    const [isSpecialRequestOpen, setIsSpecialRequestOpen] = useState(false);
+    const [selectedRequestArea, setSelectedRequestArea] = useState<string | null>(null);
+    const [requestType, setRequestType] = useState<'formal' | 'simple' | null>(null);
+
     const { toast } = useToast();
 
     const filteredDocuments = useMemo(() => {
@@ -133,6 +151,29 @@ export default function BibliotecaPage() {
         });
     };
 
+    const handleFormalRequest = () => {
+        const area = specialRequestAreas.find(a => a.id === selectedRequestArea);
+        if (area) {
+            const subject = `Solicitud Formal de Recurso para ${area.name}`;
+            const body = `Estimado equipo de ${area.name},\n\nEscribo para solicitar formalmente el siguiente recurso:\n\n[Describa detalladamente el recurso que necesita]\n\nGracias de antemano por su colaboración.\n\nSaludos cordiales,`;
+            window.location.href = `mailto:${area.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+    };
+
+    const handleSimpleRequestSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Here you would typically send the form data to a backend service that writes to Google Sheets.
+        // For now, we'll just show a success message.
+        toast({
+            title: "Solicitud Enviada",
+            description: "Tu solicitud simple ha sido registrada. La funcionalidad de guardado en Google Sheets está pendiente de implementación en el backend."
+        });
+        setIsSpecialRequestOpen(false);
+        setSelectedRequestArea(null);
+        setRequestType(null);
+    };
+
+
     const selectedDocsForDialog = useMemo(() => 
         mockDocuments.filter(doc => selectedDocIds.includes(doc.id)), 
         [selectedDocIds]
@@ -196,70 +237,160 @@ export default function BibliotecaPage() {
                 </div>
 
                 <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">
-                    <div className="flex items-center gap-4 mb-6">
-                         <div 
-                            className="relative flex items-center"
-                            onMouseEnter={() => setIsSearchExpanded(true)}
-                            onMouseLeave={() => setIsSearchExpanded(false)}
-                        >
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
-                            <Input 
-                                placeholder="Buscar..." 
-                                className={cn(
-                                    "pl-9 transition-all duration-300 ease-in-out",
-                                    isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
-                                )}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                        </div>
-                        <div
-                            className="relative flex items-center"
-                            onMouseEnter={() => setIsSendButtonExpanded(true)}
-                            onMouseLeave={() => setIsSendButtonExpanded(false)}
-                        >
-                            <Button
-                                variant="ghost"
-                                onClick={handleSendClick}
-                                disabled={selectedDocIds.length === 0}
-                                className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-start",
-                                    "disabled:opacity-50",
-                                    isSendButtonExpanded ? "w-28" : "w-10 px-0"
-                                )}
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-4">
+                             <div 
+                                className="relative flex items-center"
+                                onMouseEnter={() => setIsSearchExpanded(true)}
+                                onMouseLeave={() => setIsSearchExpanded(false)}
                             >
-                                <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
-                                <span className={cn(
-                                    "text-xs transition-opacity duration-200",
-                                    isSendButtonExpanded ? "opacity-100" : "opacity-0"
-                                )}>
-                                    Enviar
-                                </span>
-                            </Button>
-                        </div>
-                        <div
-                            className="relative flex items-center"
-                            onMouseEnter={() => setIsDownloadButtonExpanded(true)}
-                            onMouseLeave={() => setIsDownloadButtonExpanded(false)}
-                        >
-                            <Button
-                                variant="ghost"
-                                disabled={selectedDocIds.length === 0}
-                                className={cn(
-                                    "transition-all duration-300 ease-in-out flex items-center justify-start",
-                                    "disabled:opacity-50",
-                                    isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
-                                )}
+                                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
+                                <Input 
+                                    placeholder="Buscar..." 
+                                    className={cn(
+                                        "pl-9 transition-all duration-300 ease-in-out",
+                                        isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
+                                    )}
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                />
+                            </div>
+                            <div
+                                className="relative flex items-center"
+                                onMouseEnter={() => setIsSendButtonExpanded(true)}
+                                onMouseLeave={() => setIsSendButtonExpanded(false)}
                             >
-                                <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
-                                <span className={cn(
-                                    "text-xs transition-opacity duration-200",
-                                    isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
-                                )}>
-                                    Descargar
-                                </span>
-                            </Button>
+                                <Button
+                                    variant="ghost"
+                                    onClick={handleSendClick}
+                                    disabled={selectedDocIds.length === 0}
+                                    className={cn(
+                                        "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                        "disabled:opacity-50",
+                                        isSendButtonExpanded ? "w-28" : "w-10 px-0"
+                                    )}
+                                >
+                                    <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
+                                    <span className={cn(
+                                        "text-xs transition-opacity duration-200",
+                                        isSendButtonExpanded ? "opacity-100" : "opacity-0"
+                                    )}>
+                                        Enviar
+                                    </span>
+                                </Button>
+                            </div>
+                            <div
+                                className="relative flex items-center"
+                                onMouseEnter={() => setIsDownloadButtonExpanded(true)}
+                                onMouseLeave={() => setIsDownloadButtonExpanded(false)}
+                            >
+                                <Button
+                                    variant="ghost"
+                                    disabled={selectedDocIds.length === 0}
+                                    className={cn(
+                                        "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                        "disabled:opacity-50",
+                                        isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
+                                    )}
+                                >
+                                    <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
+                                    <span className={cn(
+                                        "text-xs transition-opacity duration-200",
+                                        isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
+                                    )}>
+                                        Descargar
+                                    </span>
+                                </Button>
+                            </div>
                         </div>
+                        
+                        <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
+                            <DialogTrigger asChild>
+                                <Button variant="destructive">
+                                    <Plus className="h-4 w-4 mr-2" />
+                                    Solicitudes Especiales
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Solicitud Especial de Recurso</DialogTitle>
+                                    <DialogDescription>
+                                        Si no encuentras lo que buscas, puedes realizar una solicitud al área correspondiente.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="py-4 space-y-4">
+                                    <div className="space-y-2">
+                                        <Label>Área a la que solicita</Label>
+                                        <Select onValueChange={(value) => { setSelectedRequestArea(value); setRequestType(null); }}>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Seleccione un área" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {specialRequestAreas.map(area => (
+                                                    <SelectItem key={area.id} value={area.id}>{area.name}</SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    {selectedRequestArea && (
+                                        <div className="pt-4 space-y-4">
+                                            <p className="text-sm font-medium">Elija el tipo de solicitud:</p>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <Button variant="outline" onClick={() => {setRequestType('formal'); handleFormalRequest();}}>
+                                                    <ExternalLink className="mr-2 h-4 w-4" />
+                                                    Solicitud Formal
+                                                </Button>
+                                                <Button onClick={() => setRequestType('simple')}>
+                                                    <Send className="mr-2 h-4 w-4" />
+                                                    Solicitud Simple
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {requestType === 'simple' && (
+                                        <form onSubmit={handleSimpleRequestSubmit} className="pt-4 border-t mt-4 space-y-4">
+                                            <div className="space-y-2">
+                                                <Label htmlFor="fullName">Nombre y Apellido</Label>
+                                                <Input id="fullName" placeholder="Ej: Ana Pérez" required />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="position">Cargo</Label>
+                                                <Input id="position" placeholder="Ej: Analista de Suscripción" required />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="requestType">Tipo de Solicitud</Label>
+                                                <Select required>
+                                                    <SelectTrigger id="requestType">
+                                                        <SelectValue placeholder="Seleccione un tipo" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="Documento">Documento</SelectItem>
+                                                        <SelectItem value="Manual">Manual</SelectItem>
+                                                        <SelectItem value="Presentacion">Presentación</SelectItem>
+                                                        <SelectItem value="Recurso Visual">Recurso Visual</SelectItem>
+                                                        <SelectItem value="Video">Video</SelectItem>
+                                                        <SelectItem value="Otro">Otro</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                             <div className="space-y-2">
+                                                <Label htmlFor="reason">Razón de Solicitud</Label>
+                                                <Textarea id="reason" placeholder="Describa brevemente por qué necesita este recurso" required />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="details">Solicitud</Label>
+                                                <Textarea id="details" placeholder="Describa detalladamente el recurso que necesita" required />
+                                            </div>
+                                            <DialogFooter className="pt-4">
+                                                <Button type="submit">Enviar Solicitud Simple</Button>
+                                            </DialogFooter>
+                                        </form>
+                                    )}
+                                </div>
+                            </DialogContent>
+                        </Dialog>
                     </div>
 
                     <div className="flex-grow overflow-auto -mx-2 px-2 py-4">
@@ -357,3 +488,4 @@ export default function BibliotecaPage() {
             </Dialog>
         </div>
     );
+}

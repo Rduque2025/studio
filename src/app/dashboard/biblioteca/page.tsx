@@ -90,26 +90,35 @@ export default function BibliotecaPage() {
     };
     
     const handleSendEmail = () => {
-        if (selectedDocIds.length > 0 && recipientEmail) {
-            const selectedDocs = mockDocuments.filter(doc => selectedDocIds.includes(doc.id));
-            if (selectedDocs.length > 0) {
-                const subject = selectedDocs.length > 1 
-                    ? `Enlaces a ${selectedDocs.length} documentos`
-                    : `Enlace al documento: ${selectedDocs[0].title}`;
-                
-                const body = `Hola,\n\nAquí tienes el/los enlace(s) para ver el/los documento(s) solicitado(s):\n\n${selectedDocs.map(doc => `* "${doc.title}":\n  https://portal.banesco.com/biblioteca/${doc.id}`).join('\n\n')}\n\nSaludos.`;
-                
-                window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                
-                setIsSendDialogOpen(false);
-                setRecipientEmail('');
-                setSelectedDocIds([]);
-                
-                toast({
-                    title: "Correo listo para enviar",
-                    description: `Se ha abierto tu cliente de correo para enviar ${selectedDocs.length > 1 ? `${selectedDocs.length} documentos` : `"${selectedDocs[0].title}"`}.`,
-                });
-            }
+        if (selectedDocIds.length === 0 || !recipientEmail) return;
+
+        if (!recipientEmail.toLowerCase().endsWith('@banescoseguros.com')) {
+            toast({
+                title: "Correo no válido",
+                description: "Por favor, utilice un correo con el dominio @banescoseguros.com",
+                variant: "destructive",
+            });
+            return;
+        }
+
+        const selectedDocs = mockDocuments.filter(doc => selectedDocIds.includes(doc.id));
+        if (selectedDocs.length > 0) {
+            const subject = selectedDocs.length > 1 
+                ? `Enlaces a ${selectedDocs.length} documentos`
+                : `Enlace al documento: ${selectedDocs[0].title}`;
+            
+            const body = `Hola,\n\nAquí tienes el/los enlace(s) para ver el/los documento(s) solicitado(s):\n\n${selectedDocs.map(doc => `* "${doc.title}":\n  https://portal.banesco.com/biblioteca/${doc.id}`).join('\n\n')}\n\nSaludos.`;
+            
+            window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            setIsSendDialogOpen(false);
+            setRecipientEmail('');
+            setSelectedDocIds([]);
+            
+            toast({
+                title: "Correo listo para enviar",
+                description: `Se ha abierto tu cliente de correo para enviar ${selectedDocs.length > 1 ? `${selectedDocs.length} documentos` : `"${selectedDocs[0].title}"`}.`,
+            });
         }
     };
     
@@ -127,6 +136,8 @@ export default function BibliotecaPage() {
         mockDocuments.filter(doc => selectedDocIds.includes(doc.id)), 
         [selectedDocIds]
     );
+
+    const isEmailValid = recipientEmail.toLowerCase().endsWith('@banescoseguros.com');
 
 
     return (
@@ -319,7 +330,7 @@ export default function BibliotecaPage() {
                                     "{doc.title}"{index < selectedDocsForDialog.length - 1 ? ', ' : ''}
                                 </span>
                             ))}.
-                           Por favor, introduzca el correo del destinatario.
+                           Por favor, introduzca el correo del destinatario. Solo se permiten correos del dominio @banescoseguros.com.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
@@ -330,7 +341,7 @@ export default function BibliotecaPage() {
                             <Input
                                 id="email"
                                 type="email"
-                                placeholder="destinatario@ejemplo.com"
+                                placeholder="destinatario@banescoseguros.com"
                                 className="col-span-3"
                                 value={recipientEmail}
                                 onChange={(e) => setRecipientEmail(e.target.value)}
@@ -339,7 +350,7 @@ export default function BibliotecaPage() {
                     </div>
                     <DialogFooter>
                         <Button variant="outline" onClick={() => setIsSendDialogOpen(false)}>Cancelar</Button>
-                        <Button onClick={handleSendEmail} disabled={!recipientEmail}>Enviar Correo</Button>
+                        <Button onClick={handleSendEmail} disabled={!isEmailValid}>Enviar Correo</Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>

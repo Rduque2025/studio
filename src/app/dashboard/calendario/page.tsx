@@ -83,6 +83,7 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 
 export default function CalendarioPage() {
   const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date(2025, 5, 1));
+  const [month, setMonth] = useState<Date>(new Date(2025, 5, 1));
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
@@ -341,31 +342,32 @@ export default function CalendarioPage() {
         <div className="flex flex-col items-center w-full">
             <div className="w-full"> 
                 <Calendar
-                mode="single"
-                selected={selectedDay}
-                onSelect={setSelectedDay} 
-                onDayClick={handleDayClick}
-                className="w-full" 
-                defaultMonth={new Date(2025, 5, 1)}
-                locale={es} 
-                renderDayContent={renderDayEventsContent}
-                onAddEventTrigger={handleOpenAddEventDialog} 
-                footer={
-                    <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
-                    <div className="min-h-[20px] flex-grow"> 
-                        {selectedDay ? (
-                        <p className="text-xs text-muted-foreground">
-                            Día seleccionado: {format(selectedDay, 'PPP', { locale: es })}.
-                            {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(selectedDay, 'yyyy-MM-dd') 
-                            ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
-                            : " Seleccione un evento o añada uno nuevo."}
-                        </p>
-                        ) : (
-                        <p className="text-xs text-muted-foreground">Seleccione una fecha.</p>
-                        )}
-                    </div>
-                    </div>
-                }
+                  mode="single"
+                  selected={selectedDay}
+                  onSelect={setSelectedDay}
+                  month={month}
+                  onMonthChange={setMonth}
+                  onDayClick={handleDayClick}
+                  className="w-full"
+                  locale={es}
+                  renderDayContent={renderDayEventsContent}
+                  onAddEventTrigger={handleOpenAddEventDialog}
+                  footer={
+                      <div className="p-2 mt-2 text-sm space-y-2 border-t"> 
+                      <div className="min-h-[20px] flex-grow"> 
+                          {selectedDay ? (
+                          <p className="text-xs text-muted-foreground">
+                              Día seleccionado: {format(selectedDay, 'PPP', { locale: es })}.
+                              {selectedEvent && format(selectedEvent.date, 'yyyy-MM-dd') === format(selectedDay, 'yyyy-MM-dd') 
+                              ? <span className="font-medium text-foreground"> Evento: {selectedEvent.title}</span>
+                              : " Seleccione un evento o añada uno nuevo."}
+                          </p>
+                          ) : (
+                          <p className="text-xs text-muted-foreground">Seleccione una fecha.</p>
+                          )}
+                      </div>
+                      </div>
+                  }
                 />
             </div>
 

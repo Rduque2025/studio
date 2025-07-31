@@ -3,15 +3,14 @@
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight, PlusCircle } from "lucide-react" 
-import { DayPicker, CaptionProps, useDayPicker } from "react-day-picker" 
+import { DayPicker, CaptionProps, useDayPicker, DayPickerProps } from "react-day-picker" 
 import { format } from "date-fns"
 import { es } from "date-fns/locale" 
 
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
-  locale?: Locale; 
+export type CalendarProps = DayPickerProps & {
   renderDayContent?: (date: Date) => React.ReactNode;
   onAddEventTrigger?: (date: Date) => void;
 }

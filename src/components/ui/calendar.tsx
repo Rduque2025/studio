@@ -30,7 +30,7 @@ function CustomCaption(props: CaptionProps) {
           disabled={!previousMonth}
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+            "h-7 w-7 bg-transparent p-0 text-muted-foreground"
           )}
           aria-label="Mes anterior"
         >
@@ -42,7 +42,7 @@ function CustomCaption(props: CaptionProps) {
           disabled={!nextMonth}
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
+            "h-7 w-7 bg-transparent p-0 text-muted-foreground"
           )}
           aria-label="Mes siguiente"
         >

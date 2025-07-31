@@ -90,3 +90,14 @@
     @apply bg-background text-foreground font-sans; /* Ensure font-sans is applied */
   }
 }
+
+@layer utilities {
+  .timeline-line::before {
+    content: '';
+    @apply absolute left-5 top-10 bottom-0 w-0.5 bg-border -translate-x-1/2;
+  }
+
+  .timeline-item:last-child .timeline-line::before {
+    @apply hidden;
+  }
+}

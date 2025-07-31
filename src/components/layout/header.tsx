@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Bell, Clock, Target, User, Music } from "lucide-react"; 
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Bell, Clock, Target, User, Archive } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React, { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useEvents, type CalendarEvent } from "@/contexts/events-context"; 
+import { mockNotifications, type NotificationItem } from "@/lib/placeholder-data";
 import { format, isToday, intervalToDuration, isPast } from "date-fns"; 
 import { es } from "date-fns/locale"; 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -35,59 +36,6 @@ const navItemsMobile = [
   { name: "Perfil", href: "#", icon: User, isUser: true, activePaths: [] },
 ];
 
-// Client-side component for countdown to prevent hydration errors
-function Countdown({ eventDate, eventTime }: { eventDate: Date; eventTime?: string }) {
-  const [countdown, setCountdown] = useState('');
-
-  const calculate = React.useCallback(() => {
-    if (!eventTime) {
-      setCountdown('');
-      return;
-    }
-    const now = new Date();
-    const [hours, minutes] = eventTime.split(':').map(Number);
-    const eventDateTime = new Date(eventDate);
-    eventDateTime.setHours(hours, minutes, 0, 0);
-
-    if (isPast(eventDateTime)) {
-      setCountdown('Comenzó');
-      return;
-    }
-
-    const duration = intervalToDuration({ start: now, end: eventDateTime });
-    const parts = [];
-    if (duration.days && duration.days > 0) parts.push(`${duration.days}d`);
-    if (duration.hours && duration.hours > 0) parts.push(`${duration.hours}h`);
-    if (duration.minutes && duration.minutes > 0) parts.push(`${duration.minutes}m`);
-    
-    if (parts.length === 0 && duration.seconds && duration.seconds > 0) {
-       parts.push(`${duration.seconds}s`);
-    } else if (parts.length < 2 && duration.seconds && duration.seconds > 0 && !(duration.days || duration.hours) && !(duration.minutes && duration.minutes >=10 )) {
-       parts.push(`${duration.seconds}s`);
-    }
-
-    if (parts.length === 0) {
-      setCountdown('Ahora');
-      return;
-    }
-
-    setCountdown(`en ${parts.join(' ')}`);
-  }, [eventDate, eventTime]);
-
-  useEffect(() => {
-    calculate();
-    const timer = setInterval(calculate, 1000);
-    return () => clearInterval(timer);
-  }, [calculate]);
-
-  if (!countdown) return null;
-
-  return (
-    <Badge variant="outline">
-      {countdown}
-    </Badge>
-  );
-}
 
 const UserProfileButton = () => {
     return (
@@ -108,29 +56,15 @@ const UserProfileButton = () => {
 
 export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const { allEvents, getCategoryDisplayStyles } = useEvents(); 
-  const [todaysEvents, setTodaysEvents] = useState<CalendarEvent[]>([]); 
-  const [isRemindersPopoverOpen, setIsRemindersPopoverOpen] = useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const pathname = usePathname();
 
   const checkIsActive = (item: { href: string, activePaths: string[] }) => {
-    if (item.href === '/dashboard' && item.activePaths.includes('/dashboard')) {
+    if (item.href === '/dashboard') {
         return pathname === '/dashboard';
     }
-    return item.activePaths.some(p => pathname.startsWith(p) && p !== '/dashboard');
+    return item.activePaths.some(p => pathname.startsWith(p));
   };
-
-
-  useEffect(() => {
-    const filtered = allEvents.filter(event => isToday(event.date));
-    setTodaysEvents(filtered.sort((a, b) => {
-        if (!a.time && !b.time) return 0;
-        if (!a.time) return 1;
-        if (!b.time) return -1;
-        return a.time.localeCompare(b.time);
-    }));
-  }, [allEvents]); 
 
   const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
     if (item.isSearch || item.isReminders || item.isUser) {
@@ -196,68 +130,55 @@ export function Header() {
             </PopoverContent>
           </Popover>
 
-          <Popover open={isRemindersPopoverOpen} onOpenChange={setIsRemindersPopoverOpen}>
+          <Popover>
             <PopoverTrigger asChild>
               <Button variant="ghost" size="icon">
                 <Bell className="h-5 w-5" />
-                {todaysEvents.length > 0 && (
+                {mockNotifications.length > 0 && (
                   <span className="absolute top-2 right-2 block h-2 w-2 rounded-full bg-primary ring-2 ring-background" />
                 )}
-                <span className="sr-only">Recordatorios</span>
+                <span className="sr-only">Notificaciones</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-80 p-0">
+            <PopoverContent className="w-96 p-0" align="end">
               <div className="p-4">
-                <h4 className="font-medium text-sm text-foreground">Recordatorios de Hoy</h4>
-              </div>
-              
-              {todaysEvents.length > 0 ? (
-                <ScrollArea className="h-[200px]">
-                  <div className="p-4 space-y-3">
-                    {todaysEvents.map((event) => {
-                      const categoryStyles = event.isUserEvent && event.category ? getCategoryDisplayStyles(event.category) : null;
-                      
-                      return (
-                        <div key={event.id} className="text-xs">
-                          <div className="flex justify-between items-start">
-                            <div className="flex-grow">
-                              <p className="font-medium text-foreground truncate">{event.title}</p>
-                              <p className="text-muted-foreground truncate">{event.description || "Evento programado."}</p>
-                            </div>
-                            {categoryStyles && (
-                              <Badge variant="outline" className={cn("ml-2 text-xs self-start flex-shrink-0", categoryStyles.badgeClass)}>
-                                {categoryStyles.badgeText}
-                              </Badge>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Badge variant="outline">
-                              {format(event.date, "PPP", { locale: es })}
-                            </Badge>
-                            {event.time && (
-                              <Badge variant="outline" className="flex items-center">
-                                <Clock className="mr-1 h-3 w-3" />
-                                {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
-                              </Badge>
-                            )}
-                            {event.time && (
-                              <Countdown eventDate={event.date} eventTime={event.time} />
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h4 className="font-semibold text-sm">Notificaciones</h4>
+                    <p className="text-xs text-muted-foreground">Tienes {mockNotifications.length} notificaciones nuevas.</p>
                   </div>
-                </ScrollArea>
-              ) : (
-                <p className="p-4 text-sm text-muted-foreground">No hay recordatorios para hoy.</p>
-              )}
-              
-              <div className="p-2 text-center border-t">
-                <Button variant="link" size="sm" asChild onClick={() => {setIsRemindersPopoverOpen(false); setIsMobileMenuOpen(false);}}>
-                  <Link href="/dashboard/calendario">Ver Calendario</Link>
-                </Button>
+                  <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground">
+                    <Archive className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
+
+              <div className="w-full border-b border-dashed border-border"></div>
+              
+              <ScrollArea className="h-96">
+                <div className="p-4 space-y-2">
+                  {mockNotifications.map((notification, index) => (
+                    <div key={notification.id} className="relative flex gap-4 items-start timeline-item">
+                      {/* Timeline line */}
+                      <div className="timeline-line"></div>
+
+                      {/* Icon */}
+                      <div className={cn("mt-1 flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center z-10", notification.iconColor)}>
+                        <notification.icon className="h-5 w-5" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-grow">
+                        <div className="flex justify-between items-center">
+                          <p className="font-medium text-sm">{notification.title}</p>
+                          <p className="text-xs text-muted-foreground">{notification.time}</p>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{notification.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
             </PopoverContent>
           </Popover>
           
@@ -310,7 +231,7 @@ export function Header() {
                         : "text-muted-foreground"
                      )} />
                     <span>{item.name}</span>
-                    {item.icon === Bell && todaysEvents.length > 0 && (
+                    {item.icon === Bell && mockNotifications.length > 0 && (
                        <span className="ml-auto block h-2 w-2 rounded-full bg-primary" />
                     )}
                   </Link>

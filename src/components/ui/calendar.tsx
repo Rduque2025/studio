@@ -41,13 +41,13 @@ function Calendar({
         cell: cn( 
           "w-full text-sm p-2 relative focus-within:relative focus-within:z-20 bg-muted/20",
           "min-h-[8rem] h-auto",
-          "has-[[aria-selected=true]]:bg-background has-[[aria-selected=true]]:shadow-md"
+          "has-[[aria-selected=true]]:bg-background has-[[aria-selected=true]]:shadow-md has-[[aria-selected=true]]:rounded-lg"
         ),
         day: cn(
           "h-full w-full p-1 text-left align-top font-normal flex flex-col" 
         ),
         day_selected: "",
-        day_today: "bg-background shadow-inner", 
+        day_today: "bg-background shadow-inner rounded-lg", 
         day_outside: "day-outside text-muted-foreground/30 opacity-100", 
         day_disabled: "text-muted-foreground opacity-50",
         day_range_middle: "",

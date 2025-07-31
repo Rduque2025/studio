@@ -322,7 +322,7 @@ export default function CalendarioPage() {
                         >
                             <ChevronLeft className="h-5 w-5" />
                         </Button>
-                        <div className="flex items-center justify-center h-12 w-24 rounded-2xl bg-primary text-primary-foreground shadow-lg">
+                        <div className="flex items-center justify-center h-12 w-24 rounded-2xl bg-muted text-muted-foreground shadow-lg">
                             <span className="font-bold text-lg capitalize">
                                 {format(month, 'MMM', { locale: es })}
                             </span>

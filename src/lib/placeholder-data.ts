@@ -57,7 +57,7 @@ export interface DocumentResource {
   id: string;
   title: string;
   category: 'Recursos Visuales' | 'Herramientas de Código' | 'Presentaciones' | 'Manuales' | 'Documentos' | 'Videos' | 'Destacados';
-  area: 'Comercial' | 'Suscripción' | 'Legal' | 'Mercadeo' | 'Capital Humano' | 'Procesos' | 'Actuarial' | 'General';
+  area: 'Comercial' | 'Suscripción' | 'Legal' | 'Mercadeo' | 'Capital Humano' | 'Procesos' | 'Actuarial' | 'General' | 'Finanzas y Contabilidad';
   description: string;
   imageUrl: string;
   dataAiHint: string;
@@ -705,6 +705,7 @@ export const mockPlaylist: PlaylistItem[] = [
     
     
     
+
 
 
 

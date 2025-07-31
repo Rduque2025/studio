@@ -41,6 +41,7 @@ const areas = [
     { id: "ALL", label: "Todos" },
     { id: "Comercial", label: "Comercial" },
     { id: "Suscripción", label: "Suscripción" },
+    { id: "Finanzas y Contabilidad", label: "Finanzas y Contabilidad" },
     { id: "Legal", label: "Legal" },
     { id: "Mercadeo", label: "Mercadeo" },
     { id: "Capital Humano", label: "Capital Humano" },

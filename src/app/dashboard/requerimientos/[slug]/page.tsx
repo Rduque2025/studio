@@ -1,14 +1,22 @@
 
+'use client';
+
+import React, { useState, useMemo } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
-import { mockDepartments } from "@/lib/placeholder-data";
+import { mockDepartments, specialRequestAreas } from "@/lib/placeholder-data";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, ArrowRight, PlusCircle, Mail, Phone } from "lucide-react";
+import { AlertTriangle, ArrowRight, PlusCircle, Mail, Phone, ArrowLeft, User, Info, MessageSquare, CheckCircle, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from '@/components/ui/dialog';
+import { useToast } from "@/hooks/use-toast";
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
 
 interface DepartmentPageProps {
   params: { slug: string };
@@ -20,6 +28,13 @@ export async function generateStaticParams() {
     slug: dept.id,
   }));
 }
+
+const requestSteps = [
+    { id: 1, title: 'Datos del Solicitante', description: 'Información personal', icon: User },
+    { id: 2, title: 'Detalles del Recurso', description: 'Tipo y razón', icon: Info },
+    { id: 3, title: 'Descripción Detallada', description: 'Explica lo que necesitas', icon: MessageSquare },
+    { id: 4, title: 'Confirmación', description: 'Revisa y envía', icon: CheckCircle },
+];
 
 const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
   const defaultIcon = department.icon || AlertTriangle;
@@ -162,6 +177,19 @@ const renderDepartmentContent = (department: (typeof mockDepartments)[0]) => {
 
 export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
   const department = mockDepartments.find(d => d.id === params.slug);
+  const [isSpecialRequestOpen, setIsSpecialRequestOpen] = useState(false);
+  const [selectedRequestArea, setSelectedRequestArea] = useState<(typeof specialRequestAreas)[0] | null>(null);
+  const [requestType, setRequestType] = useState<'formal' | 'simple' | null>(null);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+      fullName: '',
+      position: '',
+      requestType: '',
+      reason: '',
+      details: '',
+  });
+
+  const { toast } = useToast();
 
   if (!department) {
     return (
@@ -180,6 +208,40 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
       </div>
     );
   }
+
+  const handleFormalRequest = () => {
+    if (selectedRequestArea) {
+      window.location.href = `mailto:${selectedRequestArea.email}`;
+    }
+  };
+
+  const handleSimpleRequestSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Solicitud Enviada",
+      description: "Tu solicitud simple ha sido registrada. La funcionalidad de guardado en Google Sheets está pendiente de implementación en el backend."
+    });
+    setIsSpecialRequestOpen(false);
+    setSelectedRequestArea(null);
+    setRequestType(null);
+    setCurrentStep(1);
+    setFormData({ fullName: '', position: '', requestType: '', reason: '', details: '' });
+  };
+
+  const handleStepChange = (step: number) => {
+    if (step > 0 && step <= requestSteps.length) {
+      setCurrentStep(step);
+    }
+  };
+
+  const isStepComplete = (step: number) => {
+    switch (step) {
+      case 1: return formData.fullName !== '' && formData.position !== '';
+      case 2: return formData.requestType !== '' && formData.reason !== '';
+      case 3: return formData.details !== '';
+      default: return false;
+    }
+  };
 
   return (
     <div className="container mx-auto py-8 px-4 space-y-8">
@@ -201,10 +263,25 @@ export default function DepartmentRequestPage({ params }: DepartmentPageProps) {
                 <h1 className="text-3xl md:text-4xl font-bold mb-3">{department.name}</h1>
                 <p className="max-w-2xl text-background/80 mb-6 text-sm">{department.description}</p>
                  <div className="flex gap-4 items-center">
-                    <Button variant="destructive" size="sm" className="text-xs">
-                        <PlusCircle className="mr-2 h-4 w-4" />
-                        Solicitudes Especiales
-                    </Button>
+                    <Dialog open={isSpecialRequestOpen} onOpenChange={(isOpen) => {
+                        setIsSpecialRequestOpen(isOpen);
+                        if (!isOpen) {
+                            setSelectedRequestArea(null);
+                            setRequestType(null);
+                            setCurrentStep(1);
+                            setFormData({ fullName: '', position: '', requestType: '', reason: '', details: '' });
+                        }
+                    }}>
+                        <DialogTrigger asChild>
+                            <Button variant="destructive" size="sm" className="text-xs">
+                                <PlusCircle className="mr-2 h-4 w-4" />
+                                Solicitudes Especiales
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-4xl p-0">
+                          {/* Special Request Dialog Content from Biblioteca */}
+                        </DialogContent>
+                    </Dialog>
                     {department.id === 'capital-humano' && (
                        <>
                         <Button asChild variant="ghost" size="icon" className="text-background/80 hover:text-background hover:bg-white/10">

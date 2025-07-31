@@ -1,19 +1,22 @@
 
 'use client';
 
-import { useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { mockDepartments } from "@/lib/placeholder-data";
+import { mockDepartments, specialRequestAreas } from "@/lib/placeholder-data";
 import { Button } from "@/components/ui/button";
-import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, MoreVertical, Flag, ArrowRight, Briefcase, Shield, Scale } from "lucide-react";
+import { Plus, ArrowLeft, LayoutGrid, Users, Megaphone, FolderKanban, MoreHorizontal, MoreVertical, Flag, ArrowRight, Briefcase, Shield, Scale, User, Info, MessageSquare, CheckCircle, Check } from "lucide-react";
 import type { Department } from "@/lib/placeholder-data";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
 
 const categories = [
     { id: "ALL", name: "ALL", icon: LayoutGrid },
@@ -23,6 +26,13 @@ const categories = [
     { id: "Seguridad", name: "Seguridad", icon: Shield },
     { id: "Proyectos", name: "Proyectos", icon: FolderKanban },
     { id: "Otros", name: "Otros", icon: MoreHorizontal }
+];
+
+const requestSteps = [
+    { id: 1, title: 'Datos del Solicitante', description: 'Información personal', icon: User },
+    { id: 2, title: 'Detalles del Recurso', description: 'Tipo y razón', icon: Info },
+    { id: 3, title: 'Descripción Detallada', description: 'Explica lo que necesitas', icon: MessageSquare },
+    { id: 4, title: 'Confirmación', description: 'Revisa y envía', icon: CheckCircle },
 ];
 
 interface DepartmentCardProps {
@@ -88,6 +98,18 @@ const DepartmentCard = ({ department, isActive, onReportError }: DepartmentCardP
 export default function RequerimientosPage() {
   const [activeCategory, setActiveCategory] = useState<string>("ALL");
   const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
+  const [isSpecialRequestOpen, setIsSpecialRequestOpen] = useState(false);
+  const [selectedRequestArea, setSelectedRequestArea] = useState<(typeof specialRequestAreas)[0] | null>(null);
+  const [requestType, setRequestType] = useState<'formal' | 'simple' | null>(null);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+      fullName: '',
+      position: '',
+      requestType: '',
+      reason: '',
+      details: '',
+  });
+
   const { toast } = useToast();
 
   const filteredDepartments = activeCategory === 'ALL'
@@ -106,15 +128,64 @@ export default function RequerimientosPage() {
     });
   }
 
+  const handleFormalRequest = () => {
+    if (selectedRequestArea) {
+      window.location.href = `mailto:${selectedRequestArea.email}`;
+    }
+  };
+
+  const handleSimpleRequestSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Solicitud Enviada",
+      description: "Tu solicitud simple ha sido registrada. La funcionalidad de guardado en Google Sheets está pendiente de implementación en el backend."
+    });
+    setIsSpecialRequestOpen(false);
+    setSelectedRequestArea(null);
+    setRequestType(null);
+    setCurrentStep(1);
+    setFormData({ fullName: '', position: '', requestType: '', reason: '', details: '' });
+  };
+
+  const handleStepChange = (step: number) => {
+    if (step > 0 && step <= requestSteps.length) {
+      setCurrentStep(step);
+    }
+  };
+
+  const isStepComplete = (step: number) => {
+    switch (step) {
+      case 1: return formData.fullName !== '' && formData.position !== '';
+      case 2: return formData.requestType !== '' && formData.reason !== '';
+      case 3: return formData.details !== '';
+      default: return false;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-transparent p-4 sm:p-6 md:p-8">
       <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
         
         <header className="flex justify-end items-center mb-8">
-            <Button variant="destructive" size="sm" className="text-xs">
-                <Plus className="h-4 w-4 mr-2" />
-                Solicitudes Especiales
-            </Button>
+            <Dialog open={isSpecialRequestOpen} onOpenChange={(isOpen) => {
+                setIsSpecialRequestOpen(isOpen);
+                if (!isOpen) {
+                    setSelectedRequestArea(null);
+                    setRequestType(null);
+                    setCurrentStep(1);
+                    setFormData({ fullName: '', position: '', requestType: '', reason: '', details: '' });
+                }
+            }}>
+                <DialogTrigger asChild>
+                    <Button variant="destructive" size="sm" className="text-xs">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Solicitudes Especiales
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-4xl p-0">
+                  {/* Content from Biblioteca Page */}
+                </DialogContent>
+            </Dialog>
         </header>
 
         <div className="flex-grow grid md:grid-cols-12 gap-8">

@@ -45,7 +45,7 @@ const areas = [
     { id: "ALL", label: "Todos" },
     { id: "Comercial", label: "Comercial" },
     { id: "Suscripción", label: "Suscripción" },
-    { id: "Finanzas y Contabilidad", label: "Finanzas y Contabilidad" },
+    { id: "Finanzas", label: "Finanzas" },
     { id: "Legal", label: "Legal" },
     { id: "Mercadeo", label: "Mercadeo" },
     { id: "Capital Humano", label: "Capital Humano" },
@@ -54,7 +54,7 @@ const areas = [
 ];
 
 const specialRequestAreas = [
-    { id: 'Finanzas y Contabilidad', name: 'Finanzas y Contabilidad', email: 'gcia_nacional_finanzas_ve@banescoseguros.com' },
+    { id: 'Finanzas', name: 'Finanzas', email: 'gcia_nacional_finanzas_ve@banescoseguros.com' },
     { id: 'Capital Humano', name: 'Capital Humano', email: 'capital_humano_ve@banescoseguros.com' },
     { id: 'Mercadeo', name: 'Mercadeo', email: 'comunicaciones@banescoseguros.com' },
     { id: 'Procesos', name: 'Procesos', email: 'procesos@banescoseguros.com' },
@@ -221,89 +221,7 @@ export default function BibliotecaPage() {
                 {/* Main Content */}
                 <main className="flex-1 p-8 flex flex-col">
                     <div className="py-4">
-                        <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
-                            {areas.map(area => (
-                                <Button
-                                    key={area.id}
-                                    variant={activeArea === area.id ? "secondary" : "ghost"}
-                                    size="sm"
-                                    className="rounded-full flex-shrink-0"
-                                    onClick={() => setActiveArea(area.id)}
-                                >
-                                    <span className="text-xs">{area.label}</span>
-                                </Button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="flex items-center gap-4">
-                                <div 
-                                    className="relative flex items-center"
-                                    onMouseEnter={() => setIsSearchExpanded(true)}
-                                    onMouseLeave={() => setIsSearchExpanded(false)}
-                                >
-                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
-                                    <Input 
-                                        placeholder="Buscar..." 
-                                        className={cn(
-                                            "pl-9 transition-all duration-300 ease-in-out",
-                                            isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
-                                        )}
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                    />
-                                </div>
-                                <div
-                                    className="relative flex items-center"
-                                    onMouseEnter={() => setIsSendButtonExpanded(true)}
-                                    onMouseLeave={() => setIsSendButtonExpanded(false)}
-                                >
-                                    <Button
-                                        variant="ghost"
-                                        onClick={handleSendClick}
-                                        disabled={selectedDocIds.length === 0}
-                                        className={cn(
-                                            "transition-all duration-300 ease-in-out flex items-center justify-start",
-                                            "disabled:opacity-50",
-                                            isSendButtonExpanded ? "w-28" : "w-10 px-0"
-                                        )}
-                                    >
-                                        <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
-                                        <span className={cn(
-                                            "text-xs transition-opacity duration-200",
-                                            isSendButtonExpanded ? "opacity-100" : "opacity-0"
-                                        )}>
-                                            Enviar
-                                        </span>
-                                    </Button>
-                                </div>
-                                <div
-                                    className="relative flex items-center"
-                                    onMouseEnter={() => setIsDownloadButtonExpanded(true)}
-                                    onMouseLeave={() => setIsDownloadButtonExpanded(false)}
-                                >
-                                    <Button
-                                        variant="ghost"
-                                        disabled={selectedDocIds.length === 0}
-                                        className={cn(
-                                            "transition-all duration-300 ease-in-out flex items-center justify-start",
-                                            "disabled:opacity-50",
-                                            isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
-                                        )}
-                                    >
-                                        <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
-                                        <span className={cn(
-                                            "text-xs transition-opacity duration-200",
-                                            isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
-                                        )}>
-                                            Descargar
-                                        </span>
-                                    </Button>
-                                </div>
-                            </div>
-                            
+                        <div className="flex justify-between items-center mb-4">
                             <Dialog open={isSpecialRequestOpen} onOpenChange={setIsSpecialRequestOpen}>
                                 <DialogTrigger asChild>
                                     <Button variant="destructive">
@@ -391,6 +309,89 @@ export default function BibliotecaPage() {
                                     </div>
                                 </DialogContent>
                             </Dialog>
+                        </div>
+                        <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2">
+                            {areas.map(area => (
+                                <Button
+                                    key={area.id}
+                                    variant={activeArea === area.id ? "secondary" : "ghost"}
+                                    size="sm"
+                                    className="rounded-full flex-shrink-0"
+                                    onClick={() => setActiveArea(area.id)}
+                                >
+                                    <span className="text-xs">{area.label}</span>
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+
+                    <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-4">
+                                <div 
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setIsSearchExpanded(true)}
+                                    onMouseLeave={() => setIsSearchExpanded(false)}
+                                >
+                                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10 pointer-events-none" />
+                                    <Input 
+                                        placeholder="Buscar..." 
+                                        className={cn(
+                                            "pl-9 transition-all duration-300 ease-in-out",
+                                            isSearchExpanded ? "w-64 opacity-100" : "w-10 opacity-0"
+                                        )}
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
+                                </div>
+                                <div
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setIsSendButtonExpanded(true)}
+                                    onMouseLeave={() => setIsSendButtonExpanded(false)}
+                                >
+                                    <Button
+                                        variant="ghost"
+                                        onClick={handleSendClick}
+                                        disabled={selectedDocIds.length === 0}
+                                        className={cn(
+                                            "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                            "disabled:opacity-50",
+                                            isSendButtonExpanded ? "w-28" : "w-10 px-0"
+                                        )}
+                                    >
+                                        <Mail className={cn("h-4 w-4", isSendButtonExpanded && "mr-2")} />
+                                        <span className={cn(
+                                            "text-xs transition-opacity duration-200",
+                                            isSendButtonExpanded ? "opacity-100" : "opacity-0"
+                                        )}>
+                                            Enviar
+                                        </span>
+                                    </Button>
+                                </div>
+                                <div
+                                    className="relative flex items-center"
+                                    onMouseEnter={() => setIsDownloadButtonExpanded(true)}
+                                    onMouseLeave={() => setIsDownloadButtonExpanded(false)}
+                                >
+                                    <Button
+                                        variant="ghost"
+                                        disabled={selectedDocIds.length === 0}
+                                        className={cn(
+                                            "transition-all duration-300 ease-in-out flex items-center justify-start",
+                                            "disabled:opacity-50",
+                                            isDownloadButtonExpanded ? "w-32" : "w-10 px-0"
+                                        )}
+                                    >
+                                        <Download className={cn("h-4 w-4", isDownloadButtonExpanded && "mr-2")} />
+                                        <span className={cn(
+                                            "text-xs transition-opacity duration-200",
+                                            isDownloadButtonExpanded ? "opacity-100" : "opacity-0"
+                                        )}>
+                                            Descargar
+                                        </span>
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="flex-grow overflow-auto -mx-2 px-2 py-4">

@@ -637,29 +637,157 @@ export const mockDocuments: DocumentResource[] = [
 
 
 export const mockCalendarEvents = [
-  { date: new Date(2025, 2, 8), title: "Día Internacional de la Mujer", description: "Actividades especiales y reconocimientos.", color: "bg-pink-500" },
-  { date: new Date(2025, 3, 1), title: "Inicio Trimestre Q2", description: "Reunión de planificación trimestral.", color: "bg-blue-500" },
-  { date: new Date(2025, 4, 1), title: "Día del Trabajador", description: "Feriado nacional.", color: "bg-red-500" },
-  { date: new Date(2025, 6, 5), title: "Día de la Independencia", description: "Feriado nacional.", color: "bg-yellow-500" },
-  { date: new Date(2025, 9, 12), title: "Día de la Resistencia Indígena", description: "Actos conmemorativos.", color: "bg-orange-500" },
-  { date: new Date(2025, 11, 24), title: "Noche Buena", description: "Medio día laborable.", color: "bg-green-500" },
-  { date: new Date(2025, 11, 25), title: "Navidad", description: "Feriado nacional.", color: "bg-red-500" },
-  { date: new Date(2025, 0, 15), title: "Presentación Resultados Anuales", description: "Presentación de resultados del año anterior.", color: "bg-purple-500" },
-  // Eventos de Pago Junio 2025
-  { id: "payment-jun-05-transporte", date: new Date(2025, 5, 5), title: "Beneficio de Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
-  { id: "payment-jun-06-sociales", date: new Date(2025, 5, 6), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
-  { id: "payment-jun-11-especial", date: new Date(2025, 5, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
-  { id: "payment-jun-11-quincena", date: new Date(2025, 5, 11), title: "Pago Quincena", description: "Pago de quincena.", color: "bg-emerald-500", isUserEvent: false },
-  { id: "payment-jun-13-sociales", date: new Date(2025, 5, 13), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
-  { id: "payment-jun-20-alimentacion-comp", date: new Date(2025, 5, 20), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
-  { id: "payment-jun-20-sociales", date: new Date(2025, 5, 20), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
-  { id: "payment-jun-26-alimentacion-benef",date: new Date(2025, 5, 26), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
-  { id: "payment-jun-26-quincena", date: new Date(2025, 5, 26), title: "Pago Quincena", description: "Pago de quincena.", color: "bg-emerald-500", isUserEvent: false },
-  // Feriados Bancarios Junio 2025
-  { id: "bank-holiday-jun-02", date: new Date(2025, 5, 2), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
-  { id: "bank-holiday-jun-16", date: new Date(2025, 5, 16), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
-  { id: "bank-holiday-jun-23", date: new Date(2025, 5, 23), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
-  { id: "bank-holiday-jun-24", date: new Date(2025, 5, 24), title: "Feriado Bancario", description: "Día no laborable para el sector bancario (Coincide con Batalla de Carabobo).", color: "bg-slate-700", isUserEvent: false },
+  // Enero 2025
+  { id: "feriado-ene-01", date: new Date(2025, 0, 1), title: "Año Nuevo", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-ene-03", date: new Date(2025, 0, 3), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "feriado-bancario-ene-06", date: new Date(2025, 0, 6), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-ene-10", date: new Date(2025, 0, 10), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "feriado-bancario-ene-13", date: new Date(2025, 0, 13), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-ene-24", date: new Date(2025, 0, 24), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-ene-28-quincena", date: new Date(2025, 0, 28), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-ene-28-alimentacion", date: new Date(2025, 0, 28), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Febrero 2025
+  { id: "pago-feb-05", date: new Date(2025, 1, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-feb-07", date: new Date(2025, 1, 7), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-feb-11", date: new Date(2025, 1, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-feb-12", date: new Date(2025, 1, 12), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-feb-14", date: new Date(2025, 1, 14), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-feb-21-sociales", date: new Date(2025, 1, 21), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-feb-21-alimentacion", date: new Date(2025, 1, 21), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-feb-26-quincena", date: new Date(2025, 1, 26), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-feb-26-alimentacion", date: new Date(2025, 1, 26), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Marzo 2025
+  { id: "feriado-mar-03", date: new Date(2025, 2, 3), title: "Carnavales", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "feriado-mar-04", date: new Date(2025, 2, 4), title: "Carnavales", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-mar-05", date: new Date(2025, 2, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-mar-07", date: new Date(2025, 2, 7), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-mar-11", date: new Date(2025, 2, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-mar-12", date: new Date(2025, 2, 12), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-mar-14", date: new Date(2025, 2, 14), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-mar-19", date: new Date(2025, 2, 19), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-mar-21-sociales", date: new Date(2025, 2, 21), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-mar-21-alimentacion", date: new Date(2025, 2, 21), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-mar-26-quincena", date: new Date(2025, 2, 26), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-mar-26-alimentacion", date: new Date(2025, 2, 26), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Abril 2025
+  { id: "pago-abr-04-transporte", date: new Date(2025, 3, 4), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-abr-04-sociales", date: new Date(2025, 3, 4), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-abr-10", date: new Date(2025, 3, 10), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-abr-11-especial", date: new Date(2025, 3, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-abr-11-sociales", date: new Date(2025, 3, 11), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-abr-16", date: new Date(2025, 3, 16), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "feriado-abr-17", date: new Date(2025, 3, 17), title: "Jueves Santo", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "feriado-abr-18", date: new Date(2025, 3, 18), title: "Viernes Santo", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-abr-18", date: new Date(2025, 3, 18), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-abr-24-quincena", date: new Date(2025, 3, 24), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-abr-24-alimentacion", date: new Date(2025, 3, 24), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Mayo 2025
+  { id: "feriado-may-01", date: new Date(2025, 4, 1), title: "Día del Trabajador", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-may-02-transporte", date: new Date(2025, 4, 2), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-may-02-sociales", date: new Date(2025, 4, 2), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-may-09-especial", date: new Date(2025, 4, 9), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-may-09-sociales", date: new Date(2025, 4, 9), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-may-13", date: new Date(2025, 4, 13), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-may-16-alimentacion", date: new Date(2025, 4, 16), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-may-16-sociales", date: new Date(2025, 4, 16), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-may-28-quincena", date: new Date(2025, 4, 28), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-may-28-alimentacion", date: new Date(2025, 4, 28), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Junio 2025
+  { id: "feriado-bancario-jun-02", date: new Date(2025, 5, 2), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-jun-05", date: new Date(2025, 5, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-jun-06", date: new Date(2025, 5, 6), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-jun-11-quincena", date: new Date(2025, 5, 11), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-jun-11-especial", date: new Date(2025, 5, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-jun-13", date: new Date(2025, 5, 13), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-jun-16", date: new Date(2025, 5, 16), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-jun-20-alimentacion", date: new Date(2025, 5, 20), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-jun-20-sociales", date: new Date(2025, 5, 20), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-jun-23", date: new Date(2025, 5, 23), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "feriado-jun-24", date: new Date(2025, 5, 24), title: "Batalla de Carabobo", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-jun-26-quincena", date: new Date(2025, 5, 26), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-jun-26-alimentacion", date: new Date(2025, 5, 26), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Julio 2025
+  { id: "pago-jul-03", date: new Date(2025, 6, 3), title: "Pago Utilidades", description: "Pago de utilidades.", color: "bg-yellow-500", isUserEvent: false },
+  { id: "pago-jul-04-transporte", date: new Date(2025, 6, 4), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-jul-04-sociales", date: new Date(2025, 6, 4), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-jul-05", date: new Date(2025, 6, 5), title: "Día de la Independencia", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-jul-10", date: new Date(2025, 6, 10), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-jul-11-especial", date: new Date(2025, 6, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-jul-11-sociales", date: new Date(2025, 6, 11), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-jul-18-alimentacion", date: new Date(2025, 6, 18), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-jul-18-sociales", date: new Date(2025, 6, 18), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-jul-24", date: new Date(2025, 6, 24), title: "Natalicio del Libertador", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "pago-jul-29-quincena", date: new Date(2025, 6, 29), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-jul-29-alimentacion", date: new Date(2025, 6, 29), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Agosto 2025
+  { id: "pago-ago-01", date: new Date(2025, 7, 1), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-ago-05", date: new Date(2025, 7, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-ago-08", date: new Date(2025, 7, 8), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-ago-11", date: new Date(2025, 7, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-ago-13", date: new Date(2025, 7, 13), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-ago-15", date: new Date(2025, 7, 15), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-ago-18", date: new Date(2025, 7, 18), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-ago-22", date: new Date(2025, 7, 22), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-ago-27-quincena", date: new Date(2025, 7, 27), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-ago-27-alimentacion", date: new Date(2025, 7, 27), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Septiembre 2025
+  { id: "pago-sep-05-transporte", date: new Date(2025, 8, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-sep-05-sociales", date: new Date(2025, 8, 5), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-sep-10", date: new Date(2025, 8, 10), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-sep-11", date: new Date(2025, 8, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-sep-12", date: new Date(2025, 8, 12), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-sep-15", date: new Date(2025, 8, 15), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-sep-19-alimentacion", date: new Date(2025, 8, 19), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-sep-19-sociales", date: new Date(2025, 8, 19), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-sep-25-quincena", date: new Date(2025, 8, 25), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-sep-25-alimentacion", date: new Date(2025, 8, 25), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+  
+  // Octubre 2025
+  { id: "pago-oct-03-transporte", date: new Date(2025, 9, 3), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-oct-03-sociales", date: new Date(2025, 9, 3), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-oct-10-especial", date: new Date(2025, 9, 10), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-oct-10-sociales", date: new Date(2025, 9, 10), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-oct-13", date: new Date(2025, 9, 13), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-oct-17-alimentacion", date: new Date(2025, 9, 17), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-oct-17-sociales", date: new Date(2025, 9, 17), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-oct-28-quincena", date: new Date(2025, 9, 28), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-oct-28-alimentacion", date: new Date(2025, 9, 28), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Noviembre 2025
+  { id: "pago-nov-05-transporte", date: new Date(2025, 10, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-nov-05-utilidades", date: new Date(2025, 10, 5), title: "Pago Utilidades", description: "Pago de utilidades.", color: "bg-yellow-500", isUserEvent: false },
+  { id: "pago-nov-07", date: new Date(2025, 10, 7), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-nov-11", date: new Date(2025, 10, 11), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-nov-12", date: new Date(2025, 10, 12), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-nov-14", date: new Date(2025, 10, 14), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-nov-21-alimentacion", date: new Date(2025, 10, 21), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-nov-21-sociales", date: new Date(2025, 10, 21), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-nov-24", date: new Date(2025, 10, 24), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-nov-26-quincena", date: new Date(2025, 10, 26), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-nov-26-alimentacion", date: new Date(2025, 10, 26), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+
+  // Diciembre 2025
+  { id: "pago-dic-05-transporte", date: new Date(2025, 11, 5), title: "Beneficio Transporte", description: "Pago de beneficio de transporte.", color: "bg-teal-500", isUserEvent: false },
+  { id: "pago-dic-05-sociales", date: new Date(2025, 11, 5), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-bancario-dic-08", date: new Date(2025, 11, 8), title: "Feriado Bancario", description: "Día no laborable para el sector bancario.", color: "bg-slate-700", isUserEvent: false },
+  { id: "pago-dic-10", date: new Date(2025, 11, 10), title: "Asignación Especial", description: "Pago de asignación especial.", color: "bg-sky-500", isUserEvent: false },
+  { id: "pago-dic-11", date: new Date(2025, 11, 11), title: "Pago 1° Quincena", description: "Pago de la primera quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-dic-12", date: new Date(2025, 11, 12), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "pago-dic-18", date: new Date(2025, 11, 18), title: "Complemento Alimentación", description: "Pago de complemento de alimentación.", color: "bg-lime-500", isUserEvent: false },
+  { id: "pago-dic-19-quincena", date: new Date(2025, 11, 19), title: "Pago 2° Quincena", description: "Pago de la segunda quincena.", color: "bg-emerald-500", isUserEvent: false },
+  { id: "pago-dic-19-alimentacion", date: new Date(2025, 11, 19), title: "Beneficio Alimentación", description: "Pago de beneficio de alimentación.", color: "bg-green-600", isUserEvent: false },
+  { id: "pago-dic-19-sociales", date: new Date(2025, 11, 19), title: "Beneficios Sociales", description: "Pago de beneficios sociales.", color: "bg-cyan-500", isUserEvent: false },
+  { id: "feriado-dic-24", date: new Date(2025, 11, 24), title: "Nochebuena", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "feriado-dic-25", date: new Date(2025, 11, 25), title: "Navidad", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
+  { id: "feriado-dic-31", date: new Date(2025, 11, 31), title: "Fin de Año", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
 ];
 
 export const mockDressCodeItems: DressCodeItem[] = [
@@ -812,4 +940,5 @@ export const mockNotifications: NotificationItem[] = [
 
 
     
+
 

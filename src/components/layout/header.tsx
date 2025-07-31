@@ -61,7 +61,7 @@ export function Header() {
 
   const checkIsActive = (item: { href: string, activePaths: string[] }) => {
     if (item.href === '/dashboard' && pathname === '/dashboard') {
-      return true;
+        return true;
     }
     // Check if the current pathname starts with any of the active paths, but isn't just the root dashboard path
     return item.href !== '/dashboard' && item.activePaths.some(p => pathname.startsWith(p));

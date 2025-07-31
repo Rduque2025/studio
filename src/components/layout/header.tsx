@@ -128,10 +128,21 @@ export function Header() {
                 <span className="sr-only">Buscar</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-2">
-              <div className="flex w-full max-w-sm items-center space-x-2">
-                <Input type="search" placeholder="Buscar..." className="h-9" />
-                <Button type="submit" size="sm" onClick={() => setIsSearchPopoverOpen(false)}>Buscar</Button>
+            <PopoverContent className="w-96 p-0 border-0 bg-transparent shadow-none" align="center">
+              <div className="relative flex w-full items-center rounded-full bg-card shadow-lg">
+                <Input
+                  type="search"
+                  placeholder="Buscar..."
+                  className="h-12 w-full rounded-full border-0 bg-transparent pl-6 pr-14 text-base focus-visible:ring-0 focus-visible:ring-offset-0"
+                />
+                <Button
+                  type="submit"
+                  size="icon"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-foreground text-background shadow-md transition-transform hover:scale-105"
+                  onClick={() => setIsSearchPopoverOpen(false)}
+                >
+                  <Search className="h-5 w-5" />
+                </Button>
               </div>
             </PopoverContent>
           </Popover>

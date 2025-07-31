@@ -287,7 +287,7 @@ export default function BibliotecaPage() {
                                                         <SelectContent>
                                                             <SelectItem value="Documento">Documento</SelectItem>
                                                             <SelectItem value="Manual">Manual</SelectItem>
-                                                            <SelectItem value="Presentacion">Presentación</SelectItem>
+                                                            <SelectItem value="Presentacion">Presentacion</SelectItem>
                                                             <SelectItem value="Recurso Visual">Recurso Visual</SelectItem>
                                                             <SelectItem value="Video">Video</SelectItem>
                                                             <SelectItem value="Otro">Otro</SelectItem>
@@ -491,4 +491,5 @@ export default function BibliotecaPage() {
             </div>
         </div>
     );
-}
+
+    

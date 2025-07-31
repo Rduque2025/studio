@@ -317,7 +317,7 @@ export default function CalendarioPage() {
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="h-10 w-10 text-muted-foreground hover:text-foreground transition-colors"
+                            className="h-10 w-10 text-muted-foreground transition-transform hover:scale-110 active:scale-95"
                             onClick={() => setMonth(subMonths(month, 1))}
                         >
                             <ChevronLeft className="h-5 w-5" />
@@ -330,7 +330,7 @@ export default function CalendarioPage() {
                         <Button
                             variant="ghost"
                             size="icon"
-                            className="h-10 w-10 text-muted-foreground hover:text-foreground transition-colors"
+                            className="h-10 w-10 text-muted-foreground transition-transform hover:scale-110 active:scale-95"
                             onClick={() => setMonth(addMonths(month, 1))}
                         >
                             <ChevronRight className="h-5 w-5" />

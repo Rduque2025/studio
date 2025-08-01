@@ -391,10 +391,15 @@ export default function CalendarioPage() {
                          </div>
                       </div>
                   </div>
-                   <DialogFooter className="p-4 bg-gray-50 border-t rounded-b-lg">
-                      <Button type="button" variant="ghost" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
-                      <Button type="submit" onClick={handleSaveNewEvent}>Guardar Evento</Button>
-                   </DialogFooter>
+                   <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={handleSaveNewEvent}
+                      className="absolute top-4 right-12 text-muted-foreground hover:text-foreground"
+                      aria-label="Guardar evento"
+                    >
+                      <Check className="h-4 w-4" />
+                    </Button>
               </DialogContent>
             </Dialog>
         </div>

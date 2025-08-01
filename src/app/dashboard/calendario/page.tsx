@@ -354,8 +354,8 @@ export default function CalendarioPage() {
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
               <DialogContent className="sm:max-w-md p-0 border-0 shadow-2xl rounded-2xl">
                 <DialogHeader className="hidden">
-                    <DialogTitle>Añadir Nuevo Evento</DialogTitle>
-                    <DialogDescription>Añada los detalles para su nuevo evento.</DialogDescription>
+                    <DialogTitle className="sr-only">Añadir Nuevo Evento</DialogTitle>
+                    <DialogDescription className="sr-only">Añada los detalles para su nuevo evento.</DialogDescription>
                 </DialogHeader>
                 <div className="flex items-stretch">
                     <div className="bg-gray-800 text-white w-2/5 p-6 flex flex-col items-center justify-center rounded-l-2xl">
@@ -387,7 +387,7 @@ export default function CalendarioPage() {
                                     placeholder="Ej: Reunión de equipo"
                                     value={newEventTitle}
                                     onChange={(e) => setNewEventTitle(e.target.value)}
-                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
+                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent"
                                 />
                             </div>
                             <div>
@@ -398,7 +398,7 @@ export default function CalendarioPage() {
                                     placeholder="09:00 - 11:00"
                                     value={newEventTimeRange}
                                     onChange={(e) => setNewEventTimeRange(e.target.value)}
-                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
+                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent"
                                 />
                             </div>
                        </div>

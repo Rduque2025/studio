@@ -31,12 +31,17 @@ import {
   Timer,
   MoreVertical,
   ArrowRight,
-  Clock
+  Clock,
+  Heart,
+  MessageCircle
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
 import type { LucideIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { npsData, mockCustomerFeedback } from '@/lib/placeholder-data';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+
 
 const smartGoalsData = {
   S: {
@@ -103,6 +108,12 @@ const getStatus = (progress: number) => {
     return { label: "EN CAMINO", color: "text-green-600", bg: "bg-green-100", ring: "ring-green-200", stroke: "stroke-green-500", progressClass: "bg-green-500" };
 };
 
+const getNpsStatus = (score: number) => {
+    if (score < 0) return { label: "Necesita Mejora", color: "text-red-600", bg: "bg-red-100", stroke: "stroke-red-500" };
+    if (score < 50) return { label: "Bueno", color: "text-amber-600", bg: "bg-amber-100", stroke: "stroke-amber-500" };
+    return { label: "Excelente", color: "text-green-600", bg: "bg-green-100", stroke: "stroke-green-500" };
+};
+
 
 export default function ObjetivosSmartPage() {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData | null>(null);
@@ -115,16 +126,24 @@ export default function ObjetivosSmartPage() {
         }
     };
 
-    const status = getStatus(progressData.current);
+    const progressStatus = getStatus(progressData.current);
+    const npsStatus = getNpsStatus(npsData.score);
 
     const radius = 52;
     const strokeWidth = 8;
     const size = (radius + strokeWidth) * 2;
-    const circumference = 2 * Math.PI * radius;
-    const offset = circumference - (progressData.current / 100) * circumference;
+
+    const progressCircumference = 2 * Math.PI * radius;
+    const progressOffset = progressCircumference - (progressData.current / 100) * progressCircumference;
+    
+    // NPS score is from -100 to 100. We map it to a 0-100 scale for the circle.
+    const npsPercentage = (npsData.score + 100) / 2;
+    const npsCircumference = 2 * Math.PI * radius;
+    const npsOffset = npsCircumference - (npsPercentage / 100) * npsCircumference;
+
 
     return (
-        <div className="container mx-auto py-8 px-4 bg-background">
+        <div className="container mx-auto py-8 px-4 bg-background space-y-12">
             
             {/* Back Button */}
             <div className="mb-8">
@@ -139,7 +158,7 @@ export default function ObjetivosSmartPage() {
             </div>
 
             {/* Header */}
-            <Card className="relative w-full overflow-hidden rounded-2xl bg-primary text-primary-foreground shadow-2xl min-h-[300px] flex flex-col justify-center p-8 md:p-12 mb-12">
+            <Card className="relative w-full overflow-hidden rounded-2xl bg-primary text-primary-foreground shadow-2xl min-h-[300px] flex flex-col justify-center p-8 md:p-12">
               <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
               <div className="absolute right-10 top-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
               <div className="absolute -left-10 bottom-10 w-40 h-40 rounded-full bg-white/5 pointer-events-none"></div>
@@ -160,7 +179,7 @@ export default function ObjetivosSmartPage() {
 
 
             {/* Dashboard Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
               <div className="lg:col-span-2">
                 {!selectedCategory ? (
@@ -192,11 +211,11 @@ export default function ObjetivosSmartPage() {
                                         cy={size / 2}
                                     />
                                     <circle
-                                        className={cn("transform -rotate-90 origin-center transition-all duration-1000", status.stroke)}
+                                        className={cn("transform -rotate-90 origin-center transition-all duration-1000", progressStatus.stroke)}
                                         stroke="currentColor"
                                         strokeWidth={strokeWidth}
-                                        strokeDasharray={circumference}
-                                        strokeDashoffset={offset}
+                                        strokeDasharray={progressCircumference}
+                                        strokeDashoffset={progressOffset}
                                         strokeLinecap="round"
                                         fill="transparent"
                                         r={radius}
@@ -209,8 +228,8 @@ export default function ObjetivosSmartPage() {
                                 </div>
                             </div>
                             <div className="text-center mt-4">
-                                <Badge className={cn("font-semibold tracking-wider", status.bg, status.color, `hover:${status.bg}`)}>
-                                    {status.label}
+                                <Badge className={cn("font-semibold tracking-wider", progressStatus.bg, progressStatus.color, `hover:${progressStatus.bg}`)}>
+                                    {progressStatus.label}
                                 </Badge>
                                 <p className="text-muted-foreground text-xs mt-2">Objetivo: {progressData.goal}%</p>
                             </div>
@@ -303,19 +322,85 @@ export default function ObjetivosSmartPage() {
                 })}
               </div>
             </div>
+
+            {/* Client Section */}
+            <Card className="relative w-full overflow-hidden rounded-2xl bg-secondary text-secondary-foreground shadow-2xl min-h-[300px] flex flex-col justify-center p-8 md:p-12">
+                <div className="absolute right-20 top-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
+                <div className="absolute right-10 bottom-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
+                <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-1">
+                        <p className="text-8xl font-black text-white/80">02</p>
+                    </div>
+                    <div className="md:col-span-11 md:pl-8">
+                        <p className="text-secondary-foreground/80 mb-2">Escuchando a</p>
+                        <h2 className="text-4xl md:text-5xl font-bold">Nuestros Clientes</h2>
+                        <p className="mt-4 max-w-2xl text-secondary-foreground/80">
+                            La opinión de nuestros clientes es fundamental para nuestro crecimiento. Aquí medimos su satisfacción y destacamos sus voces.
+                        </p>
+                    </div>
+                </div>
+            </Card>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <Card className="lg:col-span-1 shadow-sm border-none bg-card flex flex-col justify-between h-full p-6">
+                    <CardHeader className="flex flex-row justify-between items-start p-0">
+                        <div className="flex items-center gap-2">
+                            <div className="p-2 bg-muted rounded-md">
+                                <Heart className="h-5 w-5 text-muted-foreground" />
+                            </div>
+                            <div>
+                                <CardTitle className="text-sm font-medium">NPS Relacional</CardTitle>
+                                <CardDescription className="text-xs">Satisfacción General</CardDescription>
+                            </div>
+                        </div>
+                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                            <MoreVertical className="h-4 w-4" />
+                        </Button>
+                    </CardHeader>
+                    <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
+                        <div className="relative h-40 w-40">
+                             <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
+                                <circle className="text-muted/50" stroke="currentColor" strokeWidth={strokeWidth} fill="transparent" r={radius} cx={size/2} cy={size/2}/>
+                                <circle
+                                    className={cn("transform -rotate-90 origin-center transition-all duration-1000", npsStatus.stroke)}
+                                    stroke="currentColor" strokeWidth={strokeWidth} strokeDasharray={npsCircumference} strokeDashoffset={npsOffset} strokeLinecap="round" fill="transparent" r={radius} cx={size/2} cy={size/2}
+                                />
+                            </svg>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                <p className="text-3xl font-bold text-foreground">{npsData.score > 0 ? '+' : ''}{npsData.score}</p>
+                            </div>
+                        </div>
+                        <div className="text-center mt-4">
+                            <Badge className={cn("font-semibold tracking-wider", npsStatus.bg, npsStatus.color, `hover:${npsStatus.bg}`)}>
+                                {npsStatus.label}
+                            </Badge>
+                            <p className="text-muted-foreground text-xs mt-2">Basado en {npsData.responses} respuestas</p>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <div className="lg:col-span-2 space-y-4">
+                    <h3 className="text-lg font-semibold text-foreground px-2">Comentarios Destacados</h3>
+                    {mockCustomerFeedback.map(feedback => (
+                        <Card key={feedback.id} className="bg-card shadow-sm border-none">
+                            <CardContent className="p-4 flex items-start gap-4">
+                                <Avatar>
+                                    <AvatarFallback>{feedback.avatar}</AvatarFallback>
+                                </Avatar>
+                                <div className="flex-grow">
+                                    <div className="flex justify-between items-center">
+                                        <p className="font-semibold text-sm">{feedback.name}</p>
+                                        <Badge variant={feedback.nps > 8 ? "default" : "secondary"} className={cn(feedback.nps <= 6 && "bg-destructive text-destructive-foreground")}>
+                                            NPS: {feedback.nps}
+                                        </Badge>
+                                    </div>
+                                    <p className="text-xs text-muted-foreground mt-1">"{feedback.comment}"</p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
         </div>
     );
 }
-
-    
-
-
-
-    
-
-    
-
-
-
-
-    

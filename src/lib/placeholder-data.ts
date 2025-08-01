@@ -111,6 +111,14 @@ export interface NotificationItem {
   iconColor: string;
 }
 
+export interface CustomerFeedback {
+  id: string;
+  name: string;
+  avatar: string; // Initials
+  comment: string;
+  nps: number; // 1-10 score
+}
+
 
 export const specialRequestAreas = [
     { id: 'Finanzas', name: 'Finanzas', email: 'gcia_nacional_finanzas_ve@banescoseguros.com' },
@@ -144,7 +152,7 @@ export const mockCourses: Course[] = [
     id: "C003",
     title: "Introducción a Seguros Digitales",
     description: "Conoce las últimas tendencias en el sector asegurador.",
-    imageUrl: "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8Y29tcHV0ZXJ8ZW58MHx8fHwxNzUyNDk1ODkyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8Y29tcHV0ZXJ8ZW58MHx8fHwxNzUyNDk1ODkyfDA&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "digital insurance",
     category: "Tecnología",
     duration: "8 semanas",
@@ -216,7 +224,7 @@ export const mockMenuItems: MenuItem[] = [
     day: "Lunes",
     name: "Pollo al Curry con Arroz Jazmín",
     description: "Delicioso pollo en salsa de curry acompañado de arroz jazmín y vegetales al vapor.",
-    imageUrl: "https://images.unsplash.com/photo-1628294895933-4360614f39dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXJyeSUyMGNoaWNrZW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1628294895933-4360614f39dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxjdXJyeSUyMGNoaWNrZW58ZW58MHx8fHwxNzUyMTUzMDI5fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "curry chicken",
     price: "100 Bs.",
     type: "Clásico",
@@ -289,7 +297,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Miércoles",
     name: "Bowl de Quinoa con Tofu y Aguacate",
     description: "Quinoa, tofu marinado y salteado, aguacate, edamame y aderezo de sésamo y jengibre.",
-    imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1525790428446-ad5140bdd234?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cXVpbm9hJTIwYm93bHxlbnwwfHx8fDE3NTIxNzA2NTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "quinoa bowl",
     price: "100 Bs.",
     type: "Dieta",
@@ -309,7 +317,7 @@ export const mockDietMenuItems: MenuItem[] = [
     day: "Viernes",
     name: "Sopa de Lentejas y Vegetales",
     description: "Contundente sopa de lentejas con zanahoria, apio, cebolla y un toque de pimentón.",
-    imageUrl: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW50aWwlMjBzb3VwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxsZW50aWwlMjBzb3VwfGVufDB8fHx8MTc1MjE3MDY1NHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "lentil soup",
     price: "100 Bs.",
     type: "Dieta",
@@ -332,7 +340,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Martes",
     name: "Risotto de Champiñones y Trufa",
     description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.",
-    imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "mushroom risotto",
     price: "13 $",
     type: "Ejecutivo",
@@ -352,7 +360,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Jueves",
     name: "Entrecot a la Parrilla con Chimichurri",
     description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.",
-    imageUrl: "https://images.unsplash.com/photo-1657143375273-75371e23f7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmlsbGVkJTIwc3RlYWt8ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1657143375273-75371e23f7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmlsbGVkJTIwc3RlYWt8ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "grilled steak",
     price: "13 $",
     type: "Ejecutivo",
@@ -362,7 +370,7 @@ export const mockExecutiveMenuItems: MenuItem[] = [
     day: "Viernes",
     name: "Canelones de Ricota y Espinaca",
     description: "Canelones rellenos de suave ricota y espinacas frescas, bañados en salsa bechamel y gratinados.",
-    imageUrl: "https://images.unsplash.com/photo-1741448682476-55786f461576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYW5uZWxsb25pJTIwcmljb3R0YXxlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1741448682476-55786f461576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYW5uZWxsb25pJTIwcmljb3R0YXxlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "cannelloni ricotta",
     price: "13 $",
     type: "Ejecutivo",
@@ -493,7 +501,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Manuales", 
     area: "Procesos",
     description: "Un análisis profundo de los desafíos en la entrega de servicios móviles y cómo superarlos.", 
-    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib-rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib=rb-4.1.0&q=80&w=1080", 
     dataAiHint: "bridge landscape",
     isFeatured: true,
   },
@@ -503,7 +511,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Documentos", 
     area: "Legal",
     description: "Principios y valores que guían nuestro comportamiento y toma de decisiones.", 
-    imageUrl: "https://images.unsplash.com/photo-1446776811953-b23d5795b4e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZXxlbnwwfHx8fDE3NTMzMDY4MTZ8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1446776811953-b23d5795b4e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlYXJ0aCUyMGZyb20lMjBzcGFjZXxlbnwwfHx8fDE3NTMzMDY4MTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "earth from space",
     isFeatured: true,
   },
@@ -513,7 +521,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Manuales", 
     area: "Comercial",
     description: "Guía para ofrecer un servicio de excelencia y estandarizado a nuestros clientes.",
-    imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "team meeting",
     isFeatured: true
   },
@@ -523,7 +531,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Recursos Visuales", 
     area: "Mercadeo",
     description: "Directrices para el uso correcto de nuestra identidad visual y verbal.",
-    imageUrl: "https://images.unsplash.com/photo-1598289431512-b970a521d892?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFwZXN8ZW58MHx8fHwxNzUzMzA2OTI4fDA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1598289431512-b970a521d892?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFwZXN8ZW58MHx8fHwxNzUzMzA2OTI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "grapes fruit",
     isFeatured: false,
   },
@@ -533,7 +541,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Documentos", 
     area: "Suscripción",
     description: "Procedimiento para realizar inspecciones de vehículos de forma remota y eficiente.",
-    imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhydW5uaW5nfGVufDB8fHx8fDE3NTMzMDcwMDd8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhydW5uaW5nfGVufDB8fHx8fDE3NTMzMDcwMDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "woman running",
     isFeatured: false,
   },
@@ -543,7 +551,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Manuales", 
     area: "Suscripción",
     description: "Documentación detallada sobre los flujos y políticas de suscripción de pólizas.",
-    imageUrl: "https://images.unsplash.com/photo-1575478422368-2793b2e35b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxpY29wdGVyfGVufDB8fHx8fDE3NTMzMDcwNjN8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1575478422368-2793b2e35b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxpY29wdGVyfGVufDB8fHx8fDE3NTMzMDcwNjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "helicopter sky",
     isFeatured: false,
   },
@@ -553,7 +561,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Documentos", 
     area: "Legal",
     description: "Archivo de noticias y documentos relevantes para el cumplimiento normativo.",
-    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2Rpbmd8ZW58MHx8fHwxNzUzMzA3MTIwfDA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2Rpbmd8ZW58MHx8fHwxNzUzMzA3MTIwfDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "coding programming",
     isFeatured: false,
   },
@@ -563,7 +571,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Documentos",
     area: "Capital Humano",
     description: "Todo lo que necesitas saber para empezar con buen pie en nuestra organización.",
-    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmJvYXJkaW5nfGVufDB8fHx8fDE3NTMzMDczNjJ8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxvbmJvYXJkaW5nfGVufDB8fHx8fDE3NTMzMDczNjJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "onboarding meeting",
     isFeatured: false,
   },
@@ -573,7 +581,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Presentaciones",
     area: "General",
     description: "Resumen de los resultados y objetivos del primer trimestre del año.",
-    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "business presentation",
     isFeatured: false,
   },
@@ -583,7 +591,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Documentos",
     area: "Finanzas",
     description: "Estructura detallada de las cuentas contables de la empresa.",
-    imageUrl: "https://images.unsplash.com/photo-1554224155-8d04421cd6c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhY2NvdW50aW5nfGVufDB8fHx8fDE3NTMzMDc1MDF8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1554224155-8d04421cd6c3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhY2NvdW50aW5nfGVufDB8fHx8fDE3NTMzMDc1MDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "accounting calculator",
     isFeatured: true,
   },
@@ -594,7 +602,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Música", 
     area: "Mercadeo",
     description: "Los éxitos que marcaron una época.",
-    imageUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib-rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1519677584237-752f8853252e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkaXNjfGVufDB8fHx8MTc1MjYwNzA5MXww&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "classic rock",
     isFeatured: false,
@@ -605,7 +613,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Música", 
     area: "Mercadeo",
     description: "La selección perfecta para concentrarse.",
-    imageUrl: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxndWl0YXJ8ZW58MHx8fHwxNzUyNjA3MjEwfDA&ixlib-rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxndWl0YXJ8ZW58MHx8fHwxNzUyNjA3MjEwfDA&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "soft rock",
     isFeatured: false,
@@ -616,7 +624,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Música", 
     area: "Mercadeo",
     description: "Ritmos latinos para subir el ánimo.",
-    imageUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib-rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "latin dance",
     isFeatured: false,
@@ -627,7 +635,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Música", 
     area: "Mercadeo",
     description: "Las canciones más populares del momento.",
-    imageUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib-rb-4.1.0&q=80&w=1080", 
+    imageUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "pop music",
     isFeatured: false,
@@ -895,7 +903,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P003", 
     title: "Salsa y Merengue", 
     description: "Ritmos latinos para subir el ánimo.",
-    albumArtUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib-rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1570299437488-d430e1e677c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjdWJhfGVufDB8fHx8MTc1MjYwNzI5Mnww&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "latin dance" 
   },
@@ -930,6 +938,17 @@ export const mockNotifications: NotificationItem[] = [
     iconColor: 'bg-rose-100 text-rose-500'
   }
 ];
+
+export const npsData = {
+  score: 62,
+  responses: 1254,
+};
+
+export const mockCustomerFeedback: CustomerFeedback[] = [
+  { id: 'cf1', name: 'María Gonzalez', avatar: 'MG', comment: 'El proceso de reclamo fue sorprendentemente rápido y el personal muy atento. Me sentí apoyada en un momento difícil.', nps: 10 },
+  { id: 'cf2', name: 'José Pérez', avatar: 'JP', comment: 'La aplicación móvil es muy fácil de usar. Pude gestionar mi póliza y reportar un siniestro sin complicaciones.', nps: 9 },
+  { id: 'cf3', name: 'Ana Sofía Rivas', avatar: 'AR', comment: 'Me gustaría que tuvieran más opciones de cobertura para viajes internacionales.', nps: 7 },
+];
     
     
 
@@ -949,6 +968,7 @@ export const mockNotifications: NotificationItem[] = [
 
 
     
+
 
 
 

@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
-import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subMonths, addDays, subDays } from 'date-fns';
+import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subDays, addDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
 import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight } from 'lucide-react';
@@ -318,7 +318,7 @@ export default function CalendarioPage() {
                             variant="ghost"
                             size="icon"
                             className="h-10 w-10 text-muted-foreground transition-transform hover:scale-110 active:scale-95 hover:bg-transparent"
-                            onClick={() => setMonth(subMonths(month, 1))}
+                            onClick={() => setMonth(addMonths(month, -1))}
                         >
                             <ChevronLeft className="h-5 w-5" />
                         </Button>
@@ -351,63 +351,51 @@ export default function CalendarioPage() {
                 />
             </div>
 
-            <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-              <DialogContent className="sm:max-w-md p-0 border-0 shadow-2xl rounded-2xl">
-                <DialogHeader className="hidden">
-                    <DialogTitle className="sr-only">Añadir Nuevo Evento</DialogTitle>
-                    <DialogDescription className="sr-only">Añada los detalles para su nuevo evento.</DialogDescription>
-                </DialogHeader>
-                <div className="flex items-stretch">
-                    <div className="bg-gray-800 text-white w-2/5 p-6 flex flex-col items-center justify-center rounded-l-2xl">
-                        <div className="flex items-center gap-2">
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => selectedDay && setSelectedDay(subDays(selectedDay, 1))}>
-                                <ChevronLeft className="h-5 w-5"/>
-                            </Button>
-                            <div className="text-center">
-                                <p className="text-5xl font-bold">{selectedDay ? format(selectedDay, 'dd') : ''}</p>
-                                <p className="text-sm uppercase tracking-widest">{selectedDay ? format(selectedDay, 'MMM', { locale: es }) : ''}</p>
-                            </div>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => selectedDay && setSelectedDay(addDays(selectedDay, 1))}>
-                                <ChevronRight className="h-5 w-5"/>
-                            </Button>
-                        </div>
-                    </div>
-                    
-                    <div className="relative w-0">
-                       <div className="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 z-10"></div>
-                    </div>
-                    
-                    <div className="bg-white w-3/5 p-6 flex flex-col justify-center rounded-r-2xl">
-                       <div className="space-y-4">
-                            <div>
-                                <Label htmlFor="event-name" className="text-xs text-muted-foreground mb-1">NOMBRE DEL EVENTO</Label>
-                                <Input
-                                    id="event-name"
-                                    type="text"
-                                    placeholder="Ej: Reunión de equipo"
-                                    value={newEventTitle}
-                                    onChange={(e) => setNewEventTitle(e.target.value)}
-                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent"
-                                />
-                            </div>
-                            <div>
-                                <Label htmlFor="event-interval" className="text-xs text-muted-foreground mb-1">INTERVALO DE TIEMPO</Label>
-                                <Input
-                                    id="event-interval"
-                                    type="text"
-                                    placeholder="09:00 - 11:00"
-                                    value={newEventTimeRange}
-                                    onChange={(e) => setNewEventTimeRange(e.target.value)}
-                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto bg-transparent"
-                                />
-                            </div>
-                       </div>
-                    </div>
-                </div>
-                 <DialogFooter className="p-4 bg-gray-50 border-t rounded-b-2xl">
-                    <Button type="button" variant="ghost" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
-                    <Button type="submit" onClick={handleSaveNewEvent}>Guardar Evento</Button>
-                 </DialogFooter>
+             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
+              <DialogContent className="sm:max-w-md p-0 border-0 shadow-2xl rounded-2xl bg-transparent">
+                  <DialogHeader className="sr-only">
+                      <DialogTitle>Añadir Nuevo Evento</DialogTitle>
+                      <DialogDescription>Añada los detalles para su nuevo evento.</DialogDescription>
+                  </DialogHeader>
+                  <div className="flex items-stretch overflow-hidden rounded-lg">
+                      <div className="bg-gray-800 text-white w-2/5 p-6 flex flex-col items-center justify-center">
+                          <div className="text-center">
+                              <p className="text-6xl font-bold">{selectedDay ? format(selectedDay, 'dd') : ''}</p>
+                              <p className="text-sm uppercase tracking-widest">{selectedDay ? format(selectedDay, 'MMM, yyyy', { locale: es }) : ''}</p>
+                          </div>
+                      </div>
+                      
+                      <div className="bg-white w-3/5 p-6 flex flex-col justify-center">
+                         <div className="space-y-4">
+                              <div>
+                                  <Label htmlFor="event-name" className="text-xs text-muted-foreground mb-1">Nombre del Evento</Label>
+                                  <Input
+                                      id="event-name"
+                                      type="text"
+                                      placeholder="Ej: Reunión de equipo"
+                                      value={newEventTitle}
+                                      onChange={(e) => setNewEventTitle(e.target.value)}
+                                      className="text-base font-semibold border-0 border-b rounded-none shadow-none focus-visible:ring-0 px-0 h-auto bg-transparent"
+                                  />
+                              </div>
+                              <div>
+                                  <Label htmlFor="event-interval" className="text-xs text-muted-foreground mb-1">Intervalo de Tiempo</Label>
+                                  <Input
+                                      id="event-interval"
+                                      type="text"
+                                      placeholder="09:00 - 11:00"
+                                      value={newEventTimeRange}
+                                      onChange={(e) => setNewEventTimeRange(e.target.value)}
+                                      className="text-base font-semibold border-0 border-b rounded-none shadow-none focus-visible:ring-0 px-0 h-auto bg-transparent"
+                                  />
+                              </div>
+                         </div>
+                      </div>
+                  </div>
+                   <DialogFooter className="p-4 bg-gray-50 border-t rounded-b-lg">
+                      <Button type="button" variant="ghost" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
+                      <Button type="submit" onClick={handleSaveNewEvent}>Guardar Evento</Button>
+                   </DialogFooter>
               </DialogContent>
             </Dialog>
         </div>

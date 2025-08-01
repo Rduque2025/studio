@@ -395,7 +395,7 @@ export default function CalendarioPage() {
                       variant="ghost"
                       size="icon"
                       onClick={handleSaveNewEvent}
-                      className="absolute top-4 right-14 text-muted-foreground hover:text-foreground"
+                      className="absolute top-[15px] right-14 text-muted-foreground hover:text-foreground"
                       aria-label="Guardar evento"
                     >
                       <Check className="h-4 w-4" />

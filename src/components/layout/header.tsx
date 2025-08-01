@@ -59,9 +59,37 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>(initialMockNotifications);
+  const { allEvents } = useEvents();
   const pathname = usePathname();
   const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
+
+  useEffect(() => {
+    const today = new Date();
+    const todayStr = format(today, 'yyyy-MM-dd');
+
+    const todaysEvents = allEvents.filter(event => format(event.date, 'yyyy-MM-dd') === todayStr);
+
+    const eventNotifications: NotificationItem[] = todaysEvents.map(event => ({
+      id: `event-${event.id}`,
+      type: 'event',
+      title: event.title,
+      description: event.description,
+      time: event.time ? format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es }) : 'Todo el día',
+      icon: CalendarDays,
+      iconColor: 'bg-rose-100 text-rose-500'
+    }));
+
+    // Combine static notifications with dynamic event notifications, avoiding duplicates
+    const combinedNotifications = [...initialMockNotifications];
+    eventNotifications.forEach(en => {
+      if (!combinedNotifications.some(cn => cn.id === en.id)) {
+        combinedNotifications.push(en);
+      }
+    });
+    
+    setNotifications(combinedNotifications);
+  }, [allEvents]);
 
   const handleSearch = () => {
     if (pathname === '/dashboard') {

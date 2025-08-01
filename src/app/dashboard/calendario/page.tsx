@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
-import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subMonths } from 'date-fns';
+import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subMonths, addDays, subDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
 import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight } from 'lucide-react';
@@ -91,7 +91,7 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 
 
 export default function CalendarioPage() {
-  const [selectedDay, setSelectedDay] = useState<Date | undefined>(undefined);
+  const [selectedDay, setSelectedDay] = useState<Date | undefined>(new Date());
   const [month, setMonth] = useState<Date>(new Date());
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
@@ -355,38 +355,55 @@ export default function CalendarioPage() {
             </div>
 
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-              <DialogContent className="sm:max-w-md p-8 flex flex-col justify-between min-h-[400px]">
-                <DialogHeader>
-                   <DialogTitle className="sr-only">Añadir Nuevo Evento</DialogTitle>
-                   <DialogDescription className="text-center">
-                    Elige la hora de inicio y fin para tu evento en el día <br />
-                    <span className="font-semibold text-foreground">
-                        {selectedDay ? format(selectedDay, 'd \'de\' MMMM', { locale: es }) : 'seleccionado'}
-                    </span>.
-                  </DialogDescription>
-                </DialogHeader>
-
-                <div className="flex items-center justify-center gap-4 my-8">
-                  <Input
-                      type="time"
-                      value={newEventStartTime}
-                      onChange={(e) => setNewEventStartTime(e.target.value)}
-                      className="text-2xl font-bold text-center border-none shadow-none focus-visible:ring-0 w-32"
-                  />
-                  <ArrowRight className="h-6 w-6 text-muted-foreground" />
-                  <Input
-                      type="time"
-                      value={newEventEndTime}
-                      onChange={(e) => setNewEventEndTime(e.target.value)}
-                      className="text-2xl font-bold text-center border-none shadow-none focus-visible:ring-0 w-32"
-                  />
+              <DialogContent className="sm:max-w-xl p-0 border-0 shadow-2xl rounded-2xl">
+                <div className="flex items-stretch">
+                    {/* Date part */}
+                    <div className="bg-gray-800 text-white w-2/5 p-6 flex flex-col items-center justify-center rounded-l-2xl">
+                        <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => selectedDay && setSelectedDay(subDays(selectedDay, 1))}>
+                                <ChevronLeft className="h-5 w-5"/>
+                            </Button>
+                            <div className="text-center">
+                                <p className="text-5xl font-bold">{selectedDay ? format(selectedDay, 'dd') : ''}</p>
+                                <p className="text-sm uppercase tracking-widest">{selectedDay ? format(selectedDay, 'MMM', { locale: es }) : ''}</p>
+                            </div>
+                            <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => selectedDay && setSelectedDay(addDays(selectedDay, 1))}>
+                                <ChevronRight className="h-5 w-5"/>
+                            </Button>
+                        </div>
+                    </div>
+                    {/* Divider */}
+                    <div className="relative w-0">
+                       <div className="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 z-10"></div>
+                    </div>
+                    {/* Time part */}
+                    <div className="bg-white w-3/5 p-6 flex flex-col justify-center rounded-r-2xl">
+                       <div className="space-y-4">
+                            <div>
+                                <p className="text-xs text-muted-foreground mb-1">DESDE</p>
+                                <Input
+                                    type="time"
+                                    value={newEventStartTime}
+                                    onChange={(e) => setNewEventStartTime(e.target.value)}
+                                    className="text-3xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
+                                />
+                            </div>
+                            <div>
+                                <p className="text-xs text-muted-foreground mb-1">HASTA</p>
+                                <Input
+                                    type="time"
+                                    value={newEventEndTime}
+                                    onChange={(e) => setNewEventEndTime(e.target.value)}
+                                    className="text-3xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
+                                />
+                            </div>
+                       </div>
+                    </div>
                 </div>
-
-                <DialogFooter>
-                  <Button type="submit" onClick={handleSaveNewEvent} className="w-full" size="lg">
-                    Guardar
-                  </Button>
-                </DialogFooter>
+                 <DialogFooter className="p-4 bg-gray-50 border-t rounded-b-2xl">
+                    <Button type="button" variant="ghost" onClick={() => setIsAddEventDialogOpen(false)}>Cancelar</Button>
+                    <Button type="submit" onClick={handleSaveNewEvent}>Guardar Evento</Button>
+                 </DialogFooter>
               </DialogContent>
             </Dialog>
         </div>

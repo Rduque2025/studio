@@ -372,7 +372,6 @@ export default function CalendarioPage() {
                                   <Input
                                       id="event-name"
                                       type="text"
-                                      placeholder="Ej: Reunión de equipo"
                                       value={newEventTitle}
                                       onChange={(e) => setNewEventTitle(e.target.value)}
                                       className="text-base font-semibold border-0 border-b rounded-none shadow-none focus-visible:ring-0 px-0 h-auto bg-transparent"

@@ -309,9 +309,9 @@ export default function CalendarioPage() {
 
 
   return (
-    <div className="container mx-auto py-8 px-4">
-        <div className="flex flex-col items-center w-full">
-            <div className="w-full"> 
+    <div className="container mx-auto px-4 flex flex-col min-h-[calc(100vh-10rem)]">
+        <div className="flex flex-col items-center w-full flex-grow">
+            <div className="w-full flex flex-col flex-grow"> 
                 <div className="flex justify-between items-center mb-8 px-1">
                     <h2 className="text-2xl font-bold text-foreground capitalize">
                         {format(month, "MMMM yyyy", { locale: es })}
@@ -347,7 +347,7 @@ export default function CalendarioPage() {
                   month={month}
                   onMonthChange={setMonth}
                   onDayClick={handleDayClick}
-                  className="w-full"
+                  className="w-full flex-grow"
                   locale={es}
                   renderDayContent={renderDayEventsContent}
                   onAddEventTrigger={handleOpenAddEventDialog}
@@ -356,9 +356,9 @@ export default function CalendarioPage() {
 
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
               <DialogContent className="sm:max-w-md p-8 flex flex-col justify-between min-h-[400px]">
-                <DialogHeader className="text-center">
-                  <DialogTitle className="text-xl font-bold">Selecciona la hora</DialogTitle>
-                  <DialogDescription>
+                <DialogHeader>
+                   <DialogTitle className="sr-only">Añadir Nuevo Evento</DialogTitle>
+                   <DialogDescription className="text-center">
                     Elige la hora de inicio y fin para tu evento en el día <br />
                     <span className="font-semibold text-foreground">
                         {selectedDay ? format(selectedDay, 'd \'de\' MMMM', { locale: es }) : 'seleccionado'}

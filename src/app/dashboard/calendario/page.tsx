@@ -98,9 +98,7 @@ export default function CalendarioPage() {
   const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
   
   const [newEventTitle, setNewEventTitle] = useState('');
-  const [newEventDescription, setNewEventDescription] = useState('');
-  const [newEventStartTime, setNewEventStartTime] = useState('09:00'); 
-  const [newEventEndTime, setNewEventEndTime] = useState('10:00');
+  const [newEventTimeRange, setNewEventTimeRange] = useState('09:00 - 10:00');
   const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
@@ -186,26 +184,25 @@ export default function CalendarioPage() {
   };
   
   const handleSaveNewEvent = () => {
-    if (!selectedDay) {
-      toast({ title: "Error", description: "Por favor, seleccione una fecha para el evento.", variant: "destructive" });
+    if (!selectedDay || !newEventTitle) {
+      toast({ title: "Error", description: "Por favor, seleccione una fecha e introduzca un nombre para el evento.", variant: "destructive" });
       return;
     }
-
-    const title = `Evento de ${newEventStartTime} a ${newEventEndTime}`;
-    const description = `Evento programado para el día ${format(selectedDay, 'd \'de\' MMMM', { locale: es })}.`
     
-    const mainCategory = categorizeEvent(title, description); 
+    const description = `Evento programado para el día ${format(selectedDay, 'd \'de\' MMMM', { locale: es })}.`
+    const mainCategory = categorizeEvent(newEventTitle, description); 
     const userEventStyles = getCategoryDisplayStyles(mainCategory); 
+    const startTime = newEventTimeRange.split('-')[0]?.trim();
 
     const newEventToAdd: CalendarEvent = {
       id: `user-${Date.now()}`,
       date: selectedDay,
-      title: title,
-      description: description,
+      title: newEventTitle,
+      description: `Intervalo: ${newEventTimeRange}`,
       color: userEventStyles.dotColor, 
       isUserEvent: true,
       category: mainCategory, 
-      time: newEventStartTime || undefined,
+      time: startTime || undefined,
     };
     addUserEvent(newEventToAdd); 
 
@@ -219,8 +216,8 @@ export default function CalendarioPage() {
       setRemindedEventIds(prev => new Set(prev).add(`today-${newEventToAdd.id}`));
     }
     
-    setNewEventStartTime('09:00');
-    setNewEventEndTime('10:00');
+    setNewEventTitle('');
+    setNewEventTimeRange('09:00 - 10:00');
     setIsAddEventDialogOpen(false);
     toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${userEventStyles.badgeText}) añadido al calendario.` });
     setSelectedEvent(newEventToAdd); 
@@ -302,8 +299,8 @@ export default function CalendarioPage() {
   
   const handleOpenAddEventDialog = (selectedDate: Date) => {
     setSelectedDay(selectedDate); 
-    setNewEventStartTime('09:00');
-    setNewEventEndTime('10:00');
+    setNewEventTitle('');
+    setNewEventTimeRange('09:00 - 10:00');
     setIsAddEventDialogOpen(true);
   };
 
@@ -355,9 +352,12 @@ export default function CalendarioPage() {
             </div>
 
             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-              <DialogContent className="sm:max-w-xl p-0 border-0 shadow-2xl rounded-2xl">
+              <DialogContent className="sm:max-w-md p-0 border-0 shadow-2xl rounded-2xl">
+                <DialogHeader className="hidden">
+                    <DialogTitle>Añadir Nuevo Evento</DialogTitle>
+                    <DialogDescription>Añada los detalles para su nuevo evento.</DialogDescription>
+                </DialogHeader>
                 <div className="flex items-stretch">
-                    {/* Date part */}
                     <div className="bg-gray-800 text-white w-2/5 p-6 flex flex-col items-center justify-center rounded-l-2xl">
                         <div className="flex items-center gap-2">
                             <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => selectedDay && setSelectedDay(subDays(selectedDay, 1))}>
@@ -372,29 +372,33 @@ export default function CalendarioPage() {
                             </Button>
                         </div>
                     </div>
-                    {/* Divider */}
+                    
                     <div className="relative w-0">
                        <div className="absolute top-1/2 -translate-y-1/2 left-0 -translate-x-1/2 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 z-10"></div>
                     </div>
-                    {/* Time part */}
+                    
                     <div className="bg-white w-3/5 p-6 flex flex-col justify-center rounded-r-2xl">
                        <div className="space-y-4">
                             <div>
-                                <p className="text-xs text-muted-foreground mb-1">DESDE</p>
+                                <Label htmlFor="event-name" className="text-xs text-muted-foreground mb-1">NOMBRE DEL EVENTO</Label>
                                 <Input
-                                    type="time"
-                                    value={newEventStartTime}
-                                    onChange={(e) => setNewEventStartTime(e.target.value)}
-                                    className="text-3xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
+                                    id="event-name"
+                                    type="text"
+                                    placeholder="Ej: Reunión de equipo"
+                                    value={newEventTitle}
+                                    onChange={(e) => setNewEventTitle(e.target.value)}
+                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
                                 />
                             </div>
                             <div>
-                                <p className="text-xs text-muted-foreground mb-1">HASTA</p>
+                                <Label htmlFor="event-interval" className="text-xs text-muted-foreground mb-1">INTERVALO DE TIEMPO</Label>
                                 <Input
-                                    type="time"
-                                    value={newEventEndTime}
-                                    onChange={(e) => setNewEventEndTime(e.target.value)}
-                                    className="text-3xl font-bold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
+                                    id="event-interval"
+                                    type="text"
+                                    placeholder="09:00 - 11:00"
+                                    value={newEventTimeRange}
+                                    onChange={(e) => setNewEventTimeRange(e.target.value)}
+                                    className="text-lg font-semibold border-none shadow-none focus-visible:ring-0 p-0 h-auto"
                                 />
                             </div>
                        </div>

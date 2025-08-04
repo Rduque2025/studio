@@ -165,7 +165,7 @@ export const mockCourses: Course[] = [
     id: "google-forms",
     title: "Google Forms",
     description: "Aprovecha los formularios para levantar información y lograr enlaces con otros aplicativos.",
-    imageUrl: "https://images.unsplash.com/photo-1557318041-1ce374d55ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXJ2ZXl8ZW58MHx8fHwxNzU0NDEzNDQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1516383274235-5f42d6c6426d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8c3VydmV5fGVufDB8fHx8MTc1NDMzODkyNHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "survey form",
     category: "Google Workspace",
     duration: "Auto-gestionado",
@@ -1083,6 +1083,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

@@ -287,10 +287,11 @@ export default function DashboardPage() {
             />
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="container mx-auto h-full flex flex-col justify-center items-start text-left p-4 z-10 relative">
-                <h1 className="text-4xl md:text-6xl font-extrabold max-w-2xl text-primary">
-                    BIENVENIDO AL ENTORNO BANESCO SEGUROS
+                <h1 className="text-primary font-extrabold drop-shadow-md">
+                    <span className="block text-6xl md:text-8xl">¡BIENVENIDO!</span>
+                    <span className="block text-2xl md:text-3xl mt-2">AL ENTORNO BANESCO SEGUROS</span>
                 </h1>
-                <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+                <p className="mt-6 max-w-xl text-base text-muted-foreground drop-shadow-sm">
                     Bienvenido al espacio donde encontrarás todas las herramientas, recursos y actividades para tu día a día en Banesco Seguros.
                 </p>
                 <Button asChild size="lg" className="mt-8">

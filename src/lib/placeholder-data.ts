@@ -135,7 +135,7 @@ export const mockCourses: Course[] = [
     id: "google-sites",
     title: "Google Sites",
     description: "Aprende a crear un Site y los trucos para pasar de Nivel Básico a Avanzado en pocas horas.",
-    imageUrl: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3ZWIlMjBkZXNpZ258ZW58MHx8fHwxNzU0NDEzMjA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzU0MzM2OTA2fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "web design",
     category: "Google Workspace",
     duration: "Auto-gestionado",
@@ -214,7 +214,7 @@ export const mockCourses: Course[] = [
   {
     id: "plan-de-desarrollo",
     title: "Plan de Desarrollo",
-    description: "Aquí podrás obtener algunos tips para el desarrollo de tu eficiencia, agilidad y el balance entre el trabajo y las exigencias del puesto.",
+    description: "Aquí podrás  obtener algunos tips para el desarrollo de tu eficiencia, agilidad y el balance entre el trabajo y las exigencias del puesto.",
     imageUrl: "https://images.unsplash.com/photo-1521790797524-b249b84b8066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncm93dGglMjBwbGFufGVufDB8fHx8fDE3NTQ0MTM2NTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "growth plan",
     category: "Desarrollo",
@@ -234,7 +234,7 @@ export const mockCourses: Course[] = [
   {
     id: "gestion-de-proveedores",
     title: "Gestión de Proveedores",
-    description: "Aquí podrás obtener información de herramientas y mejores prácticas para ser efectivos en la búsqueda, selección, evaluación y gestión de proveedores, mediante la planificación asociada a la negociación, que finalmente servirá como retroalimentación constante para el desarrollo tanto de la organización como de los proveedores.",
+    description: "Aquí podrás  obtener información de herramientas y mejores prácticas para ser efectivos en la búsqueda, selección, evaluación y gestión de proveedores, mediante la planificación asociada a la negociación, que finalmente servirá como retroalimentación constante para el desarrollo tanto de la organización como de los proveedores.",
     imageUrl: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm92aWRlcnxlbnwwfHx8fDE3NTQ0MTM3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "supplier management",
     category: "Desarrollo",
@@ -244,7 +244,7 @@ export const mockCourses: Course[] = [
   {
     id: "reuniones-efectivas",
     title: "Reuniones Efectivas",
-    description: "Aquí podrás obtener tips de como tener una reunión efectiva, donde es importante considerar que una gran parte de la eficacia y productividad del equipo de trabajo se obtiene a partir de la efectividad con que se desarrollan estas reuniones.",
+    description: "Aquí podrás  obtener tips de como tener una reunión efectiva, donde es importante considerar que una gran parte de la eficacia y productividad del equipo de trabajo se obtiene a partir de la efectividad con que se desarrollan estas reuniones.",
     imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8fDE3NTQ0MTM4MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "effective meeting",
     category: "Desarrollo",
@@ -254,7 +254,7 @@ export const mockCourses: Course[] = [
   {
     id: "gestion-comercial",
     title: "Gestión Comercial",
-    description: "Aquí podrás obtener información de cuáles son nuestros productos, cómo manejar el Site de Sistemática, entre otros.",
+    description: "Aquí podrás  obtener información de cuáles son nuestros productos, cómo manejar el Site de Sistemática, entre otros.",
     imageUrl: "https://images.unsplash.com/photo-1556155092-490a1ba16284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxlc3xlbnwwfHx8fDE3NTQ0MTM4NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "sales management",
     category: "Desarrollo",
@@ -1083,6 +1083,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

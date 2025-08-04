@@ -205,7 +205,7 @@ export const mockCourses: Course[] = [
     id: "presentaciones-efectivas",
     title: "Presentaciones Efectivas",
     description: "En este curso obtendrás las habilidades para el diseño de presentaciones corporativas que permitirán alinear la comunicación dentro de la organización adaptándola a las necesidades de la audiencia a la que se dirija.",
-    imageUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb24lMjBjb25mZXJlbmNlfGVufDB8fHx8fDE3NTQ0MTM2MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1541872705-1f73c6400ec9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8c3BlZWNofGVufDB8fHx8MTc1NDM0MjE4M3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "conference presentation",
     category: "Desarrollo",
     duration: "Auto-gestionado",

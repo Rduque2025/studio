@@ -288,7 +288,7 @@ export default function DashboardPage() {
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="container mx-auto h-full flex flex-col justify-center items-start text-left p-4 z-10 relative">
                 <h1 className="text-primary font-extrabold drop-shadow-md">
-                    <span className="block text-6xl md:text-8xl">¡BIENVENIDO!</span>
+                    <span className="block text-6xl md:text-8xl">BIENVENIDO!</span>
                     <span className="block text-2xl md:text-3xl mt-2">AL ENTORNO BANESCO SEGUROS</span>
                 </h1>
                 <p className="mt-6 max-w-xl text-base text-muted-foreground drop-shadow-sm">
@@ -671,7 +671,7 @@ export default function DashboardPage() {
                         </div>
                         </Card>
                         <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <Image src="https://images.unsplash.com/photo-1502101872923-d48509bff386?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdGFpcnN8ZW58MHx8fHwxNzUyNjAwMzk4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process diagram" />
+                        <Image src="https://images.unsplash.com/photo-1502101872923-d48509bff386?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdGFpcnN8ZW58MHx8fHwxNzUyNjAwMzk4fDA&ixlib-rb-4.1.0&q=80&w=1080" alt="Protocolos" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="process diagram" />
                         <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
                             <h4 className="text-xl font-bold">Protocolos</h4>
                             <p className="text-xs mt-1 text-white/90">Siga los pasos para cada caso.</p>

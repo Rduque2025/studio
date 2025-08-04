@@ -155,7 +155,7 @@ export const mockCourses: Course[] = [
     id: "google-slides",
     title: "Google Slides",
     description: "Crea presentaciones innovadoras, rápido y con tips para alcanzar los objetivos en el menor tiempo posible.",
-    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1658203897406-9ef9e2af686c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxN3x8ZXhjZWx8ZW58MHx8fHwxNzU0MzM3NDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "presentation slides",
     category: "Google Workspace",
     duration: "Auto-gestionado",
@@ -184,7 +184,7 @@ export const mockCourses: Course[] = [
   {
     id: "balanced-scorecard",
     title: "Balanced Scorecard",
-    description: "Es herramienta de planeación estratégica que permite a la empresa crear y controlar sus propios indicadores de gestión relacionados dentro de cuatro perspectiva: Financiera, Procesos Internos, Cliente y Formación y Crecimiento.",
+    description: "Es herramienta de planeación estratégica que permite a la empresa crear y controlar sus propios indicadores de gestión relacionados dentro de cuatro perspectiva: Financiera, Procesos Internos, Cliente y Formación y Crecimiento",
     imageUrl: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWxhbmNlfGVufDB8fHx8fDE3NTQ0MTM1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "balance chart",
     category: "Desarrollo",
@@ -1083,6 +1083,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

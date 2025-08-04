@@ -335,7 +335,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8ZmFtaWx5fGVufDB8fHx8MTc1MjYwNTY2Nnww&ixlib-rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8ZmFtaWx5fGVufDB8fHx8MTc1MjYwNTY2Nnww&ixlib=rb-4.1.0&q=80&w=1080"
                       alt="Cliente satisfecho"
                       width={400}
                       height={400}
@@ -345,12 +345,12 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNnx8bmklQzMlQjFvc3xlbnwwfHx8fDE3NTI2MDQ4NDl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXJ8ZW58MHx8fHwxNzU0MzMzNjcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
                       alt="Oficina de Banesco"
                       width={400}
                       height={400}
                       className="w-full h-full object-cover"
-                      data-ai-hint="modern office"
+                      data-ai-hint="car"
                   />
               </div>
             </div>
@@ -487,7 +487,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                     <Image
-                        src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8cGxhbmV8ZW58MHx8fHwxNzUyNTA2MTEzfDA&ixlib-rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8cGxhbmV8ZW58MHx8fHwxNzUyNTA2MTEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Fechas Disponibles"
                         layout="fill"
                         objectFit="cover"
@@ -661,7 +661,7 @@ export default function DashboardPage() {
                         </div>
                         </Card>
                         <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <Image src="https://images.unsplash.com/photo-1601588243681-2fa6a06300d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8TUVESUNBTCUyMENFTlRFUnxlbnwwfHx8fDE3NTI1MDU1MjB8MA&ixlib-rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
+                        <Image src="https://images.unsplash.com/photo-1601588243681-2fa6a06300d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8TUVESUNBTCUyMENFTlRFUnxlbnwwfHx8fDE3NTI1MDU1MjB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Centros de Atención" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="hospital building" />
                         <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
                             <h4 className="text-xl font-bold">Centros de Atención</h4>
                             <p className="text-xs mt-1 text-white/90">Encuentre la clínica más cercana.</p>

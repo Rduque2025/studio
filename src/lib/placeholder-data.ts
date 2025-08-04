@@ -195,7 +195,7 @@ export const mockCourses: Course[] = [
     id: "como-hacer-feedback",
     title: "¿Cómo hacer Feedback?",
     description: "Es importante tomar en consideración este proceso comunicativo, ya que es toda respuesta o reacción que el receptor envía al emisor de un mensaje. Si las partes no se entienden el mensaje no es claro; Aquí te dejamos algunas recomendaciones.",
-    imageUrl: "https://images.unsplash.com/photo-1516426122078-c23e763199b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmZWVkYmFja3xlbnwwfHx8fDE3NTQ0MTM1NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1577563908411-5077b6dc7624?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb211bmljYXRpb258ZW58MHx8fHwxNzU0MzQxNjIzfDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "feedback conversation",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -1083,14 +1083,3 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
-
-
-
-
-
-
-
-
-
-
-

@@ -215,7 +215,7 @@ export const mockCourses: Course[] = [
     id: "plan-de-desarrollo",
     title: "Plan de Desarrollo",
     description: "Aquí podrás  obtener algunos tips para el desarrollo de tu eficiencia, agilidad y el balance entre el trabajo y las exigencias del puesto.",
-    imageUrl: "https://images.unsplash.com/photo-1521790797524-b249b84b8066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncm93dGglMjBwbGFufGVufDB8fHx8fDE3NTQ0MTM2NTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1730382624709-81e52dd294d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9ncmVzc3xlbnwwfHx8fDE3NTQzNDMyNDh8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "growth plan",
     category: "Desarrollo",
     duration: "Auto-gestionado",

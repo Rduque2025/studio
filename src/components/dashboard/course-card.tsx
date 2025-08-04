@@ -12,6 +12,11 @@ interface CourseCardProps {
 }
 
 export function CourseCard({ course }: CourseCardProps) {
+  // Use a standard link for courses without a detail page, assuming it's an external resource.
+  // In a real scenario, this link would come from the course data.
+  const linkHref = course.hasDetailPage ? `/dashboard/cursos/${course.id}` : "#";
+  const linkTarget = course.hasDetailPage ? "_self" : "_blank";
+
   return (
     <Card className="flex flex-col h-full overflow-hidden">
       <CardHeader className="p-0">
@@ -41,10 +46,11 @@ export function CourseCard({ course }: CourseCardProps) {
       </CardContent>
       <CardFooter className="p-4 border-t">
         <Button asChild className="w-full" variant="default">
-          <Link href={`/dashboard/cursos/${course.id}`}>Ver Detalles</Link>
+          <Link href={linkHref} target={linkTarget}>
+            {course.hasDetailPage ? "Ver Detalles" : "Acceder al Curso"}
+          </Link>
         </Button>
       </CardFooter>
     </Card>
   );
 }
-

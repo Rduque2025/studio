@@ -11,6 +11,7 @@ export interface Course {
   category: string;
   duration: string;
   dataAiHint?: string;
+  hasDetailPage?: boolean;
 }
 
 export interface Activity {
@@ -131,33 +132,147 @@ export const specialRequestAreas = [
 
 export const mockCourses: Course[] = [
   {
-    id: "C001",
-    title: "Gestión Efectiva del Tiempo",
-    description: "Aprende técnicas para optimizar tu jornada laboral y personal.",
-    imageUrl: "https://images.unsplash.com/photo-1616198814651-e71f960c3180?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8dGltZXxlbnwwfHx8fDE3NTI1ODg5NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "time management",
-    category: "Desarrollo Personal",
-    duration: "4 semanas",
+    id: "google-sites",
+    title: "Google Sites",
+    description: "Aprende a crear un Site y los trucos para pasar de Nivel Básico a Avanzado en pocas horas.",
+    imageUrl: "https://images.unsplash.com/photo-1587620962725-abab7fe55159?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3ZWIlMjBkZXNpZ258ZW58MHx8fHwxNzU0NDEzMjA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "web design",
+    category: "Google Workspace",
+    duration: "Auto-gestionado",
+    hasDetailPage: false,
   },
   {
-    id: "C002",
-    title: "Comunicación Asertiva",
-    description: "Mejora tus habilidades de comunicación en el entorno laboral.",
-    imageUrl: "https://images.unsplash.com/photo-1586806974856-c55e8b9364e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb252ZXJzYXRpb258ZW58MHx8fHwxNzUyNTkxODc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-    dataAiHint: "communication team",
-    category: "Habilidades Blandas",
-    duration: "6 semanas",
+    id: "google-sheets",
+    title: "Sheets",
+    description: "Aprender a aprovechar Sheets para optimizar tu tiempo y aprender lo más avanzado del aplicativo en pocas horas.",
+    imageUrl: "https://images.unsplash.com/photo-1611082618210-aa593d6e2a2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcHJlYWRzaGVldHxlbnwwfHx8fDE3NTQ0MTMyODN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "spreadsheet data",
+    category: "Google Workspace",
+    duration: "Auto-gestionado",
+    hasDetailPage: false,
   },
   {
-    id: "C003",
-    title: "Introducción a Seguros Digitales",
-    description: "Conoce las últimas tendencias en el sector asegurador.",
-    imageUrl: "https://images.unsplash.com/photo-1471897488648-5eae4ac6686b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxM3x8Y29tcHV0ZXJ8ZW58MHx8fHwxNzUyNDk1ODkyfDA&ixlib-rb-4.1.0&q=80&w=1080",
-    dataAiHint: "digital insurance",
-    category: "Tecnología",
-    duration: "8 semanas",
+    id: "google-slides",
+    title: "Google Slides",
+    description: "Crea presentaciones innovadoras, rápido y con tips para alcanzar los objetivos en el menor tiempo posible.",
+    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb258ZW58MHx8fHwxNzUzMzA3NDEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "presentation slides",
+    category: "Google Workspace",
+    duration: "Auto-gestionado",
+    hasDetailPage: false,
+  },
+  {
+    id: "google-forms",
+    title: "Google Forms",
+    description: "Aprovecha los formularios para levantar información y lograr enlaces con otros aplicativos.",
+    imageUrl: "https://images.unsplash.com/photo-1557318041-1ce374d55ebf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdXJ2ZXl8ZW58MHx8fHwxNzU0NDEzNDQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "survey form",
+    category: "Google Workspace",
+    duration: "Auto-gestionado",
+    hasDetailPage: false,
+  },
+  {
+    id: "pensamiento-estrategico",
+    title: "Pensamiento Estratégico",
+    description: "Asigna prioridades en el destino de los recursos, donde mejora el desempeño de la organización, así permitiendo a la empresa enfrentarse a los principales problemas de la organización, al cambio en el entorno y ver las oportunidades y detectar las amenazas.",
+    imageUrl: "https://images.unsplash.com/photo-1504805572947-34fad45aed93?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzdHJhdGVneXxlbnwwfHx8fDE3NTQ0MTM0ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "strategy plan",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "balanced-scorecard",
+    title: "Balanced Scorecard",
+    description: "Es herramienta de planeación estratégica que permite a la empresa crear y controlar sus propios indicadores de gestión relacionados dentro de cuatro perspectiva: Financiera, Procesos Internos, Cliente y Formación y Crecimiento.",
+    imageUrl: "https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYWxhbmNlfGVufDB8fHx8fDE3NTQ0MTM1MzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "balance chart",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "como-hacer-feedback",
+    title: "¿Cómo hacer Feedback?",
+    description: "Es importante tomar en consideración este proceso comunicativo, ya que es toda respuesta o reacción que el receptor envía al emisor de un mensaje. Si las partes no se entienden el mensaje no es claro; Aquí te dejamos algunas recomendaciones.",
+    imageUrl: "https://images.unsplash.com/photo-1516426122078-c23e763199b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmZWVkYmFja3xlbnwwfHx8fDE3NTQ0MTM1NzV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "feedback conversation",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "presentaciones-efectivas",
+    title: "Presentaciones Efectivas",
+    description: "En este curso obtendrás las habilidades para el diseño de presentaciones corporativas que permitirán alinear la comunicación dentro de la organización adaptándola a las necesidades de la audiencia a la que se dirija.",
+    imageUrl: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcmVzZW50YXRpb24lMjBjb25mZXJlbmNlfGVufDB8fHx8fDE3NTQ0MTM2MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "conference presentation",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "plan-de-desarrollo",
+    title: "Plan de Desarrollo",
+    description: "Aquí podrás obtener algunos tips para el desarrollo de tu eficiencia, agilidad y el balance entre el trabajo y las exigencias del puesto.",
+    imageUrl: "https://images.unsplash.com/photo-1521790797524-b249b84b8066?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncm93dGglMjBwbGFufGVufDB8fHx8fDE3NTQ0MTM2NTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "growth plan",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "jerarquizacion-de-portafolio",
+    title: "Jerarquización de Portafolio",
+    description: "Las Direcciones Corporativas de Finanzas y Estrategia te invitan a formar parte de esta formación virtual que pretende profundizar en la metodología para la jerarquización de iniciativas, con énfasis en la aplicación de la herramienta “Matriz Costo Beneficio”.",
+    imageUrl: "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3J0Zm9saW98ZW58MHx8fHwxNzU0NDEzNjk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "portfolio management",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "gestion-de-proveedores",
+    title: "Gestión de Proveedores",
+    description: "Aquí podrás obtener información de herramientas y mejores prácticas para ser efectivos en la búsqueda, selección, evaluación y gestión de proveedores, mediante la planificación asociada a la negociación, que finalmente servirá como retroalimentación constante para el desarrollo tanto de la organización como de los proveedores.",
+    imageUrl: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm92aWRlcnxlbnwwfHx8fDE3NTQ0MTM3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "supplier management",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "reuniones-efectivas",
+    title: "Reuniones Efectivas",
+    description: "Aquí podrás obtener tips de como tener una reunión efectiva, donde es importante considerar que una gran parte de la eficacia y productividad del equipo de trabajo se obtiene a partir de la efectividad con que se desarrollan estas reuniones.",
+    imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8fDE3NTQ0MTM4MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "effective meeting",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "gestion-comercial",
+    title: "Gestión Comercial",
+    description: "Aquí podrás obtener información de cuáles son nuestros productos, cómo manejar el Site de Sistemática, entre otros.",
+    imageUrl: "https://images.unsplash.com/photo-1556155092-490a1ba16284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxlc3xlbnwwfHx8fDE3NTQ0MTM4NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "sales management",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
+  },
+  {
+    id: "otras-opciones-desarrollo",
+    title: "Otras opciones para tu desarrollo",
+    description: "Aquí podrás encontrar el link de otras páginas que te ayudarán a tu crecimiento profesional.",
+    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlLWxlYXJuaW5nfGVufDB8fHx8fDE3NTQ0MTM4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    dataAiHint: "e-learning development",
+    category: "Desarrollo",
+    duration: "Auto-gestionado",
+    hasDetailPage: true,
   },
 ];
+
 
 export const mockActivities: Activity[] = [
   {
@@ -211,7 +326,7 @@ export const mockActivities: Activity[] = [
     title: "Teatro",
     date: "2025-07-01",
     location: "Tríadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxBQ1RPUnxlbnwwfHx8fDE3NTA5NTkwODh8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1594908900066-3f47337549d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxBQ1RPUnxlbnwwfHx8fDE3NTA5NTkwODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "theater workshop",
     description: "Te invitamos a esta maravillosa actividad, en la que desarrollarás competencias para romper el hielo, desenvolverte en diversos contextos con tranquilidad, mejorarás la dicción y oratoria para comunicarte asertivamente.  A partir del 12 de marzo.\n\nDónde y cuándo son las clases:\nMartes y Jueves, 5:00 P.M."
   },
@@ -911,7 +1026,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P004", 
     title: "Solo Éxitos Pop", 
     description: "Las canciones más populares del momento.",
-    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib-rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "pop music"
   },
@@ -968,6 +1083,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

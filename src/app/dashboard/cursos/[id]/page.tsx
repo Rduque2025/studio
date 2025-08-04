@@ -13,7 +13,7 @@ interface CourseDetailsPageProps {
 }
 
 export async function generateStaticParams() {
-  return mockCourses.map((course) => ({
+  return mockCourses.filter(course => course.hasDetailPage).map((course) => ({
     id: course.id,
   }));
 }
@@ -21,17 +21,17 @@ export async function generateStaticParams() {
 export default function CourseDetailsPage({ params: { id } }: CourseDetailsPageProps) {
   const course = mockCourses.find(c => c.id === id);
 
-  if (!course) {
+  if (!course || !course.hasDetailPage) {
     return (
       <div className="container mx-auto py-8 px-4">
         <SectionWrapper title="Curso no encontrado">
-          <p>El curso que busca no existe o no está disponible.</p>
+          <p>El curso que busca no existe, no está disponible o no tiene una página de detalle.</p>
            <Button asChild variant="link" className="mt-4 text-muted-foreground hover:no-underline p-0 h-auto text-xs">
-            <Link href="/dashboard" className="flex items-center gap-2 group">
+            <Link href="/dashboard/bienestar" className="flex items-center gap-2 group">
               <span className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-primary-foreground group-hover:bg-primary/90 transition-colors">
                 <ArrowLeft className="h-4 w-4" />
               </span>
-              <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al inicio</span>
+              <span className="opacity-0 group-hover/button:opacity-100 transition-opacity">Volver a Cursos</span>
             </Link>
           </Button>
         </SectionWrapper>
@@ -65,8 +65,8 @@ export default function CourseDetailsPage({ params: { id } }: CourseDetailsPageP
            </div>
         </CardHeader>
         <CardContent className="p-6">
-          <CardDescription className="text-xs text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
-            {course.description} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          <CardDescription className="text-base text-foreground mt-4 mb-6">
+            {course.description}
           </CardDescription>
           
           <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -74,11 +74,11 @@ export default function CourseDetailsPage({ params: { id } }: CourseDetailsPageP
                 <h3 className="font-semibold text-lg">Detalles del Curso</h3>
                 <p className="text-sm text-muted-foreground flex items-center"><CalendarDays className="mr-2 h-4 w-4 text-primary" /> Fecha de Inicio: Próximamente</p>
                 <p className="text-sm text-muted-foreground flex items-center"><Users className="mr-2 h-4 w-4 text-primary" /> Plazas Disponibles: 25</p>
-                <p className="text-sm text-muted-foreground flex items-center"><Tag className="mr-2 h-4 w-4 text-primary" /> Modalidad: Online / Presencial</p>
+                <p className="text-sm text-muted-foreground flex items-center"><Tag className="mr-2 h-4 w-4 text-primary" /> Modalidad: Online</p>
             </div>
              <div className="space-y-2">
                 <h3 className="font-semibold text-lg">Instructor</h3>
-                <p className="text-sm text-muted-foreground">Dr. Experto en la Materia</p>
+                <p className="text-sm text-muted-foreground">Experto en la Materia</p>
                 <p className="text-sm text-muted-foreground">Más de 10 años de experiencia en {course.category}.</p>
             </div>
           </div>

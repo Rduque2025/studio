@@ -225,7 +225,7 @@ export const mockCourses: Course[] = [
     id: "jerarquizacion-de-portafolio",
     title: "Jerarquización de Portafolio",
     description: "Las Direcciones Corporativas de Finanzas y Estrategia te invitan a formar parte de esta formación virtual que pretende profundizar en la metodología para la jerarquización de iniciativas, con énfasis en la aplicación de la herramienta “Matriz Costo Beneficio”.",
-    imageUrl: "https://images.unsplash.com/photo-1634926878768-2a5b3c42f139?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3J0Zm9saW98ZW58MHx8fHwxNzU0NDEzNjk5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1562240020-ce31ccb0fa7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxET0NVTUVOVFN8ZW58MHx8fHwxNzU0NDEwNjg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "portfolio management",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -1083,3 +1083,4 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+

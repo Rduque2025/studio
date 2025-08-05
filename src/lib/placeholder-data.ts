@@ -255,7 +255,7 @@ export const mockCourses: Course[] = [
     id: "gestion-comercial",
     title: "Gestión Comercial",
     description: "Aquí podrás  obtener información de cuáles son nuestros productos, cómo manejar el Site de Sistemática, entre otros.",
-    imageUrl: "https://images.unsplash.com/photo-1556155092-490a1ba16284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzYWxlc3xlbnwwfHx8fDE3NTQ0MTM4NTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1634117622592-114e3024ff27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxncmFmaWNvfGVufDB8fHx8MTc1NDQyMTMwM3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "sales management",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -1083,6 +1083,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

@@ -245,7 +245,7 @@ export const mockCourses: Course[] = [
     id: "reuniones-efectivas",
     title: "Reuniones Efectivas",
     description: "Aquí podrás  obtener tips de como tener una reunión efectiva, donde es importante considerar que una gran parte de la eficacia y productividad del equipo de trabajo se obtiene a partir de la efectividad con que se desarrollan estas reuniones.",
-    imageUrl: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtZWV0aW5nfGVufDB8fHx8fDE3NTQ0MTM4MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1553877522-43269d4ea984?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZXVuaSVDMyVCM258ZW58MHx8fHwxNzU0NDIwMzY0fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "effective meeting",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -1083,5 +1083,6 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 

@@ -139,9 +139,6 @@ export default function BienestarPage() {
               className="brightness-50 group-hover:brightness-[0.4] transition-all duration-300"
             />
             <div className="relative z-10 flex flex-col items-center">
-                <div className="p-4 bg-white/10 rounded-full mb-4">
-                    <Briefcase className="h-8 w-8 text-white" />
-                </div>
                 <h2 className="text-4xl md:text-5xl font-extrabold">Espacio Ejecutivo</h2>
                 <p className="mt-4 max-w-xl text-primary-foreground/80">
                     Recursos, calendarios y herramientas exclusivas para la gerencia.

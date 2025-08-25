@@ -13,7 +13,6 @@ import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
 import type { MenuItem } from '@/lib/placeholder-data';
@@ -125,8 +124,8 @@ export default function EspacioEjecutivoPage() {
 
                 {/* Menú Ejecutivo */}
                 <div className="lg:col-span-1 flex flex-col gap-6">
-                     <Card className="flex-1 flex flex-col">
-                        <CardHeader>
+                     <Card className="flex-1 flex flex-col overflow-hidden">
+                        <CardHeader className="p-6">
                            <div className="flex justify-between items-center">
                                 <div>
                                     <CardTitle>Menú del Día</CardTitle>
@@ -134,11 +133,25 @@ export default function EspacioEjecutivoPage() {
                                 </div>
                            </div>
                         </CardHeader>
-                        <CardContent className="flex-grow flex flex-col items-center justify-center p-4">
+                        <CardContent className="flex-grow flex flex-col justify-end p-0">
                            {todaysMenu ? (
-                                <MenuItemCard item={todaysMenu} isCurrentDay={true} />
+                                <div className="relative aspect-square w-full">
+                                    <Image 
+                                        src={todaysMenu.imageUrl}
+                                        alt={todaysMenu.name}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        data-ai-hint={todaysMenu.dataAiHint}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                    <div className="absolute bottom-0 left-0 p-6 text-white">
+                                        <Badge variant="secondary" className="mb-2 bg-white/20 backdrop-blur-sm">{todaysMenu.price}</Badge>
+                                        <h3 className="text-xl font-bold">{todaysMenu.name}</h3>
+                                        <p className="text-xs text-white/80 mt-1">{todaysMenu.description}</p>
+                                    </div>
+                                </div>
                             ) : (
-                                <div className="text-center text-muted-foreground">
+                                <div className="text-center text-muted-foreground px-6 pb-6">
                                     <p className="font-semibold">No hay menú ejecutivo disponible hoy.</p>
                                     <p className="text-sm">Por favor, revise mañana.</p>
                                 </div>

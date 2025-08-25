@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
+import type { MenuItem } from '@/lib/placeholder-data';
 
 const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string } } = {
   "Bono Gerencial": { bg: 'bg-primary', text: 'text-primary-foreground' },
@@ -27,16 +28,15 @@ const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string } } =
 export default function EspacioEjecutivoPage() {
     const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1));
     const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
-    const menuScrollAreaRef = useRef<HTMLDivElement>(null);
-    const currentDayName = new Date().toLocaleString('es-ES', { weekday: 'long' });
+    const [todaysMenu, setTodaysMenu] = useState<MenuItem | null>(null);
 
-    const handleMenuScroll = (direction: 'left' | 'right') => {
-        const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
-        if (viewport) {
-            const scrollAmount = 320;
-            viewport.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
-        }
-    };
+    useEffect(() => {
+        const dayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
+        const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+        const menuItem = mockExecutiveMenuItems.find(item => item.day === capitalizedDayName) || null;
+        setTodaysMenu(menuItem);
+    }, []);
+
 
     const renderDayEventsContent = (dayCellDate: Date): React.ReactNode => {
         const eventsOnDay = mockExecutiveCalendarEvents.filter(event => format(parseISO(event.date as unknown as string), 'yyyy-MM-dd') === format(dayCellDate, 'yyyy-MM-dd'));
@@ -129,32 +129,22 @@ export default function EspacioEjecutivoPage() {
                         <CardHeader>
                            <div className="flex justify-between items-center">
                                 <div>
-                                    <CardTitle>Menú Ejecutivo</CardTitle>
-                                    <CardDescription>Opciones de almuerzo de la semana.</CardDescription>
+                                    <CardTitle>Menú del Día</CardTitle>
+                                    <CardDescription>Opción ejecutiva para hoy.</CardDescription>
                                 </div>
                                 <Utensils className="h-6 w-6 text-primary" />
                            </div>
                         </CardHeader>
-                        <CardContent className="flex-grow flex flex-col">
-                           <div ref={menuScrollAreaRef} className="flex-grow">
-                                <ScrollArea className="w-full h-full">
-                                    <div className="flex flex-col gap-4">
-                                        {mockExecutiveMenuItems.map((item) => (
-                                            <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                                        ))}
-                                    </div>
-                                    <ScrollBar orientation="vertical" />
-                                </ScrollArea>
-                            </div>
+                        <CardContent className="flex-grow flex flex-col items-center justify-center p-4">
+                           {todaysMenu ? (
+                                <MenuItemCard item={todaysMenu} isCurrentDay={true} />
+                            ) : (
+                                <div className="text-center text-muted-foreground">
+                                    <p className="font-semibold">No hay menú ejecutivo disponible hoy.</p>
+                                    <p className="text-sm">Por favor, revise mañana.</p>
+                                </div>
+                            )}
                         </CardContent>
-                        <CardFooter className="flex justify-end gap-2 border-t pt-4">
-                             <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
-                                <ChevronLeft className="h-4 w-4" />
-                            </Button>
-                            <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
-                                <ChevronRight className="h-4 w-4" />
-                            </Button>
-                        </CardFooter>
                     </Card>
                 </div>
             </div>

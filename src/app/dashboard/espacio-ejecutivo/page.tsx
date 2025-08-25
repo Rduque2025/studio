@@ -11,7 +11,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ChevronLeft, ChevronRight, Utensils, Info } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Info } from 'lucide-react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 import { Badge } from '@/components/ui/badge';
@@ -68,11 +68,11 @@ export default function EspacioEjecutivoPage() {
         <div className="container mx-auto py-8 px-4 space-y-8">
             <div className="mb-8">
                 <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs">
-                    <Link href="/dashboard/bienestar" className="flex items-center gap-2 group">
+                    <Link href="/dashboard" className="flex items-center gap-2 group">
                         <span className="flex items-center justify-center h-8 w-8 rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                             <ArrowLeft className="h-4 w-4" />
                         </span>
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Bienestar</span>
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver al Inicio</span>
                     </Link>
                 </Button>
             </div>
@@ -132,7 +132,6 @@ export default function EspacioEjecutivoPage() {
                                     <CardTitle>Menú del Día</CardTitle>
                                     <CardDescription>Opción ejecutiva para hoy.</CardDescription>
                                 </div>
-                                <Utensils className="h-6 w-6 text-primary" />
                            </div>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-4">

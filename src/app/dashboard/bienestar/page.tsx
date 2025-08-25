@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities } from "@/lib/placeholder-data";
@@ -123,6 +123,36 @@ export default function BienestarPage() {
               <ActivityCard key={activity.id} activity={activity} />
             ))}
           </div>
+        </SectionWrapper>
+      </div>
+
+       {/* Espacio Ejecutivo Section */}
+      <div id="espacio-ejecutivo" className="scroll-mt-20">
+        <SectionWrapper>
+          <Card className="relative w-full overflow-hidden rounded-2xl bg-foreground text-primary-foreground shadow-2xl min-h-[400px] flex flex-col justify-center items-center text-center p-8 md:p-12 group">
+            <Image
+              src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtZWV0aW5nfGVufDB8fHx8MTc1NDQ1MjI2MXww&ixlib=rb-4.1.0&q=80&w=1080"
+              alt="Equipo ejecutivo en reunión"
+              layout="fill"
+              objectFit="cover"
+              data-ai-hint="executive meeting"
+              className="brightness-50 group-hover:brightness-[0.4] transition-all duration-300"
+            />
+            <div className="relative z-10 flex flex-col items-center">
+                <div className="p-4 bg-white/10 rounded-full mb-4">
+                    <Briefcase className="h-8 w-8 text-white" />
+                </div>
+                <h2 className="text-4xl md:text-5xl font-extrabold">Espacio Ejecutivo</h2>
+                <p className="mt-4 max-w-xl text-primary-foreground/80">
+                    Recursos, calendarios y herramientas exclusivas para la gerencia.
+                </p>
+                <Button asChild size="lg" className="mt-8 bg-white text-foreground hover:bg-white/90">
+                    <Link href="/dashboard/espacio-ejecutivo">
+                        Acceder Ahora <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                </Button>
+            </div>
+          </Card>
         </SectionWrapper>
       </div>
 

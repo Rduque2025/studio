@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { mockExecutiveCalendarEvents, mockExecutiveMenuItems } from '@/lib/placeholder-data';
 import { Calendar } from "@/components/ui/calendar";
-import { format, isToday } from 'date-fns';
+import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ChevronLeft, ChevronRight, Utensils, Info } from 'lucide-react';

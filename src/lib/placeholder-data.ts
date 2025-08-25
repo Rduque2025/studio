@@ -913,6 +913,15 @@ export const mockCalendarEvents = [
   { id: "feriado-dic-31", date: new Date(2025, 11, 31), title: "Fin de Año", description: "Feriado nacional.", color: "bg-red-500", isUserEvent: false },
 ];
 
+export const mockExecutiveCalendarEvents = [
+    { id: "exec-pago-jun-11", date: "2025-06-11", title: "Pago Quincena", description: "Pago de la primera quincena para gerentes.", color: "bg-emerald-500" },
+    { id: "exec-bono-jul-15", date: "2025-07-15", title: "Bono Gerencial", description: "Pago de bono por desempeño para la gerencia.", color: "bg-primary" },
+    { id: "exec-reunion-jul-15", date: "2025-07-15", title: "Reunión de Directorio", description: "Reunión mensual del directorio.", color: "bg-rose-500", time: "09:00" },
+    { id: "exec-pago-jul-29", date: "2025-07-29", title: "Pago Quincena", description: "Pago de la segunda quincena para gerentes.", color: "bg-emerald-500" },
+    { id: "exec-resultados-ago-05", date: "2025-08-05", title: "Presentación Resultados Q3", description: "Presentación de resultados del tercer trimestre.", color: "bg-sky-500", time: "14:00" },
+];
+
+
 export const mockDressCodeItems: DressCodeItem[] = [
   {
     id: "DC001",
@@ -1083,6 +1092,8 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
+
 
 
 

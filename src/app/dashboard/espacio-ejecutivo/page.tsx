@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -11,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ChevronLeft, ChevronRight, Info } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Info, Heart, Award } from 'lucide-react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
@@ -76,12 +75,47 @@ export default function EspacioEjecutivoPage() {
                 </Button>
             </div>
 
-            <Card className="bg-foreground text-background rounded-2xl overflow-hidden shadow-lg">
-                <div className="p-8 md:p-12">
+            <Card className="bg-secondary text-secondary-foreground rounded-2xl overflow-hidden shadow-lg p-8 md:p-12 flex flex-col items-center text-center relative min-h-[500px]">
+                <div className="absolute top-8 left-8 flex items-center gap-2">
+                     <Image
+                      src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
+                      alt="Banesco Seguros Logo"
+                      width={32}
+                      height={32}
+                      className="invert brightness-0"
+                    />
+                    <span className="font-semibold text-lg">Banesco Seguros</span>
+                </div>
+                
+                <div className="my-auto">
                     <h1 className="text-3xl md:text-4xl font-bold mb-2">Portal para Gerentes</h1>
-                    <p className="max-w-3xl text-background/80">
-                        Bienvenido a su espacio exclusivo con información relevante, calendarios de pago y herramientas para la gestión de alto nivel.
+                    <p className="max-w-xl text-secondary-foreground/80">
+                        Bienvenido a su espacio exclusivo con información relevante y herramientas para la gestión de alto nivel.
                     </p>
+
+                    <div className="mt-8 relative">
+                        <div className="absolute -top-3 -right-3 z-20">
+                           <Heart className="h-8 w-8 text-red-500 fill-red-400 animate-pulse" />
+                        </div>
+                        <div className="relative z-10 w-full max-w-md mx-auto p-4 rounded-xl bg-background/90 backdrop-blur-sm text-foreground text-left shadow-2xl">
+                           <div className="flex justify-between items-center mb-2">
+                                <div className="flex items-center gap-2">
+                                     <Image
+                                      src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
+                                      alt="Banesco Seguros Logo"
+                                      width={24}
+                                      height={24}
+                                    />
+                                    <p className="font-semibold text-sm">Banesco Seguros</p>
+                                </div>
+                                <p className="text-xs text-muted-foreground">Ahora mismo</p>
+                           </div>
+                           <p className="font-semibold text-primary">Alerta de Bono</p>
+                           <p className="text-sm text-muted-foreground">Ha recibido el pago correspondiente al Bono Gerencial del Q3.</p>
+                        </div>
+                        <div className="absolute -bottom-2 left-4 w-[90%] h-12 bg-white/20 rounded-xl"></div>
+                        <div className="absolute -bottom-4 left-8 w-[80%] h-12 bg-white/10 rounded-xl"></div>
+                    </div>
                 </div>
             </Card>
 

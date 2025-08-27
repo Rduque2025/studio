@@ -11,7 +11,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ChevronLeft, ChevronRight, Info, Heart, Award, CheckCircle, Lightbulb, Bell } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Info, Heart, Award, CheckCircle, Lightbulb, Bell, ArrowRight } from 'lucide-react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
@@ -95,43 +95,31 @@ export default function EspacioEjecutivoPage() {
 
             {/* Manager Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <Card className="bg-card shadow-sm hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                        <div className="flex items-center gap-3">
-                            <div className="p-2.5 bg-sky-100 text-sky-600 rounded-lg">
-                                <CheckCircle className="h-5 w-5" />
-                            </div>
-                            <CardTitle className="text-base font-semibold">Actividades Exclusivas</CardTitle>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm text-muted-foreground">Participe en workshops y eventos de networking diseñados para el liderazgo.</p>
+                <Card className="group relative rounded-2xl overflow-hidden shadow-lg h-[450px] flex flex-col justify-end">
+                    <Image src="https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b3Jrc2hvcHxlbnwwfHx8fDE3NTYxNDQwMDV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Actividades Exclusivas" layout="fill" objectFit="cover" data-ai-hint="exclusive workshop" className="transition-transform duration-300 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    <CardContent className="relative z-10 p-6 text-white">
+                        <h3 className="text-2xl font-bold">Actividades Exclusivas</h3>
+                        <p className="text-sm text-white/80 mt-2">Participe en workshops y eventos de networking diseñados para el liderazgo.</p>
+                        <Button variant="secondary" className="mt-4 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30">Ver más <ArrowRight className="ml-2 h-4 w-4" /></Button>
                     </CardContent>
                 </Card>
-                <Card className="bg-card shadow-sm hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                         <div className="flex items-center gap-3">
-                            <div className="p-2.5 bg-amber-100 text-amber-600 rounded-lg">
-                                <Lightbulb className="h-5 w-5" />
-                            </div>
-                            <CardTitle className="text-base font-semibold">Artículos de Liderazgo</CardTitle>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm text-muted-foreground">Acceda a contenido seleccionado sobre gestión de equipos y estrategia.</p>
+                <Card className="group relative rounded-2xl overflow-hidden shadow-lg h-[450px] flex flex-col justify-end">
+                    <Image src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwfGVufDB8fHx8fDE3NTYxNDQwODR8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Artículos de Liderazgo" layout="fill" objectFit="cover" data-ai-hint="leadership articles" className="transition-transform duration-300 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    <CardContent className="relative z-10 p-6 text-white">
+                        <h3 className="text-2xl font-bold">Artículos de Liderazgo</h3>
+                        <p className="text-sm text-white/80 mt-2">Acceda a contenido seleccionado sobre gestión de equipos y estrategia.</p>
+                        <Button variant="secondary" className="mt-4 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30">Explorar <ArrowRight className="ml-2 h-4 w-4" /></Button>
                     </CardContent>
                 </Card>
-                <Card className="bg-card shadow-sm hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                        <div className="flex items-center gap-3">
-                            <div className="p-2.5 bg-rose-100 text-rose-600 rounded-lg">
-                                <Bell className="h-5 w-5" />
-                            </div>
-                            <CardTitle className="text-base font-semibold">Recordatorios Clave</CardTitle>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <p className="text-sm text-muted-foreground">Reunión de Directorio: <strong>15 de Julio, 9:00 AM</strong>. No olvide revisar la agenda.</p>
+                <Card className="group relative rounded-2xl overflow-hidden shadow-lg h-[450px] flex flex-col justify-end">
+                    <Image src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYWxlbmRhcnxlbnwwfHx8fDE3NTYxNDQxMjB8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Recordatorios Clave" layout="fill" objectFit="cover" data-ai-hint="calendar reminders" className="transition-transform duration-300 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                    <CardContent className="relative z-10 p-6 text-white">
+                        <h3 className="text-2xl font-bold">Recordatorios Clave</h3>
+                        <p className="text-sm text-white/80 mt-2">Reunión de Directorio: <strong>15 de Julio, 9:00 AM</strong>. No olvide revisar la agenda.</p>
+                        <Button variant="secondary" className="mt-4 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30">Ver agenda <ArrowRight className="ml-2 h-4 w-4" /></Button>
                     </CardContent>
                 </Card>
             </div>

@@ -11,7 +11,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ChevronLeft, ChevronRight, Info, Heart, Award } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, Info, Heart, Award, CheckCircle, Lightbulb, Bell } from 'lucide-react';
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
@@ -93,16 +93,48 @@ export default function EspacioEjecutivoPage() {
                 </div>
             </Card>
 
-            {/* Banner Informativo */}
-             <Card className="bg-primary text-primary-foreground">
-              <CardHeader className="flex flex-row items-center gap-4">
-                <Info className="h-6 w-6" />
-                <CardTitle className="text-lg">Próxima Reunión de Directorio</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>La próxima reunión de directorio está programada para el <strong>15 de Julio de 2025 a las 9:00 AM</strong> en la Sala de Juntas Principal. La agenda será enviada por correo electrónico.</p>
-              </CardContent>
-            </Card>
+            {/* Manager Info Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card className="bg-card shadow-sm hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                        <div className="flex items-center gap-3">
+                            <div className="p-2.5 bg-sky-100 text-sky-600 rounded-lg">
+                                <CheckCircle className="h-5 w-5" />
+                            </div>
+                            <CardTitle className="text-base font-semibold">Actividades Exclusivas</CardTitle>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground">Participe en workshops y eventos de networking diseñados para el liderazgo.</p>
+                    </CardContent>
+                </Card>
+                <Card className="bg-card shadow-sm hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                         <div className="flex items-center gap-3">
+                            <div className="p-2.5 bg-amber-100 text-amber-600 rounded-lg">
+                                <Lightbulb className="h-5 w-5" />
+                            </div>
+                            <CardTitle className="text-base font-semibold">Artículos de Liderazgo</CardTitle>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground">Acceda a contenido seleccionado sobre gestión de equipos y estrategia.</p>
+                    </CardContent>
+                </Card>
+                <Card className="bg-card shadow-sm hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                        <div className="flex items-center gap-3">
+                            <div className="p-2.5 bg-rose-100 text-rose-600 rounded-lg">
+                                <Bell className="h-5 w-5" />
+                            </div>
+                            <CardTitle className="text-base font-semibold">Recordatorios Clave</CardTitle>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-sm text-muted-foreground">Reunión de Directorio: <strong>15 de Julio, 9:00 AM</strong>. No olvide revisar la agenda.</p>
+                    </CardContent>
+                </Card>
+            </div>
 
             {/* Calendario de Pagos */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

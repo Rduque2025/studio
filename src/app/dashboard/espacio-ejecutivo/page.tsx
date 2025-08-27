@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -29,7 +30,7 @@ export default function EspacioEjecutivoPage() {
     const [todaysMenu, setTodaysMenu] = useState<MenuItem | null>(null);
 
     useEffect(() => {
-        const dayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
+        const dayName = new Date().toLocaleString('es-ES', { weekday: 'long' });
         const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
         const menuItem = mockExecutiveMenuItems.find(item => item.day === capitalizedDayName) || null;
         setTodaysMenu(menuItem);
@@ -75,47 +76,20 @@ export default function EspacioEjecutivoPage() {
                 </Button>
             </div>
 
-            <Card className="bg-secondary text-secondary-foreground rounded-2xl overflow-hidden shadow-lg p-8 md:p-12 flex flex-col items-center text-center relative min-h-[500px]">
-                <div className="absolute top-8 left-8 flex items-center gap-2">
-                     <Image
-                      src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
-                      alt="Banesco Seguros Logo"
-                      width={32}
-                      height={32}
-                      className="invert brightness-0"
-                    />
-                    <span className="font-semibold text-lg">Banesco Seguros</span>
-                </div>
-                
-                <div className="my-auto">
-                    <h1 className="text-3xl md:text-4xl font-bold mb-2">Portal para Gerentes</h1>
-                    <p className="max-w-xl text-secondary-foreground/80">
+            <Card className="relative rounded-2xl overflow-hidden shadow-lg min-h-[500px] flex items-center justify-center">
+                <Image
+                    src="https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Paisaje inspirador"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="inspiring landscape"
+                    className="brightness-50"
+                />
+                <div className="relative z-10 text-white text-center p-8">
+                    <h1 className="text-4xl md:text-6xl font-extrabold">Portal para Gerentes</h1>
+                    <p className="mt-4 max-w-2xl text-lg text-white/80">
                         Bienvenido a su espacio exclusivo con información relevante y herramientas para la gestión de alto nivel.
                     </p>
-
-                    <div className="mt-8 relative">
-                        <div className="absolute -top-3 -right-3 z-20">
-                           <Heart className="h-8 w-8 text-red-500 fill-red-400 animate-pulse" />
-                        </div>
-                        <div className="relative z-10 w-full max-w-md mx-auto p-4 rounded-xl bg-background/90 backdrop-blur-sm text-foreground text-left shadow-2xl">
-                           <div className="flex justify-between items-center mb-2">
-                                <div className="flex items-center gap-2">
-                                     <Image
-                                      src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
-                                      alt="Banesco Seguros Logo"
-                                      width={24}
-                                      height={24}
-                                    />
-                                    <p className="font-semibold text-sm">Banesco Seguros</p>
-                                </div>
-                                <p className="text-xs text-muted-foreground">Ahora mismo</p>
-                           </div>
-                           <p className="font-semibold text-primary">Alerta de Bono</p>
-                           <p className="text-sm text-muted-foreground">Ha recibido el pago correspondiente al Bono Gerencial del Q3.</p>
-                        </div>
-                        <div className="absolute -bottom-2 left-4 w-[90%] h-12 bg-white/20 rounded-xl"></div>
-                        <div className="absolute -bottom-4 left-8 w-[80%] h-12 bg-white/10 rounded-xl"></div>
-                    </div>
                 </div>
             </Card>
 

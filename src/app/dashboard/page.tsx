@@ -192,8 +192,6 @@ const activityHighlights = [
 
 
 export default function DashboardPage() {
-  const menuScrollAreaRef = useRef<HTMLDivElement>(null);
-  const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [heroImage, setHeroImage] = useState({
@@ -201,6 +199,7 @@ export default function DashboardPage() {
     hint: "clear sky"
   });
   const [activeFaqCategory, setActiveFaqCategory] = useState<'General' | 'Soporte' | 'Otros'>('General');
+  const [todaysMenus, setTodaysMenus] = useState<MenuItem[]>([]);
 
   const faqCategories = [
     { id: 'General', label: 'General', icon: Home },
@@ -222,7 +221,8 @@ export default function DashboardPage() {
     const today = new Date();
     const currentHour = today.getHours();
     const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
-    setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+    const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+    setCurrentDayName(capitalizedDayName);
     
     // Set hero image based on time of day
     if (currentHour >= 6 && currentHour < 14) { // Morning (6am to 1:59pm)
@@ -241,35 +241,16 @@ export default function DashboardPage() {
         hint: "night sky"
       });
     }
+    
+    // Filter menus for the current day
+    const allMenus = [...mockMenuItems, ...mockDietMenuItems, ...mockExecutiveMenuItems];
+    const classicMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Clásico');
+    const dietMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Dieta');
+    const executiveMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Ejecutivo');
+    const today = [classicMenu, dietMenu, executiveMenu].filter(Boolean) as MenuItem[];
+    setTodaysMenus(today);
 
   }, []);
-
-  const handleMenuScroll = (direction: 'left' | 'right') => {
-    const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
-    if (viewport) {
-      const scrollAmount = 320; // Approximately the width of one card plus gap
-      viewport.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const allMenuItems: MenuItem[] = [
-    ...mockMenuItems,
-    ...mockDietMenuItems,
-    ...mockExecutiveMenuItems,
-  ];
-
-  const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
-  
-  const getDepartmentDetails = (id: string) => {
-      const dept = mockDepartments.find(d => d.id === id);
-      const config = departmentGridConfig.find(c => c.id === id);
-      return { ...dept, ...config };
-  };
-
-  const services = ['rh', 'it', 'servicios', 'hcm'];
 
   return (
     <div className="bg-background">
@@ -404,42 +385,48 @@ export default function DashboardPage() {
 
         {/* Menus Section */}
         <div id="menu">
-            <SectionWrapper className="flex flex-col justify-center py-12 md:py-16">
-            <div className="grid md:grid-cols-12 gap-12 items-center">
-                <div className="md:col-span-4">
-                <h2 className="text-4xl font-bold text-foreground">Menú Semanal</h2>
-                <p className="text-muted-foreground mt-4">
-                    Opciones de almuerzo disponibles para toda la semana en el comedor.
-                </p>
+            <SectionWrapper>
+                <div className="flex flex-col items-center text-center mb-8">
+                    <h2 className="text-3xl font-bold text-foreground tracking-tight">Menú del Día</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto mt-2">
+                        Las opciones del comedor para hoy, {currentDayName}. El menú semanal completo está disponible en la sección de Bienestar.
+                    </p>
                 </div>
-                <div className="md:col-span-8">
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                    <div className="flex items-center gap-2 flex-wrap">
-                        <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
-                        <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
-                        <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
-                        <ChevronLeft className="h-4 w-4" />
-                        </Button>
-                        <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
-                        <ChevronRight className="h-4 w-4" />
-                        </Button>
-                    </div>
-                </div>
-                <div ref={menuScrollAreaRef}>
-                    <ScrollArea className="w-full">
-                    <div className="flex w-max space-x-8 py-4">
-                        {filteredMenuItems.map((item) => (
-                        <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                {todaysMenus.length > 0 ? (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        {todaysMenus.map(item => (
+                            <Card key={item.id} className="overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+                                <CardHeader className="p-0 relative">
+                                    <div className="relative w-full aspect-[4/3]">
+                                        <Image
+                                            src={item.imageUrl}
+                                            alt={item.name}
+                                            layout="fill"
+                                            objectFit="cover"
+                                            data-ai-hint={item.dataAiHint}
+                                        />
+                                    </div>
+                                </CardHeader>
+                                <CardContent className="p-4">
+                                    <Badge variant={item.type === 'Ejecutivo' ? 'default' : 'secondary'}>{item.type}</Badge>
+                                    <CardTitle className="text-base font-bold mt-2">{item.name}</CardTitle>
+                                    <CardDescription className="text-xs mt-1 h-10">
+                                        {item.description}
+                                    </CardDescription>
+                                </CardContent>
+                            </Card>
                         ))}
                     </div>
-                    <ScrollBar orientation="horizontal" />
-                    </ScrollArea>
+                ) : (
+                    <p className="text-center text-muted-foreground">No hay menú disponible para hoy.</p>
+                )}
+                 <div className="text-center mt-8">
+                    <Button asChild variant="link">
+                        <Link href="/dashboard/bienestar">
+                            Ver Menú Semanal Completo <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
                 </div>
-                </div>
-            </div>
             </SectionWrapper>
         </div>
       
@@ -472,7 +459,7 @@ export default function DashboardPage() {
                 <div className="space-y-4 my-auto">
                     <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                     <Image
-                        src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib-rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Solicitudes de vacaciones"
                         layout="fill"
                         objectFit="cover"
@@ -502,7 +489,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                     <Image
-                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib-rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Recomendaciones de viaje"
                         layout="fill"
                         objectFit="cover"
@@ -687,32 +674,32 @@ export default function DashboardPage() {
             </SectionWrapper>
         </div>
 
-       {/* Espacio Ejecutivo Section */}
-      <div id="espacio-ejecutivo" className="scroll-mt-20">
-        <SectionWrapper>
-          <Card className="relative w-full overflow-hidden rounded-2xl bg-foreground text-primary-foreground shadow-2xl min-h-[400px] flex flex-col justify-center items-center text-center p-8 md:p-12 group">
-            <Image
-              src="https://images.unsplash.com/photo-1610374792793-f016b77ca51a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxleGVjdXRpdmV8ZW58MHx8fHwxNzU2MTM2NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080"
-              alt="Equipo ejecutivo en reunión"
-              layout="fill"
-              objectFit="cover"
-              data-ai-hint="executive meeting"
-              className="brightness-50 group-hover:brightness-[0.4] transition-all duration-300"
-            />
-            <div className="relative z-10 flex flex-col items-center">
-                <h2 className="text-4xl md:text-5xl font-extrabold">Espacio Ejecutivo</h2>
-                <p className="mt-4 max-w-xl text-primary-foreground/80">
-                    Recursos, calendarios y herramientas exclusivas para la gerencia.
-                </p>
-                <Button asChild size="lg" className="mt-8 bg-white text-foreground hover:bg-white/90">
-                    <Link href="/dashboard/espacio-ejecutivo">
-                        Acceder Ahora <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                </Button>
-            </div>
-          </Card>
-        </SectionWrapper>
-      </div>
+        {/* Espacio Ejecutivo Section */}
+        <div id="espacio-ejecutivo" className="scroll-mt-20">
+            <SectionWrapper>
+                <Card className="relative w-full overflow-hidden rounded-2xl bg-foreground text-primary-foreground shadow-2xl min-h-[400px] flex flex-col justify-center items-center text-center p-8 md:p-12 group">
+                <Image
+                    src="https://images.unsplash.com/photo-1610374792793-f016b77ca51a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxleGVjdXRpdmV8ZW58MHx8fHwxNzU2MTM2NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Equipo ejecutivo en reunión"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="executive meeting"
+                    className="brightness-50 group-hover:brightness-[0.4] transition-all duration-300"
+                />
+                <div className="relative z-10 flex flex-col items-center">
+                    <h2 className="text-4xl md:text-5xl font-extrabold">Espacio Ejecutivo</h2>
+                    <p className="mt-4 max-w-xl text-primary-foreground/80">
+                        Recursos, calendarios y herramientas exclusivas para la gerencia.
+                    </p>
+                    <Button asChild size="lg" className="mt-8 bg-white text-foreground hover:bg-white/90">
+                        <Link href="/dashboard/espacio-ejecutivo">
+                            Acceder Ahora <ArrowRight className="ml-2 h-5 w-5" />
+                        </Link>
+                    </Button>
+                </div>
+                </Card>
+            </SectionWrapper>
+        </div>
 
 
         {/* Actividades Section */}

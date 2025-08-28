@@ -1,14 +1,14 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,6 +16,9 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { EventHighlightCard, type EventHighlightProps } from '@/components/dashboard/event-highlight-card';
 import type { LucideIcon } from 'lucide-react';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import type { MenuItem } from '@/lib/placeholder-data';
+import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 
 const benefits = [
   {
@@ -53,6 +56,34 @@ const importantEvents: EventHighlightProps[] = [
 ];
 
 export default function BienestarPage() {
+    const menuScrollAreaRef = useRef<HTMLDivElement>(null);
+    const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
+    const [currentDayName, setCurrentDayName] = useState('');
+
+    useEffect(() => {
+        const dayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
+        setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+    }, []);
+
+    const handleMenuScroll = (direction: 'left' | 'right') => {
+        const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
+        if (viewport) {
+        const scrollAmount = 320; 
+        viewport.scrollBy({
+            left: direction === 'left' ? -scrollAmount : scrollAmount,
+            behavior: 'smooth',
+        });
+        }
+    };
+
+    const allMenuItems: MenuItem[] = [
+        ...mockMenuItems,
+        ...mockDietMenuItems,
+        ...mockExecutiveMenuItems,
+    ];
+
+    const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
+
 
   return (
     <div className="bg-background text-foreground">
@@ -110,6 +141,39 @@ export default function BienestarPage() {
         </div>
       </SectionWrapper>
       
+      {/* Menu Section */}
+      <SectionWrapper
+        title="Menú Semanal del Comedor"
+        description="Descubre las deliciosas opciones que tenemos para ti durante toda la semana."
+        className="bg-muted/50"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <div className="flex items-center gap-2 flex-wrap">
+                <Button size="sm" variant={selectedMenu === 'Clásico' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Clásico')}>Clásico</Button>
+                <Button size="sm" variant={selectedMenu === 'Dieta' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Dieta')}>Dieta</Button>
+                <Button size="sm" variant={selectedMenu === 'Ejecutivo' ? 'default' : 'outline'} onClick={() => setSelectedMenu('Ejecutivo')}>Ejecutivo</Button>
+            </div>
+            <div className="flex items-center gap-2">
+                <Button variant="outline" size="icon" onClick={() => handleMenuScroll('left')}>
+                <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button variant="outline" size="icon" onClick={() => handleMenuScroll('right')}>
+                <ChevronRight className="h-4 w-4" />
+                </Button>
+            </div>
+        </div>
+        <div ref={menuScrollAreaRef}>
+            <ScrollArea className="w-full">
+            <div className="flex w-max space-x-8 py-4">
+                {filteredMenuItems.map((item) => (
+                <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                ))}
+            </div>
+            <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+        </div>
+      </SectionWrapper>
+
       {/* Activities Section */}
       <div id="explorar-actividades" className="scroll-mt-20">
         <SectionWrapper

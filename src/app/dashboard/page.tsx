@@ -218,9 +218,9 @@ export default function DashboardPage() {
   const currentCourse = mockCourses[currentCourseIndex];
   
   useEffect(() => {
-    const today = new Date();
-    const currentHour = today.getHours();
-    const dayName = today.toLocaleDateString('es-ES', { weekday: 'long' });
+    const todayDate = new Date();
+    const currentHour = todayDate.getHours();
+    const dayName = todayDate.toLocaleDateString('es-ES', { weekday: 'long' });
     const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
     setCurrentDayName(capitalizedDayName);
     
@@ -247,8 +247,8 @@ export default function DashboardPage() {
     const classicMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Clásico');
     const dietMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Dieta');
     const executiveMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Ejecutivo');
-    const today = [classicMenu, dietMenu, executiveMenu].filter(Boolean) as MenuItem[];
-    setTodaysMenus(today);
+    const menusForToday = [classicMenu, dietMenu, executiveMenu].filter(Boolean) as MenuItem[];
+    setTodaysMenus(menusForToday);
 
   }, []);
 

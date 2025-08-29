@@ -1,91 +1,157 @@
-// Google Apps Script para gestionar usuarios en una Hoja de Cálculo de Google.
-// Este script actúa como una API simple para registrar y autenticar usuarios.
+/**
+ * =================================================================
+ *  Backend de Autenticación con Google Apps Script para Banesco Seguros
+ * =================================================================
+ *
+ * Instrucciones de Configuración:
+ * -----------------------------
+ * 1.  Crea una nueva Hoja de Cálculo de Google (Google Sheet).
+ * 2.  Nómbrala "Base de Datos de Usuarios" o algo similar.
+ * 3.  Crea dos hojas dentro de este archivo:
+ *     a) Una llamada "Users":
+ *        - En la celda A1, escribe "email".
+ *        - En la celda B1, escribe "password".
+ *     b) Una llamada "Access Logs":
+ *        - En la celda A1, escribe "timestamp".
+ *        - En la celda B1, escribe "email".
+ *        - En la celda C1, escribe "status".
+ * 4.  Crea un nuevo proyecto en Google Apps Script (script.google.com).
+ * 5.  Pega este código en el editor de scripts.
+ * 6.  Implementa el script como una Aplicación Web:
+ *     - Ve a "Implementar" > "Nueva implementación".
+ *     - Selecciona "Aplicación web" como tipo.
+ *     - En "Ejecutar como", selecciona "Yo".
+ *     - En "Quién tiene acceso", selecciona "Cualquier persona".
+ *     - Haz clic en "Implementar", autoriza los permisos necesarios.
+ *     - Copia la URL de la aplicación web generada. Esta es tu URL de backend.
+ *
+ * Funcionalidad:
+ * --------------
+ * - Registra nuevos usuarios en la hoja "Users".
+ * - Valida las credenciales de los usuarios existentes.
+ * - Registra cada intento de inicio de sesión (exitoso o fallido) en la hoja "Access Logs".
+ *
+ * IMPORTANTE: Este es un sistema básico. La contraseña se guarda como texto plano.
+ * Para un entorno de producción real, considera usar un sistema de hashing
+ * o una solución de autenticación más robusta como Firebase Authentication.
+ *
+ */
 
-// --- CONFIGURACIÓN ---
-// 1. Reemplaza 'ID_DE_TU_HOJA_DE_CÁLCULO' con el ID real de tu Google Sheet.
-//    Puedes encontrarlo en la URL de tu hoja: docs.google.com/spreadsheets/d/ID_DE_TU_HOJA_DE_CÁLCULO/edit
-const SHEET_ID = 'ID_DE_TU_HOJA_DE_CÁLCULO';
-// 2. Reemplaza 'NombreDeLaHoja' con el nombre de la hoja donde están los datos (ej. "Usuarios").
-const SHEET_NAME = 'Usuarios'; 
+// Hoja de Usuarios
+const USER_SHEET_NAME = 'Users';
+
+// Hoja de Registro de Accesos
+const LOG_SHEET_NAME = 'Access Logs';
 
 /**
  * Punto de entrada principal para las solicitudes POST desde la aplicación web.
- * Se encarga de dirigir las acciones de 'register' y 'login'.
+ * Maneja las acciones de 'register' y 'login'.
  */
 function doPost(e) {
   try {
-    const requestData = JSON.parse(e.postData.contents);
-    const action = requestData.action;
-    const email = requestData.email;
-    const password = requestData.password;
+    const data = JSON.parse(e.postData.contents);
+    const action = data.action;
+    const email = data.email ? data.email.toLowerCase() : undefined;
+    const password = data.password;
 
-    if (!email || !password) {
-      return createJsonResponse({ success: false, message: 'Correo y contraseña son requeridos.' });
-    }
-
-    const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      throw new Error(`La hoja con el nombre "${SHEET_NAME}" no fue encontrada.`);
+    if (!action || !email || !password) {
+      return createJsonResponse({ success: false, message: 'Faltan parámetros requeridos.' });
     }
 
     switch (action) {
       case 'register':
-        return registerUser(sheet, email, password);
+        return handleRegister(email, password);
       case 'login':
-        return loginUser(sheet, email, password);
+        return handleLogin(email, password);
       default:
-        return createJsonResponse({ success: false, message: 'Acción no válida.' });
+        return createJsonResponse({ success: false, message: 'Acción no reconocida.' });
     }
   } catch (error) {
-    Logger.log(error.toString());
-    return createJsonResponse({ success: false, message: 'Error en el servidor: ' + error.toString() });
+    return createJsonResponse({ success: false, message: `Error en el servidor: ${error.message}` });
   }
 }
 
 /**
- * Registra un nuevo usuario en la hoja de cálculo.
- * Verifica si el usuario ya existe antes de añadirlo.
+ * Maneja el registro de un nuevo usuario.
+ * @param {string} email - El correo del usuario.
+ * @param {string} password - La contraseña del usuario.
+ * @returns {GoogleAppsScript.Content.TextOutput} - Respuesta JSON.
  */
-function registerUser(sheet, email, password) {
-  const data = sheet.getDataRange().getValues();
-  const emails = data.map(row => row[0]); // La columna 0 es 'email'
+function handleRegister(email, password) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(USER_SHEET_NAME);
+  if (!sheet) {
+    return createJsonResponse({ success: false, message: `La hoja "${USER_SHEET_NAME}" no fue encontrada.` });
+  }
 
-  if (emails.includes(email)) {
+  const data = sheet.getDataRange().getValues();
+  const userExists = data.some(row => row[0].toLowerCase() === email);
+
+  if (userExists) {
     return createJsonResponse({ success: false, message: 'El usuario ya existe.' });
   }
 
-  // En una aplicación real, NUNCA guardes contraseñas en texto plano.
-  // Deberías usar un servicio de hashing o un proveedor de identidad.
-  // Para este ejemplo, la guardamos directamente.
   sheet.appendRow([email, password]);
-
   return createJsonResponse({ success: true, message: 'Usuario registrado con éxito.' });
 }
 
 /**
- * Autentica a un usuario comparando sus credenciales con las de la hoja de cálculo.
+ * Maneja el inicio de sesión de un usuario.
+ * @param {string} email - El correo del usuario.
+ * @param {string} password - La contraseña del usuario.
+ * @returns {GoogleAppsScript.Content.TextOutput} - Respuesta JSON.
  */
-function loginUser(sheet, email, password) {
-  const data = sheet.getDataRange().getValues();
-  // Empezamos desde 1 para saltarnos la cabecera
-  for (let i = 1; i < data.length; i++) {
-    const row = data[i];
-    const storedEmail = row[0]; // Columna A
-    const storedPassword = row[1]; // Columna B
-
-    if (storedEmail === email && storedPassword === password) {
-      return createJsonResponse({ success: true, message: 'Inicio de sesión correcto.' });
-    }
+function handleLogin(email, password) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(USER_SHEET_NAME);
+  if (!sheet) {
+    logAccess(email, 'LOGIN_ERROR_NO_SHEET');
+    return createJsonResponse({ success: false, message: `La hoja "${USER_SHEET_NAME}" no fue encontrada.` });
   }
 
-  return createJsonResponse({ success: false, message: 'Correo o contraseña incorrectos.' });
+  const data = sheet.getDataRange().getValues();
+  const userRow = data.find(row => row[0].toLowerCase() === email);
+
+  if (userRow) {
+    const storedPassword = userRow[1];
+    if (storedPassword === password) {
+      logAccess(email, 'SUCCESS');
+      return createJsonResponse({ success: true, message: 'Inicio de sesión correcto.' });
+    } else {
+      logAccess(email, 'FAILURE_WRONG_PASSWORD');
+      return createJsonResponse({ success: false, message: 'Correo o contraseña incorrectos.' });
+    }
+  } else {
+    logAccess(email, 'FAILURE_USER_NOT_FOUND');
+    return createJsonResponse({ success: false, message: 'Correo o contraseña incorrectos.' });
+  }
 }
 
 /**
- * Crea una respuesta JSON estandarizada para la aplicación web.
+ * Registra un intento de acceso en la hoja de logs.
+ * @param {string} email - El correo electrónico del intento de acceso.
+ * @param {string} status - El resultado del intento ('SUCCESS', 'FAILURE_WRONG_PASSWORD', etc.).
  */
-function createJsonResponse(data) {
+function logAccess(email, status) {
+  try {
+    const logSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LOG_SHEET_NAME);
+    if (logSheet) {
+      const timestamp = new Date();
+      logSheet.appendRow([timestamp, email, status]);
+    }
+  } catch (error) {
+    // Si el log falla, no queremos que afecte el flujo de login/registro.
+    // Simplemente lo registramos en los logs de Apps Script.
+    console.error(`Fallo al registrar el acceso para ${email}: ${error.message}`);
+  }
+}
+
+
+/**
+ * Crea una respuesta JSON estandarizada.
+ * @param {object} responseObject - El objeto a serializar en JSON.
+ * @returns {GoogleAppsScript.Content.TextOutput} - Objeto de respuesta.
+ */
+function createJsonResponse(responseObject) {
   return ContentService
-    .createTextOutput(JSON.stringify(data))
+    .createTextOutput(JSON.stringify(responseObject))
     .setMimeType(ContentService.MimeType.JSON);
 }

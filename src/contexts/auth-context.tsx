@@ -5,42 +5,40 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
-// Simulación de una llamada a una API (Google Apps Script)
-const mockApi = {
-  // En un caso real, esto consultaría Google Sheets
-  users: new Map<string, string>([
-      // Puedes añadir usuarios de prueba aquí si lo necesitas
-      // ['test@banescoseguros.com', 'password123']
-  ]),
-
+// Real API calls to Google Apps Script
+const api = {
   async register(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    console.log(`(Simulado) Registrando usuario: ${email}`);
-    // Aquí iría la llamada fetch a tu URL de Apps Script con method: 'POST' y un body con { action: 'register', email, password }
-    return new Promise(resolve => {
-      setTimeout(() => {
-        if (this.users.has(email)) {
-          resolve({ success: false, message: 'El usuario ya existe.' });
-        } else {
-          this.users.set(email, password);
-          console.log('(Simulado) Usuarios actuales:', this.users);
-          resolve({ success: true, message: 'Usuario registrado con éxito.' });
-        }
-      }, 1000);
+    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+    if (!scriptUrl) {
+      throw new Error("La URL de Apps Script no está configurada.");
+    }
+
+    const response = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8', // Required for Apps Script simple POST
+      },
+      body: JSON.stringify({ action: 'register', email, password }),
     });
+
+    return response.json();
   },
   
   async login(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    console.log(`(Simulado) Intentando iniciar sesión con: ${email}`);
-    // Aquí iría la llamada fetch a tu URL de Apps Script con method: 'POST' y un body con { action: 'login', email, password }
-    return new Promise(resolve => {
-      setTimeout(() => {
-        if (this.users.has(email) && this.users.get(email) === password) {
-          resolve({ success: true, message: 'Inicio de sesión correcto.' });
-        } else {
-          resolve({ success: false, message: 'Correo o contraseña incorrectos.' });
-        }
-      }, 1000);
+    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+     if (!scriptUrl) {
+      throw new Error("La URL de Apps Script no está configurada.");
+    }
+
+    const response = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify({ action: 'login', email, password }),
     });
+
+    return response.json();
   },
 };
 
@@ -73,7 +71,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await mockApi.login(email, password);
+    const response = await api.login(email, password);
     if (response.success) {
       setIsAuthenticated(true);
       setUserEmail(email);
@@ -92,7 +90,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const register = async (email: string, password: string) => {
-    const response = await mockApi.register(email, password);
+    const response = await api.register(email, password);
     if (!response.success) {
       throw new Error(response.message);
     }

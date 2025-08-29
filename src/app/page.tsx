@@ -3,13 +3,22 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
+import { AuthProvider } from "@/contexts/auth-context";
 
-export default function HomePage() {
+function HomePageContent() {
   const router = useRouter();
+  const { isAuthenticated, isLoading } = useAuth();
 
   useEffect(() => {
-    router.replace("/dashboard");
-  }, [router]);
+    if (!isLoading) {
+      if (isAuthenticated) {
+        router.replace("/dashboard");
+      } else {
+        router.replace("/login");
+      }
+    }
+  }, [router, isAuthenticated, isLoading]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
@@ -22,4 +31,12 @@ export default function HomePage() {
       </div>
     </div>
   );
+}
+
+export default function HomePage() {
+    return (
+        <AuthProvider>
+            <HomePageContent />
+        </AuthProvider>
+    )
 }

@@ -1,9 +1,8 @@
 
-
 "use client";
 
 import Link from "next/link";
-import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Bell, Clock, Target, User, Archive } from "lucide-react"; 
+import { Home, CalendarDays, HeartHandshake, FileText, BookOpen, Menu, Search, Bell, Clock, Target, User, Archive, LogOut } from "lucide-react"; 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import React, { useEffect, useState } from "react";
@@ -18,8 +17,17 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { UserAuthForm } from "@/components/auth/user-auth-form";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/auth-context";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 const navItemsDesktop = [
   { name: "General", href: "/dashboard", icon: Home, activePaths: ["/dashboard"] },
@@ -30,29 +38,37 @@ const navItemsDesktop = [
   { name: "Biblioteca", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
 ];
 
-const navItemsMobile = [
-  ...navItemsDesktop,
-  { name: "Recordatorios", href: "#", icon: Bell, isReminders: true, activePaths: [] }, 
-  { name: "Buscar", href: "#", icon: Search, isSearch: true, activePaths: [] }, 
-  { name: "Perfil", href: "#", icon: User, isUser: true, activePaths: [] },
-];
-
-
 const UserProfileButton = () => {
+    const { userEmail, logout } = useAuth();
+    const userInitials = userEmail ? userEmail.substring(0, 2).toUpperCase() : 'U';
+
     return (
-        <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon" className="group hover:bg-transparent">
-                <User className="h-5 w-5 transition-transform group-hover:scale-110" />
-                <span className="sr-only">Perfil de Usuario</span>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-80">
-                <UserAuthForm />
-            </PopoverContent>
-          </Popover>
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar className="h-9 w-9">
+                        <AvatarFallback>{userInitials}</AvatarFallback>
+                    </Avatar>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">Mi Cuenta</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                            {userEmail}
+                        </p>
+                    </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Cerrar sesión</span>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     );
-}
+};
 
 
 export function Header() {
@@ -63,6 +79,12 @@ export function Header() {
   const pathname = usePathname();
   const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
+
+  const navItemsMobile = [
+    ...navItemsDesktop,
+    { name: "Recordatorios", href: "#", icon: Bell, isReminders: true, activePaths: [] }, 
+    { name: "Buscar", href: "#", icon: Search, isSearch: true, activePaths: [] }, 
+  ];
 
   useEffect(() => {
     const today = new Date();
@@ -80,7 +102,6 @@ export function Header() {
       iconColor: 'bg-rose-100 text-rose-500'
     }));
 
-    // Combine static notifications with dynamic event notifications, avoiding duplicates
     const combinedNotifications = [...initialMockNotifications];
     eventNotifications.forEach(en => {
       if (!combinedNotifications.some(cn => cn.id === en.id)) {
@@ -118,16 +139,11 @@ export function Header() {
     if (item.href === '/dashboard' && pathname === '/dashboard') {
         return true;
     }
-    // Check if the current pathname starts with any of the active paths, but isn't just the root dashboard path
     return item.href !== '/dashboard' && item.activePaths.some(p => pathname.startsWith(p));
   };
 
-  const handleMobileLinkClick = (item: (typeof navItemsMobile)[number]) => {
-    if (item.isSearch || item.isReminders || item.isUser) {
-      // Handled by popover
-    } else {
-      setIsMobileMenuOpen(false);
-    }
+  const handleMobileLinkClick = () => {
+    setIsMobileMenuOpen(false);
   };
   
   const handleArchiveAll = () => {
@@ -137,9 +153,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full flex h-24 items-center justify-center px-4">
-      {/* Desktop Header Capsule */}
       <nav className="hidden md:grid w-full max-w-7xl grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
-        {/* Left side: Logo */}
         <div className="flex items-center justify-start">
           <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
             <Image
@@ -152,7 +166,6 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Center: Nav Links */}
         <div className="flex items-center justify-center space-x-1">
           {navItemsDesktop.map((item) => {
             const isActive = checkIsActive(item);
@@ -173,7 +186,6 @@ export function Header() {
           })}
         </div>
 
-        {/* Right side: Action Icons */}
         <div className="flex items-center justify-self-end space-x-1">
           <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
             <PopoverTrigger asChild>
@@ -236,15 +248,10 @@ export function Header() {
                   {notifications.length > 0 ? (
                     notifications.map((notification) => (
                       <div key={notification.id} className="relative flex gap-3 items-start timeline-item">
-                        {/* Timeline line */}
                         <div className="timeline-line"></div>
-
-                        {/* Icon */}
                         <div className={cn("mt-1 flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center z-10", notification.iconColor)}>
                           <notification.icon className="h-4 w-4" />
                         </div>
-
-                        {/* Content */}
                         <div className="flex-grow">
                           <div className="flex justify-between items-center">
                             <p className="font-medium text-xs">{notification.title}</p>
@@ -265,13 +272,11 @@ export function Header() {
           </Popover>
           
           <UserProfileButton />
-
         </div>
       </nav>
 
       {/* Mobile Header */}
       <div className="flex md:hidden w-full items-center justify-between">
-        {/* Logo */}
         <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
           <Image
             src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/banescointernacional.com/wp-content/uploads/2024/11/Isotipo.png"
@@ -282,48 +287,50 @@ export function Header() {
             priority
           />
         </Link>
-        {/* Mobile Menu Trigger */}
-        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Abrir menú</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[300px] sm:w-[400px]">
-            <nav className="flex flex-col space-y-4 mt-8">
-              {navItemsMobile.map((item) => {
-                 const isActive = checkIsActive(item);
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={cn(
-                      "flex items-center space-x-2 p-2 rounded-md",
-                      isActive && item.href !== "#"
-                        ? "bg-accent text-accent-foreground font-semibold"
-                        : "hover:bg-accent hover:text-accent-foreground text-foreground"
-                    )}
-                    onClick={() => handleMobileLinkClick(item)}
-                  >
-                    <item.icon className={cn(
-                      "h-5 w-5",
-                      isActive && item.href !== "#"
-                        ? "text-accent-foreground"
-                        : "text-muted-foreground"
-                     )} />
-                    <span>{item.name}</span>
-                    {item.icon === Bell && notifications.length > 0 && (
-                       <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
-                         {notifications.length}
-                       </span>
-                    )}
-                  </Link>
-                );
-                })}
-            </nav>
-          </SheetContent>
-        </Sheet>
+        <div className="flex items-center gap-2">
+          <UserProfileButton />
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Abrir menú</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+              <nav className="flex flex-col space-y-4 mt-8">
+                {navItemsMobile.map((item) => {
+                   const isActive = checkIsActive(item);
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className={cn(
+                        "flex items-center space-x-2 p-2 rounded-md",
+                        isActive && item.href !== "#"
+                          ? "bg-accent text-accent-foreground font-semibold"
+                          : "hover:bg-accent hover:text-accent-foreground text-foreground"
+                      )}
+                      onClick={handleMobileLinkClick}
+                    >
+                      <item.icon className={cn(
+                        "h-5 w-5",
+                        isActive && item.href !== "#"
+                          ? "text-accent-foreground"
+                          : "text-muted-foreground"
+                       )} />
+                      <span>{item.name}</span>
+                      {item.icon === Bell && notifications.length > 0 && (
+                         <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
+                           {notifications.length}
+                         </span>
+                      )}
+                    </Link>
+                  );
+                  })}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );

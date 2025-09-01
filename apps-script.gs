@@ -1,178 +1,147 @@
-// This is for V8 runtime.
-const SPREADSHEET_ID = "12849hS71gUf_1f-G2D-1y-a-5f33-b-dE9921_12345";
-const USERS_SHEET = "Users";
-const ACCESS_LOGS_SHEET = "Access Logs";
-const CALENDAR_EVENTS_SHEET = "Calendar Events";
-const MENU_SHEET = "Menu"; // New sheet for menu items
+// Constants for sheet names
+const USERS_SHEET_NAME = 'Users';
+const ACCESS_LOGS_SHEET_NAME = 'Access Logs';
+const CALENDAR_SHEET_NAME = 'Calendar Events';
+const MENU_SHEET_NAME = 'Menu';
 
 /**
- * Main entry point for web app requests.
- * This function acts as a controller, routing requests to the appropriate function based on the 'action' parameter.
+ * Handles HTTP POST requests to the web app.
+ * This function acts as the main router for all incoming requests from the client application.
+ * @param {Object} e The event parameter for a POST request.
+ * @return {ContentService.TextOutput} A JSON response.
  */
-function doPost(e: GoogleAppsScript.Events.DoPost) {
+function doPost(e) {
   try {
     const request = JSON.parse(e.postData.contents);
+    let responseData;
 
     switch (request.action) {
       case 'register':
-        return handleRegister(request);
+        responseData = registerUser(request.email, request.password);
+        break;
       case 'login':
-        return handleLogin(request);
+        responseData = loginUser(request.email, request.password);
+        break;
       case 'getCalendarEvents':
-        return handleGetCalendarEvents();
+        responseData = { success: true, data: getCalendarEventsFromSheet() };
+        break;
       case 'getMenuItems':
-        return handleGetMenuItems(); // New case for menu items
+        responseData = { success: true, data: getMenuItemsFromSheet() };
+        break;
       default:
-        return createJsonResponse({ success: false, message: 'Invalid action' });
+        responseData = { success: false, message: 'Invalid action specified.' };
+        break;
     }
+    
+    return ContentService
+      .createTextOutput(JSON.stringify(responseData))
+      .setMimeType(ContentService.MimeType.JSON);
+
   } catch (error) {
-    Logger.log(error);
-    return createJsonResponse({ success: false, message: 'An error occurred', error: error.toString() });
+    Logger.log('Error in doPost: ' + error.toString());
+    const errorResponse = { success: false, message: 'An internal server error occurred.', error: error.toString() };
+    return ContentService
+      .createTextOutput(JSON.stringify(errorResponse))
+      .setMimeType(ContentService.MimeType.JSON);
   }
-}
-
-/**
- * Handles user registration.
- */
-function handleRegister(request: any) {
-  if (!request.email || !request.password) {
-    return createJsonResponse({ success: false, message: 'Email and password are required' });
-  }
-  return registerUser(request.email, request.password);
-}
-
-/**
- * Handles user login.
- */
-function handleLogin(request: any) {
-  if (!request.email || !request.password) {
-    return createJsonResponse({ success: false, message: 'Email and password are required' });
-  }
-  return loginUser(request.email, request.password);
-}
-
-/**
- * Handles fetching calendar events.
- */
-function handleGetCalendarEvents() {
-  const data = getCalendarEventsFromSheet();
-  return createJsonResponse({ success: true, data: data });
-}
-
-/**
- * Handles fetching menu items.
- */
-function handleGetMenuItems() {
-  const data = getMenuItemsFromSheet();
-  return createJsonResponse({ success: true, data: data });
-}
-
-/**
- * Creates a JSON response object for the web app.
- */
-function createJsonResponse(responseObject: object) {
-  return ContentService.createTextOutput(JSON.stringify(responseObject))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
  * Registers a new user in the "Users" sheet.
+ * @param {string} email The user's email.
+ * @param {string} password The user's password.
+ * @return {Object} An object indicating success or failure.
  */
-function registerUser(email: string, password: string) {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(USERS_SHEET);
-  if (!sheet) {
-    return createJsonResponse({ success: false, message: 'Users sheet not found' });
-  }
-  const users = sheet.getDataRange().getValues();
-  const userExists = users.some(row => row[0] === email);
+function registerUser(email, password) {
+  const usersSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(USERS_SHEET_NAME);
+  const usersData = usersSheet.getDataRange().getValues();
+  const emailColumnIndex = 0;
+
+  const userExists = usersData.some(row => row[emailColumnIndex] === email);
 
   if (userExists) {
-    return createJsonResponse({ success: false, message: 'User already exists' });
+    return { success: false, message: 'El correo ya está registrado.' };
   }
 
-  // Note: Storing plain text passwords is not secure. This is for demonstration only.
-  // In a real application, you should use a secure authentication method.
-  sheet.appendRow([email, password]);
-  return createJsonResponse({ success: true, message: 'User registered successfully' });
+  // Note: Storing plain text passwords is not secure. This is a simple implementation.
+  // For production, consider using a more secure authentication method.
+  usersSheet.appendRow([email, password, new Date()]);
+  logAccess(email, 'REGISTER', 'SUCCESS');
+  return { success: true, message: 'Usuario registrado exitosamente.' };
 }
 
 /**
- * Logs a user in by checking credentials against the "Users" sheet.
+ * Logs in a user by checking credentials against the "Users" sheet.
+ * @param {string} email The user's email.
+ * @param {string} password The user's password.
+ * @return {Object} An object indicating success or failure.
  */
-function loginUser(email: string, password: string) {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(USERS_SHEET);
-  if (!sheet) {
-    return createJsonResponse({ success: false, message: 'Users sheet not found' });
-  }
-  const users = sheet.getDataRange().getValues();
-  const user = users.find(row => row[0] === email && row[1] === password);
+function loginUser(email, password) {
+  const usersSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(USERS_SHEET_NAME);
+  const usersData = usersSheet.getDataRange().getValues();
+  const emailColumnIndex = 0;
+  const passwordColumnIndex = 1;
 
-  if (user) {
-    logAccess(email, 'SUCCESS');
-    return createJsonResponse({ success: true, message: 'Login successful' });
-  } else {
-    logAccess(email, 'FAILURE');
-    return createJsonResponse({ success: false, message: 'Invalid email or password' });
+  const userRow = usersData.find(row => row[emailColumnIndex] === email);
+
+  if (!userRow) {
+    logAccess(email, 'LOGIN', 'FAILURE - User not found');
+    return { success: false, message: 'Usuario no encontrado.' };
   }
+
+  if (userRow[passwordColumnIndex] !== password) {
+    logAccess(email, 'LOGIN', 'FAILURE - Invalid password');
+    return { success: false, message: 'Contraseña incorrecta.' };
+  }
+
+  logAccess(email, 'LOGIN', 'SUCCESS');
+  return { success: true, message: 'Inicio de sesión exitoso.' };
 }
 
 /**
  * Logs an access attempt to the "Access Logs" sheet.
+ * @param {string} email The email of the user attempting to access.
+ * @param {string} eventType The type of event (e.g., LOGIN, REGISTER).
+ * @param {string} status The status of the event (e.g., SUCCESS, FAILURE).
  */
-function logAccess(email: string, status: 'SUCCESS' | 'FAILURE') {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(ACCESS_LOGS_SHEET);
-  if (!sheet) {
-    Logger.log('Access Logs sheet not found');
-    return;
-  }
-  sheet.appendRow([new Date(), email, status]);
+function logAccess(email, eventType, status) {
+  const logsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ACCESS_LOGS_SHEET_NAME);
+  logsSheet.appendRow([new Date(), email, eventType, status]);
 }
 
 /**
- * Retrieves events and birthdays from the "Calendar Events" sheet.
+ * Fetches calendar events and birthdays from the "Calendar Events" sheet.
+ * @return {Array<Object>} An array of objects, each representing a day with its events and birthdays.
  */
 function getCalendarEventsFromSheet() {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(CALENDAR_EVENTS_SHEET);
-  if (!sheet) {
-    Logger.log('Calendar Events sheet not found');
-    return [];
-  }
-  const data = sheet.getDataRange().getValues();
-  const headers = data.shift() || []; // Remove header row
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CALENDAR_SHEET_NAME);
+  if (!sheet) return [];
+  
+  const range = sheet.getDataRange();
+  const values = range.getValues();
+  const headers = values[0];
+  const data = values.slice(1);
 
   const dateIndex = headers.indexOf('Date');
   const eventIndex = headers.indexOf('Event');
   const birthdayIndex = headers.indexOf('Birthday');
 
-  if (dateIndex === -1 || eventIndex === -1 || birthdayIndex === -1) {
-    Logger.log('Required columns (Date, Event, Birthday) not found in Calendar Events sheet.');
-    return [];
-  }
+  if (dateIndex === -1) return []; // Essential column 'Date' is missing.
 
   const eventsByDate = {};
 
   data.forEach(row => {
     const dateValue = row[dateIndex];
-    if (dateValue) {
-      const date = new Date(dateValue);
-      const dateString = date.toISOString(); // Use ISO string as a key
-
+    if (dateValue instanceof Date && !isNaN(dateValue)) {
+      const dateString = dateValue.toISOString();
       if (!eventsByDate[dateString]) {
-        eventsByDate[dateString] = {
-          date: dateString,
-          events: [],
-          birthdays: []
-        };
+        eventsByDate[dateString] = { date: dateString, events: [], birthdays: [] };
       }
-      
-      const eventTitle = row[eventIndex];
-      if (eventTitle) {
-        eventsByDate[dateString].events.push(eventTitle);
+      if (eventIndex > -1 && row[eventIndex]) {
+        eventsByDate[dateString].events.push(row[eventIndex]);
       }
-      
-      const birthdayName = row[birthdayIndex];
-      if (birthdayName) {
-        eventsByDate[dateString].birthdays.push(birthdayName);
+      if (birthdayIndex > -1 && row[birthdayIndex]) {
+        eventsByDate[dateString].birthdays.push(row[birthdayIndex]);
       }
     }
   });
@@ -180,21 +149,20 @@ function getCalendarEventsFromSheet() {
   return Object.values(eventsByDate);
 }
 
-
 /**
- * Retrieves menu items from the "Menu" sheet.
+ * Fetches menu items from the "Menu" sheet.
+ * @return {Array<Object>} An array of menu item objects.
  */
 function getMenuItemsFromSheet() {
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(MENU_SHEET);
-  if (!sheet) {
-    Logger.log('Menu sheet not found');
-    return [];
-  }
-  
-  const data = sheet.getDataRange().getValues();
-  const headers = data.shift() || []; // Remove header row and get headers
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(MENU_SHEET_NAME);
+  if (!sheet) return [];
 
-  // Find column indices by header name to be more flexible
+  const range = sheet.getDataRange();
+  const values = range.getValues();
+  const headers = values[0].map(h => h.trim());
+  const data = values.slice(1);
+
+  // Get column indices based on headers
   const dayIndex = headers.indexOf('Day');
   const classicDishIndex = headers.indexOf('Classic Dish');
   const classicImgIndex = headers.indexOf('Classic Image URL');
@@ -203,52 +171,51 @@ function getMenuItemsFromSheet() {
   const execDishIndex = headers.indexOf('Executive Dish');
   const execImgIndex = headers.indexOf('Executive Image URL');
   
-  if (dayIndex === -1 || classicDishIndex === -1 || dietDishIndex === -1 || execDishIndex === -1) {
-    Logger.log('One or more required columns are missing in the Menu sheet.');
-    return [];
-  }
-
-  const menuItems: object[] = [];
-
+  const menuItems = [];
+  
   data.forEach((row, i) => {
-    const day = row[dayIndex];
-    if (!day) return; // Skip if day is not specified
+    // IMPORTANT: Skip empty rows to prevent errors
+    if (!row[dayIndex] && !row[classicDishIndex] && !row[dietDishIndex] && !row[execDishIndex]) {
+      return;
+    }
 
-    // Classic Menu Item
+    const day = row[dayIndex];
+    
+    // Process Classic Menu
     if (row[classicDishIndex]) {
       menuItems.push({
-        id: `C${i}`,
+        id: `cl-${i}`,
         day: day,
         name: row[classicDishIndex],
-        description: `Plato clásico del día: ${row[classicDishIndex]}`,
-        imageUrl: row[classicImgIndex] || '', // Send empty string if no URL
-        price: '100 Bs.',
+        description: `Plato clásico para el ${day}.`,
+        imageUrl: row[classicImgIndex] || '',
+        price: "100 Bs.",
         type: 'Clásico'
       });
     }
 
-    // Diet Menu Item
+    // Process Diet Menu
     if (row[dietDishIndex]) {
       menuItems.push({
-        id: `D${i}`,
+        id: `di-${i}`,
         day: day,
         name: row[dietDishIndex],
-        description: `Opción de dieta: ${row[dietDishIndex]}`,
-        imageUrl: row[dietImgIndex] || '', // Send empty string if no URL
-        price: '100 Bs.',
+        description: `Opción de dieta para el ${day}.`,
+        imageUrl: row[dietImgIndex] || '',
+        price: "100 Bs.",
         type: 'Dieta'
       });
     }
 
-    // Executive Menu Item
+    // Process Executive Menu
     if (row[execDishIndex]) {
       menuItems.push({
-        id: `E${i}`,
+        id: `ex-${i}`,
         day: day,
         name: row[execDishIndex],
-        description: `Menú ejecutivo: ${row[execDishIndex]}`,
-        imageUrl: row[execImgIndex] || '', // Send empty string if no URL
-        price: '13 $',
+        description: `Menú ejecutivo para el ${day}.`,
+        imageUrl: row[execImgIndex] || '',
+        price: "13 $",
         type: 'Ejecutivo'
       });
     }

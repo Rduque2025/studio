@@ -109,6 +109,18 @@ export interface CustomerFeedback {
   nps: number; // 1-10 score
 }
 
+// Data for Executive-Specific Views
+export interface MenuItem {
+  id: string;
+  day: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  price: string;
+  type: 'Clásico' | 'Dieta' | 'Ejecutivo';
+  dataAiHint?: string;
+}
+
 
 export const specialRequestAreas = [
     { id: 'Finanzas', name: 'Finanzas', email: 'gcia_nacional_finanzas_ve@banescoseguros.com' },
@@ -484,7 +496,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Documentos", 
     area: "Suscripción",
     description: "Procedimiento para realizar inspecciones de vehículos de forma remota y eficiente.",
-    imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhydW5uaW5nfGVufDB8fHx8fDE3NTMzMDcwMDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhydW5uaW5nfGVufDB8fHx8MTc1MzMwNzAwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "woman running",
     isFeatured: false,
   },
@@ -494,7 +506,7 @@ export const mockDocuments: DocumentResource[] = [
     category: "Manuales", 
     area: "Suscripción",
     description: "Documentación detallada sobre los flujos y políticas de suscripción de pólizas.",
-    imageUrl: "https://images.unsplash.com/photo-1575478422368-2793b2e35b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxpY29wdGVyfGVufDB8fHx8fDE3NTMzMDcwNjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1575478422368-2793b2e35b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxpY29wdGVyfGVufDB8fHx8MTc1MzMwNzA2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "helicopter sky",
     isFeatured: false,
   },
@@ -749,6 +761,14 @@ export const mockExecutiveCalendarEvents = [
     { id: "exec-resultados-ago-05", date: "2025-08-05", title: "Presentación Resultados Q3", description: "Presentación de resultados del tercer trimestre.", color: "bg-sky-500", time: "14:00" },
 ];
 
+export const mockExecutiveMenuItems: MenuItem[] = [
+    { id: "EM001", day: "Lunes", name: "Lomo Saltado Peruano", description: "Trozos de lomo fino salteados con cebolla, tomate, ají amarillo, servido con papas fritas y arroz.", imageUrl: "https://images.unsplash.com/photo-1588168333986-5078d3ae3976?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJuZXxlbnwwfHx8fDE3NTIxNzEyODN8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo", dataAiHint: "peruvian steak" },
+    { id: "EM002", day: "Martes", name: "Risotto de Champiñones y Trufa", description: "Cremoso risotto Arborio con variedad de champiñones frescos y un toque de aceite de trufa.", imageUrl: "https://images.unsplash.com/photo-1723476654474-77baaeb27012?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtdXNocm9vbSUyMHJpc290dG98ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo", dataAiHint: "mushroom risotto" },
+    { id: "EM003", day: "Miércoles", name: "Paella de Mariscos Individual", description: "Arroz bomba cocinado en caldo de pescado con camarones, calamares, mejillones y almejas.", imageUrl: "https://images.unsplash.com/photo-1623961990059-28356e226a77?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzZWFmb29kJTIwcGFlbGxhfGVufDB8fHx8MTc1MjE3MDg4NHww&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo", dataAiHint: "seafood paella" },
+    { id: "EM004", day: "Jueves", name: "Entrecot a la Parrilla con Chimichurri", description: "Corte de entrecot jugoso a la parrilla, acompañado de salsa chimichurri y guarnición de papas rústicas.", imageUrl: "https://images.unsplash.com/photo-1657143375273-75371e23f7f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxncmlsbGVkJTIwc3RlYWt8ZW58MHx8fHwxNzUyMTcwODg0fDA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo", dataAiHint: "grilled steak" },
+    { id: "EM005", day: "Viernes", name: "Canelones de Ricota y Espinaca", description: "Canelones rellenos de suave ricota y espinacas frescas, bañados en salsa bechamel y gratinados.", imageUrl: "https://images.unsplash.com/photo-1741448682476-55786f461576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxjYW5uZWxsb25pJTIwcmljb3R0YXxlbnwwfHx8fDE3NTIxNzA4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080", price: "13 $", type: "Ejecutivo", dataAiHint: "cannelloni pasta" },
+];
+
 
 export const mockDressCodeItems: DressCodeItem[] = [
   {
@@ -911,6 +931,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

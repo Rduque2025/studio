@@ -1,9 +1,10 @@
 
 import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import type { MenuItem } from "@/lib/placeholder-data";
+import type { MenuItem } from "@/ai/flows/get-menu-items-flow";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
+import { Utensils } from "lucide-react";
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -18,13 +19,19 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
     )}>
       <CardHeader className="p-0 relative">
         <div className="relative w-full aspect-square">
-          <Image
-            src={item.imageUrl}
-            alt={item.name}
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint={item.dataAiHint}
-          />
+          {item.imageUrl ? (
+            <Image
+              src={item.imageUrl}
+              alt={item.name}
+              layout="fill"
+              objectFit="cover"
+              data-ai-hint={item.dataAiHint || ''}
+            />
+          ) : (
+            <div className={cn("w-full h-full flex items-center justify-center", isCurrentDay ? "bg-black/10" : "bg-muted")}>
+                <Utensils className={cn("h-16 w-16", isCurrentDay ? "text-primary-foreground/50" : "text-muted-foreground/50")} />
+            </div>
+          )}
         </div>
         {isCurrentDay && (
           <Badge variant="secondary" className="absolute top-2 right-2 z-10 bg-white/20 text-white backdrop-blur-sm">

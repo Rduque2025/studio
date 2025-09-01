@@ -12,7 +12,7 @@ import Image from "next/image";
 import { useEvents, type CalendarEvent } from "@/contexts/events-context"; 
 import { mockNotifications as initialMockNotifications, type NotificationItem } from "@/lib/placeholder-data";
 import { format, isToday, intervalToDuration, isPast } from "date-fns"; 
-import { es } from "fns/locale"; 
+import { es } from "date-fns/locale"; 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -45,7 +45,7 @@ const UserProfileButton = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full focus-visible:ring-0 focus-visible:ring-offset-0">
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full group focus-visible:ring-0 focus-visible:ring-offset-0">
                     <Avatar className="h-9 w-9 transition-transform group-hover:scale-110 group-focus:scale-110">
                         <AvatarFallback>{userInitials}</AvatarFallback>
                     </Avatar>

@@ -1,12 +1,15 @@
-// Hoja de Cálculo ID - Opcional si el script está vinculado a la hoja
-const SPREADSHEET_ID = ''; // Si el script no está vinculado, pega tu ID aquí
-const USERS_SHEET_NAME = 'Base de Datos de Usuarios';
-const LOGS_SHEET_NAME = 'Access Logs';
-const EVENTS_SHEET_NAME = 'Calendar Events';
+// This Google Apps Script provides backend functionality for a user authentication system
+// and calendar event management using a Google Sheet as a database.
+
+// Set up the spreadsheet and its sheets
+const db = SpreadsheetApp.getActiveSpreadsheet();
+const usersSheet = db.getSheetByName("Base de Datos de Usuarios");
+const logsSheet = db.getSheetByName("Access Logs");
+const eventsSheet = db.getSheetByName("Calendar Events");
 
 /**
- * Función principal que maneja las solicitudes POST.
- * Funciona como un enrutador para diferentes acciones.
+ * Handles POST requests to the web app.
+ * This function acts as the main router for different actions like register, login, and fetching events.
  */
 function doPost(e) {
   try {
@@ -15,156 +18,116 @@ function doPost(e) {
 
     switch (requestData.action) {
       case 'register':
-        response = handleRegister(requestData);
+        response = registerUser(usersSheet, requestData.email, requestData.password);
         break;
       case 'login':
-        response = handleLogin(requestData);
+        response = loginUser(usersSheet, logsSheet, requestData.email, requestData.password);
         break;
       case 'getCalendarEvents':
-        response = handleGetCalendarEvents();
+        response = { success: true, data: getCalendarEvents(eventsSheet) };
         break;
       default:
-        response = { success: false, message: 'Acción no reconocida' };
-        break;
+        response = { success: false, message: 'Invalid action' };
     }
-
-    return ContentService.createTextOutput(JSON.stringify(response))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (error) {
-    logAccess('ERROR', `Error en doPost: ${error.toString()}`);
-    return ContentService.createTextOutput(JSON.stringify({ success: false, message: `Error en el servidor: ${error.toString()}` }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-/**
- * Maneja el registro de un nuevo usuario.
- */
-function handleRegister(data) {
-  const { email, password } = data;
-
-  if (!email || !password) {
-    return { success: false, message: 'Correo y contraseña son requeridos' };
-  }
-
-  const sheet = getSheet(USERS_SHEET_NAME);
-  const users = sheet.getDataRange().getValues();
-  const userExists = users.some(row => row[0].toLowerCase() === email.toLowerCase());
-
-  if (userExists) {
-    return { success: false, message: 'El correo ya está registrado' };
-  }
-
-  // En un entorno real, la contraseña debe ser hasheada.
-  // Por simplicidad, aquí la guardamos en texto plano.
-  sheet.appendRow([email, password]);
-  
-  return { success: true, message: 'Usuario registrado exitosamente' };
-}
-
-/**
- * Maneja el inicio de sesión de un usuario.
- */
-function handleLogin(data) {
-  const { email, password } = data;
-
-  if (!email || !password) {
-    return { success: false, message: 'Correo y contraseña son requeridos' };
-  }
-
-  const sheet = getSheet(USERS_SHEET_NAME);
-  const users = sheet.getDataRange().getValues();
-  const userRow = users.find(row => row[0].toLowerCase() === email.toLowerCase());
-
-  if (userRow && userRow[1] === password) {
-    logAccess(email, 'SUCCESS');
-    return { success: true, message: 'Inicio de sesión exitoso' };
-  } else {
-    logAccess(email, 'FAILURE');
-    return { success: false, message: 'Correo o contraseña incorrectos' };
-  }
-}
-
-/**
- * Maneja la obtención de eventos del calendario.
- */
-function handleGetCalendarEvents() {
-  try {
-    const sheet = getSheet(EVENTS_SHEET_NAME);
-    const data = sheet.getDataRange().getValues();
-    const headers = data.shift(); // Saca la fila de encabezados
-
-    const events = [];
-    data.forEach(row => {
-      const date = new Date(row[0]);
-      if (isNaN(date.getTime())) return; // Salta si la fecha no es válida
-
-      // Procesar eventos (columnas 1 a 5)
-      for (let i = 1; i <= 5; i++) {
-        if (row[i]) {
-          events.push({
-            date: Utilities.formatDate(date, "GMT", "yyyy-MM-dd'T'00:00:00.000'Z'"),
-            title: row[i],
-            type: 'event'
-          });
-        }
-      }
-
-      // Procesar cumpleaños (columnas 6 a 10)
-      for (let i = 6; i <= 10; i++) {
-        if (row[i]) {
-          events.push({
-            date: Utilities.formatDate(date, "GMT", "yyyy-MM-dd'T'00:00:00.000'Z'"),
-            title: `Cumpleaños de ${row[i]}`,
-            type: 'birthday'
-          });
-        }
-      }
-    });
-
-    return { success: true, events: events };
-
-  } catch (error) {
-     logAccess('ERROR', `Error en getCalendarEvents: ${error.toString()}`);
-     return { success: false, message: `Error obteniendo eventos: ${error.toString()}`, events: [] };
-  }
-}
-
-
-/**
- * Registra un intento de acceso en la hoja de logs.
- */
-function logAccess(email, status) {
-  try {
-    const logSheet = getSheet(LOGS_SHEET_NAME);
-    const timestamp = new Date();
-    logSheet.appendRow([timestamp, email, status]);
-  } catch (error) {
-    // No hacer nada para evitar bucles infinitos si el logging falla.
-  }
-}
-
-/**
- * Obtiene una hoja por su nombre, creándola si no existe.
- */
-function getSheet(sheetName) {
-  const spreadsheet = SPREADSHEET_ID 
-    ? SpreadsheetApp.openById(SPREADSHEET_ID) 
-    : SpreadsheetApp.getActiveSpreadsheet();
     
-  let sheet = spreadsheet.getSheetByName(sheetName);
-  
-  if (!sheet) {
-    sheet = spreadsheet.insertSheet(sheetName);
-    // Configura las cabeceras si es una hoja nueva
-    if (sheetName === USERS_SHEET_NAME) {
-      sheet.appendRow(['email', 'password']);
-    } else if (sheetName === LOGS_SHEET_NAME) {
-      sheet.appendRow(['timestamp', 'email', 'status']);
-    } else if (sheetName === EVENTS_SHEET_NAME) {
-      sheet.appendRow(['date', 'event_1', 'event_2', 'event_3', 'event_4', 'event_5', 'birthday_1', 'birthday_2', 'birthday_3', 'birthday_4', 'birthday_5']);
+    return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: 'Error: ' + error.toString() })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * Registers a new user in the spreadsheet.
+ */
+function registerUser(sheet, email, password) {
+  if (!email || !password) {
+    return { success: false, message: "Email and password are required." };
+  }
+
+  const userExists = findUser(sheet, email);
+  if (userExists) {
+    return { success: false, message: "User already exists." };
+  }
+
+  // In a real application, hash the password before storing it.
+  // For simplicity, we are storing it as plain text here.
+  sheet.appendRow([email, password]);
+  return { success: true, message: "User registered successfully." };
+}
+
+/**
+ * Logs in a user by checking their credentials against the spreadsheet.
+ * Also logs the access attempt.
+ */
+function loginUser(userSheet, logSheet, email, password) {
+  const userRow = findUser(userSheet, email);
+  const timestamp = new Date().toISOString();
+
+  if (userRow) {
+    const storedPassword = userSheet.getRange(userRow, 2).getValue();
+    if (password === storedPassword) {
+      logSheet.appendRow([timestamp, email, "SUCCESS"]);
+      return { success: true, message: "Login successful." };
     }
   }
-  return sheet;
+
+  logSheet.appendRow([timestamp, email, "FAILED"]);
+  return { success: false, message: "Invalid email or password." };
+}
+
+/**
+ * Finds a user by email in the specified sheet.
+ * Returns the row number if found, otherwise null.
+ */
+function findUser(sheet, email) {
+  const data = sheet.getDataRange().getValues();
+  for (let i = 1; i < data.length; i++) {
+    if (data[i][0] === email) {
+      return i + 1; // Return row number (1-based)
+    }
+  }
+  return null;
+}
+
+/**
+ * Retrieves and formats calendar events and birthdays from the "Calendar Events" sheet.
+ * Now supports time for events.
+ */
+function getCalendarEvents(sheet) {
+  const eventsRange = sheet.getDataRange();
+  const eventsValues = eventsRange.getValues();
+  const headers = eventsValues[0];
+  const events = [];
+
+  for (let i = 1; i < eventsValues.length; i++) {
+    const row = eventsValues[i];
+    if (!row[0]) continue; // Skip empty rows
+
+    const date = new Date(row[0]);
+    // Format to ISO 8601 to preserve date and time information
+    const formattedDateTime = date.toISOString();
+
+    // Events (columns B to F)
+    for (let j = 1; j <= 5; j++) { 
+      if (row[j]) {
+        events.push({
+          date: formattedDateTime,
+          type: 'event',
+          title: row[j]
+        });
+      }
+    }
+
+    // Birthdays (columns G to K)
+    for (let j = 6; j <= 10; j++) {
+      if (row[j]) {
+        events.push({
+          date: formattedDateTime,
+          type: 'birthday',
+          title: `Cumpleaños: ${row[j]}`
+        });
+      }
+    }
+  }
+  return events;
 }

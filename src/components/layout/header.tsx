@@ -55,7 +55,7 @@ const UserProfileButton = () => {
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                         <p className="text-xs font-medium leading-none text-muted-foreground">Mi Cuenta</p>
-                        <p className="text-sm leading-none text-foreground truncate">
+                        <p className="text-xs leading-none text-foreground truncate">
                             {userEmail}
                         </p>
                     </div>

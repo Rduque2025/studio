@@ -1051,15 +1051,6 @@ export const mockNotifications: NotificationItem[] = [
     time: 'Reciente',
     icon: Music2,
     iconColor: 'bg-purple-100 text-purple-500'
-  },
-  {
-    id: 'reminder-reunion-cierre',
-    type: 'event',
-    title: 'Recordatorio: Reunión de Cierre Mensual',
-    description: 'La reunión de cierre del mes es hoy en la sala de juntas principal.',
-    time: '10:00 AM',
-    icon: CalendarDays,
-    iconColor: 'bg-rose-100 text-rose-500'
   }
 ];
 
@@ -1092,6 +1083,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

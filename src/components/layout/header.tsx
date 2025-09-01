@@ -46,7 +46,7 @@ const UserProfileButton = () => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full group focus-visible:ring-0 focus-visible:ring-offset-0">
-                    <Avatar className="h-9 w-9 transition-transform group-hover:scale-110 group-focus:scale-110">
+                    <Avatar className="h-9 w-9 transition-transform group-hover:scale-110 group-data-[state=open]:scale-110">
                         <AvatarFallback className="bg-primary text-primary-foreground">{userInitials}</AvatarFallback>
                     </Avatar>
                 </Button>

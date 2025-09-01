@@ -1,157 +1,170 @@
-/**
- * =================================================================
- *  Backend de Autenticación con Google Apps Script para Banesco Seguros
- * =================================================================
- *
- * Instrucciones de Configuración:
- * -----------------------------
- * 1.  Crea una nueva Hoja de Cálculo de Google (Google Sheet).
- * 2.  Nómbrala "Base de Datos de Usuarios" o algo similar.
- * 3.  Crea dos hojas dentro de este archivo:
- *     a) Una llamada "Users":
- *        - En la celda A1, escribe "email".
- *        - En la celda B1, escribe "password".
- *     b) Una llamada "Access Logs":
- *        - En la celda A1, escribe "timestamp".
- *        - En la celda B1, escribe "email".
- *        - En la celda C1, escribe "status".
- * 4.  Crea un nuevo proyecto en Google Apps Script (script.google.com).
- * 5.  Pega este código en el editor de scripts.
- * 6.  Implementa el script como una Aplicación Web:
- *     - Ve a "Implementar" > "Nueva implementación".
- *     - Selecciona "Aplicación web" como tipo.
- *     - En "Ejecutar como", selecciona "Yo".
- *     - En "Quién tiene acceso", selecciona "Cualquier persona".
- *     - Haz clic en "Implementar", autoriza los permisos necesarios.
- *     - Copia la URL de la aplicación web generada. Esta es tu URL de backend.
- *
- * Funcionalidad:
- * --------------
- * - Registra nuevos usuarios en la hoja "Users".
- * - Valida las credenciales de los usuarios existentes.
- * - Registra cada intento de inicio de sesión (exitoso o fallido) en la hoja "Access Logs".
- *
- * IMPORTANTE: Este es un sistema básico. La contraseña se guarda como texto plano.
- * Para un entorno de producción real, considera usar un sistema de hashing
- * o una solución de autenticación más robusta como Firebase Authentication.
- *
- */
-
-// Hoja de Usuarios
-const USER_SHEET_NAME = 'Users';
-
-// Hoja de Registro de Accesos
-const LOG_SHEET_NAME = 'Access Logs';
+// Hoja de Cálculo ID - Opcional si el script está vinculado a la hoja
+const SPREADSHEET_ID = ''; // Si el script no está vinculado, pega tu ID aquí
+const USERS_SHEET_NAME = 'Base de Datos de Usuarios';
+const LOGS_SHEET_NAME = 'Access Logs';
+const EVENTS_SHEET_NAME = 'Calendar Events';
 
 /**
- * Punto de entrada principal para las solicitudes POST desde la aplicación web.
- * Maneja las acciones de 'register' y 'login'.
+ * Función principal que maneja las solicitudes POST.
+ * Funciona como un enrutador para diferentes acciones.
  */
 function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
-    const action = data.action;
-    const email = data.email ? data.email.toLowerCase() : undefined;
-    const password = data.password;
+    const requestData = JSON.parse(e.postData.contents);
+    let response;
 
-    if (!action || !email || !password) {
-      return createJsonResponse({ success: false, message: 'Faltan parámetros requeridos.' });
-    }
-
-    switch (action) {
+    switch (requestData.action) {
       case 'register':
-        return handleRegister(email, password);
+        response = handleRegister(requestData);
+        break;
       case 'login':
-        return handleLogin(email, password);
+        response = handleLogin(requestData);
+        break;
+      case 'getCalendarEvents':
+        response = handleGetCalendarEvents();
+        break;
       default:
-        return createJsonResponse({ success: false, message: 'Acción no reconocida.' });
+        response = { success: false, message: 'Acción no reconocida' };
+        break;
     }
+
+    return ContentService.createTextOutput(JSON.stringify(response))
+      .setMimeType(ContentService.MimeType.JSON);
+
   } catch (error) {
-    return createJsonResponse({ success: false, message: `Error en el servidor: ${error.message}` });
+    logAccess('ERROR', `Error en doPost: ${error.toString()}`);
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: `Error en el servidor: ${error.toString()}` }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
 /**
  * Maneja el registro de un nuevo usuario.
- * @param {string} email - El correo del usuario.
- * @param {string} password - La contraseña del usuario.
- * @returns {GoogleAppsScript.Content.TextOutput} - Respuesta JSON.
  */
-function handleRegister(email, password) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(USER_SHEET_NAME);
-  if (!sheet) {
-    return createJsonResponse({ success: false, message: `La hoja "${USER_SHEET_NAME}" no fue encontrada.` });
+function handleRegister(data) {
+  const { email, password } = data;
+
+  if (!email || !password) {
+    return { success: false, message: 'Correo y contraseña son requeridos' };
   }
 
-  const data = sheet.getDataRange().getValues();
-  const userExists = data.some(row => row[0].toLowerCase() === email);
+  const sheet = getSheet(USERS_SHEET_NAME);
+  const users = sheet.getDataRange().getValues();
+  const userExists = users.some(row => row[0].toLowerCase() === email.toLowerCase());
 
   if (userExists) {
-    return createJsonResponse({ success: false, message: 'El usuario ya existe.' });
+    return { success: false, message: 'El correo ya está registrado' };
   }
 
+  // En un entorno real, la contraseña debe ser hasheada.
+  // Por simplicidad, aquí la guardamos en texto plano.
   sheet.appendRow([email, password]);
-  return createJsonResponse({ success: true, message: 'Usuario registrado con éxito.' });
+  
+  return { success: true, message: 'Usuario registrado exitosamente' };
 }
 
 /**
  * Maneja el inicio de sesión de un usuario.
- * @param {string} email - El correo del usuario.
- * @param {string} password - La contraseña del usuario.
- * @returns {GoogleAppsScript.Content.TextOutput} - Respuesta JSON.
  */
-function handleLogin(email, password) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(USER_SHEET_NAME);
-  if (!sheet) {
-    logAccess(email, 'LOGIN_ERROR_NO_SHEET');
-    return createJsonResponse({ success: false, message: `La hoja "${USER_SHEET_NAME}" no fue encontrada.` });
+function handleLogin(data) {
+  const { email, password } = data;
+
+  if (!email || !password) {
+    return { success: false, message: 'Correo y contraseña son requeridos' };
   }
 
-  const data = sheet.getDataRange().getValues();
-  const userRow = data.find(row => row[0].toLowerCase() === email);
+  const sheet = getSheet(USERS_SHEET_NAME);
+  const users = sheet.getDataRange().getValues();
+  const userRow = users.find(row => row[0].toLowerCase() === email.toLowerCase());
 
-  if (userRow) {
-    const storedPassword = userRow[1];
-    if (storedPassword === password) {
-      logAccess(email, 'SUCCESS');
-      return createJsonResponse({ success: true, message: 'Inicio de sesión correcto.' });
-    } else {
-      logAccess(email, 'FAILURE_WRONG_PASSWORD');
-      return createJsonResponse({ success: false, message: 'Correo o contraseña incorrectos.' });
-    }
+  if (userRow && userRow[1] === password) {
+    logAccess(email, 'SUCCESS');
+    return { success: true, message: 'Inicio de sesión exitoso' };
   } else {
-    logAccess(email, 'FAILURE_USER_NOT_FOUND');
-    return createJsonResponse({ success: false, message: 'Correo o contraseña incorrectos.' });
+    logAccess(email, 'FAILURE');
+    return { success: false, message: 'Correo o contraseña incorrectos' };
   }
 }
+
+/**
+ * Maneja la obtención de eventos del calendario.
+ */
+function handleGetCalendarEvents() {
+  try {
+    const sheet = getSheet(EVENTS_SHEET_NAME);
+    const data = sheet.getDataRange().getValues();
+    const headers = data.shift(); // Saca la fila de encabezados
+
+    const events = [];
+    data.forEach(row => {
+      const date = new Date(row[0]);
+      if (isNaN(date.getTime())) return; // Salta si la fecha no es válida
+
+      // Procesar eventos (columnas 1 a 5)
+      for (let i = 1; i <= 5; i++) {
+        if (row[i]) {
+          events.push({
+            date: Utilities.formatDate(date, "GMT", "yyyy-MM-dd'T'00:00:00.000'Z'"),
+            title: row[i],
+            type: 'event'
+          });
+        }
+      }
+
+      // Procesar cumpleaños (columnas 6 a 10)
+      for (let i = 6; i <= 10; i++) {
+        if (row[i]) {
+          events.push({
+            date: Utilities.formatDate(date, "GMT", "yyyy-MM-dd'T'00:00:00.000'Z'"),
+            title: `Cumpleaños de ${row[i]}`,
+            type: 'birthday'
+          });
+        }
+      }
+    });
+
+    return { success: true, events: events };
+
+  } catch (error) {
+     logAccess('ERROR', `Error en getCalendarEvents: ${error.toString()}`);
+     return { success: false, message: `Error obteniendo eventos: ${error.toString()}`, events: [] };
+  }
+}
+
 
 /**
  * Registra un intento de acceso en la hoja de logs.
- * @param {string} email - El correo electrónico del intento de acceso.
- * @param {string} status - El resultado del intento ('SUCCESS', 'FAILURE_WRONG_PASSWORD', etc.).
  */
 function logAccess(email, status) {
   try {
-    const logSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(LOG_SHEET_NAME);
-    if (logSheet) {
-      const timestamp = new Date();
-      logSheet.appendRow([timestamp, email, status]);
-    }
+    const logSheet = getSheet(LOGS_SHEET_NAME);
+    const timestamp = new Date();
+    logSheet.appendRow([timestamp, email, status]);
   } catch (error) {
-    // Si el log falla, no queremos que afecte el flujo de login/registro.
-    // Simplemente lo registramos en los logs de Apps Script.
-    console.error(`Fallo al registrar el acceso para ${email}: ${error.message}`);
+    // No hacer nada para evitar bucles infinitos si el logging falla.
   }
 }
 
-
 /**
- * Crea una respuesta JSON estandarizada.
- * @param {object} responseObject - El objeto a serializar en JSON.
- * @returns {GoogleAppsScript.Content.TextOutput} - Objeto de respuesta.
+ * Obtiene una hoja por su nombre, creándola si no existe.
  */
-function createJsonResponse(responseObject) {
-  return ContentService
-    .createTextOutput(JSON.stringify(responseObject))
-    .setMimeType(ContentService.MimeType.JSON);
+function getSheet(sheetName) {
+  const spreadsheet = SPREADSHEET_ID 
+    ? SpreadsheetApp.openById(SPREADSHEET_ID) 
+    : SpreadsheetApp.getActiveSpreadsheet();
+    
+  let sheet = spreadsheet.getSheetByName(sheetName);
+  
+  if (!sheet) {
+    sheet = spreadsheet.insertSheet(sheetName);
+    // Configura las cabeceras si es una hoja nueva
+    if (sheetName === USERS_SHEET_NAME) {
+      sheet.appendRow(['email', 'password']);
+    } else if (sheetName === LOGS_SHEET_NAME) {
+      sheet.appendRow(['timestamp', 'email', 'status']);
+    } else if (sheetName === EVENTS_SHEET_NAME) {
+      sheet.appendRow(['date', 'event_1', 'event_2', 'event_3', 'event_4', 'event_5', 'birthday_1', 'birthday_2', 'birthday_3', 'birthday_4', 'birthday_5']);
+    }
+  }
+  return sheet;
 }

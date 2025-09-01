@@ -205,7 +205,7 @@ export default function DashboardPage() {
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [heroImage, setHeroImage] = useState({
-    src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib-rb-4.1.0&q=80&w=1080",
+    src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
     hint: "clear sky"
   });
   const [activeFaqCategory, setActiveFaqCategory] = useState<'General' | 'Soporte' | 'Otros'>('General');
@@ -238,12 +238,12 @@ export default function DashboardPage() {
     // Set hero image based on time of day
     if (currentHour >= 6 && currentHour < 14) { // Morning (6am to 1:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib-rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "clear sky"
       });
     } else if (currentHour >= 14 && currentHour < 17) { // Afternoon (2pm to 4:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib-rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "sunset sky"
       });
     } else { // Evening/Night (5pm onwards)
@@ -351,7 +351,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXJ8ZW58MHx8fHwxNzU0MzMzNjcxfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXJ8ZW58MHx8fHwxNzU0MzMzNjcxfDA&ixlib-rb-4.1.0&q=80&w=1080"
                       alt="Oficina de Banesco"
                       width={400}
                       height={400}
@@ -420,12 +420,13 @@ export default function DashboardPage() {
                 {isLoadingMenu ? (
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                     {Array.from({ length: 3 }).map((_, index) => (
-                      <Card key={index} className="overflow-hidden shadow-sm">
-                        <Skeleton className="w-full aspect-[4/3]" />
+                      <Card key={index} className="w-[350px] flex-shrink-0">
+                        <Skeleton className="h-48 w-full" />
                         <CardContent className="p-4 space-y-2">
-                          <Skeleton className="h-5 w-1/4" />
+                          <Skeleton className="h-4 w-1/4" />
                           <Skeleton className="h-6 w-3/4" />
                           <Skeleton className="h-4 w-full" />
+                          <Skeleton className="h-4 w-2/3" />
                         </CardContent>
                       </Card>
                     ))}
@@ -433,23 +434,7 @@ export default function DashboardPage() {
                 ) : todaysMenus.length > 0 ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                         {todaysMenus.map(item => (
-                            <Card key={item.id} className="overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-                                <CardHeader className="p-0 relative">
-                                    <div className="relative w-full aspect-[4/3]">
-                                        <Image
-                                            src={item.imageUrl}
-                                            alt={item.name}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            data-ai-hint={item.dataAiHint}
-                                        />
-                                    </div>
-                                </CardHeader>
-                                <CardContent className="p-4">
-                                    <Badge variant={item.type === 'Ejecutivo' ? 'default' : 'secondary'}>{item.type}</Badge>
-                                    <CardTitle className="text-base font-bold mt-2">{item.name}</CardTitle>
-                                </CardContent>
-                            </Card>
+                            <MenuItemCard key={item.id} item={item} isCurrentDay={true} />
                         ))}
                     </div>
                 ) : (

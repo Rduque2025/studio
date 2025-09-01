@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems, mockDepartments, mockPlaylist, faqData } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockDepartments, mockPlaylist, faqData } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
@@ -61,13 +61,15 @@ import {
 } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import type { MenuItem } from '@/lib/placeholder-data';
+import type { MenuItem } from '@/ai/flows/get-menu-items-flow';
+import { getMenuItems } from '@/ai/flows/get-menu-items-flow';
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PlaylistCard } from '@/components/dashboard/playlist-card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 const pilaresData = [
@@ -200,6 +202,7 @@ export default function DashboardPage() {
   });
   const [activeFaqCategory, setActiveFaqCategory] = useState<'General' | 'Soporte' | 'Otros'>('General');
   const [todaysMenus, setTodaysMenus] = useState<MenuItem[]>([]);
+  const [isLoadingMenu, setIsLoadingMenu] = useState(true);
 
   const faqCategories = [
     { id: 'General', label: 'General', icon: Home },
@@ -242,13 +245,24 @@ export default function DashboardPage() {
       });
     }
     
-    // Filter menus for the current day
-    const allMenus = [...mockMenuItems, ...mockDietMenuItems, ...mockExecutiveMenuItems];
-    const classicMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Clásico');
-    const dietMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Dieta');
-    const executiveMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Ejecutivo');
-    const menusForToday = [classicMenu, dietMenu, executiveMenu].filter(Boolean) as MenuItem[];
-    setTodaysMenus(menusForToday);
+    const fetchMenu = async () => {
+      setIsLoadingMenu(true);
+      try {
+        const allMenus = await getMenuItems();
+        const classicMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Clásico');
+        const dietMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Dieta');
+        const executiveMenu = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Ejecutivo');
+        const menusForToday = [classicMenu, dietMenu, executiveMenu].filter(Boolean) as MenuItem[];
+        setTodaysMenus(menusForToday);
+      } catch (error) {
+        console.error("Failed to fetch menu items", error);
+        setTodaysMenus([]); // Ensure it's an empty array on error
+      } finally {
+        setIsLoadingMenu(false);
+      }
+    };
+
+    fetchMenu();
 
   }, []);
 
@@ -392,7 +406,20 @@ export default function DashboardPage() {
                         Las opciones del comedor para hoy, {currentDayName}. El menú semanal completo está disponible en la sección de Bienestar.
                     </p>
                 </div>
-                {todaysMenus.length > 0 ? (
+                {isLoadingMenu ? (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    {Array.from({ length: 3 }).map((_, index) => (
+                      <Card key={index} className="overflow-hidden shadow-sm">
+                        <Skeleton className="w-full aspect-[4/3]" />
+                        <CardContent className="p-4 space-y-2">
+                          <Skeleton className="h-5 w-1/4" />
+                          <Skeleton className="h-6 w-3/4" />
+                          <Skeleton className="h-4 w-full" />
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                ) : todaysMenus.length > 0 ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
                         {todaysMenus.map(item => (
                             <Card key={item.id} className="overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
@@ -410,9 +437,6 @@ export default function DashboardPage() {
                                 <CardContent className="p-4">
                                     <Badge variant={item.type === 'Ejecutivo' ? 'default' : 'secondary'}>{item.type}</Badge>
                                     <CardTitle className="text-base font-bold mt-2">{item.name}</CardTitle>
-                                    <CardDescription className="text-xs mt-1 h-10">
-                                        {item.description}
-                                    </CardDescription>
                                 </CardContent>
                             </Card>
                         ))}
@@ -638,7 +662,7 @@ export default function DashboardPage() {
                         </div>
                         </Card>
                         <Card className="group relative aspect-square overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                        <Image src="https://images.unsplash.com/photo-1651069381046-8db0c209a5e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8c3Vuc2hhZGV8ZW58MHx8fHwxNzUyNjAwMzQ4fDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
+                        <Image src="https://images.unsplash.com/photo-1651069381046-8db0c209a5e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8c3Vuc2hhZGV8ZW58MHx8fHwxNzUyNjAwMzQ4fDA&ixlib-rb-4.1.0&q=80&w=1080" alt="Cobertura" layout="fill" objectFit="cover" className="transition-transform duration-300 group-hover:scale-105" data-ai-hint="security protection" />
                         <div className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center p-4 text-center text-white pointer-events-none">
                             <h4 className="text-xl font-bold">Cobertura</h4>
                             <p className="text-xs mt-1 text-white/90">Conozca el alcance de su póliza.</p>

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities, mockMenuItems, mockDietMenuItems, mockExecutiveMenuItems } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities } from "@/lib/placeholder-data";
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -17,8 +17,10 @@ import { Label } from '@/components/ui/label';
 import { EventHighlightCard, type EventHighlightProps } from '@/components/dashboard/event-highlight-card';
 import type { LucideIcon } from 'lucide-react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import type { MenuItem } from '@/lib/placeholder-data';
+import type { MenuItem } from '@/ai/flows/get-menu-items-flow';
+import { getMenuItems } from '@/ai/flows/get-menu-items-flow';
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const benefits = [
   {
@@ -59,10 +61,25 @@ export default function BienestarPage() {
     const menuScrollAreaRef = useRef<HTMLDivElement>(null);
     const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
     const [currentDayName, setCurrentDayName] = useState('');
+    const [allMenuItems, setAllMenuItems] = useState<MenuItem[]>([]);
+    const [isLoadingMenu, setIsLoadingMenu] = useState(true);
 
     useEffect(() => {
         const dayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
         setCurrentDayName(dayName.charAt(0).toUpperCase() + dayName.slice(1));
+        
+        const fetchMenu = async () => {
+          setIsLoadingMenu(true);
+          try {
+            const items = await getMenuItems();
+            setAllMenuItems(items);
+          } catch (error) {
+            console.error("Failed to fetch menu items", error);
+          } finally {
+            setIsLoadingMenu(false);
+          }
+        };
+        fetchMenu();
     }, []);
 
     const handleMenuScroll = (direction: 'left' | 'right') => {
@@ -75,12 +92,6 @@ export default function BienestarPage() {
         });
         }
     };
-
-    const allMenuItems: MenuItem[] = [
-        ...mockMenuItems,
-        ...mockDietMenuItems,
-        ...mockExecutiveMenuItems,
-    ];
 
     const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
 
@@ -165,9 +176,25 @@ export default function BienestarPage() {
         <div ref={menuScrollAreaRef}>
             <ScrollArea className="w-full">
             <div className="flex w-max space-x-8 py-4">
-                {filteredMenuItems.map((item) => (
-                <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
-                ))}
+                {isLoadingMenu ? (
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <Card key={index} className="w-[350px] flex-shrink-0">
+                      <Skeleton className="h-48 w-full" />
+                      <CardContent className="p-4 space-y-2">
+                        <Skeleton className="h-4 w-1/4" />
+                        <Skeleton className="h-6 w-3/4" />
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-2/3" />
+                      </CardContent>
+                    </Card>
+                  ))
+                ) : filteredMenuItems.length > 0 ? (
+                  filteredMenuItems.map((item) => (
+                    <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                  ))
+                ) : (
+                  <p className="text-muted-foreground">No hay menú de tipo "{selectedMenu}" disponible.</p>
+                )}
             </div>
             <ScrollBar orientation="horizontal" />
             </ScrollArea>

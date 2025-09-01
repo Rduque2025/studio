@@ -1,9 +1,10 @@
 
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
-import { mockCalendarEvents as rawMockCalendarEvents } from '@/lib/placeholder-data'; // Assuming this is the raw array
-import { format, parseISO } from 'date-fns';
+import React, { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
+import { getCalendarEvents } from '@/ai/flows/get-calendar-events-flow';
+import { parseISO } from 'date-fns';
+import { Birthday } from 'lucide-react';
 
 // Define the event structure, ensuring it's comprehensive for both mock and user events
 export interface CalendarEvent {
@@ -13,8 +14,9 @@ export interface CalendarEvent {
   description: string;
   color: string; // For mock events, or category-derived for user events
   isUserEvent?: boolean;
-  category?: 'personal' | 'trabajo'; // For user events
+  category?: 'personal' | 'trabajo' | 'birthday';
   time?: string;
+  icon?: React.ElementType;
 }
 
 interface EventsContextType {
@@ -64,24 +66,61 @@ function getCategoryDisplayStyles(category: 'personal' | 'trabajo') {
 }
 
 
-// Process raw mock events to fit the CalendarEvent interface
-const processRawEvents = (events: any[]): CalendarEvent[] => {
-  return events.map((event, index) => ({
-    ...event,
-    date: typeof event.date === 'string' ? parseISO(event.date) : event.date, // Ensure date is a Date object
-    id: event.id || `mock-${index}-${event.title.replace(/\s+/g, '-')}`,
-    isUserEvent: event.isUserEvent || false,
-    // Ensure color is present, provide a default if necessary
-    color: event.color || 'bg-gray-500', 
-  }));
-};
-
-
 const EventsContext = createContext<EventsContextType | undefined>(undefined);
 
 export const EventsProvider = ({ children }: { children: ReactNode }) => {
-  const initialProcessedMockEvents = useMemo(() => processRawEvents(rawMockCalendarEvents), []);
-  const [allEvents, setAllEvents] = useState<CalendarEvent[]>(initialProcessedMockEvents);
+  const [allEvents, setAllEvents] = useState<CalendarEvent[]>([]);
+
+  useEffect(() => {
+    const fetchAndProcessEvents = async () => {
+      const rawEventsData = await getCalendarEvents();
+      const processedEvents: CalendarEvent[] = [];
+
+      rawEventsData.forEach(dayData => {
+        const eventDate = parseISO(dayData.date);
+        
+        // Process regular events
+        dayData.events.forEach((eventTitle, index) => {
+          if (eventTitle) {
+            processedEvents.push({
+              id: `gs-event-${dayData.date}-${index}`,
+              date: eventDate,
+              title: eventTitle,
+              description: `Evento programado: ${eventTitle}`,
+              color: 'bg-purple-500', // Default color, can be categorized later
+              isUserEvent: false,
+              time: eventDate.toTimeString().substring(0, 5) === '00:00' ? undefined : eventDate.toTimeString().substring(0, 5),
+            });
+          }
+        });
+
+        // Process birthdays
+        dayData.birthdays.forEach((birthdayName, index) => {
+          if (birthdayName) {
+            processedEvents.push({
+              id: `gs-bday-${dayData.date}-${index}`,
+              date: eventDate,
+              title: `Cumpleaños de ${birthdayName}`,
+              description: `¡Felicidades a ${birthdayName}!`,
+              color: 'bg-pink-500',
+              isUserEvent: false,
+              category: 'birthday',
+              icon: Birthday,
+            });
+          }
+        });
+      });
+
+      setAllEvents(prevEvents => {
+        // Keep user-added events and combine with fetched events
+        const userEvents = prevEvents.filter(e => e.isUserEvent);
+        return [...processedEvents, ...userEvents];
+      });
+    };
+
+    fetchAndProcessEvents();
+  }, []);
+
 
   const addUserEvent = (event: CalendarEvent) => {
     setAllEvents(prevEvents => [...prevEvents, event]);

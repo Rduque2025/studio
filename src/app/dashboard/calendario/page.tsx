@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subDays, addDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight, X } from 'lucide-react';
+import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight, X, Cake } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,6 +30,7 @@ const EVENT_ITEM_STYLES = {
   REUNION: { bg: 'bg-rose-200', text: 'text-rose-800', label: 'Reunión' },
   TRABAJO: { bg: 'bg-sky-200', text: 'text-sky-800', label: 'Trabajo' }, // User event - trabajo
   PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal' }, // User event - personal
+  BIRTHDAY: { bg: 'bg-pink-200', text: 'text-pink-800', label: 'Cumpleaños' }, // Cumpleaños
   DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: ''} // Fallback
 };
 
@@ -59,6 +60,10 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
   const title = event.title.toLowerCase();
   const description = event.description.toLowerCase();
   const fullText = `${title} ${description}`;
+  
+  if (event.category === 'birthday') {
+    return EVENT_ITEM_STYLES.BIRTHDAY;
+  }
 
   if (PAGO_KEYWORDS.some(kw => fullText.includes(kw))) {
     return EVENT_ITEM_STYLES.PAGO;
@@ -283,11 +288,12 @@ export default function CalendarioPage() {
                  <div 
                     key={event.id} 
                     className={cn(
-                        "px-1.5 py-0.5 rounded-sm text-[10px] leading-tight cursor-pointer",
+                        "px-1.5 py-0.5 rounded-sm text-[10px] leading-tight cursor-pointer flex items-center gap-1",
                         renderProps.bg,
                         renderProps.text,
                     )}
                     >
+                    {event.category === 'birthday' && <Cake className="h-3 w-3 flex-shrink-0" />}
                     <p className={cn("font-medium truncate", renderProps.text)}>{event.title}</p>
                 </div>
             )

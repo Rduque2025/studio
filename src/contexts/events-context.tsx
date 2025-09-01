@@ -4,7 +4,7 @@
 import React, { createContext, useContext, useState, ReactNode, useMemo, useEffect } from 'react';
 import { getCalendarEvents } from '@/ai/flows/get-calendar-events-flow';
 import { parseISO } from 'date-fns';
-import { Birthday } from 'lucide-react';
+import { Cake } from 'lucide-react';
 
 // Define the event structure, ensuring it's comprehensive for both mock and user events
 export interface CalendarEvent {
@@ -105,7 +105,7 @@ export const EventsProvider = ({ children }: { children: ReactNode }) => {
               color: 'bg-pink-500',
               isUserEvent: false,
               category: 'birthday',
-              icon: Birthday,
+              icon: Cake,
             });
           }
         });

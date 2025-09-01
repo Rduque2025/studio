@@ -57,6 +57,14 @@ const importantEvents: EventHighlightProps[] = [
     }
 ];
 
+// Helper function to normalize day names for comparison
+const normalizeDayName = (name: string) => {
+  return name
+    .toLowerCase()
+    .normalize("NFD") // Decompose accented characters
+    .replace(/[\u0300-\u036f]/g, ""); // Remove diacritical marks
+};
+
 export default function BienestarPage() {
     const menuScrollAreaRef = useRef<HTMLDivElement>(null);
     const [selectedMenu, setSelectedMenu] = useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
@@ -190,7 +198,7 @@ export default function BienestarPage() {
                   ))
                 ) : filteredMenuItems.length > 0 ? (
                   filteredMenuItems.map((item) => (
-                    <MenuItemCard key={item.id} item={item} isCurrentDay={currentDayName === item.day} />
+                    <MenuItemCard key={item.id} item={item} isCurrentDay={normalizeDayName(currentDayName) === normalizeDayName(item.day)} />
                   ))
                 ) : (
                   <p className="text-muted-foreground">No hay menú de tipo "{selectedMenu}" disponible.</p>

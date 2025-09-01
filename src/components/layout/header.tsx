@@ -51,11 +51,11 @@ const UserProfileButton = () => {
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuContent className="w-64" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                        <p className="text-sm font-medium leading-none">Mi Cuenta</p>
-                        <p className="text-xs leading-none text-muted-foreground">
+                        <p className="text-xs font-medium leading-none text-muted-foreground">Mi Cuenta</p>
+                        <p className="text-sm leading-none text-foreground truncate">
                             {userEmail}
                         </p>
                     </div>

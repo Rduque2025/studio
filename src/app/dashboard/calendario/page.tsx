@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subDays, addDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight, X, Cake } from 'lucide-react';
+import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight, X, Cake, Users, Award, Star, Briefcase } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,6 +16,7 @@ import { useEvents, type CalendarEvent } from '@/contexts/events-context';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
+import type { LucideIcon } from 'lucide-react';
 
 
 const monthsOfYear = Array.from({ length: 12 }, (_, i) => ({
@@ -25,13 +26,13 @@ const monthsOfYear = Array.from({ length: 12 }, (_, i) => ({
 
 // Define colors for categories to be used as capsules in day cells
 const EVENT_ITEM_STYLES = {
-  PAGO: { bg: 'bg-green-200', text: 'text-green-800', label: 'Pago' },
-  ESPECIAL: { bg: 'bg-purple-200', text: 'text-purple-800', label: 'Especial' },
-  REUNION: { bg: 'bg-rose-200', text: 'text-rose-800', label: 'Reunión' },
-  TRABAJO: { bg: 'bg-sky-200', text: 'text-sky-800', label: 'Trabajo' }, // User event - trabajo
-  PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal' }, // User event - personal
-  BIRTHDAY: { bg: 'bg-pink-200', text: 'text-pink-800', label: 'Cumpleaños' }, // Cumpleaños
-  DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: ''} // Fallback
+  PAGO: { bg: 'bg-green-200', text: 'text-green-800', label: 'Pago', icon: Check, cardBg: 'bg-green-50 border-green-200', iconBg: 'bg-green-100', iconColor: 'text-green-600' },
+  ESPECIAL: { bg: 'bg-purple-200', text: 'text-purple-800', label: 'Especial', icon: Star, cardBg: 'bg-purple-50 border-purple-200', iconBg: 'bg-purple-100', iconColor: 'text-purple-600' },
+  REUNION: { bg: 'bg-rose-200', text: 'text-rose-800', label: 'Reunión', icon: Users, cardBg: 'bg-rose-50 border-rose-200', iconBg: 'bg-rose-100', iconColor: 'text-rose-600' },
+  TRABAJO: { bg: 'bg-sky-200', text: 'text-sky-800', label: 'Trabajo', icon: Briefcase, cardBg: 'bg-sky-50 border-sky-200', iconBg: 'bg-sky-100', iconColor: 'text-sky-600' },
+  PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal', icon: User, cardBg: 'bg-teal-50 border-teal-200', iconBg: 'bg-teal-100', iconColor: 'text-teal-600' },
+  BIRTHDAY: { bg: 'bg-pink-200', text: 'text-pink-800', label: 'Cumpleaños', icon: Cake, cardBg: 'bg-pink-50 border-pink-200', iconBg: 'bg-pink-100', iconColor: 'text-pink-600' },
+  DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: '', icon: Info, cardBg: 'bg-slate-50 border-slate-200', iconBg: 'bg-slate-100', iconColor: 'text-slate-600' }
 };
 
 // Specific styles for certain event titles
@@ -51,12 +52,7 @@ const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario',
 const REUNION_KEYWORDS = ['reunión', 'reunion', 'comité', 'comite', 'presentación', 'presentacion', 'cierre', 'trimestral', 'planificación', 'planning', 'sprint', 'review', 'taller', 'charla', 'workshop', 'q1', 'q2', 'q3', 'q4'];
 
 
-function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string } {
-  // Check for specific event titles first
-  if (SPECIFIC_EVENT_STYLES[event.title]) {
-    return SPECIFIC_EVENT_STYLES[event.title];
-  }
-
+function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string, icon: LucideIcon, cardBg: string, iconBg: string, iconColor: string } {
   const title = event.title.toLowerCase();
   const description = event.description.toLowerCase();
   const fullText = `${title} ${description}`;
@@ -80,17 +76,11 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
     if (event.category === 'personal') return EVENT_ITEM_STYLES.PERSONAL;
   }
   
-  // Fallback for mock events that don't fit above categories, using their predefined color if it's a bg class
-  if (event.color && event.color.startsWith('bg-')) {
-     const darkBgs = ['bg-pink-500', 'bg-red-500', 'bg-purple-500', 'bg-green-500', 'bg-blue-500', 'bg-orange-500', 'bg-yellow-500', 'bg-teal-500', 'bg-cyan-500', 'bg-sky-500', 'bg-emerald-500', 'bg-lime-500', 
-                      'bg-pink-600', 'bg-red-600', 'bg-purple-600', 'bg-green-600', 'bg-blue-600', 'bg-orange-600', 'bg-yellow-600', 'bg-teal-600', 'bg-cyan-600', 'bg-sky-600', 'bg-emerald-600', 'bg-lime-600',
-                      'bg-slate-700', 'bg-gray-700', 'bg-zinc-700', 'bg-neutral-700', 'bg-stone-700',
-                      'bg-slate-800', 'bg-gray-800', 'bg-zinc-800', 'bg-neutral-800', 'bg-stone-800',
-                     ];
-     const isDarkBg = darkBgs.some(c => event.color.includes(c));
-     return { bg: event.color, text: isDarkBg ? 'text-white' : 'text-gray-800', label: '' };
+  // For day cell view, check specific titles for special colors
+  if (SPECIFIC_EVENT_STYLES[event.title]) {
+     return { ...EVENT_ITEM_STYLES.DEFAULT, ...SPECIFIC_EVENT_STYLES[event.title] };
   }
-
+  
   return EVENT_ITEM_STYLES.DEFAULT;
 }
 
@@ -308,16 +298,19 @@ export default function CalendarioPage() {
                         {selectedDay ? format(selectedDay, "eeee, d 'de' MMMM", { locale: es }) : 'Eventos'}
                     </DialogTitle>
                 </DialogHeader>
-                <div className="mt-4 max-h-[60vh] overflow-y-auto pr-2 space-y-4">
+                <div className="mt-4 max-h-[60vh] overflow-y-auto pr-2 space-y-3">
                     {eventsForSelectedDay.length > 0 ? (
                         eventsForSelectedDay.map(event => {
                              const renderProps = getEventRenderProps(event);
+                             const Icon = renderProps.icon;
                              return(
-                                <div key={event.id} className="flex items-start gap-4">
-                                    <div className={cn("mt-1 w-2 h-2 rounded-full flex-shrink-0", renderProps.bg)} />
+                                <div key={event.id} className={cn("flex items-start gap-4 p-4 rounded-lg border", renderProps.cardBg)}>
+                                    <div className={cn("flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center", renderProps.iconBg)}>
+                                        <Icon className={cn("h-4 w-4", renderProps.iconColor)} />
+                                    </div>
                                     <div className="flex-grow">
-                                        <p className="font-semibold text-foreground">{event.title}</p>
-                                        <p className="text-sm text-muted-foreground">{event.description}</p>
+                                        <p className="font-semibold text-sm text-foreground">{event.title}</p>
+                                        <p className="text-xs text-muted-foreground">{event.description}</p>
                                         {event.time && (
                                             <p className="text-xs text-primary font-medium flex items-center gap-1 mt-1">
                                                 <Clock className="h-3 w-3"/>

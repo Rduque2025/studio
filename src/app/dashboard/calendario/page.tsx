@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subDays, addDays } from 'date-fns';
@@ -98,9 +98,9 @@ function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; 
 export default function CalendarioPage() {
   const [selectedDay, setSelectedDay] = useState<Date | undefined>();
   const [month, setMonth] = useState<Date>(new Date());
-  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   
-  const { allEvents, deleteUserEvent } = useEvents(); 
+  const { allEvents } = useEvents(); 
   
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
@@ -179,32 +179,27 @@ export default function CalendarioPage() {
     return () => clearInterval(intervalId); 
   }, [allEvents, remindedEventIds, toast]); 
 
+  const eventsForSelectedDay = useMemo(() => {
+    if (!selectedDay) return [];
+    return allEvents
+      .filter(event => format(event.date, 'yyyy-MM-dd') === format(selectedDay, 'yyyy-MM-dd'))
+      .sort((a,b) => {
+          if (a.time && b.time) return a.time.localeCompare(b.time);
+          if (a.time) return -1;
+          if (b.time) return 1;
+          return 0;
+      });
+  }, [selectedDay, allEvents]);
+
 
   const handleDayClick = (day: Date) => {
     setSelectedDay(day);
-    setSelectedEvent(null); 
-  };
-
-  const handleDeleteEvent = (eventId: string) => {
-    const eventToDelete = allEvents.find(e => e.id === eventId); 
-    if (!eventToDelete || !eventToDelete.isUserEvent) return; 
-
-    deleteUserEvent(eventId); 
-    
-    setRemindedEventIds(prev => { 
-        const newSet = new Set(prev);
-        newSet.delete(`today-${eventId}`);
-        newSet.delete(`upcoming-${eventId}`);
-        return newSet;
-    });
-    toast({
-      title: "Evento Eliminado",
-      description: `El evento "${eventToDelete.title}" ha sido eliminado.`,
-    });
-    if (selectedEvent && selectedEvent.id === eventId) {
-      setSelectedEvent(null);
+    const eventsOnDay = allEvents.filter(event => format(event.date, 'yyyy-MM-dd') === format(day, 'yyyy-MM-dd'));
+    if (eventsOnDay.length > 0) {
+      setIsDetailModalOpen(true);
     }
   };
+
 
   const renderDayEventsContent = (dayCellDate: Date): React.ReactNode => {
     const eventsOnDay = allEvents
@@ -305,6 +300,43 @@ export default function CalendarioPage() {
                 />
             </div>
         </div>
+
+        <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
+            <DialogContent className="max-w-lg">
+                <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold text-foreground capitalize">
+                        {selectedDay ? format(selectedDay, "eeee, d 'de' MMMM", { locale: es }) : 'Eventos'}
+                    </DialogTitle>
+                </DialogHeader>
+                <div className="mt-4 max-h-[60vh] overflow-y-auto pr-2 space-y-4">
+                    {eventsForSelectedDay.length > 0 ? (
+                        eventsForSelectedDay.map(event => {
+                             const renderProps = getEventRenderProps(event);
+                             return(
+                                <div key={event.id} className="flex items-start gap-4">
+                                    <div className={cn("mt-1 w-2 h-2 rounded-full flex-shrink-0", renderProps.bg)} />
+                                    <div className="flex-grow">
+                                        <p className="font-semibold text-foreground">{event.title}</p>
+                                        <p className="text-sm text-muted-foreground">{event.description}</p>
+                                        {event.time && (
+                                            <p className="text-xs text-primary font-medium flex items-center gap-1 mt-1">
+                                                <Clock className="h-3 w-3"/>
+                                                {format(new Date(`1970-01-01T${event.time}`), 'p', { locale: es })}
+                                            </p>
+                                        )}
+                                    </div>
+                                </div>
+                             )
+                        })
+                    ) : (
+                        <p className="text-muted-foreground text-center py-8">No hay eventos para este día.</p>
+                    )}
+                </div>
+                 <DialogFooter className="mt-6">
+                    <Button variant="outline" onClick={() => setIsDetailModalOpen(false)}>Cerrar</Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     </div>
   );
 }

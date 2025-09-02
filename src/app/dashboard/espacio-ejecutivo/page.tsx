@@ -88,7 +88,7 @@ export default function EspacioEjecutivoPage() {
                 <div className="relative z-10 text-center text-white p-8 max-w-3xl">
                     <h2 className="text-4xl md:text-5xl font-extrabold">Bienvenido al Espacio Ejecutivo</h2>
                     <p className="mt-4 text-lg text-white/90">
-                        Un portal exclusivo con recursos, calendarios y herramientas diseñadas para el liderazgo y la toma de decisiones estratégicas.
+                        Un portal exclusivo con recursos y herramientas para el liderazgo y la toma de decisiones.
                     </p>
                 </div>
             </Card>

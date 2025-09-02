@@ -275,7 +275,7 @@ export default function DashboardPage() {
 
     fetchMenu();
 
-  }, [currentDayName, capitalizedDayName]);
+  }, [currentDayName]);
 
   return (
     <div className="bg-background">
@@ -331,7 +331,7 @@ export default function DashboardPage() {
             <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
               <div className="col-span-1 row-span-2 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1599351234741-727bff276c9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxidXNzaW5lc3xlbnwwfHx8fDE3NTI2MDU4MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1599351234741-727bff276c9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxidXNzaW5lc3xlbnwwfHx8fDE3NTI2MDU4MzJ8MA&ixlib-rb-4.1.0&q=80&w=1080"
                       alt="Equipo de Banesco Seguros"
                       width={400}
                       height={600}

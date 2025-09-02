@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
         hostname: 'spcdn.shortpixel.ai',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'mandolina.co',
+        port: '',
+        pathname: '/**',
       }
     ],
   },

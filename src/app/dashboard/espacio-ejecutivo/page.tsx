@@ -1,21 +1,20 @@
 
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { mockExecutiveCalendarEvents, mockExecutiveMenuItems } from '@/lib/placeholder-data';
 import { Calendar } from "@/components/ui/calendar";
 import { format, isToday, parseISO } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ChevronLeft, ChevronRight, Info, Heart, Award, CheckCircle, Lightbulb, Bell, ArrowRight } from 'lucide-react';
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ArrowLeft, ArrowRight, Check, MoreVertical } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
-import type { MenuItem } from '@/lib/placeholder-data';
+import { getMenuItems } from '@/ai/flows/get-menu-items-flow';
+import type { MenuItem } from '@/ai/flows/get-menu-items-flow';
 
 const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string } } = {
   "Bono Gerencial": { bg: 'bg-primary', text: 'text-primary-foreground' },
@@ -24,16 +23,30 @@ const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string } } =
   "Presentación Resultados Q3": { bg: 'bg-sky-500', text: 'text-white' },
 };
 
-export default function EspacioEjecutivoPage() {
-    const [date, setDate] = useState<Date | undefined>(new Date(2025, 5, 1));
-    const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
-    const [todaysMenu, setTodaysMenu] = useState<MenuItem | null>(null);
+const mockExecutiveCalendarEvents = [
+    { id: "exec-pago-jun-11", date: "2025-06-11", title: "Pago Quincena", description: "Pago de la primera quincena para gerentes.", color: "bg-emerald-500" },
+    { id: "exec-bono-jul-15", date: "2025-07-15", title: "Bono Gerencial", description: "Pago de bono por desempeño para la gerencia.", color: "bg-primary" },
+    { id: "exec-reunion-jul-15", date: "2025-07-15", title: "Reunión de Directorio", description: "Reunión mensual del directorio.", color: "bg-rose-500", time: "09:00" },
+    { id: "exec-pago-jul-29", date: "2025-07-29", title: "Pago Quincena", description: "Pago de la segunda quincena para gerentes.", color: "bg-emerald-500" },
+    { id: "exec-resultados-ago-05", date: "2025-08-05", title: "Presentación Resultados Q3", description: "Presentación de resultados del tercer trimestre.", color: "bg-sky-500", time: "14:00" },
+];
 
-    useEffect(() => {
-        const dayName = new Date().toLocaleString('es-ES', { weekday: 'long' });
-        const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
-        const menuItem = mockExecutiveMenuItems.find(item => item.day === capitalizedDayName) || null;
-        setTodaysMenu(menuItem);
+
+export default function EspacioEjecutivoPage() {
+    const [date, setDate] = React.useState<Date | undefined>(new Date(2025, 5, 1));
+    const [todaysMenu, setTodaysMenu] = React.useState<MenuItem | null>(null);
+
+     React.useEffect(() => {
+        const fetchAndSetMenu = async () => {
+            const allMenus = await getMenuItems();
+            const dayName = new Date().toLocaleString('es-ES', { weekday: 'long' });
+            const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
+            
+            const menuItem = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Ejecutivo') || null;
+            setTodaysMenu(menuItem);
+        };
+        
+        fetchAndSetMenu();
     }, []);
 
 
@@ -160,7 +173,7 @@ export default function EspacioEjecutivoPage() {
                                         alt={todaysMenu.name}
                                         layout="fill"
                                         objectFit="cover"
-                                        data-ai-hint={todaysMenu.dataAiHint}
+                                        data-ai-hint={todaysMenu.dataAiHint || ''}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
                                     <div className="absolute top-0 left-0 p-6 text-white">

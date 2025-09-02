@@ -38,6 +38,11 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
             Hoy
           </Badge>
         )}
+        {item.type && (
+            <Badge variant="secondary" className="absolute top-2 left-2 z-10 bg-black/50 text-white backdrop-blur-sm">
+                {item.type}
+            </Badge>
+        )}
       </CardHeader>
       <CardContent className="p-4 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">

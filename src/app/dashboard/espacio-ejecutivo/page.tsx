@@ -78,22 +78,27 @@ export default function EspacioEjecutivoPage() {
 
             <Card className="relative rounded-2xl overflow-hidden shadow-lg min-h-[500px] flex items-center justify-center">
                 <Image
-                    src="https://images.unsplash.com/photo-1534237710431-e2fc698436d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlZGlmaWNpb3xlbnwwfHx8fDE3NTYzMTk4MDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                    alt="Paisaje inspirador"
+                    src="https://images.unsplash.com/photo-1534237710431-e2fc6f448af1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbnRlbGlnZW5jaWF8ZW58MHx8fHwxNzU2MTM2NTc3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Espacio Ejecutivo"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="inspiring landscape"
-                    className="brightness-50"
+                    data-ai-hint="intelligence leadership"
+                    className="brightness-[0.4]"
                 />
-                <div className="relative z-10 text-white text-center p-8">
-                    <h1 className="text-4xl md:text-6xl font-extrabold">Portal para Gerentes</h1>
-                    <p className="mt-4 max-w-2xl text-lg text-white/80">
-                        Bienvenido a su espacio exclusivo con información relevante y herramientas para la gestión de alto nivel.
+                <div className="relative z-10 text-center text-white p-8 max-w-3xl">
+                    <div className="flex justify-center items-center gap-4 mb-4">
+                        <Heart className="h-6 w-6" />
+                        <Award className="h-6 w-6" />
+                        <CheckCircle className="h-6 w-6" />
+                        <Lightbulb className="h-6 w-6" />
+                    </div>
+                    <h2 className="text-4xl md:text-5xl font-extrabold">Bienvenido al Espacio Ejecutivo</h2>
+                    <p className="mt-4 text-lg text-white/90">
+                        Un portal exclusivo con recursos, calendarios y herramientas diseñadas para el liderazgo y la toma de decisiones estratégicas.
                     </p>
                 </div>
             </Card>
 
-            {/* Manager Info Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Card className="group relative rounded-2xl overflow-hidden shadow-lg h-[450px] flex flex-col justify-end">
                     <Image src="https://images.unsplash.com/photo-1543269865-cbf427effbad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3b3Jrc2hvcHxlbnwwfHx8fDE3NTYxNDQwMDV8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Actividades Exclusivas" layout="fill" objectFit="cover" data-ai-hint="exclusive workshop" className="transition-transform duration-300 group-hover:scale-105" />
@@ -153,17 +158,9 @@ export default function EspacioEjecutivoPage() {
                 {/* Menú Ejecutivo */}
                 <div className="lg:col-span-1 flex flex-col gap-6">
                      <Card className="flex-1 flex flex-col overflow-hidden">
-                        <CardHeader className="p-6">
-                           <div className="flex justify-between items-center">
-                                <div>
-                                    <CardTitle>Menú del Día</CardTitle>
-                                    <CardDescription>Opción ejecutiva para hoy.</CardDescription>
-                                </div>
-                           </div>
-                        </CardHeader>
-                        <CardContent className="flex-grow flex flex-col justify-end p-0">
+                        <CardContent className="flex-grow p-0">
                            {todaysMenu ? (
-                                <div className="relative aspect-square w-full">
+                                <div className="relative h-full w-full">
                                     <Image 
                                         src={todaysMenu.imageUrl}
                                         alt={todaysMenu.name}
@@ -172,6 +169,10 @@ export default function EspacioEjecutivoPage() {
                                         data-ai-hint={todaysMenu.dataAiHint}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                                    <div className="absolute top-0 left-0 p-6 text-white">
+                                        <CardTitle className="text-lg">Menú del Día</CardTitle>
+                                        <CardDescription className="text-white/80 text-xs">Opción ejecutiva para hoy.</CardDescription>
+                                    </div>
                                     <div className="absolute bottom-0 left-0 p-6 text-white">
                                         <Badge variant="secondary" className="mb-2 bg-white/20 backdrop-blur-sm">{todaysMenu.price}</Badge>
                                         <h3 className="text-xl font-bold">{todaysMenu.name}</h3>
@@ -179,9 +180,15 @@ export default function EspacioEjecutivoPage() {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="text-center text-muted-foreground px-6 pb-6">
-                                    <p className="font-semibold">No hay menú ejecutivo disponible hoy.</p>
-                                    <p className="text-sm">Por favor, revise mañana.</p>
+                                <div className="p-6 h-full flex flex-col items-center justify-center text-center text-muted-foreground">
+                                    <CardTitle>Menú del Día</CardTitle>
+                                    <CardDescription>Opción ejecutiva para hoy.</CardDescription>
+                                    <div className="flex-grow flex items-center justify-center">
+                                      <div>
+                                        <p className="font-semibold">No hay menú ejecutivo disponible hoy.</p>
+                                        <p className="text-sm">Por favor, revise mañana.</p>
+                                      </div>
+                                    </div>
                                 </div>
                             )}
                         </CardContent>

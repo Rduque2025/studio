@@ -78,11 +78,11 @@ export default function EspacioEjecutivoPage() {
 
             <Card className="relative rounded-2xl overflow-hidden shadow-lg min-h-[500px] flex items-center justify-center">
                 <Image
-                    src="https://images.unsplash.com/photo-1534237710431-e2fc6f448af1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxpbnRlbGlnZW5jaWF8ZW58MHx8fHwxNzU2MTM2NTc3fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    src="https://images.unsplash.com/photo-1504119089809-1d5100a33f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxidWlsZGluZ3N8ZW58MHx8fHwxNzU2ODQ1MzAwfDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Espacio Ejecutivo"
                     layout="fill"
                     objectFit="cover"
-                    data-ai-hint="intelligence leadership"
+                    data-ai-hint="modern buildings"
                     className="brightness-[0.4]"
                 />
                 <div className="relative z-10 text-center text-white p-8 max-w-3xl">

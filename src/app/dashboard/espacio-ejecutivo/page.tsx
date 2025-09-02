@@ -86,12 +86,6 @@ export default function EspacioEjecutivoPage() {
                     className="brightness-[0.4]"
                 />
                 <div className="relative z-10 text-center text-white p-8 max-w-3xl">
-                    <div className="flex justify-center items-center gap-4 mb-4">
-                        <Heart className="h-6 w-6" />
-                        <Award className="h-6 w-6" />
-                        <CheckCircle className="h-6 w-6" />
-                        <Lightbulb className="h-6 w-6" />
-                    </div>
                     <h2 className="text-4xl md:text-5xl font-extrabold">Bienvenido al Espacio Ejecutivo</h2>
                     <p className="mt-4 text-lg text-white/90">
                         Un portal exclusivo con recursos, calendarios y herramientas diseñadas para el liderazgo y la toma de decisiones estratégicas.

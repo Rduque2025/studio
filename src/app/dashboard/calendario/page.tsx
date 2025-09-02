@@ -100,11 +100,8 @@ export default function CalendarioPage() {
   const [month, setMonth] = useState<Date>(new Date());
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
   
-  const { allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles } = useEvents(); 
+  const { allEvents, deleteUserEvent } = useEvents(); 
   
-  const [newEventTitle, setNewEventTitle] = useState('');
-  const [newEventTimeRange, setNewEventTimeRange] = useState('09:00 - 10:00');
-  const [isAddEventDialogOpen, setIsAddEventDialogOpen] = useState(false);
   const [remindedEventIds, setRemindedEventIds] = useState<Set<string>>(new Set());
   
   const { toast } = useToast();
@@ -187,46 +184,6 @@ export default function CalendarioPage() {
     setSelectedDay(day);
     setSelectedEvent(null); 
   };
-  
-  const handleSaveNewEvent = () => {
-    if (!selectedDay || !newEventTitle) {
-      toast({ title: "Error", description: "Por favor, seleccione una fecha e introduzca un nombre para el evento.", variant: "destructive" });
-      return;
-    }
-    
-    const description = `Evento programado para el día ${format(selectedDay, 'd \'de\' MMMM', { locale: es })}.`
-    const mainCategory = categorizeEvent(newEventTitle, description); 
-    const userEventStyles = getCategoryDisplayStyles(mainCategory); 
-    const startTime = newEventTimeRange.split('-')[0]?.trim();
-
-    const newEventToAdd: CalendarEvent = {
-      id: `user-${Date.now()}`,
-      date: selectedDay,
-      title: newEventTitle,
-      description: `Intervalo: ${newEventTimeRange}`,
-      color: userEventStyles.dotColor, 
-      isUserEvent: true,
-      category: mainCategory, 
-      time: startTime || undefined,
-    };
-    addUserEvent(newEventToAdd); 
-
-    if (isToday(newEventToAdd.date)) {
-      const countdown = getInitialCountdownString(newEventToAdd.date, newEventToAdd.time);
-      toast({
-        title: `Evento ${userEventStyles.badgeText} añadido para hoy: ${newEventToAdd.title}`,
-        description: `${newEventToAdd.description}${newEventToAdd.time ? ` Hora: ${format(new Date(`1970-01-01T${newEventToAdd.time}`), 'p', { locale: es })}` : ''}${countdown}`,
-        duration: 7000,
-      });
-      setRemindedEventIds(prev => new Set(prev).add(`today-${newEventToAdd.id}`));
-    }
-    
-    setNewEventTitle('');
-    setNewEventTimeRange('09:00 - 10:00');
-    setIsAddEventDialogOpen(false);
-    toast({ title: "Éxito", description: `Evento "${newEventToAdd.title}" (${userEventStyles.badgeText}) añadido al calendario.` });
-    setSelectedEvent(newEventToAdd); 
-  };
 
   const handleDeleteEvent = (eventId: string) => {
     const eventToDelete = allEvents.find(e => e.id === eventId); 
@@ -303,14 +260,6 @@ export default function CalendarioPage() {
     );
   };
   
-  const handleOpenAddEventDialog = (selectedDate: Date) => {
-    setSelectedDay(selectedDate); 
-    setNewEventTitle('');
-    setNewEventTimeRange('09:00 - 10:00');
-    setIsAddEventDialogOpen(true);
-  };
-
-
   return (
     <div className="container mx-auto px-4 flex flex-col min-h-[calc(100vh-10rem)]">
         <div className="flex flex-col items-center w-full flex-grow">
@@ -353,74 +302,9 @@ export default function CalendarioPage() {
                   className="w-full flex-grow"
                   locale={es}
                   renderDayContent={renderDayEventsContent}
-                  onAddEventTrigger={handleOpenAddEventDialog}
                 />
             </div>
-
-             <Dialog open={isAddEventDialogOpen} onOpenChange={setIsAddEventDialogOpen}>
-              <DialogContent className="sm:max-w-md p-0 border-0 shadow-2xl rounded-2xl bg-transparent">
-                  <DialogHeader className="sr-only">
-                      <DialogTitle>Añadir Nuevo Evento</DialogTitle>
-                      <DialogDescription>Añada los detalles para su nuevo evento.</DialogDescription>
-                  </DialogHeader>
-                  <div className="flex items-stretch overflow-hidden rounded-lg">
-                      <div className="bg-gray-800 text-white w-2/5 p-6 flex flex-col items-center justify-center">
-                          <div className="text-center">
-                              <p className="text-6xl font-bold">{selectedDay ? format(selectedDay, 'dd') : ''}</p>
-                              <p className="text-sm uppercase tracking-widest">{selectedDay ? format(selectedDay, 'MMM, yyyy', { locale: es }) : ''}</p>
-                          </div>
-                      </div>
-                      
-                      <div className="bg-white w-3/5 p-6 flex flex-col justify-center">
-                         <div className="space-y-4">
-                              <div>
-                                  <Label htmlFor="event-name" className="text-xs text-muted-foreground mb-1">Nombre del Evento</Label>
-                                  <Input
-                                      id="event-name"
-                                      type="text"
-                                      value={newEventTitle}
-                                      onChange={(e) => setNewEventTitle(e.target.value)}
-                                      className="text-base font-semibold border-0 border-b rounded-none shadow-none focus-visible:ring-0 px-0 h-auto bg-transparent"
-                                  />
-                              </div>
-                              <div>
-                                  <Label htmlFor="event-interval" className="text-xs text-muted-foreground mb-1">Intervalo de Tiempo</Label>
-                                  <Input
-                                      id="event-interval"
-                                      type="text"
-                                      placeholder="09:00 - 11:00"
-                                      value={newEventTimeRange}
-                                      onChange={(e) => setNewEventTimeRange(e.target.value)}
-                                      className="text-base font-semibold border-0 border-b rounded-none shadow-none focus-visible:ring-0 px-0 h-auto bg-transparent"
-                                  />
-                              </div>
-                         </div>
-                      </div>
-                  </div>
-                   <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={handleSaveNewEvent}
-                      className="absolute top-[15px] right-14 text-muted-foreground hover:text-foreground"
-                      aria-label="Guardar evento"
-                    >
-                      <Check className="h-4 w-4" />
-                    </Button>
-                    <DialogClose asChild>
-                       <Button
-                          variant="ghost"
-                          size="icon"
-                          className="absolute top-[15px] right-4 text-muted-foreground hover:text-foreground"
-                          aria-label="Cerrar"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                    </DialogClose>
-              </DialogContent>
-            </Dialog>
         </div>
     </div>
   );
 }
-
-    

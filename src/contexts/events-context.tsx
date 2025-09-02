@@ -21,50 +21,9 @@ export interface CalendarEvent {
 
 interface EventsContextType {
   allEvents: CalendarEvent[];
-  addUserEvent: (event: CalendarEvent) => void;
+  // addUserEvent is no longer needed since we are not adding events from the UI
   deleteUserEvent: (eventId: string) => void;
-  // Helper to categorize events, can be moved here if needed by other components
-  categorizeEvent: (title: string, description: string) => 'personal' | 'trabajo';
-  getCategoryDisplayStyles: (category: 'personal' | 'trabajo') => { dotColor: string; textColor: string; badgeClass: string; badgeText: string};
 }
-
-// Keywords for work-related events - keep it within context or import if shared
-const workKeywords = [
-  "reunión", "reunion", "comité", "comite", "entrega", "cierre", "proyecto", 
-  "tarea", "laboral", "trabajo", "presentación", "presentacion", "capacitación", 
-  "capacitacion", "informe", "deadline", "sprint", "planning", "review"
-];
-
-// Function to categorize events
-function categorizeEvent(title: string, description: string): 'personal' | 'trabajo' {
-  const textToSearch = `${title.toLowerCase()} ${description.toLowerCase()}`;
-  for (const keyword of workKeywords) {
-    if (textToSearch.includes(keyword)) {
-      return 'trabajo';
-    }
-  }
-  return 'personal';
-}
-
-const categoryDisplayStyles = {
-  personal: { 
-    dotColor: 'bg-green-600', 
-    textColor: 'text-green-700',
-    badgeClass: 'bg-green-100 text-green-700 border-green-300',
-    badgeText: 'Personal'
-  },
-  trabajo: { 
-    dotColor: 'bg-blue-600', 
-    textColor: 'text-blue-700',
-    badgeClass: 'bg-blue-100 text-blue-700 border-blue-300',
-    badgeText: 'Trabajo'
-   },
-};
-
-function getCategoryDisplayStyles(category: 'personal' | 'trabajo') {
-    return categoryDisplayStyles[category];
-}
-
 
 const EventsContext = createContext<EventsContextType | undefined>(undefined);
 
@@ -129,17 +88,12 @@ export const EventsProvider = ({ children }: { children: ReactNode }) => {
     fetchAndProcessEvents();
   }, []);
 
-
-  const addUserEvent = (event: CalendarEvent) => {
-    setAllEvents(prevEvents => [...prevEvents, event]);
-  };
-
   const deleteUserEvent = (eventId: string) => {
     setAllEvents(prevEvents => prevEvents.filter(event => event.id !== eventId));
   };
 
   return (
-    <EventsContext.Provider value={{ allEvents, addUserEvent, deleteUserEvent, categorizeEvent, getCategoryDisplayStyles }}>
+    <EventsContext.Provider value={{ allEvents, deleteUserEvent }}>
       {children}
     </EventsContext.Provider>
   );

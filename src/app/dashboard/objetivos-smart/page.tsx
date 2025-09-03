@@ -154,8 +154,8 @@ export default function ObjetivosSmartPage() {
     const progressStatus = getStatus(progressData.current);
     const npsStatus = getNpsStatus(npsData.score);
 
-    const radius = 45;
-    const strokeWidth = 8;
+    const radius = 35;
+    const strokeWidth = 7;
     const size = (radius + strokeWidth) * 2;
 
     const progressCircumference = 2 * Math.PI * radius;
@@ -255,7 +255,7 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="relative h-32 w-32">
+                           <div className="relative h-28 w-28">
                                 <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
                                     <circle
                                         className="text-muted/50"
@@ -280,7 +280,7 @@ export default function ObjetivosSmartPage() {
                                     />
                                 </svg>
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                    <p className="text-2xl font-bold text-foreground">{progressData.current}%</p>
+                                    <p className="text-xl font-bold text-foreground">{progressData.current}%</p>
                                 </div>
                             </div>
                             <div className="text-center mt-4">
@@ -369,6 +369,26 @@ export default function ObjetivosSmartPage() {
                 })}
               </div>
             </div>
+
+            {/* Second Banner */}
+            <Card className="relative w-full overflow-hidden rounded-2xl bg-primary text-primary-foreground shadow-2xl min-h-[300px] flex flex-col justify-center p-8 md:p-12">
+              <div className="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
+              <div className="absolute right-10 top-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
+              <div className="absolute -left-10 bottom-10 w-40 h-40 rounded-full bg-white/5 pointer-events-none"></div>
+
+              <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center">
+                  <div className="md:col-span-1">
+                      <p className="text-8xl font-black text-white/80">02</p>
+                  </div>
+                  <div className="md:col-span-11 md:pl-8">
+                      <p className="text-primary-foreground/80 mb-2">En Sintonía con</p>
+                      <h1 className="text-4xl md:text-5xl font-bold">Nuestros Servicios</h1>
+                      <p className="mt-4 max-w-2xl text-primary-foreground/80">
+                          Descubre cómo cada uno de nuestros servicios contribuye a nuestra misión y al bienestar de nuestros clientes.
+                      </p>
+                  </div>
+              </div>
+            </Card>
 
              {/* Client Section */}
             <div className="py-12">
@@ -461,6 +481,7 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
+
 
 
 

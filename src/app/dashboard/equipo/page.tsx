@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo } from 'react';
@@ -45,7 +46,7 @@ export default function EquipoPage() {
                             placeholder="Buscar..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 w-full sm:w-64"
+                            className="pl-9 w-full sm:w-64 text-sm"
                         />
                     </div>
                 </div>

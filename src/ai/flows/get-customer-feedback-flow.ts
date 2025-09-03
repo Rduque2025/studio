@@ -37,11 +37,11 @@ export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
 
   try {
     const response = await fetch(scriptUrl, {
-      method: 'POST',
+      method: 'POST', // Corrected method to POST
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
-      body: JSON.stringify({ action: 'getCustomerFeedback' }),
+      body: JSON.stringify({ action: 'getCustomerFeedback' }), // Send action in the body
     });
 
     if (!response.ok) {

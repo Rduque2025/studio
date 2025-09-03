@@ -1,68 +1,73 @@
-
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { mockEmployees, teamDepartments } from '@/lib/placeholder-data';
 import { EmployeeCard } from '@/components/dashboard/employee-card';
-import { SectionWrapper } from '@/components/dashboard/section-wrapper';
-import { ArrowLeft } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Search } from 'lucide-react';
 
 export default function EquipoPage() {
     const [activeDepartment, setActiveDepartment] = useState('Todos');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const filteredEmployees = useMemo(() => {
-        if (activeDepartment === 'Todos') {
-            return mockEmployees;
+        let employees = mockEmployees;
+
+        if (activeDepartment !== 'Todos') {
+            employees = employees.filter(employee => employee.department === activeDepartment);
         }
-        return mockEmployees.filter(employee => employee.department === activeDepartment);
-    }, [activeDepartment]);
+
+        if (searchTerm) {
+            employees = employees.filter(employee =>
+                employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                employee.role.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+        
+        return employees;
+    }, [activeDepartment, searchTerm]);
 
     return (
-        <div className="container mx-auto py-8 px-4">
-            <div className="mb-8">
-                <Button asChild variant="link" className="text-muted-foreground hover:no-underline p-0 h-auto text-xs">
-                    <Link href="/dashboard/mapa-clientes" className="flex items-center gap-2 group">
-                        <span className="flex items-center justify-center h-8 w-8 rounded-full bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                            <ArrowLeft className="h-4 w-4" />
-                        </span>
-                        <span className="opacity-0 group-hover:opacity-100 transition-opacity">Volver a Nosotros</span>
-                    </Link>
-                </Button>
+        <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div className="md:col-span-1">
+                    <h1 className="text-4xl font-bold text-foreground">Nuestro Equipo</h1>
+                </div>
+                <div className="md:col-span-2 flex flex-col sm:flex-row items-start sm:items-center justify-start md:justify-end gap-4">
+                    <div className="relative w-full sm:w-auto">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                            placeholder="Buscar..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="pl-9 w-full sm:w-64"
+                        />
+                    </div>
+                    <Select onValueChange={setActiveDepartment} defaultValue="Todos">
+                        <SelectTrigger className="w-full sm:w-[180px]">
+                            <SelectValue placeholder="Filtrar por Área" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="Todos">Todas las Áreas</SelectItem>
+                            {teamDepartments.map(dept => (
+                                <SelectItem key={dept.id} value={dept.name}>{dept.name}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
             </div>
+            
+            <p className="text-muted-foreground max-w-2xl mb-12">
+                Trabajamos con un enfoque internacional, desafiante y vital. Nuestra ambición es desafiar, desarrollar y ser un ente de consulta creíble en todas nuestras colaboraciones.
+            </p>
 
-            <SectionWrapper
-                title="Nuestro Fantástico Equipo"
-                description="Conoce a las personas que trabajan día a día para hacer de Banesco Seguros la mejor opción."
-            >
-                <div className="flex justify-center flex-wrap gap-2 mb-12">
-                    <Button
-                        variant={activeDepartment === 'Todos' ? 'default' : 'ghost'}
-                        onClick={() => setActiveDepartment('Todos')}
-                        className="rounded-full text-xs"
-                    >
-                        Todos
-                    </Button>
-                    {teamDepartments.map(dept => (
-                        <Button
-                            key={dept.id}
-                            variant={activeDepartment === dept.name ? 'default' : 'ghost'}
-                            onClick={() => setActiveDepartment(dept.name)}
-                            className="rounded-full text-xs"
-                        >
-                            {dept.name}
-                        </Button>
-                    ))}
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                    {filteredEmployees.map(employee => (
-                        <EmployeeCard key={employee.id} employee={employee} />
-                    ))}
-                </div>
-            </SectionWrapper>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
+                {filteredEmployees.map(employee => (
+                    <EmployeeCard key={employee.id} employee={employee} />
+                ))}
+            </div>
         </div>
     );
 }

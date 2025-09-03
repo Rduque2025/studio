@@ -36,8 +36,8 @@ export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
   }
 
   try {
-    // Simplified the fetch call to a direct POST without a body,
-    // as the dedicated script has only one function.
+    // Corrected fetch call to use POST as required by doPost in Apps Script.
+    // Sending an empty body is sufficient if the script's action is singular.
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {

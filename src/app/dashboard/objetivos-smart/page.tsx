@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -38,8 +38,10 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 import { cn } from '@/lib/utils';
 import type { LucideIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import { npsData, mockCustomerFeedback } from '@/lib/placeholder-data';
+import { npsData, mockCustomerFeedback as staticFeedback } from '@/lib/placeholder-data';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { getCustomerFeedback, type CustomerFeedback } from '@/ai/flows/get-customer-feedback-flow';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 const smartGoalsData = {
@@ -49,10 +51,10 @@ const smartGoalsData = {
     icon: Target,
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
     challenges: [
-      { id: "s1", icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas.", progress: 75, status: "En progreso", value: "3/4 Proyectos" },
-      { id: "s2", icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados.", progress: 50, status: "Normal", value: "2/4 Fases" },
-      { id: "s3", icon: Network, title: "Modernización de TI", description: "Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento.", progress: 25, status: "En riesgo", value: "1/4 Hitos" },
-      { id: "s4", icon: Users, title: "Visión Cliente Céntrico como Foco", description: "Colocar al cliente en el centro de todas nuestras estrategias y operaciones.", progress: 80, status: "En progreso", value: "4/5 Iniciativas" },
+      { id: "s1", icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas.", status: "En progreso", value: "3/4 Proyectos" },
+      { id: "s2", icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados.", status: "Normal", value: "2/4 Fases" },
+      { id: "s3", icon: Network, title: "Modernización de TI", description: "Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento.", status: "En riesgo", value: "1/4 Hitos" },
+      { id: "s4", icon: Users, title: "Visión Cliente Céntrico como Foco", description: "Colocar al cliente en el centro de todas nuestras estrategias y operaciones.", status: "En progreso", value: "4/5 Iniciativas" },
     ]
   },
   M: {
@@ -61,8 +63,8 @@ const smartGoalsData = {
     icon: Scaling,
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
     challenges: [
-      { id: "m1", icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios.", progress: 90, status: "Normal", value: "90% vs obj." },
-      { id: "m2", icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos.", progress: 60, status: "En progreso", value: "+12% Eficiencia" },
+      { id: "m1", icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios.", status: "Normal", value: "90% vs obj." },
+      { id: "m2", icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos.", status: "En progreso", value: "+12% Eficiencia" },
     ]
   },
   A: {
@@ -71,8 +73,8 @@ const smartGoalsData = {
     icon: Goal,
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
     challenges: [
-      { id: "a1", icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento.", progress: 85, status: "Normal", value: "8.5/10 Encuesta" },
-      { id: "a2", icon: GraduationCap, title: "Desarrollo del Talento", description: "Potenciar las capacidades y el crecimiento profesional de nuestro equipo.", progress: 70, status: "En progreso", value: "70% Plan" },
+      { id: "a1", icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento.", status: "Normal", value: "8.5/10 Encuesta" },
+      { id: "a2", icon: GraduationCap, title: "Desarrollo del Talento", description: "Potenciar las capacidades y el crecimiento profesional de nuestro equipo.", status: "En progreso", value: "70% Plan" },
     ]
   },
   R: {
@@ -81,7 +83,7 @@ const smartGoalsData = {
     icon: Sparkles,
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
     challenges: [
-      { id: "r1", icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector.", progress: 100, status: "Completado", value: "100% Cumplido" },
+      { id: "r1", icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector.", status: "Completado", value: "100% Cumplido" },
     ]
   },
   T: {
@@ -90,8 +92,8 @@ const smartGoalsData = {
     icon: Timer,
     description: "Un marco de tiempo definido para la consecución de las metas.",
     challenges: [
-       { id: "t1", icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre.", progress: 40, status: "En riesgo", value: "Q3 2025" },
-       { id: "t2", icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre.", progress: 65, status: "Normal", value: "Q4 2025" },
+       { id: "t1", icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre.", status: "En riesgo", value: "Q3 2025" },
+       { id: "t2", icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre.", status: "Normal", value: "Q4 2025" },
     ]
   },
 };
@@ -116,7 +118,25 @@ const getNpsStatus = (score: number) => {
 
 export default function ObjetivosSmartPage() {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData | null>(null);
-    const [activeFeedbackCategory, setActiveFeedbackCategory] = useState<'promoters' | 'neutrals' | 'detractors'>('promoters');
+    const [activeFeedbackCategory, setActiveFeedbackCategory] = useState<'PROMOTOR' | 'NEUTRO' | 'DETRACTOR'>('PROMOTOR');
+    const [customerFeedback, setCustomerFeedback] = useState<CustomerFeedback[]>([]);
+    const [isLoadingFeedback, setIsLoadingFeedback] = useState(true);
+
+    useEffect(() => {
+      const fetchFeedback = async () => {
+        setIsLoadingFeedback(true);
+        try {
+          const feedbackData = await getCustomerFeedback();
+          setCustomerFeedback(feedbackData);
+        } catch (error) {
+          console.error("Failed to fetch customer feedback:", error);
+          setCustomerFeedback([]); // Set to empty on error to avoid crash
+        } finally {
+          setIsLoadingFeedback(false);
+        }
+      };
+      fetchFeedback();
+    }, []);
     
     const handleCategoryClick = (categoryKey: keyof typeof smartGoalsData) => {
         if (selectedCategory === categoryKey) {
@@ -142,13 +162,8 @@ export default function ObjetivosSmartPage() {
     const npsOffset = npsCircumference - (npsPercentage / 100) * npsCircumference;
 
     const filteredFeedback = useMemo(() => {
-        return mockCustomerFeedback.filter(feedback => {
-            if (activeFeedbackCategory === 'promoters') return feedback.nps >= 9;
-            if (activeFeedbackCategory === 'neutrals') return feedback.nps >= 7 && feedback.nps <= 8;
-            if (activeFeedbackCategory === 'detractors') return feedback.nps <= 6;
-            return false;
-        });
-    }, [activeFeedbackCategory]);
+        return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory);
+    }, [activeFeedbackCategory, customerFeedback]);
 
 
     return (
@@ -374,7 +389,7 @@ export default function ObjetivosSmartPage() {
                             <Badge className={cn("font-semibold tracking-wider", npsStatus.bg, npsStatus.color, `hover:${npsStatus.bg}`)}>
                                 {npsStatus.label}
                             </Badge>
-                            <p className="text-muted-foreground text-xs mt-2">Basado en {npsData.responses} respuestas</p>
+                            <p className="text-muted-foreground text-xs mt-2">Basado en {customerFeedback.length} respuestas</p>
                         </div>
                     </CardContent>
                 </Card>
@@ -383,25 +398,37 @@ export default function ObjetivosSmartPage() {
                     <div className="flex justify-between items-center px-2">
                         <h3 className="text-lg font-semibold text-foreground">Comentarios Destacados</h3>
                          <div className="flex items-center gap-2">
-                            <Button size="sm" variant={activeFeedbackCategory === 'promoters' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('promoters')}>Promotores</Button>
-                            <Button size="sm" variant={activeFeedbackCategory === 'neutrals' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('neutrals')}>Neutros</Button>
-                            <Button size="sm" variant={activeFeedbackCategory === 'detractors' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('detractors')}>Detractores</Button>
+                            <Button size="sm" variant={activeFeedbackCategory === 'PROMOTOR' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('PROMOTOR')}>Promotores</Button>
+                            <Button size="sm" variant={activeFeedbackCategory === 'NEUTRO' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('NEUTRO')}>Neutros</Button>
+                            <Button size="sm" variant={activeFeedbackCategory === 'DETRACTOR' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('DETRACTOR')}>Detractores</Button>
                         </div>
                     </div>
-                    {filteredFeedback.length > 0 ? filteredFeedback.map(feedback => (
-                        <Card key={feedback.id} className="bg-card shadow-sm border-none">
+                    {isLoadingFeedback ? (
+                      Array.from({ length: 3 }).map((_, index) => (
+                        <Card key={index} className="bg-card shadow-sm border-none">
+                            <CardContent className="p-4 flex items-start gap-4">
+                                <Skeleton className="h-10 w-10 rounded-full" />
+                                <div className="flex-grow space-y-2">
+                                    <Skeleton className="h-4 w-1/4" />
+                                    <Skeleton className="h-4 w-full" />
+                                </div>
+                            </CardContent>
+                        </Card>
+                      ))
+                    ) : filteredFeedback.length > 0 ? filteredFeedback.map((feedback, index) => (
+                        <Card key={`${feedback['CEDULA TITULAR']}-${index}`} className="bg-card shadow-sm border-none">
                             <CardContent className="p-4 flex items-start gap-4">
                                 <Avatar>
-                                    <AvatarFallback>{feedback.avatar}</AvatarFallback>
+                                    <AvatarFallback>{feedback['NOMBRE TITULAR'].substring(0, 2)}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-center">
-                                        <p className="font-semibold text-sm">{feedback.name}</p>
-                                        <Badge variant={feedback.nps > 8 ? "default" : "secondary"} className={cn(feedback.nps <= 6 && "bg-destructive text-destructive-foreground")}>
-                                            NPS: {feedback.nps}
+                                        <p className="font-semibold text-sm">{feedback['NOMBRE TITULAR']}</p>
+                                        <Badge variant={feedback['CATEGORÍA'] === 'PROMOTOR' ? "default" : "secondary"} className={cn(feedback['CATEGORÍA'] === 'DETRACTOR' && "bg-destructive text-destructive-foreground")}>
+                                            NPS: {feedback['CALIFICACIÓN']}
                                         </Badge>
                                     </div>
-                                    <p className="text-xs text-muted-foreground mt-1">"{feedback.comment}"</p>
+                                    <p className="text-xs text-muted-foreground mt-1">"{feedback['COMENTARIO']}"</p>
                                 </div>
                             </CardContent>
                         </Card>

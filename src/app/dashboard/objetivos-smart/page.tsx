@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
@@ -153,8 +154,8 @@ export default function ObjetivosSmartPage() {
     const progressStatus = getStatus(progressData.current);
     const npsStatus = getNpsStatus(npsData.score);
 
-    const radius = 80;
-    const strokeWidth = 12;
+    const radius = 90;
+    const strokeWidth = 14;
     const size = (radius + strokeWidth) * 2;
 
     const progressCircumference = 2 * Math.PI * radius;
@@ -167,7 +168,7 @@ export default function ObjetivosSmartPage() {
 
     const filteredFeedback = useMemo(() => {
         if (isLoadingFeedback) return [];
-        return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory).slice(0, 3);
+        return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory).slice(0, 10);
     }, [activeFeedbackCategory, customerFeedback, isLoadingFeedback]);
     
     const getSentimentIcon = (category: 'PROMOTOR' | 'NEUTRO' | 'DETRACTOR') => {
@@ -254,7 +255,7 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="relative h-48 w-48">
+                           <div className="relative h-52 w-52">
                                 <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
                                     <circle
                                         className="text-muted/50"
@@ -279,7 +280,7 @@ export default function ObjetivosSmartPage() {
                                     />
                                 </svg>
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                    <p className="text-4xl font-bold text-foreground">{progressData.current}%</p>
+                                    <p className="text-5xl font-bold text-foreground">{progressData.current}%</p>
                                 </div>
                             </div>
                             <div className="text-center mt-4">

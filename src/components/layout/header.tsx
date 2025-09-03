@@ -61,7 +61,7 @@ const UserProfileButton = () => {
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={logout}>
+                <DropdownMenuItem onClick={logout} className="text-xs">
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Cerrar sesión</span>
                 </DropdownMenuItem>

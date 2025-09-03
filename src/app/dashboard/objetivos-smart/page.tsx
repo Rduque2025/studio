@@ -35,7 +35,8 @@ import {
   MessageCircle,
   Smile,
   Meh,
-  Frown
+  Frown,
+  Quote
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
@@ -166,13 +167,13 @@ export default function ObjetivosSmartPage() {
 
     const filteredFeedback = useMemo(() => {
         if (isLoadingFeedback) return [];
-        return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory);
+        return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory).slice(0, 3);
     }, [activeFeedbackCategory, customerFeedback, isLoadingFeedback]);
     
     const getSentimentIcon = (category: 'PROMOTOR' | 'NEUTRO' | 'DETRACTOR') => {
         switch (category) {
             case 'PROMOTOR':
-                return <Smile className="h-5 w-5 text-green-500" />;
+                return <Smile className="h-5 w-5 text-primary" />;
             case 'NEUTRO':
                 return <Meh className="h-5 w-5 text-amber-500" />;
             case 'DETRACTOR':
@@ -253,7 +254,7 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="relative h-40 w-40">
+                           <div className="relative h-48 w-48">
                                 <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
                                     <circle
                                         className="text-muted/50"
@@ -278,7 +279,7 @@ export default function ObjetivosSmartPage() {
                                     />
                                 </svg>
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                    <p className="text-3xl font-bold text-foreground">{progressData.current}%</p>
+                                    <p className="text-4xl font-bold text-foreground">{progressData.current}%</p>
                                 </div>
                             </div>
                             <div className="text-center mt-4">
@@ -368,112 +369,110 @@ export default function ObjetivosSmartPage() {
               </div>
             </div>
 
-            {/* Client Section */}
-            <Card className="relative w-full overflow-hidden rounded-2xl bg-secondary text-secondary-foreground shadow-2xl min-h-[300px] flex flex-col justify-center p-8 md:p-12">
-                <div className="absolute right-20 top-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
-                <div className="absolute right-10 bottom-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
-                <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center">
-                    <div className="md:col-span-1">
-                        <p className="text-8xl font-black text-white/80">02</p>
-                    </div>
-                    <div className="md:col-span-11 md:pl-8">
-                        <p className="text-secondary-foreground/80 mb-2">Escuchando a</p>
-                        <h2 className="text-4xl md:text-5xl font-bold">Nuestros Clientes</h2>
-                        <p className="mt-4 max-w-2xl text-secondary-foreground/80">
-                            La opinión de nuestros clientes es fundamental para nuestro crecimiento. Aquí medimos su satisfacción y destacamos sus voces.
-                        </p>
-                    </div>
-                </div>
-            </Card>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <Card className="lg:col-span-1 shadow-sm border-none bg-card flex flex-col justify-between h-full p-6">
-                    <CardHeader className="flex flex-row justify-between items-start p-0">
-                        <div className="flex items-center gap-2">
-                            <div className="p-2 bg-muted rounded-md">
-                                <Heart className="h-5 w-5 text-muted-foreground" />
-                            </div>
-                            <div>
-                                <CardTitle className="text-sm font-medium">Net Promoter Score</CardTitle>
-                                <CardDescription className="text-xs">Satisfacción General</CardDescription>
-                            </div>
-                        </div>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                            <MoreVertical className="h-4 w-4" />
-                        </Button>
-                    </CardHeader>
-                    <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                        <div className="relative h-48 w-48">
-                             <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
-                                <circle className="text-muted/50" stroke="currentColor" strokeWidth={strokeWidth} fill="transparent" r={radius} cx={size/2} cy={size/2}/>
-                                <circle
-                                    className={cn("transform -rotate-90 origin-center transition-all duration-1000", npsStatus.stroke)}
-                                    stroke="currentColor" strokeWidth={strokeWidth} strokeDasharray={npsCircumference} strokeDashoffset={npsOffset} strokeLinecap="round" fill="transparent" r={radius} cx={size/2} cy={size/2}
-                                />
-                            </svg>
-                            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                <p className="text-5xl font-bold text-foreground">{npsPercentage.toFixed(0)}%</p>
-                            </div>
-                        </div>
-                        <div className="text-center mt-4">
-                            <Badge className={cn("font-semibold tracking-wider", npsStatus.bg, npsStatus.color, `hover:${npsStatus.bg}`)}>
-                                {npsStatus.label}
-                            </Badge>
-                            <p className="text-muted-foreground text-xs mt-2">Basado en {customerFeedback.length} respuestas</p>
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <div className="lg:col-span-2 space-y-4">
-                    <div className="flex justify-between items-center px-2">
-                        <h3 className="text-lg font-semibold text-foreground">Comentarios Destacados</h3>
-                         <div className="flex items-center gap-2">
-                            <Button size="sm" variant={activeFeedbackCategory === 'PROMOTOR' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('PROMOTOR')}>Promotores</Button>
-                            <Button size="sm" variant={activeFeedbackCategory === 'NEUTRO' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('NEUTRO')}>Neutros</Button>
-                            <Button size="sm" variant={activeFeedbackCategory === 'DETRACTOR' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('DETRACTOR')}>Detractores</Button>
-                        </div>
-                    </div>
-                    {isLoadingFeedback ? (
-                      Array.from({ length: 3 }).map((_, index) => (
-                        <Card key={index} className="bg-card shadow-sm border-none">
-                            <CardContent className="p-4 flex items-start gap-4">
-                                <Skeleton className="h-10 w-10 rounded-full" />
-                                <div className="flex-grow space-y-2">
-                                    <Skeleton className="h-4 w-1/4" />
-                                    <Skeleton className="h-4 w-full" />
-                                </div>
-                            </CardContent>
-                        </Card>
-                      ))
-                    ) : filteredFeedback.length > 0 ? (
-                      filteredFeedback.map((feedback, index) => (
-                        <Card key={`${feedback['NOMBRE TITULAR']}-${index}`} className="bg-card shadow-sm border-none">
-                            <CardContent className="p-4 flex items-start gap-4">
-                                <Avatar>
-                                    <AvatarFallback className="bg-transparent">
-                                        {getSentimentIcon(feedback['CATEGORÍA'])}
+             {/* Client Section */}
+            <div className="py-12">
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                  <div className="relative">
+                       <svg
+                          width="80"
+                          height="80"
+                          viewBox="0 0 109 95"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="absolute -top-10 -left-10"
+                        >
+                          <path
+                            d="M93.3009 52.8814C80.9452 61.211 54.3421 82.5152 51.5831 84.3431C48.824 86.171 27.6438 90.584 26.545 78.4908C25.4462 66.3976 34.2581 53.7951 37.0171 51.9672C39.7761 50.1393 54.0416 35.8459 63.6385 27.5163C73.2354 19.1867 91.4988 4.89332 93.3009 17.8993C95.1029 30.9053 105.657 44.5518 93.3009 52.8814Z"
+                            stroke="url(#paint0_linear_14_85)"
+                            strokeWidth="4"
+                            strokeLinecap="round"
+                          />
+                          <path
+                            d="M95.0385 15.0163C98.4116 11.0858 105.588 11.0858 108.961 15.0163L108.961 15.0163C112.334 18.9468 109.625 25.2152 105.211 25.2152L98.7887 25.2152C94.3746 25.2152 91.6655 18.9468 95.0385 15.0163Z"
+                            fill="url(#paint1_linear_14_85)"
+                          />
+                          <defs>
+                            <linearGradient
+                              id="paint0_linear_14_85"
+                              x1="29.0435"
+                              y1="85.343"
+                              x2="95.0385"
+                              y2="15.8239"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#818CF8" />
+                              <stop offset="1" stopColor="#C084FC" />
+                            </linearGradient>
+                            <linearGradient
+                              id="paint1_linear_14_85"
+                              x1="95.0385"
+                              y1="15.0163"
+                              x2="108.961"
+                              y2="15.0163"
+                              gradientUnits="userSpaceOnUse"
+                            >
+                              <stop stopColor="#FACC15" />
+                              <stop offset="1" stopColor="#FB923C" />
+                            </linearGradient>
+                          </defs>
+                        </svg>
+                      <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">La Voz de Nuestros Clientes</h2>
+                      <p className="text-muted-foreground max-w-md">
+                          La opinión de nuestros clientes es el motor que impulsa nuestra mejora continua. Sus voces nos guían para ofrecer un servicio de excelencia.
+                      </p>
+                      <div className="mt-6 flex items-center gap-2">
+                        <Button size="lg" className="bg-gradient-to-r from-purple-500 to-orange-400 text-white">Ver Más</Button>
+                      </div>
+                  </div>
+                  
+                  <div className="space-y-6">
+                      {isLoadingFeedback ? (
+                        Array.from({ length: 3 }).map((_, index) => (
+                           <Card key={index} className="bg-card shadow-sm border p-4">
+                              <div className="flex items-start gap-4">
+                                  <Skeleton className="h-12 w-12 rounded-full" />
+                                  <div className="flex-grow space-y-2">
+                                      <Skeleton className="h-4 w-1/4" />
+                                      <Skeleton className="h-4 w-full" />
+                                      <Skeleton className="h-4 w-3/4" />
+                                  </div>
+                              </div>
+                          </Card>
+                        ))
+                      ) : filteredFeedback.length > 0 ? (
+                        filteredFeedback.map((feedback, index) => {
+                          const isPromoter = feedback['CATEGORÍA'] === 'PROMOTOR';
+                          return (
+                            <div key={`${feedback['NOMBRE TITULAR']}-${index}`} className="flex items-start gap-4">
+                              {isPromoter && <div className="w-1 h-full bg-primary rounded-full" />}
+                              <Card className={cn("bg-card shadow-sm border p-4 w-full", !isPromoter && "ml-3")}>
+                                <div className="flex items-start gap-4">
+                                  <Avatar className="h-12 w-12 border-2 border-muted">
+                                    <AvatarFallback className="bg-background">
+                                      {getSentimentIcon(feedback['CATEGORÍA'])}
                                     </AvatarFallback>
-                                </Avatar>
-                                <div className="flex-grow">
+                                  </Avatar>
+                                  <div className="flex-grow">
                                     <div className="flex justify-between items-center">
-                                        <p className="font-semibold text-sm">{feedback['NOMBRE TITULAR']}</p>
-                                        <Badge variant="outline" className={cn(getBadgeClass(feedback['CATEGORÍA']))}>
-                                            NPS: {feedback['CALIFICACIÓN']}
-                                        </Badge>
+                                      <p className="font-semibold text-sm">{feedback['NOMBRE TITULAR']}</p>
+                                      <Quote className="h-5 w-5 text-muted-foreground/30" />
                                     </div>
                                     <p className="text-xs text-muted-foreground mt-1">"{feedback['COMENTARIO']}"</p>
+                                  </div>
                                 </div>
-                            </CardContent>
-                        </Card>
-                      ))
-                    ) : (
-                        <Card className="bg-card shadow-sm border-none">
-                            <CardContent className="p-8 text-center text-muted-foreground text-sm">
-                                No hay comentarios en esta categoría.
-                            </CardContent>
-                        </Card>
-                    )}
-                </div>
+                              </Card>
+                            </div>
+                          );
+                        })
+                      ) : (
+                          <Card className="bg-card shadow-sm border-none">
+                              <CardContent className="p-8 text-center text-muted-foreground text-sm">
+                                  No hay comentarios en esta categoría.
+                              </CardContent>
+                          </Card>
+                      )}
+                  </div>
+              </div>
             </div>
         </div>
     );

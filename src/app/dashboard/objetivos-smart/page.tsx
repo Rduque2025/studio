@@ -154,8 +154,8 @@ export default function ObjetivosSmartPage() {
     const progressStatus = getStatus(progressData.current);
     const npsStatus = getNpsStatus(npsData.score);
 
-    const radius = 90;
-    const strokeWidth = 14;
+    const radius = 100;
+    const strokeWidth = 16;
     const size = (radius + strokeWidth) * 2;
 
     const progressCircumference = 2 * Math.PI * radius;
@@ -174,7 +174,7 @@ export default function ObjetivosSmartPage() {
     const getSentimentIcon = (category: 'PROMOTOR' | 'NEUTRO' | 'DETRACTOR') => {
         switch (category) {
             case 'PROMOTOR':
-                return <Smile className="h-5 w-5 text-primary" />;
+                return <Smile className="h-5 w-5 text-green-600" />;
             case 'NEUTRO':
                 return <Meh className="h-5 w-5 text-amber-500" />;
             case 'DETRACTOR':
@@ -255,7 +255,7 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="relative h-52 w-52">
+                           <div className="relative h-56 w-56">
                                 <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
                                     <circle
                                         className="text-muted/50"
@@ -280,7 +280,7 @@ export default function ObjetivosSmartPage() {
                                     />
                                 </svg>
                                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                    <p className="text-5xl font-bold text-foreground">{progressData.current}%</p>
+                                    <p className="text-6xl font-bold text-foreground">{progressData.current}%</p>
                                 </div>
                             </div>
                             <div className="text-center mt-4">
@@ -461,3 +461,4 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
+

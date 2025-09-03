@@ -51,10 +51,10 @@ const smartGoalsData = {
     icon: Target,
     description: "Metas claras y bien definidas para guiar nuestras acciones.",
     challenges: [
-      { id: "s1", icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas.", status: "En progreso", value: "3/4 Proyectos" },
-      { id: "s2", icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados.", status: "Normal", value: "2/4 Fases" },
-      { id: "s3", icon: Network, title: "Modernización de TI", description: "Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento.", status: "En riesgo", value: "1/4 Hitos" },
-      { id: "s4", icon: Users, title: "Visión Cliente Céntrico como Foco", description: "Colocar al cliente en el centro de todas nuestras estrategias y operaciones.", status: "En progreso", value: "4/5 Iniciativas" },
+      { id: "s1", icon: PackagePlus, title: "Innovación en Productos y Tecnología", description: "Desarrollar productos, procesos y tecnología para mejorar la atención y ventas.", status: "En progreso" },
+      { id: "s2", icon: RefreshCcw, title: "Sistemática Comercial", description: "Reimplantar y optimizar la sistemática comercial para impulsar los resultados.", status: "Normal" },
+      { id: "s3", icon: Network, title: "Modernización de TI", description: "Actualizar nuestra arquitectura de tecnología de la información para soportar el crecimiento.", status: "En riesgo" },
+      { id: "s4", icon: Users, title: "Visión Cliente Céntrico como Foco", description: "Colocar al cliente en el centro de todas nuestras estrategias y operaciones.", status: "En progreso" },
     ]
   },
   M: {
@@ -63,8 +63,8 @@ const smartGoalsData = {
     icon: Scaling,
     description: "Indicadores clave para cuantificar y seguir nuestro progreso.",
     challenges: [
-      { id: "m1", icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios.", status: "Normal", value: "90% vs obj." },
-      { id: "m2", icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos.", status: "En progreso", value: "+12% Eficiencia" },
+      { id: "m1", icon: TrendingUp, title: "Crecimiento Rentable y Sostenible", description: "Asegurar un crecimiento rentable y sostenible del volumen de negocios.", status: "Normal" },
+      { id: "m2", icon: Gauge, title: "Eficiencia Operativa", description: "Aumentar la eficiencia en todos nuestros procesos operativos.", status: "En progreso" },
     ]
   },
   A: {
@@ -73,8 +73,8 @@ const smartGoalsData = {
     icon: Goal,
     description: "Objetivos realistas que podemos lograr con nuestros recursos.",
     challenges: [
-      { id: "a1", icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento.", status: "Normal", value: "8.5/10 Encuesta" },
-      { id: "a2", icon: GraduationCap, title: "Desarrollo del Talento", description: "Potenciar las capacidades y el crecimiento profesional de nuestro equipo.", status: "En progreso", value: "70% Plan" },
+      { id: "a1", icon: Award, title: "Cultura de Alto Desempeño", description: "Fomentar una cultura organizacional orientada a la excelencia y el alto rendimiento.", status: "Normal" },
+      { id: "a2", icon: GraduationCap, title: "Desarrollo del Talento", description: "Potenciar las capacidades y el crecimiento profesional de nuestro equipo.", status: "En progreso" },
     ]
   },
   R: {
@@ -83,7 +83,7 @@ const smartGoalsData = {
     icon: Sparkles,
     description: "Metas alineadas con nuestra visión y el impacto en el negocio.",
     challenges: [
-      { id: "r1", icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector.", status: "Completado", value: "100% Cumplido" },
+      { id: "r1", icon: Gavel, title: "Cumplimiento Normativo", description: "Garantizar la adecuación continua a la nueva normativa vigente en el sector.", status: "Completado" },
     ]
   },
   T: {
@@ -92,8 +92,8 @@ const smartGoalsData = {
     icon: Timer,
     description: "Un marco de tiempo definido para la consecución de las metas.",
     challenges: [
-       { id: "t1", icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre.", status: "En riesgo", value: "Q3 2025" },
-       { id: "t2", icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre.", status: "Normal", value: "Q4 2025" },
+       { id: "t1", icon: Calculator, title: "Culminar Proyecto Multicotizador Web", description: "Finalizar y lanzar el multicotizador web para Pólizas de Automóvil y Personas durante el segundo semestre.", status: "En riesgo" },
+       { id: "t2", icon: PackagePlus, title: "Avanzar en el Plan de Productos", description: "Impulsar el desarrollo de nuevos productos y las actualizaciones de los existentes en el segundo semestre.", status: "Normal" },
     ]
   },
 };
@@ -162,8 +162,9 @@ export default function ObjetivosSmartPage() {
     const npsOffset = npsCircumference - (npsPercentage / 100) * npsCircumference;
 
     const filteredFeedback = useMemo(() => {
+        if (isLoadingFeedback) return [];
         return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory);
-    }, [activeFeedbackCategory, customerFeedback]);
+    }, [activeFeedbackCategory, customerFeedback, isLoadingFeedback]);
 
 
     return (
@@ -415,11 +416,12 @@ export default function ObjetivosSmartPage() {
                             </CardContent>
                         </Card>
                       ))
-                    ) : filteredFeedback.length > 0 ? filteredFeedback.map((feedback, index) => (
+                    ) : filteredFeedback.length > 0 ? (
+                      filteredFeedback.map((feedback, index) => (
                         <Card key={`${feedback['CEDULA TITULAR']}-${index}`} className="bg-card shadow-sm border-none">
                             <CardContent className="p-4 flex items-start gap-4">
                                 <Avatar>
-                                    <AvatarFallback>{feedback['NOMBRE TITULAR'].substring(0, 2)}</AvatarFallback>
+                                    <AvatarFallback>{feedback['NOMBRE TITULAR'] ? feedback['NOMBRE TITULAR'].substring(0, 2) : 'N/A'}</AvatarFallback>
                                 </Avatar>
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-center">
@@ -432,7 +434,8 @@ export default function ObjetivosSmartPage() {
                                 </div>
                             </CardContent>
                         </Card>
-                    )) : (
+                      ))
+                    ) : (
                         <Card className="bg-card shadow-sm border-none">
                             <CardContent className="p-8 text-center text-muted-foreground text-sm">
                                 No hay comentarios en esta categoría.

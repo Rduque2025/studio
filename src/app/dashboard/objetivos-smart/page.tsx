@@ -255,7 +255,7 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="relative h-28 w-28">
+                           <div className="relative h-24 w-24">
                                 <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
                                     <circle
                                         className="text-muted/50"
@@ -481,6 +481,7 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
+
 
 
 

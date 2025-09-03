@@ -70,7 +70,7 @@ export interface Employee {
   id: string;
   name: string;
   role: string;
-  department: 'Tecnología' | 'Capital Humano' | 'Finanzas' | 'Procesos' | 'Comercial' | 'Suscripción' | 'Operaciones' | 'Actuarial';
+  department: 'Tecnología' | 'Capital Humano' | 'Finanzas' | 'Procesos' | 'Comercial' | 'Suscripción' | 'Operaciones' | 'Actuarial' | 'Líderes';
   imageUrl: string;
   dataAiHint: string;
 }
@@ -814,6 +814,7 @@ export const mockEmployees: Employee[] = [
 ];
 
 export const teamDepartments = [
+  { id: "lideres", name: "Líderes" },
   { id: "comercial", name: "Comercial" },
   { id: "suscripcion", name: "Suscripción" },
   { id: "operaciones", name: "Operaciones" },
@@ -934,6 +935,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

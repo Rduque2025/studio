@@ -32,7 +32,10 @@ import {
   ArrowRight,
   Clock,
   Heart,
-  MessageCircle
+  MessageCircle,
+  Smile,
+  Meh,
+  Frown
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
@@ -165,6 +168,19 @@ export default function ObjetivosSmartPage() {
         if (isLoadingFeedback) return [];
         return customerFeedback.filter(feedback => feedback['CATEGORÍA'] === activeFeedbackCategory);
     }, [activeFeedbackCategory, customerFeedback, isLoadingFeedback]);
+    
+    const getSentimentIcon = (category: 'PROMOTOR' | 'NEUTRO' | 'DETRACTOR') => {
+        switch (category) {
+            case 'PROMOTOR':
+                return <Smile className="h-5 w-5 text-green-500" />;
+            case 'NEUTRO':
+                return <Meh className="h-5 w-5 text-amber-500" />;
+            case 'DETRACTOR':
+                return <Frown className="h-5 w-5 text-red-500" />;
+            default:
+                return null;
+        }
+    };
 
 
     return (
@@ -418,10 +434,12 @@ export default function ObjetivosSmartPage() {
                       ))
                     ) : filteredFeedback.length > 0 ? (
                       filteredFeedback.map((feedback, index) => (
-                        <Card key={`${feedback['CEDULA TITULAR']}-${index}`} className="bg-card shadow-sm border-none">
+                        <Card key={`${feedback['NOMBRE TITULAR']}-${index}`} className="bg-card shadow-sm border-none">
                             <CardContent className="p-4 flex items-start gap-4">
                                 <Avatar>
-                                    <AvatarFallback>{feedback['NOMBRE TITULAR'] ? feedback['NOMBRE TITULAR'].substring(0, 2) : 'N/A'}</AvatarFallback>
+                                    <AvatarFallback className="bg-transparent">
+                                        {getSentimentIcon(feedback['CATEGORÍA'])}
+                                    </AvatarFallback>
                                 </Avatar>
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-center">

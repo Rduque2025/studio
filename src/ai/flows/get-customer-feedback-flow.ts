@@ -12,7 +12,7 @@ import { z } from 'zod';
 // This schema now coerces (converts) the CALIFICACIÓN field to a number,
 // which makes it robust against cases where the sheet might send it as a string.
 const CustomerFeedbackSchema = z.object({
-  SERVICE: z.string().optional(),
+  SERVICIO: z.string().optional(),
   'CEDULA TITULAR': z.string().optional(),
   'NOMBRE TITULAR': z.string(),
   'LINEA DE NEGOCIO': z.string().optional(),

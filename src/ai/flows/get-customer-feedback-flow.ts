@@ -36,15 +36,18 @@ export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
   }
 
   try {
+    // Simplified the fetch call to a direct POST without a body,
+    // as the dedicated script has only one function.
     const response = await fetch(scriptUrl, {
-      method: 'POST', // Corrected method to POST
+      method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
-      body: JSON.stringify({ action: 'getCustomerFeedback' }), // Send action in the body
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Apps Script fetch error response:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 

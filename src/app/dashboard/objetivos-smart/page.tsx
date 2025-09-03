@@ -182,6 +182,19 @@ export default function ObjetivosSmartPage() {
         }
     };
 
+    const getBadgeClass = (category: 'PROMOTOR' | 'NEUTRO' | 'DETRACTOR') => {
+        switch (category) {
+            case 'PROMOTOR':
+                return "bg-green-100 text-green-800 border-green-200";
+            case 'NEUTRO':
+                return "bg-amber-100 text-amber-800 border-amber-200";
+            case 'DETRACTOR':
+                return "bg-red-100 text-red-800 border-red-200";
+            default:
+                return "bg-muted text-muted-foreground";
+        }
+    }
+
 
     return (
         <div className="container mx-auto py-8 px-4 bg-background space-y-12">
@@ -444,7 +457,7 @@ export default function ObjetivosSmartPage() {
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-center">
                                         <p className="font-semibold text-sm">{feedback['NOMBRE TITULAR']}</p>
-                                        <Badge variant={feedback['CATEGORÍA'] === 'PROMOTOR' ? "default" : "secondary"} className={cn(feedback['CATEGORÍA'] === 'DETRACTOR' && "bg-destructive text-destructive-foreground")}>
+                                        <Badge variant="outline" className={cn(getBadgeClass(feedback['CATEGORÍA']))}>
                                             NPS: {feedback['CALIFICACIÓN']}
                                         </Badge>
                                     </div>

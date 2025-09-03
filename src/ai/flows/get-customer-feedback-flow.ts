@@ -49,8 +49,12 @@ export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
     const data = await response.json();
     
     if (data.success) {
+      // FIX: Filter out any potential empty rows from the sheet data before parsing
+      const nonEmptyData = data.data.filter((row: any) => 
+        row['NOMBRE TITULAR'] && row['COMENTARIO'] && row['CATEGORÍA']
+      );
       // Validate data with Zod schema
-      return CustomerFeedbackResponseSchema.parse(data.data);
+      return CustomerFeedbackResponseSchema.parse(nonEmptyData);
     } else {
       throw new Error(data.message || 'Failed to fetch customer feedback from Apps Script.');
     }

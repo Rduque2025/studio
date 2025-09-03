@@ -339,7 +339,7 @@ export default function ObjetivosSmartPage() {
                                 <Heart className="h-5 w-5 text-muted-foreground" />
                             </div>
                             <div>
-                                <CardTitle className="text-sm font-medium">NPS Relacional</CardTitle>
+                                <CardTitle className="text-sm font-medium">Net Promoter Score</CardTitle>
                                 <CardDescription className="text-xs">Satisfacción General</CardDescription>
                             </div>
                         </div>

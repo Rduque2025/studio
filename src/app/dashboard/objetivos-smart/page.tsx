@@ -357,7 +357,7 @@ export default function ObjetivosSmartPage() {
                                 />
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                <p className="text-3xl font-bold text-foreground">{npsData.score > 0 ? '+' : ''}{npsData.score}</p>
+                                <p className="text-3xl font-bold text-foreground">{npsPercentage}%</p>
                             </div>
                         </div>
                         <div className="text-center mt-4">

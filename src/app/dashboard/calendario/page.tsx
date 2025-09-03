@@ -54,6 +54,13 @@ const REUNION_KEYWORDS = ['reunión', 'reunion', 'comité', 'comite', 'presentac
 
 function getEventRenderProps(event: CalendarEvent): { bg: string; text: string; label: string, icon: LucideIcon, cardBg: string, iconBg: string, iconColor: string } {
   const title = event.title.toLowerCase();
+  
+  // Highest priority: Specific titles for Alimentación
+  if (title.includes('alimentación')) {
+    const specificStyle = SPECIFIC_EVENT_STYLES[event.title] || { bg: 'bg-orange-500', text: 'text-white', label: '' };
+    return { ...EVENT_ITEM_STYLES.PAGO, ...specificStyle };
+  }
+
   const description = event.description.toLowerCase();
   const fullText = `${title} ${description}`;
   

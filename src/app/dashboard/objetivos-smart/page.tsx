@@ -262,15 +262,7 @@ export default function ObjetivosSmartPage() {
                                                 challenge.status === 'Completado' && 'text-green-600',
                                                 challenge.status === 'Normal' && 'text-primary'
                                             )}>{challenge.status}</span>
-                                            <span className="text-xs text-muted-foreground">{challenge.progress}%</span>
                                         </div>
-                                        <Progress 
-                                            value={challenge.progress} 
-                                            indicatorClassName={cn(
-                                                challenge.status === 'En riesgo' && 'bg-destructive',
-                                                challenge.status === 'Completado' && 'bg-green-600'
-                                            )}
-                                        />
                                     </div>
                                     <div className="flex justify-between w-full items-center">
                                         <p className="text-xs font-medium text-foreground">{challenge.value}</p>

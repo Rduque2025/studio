@@ -6,7 +6,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from "@/components/ui/progress";
 import { 
   ArrowLeft, 
   PackagePlus, 
@@ -264,8 +263,7 @@ export default function ObjetivosSmartPage() {
                                             )}>{challenge.status}</span>
                                         </div>
                                     </div>
-                                    <div className="flex justify-between w-full items-center">
-                                        <p className="text-xs font-medium text-foreground">{challenge.value}</p>
+                                    <div className="flex justify-end w-full items-center">
                                         <Button variant="link" size="sm" className="p-0 h-auto text-xs">
                                             Ver detalles
                                         </Button>

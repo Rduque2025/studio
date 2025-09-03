@@ -44,6 +44,7 @@ import {
   Gem, 
   Gavel 
 } from "lucide-react";
+import { EmployeeCard } from '@/components/dashboard/employee-card';
 
 
 const commercialProcessSteps = [
@@ -244,7 +245,7 @@ export default function NosotrosPage() {
         <section className="py-16 md:py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <Card className="lg:col-span-1 bg-primary text-primary-foreground p-8 flex flex-col justify-center rounded-2xl aspect-square lg:aspect-auto">
+                <Card className="lg:col-span-1 bg-primary text-primary-foreground p-8 flex flex-col justify-center rounded-2xl aspect-square lg:aspect-[6/7]">
                     <CardHeader className="p-0">
                         <CardTitle className="text-3xl font-bold">Nuestro fantástico equipo</CardTitle>
                         <CardDescription className="text-primary-foreground/80 mt-3">
@@ -261,31 +262,7 @@ export default function NosotrosPage() {
                 </Card>
 
                 {mockEmployees.slice(0, 6).map((employee) => (
-                    <Card key={employee.id} className="rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 bg-card">
-                        <div className="relative aspect-[4/5] w-full">
-                            <Image
-                                src={employee.imageUrl}
-                                alt={employee.name}
-                                layout="fill"
-                                objectFit="cover"
-                                data-ai-hint={employee.dataAiHint}
-                            />
-                        </div>
-                        <CardFooter className="p-4 flex justify-between items-center">
-                            <div>
-                                <p className="font-semibold text-sm text-foreground">{employee.name}</p>
-                                <p className="text-xs text-muted-foreground">{employee.role}</p>
-                            </div>
-                            <div className="flex items-center space-x-3">
-                                <Link href="#" className="text-muted-foreground hover:text-primary">
-                                    <Twitter className="h-4 w-4" />
-                                </Link>
-                                <Link href="#" className="text-muted-foreground hover:text-primary">
-                                    <Instagram className="h-4 w-4" />
-                                </Link>
-                            </div>
-                        </CardFooter>
-                    </Card>
+                    <EmployeeCard key={employee.id} employee={employee} />
                 ))}
             </div>
           </div>
@@ -346,9 +323,4 @@ export default function NosotrosPage() {
       </div>
     </div>
   );
-
     
-
-    
-
-

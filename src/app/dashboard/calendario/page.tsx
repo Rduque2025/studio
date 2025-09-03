@@ -40,9 +40,9 @@ const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; labe
   "Beneficio de Transporte": { bg: 'bg-[#543db8]', text: 'text-white', label: '' },
   "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-white', label: '' },
   "Asignación Especial": { bg: 'bg-[#1a61ab]', text: 'text-white', label: '' },
-  "Pago Quincena": { bg: 'bg-[#59D1FF]', text: 'text-white', label: '' },
-  "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
-  "Beneficio Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
+  "Pago Quincena": { bg: 'bg-accent', text: 'text-accent-foreground', label: '' },
+  "Complemento Alimentación": { bg: 'bg-orange-500', text: 'text-white', label: '' },
+  "Beneficio Alimentación": { bg: 'bg-orange-500', text: 'text-white', label: '' },
   "Feriado Bancario": { bg: 'bg-slate-700', text: 'text-white', label: '' },
 };
 

@@ -37,12 +37,13 @@ export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
 
   try {
     // Corrected fetch call to use POST as required by doPost in Apps Script.
-    // Sending an empty body is sufficient if the script's action is singular.
+    // An empty body is sufficient as the provided script does not process it.
     const response = await fetch(scriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain;charset=utf-8',
       },
+      body: '', // Sending an empty body for compatibility.
     });
 
     if (!response.ok) {

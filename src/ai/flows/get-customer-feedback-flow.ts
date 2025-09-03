@@ -9,12 +9,14 @@
 import { z } from 'zod';
 
 // Define Zod schema for the feedback data structure
+// This schema now coerces (converts) the CALIFICACIÓN field to a number,
+// which makes it robust against cases where the sheet might send it as a string.
 const CustomerFeedbackSchema = z.object({
   SERVICE: z.string().optional(),
   'CEDULA TITULAR': z.string().optional(),
   'NOMBRE TITULAR': z.string(),
   'LINEA DE NEGOCIO': z.string().optional(),
-  CALIFICACIÓN: z.number(),
+  CALIFICACIÓN: z.coerce.number(), // Use z.coerce.number() to handle string or number values
   COMENTARIO: z.string(),
   CATEGORÍA: z.enum(['PROMOTOR', 'DETRACTOR', 'NEUTRO']),
 });
@@ -49,17 +51,17 @@ export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
     const data = await response.json();
     
     if (data.success) {
-      // FIX: Filter out any potential empty rows from the sheet data before parsing
+      // Filter out any potential empty or incomplete rows from the sheet data before parsing
       const nonEmptyData = data.data.filter((row: any) => 
-        row['NOMBRE TITULAR'] && row['COMENTARIO'] && row['CATEGORÍA']
+        row['NOMBRE TITULAR'] && row['COMENTARIO'] && row['CATEGORÍA'] && row['CALIFICACIÓN'] !== undefined
       );
-      // Validate data with Zod schema
+      // Validate data with the more robust Zod schema
       return CustomerFeedbackResponseSchema.parse(nonEmptyData);
     } else {
       throw new Error(data.message || 'Failed to fetch customer feedback from Apps Script.');
     }
   } catch (error) {
-    console.error('Error fetching customer feedback from Google Apps Script:', error);
+    console.error('Error fetching or parsing customer feedback from Google Apps Script:', error);
     return [];
   }
 }

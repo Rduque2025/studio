@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -116,6 +116,7 @@ const getNpsStatus = (score: number) => {
 
 export default function ObjetivosSmartPage() {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData | null>(null);
+    const [activeFeedbackCategory, setActiveFeedbackCategory] = useState<'promoters' | 'neutrals' | 'detractors'>('promoters');
     
     const handleCategoryClick = (categoryKey: keyof typeof smartGoalsData) => {
         if (selectedCategory === categoryKey) {
@@ -139,6 +140,15 @@ export default function ObjetivosSmartPage() {
     const npsPercentage = (npsData.score + 100) / 2;
     const npsCircumference = 2 * Math.PI * radius;
     const npsOffset = npsCircumference - (npsPercentage / 100) * npsCircumference;
+
+    const filteredFeedback = useMemo(() => {
+        return mockCustomerFeedback.filter(feedback => {
+            if (activeFeedbackCategory === 'promoters') return feedback.nps >= 9;
+            if (activeFeedbackCategory === 'neutrals') return feedback.nps >= 7 && feedback.nps <= 8;
+            if (activeFeedbackCategory === 'detractors') return feedback.nps <= 6;
+            return false;
+        });
+    }, [activeFeedbackCategory]);
 
 
     return (
@@ -357,7 +367,7 @@ export default function ObjetivosSmartPage() {
                                 />
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                <p className="text-3xl font-bold text-foreground">{npsPercentage}%</p>
+                                <p className="text-3xl font-bold text-foreground">{npsPercentage.toFixed(0)}%</p>
                             </div>
                         </div>
                         <div className="text-center mt-4">
@@ -370,8 +380,15 @@ export default function ObjetivosSmartPage() {
                 </Card>
 
                 <div className="lg:col-span-2 space-y-4">
-                    <h3 className="text-lg font-semibold text-foreground px-2">Comentarios Destacados</h3>
-                    {mockCustomerFeedback.map(feedback => (
+                    <div className="flex justify-between items-center px-2">
+                        <h3 className="text-lg font-semibold text-foreground">Comentarios Destacados</h3>
+                         <div className="flex items-center gap-2">
+                            <Button size="sm" variant={activeFeedbackCategory === 'promoters' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('promoters')}>Promotores</Button>
+                            <Button size="sm" variant={activeFeedbackCategory === 'neutrals' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('neutrals')}>Neutros</Button>
+                            <Button size="sm" variant={activeFeedbackCategory === 'detractors' ? 'default' : 'outline'} onClick={() => setActiveFeedbackCategory('detractors')}>Detractores</Button>
+                        </div>
+                    </div>
+                    {filteredFeedback.length > 0 ? filteredFeedback.map(feedback => (
                         <Card key={feedback.id} className="bg-card shadow-sm border-none">
                             <CardContent className="p-4 flex items-start gap-4">
                                 <Avatar>
@@ -388,7 +405,13 @@ export default function ObjetivosSmartPage() {
                                 </div>
                             </CardContent>
                         </Card>
-                    ))}
+                    )) : (
+                        <Card className="bg-card shadow-sm border-none">
+                            <CardContent className="p-8 text-center text-muted-foreground text-sm">
+                                No hay comentarios en esta categoría.
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
             </div>
         </div>

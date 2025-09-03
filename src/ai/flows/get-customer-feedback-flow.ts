@@ -26,10 +26,10 @@ export type CustomerFeedbackResponse = z.infer<typeof CustomerFeedbackResponseSc
 
 // The main exported function that the frontend will call
 export async function getCustomerFeedback(): Promise<CustomerFeedbackResponse> {
-  const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+  const scriptUrl = process.env.NEXT_PUBLIC_FEEDBACK_APPS_SCRIPT_URL;
 
-  if (!scriptUrl || scriptUrl === "TU_URL_DE_IMPLEMENTACIÓN_AQUÍ") {
-    console.error("Apps Script URL is not configured.");
+  if (!scriptUrl || scriptUrl === "TU_NUEVA_URL_DE_IMPLEMENTACIÓN_AQUÍ") {
+    console.error("Feedback Apps Script URL is not configured.");
     return [];
   }
 

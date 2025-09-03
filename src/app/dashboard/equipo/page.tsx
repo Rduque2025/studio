@@ -35,7 +35,7 @@ export default function EquipoPage() {
             <div className="mb-12">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-4">
                     <div className="max-w-xl">
-                        <h1 className="text-4xl font-bold text-foreground">Nuestro Equipo</h1>
+                        <h1 className="text-5xl font-bold text-foreground">Nuestro Equipo</h1>
                         <p className="text-muted-foreground mt-2">
                             Trabajamos con un enfoque internacional, desafiante y vital. Nuestra ambición es desafiar, desarrollar y ser un ente de consulta creíble en todas nuestras colaboraciones.
                         </p>
@@ -46,7 +46,7 @@ export default function EquipoPage() {
                             placeholder="Buscar..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 w-full sm:w-64 text-sm"
+                            className="pl-9 w-full sm:w-64 text-xs"
                         />
                     </div>
                 </div>

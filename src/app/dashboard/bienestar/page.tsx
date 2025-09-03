@@ -1,11 +1,11 @@
 
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities } from "@/lib/placeholder-data";
@@ -21,41 +21,11 @@ import type { MenuItem } from '@/ai/flows/get-menu-items-flow';
 import { getMenuItems } from '@/ai/flows/get-menu-items-flow';
 import { MenuItemCard } from '@/components/dashboard/menu-item-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useEvents } from '@/contexts/events-context';
+import { format, getMonth, getYear } from 'date-fns';
+import { es } from 'date-fns/locale';
 
-const benefits = [
-  {
-    icon: Leaf,
-    title: "Inspírate",
-    description: "Te damos el apoyo y las herramientas que necesitas para avanzar hacia la visión que persigues en tu bienestar personal y profesional."
-  },
-  {
-    icon: Users,
-    title: "Conéctate",
-    description: "Únete a tus compañeros, comparte experiencias y anímense mutuamente en este viaje hacia el bienestar integral."
-  },
-  {
-    icon: BrainCircuit,
-    title: "Desarróllate",
-    description: "Descubre las herramientas y recursos que necesitas para desarrollar nuevas habilidades y potenciar tu crecimiento."
-  }
-];
-
-const importantEvents: EventHighlightProps[] = [
-    {
-      title: "Día de la Independencia",
-      date: "5 de Julio",
-      description: "Conmemoramos un hito histórico de nuestra nación. Habrá actividades especiales y sorpresas en la oficina.",
-      imageUrl: "https://images.unsplash.com/photo-1663699786481-f457f366e70a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2ZW5lenVlbGElMjBmbGFnfGVufDB8fHx8MTc1MzEyNzc3OHww&ixlib=rb-4.1.0&q=80&w=1080",
-      dataAiHint: "Venezuela flag"
-    },
-    {
-      title: "Día del Niño",
-      date: "21 de Julio",
-      description: "Celebremos a los más pequeños de la casa. Un día lleno de alegría, juegos y actividades para las familias.",
-      imageUrl: "https://images.unsplash.com/photo-1531984929664-2fb2be468d3e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMnx8bmklQzMlQjFvfGVufDB8fHx8MTc1MzEyNzg5NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      dataAiHint: "children playing"
-    }
-];
+const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario', 'independencia', 'mujer', 'trabajador', 'resistencia', 'navidad', 'noche buena', 'festivo', 'resultados anuales', 'carnavales', 'santo', 'batalla', 'natalicio', 'año nuevo', 'fin de año'];
 
 // Helper function to normalize day names for comparison
 const normalizeDayName = (name: string) => {
@@ -71,6 +41,9 @@ export default function BienestarPage() {
     const [currentDayName, setCurrentDayName] = useState('');
     const [allMenuItems, setAllMenuItems] = useState<MenuItem[]>([]);
     const [isLoadingMenu, setIsLoadingMenu] = useState(true);
+    const { allEvents } = useEvents();
+    const [importantEvents, setImportantEvents] = useState<EventHighlightProps[]>([]);
+    const [isLoadingEvents, setIsLoadingEvents] = useState(true);
 
     useEffect(() => {
         const dayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
@@ -89,6 +62,41 @@ export default function BienestarPage() {
         };
         fetchMenu();
     }, []);
+
+    useEffect(() => {
+        if (allEvents.length > 0) {
+            setIsLoadingEvents(true);
+            const now = new Date();
+            const currentMonth = getMonth(now);
+            const currentYear = getYear(now);
+
+            const specialEventsThisMonth = allEvents
+                .filter(event => {
+                    const eventMonth = getMonth(event.date);
+                    const eventYear = getYear(event.date);
+                    const isSpecial = ESPECIAL_KEYWORDS.some(kw => event.title.toLowerCase().includes(kw));
+                    return eventYear === currentYear && eventMonth === currentMonth && isSpecial;
+                })
+                .sort((a, b) => a.date.getTime() - b.date.getTime());
+
+            const formattedEvents = specialEventsThisMonth.slice(0, 2).map(event => ({
+                title: event.title,
+                date: format(event.date, "d 'de' MMMM", { locale: es }),
+                description: event.description || `Un evento especial programado para el ${format(event.date, "PPP", { locale: es })}.`,
+                imageUrl: "https://images.unsplash.com/photo-1519669556878-63bd52a5a846?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjZWxlYnJhdGlvbnxlbnwwfHx8fDE3NTcxNTM0OTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+                dataAiHint: "celebration event"
+            }));
+
+            setImportantEvents(formattedEvents);
+            setIsLoadingEvents(false);
+        } else {
+             // Handle case where allEvents might still be loading initially
+            setIsLoadingEvents(true);
+            setTimeout(() => { // Add a small delay to see if events load
+                if(allEvents.length === 0) setIsLoadingEvents(false);
+            }, 1500);
+        }
+    }, [allEvents]);
 
     const handleMenuScroll = (direction: 'left' | 'right') => {
         const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
@@ -146,10 +154,23 @@ export default function BienestarPage() {
         titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
         descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
       >
-        <div className="grid md:grid-cols-2 gap-8 mt-16">
-          {importantEvents.map((event, index) => (
-            <EventHighlightCard key={index} {...event} />
-          ))}
+        <div className="grid md:grid-cols-2 gap-8 mt-16 min-h-[400px]">
+          {isLoadingEvents ? (
+            <>
+              <Skeleton className="h-96 w-full rounded-2xl" />
+              <Skeleton className="h-96 w-full rounded-2xl" />
+            </>
+          ) : importantEvents.length > 0 ? (
+            importantEvents.map((event, index) => (
+              <EventHighlightCard key={index} {...event} />
+            ))
+          ) : (
+            <div className="md:col-span-2 flex flex-col items-center justify-center text-center text-muted-foreground p-8 bg-muted/50 rounded-2xl">
+              <Star className="h-12 w-12 mb-4 text-primary/50" />
+              <h3 className="text-xl font-semibold text-foreground">No hay eventos destacados este mes</h3>
+              <p className="max-w-md mt-2">No se encontraron feriados o fechas conmemorativas en el calendario para el mes en curso. ¡Consulta el calendario completo para ver todos los eventos!</p>
+            </div>
+          )}
         </div>
         <div className="text-center mt-16">
            <Button asChild variant="link" className="text-sm font-semibold tracking-widest text-muted-foreground hover:text-primary">

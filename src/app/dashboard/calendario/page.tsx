@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { format, isToday, parseISO, differenceInMinutes, formatDistanceStrict, isPast, intervalToDuration, setMonth as setMonthDateFns, getMonth, addMonths, subDays, addDays } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { cn } from "@/lib/utils";
-import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight, X, Cake, Users, Award, Star, Briefcase, User } from 'lucide-react';
+import { PlusCircle, Trash2, Check, ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock, Pencil, Info, ArrowRight, X, Cake, Users, Award, Star, Briefcase, User as UserIcon } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -26,11 +26,11 @@ const monthsOfYear = Array.from({ length: 12 }, (_, i) => ({
 
 // Define colors for categories to be used as capsules in day cells
 const EVENT_ITEM_STYLES = {
-  PAGO: { bg: 'bg-green-200', text: 'text-green-800', label: 'Pago', icon: Check, cardBg: 'bg-green-50 border-green-200', iconBg: 'bg-green-100', iconColor: 'text-green-600' },
+  PAGO: { bg: 'bg-accent', text: 'text-accent-foreground', label: 'Pago', icon: Check, cardBg: 'bg-blue-50 border-blue-200', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
   ESPECIAL: { bg: 'bg-purple-200', text: 'text-purple-800', label: 'Especial', icon: Star, cardBg: 'bg-purple-50 border-purple-200', iconBg: 'bg-purple-100', iconColor: 'text-purple-600' },
   REUNION: { bg: 'bg-rose-200', text: 'text-rose-800', label: 'Reunión', icon: Users, cardBg: 'bg-rose-50 border-rose-200', iconBg: 'bg-rose-100', iconColor: 'text-rose-600' },
   TRABAJO: { bg: 'bg-sky-200', text: 'text-sky-800', label: 'Trabajo', icon: Briefcase, cardBg: 'bg-sky-50 border-sky-200', iconBg: 'bg-sky-100', iconColor: 'text-sky-600' },
-  PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal', icon: User, cardBg: 'bg-teal-50 border-teal-200', iconBg: 'bg-teal-100', iconColor: 'text-teal-600' },
+  PERSONAL: { bg: 'bg-teal-200', text: 'text-teal-800', label: 'Personal', icon: UserIcon, cardBg: 'bg-teal-50 border-teal-200', iconBg: 'bg-teal-100', iconColor: 'text-teal-600' },
   BIRTHDAY: { bg: 'bg-pink-200', text: 'text-pink-800', label: 'Cumpleaños', icon: Cake, cardBg: 'bg-pink-50 border-pink-200', iconBg: 'bg-pink-100', iconColor: 'text-pink-600' },
   DEFAULT: { bg: 'bg-slate-200', text: 'text-slate-700', label: '', icon: Info, cardBg: 'bg-slate-50 border-slate-200', iconBg: 'bg-slate-100', iconColor: 'text-slate-600' }
 };
@@ -40,7 +40,7 @@ const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string; labe
   "Beneficio de Transporte": { bg: 'bg-[#543db8]', text: 'text-white', label: '' },
   "Beneficios Sociales": { bg: 'bg-[#59D1FF]', text: 'text-white', label: '' },
   "Asignación Especial": { bg: 'bg-[#1a61ab]', text: 'text-white', label: '' },
-  "Pago Quincena": { bg: 'bg-[#128d5d]', text: 'text-white', label: '' },
+  "Pago Quincena": { bg: 'bg-[#59D1FF]', text: 'text-white', label: '' },
   "Complemento Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
   "Beneficio Alimentación": { bg: 'bg-[#e95e0f]', text: 'text-white', label: '' },
   "Feriado Bancario": { bg: 'bg-slate-700', text: 'text-white', label: '' },

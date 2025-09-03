@@ -814,6 +814,7 @@ export const mockEmployees: Employee[] = [
 ];
 
 export const teamDepartments = [
+  { id: "todos", name: "Todos" },
   { id: "lideres", name: "Líderes" },
   { id: "comercial", name: "Comercial" },
   { id: "suscripcion", name: "Suscripción" },
@@ -936,13 +937,4 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
     
 
-
-
-
-
-
-
-
-
-
-
+  

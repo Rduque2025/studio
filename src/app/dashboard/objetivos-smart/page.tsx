@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
@@ -36,7 +35,8 @@ import {
   Smile,
   Meh,
   Frown,
-  Quote
+  Quote,
+  Star
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { cn } from '@/lib/utils';
@@ -153,8 +153,8 @@ export default function ObjetivosSmartPage() {
     const progressStatus = getStatus(progressData.current);
     const npsStatus = getNpsStatus(npsData.score);
 
-    const radius = 60;
-    const strokeWidth = 10;
+    const radius = 80;
+    const strokeWidth = 12;
     const size = (radius + strokeWidth) * 2;
 
     const progressCircumference = 2 * Math.PI * radius;
@@ -371,57 +371,41 @@ export default function ObjetivosSmartPage() {
 
              {/* Client Section */}
             <div className="py-12">
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="grid lg:grid-cols-2 gap-16 items-start">
                   <div className="relative">
-                       <svg
-                          width="80"
-                          height="80"
-                          viewBox="0 0 109 95"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="absolute -top-10 -left-10"
-                        >
-                          <path
-                            d="M93.3009 52.8814C80.9452 61.211 54.3421 82.5152 51.5831 84.3431C48.824 86.171 27.6438 90.584 26.545 78.4908C25.4462 66.3976 34.2581 53.7951 37.0171 51.9672C39.7761 50.1393 54.0416 35.8459 63.6385 27.5163C73.2354 19.1867 91.4988 4.89332 93.3009 17.8993C95.1029 30.9053 105.657 44.5518 93.3009 52.8814Z"
-                            stroke="url(#paint0_linear_14_85)"
-                            strokeWidth="4"
-                            strokeLinecap="round"
-                          />
-                          <path
-                            d="M95.0385 15.0163C98.4116 11.0858 105.588 11.0858 108.961 15.0163L108.961 15.0163C112.334 18.9468 109.625 25.2152 105.211 25.2152L98.7887 25.2152C94.3746 25.2152 91.6655 18.9468 95.0385 15.0163Z"
-                            fill="url(#paint1_linear_14_85)"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_14_85"
-                              x1="29.0435"
-                              y1="85.343"
-                              x2="95.0385"
-                              y2="15.8239"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stopColor="#818CF8" />
-                              <stop offset="1" stopColor="#C084FC" />
-                            </linearGradient>
-                            <linearGradient
-                              id="paint1_linear_14_85"
-                              x1="95.0385"
-                              y1="15.0163"
-                              x2="108.961"
-                              y2="15.0163"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stopColor="#FACC15" />
-                              <stop offset="1" stopColor="#FB923C" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                       <Star
+                          className="absolute -top-10 -left-10 h-20 w-20 text-amber-300/50"
+                          strokeWidth={1}
+                        />
                       <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">La Voz de Nuestros Clientes</h2>
-                      <p className="text-muted-foreground max-w-md">
+                      <p className="text-muted-foreground max-w-md mb-6">
                           La opinión de nuestros clientes es el motor que impulsa nuestra mejora continua. Sus voces nos guían para ofrecer un servicio de excelencia.
                       </p>
-                      <div className="mt-6 flex items-center gap-2">
-                        <Button size="lg" className="bg-gradient-to-r from-purple-500 to-orange-400 text-white">Ver Más</Button>
+                       <div className="flex items-center gap-2 flex-wrap">
+                          <Button 
+                            size="sm" 
+                            variant={activeFeedbackCategory === 'PROMOTOR' ? 'default' : 'outline'}
+                            onClick={() => setActiveFeedbackCategory('PROMOTOR')}
+                            className="text-xs"
+                          >
+                            Promotores
+                          </Button>
+                           <Button 
+                            size="sm" 
+                            variant={activeFeedbackCategory === 'NEUTRO' ? 'default' : 'outline'}
+                             onClick={() => setActiveFeedbackCategory('NEUTRO')}
+                             className="text-xs"
+                          >
+                            Neutros
+                          </Button>
+                           <Button 
+                            size="sm" 
+                            variant={activeFeedbackCategory === 'DETRACTOR' ? 'default' : 'outline'}
+                             onClick={() => setActiveFeedbackCategory('DETRACTOR')}
+                             className="text-xs"
+                          >
+                            Detractores
+                          </Button>
                       </div>
                   </div>
                   
@@ -442,6 +426,7 @@ export default function ObjetivosSmartPage() {
                       ) : filteredFeedback.length > 0 ? (
                         filteredFeedback.map((feedback, index) => {
                           const isPromoter = feedback['CATEGORÍA'] === 'PROMOTOR';
+                          const category = feedback['CATEGORÍA'];
                           return (
                             <div key={`${feedback['NOMBRE TITULAR']}-${index}`} className="flex items-start gap-4">
                               {isPromoter && <div className="w-1 h-full bg-primary rounded-full" />}
@@ -449,13 +434,15 @@ export default function ObjetivosSmartPage() {
                                 <div className="flex items-start gap-4">
                                   <Avatar className="h-12 w-12 border-2 border-muted">
                                     <AvatarFallback className="bg-background">
-                                      {getSentimentIcon(feedback['CATEGORÍA'])}
+                                      {getSentimentIcon(category)}
                                     </AvatarFallback>
                                   </Avatar>
                                   <div className="flex-grow">
                                     <div className="flex justify-between items-center">
                                       <p className="font-semibold text-sm">{feedback['NOMBRE TITULAR']}</p>
-                                      <Quote className="h-5 w-5 text-muted-foreground/30" />
+                                      <Badge variant="outline" className={cn(getBadgeClass(category))}>
+                                        NPS: {feedback['CALIFICACIÓN']}
+                                      </Badge>
                                     </div>
                                     <p className="text-xs text-muted-foreground mt-1">"{feedback['COMENTARIO']}"</p>
                                   </div>

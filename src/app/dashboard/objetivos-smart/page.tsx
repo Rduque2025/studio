@@ -152,8 +152,8 @@ export default function ObjetivosSmartPage() {
     const progressStatus = getStatus(progressData.current);
     const npsStatus = getNpsStatus(npsData.score);
 
-    const radius = 52;
-    const strokeWidth = 8;
+    const radius = 60;
+    const strokeWidth = 10;
     const size = (radius + strokeWidth) * 2;
 
     const progressCircumference = 2 * Math.PI * radius;
@@ -403,7 +403,7 @@ export default function ObjetivosSmartPage() {
                         </Button>
                     </CardHeader>
                     <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                        <div className="relative h-40 w-40">
+                        <div className="relative h-48 w-48">
                              <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
                                 <circle className="text-muted/50" stroke="currentColor" strokeWidth={strokeWidth} fill="transparent" r={radius} cx={size/2} cy={size/2}/>
                                 <circle
@@ -412,7 +412,7 @@ export default function ObjetivosSmartPage() {
                                 />
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                <p className="text-3xl font-bold text-foreground">{npsPercentage.toFixed(0)}%</p>
+                                <p className="text-5xl font-bold text-foreground">{npsPercentage.toFixed(0)}%</p>
                             </div>
                         </div>
                         <div className="text-center mt-4">

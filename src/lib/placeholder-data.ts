@@ -70,7 +70,7 @@ export interface Employee {
   id: string;
   name: string;
   role: string;
-  department: 'Tecnología' | 'Recursos Humanos' | 'Finanzas' | 'Operaciones' | 'Marketing';
+  department: 'Tecnología' | 'Capital Humano' | 'Finanzas' | 'Procesos' | 'Comercial' | 'Suscripción' | 'Operaciones' | 'Actuarial';
   imageUrl: string;
   dataAiHint: string;
 }
@@ -236,7 +236,7 @@ export const mockCourses: Course[] = [
     id: "gestion-de-proveedores",
     title: "Gestión de Proveedores",
     description: "Aquí podrás  obtener información de herramientas y mejores prácticas para ser efectivos en la búsqueda, selección, evaluación y gestión de proveedores, mediante la planificación asociada a la negociación, que finalmente servirá como retroalimentación constante para el desarrollo tanto de la organización como de los proveedores.",
-    imageUrl: "https://images.unsplash.com/photo-1613214149922-f1809c99b414?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8bWVjYW5pY298ZW58MHx8fHwxNzU0NDE3MTk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1613214149922-f0189c99b414?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8bWVjYW5pY298ZW58MHx8fHwxNzU0NDE3MTk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "supplier management",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -805,20 +805,23 @@ export const mockEmployees: Employee[] = [
   { id: 'E001', name: 'Carlos Rodríguez', role: 'Desarrollador Senior', department: 'Tecnología', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'person portrait' },
   { id: 'E002', name: 'Ana Martínez', role: 'Analista de Sistemas', department: 'Tecnología', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'woman portrait' },
   { id: 'E003', name: 'Luis Pérez', role: 'Soporte Técnico', department: 'Tecnología', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'man portrait' },
-  { id: 'E004', name: 'Sofía Gómez', role: 'Gerente de RRHH', department: 'Recursos Humanos', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'woman portrait' },
-  { id: 'E005', name: 'Javier Hernández', role: 'Reclutador', department: 'Recursos Humanos', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'person portrait' },
+  { id: 'E004', name: 'Sofía Gómez', role: 'Gerente de RRHH', department: 'Capital Humano', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'woman portrait' },
+  { id: 'E005', name: 'Javier Hernández', role: 'Reclutador', department: 'Capital Humano', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'person portrait' },
   { id: 'E006', name: 'Elena Torres', role: 'Contadora Principal', department: 'Finanzas', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'woman portrait' },
   { id: 'E007', name: 'David Ramírez', role: 'Analista Financiero', department: 'Finanzas', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'man portrait' },
-  { id: 'E008', name: 'Laura Díaz', role: 'Jefe de Operaciones', department: 'Operaciones', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'person portrait' },
-  { id: 'E009', name: 'Miguel Vargas', role: 'Especialista en Marketing', department: 'Marketing', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'man portrait' },
+  { id: 'E008', name: 'Laura Díaz', role: 'Jefe de Operaciones', department: 'Procesos', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'person portrait' },
+  { id: 'E009', name: 'Miguel Vargas', role: 'Especialista en Marketing', department: 'Comercial', imageUrl: 'https://placehold.co/400x500.png', dataAiHint: 'man portrait' },
 ];
 
 export const teamDepartments = [
-  { id: 'tecnologia', name: 'Tecnología' },
-  { id: 'recursos-humanos', name: 'Recursos Humanos' },
-  { id: 'finanzas', name: 'Finanzas' },
-  { id: 'operaciones', name: 'Operaciones' },
-  { id: 'marketing', name: 'Marketing' },
+  { id: "comercial", name: "Comercial" },
+  { id: "suscripcion", name: "Suscripción" },
+  { id: "operaciones", name: "Operaciones" },
+  { id: "actuarial", name: "Actuarial" },
+  { id: "capital-humano", name: "Capital Humano" },
+  { id: "procesos", name: "Procesos" },
+  { id: "tecnologia", name: "Tecnología" },
+  { id: "finanzas", name: "Finanzas" },
 ];
 
 export const faqData: FaqItem[] = [
@@ -931,6 +934,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
 
 
     
+
 
 
 

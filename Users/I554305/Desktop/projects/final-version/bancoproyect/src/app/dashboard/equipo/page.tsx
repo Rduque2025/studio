@@ -10,41 +10,9 @@ import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const teamDepartments = [
-    { id: "todos", name: "Todos" },
-    { id: "procesos", name: "Procesos" },
-    { id: "defensa-asegurado", name: "Defensa del Asegurado" },
-    { id: "auditoria", name: "Auditoría" },
-    { id: "comercial", name: "Comercial" },
-    { id: "cumplimiento", name: "Cumplimiento" },
-    { id: "suscripcion-operaciones", name: "Suscripción y Operaciones" },
-    { id: "capital-humano", name: "Capital Humano" },
-    { id: "control", name: "Control" },
-    { id: "consultoria-juridica", name: "Consultoría Jurídica" },
-    { id: "tecnologia", name: "Tecnología" },
-    { id: "finanzas", name: "Finanzas" },
-    { id: "pmo", name: "PMO" },
-];
-
-const areaMapping: { [key: string]: string } = {
-    "Todos": "Todos",
-    "Procesos": "PROCESOS",
-    "Defensa del Asegurado": "DEFENSA DEL ASEGURADO",
-    "Auditoría": "AUDITORÍA",
-    "Comercial": "COMERCIAL",
-    "Cumplimiento": "CUMPLIMIENTO",
-    "Suscripción y Operaciones": "SUSCRIPCIÓN Y OPERACIONES",
-    "Capital Humano": "CAPITAL HUMANO",
-    "Control": "CONTROL",
-    "Consultoría Jurídica": "CONSULTORÍA JURÍDICA",
-    "Tecnología": "TECNOLOGÍA",
-    "Finanzas": "FINANZAS",
-    "PMO": "PMO",
-};
-
-
 export default function EquipoPage() {
     const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
+    const [departments, setDepartments] = useState<string[]>(['Todos']);
     const [isLoading, setIsLoading] = useState(true);
     const [activeDepartment, setActiveDepartment] = useState('Todos');
     const [searchTerm, setSearchTerm] = useState('');
@@ -55,6 +23,11 @@ export default function EquipoPage() {
             try {
                 const members = await getTeamMembers();
                 setAllMembers(members);
+                
+                // Generar dinámicamente los departamentos desde la data
+                const uniqueDepartments = [...new Set(members.map(member => member.Area))];
+                setDepartments(['Todos', ...uniqueDepartments.sort()]);
+
             } catch (error) {
                 console.error("Error fetching team members:", error);
             } finally {
@@ -66,10 +39,9 @@ export default function EquipoPage() {
 
     const filteredEmployees = useMemo(() => {
         let employees = allMembers;
-        const mappedArea = areaMapping[activeDepartment];
 
-        if (mappedArea !== 'Todos') {
-            employees = employees.filter(employee => employee.Area === mappedArea);
+        if (activeDepartment !== 'Todos') {
+            employees = employees.filter(employee => employee.Area === activeDepartment);
         }
 
         if (searchTerm) {
@@ -105,15 +77,15 @@ export default function EquipoPage() {
                     </div>
                 </div>
                  <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2">
-                    {teamDepartments.map(dept => (
+                    {departments.map(dept => (
                         <Button
-                            key={dept.id}
-                            variant={activeDepartment === dept.name ? 'default' : 'ghost'}
+                            key={dept}
+                            variant={activeDepartment === dept ? 'default' : 'ghost'}
                             size="sm"
                             className="rounded-full flex-shrink-0 text-xs"
-                            onClick={() => setActiveDepartment(dept.name)}
+                            onClick={() => setActiveDepartment(dept)}
                         >
-                            {dept.name}
+                            {dept}
                         </Button>
                     ))}
                 </div>

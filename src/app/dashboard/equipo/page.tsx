@@ -12,7 +12,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const teamDepartments = [
     { id: "todos", name: "Todos" },
-    { id: "lideres", name: "Líderes" },
     { id: "procesos", name: "PROCESOS" },
     { id: "defensa-asegurado", name: "DEFENSA DEL ASEGURADO" },
     { id: "auditoria", name: "AUDITORÍA" },
@@ -50,9 +49,7 @@ export default function EquipoPage() {
     const filteredEmployees = useMemo(() => {
         let employees = allMembers;
 
-        if (activeDepartment === 'Líderes') {
-            employees = employees.filter(employee => employee.Tipo === 'Líderes');
-        } else if (activeDepartment !== 'Todos') {
+        if (activeDepartment !== 'Todos') {
             employees = employees.filter(employee => employee.Area === activeDepartment);
         }
 
@@ -72,7 +69,7 @@ export default function EquipoPage() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-4">
                     <div className="max-w-xl">
                         <h1 className="text-5xl font-bold text-foreground">
-                          {activeDepartment === 'Líderes' ? 'Nuestros Líderes' : 'Nuestro Equipo'}
+                          Nuestro Equipo
                         </h1>
                         <p className="text-muted-foreground mt-2">
                             Trabajamos con un enfoque internacional, desafiante y vital. Nuestra ambición es desafiar, desarrollar y ser un ente de consulta creíble en todas nuestras colaboraciones.

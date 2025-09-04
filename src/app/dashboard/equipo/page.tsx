@@ -13,14 +13,17 @@ import { Skeleton } from '@/components/ui/skeleton';
 const teamDepartments = [
     { id: "todos", name: "Todos" },
     { id: "lideres", name: "Líderes" },
-    { id: "comercial", name: "Comercial" },
-    { id: "suscripcion", name: "Suscripción" },
-    { id: "operaciones", name: "Operaciones" },
-    { id: "actuarial", name: "Actuarial" },
-    { id: "capital-humano", name: "Capital Humano" },
-    { id: "procesos", name: "Procesos" },
-    { id: "tecnologia", name: "Tecnología" },
-    { id: "finanzas", name: "Finanzas" },
+    { id: "procesos", name: "PROCESOS" },
+    { id: "defensa-asegurado", name: "DEFENSA DEL ASEGURADO" },
+    { id: "auditoria", name: "AUDITORÍA" },
+    { id: "comercial", name: "COMERCIAL" },
+    { id: "cumplimiento", name: "CUMPLIMIENTO" },
+    { id: "suscripcion-operaciones", name: "SUSCRIPCIÓN Y OPERACIONES" },
+    { id: "capital-humano", name: "CAPITAL HUMANO" },
+    { id: "control", name: "CONTROL" },
+    { id: "consultoria-juridica", name: "CONSULTORÍA JURÍDICA" },
+    { id: "tecnologia", name: "TECNOLOGÍA" },
+    { id: "finanzas", name: "FINANZAS" },
 ];
 
 export default function EquipoPage() {

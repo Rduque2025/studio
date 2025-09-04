@@ -113,8 +113,8 @@ export default function EquipoPage() {
                         </div>
                     ))
                 ) : (
-                    filteredEmployees.map(employee => (
-                        <EmployeeCard key={employee.Correo} employee={employee} />
+                    filteredEmployees.map((employee, index) => (
+                        <EmployeeCard key={`${employee.Correo}-${index}`} employee={employee} />
                     ))
                 )}
             </div>

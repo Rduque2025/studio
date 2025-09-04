@@ -76,13 +76,13 @@ export default function EquipoPage() {
                         />
                     </div>
                 </div>
-                 <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2">
+                 <div className="flex flex-wrap items-center gap-2 mt-8">
                     {teamDepartments.map(dept => (
                         <Button
                             key={dept}
                             variant={activeDepartment === dept ? 'default' : 'ghost'}
                             size="sm"
-                            className="rounded-full flex-shrink-0 text-xs"
+                            className="rounded-full flex-shrink-0 text-[11px] h-7 px-3"
                             onClick={() => setActiveDepartment(dept)}
                         >
                             {dept}

@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, a { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { EmployeeCard } from '@/components/dashboard/employee-card';

@@ -10,9 +10,43 @@ import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
+const teamDepartments = [
+    { id: "todos", name: "Todos" },
+    { id: "procesos", name: "Procesos" },
+    { id: "defensa-asegurado", name: "Defensa del Asegurado" },
+    { id: "auditoria", name: "Auditoría" },
+    { id: "comercial", name: "Comercial" },
+    { id: "cumplimiento", name: "Cumplimiento" },
+    { id: "suscripcion-operaciones", name: "Suscripción y Operaciones" },
+    { id: "capital-humano", name: "Capital Humano" },
+    { id: "control", name: "Control" },
+    { id: "consultoria-juridica", name: "Consultoría Jurídica" },
+    { id: "tecnologia", name: "Tecnología" },
+    { id: "finanzas", name: "Finanzas" },
+    { id: "pmo", name: "PMO" },
+];
+
+const areaMapping: { [key: string]: string } = {
+    "Todos": "Todos",
+    "Procesos": "PROCESOS",
+    "Defensa del Asegurado": "DEFENSA DEL ASEGURADO",
+    "Auditoría": "AUDITORÍA",
+    "Comercial": "COMERCIAL",
+    "Cumplimiento": "CUMPLIMIENTO",
+    "Suscripción y Operaciones": "SUSCRIPCIÓN Y OPERACIONES",
+    "Capital Humano": "CAPITAL HUMANO",
+    "Control": "CONTROL",
+    "Consultoría Jurídica": "CONSULTORÍA JURÍDICA",
+    "Tecnología": "TECNOLOGÍA",
+    "Finanzas": "FINANZAS",
+    "PMO": "PMO",
+};
+
+
 export default function EquipoPage() {
     const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [activeDepartment, setActiveDepartment] = useState('Todos');
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -32,6 +66,11 @@ export default function EquipoPage() {
 
     const filteredEmployees = useMemo(() => {
         let employees = allMembers;
+        const mappedArea = areaMapping[activeDepartment];
+
+        if (mappedArea !== 'Todos') {
+            employees = employees.filter(employee => employee.Area === mappedArea);
+        }
 
         if (searchTerm) {
             employees = employees.filter(employee =>
@@ -41,7 +80,7 @@ export default function EquipoPage() {
         }
         
         return employees;
-    }, [searchTerm, allMembers]);
+    }, [activeDepartment, searchTerm, allMembers]);
 
     return (
         <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -64,6 +103,19 @@ export default function EquipoPage() {
                             className="pl-9 w-full sm:w-64 text-xs"
                         />
                     </div>
+                </div>
+                 <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2">
+                    {teamDepartments.map(dept => (
+                        <Button
+                            key={dept.id}
+                            variant={activeDepartment === dept.name ? 'default' : 'ghost'}
+                            size="sm"
+                            className="rounded-full flex-shrink-0 text-xs"
+                            onClick={() => setActiveDepartment(dept.name)}
+                        >
+                            {dept.name}
+                        </Button>
+                    ))}
                 </div>
             </div>
 

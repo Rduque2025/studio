@@ -43,12 +43,10 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
   try {
     // Perform a simple POST request as required by Google Apps Script web apps
     const response = await fetch(scriptUrl, {
-      method: 'POST',
+      method: 'GET', // Changed to GET as per Apps Script best practice for simple data retrieval
       headers: {
-        'Content-Type': 'text/plain;charset=utf-8',
+        'Content-Type': 'application/json',
       },
-      // An empty body is sufficient for a simple GET-like script
-      body: '',
     });
 
     // Check for network or server errors
@@ -58,10 +56,10 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
 
     const data = await response.json();
     
-    // Check if the script execution was successful
-    if (data.success) {
+    // Check if the script execution was successful by checking for data presence
+    if (data && Array.isArray(data)) {
       // Filter out any potential empty or incomplete rows before validating
-      const cleanData = data.data.filter((row: any) => row && typeof row === 'object' && row['Nombre'] && row['Nombre'].trim() !== '');
+      const cleanData = data.filter((row: any) => row && typeof row === 'object' && row['Nombre'] && row['Nombre'].trim() !== '');
       
       const validatedData: TeamMember[] = [];
       for (const row of cleanData) {
@@ -75,8 +73,8 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
       }
       return validatedData;
     } else {
-      // Throw an error if the script reported a failure
-      throw new Error(data.message || 'Failed to fetch team members from Apps Script.');
+      // Throw an error if the script reported a failure or returned unexpected data
+      throw new Error(data.message || 'Failed to fetch or parse team members from Apps Script.');
     }
   } catch (error) {
     console.error('Error fetching or parsing team member data:', error);

@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, 'react';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { EmployeeCard } from '@/components/dashboard/employee-card';

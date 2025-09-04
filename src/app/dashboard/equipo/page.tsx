@@ -10,21 +10,6 @@ import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const teamDepartments = [
-    { id: "todos", name: "Todos" },
-    { id: "procesos", name: "PROCESOS" },
-    { id: "defensa-asegurado", name: "DEFENSA DEL ASEGURADO" },
-    { id: "auditoria", name: "AUDITORÍA" },
-    { id: "comercial", name: "COMERCIAL" },
-    { id: "cumplimiento", name: "CUMPLIMIENTO" },
-    { id: "suscripcion-operaciones", name: "SUSCRIPCIÓN Y OPERACIONES" },
-    { id: "capital-humano", name: "CAPITAL HUMANO" },
-    { id: "control", name: "CONTROL" },
-    { id: "consultoria-juridica", name: "CONSULTORÍA JURÍDICA" },
-    { id: "tecnologia", name: "TECNOLOGÍA" },
-    { id: "finanzas", name: "FINANZAS" },
-];
-
 export default function EquipoPage() {
     const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +30,12 @@ export default function EquipoPage() {
         };
         fetchMembers();
     }, []);
+
+    const teamDepartments = useMemo(() => {
+        if (isLoading) return [];
+        const departments = new Set(allMembers.map(member => member.Area));
+        return ['Todos', ...Array.from(departments)];
+    }, [allMembers, isLoading]);
 
     const filteredEmployees = useMemo(() => {
         let employees = allMembers;
@@ -88,13 +79,13 @@ export default function EquipoPage() {
                  <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2">
                     {teamDepartments.map(dept => (
                         <Button
-                            key={dept.id}
-                            variant={activeDepartment === dept.name ? 'default' : 'ghost'}
+                            key={dept}
+                            variant={activeDepartment === dept ? 'default' : 'ghost'}
                             size="sm"
                             className="rounded-full flex-shrink-0 text-xs"
-                            onClick={() => setActiveDepartment(dept.name)}
+                            onClick={() => setActiveDepartment(dept)}
                         >
-                            {dept.name}
+                            {dept}
                         </Button>
                     ))}
                 </div>

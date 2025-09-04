@@ -1,7 +1,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { EmployeeCard } from '@/components/dashboard/employee-card';
@@ -12,27 +12,44 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const teamDepartments = [
     { id: "todos", name: "Todos" },
+    { id: "procesos", name: "Procesos" },
+    { id: "defensa-asegurado", name: "Defensa del Asegurado" },
+    { id: "auditoria", name: "Auditoría" },
+    { id: "comercial", name: "Comercial" },
+    { id: "cumplimiento", name: "Cumplimiento" },
+    { id: "suscripcion-operaciones", name: "Suscripción y Operaciones" },
+    { id: "capital-humano", name: "Capital Humano" },
+    { id: "control", name: "Control" },
+    { id: "consultoria-juridica", name: "Consultoría Jurídica" },
+    { id: "tecnologia", name: "Tecnología" },
+    { id: "finanzas", name: "Finanzas" },
     { id: "pmo", name: "PMO" },
-    { id: "procesos", name: "PROCESOS" },
-    { id: "defensa-asegurado", name: "DEFENSA DEL ASEGURADO" },
-    { id: "auditoria", name: "AUDITORÍA" },
-    { id: "comercial", name: "COMERCIAL" },
-    { id: "cumplimiento", name: "CUMPLIMIENTO" },
-    { id: "suscripcion-operaciones", name: "SUSCRIPCIÓN Y OPERACIONES" },
-    { id: "capital-humano", name: "CAPITAL HUMANO" },
-    { id: "control", name: "CONTROL" },
-    { id: "consultoria-juridica", name: "CONSULTORÍA JURÍDICA" },
-    { id: "tecnologia", name: "TECNOLOGÍA" },
-    { id: "finanzas", name: "FINANZAS" },
 ];
 
-export default function EquipoPage() {
-    const [allMembers, setAllMembers] = React.useState<TeamMember[]>([]);
-    const [isLoading, setIsLoading] = React.useState(true);
-    const [activeDepartment, setActiveDepartment] = React.useState('Todos');
-    const [searchTerm, setSearchTerm] = React.useState('');
+const areaMapping: { [key: string]: string } = {
+    "Todos": "Todos",
+    "Procesos": "PROCESOS",
+    "Defensa del Asegurado": "DEFENSA DEL ASEGURADO",
+    "Auditoría": "AUDITORÍA",
+    "Comercial": "COMERCIAL",
+    "Cumplimiento": "CUMPLIMIENTO",
+    "Suscripción y Operaciones": "SUSCRIPCIÓN Y OPERACIONES",
+    "Capital Humano": "CAPITAL HUMANO",
+    "Control": "CONTROL",
+    "Consultoría Jurídica": "CONSULTORÍA JURÍDICA",
+    "Tecnología": "TECNOLOGÍA",
+    "Finanzas": "FINANZAS",
+    "PMO": "PMO"
+};
 
-    React.useEffect(() => {
+
+export default function EquipoPage() {
+    const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [activeDepartment, setActiveDepartment] = useState('Todos');
+    const [searchTerm, setSearchTerm] = useState('');
+
+    useEffect(() => {
         const fetchMembers = async () => {
             setIsLoading(true);
             try {
@@ -47,11 +64,12 @@ export default function EquipoPage() {
         fetchMembers();
     }, []);
 
-    const filteredEmployees = React.useMemo(() => {
+    const filteredEmployees = useMemo(() => {
         let employees = allMembers;
 
         if (activeDepartment !== 'Todos') {
-            employees = employees.filter(employee => employee.Area === activeDepartment);
+            const sheetAreaName = areaMapping[activeDepartment];
+            employees = employees.filter(employee => employee.Area === sheetAreaName);
         }
 
         if (searchTerm) {

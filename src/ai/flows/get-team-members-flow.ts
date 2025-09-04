@@ -41,9 +41,9 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
   }
 
   try {
-    // Perform a simple POST request as required by Google Apps Script web apps
+    // Perform a simple GET request as required by Google Apps Script web apps for data retrieval
     const response = await fetch(scriptUrl, {
-      method: 'GET', // Changed to GET as per Apps Script best practice for simple data retrieval
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },

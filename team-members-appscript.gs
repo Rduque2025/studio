@@ -1,67 +1,66 @@
+/**
+ * @fileoverview Google Apps Script for fetching team member data from a Google Sheet.
+ * This script is designed to be deployed as a web app and provides a JSON API
+ * endpoint for the "TeamMembers" sheet.
+ */
 
 /**
- * Handles HTTP POST requests to the web app.
- * This function is the entry point for the Apps Script web app.
- * It reads data from a Google Sheet named "TeamMembers" and returns it as JSON.
- *
- * @param {Object} e The event parameter for a POST request.
- * @return {ContentService.TextOutput} The JSON response.
+ * Handles GET requests to the web app.
+ * This is the main entry point for fetching data.
+ * @param {GoogleAppsScript.Events.DoGet} e The event parameter for a GET request.
+ * @returns {GoogleAppsScript.Content.TextOutput} A JSON response containing the team member data.
  */
-function doPost(e) {
+function doGet(e) {
   try {
-    // Access the active spreadsheet and the specific sheet by name
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("TeamMembers");
+    // Open the spreadsheet by its ID and get the specific sheet by name
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName("TeamMembers");
+
     if (!sheet) {
-      return createJsonResponse({ success: false, message: "Sheet 'TeamMembers' not found." });
+      return createJsonResponse({ error: true, message: "Sheet 'TeamMembers' not found." });
     }
 
-    // Get all data from the sheet, excluding empty rows/columns at the end
-    var data = sheet.getDataRange().getValues();
-    
-    // Check if there is data to process
-    if (data.length < 2) {
-      return createJsonResponse({ success: true, data: [] }); // No data rows, just a header
+    // Get all data from the sheet, excluding the header row
+    const dataRange = sheet.getDataRange();
+    const values = dataRange.getValues();
+    const headers = values.shift(); // Remove and get headers
+
+    if (!headers || headers.length === 0) {
+        return createJsonResponse([]); // Return empty if no headers
     }
 
-    // The first row is the header
-    var headers = data[0];
-    var jsonData = [];
-
-    // Iterate over each row (starting from the second row) to create JSON objects
-    for (var i = 1; i < data.length; i++) {
-      var row = data[i];
-      // Skip empty rows
-      if (row.join("").trim() === "") continue;
-
-      var obj = {};
-      for (var j = 0; j < headers.length; j++) {
-        var header = headers[j];
-        // Ensure the header is a non-empty string before using it as a key
-        if (header) {
-          obj[header] = row[j];
+    // Map the sheet data to an array of objects
+    const data = values.map(row => {
+      let obj = {};
+      headers.forEach((header, index) => {
+        // Ensure we don't try to access an index that doesn't exist in the row
+        if (index < row.length) {
+          obj[header] = row[index];
         }
-      }
-      jsonData.push(obj);
-    }
+      });
+      return obj;
+    });
 
-    // Return a successful response with the data
-    return createJsonResponse({ success: true, data: jsonData });
+    // Return the data as a JSON string
+    return createJsonResponse(data);
 
   } catch (error) {
-    // Log the error for debugging
-    console.error("Error in doPost: " + error.toString());
-    // Return a generic error response
-    return createJsonResponse({ success: false, message: "An unexpected error occurred: " + error.message });
+    // Log the error for debugging purposes
+    Logger.log(error.toString());
+    // Return a structured error message
+    return createJsonResponse({ error: true, message: "An unexpected error occurred.", details: error.toString() });
   }
 }
 
+
 /**
- * Creates a JSON response object for the web app.
- *
- * @param {Object} responseObject The JavaScript object to stringify.
- * @return {ContentService.TextOutput} The content service object as a JSON string.
+ * Helper function to create a JSON response.
+ * This ensures the correct MIME type is set for the response.
+ * @param {Object} data The data to be returned as JSON.
+ * @returns {GoogleAppsScript.Content.TextOutput} The JSON response object.
  */
-function createJsonResponse(responseObject) {
-  return ContentService.createTextOutput(JSON.stringify(responseObject))
+function createJsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON);
 }

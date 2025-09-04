@@ -11,36 +11,20 @@ import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const teamDepartments = [
-    { id: "todos", name: "Todos" },
-    { id: "procesos", name: "Procesos" },
-    { id: "defensa-asegurado", name: "Defensa del Asegurado" },
-    { id: "auditoria", name: "Auditoría" },
-    { id: "comercial", name: "Comercial" },
-    { id: "cumplimiento", name: "Cumplimiento" },
-    { id: "suscripcion-operaciones", name: "Suscripción y Operaciones" },
-    { id: "capital-humano", name: "Capital Humano" },
-    { id: "control", name: "Control" },
-    { id: "consultoria-juridica", name: "Consultoría Jurídica" },
-    { id: "tecnologia", name: "Tecnología" },
-    { id: "finanzas", name: "Finanzas" },
-    { id: "pmo", name: "PMO" },
+    { id: "todos", name: "Todos", value: "Todos" },
+    { id: "procesos", name: "Procesos", value: "PROCESOS" },
+    { id: "defensa-asegurado", name: "Defensa del Asegurado", value: "DEFENSA DEL ASEGURADO" },
+    { id: "auditoria", name: "Auditoría", value: "AUDITORÍA" },
+    { id: "comercial", name: "Comercial", value: "COMERCIAL" },
+    { id: "cumplimiento", name: "Cumplimiento", value: "CUMPLIMIENTO" },
+    { id: "suscripcion-operaciones", name: "Suscripción y Operaciones", value: "SUSCRIPCIÓN Y OPERACIONES" },
+    { id: "capital-humano", name: "Capital Humano", value: "CAPITAL HUMANO" },
+    { id: "control", name: "Control", value: "CONTROL" },
+    { id: "consultoria-juridica", name: "Consultoría Jurídica", value: "CONSULTORÍA JURÍDICA" },
+    { id: "tecnologia", name: "Tecnología", value: "TECNOLOGÍA" },
+    { id: "finanzas", name: "Finanzas", value: "FINANZAS" },
+    { id: "pmo", name: "PMO", value: "PMO" },
 ];
-
-const areaMapping: { [key: string]: string } = {
-    "Todos": "Todos",
-    "Procesos": "PROCESOS",
-    "Defensa del Asegurado": "DEFENSA DEL ASEGURADO",
-    "Auditoría": "AUDITORÍA",
-    "Comercial": "COMERCIAL",
-    "Cumplimiento": "CUMPLIMIENTO",
-    "Suscripción y Operaciones": "SUSCRIPCIÓN Y OPERACIONES",
-    "Capital Humano": "CAPITAL HUMANO",
-    "Control": "CONTROL",
-    "Consultoría Jurídica": "CONSULTORÍA JURÍDICA",
-    "Tecnología": "TECNOLOGÍA",
-    "Finanzas": "FINANZAS",
-    "PMO": "PMO"
-};
 
 
 export default function EquipoPage() {
@@ -68,8 +52,7 @@ export default function EquipoPage() {
         let employees = allMembers;
 
         if (activeDepartment !== 'Todos') {
-            const sheetAreaName = areaMapping[activeDepartment];
-            employees = employees.filter(employee => employee.Area === sheetAreaName);
+            employees = employees.filter(employee => employee.Area === activeDepartment);
         }
 
         if (searchTerm) {
@@ -108,10 +91,10 @@ export default function EquipoPage() {
                     {teamDepartments.map(dept => (
                         <Button
                             key={dept.id}
-                            variant={activeDepartment === dept.name ? 'default' : 'ghost'}
+                            variant={activeDepartment === dept.value ? 'default' : 'ghost'}
                             size="sm"
                             className="rounded-full flex-shrink-0 text-xs"
-                            onClick={() => setActiveDepartment(dept.name)}
+                            onClick={() => setActiveDepartment(dept.value)}
                         >
                             {dept.name}
                         </Button>

@@ -82,7 +82,7 @@ export default function EquipoPage() {
                             key={dept}
                             variant={activeDepartment === dept ? 'default' : 'ghost'}
                             size="sm"
-                            className="rounded-full flex-shrink-0 text-xs"
+                            className="rounded-full flex-shrink-0 text-xs h-8 px-3"
                             onClick={() => setActiveDepartment(dept)}
                         >
                             {dept}

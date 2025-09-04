@@ -25,7 +25,7 @@ export function EmployeeCard({ employee }: EmployeeCardProps) {
         <div className="flex justify-between items-center">
           <div>
             <h3 className="font-semibold text-foreground">{employee.Nombre}</h3>
-            <p className="text-sm text-muted-foreground">{employee.Cargo}</p>
+            <p className="text-xs text-muted-foreground">{employee.Cargo}</p>
           </div>
           <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:bg-muted">
             <Plus className="h-4 w-4" />

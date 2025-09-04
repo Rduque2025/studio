@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, 'react';
 import { Button } from '@/components/ui/button';
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { EmployeeCard } from '@/components/dashboard/employee-card';
@@ -12,6 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const teamDepartments = [
     { id: "todos", name: "Todos" },
+    { id: "pmo", name: "PMO" },
     { id: "procesos", name: "PROCESOS" },
     { id: "defensa-asegurado", name: "DEFENSA DEL ASEGURADO" },
     { id: "auditoria", name: "AUDITORÍA" },
@@ -26,12 +27,12 @@ const teamDepartments = [
 ];
 
 export default function EquipoPage() {
-    const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [activeDepartment, setActiveDepartment] = useState('Todos');
-    const [searchTerm, setSearchTerm] = useState('');
+    const [allMembers, setAllMembers] = React.useState<TeamMember[]>([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [activeDepartment, setActiveDepartment] = React.useState('Todos');
+    const [searchTerm, setSearchTerm] = React.useState('');
 
-    useEffect(() => {
+    React.useEffect(() => {
         const fetchMembers = async () => {
             setIsLoading(true);
             try {
@@ -46,7 +47,7 @@ export default function EquipoPage() {
         fetchMembers();
     }, []);
 
-    const filteredEmployees = useMemo(() => {
+    const filteredEmployees = React.useMemo(() => {
         let employees = allMembers;
 
         if (activeDepartment !== 'Todos') {

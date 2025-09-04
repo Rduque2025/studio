@@ -27,6 +27,24 @@ export type TeamMember = z.infer<typeof TeamMemberSchema>;
 export type TeamMembersResponse = z.infer<typeof TeamMembersResponseSchema>;
 
 /**
+ * Transforms a Google Drive viewer URL into a direct image link.
+ * @param url The original Google Drive URL.
+ * @returns A direct image link URL or the original URL if it's not a valid Drive link.
+ */
+function transformGoogleDriveUrl(url: string): string {
+  if (!url) return '';
+  const regex = /drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/;
+  const match = url.match(regex);
+
+  if (match && match[1]) {
+    const fileId = match[1];
+    return `https://drive.google.com/uc?export=view&id=${fileId}`;
+  }
+  return url;
+}
+
+
+/**
  * The main exported function that the frontend will call.
  * It fetches data from the dedicated team Apps Script.
  */
@@ -67,6 +85,10 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
       for (const row of cleanData) {
         const parsed = TeamMemberSchema.safeParse(row);
         if (parsed.success) {
+          // Transform Google Drive URL if present
+          if (parsed.data.ImageUrl) {
+            parsed.data.ImageUrl = transformGoogleDriveUrl(parsed.data.ImageUrl);
+          }
           validatedData.push(parsed.data);
         } else {
           // Log the error for the specific row but don't stop the process

@@ -47,6 +47,8 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
       headers: {
         'Content-Type': 'application/json',
       },
+      // Important for Apps Script redirects
+      redirect: 'follow'
     });
 
     // Check for network or server errors
@@ -56,7 +58,7 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
 
     const data = await response.json();
     
-    // Check if the script execution was successful by checking for data presence
+    // The new script returns the array directly. Check if it's an array.
     if (data && Array.isArray(data)) {
       // Filter out any potential empty or incomplete rows before validating
       const cleanData = data.filter((row: any) => row && typeof row === 'object' && row['Nombre'] && row['Nombre'].trim() !== '');
@@ -74,7 +76,7 @@ export async function getTeamMembers(): Promise<TeamMembersResponse> {
       return validatedData;
     } else {
       // Throw an error if the script reported a failure or returned unexpected data
-      throw new Error(data.message || 'Failed to fetch or parse team members from Apps Script.');
+      throw new Error(data.message || 'Failed to fetch or parse team members from Apps Script. Expected an array.');
     }
   } catch (error) {
     console.error('Error fetching or parsing team member data:', error);

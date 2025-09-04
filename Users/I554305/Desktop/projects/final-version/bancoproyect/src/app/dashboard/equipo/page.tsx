@@ -2,11 +2,11 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
-import { EmployeeCard } from '@/components/dashboard/employee-card';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { Search, Mail, Phone, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -72,7 +72,7 @@ export default function EquipoPage() {
                             placeholder="Buscar..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 w-full sm:w-64 text-xs"
+                            className="pl-9 w-full sm:w-64 text-[11px]"
                         />
                     </div>
                 </div>
@@ -82,7 +82,7 @@ export default function EquipoPage() {
                             key={dept}
                             variant={activeDepartment === dept ? 'default' : 'ghost'}
                             size="sm"
-                            className="rounded-full flex-shrink-0 text-[11px] h-7 px-3"
+                            className="rounded-full flex-shrink-0 text-xs h-7 px-3"
                             onClick={() => setActiveDepartment(dept)}
                         >
                             {dept}
@@ -102,7 +102,55 @@ export default function EquipoPage() {
                     ))
                 ) : (
                     filteredEmployees.map((employee, index) => (
-                        <EmployeeCard key={`${employee.Correo}-${index}`} employee={employee} />
+                        <div key={`${employee.Correo}-${index}`} className="group flex flex-col">
+                            <div className="relative w-full aspect-[4/5] overflow-hidden mb-4 bg-muted rounded-lg">
+                                <Image
+                                src={employee.ImageUrl || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMG1hbnxlbnwwfHx8fDE3NTgwMjA4MDB8MA&ixlib=rb-4.1.0&q=80&w=1080'}
+                                alt={`Portrait of ${employee.Nombre}`}
+                                layout="fill"
+                                objectFit="cover"
+                                data-ai-hint="person portrait"
+                                className="grayscale transition-transform duration-300 group-hover:scale-105"
+                                />
+                            </div>
+                            <div className="mt-2">
+                                <div className="flex justify-between items-center">
+                                <div>
+                                    <h3 className="font-semibold text-foreground">{employee.Nombre}</h3>
+                                    <p className="text-xs text-muted-foreground">{employee.Cargo}</p>
+                                </div>
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:bg-muted">
+                                    <Plus className="h-4 w-4" />
+                                </Button>
+                                </div>
+                                <div className="mt-4 flex items-center gap-2">
+                                    {employee.Correo && (
+                                        <a 
+                                            href={`mailto:${employee.Correo}`}
+                                            className={cn(
+                                                "inline-flex items-center justify-center h-8 w-8 rounded-full",
+                                                "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+                                                "text-muted-foreground"
+                                            )}
+                                        >
+                                            <Mail className="h-4 w-4" />
+                                        </a>
+                                    )}
+                                    {employee.UrlContacto && employee.UrlContacto.startsWith('tel:') && (
+                                        <a 
+                                            href={employee.UrlContacto}
+                                            className={cn(
+                                                "inline-flex items-center justify-center h-8 w-8 rounded-full",
+                                                "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+                                                "text-muted-foreground"
+                                            )}
+                                        >
+                                            <Phone className="h-4 w-4" />
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     ))
                 )}
             </div>

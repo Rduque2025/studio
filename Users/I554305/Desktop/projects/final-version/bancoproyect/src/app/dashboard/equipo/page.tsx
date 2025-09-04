@@ -10,27 +10,9 @@ import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const teamDepartments = [
-    { id: "todos", name: "Todos", value: "Todos" },
-    { id: "procesos", name: "Procesos", value: "PROCESOS" },
-    { id: "defensa-asegurado", name: "Defensa del Asegurado", value: "DEFENSA DEL ASEGURADO" },
-    { id: "auditoria", name: "Auditoría", value: "AUDITORÍA" },
-    { id: "comercial", name: "Comercial", value: "COMERCIAL" },
-    { id: "cumplimiento", name: "Cumplimiento", value: "CUMPLIMIENTO" },
-    { id: "suscripcion-operaciones", name: "Suscripción y Operaciones", value: "SUSCRIPCIÓN Y OPERACIONES" },
-    { id: "capital-humano", name: "Capital Humano", value: "CAPITAL HUMANO" },
-    { id: "control", name: "Control", value: "CONTROL" },
-    { id: "consultoria-juridica", name: "Consultoría Jurídica", value: "CONSULTORÍA JURÍDICA" },
-    { id: "tecnologia", name: "Tecnología", value: "TECNOLOGÍA" },
-    { id: "finanzas", name: "Finanzas", value: "FINANZAS" },
-    { id: "pmo", name: "PMO", value: "PMO" },
-];
-
-
 export default function EquipoPage() {
     const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [activeDepartment, setActiveDepartment] = useState('Todos');
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -51,10 +33,6 @@ export default function EquipoPage() {
     const filteredEmployees = useMemo(() => {
         let employees = allMembers;
 
-        if (activeDepartment !== 'Todos') {
-            employees = employees.filter(employee => employee.Area === activeDepartment);
-        }
-
         if (searchTerm) {
             employees = employees.filter(employee =>
                 employee.Nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -63,7 +41,7 @@ export default function EquipoPage() {
         }
         
         return employees;
-    }, [activeDepartment, searchTerm, allMembers]);
+    }, [searchTerm, allMembers]);
 
     return (
         <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -86,19 +64,6 @@ export default function EquipoPage() {
                             className="pl-9 w-full sm:w-64 text-xs"
                         />
                     </div>
-                </div>
-                 <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2">
-                    {teamDepartments.map(dept => (
-                        <Button
-                            key={dept.id}
-                            variant={activeDepartment === dept.value ? 'default' : 'ghost'}
-                            size="sm"
-                            className="rounded-full flex-shrink-0 text-xs"
-                            onClick={() => setActiveDepartment(dept.value)}
-                        >
-                            {dept.name}
-                        </Button>
-                    ))}
                 </div>
             </div>
 

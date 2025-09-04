@@ -1,34 +1,67 @@
 
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { mockEmployees, teamDepartments } from '@/lib/placeholder-data';
+import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { EmployeeCard } from '@/components/dashboard/employee-card';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const teamDepartments = [
+    { id: "todos", name: "Todos" },
+    { id: "lideres", name: "Líderes" },
+    { id: "comercial", name: "Comercial" },
+    { id: "suscripcion", name: "Suscripción" },
+    { id: "operaciones", name: "Operaciones" },
+    { id: "actuarial", name: "Actuarial" },
+    { id: "capital-humano", name: "Capital Humano" },
+    { id: "procesos", name: "Procesos" },
+    { id: "tecnologia", name: "Tecnología" },
+    { id: "finanzas", name: "Finanzas" },
+];
 
 export default function EquipoPage() {
+    const [allMembers, setAllMembers] = useState<TeamMember[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [activeDepartment, setActiveDepartment] = useState('Todos');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const filteredEmployees = useMemo(() => {
-        let employees = mockEmployees;
+    useEffect(() => {
+        const fetchMembers = async () => {
+            setIsLoading(true);
+            try {
+                const members = await getTeamMembers();
+                setAllMembers(members);
+            } catch (error) {
+                console.error("Error fetching team members:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchMembers();
+    }, []);
 
-        if (activeDepartment !== 'Todos') {
-            employees = employees.filter(employee => employee.department === activeDepartment);
+    const filteredEmployees = useMemo(() => {
+        let employees = allMembers;
+
+        if (activeDepartment === 'Líderes') {
+            employees = employees.filter(employee => employee.Tipo === 'Líderes');
+        } else if (activeDepartment !== 'Todos') {
+            employees = employees.filter(employee => employee.Area === activeDepartment);
         }
 
         if (searchTerm) {
             employees = employees.filter(employee =>
-                employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                employee.role.toLowerCase().includes(searchTerm.toLowerCase())
+                employee.Nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                employee.Cargo.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
         
         return employees;
-    }, [activeDepartment, searchTerm]);
+    }, [activeDepartment, searchTerm, allMembers]);
 
     return (
         <div className="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -68,12 +101,20 @@ export default function EquipoPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-12">
-                {filteredEmployees.map(employee => (
-                    <EmployeeCard key={employee.id} employee={employee} />
-                ))}
+                {isLoading ? (
+                    Array.from({ length: 8 }).map((_, index) => (
+                        <div key={index} className="flex flex-col">
+                            <Skeleton className="w-full aspect-[4/5] rounded-lg mb-4" />
+                            <Skeleton className="h-5 w-3/4 mb-2" />
+                            <Skeleton className="h-4 w-1/2" />
+                        </div>
+                    ))
+                ) : (
+                    filteredEmployees.map(employee => (
+                        <EmployeeCard key={employee.Correo} employee={employee} />
+                    ))
+                )}
             </div>
         </div>
     );
 }
-
-  

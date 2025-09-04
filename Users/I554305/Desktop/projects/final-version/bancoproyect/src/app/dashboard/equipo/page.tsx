@@ -76,7 +76,7 @@ export default function EquipoPage() {
                         />
                     </div>
                 </div>
-                 <div className="flex items-center gap-2 mt-8 overflow-x-auto pb-2">
+                 <div className="flex flex-wrap items-center gap-2 mt-8">
                     {teamDepartments.map(dept => (
                         <Button
                             key={dept}

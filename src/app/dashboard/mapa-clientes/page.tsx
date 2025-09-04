@@ -14,39 +14,18 @@ import {
   Handshake,
   FileCheck2,
   CircleDollarSign,
-  Smile,
   ArrowRight,
-  ChevronLeft,
-  ChevronRight,
   Megaphone,
-  Settings,
-  HeartHandshake,
-  Twitter,
-  Instagram,
   Workflow,
   GraduationCap,
-  Mail,
-  Phone,
   Plus
 } from "lucide-react";
-import { mockEmployees } from "@/lib/placeholder-data";
+import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  PackagePlus, 
-  RefreshCcw, 
-  Network, 
-  Users, 
-  Gauge, 
-  ClipboardCheck, 
-  Zap, 
-  ListChecks, 
-  Award, 
-  Gem, 
-  Gavel 
-} from "lucide-react";
+import { ClipboardCheck } from "lucide-react";
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 const commercialProcessSteps = [
@@ -134,6 +113,23 @@ const StatCard = ({ value, prefix, suffix, description }: { value: number, prefi
 
 
 export default function NosotrosPage() {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [isLoadingTeam, setIsLoadingTeam] = useState(true);
+
+  useEffect(() => {
+    const fetchMembers = async () => {
+      setIsLoadingTeam(true);
+      try {
+        const members = await getTeamMembers();
+        setTeamMembers(members);
+      } catch (error) {
+        console.error("Error fetching team members:", error);
+      } finally {
+        setIsLoadingTeam(false);
+      }
+    };
+    fetchMembers();
+  }, []);
 
   const serviceCategories = [
     {
@@ -263,31 +259,41 @@ export default function NosotrosPage() {
                     </CardContent>
                 </Card>
 
-                {mockEmployees.slice(0, 6).map((employee) => (
-                    <div key={employee.id} className="group flex flex-col aspect-square lg:aspect-[6/7]">
-                        <div className="relative w-full aspect-square overflow-hidden mb-4 bg-muted rounded-2xl">
-                            <Image
-                            src={employee.imageUrl}
-                            alt={`Portrait of ${employee.name}`}
-                            layout="fill"
-                            objectFit="cover"
-                            data-ai-hint={employee.dataAiHint}
-                            className="grayscale transition-transform duration-300 group-hover:scale-105"
-                            />
+                {isLoadingTeam ? (
+                    Array.from({ length: 6 }).map((_, index) => (
+                        <div key={index} className="flex flex-col aspect-square lg:aspect-[6/7]">
+                           <Skeleton className="w-full aspect-square rounded-2xl mb-4" />
+                           <Skeleton className="h-5 w-3/4 mb-2" />
+                           <Skeleton className="h-4 w-1/2" />
                         </div>
-                        <div className="mt-2">
-                            <div className="flex justify-between items-center">
-                            <div>
-                                <h3 className="font-semibold text-foreground">{employee.name}</h3>
-                                <p className="text-xs text-muted-foreground">{employee.role}</p>
+                    ))
+                ) : (
+                    teamMembers.slice(0, 6).map((employee, index) => (
+                        <div key={`${employee.Correo}-${index}`} className="group flex flex-col aspect-square lg:aspect-[6/7]">
+                            <div className="relative w-full aspect-square overflow-hidden mb-4 bg-muted rounded-2xl">
+                                <Image
+                                src={employee.ImageUrl || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMG1hbnxlbnwwfHx8fDE3NTgwMjA4MDB8MA&ixlib=rb-4.1.0&q=80&w=1080'}
+                                alt={`Portrait of ${employee.Nombre}`}
+                                layout="fill"
+                                objectFit="cover"
+                                data-ai-hint="person portrait"
+                                className="grayscale transition-transform duration-300 group-hover:scale-105"
+                                />
                             </div>
-                            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:bg-muted">
-                                <Plus className="h-4 w-4" />
-                            </Button>
+                            <div className="mt-2">
+                                <div className="flex justify-between items-center">
+                                <div>
+                                    <h3 className="font-semibold text-foreground">{employee.Nombre}</h3>
+                                    <p className="text-xs text-muted-foreground">{employee.Cargo}</p>
+                                </div>
+                                <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:bg-muted">
+                                    <Plus className="h-4 w-4" />
+                                </Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
           </div>
         </section>
@@ -347,7 +353,4 @@ export default function NosotrosPage() {
       </div>
     </div>
   );
-    
-
-
-    
+}

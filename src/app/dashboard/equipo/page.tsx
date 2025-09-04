@@ -72,7 +72,7 @@ export default function EquipoPage() {
                             placeholder="Buscar..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="pl-9 w-full sm:w-64 text-xs"
+                            className="pl-9 w-full sm:w-64 text-[11px]"
                         />
                     </div>
                 </div>

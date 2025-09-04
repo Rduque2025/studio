@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { TeamMember } from "@/ai/flows/get-team-members-flow";
 import { Mail, Phone, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface EmployeeCardProps {
   employee: TeamMember;
@@ -33,11 +34,16 @@ export function EmployeeCard({ employee }: EmployeeCardProps) {
         </div>
         <div className="mt-4 flex items-center gap-2">
             {employee.Correo && (
-                <Button asChild variant="outline" size="icon" className="h-8 w-8 rounded-full text-muted-foreground hover:bg-muted">
-                    <a href={`mailto:${employee.Correo}`}>
+                 <a 
+                    href={`mailto:${employee.Correo}`}
+                    className={cn(
+                        "inline-flex items-center justify-center h-8 w-8 rounded-full",
+                        "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+                        "text-muted-foreground"
+                    )}
+                 >
                     <Mail className="h-4 w-4" />
-                    </a>
-                </Button>
+                 </a>
             )}
             {employee.UrlContacto && employee.UrlContacto.startsWith('tel:') && (
                 <Button asChild variant="outline" size="icon" className="h-8 w-8 rounded-full text-muted-foreground hover:bg-muted">

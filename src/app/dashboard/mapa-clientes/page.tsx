@@ -18,7 +18,8 @@ import {
   Megaphone,
   Workflow,
   GraduationCap,
-  Plus
+  Plus,
+  Banknote
 } from "lucide-react";
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { cn } from '@/lib/utils';
@@ -168,6 +169,12 @@ export default function NosotrosPage() {
       description: "Potencia el talento y fomenta un ambiente laboral de excelencia.",
       href: "/dashboard/capital-humano",
       icon: GraduationCap,
+    },
+    {
+      title: "Finanzas",
+      description: "Gestión y análisis de los recursos financieros de la compañía.",
+      href: "#",
+      icon: Banknote,
     },
   ];
 
@@ -354,3 +361,5 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
+    

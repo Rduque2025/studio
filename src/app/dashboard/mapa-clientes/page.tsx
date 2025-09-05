@@ -277,7 +277,7 @@ export default function NosotrosPage() {
                                 layout="fill"
                                 objectFit="cover"
                                 data-ai-hint="person portrait"
-                                className="grayscale transition-transform duration-300 group-hover:scale-105"
+                                className="transition-transform duration-300 group-hover:scale-105"
                                 />
                             </div>
                             <div className="mt-2">

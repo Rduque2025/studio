@@ -53,7 +53,7 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
 
             <div className="flex justify-between items-center mt-4">
                 {item.price && (
-                     <Badge variant="outline" className="text-sm font-semibold rounded-lg px-3 py-1">
+                     <Badge variant="outline" className="text-xs font-semibold rounded-lg px-3 py-1">
                         {item.price}
                     </Badge>
                 )}

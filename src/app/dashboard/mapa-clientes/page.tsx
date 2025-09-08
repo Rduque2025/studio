@@ -279,7 +279,7 @@ export default function NosotrosPage() {
                         <div key={`${employee.Correo}-${index}`} className="group flex flex-col aspect-square lg:aspect-[6/7]">
                             <div className="relative w-full aspect-square overflow-hidden mb-4 bg-muted rounded-2xl">
                                 <Image
-                                src={employee.ImageUrl || 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMG1hbnxlbnwwfHx8fDE3NTgwMjA4MDB8MA&ixlib=rb-4.1.0&q=80&w=1080'}
+                                src={employee.ImageUrl || 'https://images.unsplash.com/photo-1596367407372-96cb88503db6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxCTEFOQ098ZW58MHx8fHwxNzU3MzYzNTMxfDA&ixlib=rb-4.1.0&q=80&w=1080'}
                                 alt={`Portrait of ${employee.Nombre}`}
                                 layout="fill"
                                 objectFit="cover"
@@ -361,5 +361,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
-    

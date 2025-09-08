@@ -57,8 +57,8 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
                         {item.price}
                     </Badge>
                 )}
-                <Button size="sm" className="rounded-full h-9 px-4">
-                    Ordenar <ArrowRight className="ml-2 h-4 w-4" />
+                <Button size="icon" className="rounded-full h-9 w-9 flex-shrink-0">
+                    <ArrowRight className="h-4 w-4" />
                 </Button>
             </div>
         </CardContent>

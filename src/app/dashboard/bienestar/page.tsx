@@ -204,18 +204,12 @@ export default function BienestarPage() {
         </div>
         <div ref={menuScrollAreaRef}>
             <ScrollArea className="w-full">
-            <div className="flex w-max space-x-8 py-4">
+            <div className="flex w-max space-x-6 py-4">
                 {isLoadingMenu ? (
                   Array.from({ length: 5 }).map((_, index) => (
-                    <Card key={index} className="w-[350px] flex-shrink-0">
-                      <Skeleton className="h-48 w-full" />
-                      <CardContent className="p-4 space-y-2">
-                        <Skeleton className="h-4 w-1/4" />
-                        <Skeleton className="h-6 w-3/4" />
-                        <Skeleton className="h-4 w-full" />
-                        <Skeleton className="h-4 w-2/3" />
-                      </CardContent>
-                    </Card>
+                    <div key={index} className="w-72 flex-shrink-0">
+                        <Skeleton className="h-[420px] w-full rounded-2xl" />
+                    </div>
                   ))
                 ) : filteredMenuItems.length > 0 ? (
                   filteredMenuItems.map((item) => (

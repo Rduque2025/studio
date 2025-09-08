@@ -115,6 +115,45 @@ const getNpsStatus = (score: number) => {
     return { label: "Excelente", color: "text-green-600", bg: "bg-green-100", stroke: "stroke-green-500" };
 };
 
+const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number; statusLabel: string; statusColor: string; }) => {
+    const strokeWidth = 10;
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+    const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+    return (
+        <div className="relative h-48 w-48">
+            <svg className="h-full w-full" viewBox="0 0 200 200">
+                <circle
+                    className="stroke-current text-muted/30"
+                    cx="100"
+                    cy="100"
+                    r={radius}
+                    fill="transparent"
+                    strokeWidth={strokeWidth}
+                />
+                <circle
+                    className={cn("stroke-current", statusColor)}
+                    cx="100"
+                    cy="100"
+                    r={radius}
+                    fill="transparent"
+                    strokeWidth={strokeWidth}
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    strokeLinecap="round"
+                    transform="rotate(-90 100 100)"
+                    style={{ transition: 'stroke-dashoffset 0.5s ease-in-out' }}
+                />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-4xl font-bold text-foreground">{progress}%</span>
+                <Badge className={cn("font-semibold tracking-wider mt-2 bg-opacity-80 text-white", statusColor.replace('text-', 'bg-'))}>{statusLabel}</Badge>
+            </div>
+        </div>
+    );
+};
+
 
 export default function ObjetivosSmartPage() {
     const [selectedCategory, setSelectedCategory] = useState<keyof typeof smartGoalsData | null>(null);
@@ -125,8 +164,9 @@ export default function ObjetivosSmartPage() {
       day: 0,
       totalDays: 365,
       percentage: 0,
-      chartData: [] as { name: string; value: number }[],
     });
+    
+    const companyProgress = 58; // Static value as before
 
     useEffect(() => {
         const now = new Date();
@@ -136,12 +176,7 @@ export default function ObjetivosSmartPage() {
         const totalDays = Math.ceil((endOfYear.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
         const percentage = Math.round((dayOfYear / totalDays) * 100);
 
-        const chartData = [
-            { name: 'Inicio', value: 0 },
-            { name: 'Hoy', value: dayOfYear },
-        ];
-
-        setYearProgress({ day: dayOfYear, totalDays, percentage, chartData });
+        setYearProgress({ day: dayOfYear, totalDays, percentage });
     }, []);
 
     useEffect(() => {
@@ -170,7 +205,8 @@ export default function ObjetivosSmartPage() {
 
     const npsStatus = getNpsStatus(npsData.score);
     
-    const progressStatus = getStatus(yearProgress.percentage);
+    const companyProgressStatus = getStatus(companyProgress);
+    const yearProgressStatus = getStatus(yearProgress.percentage);
 
     const filteredFeedback = useMemo(() => {
         if (isLoadingFeedback) return [];
@@ -245,53 +281,34 @@ export default function ObjetivosSmartPage() {
               
               <div className="lg:col-span-2">
                 {!selectedCategory ? (
-                    <Card className="shadow-sm border-none bg-card flex flex-col justify-between h-full p-6">
-                        <CardHeader className="flex flex-row justify-between items-start p-0">
-                            <div className="flex items-center gap-2">
-                                <div className="p-2 bg-muted rounded-md">
-                                    <Clock className="h-5 w-5 text-muted-foreground" />
-                                </div>
-                                <div>
-                                    <CardTitle className="text-sm font-medium">Progreso Anual</CardTitle>
-                                    <CardDescription className="text-xs">Día {yearProgress.day} de {yearProgress.totalDays}</CardDescription>
-                                </div>
-                            </div>
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                                <MoreVertical className="h-4 w-4" />
-                            </Button>
-                        </CardHeader>
-                        <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="w-full h-48">
-                               <ResponsiveContainer>
-                                   <AreaChart
-                                        data={yearProgress.chartData}
-                                        margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
-                                    >
-                                        <defs>
-                                            <linearGradient id="progressFill" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
-                                            </linearGradient>
-                                        </defs>
-                                        <YAxis domain={[0, yearProgress.totalDays]} hide />
-                                        <Area
-                                            type="monotone"
-                                            dataKey="value"
-                                            stroke="hsl(var(--primary))"
-                                            strokeWidth={2}
-                                            fill="url(#progressFill)"
-                                        />
-                                    </AreaChart>
-                               </ResponsiveContainer>
-                           </div>
-                            <div className="text-center -mt-8">
-                               <p className="text-4xl font-bold text-foreground">{yearProgress.percentage}%</p>
-                                <Badge className={cn("font-semibold tracking-wider mt-2", progressStatus.bg, progressStatus.color, `hover:${progressStatus.bg}`)}>
-                                    {progressStatus.label}
-                                </Badge>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+                        <Card className="shadow-sm border-none bg-card flex flex-col justify-between p-6">
+                            <CardHeader className="p-0">
+                                <CardTitle className="text-sm font-medium">Progreso de la Empresa</CardTitle>
+                                <CardDescription className="text-xs">Objetivo: 100%</CardDescription>
+                            </CardHeader>
+                            <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
+                               <ProgressRing 
+                                    progress={companyProgress} 
+                                    statusLabel={companyProgressStatus.label} 
+                                    statusColor={companyProgressStatus.color} 
+                                />
+                            </CardContent>
+                        </Card>
+                         <Card className="shadow-sm border-none bg-card flex flex-col justify-between p-6">
+                            <CardHeader className="p-0">
+                                <CardTitle className="text-sm font-medium">Progreso Anual</CardTitle>
+                                <CardDescription className="text-xs">Día {yearProgress.day} de {yearProgress.totalDays}</CardDescription>
+                            </CardHeader>
+                            <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
+                               <ProgressRing 
+                                    progress={yearProgress.percentage} 
+                                    statusLabel={yearProgressStatus.label} 
+                                    statusColor={yearProgressStatus.color} 
+                                />
+                            </CardContent>
+                        </Card>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {smartGoalsData[selectedCategory].challenges.map((challenge) => (
@@ -482,6 +499,3 @@ export default function ObjetivosSmartPage() {
         </div>
     );
 }
-
-
-    

@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
@@ -116,13 +116,51 @@ const getNpsStatus = (score: number) => {
 };
 
 const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number; statusLabel: string; statusColor: string; }) => {
+    const [animatedProgress, setAnimatedProgress] = useState(0);
+    const [animatedNumber, setAnimatedNumber] = useState(0);
+    const ref = useRef<HTMLDivElement>(null);
     const strokeWidth = 10;
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setAnimatedProgress(progress);
+                    let start = 0;
+                    const end = progress;
+                    if (start === end) return;
+                    
+                    const duration = 1500;
+                    const incrementTime = (duration / end) * (1000 / 60);
+                    const timer = setInterval(() => {
+                        start += 1;
+                        setAnimatedNumber(start);
+                        if (start === end) clearInterval(timer);
+                    }, incrementTime);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        const currentRef = ref.current;
+        if (currentRef) {
+            observer.observe(currentRef);
+        }
+
+        return () => {
+            if (currentRef) {
+                observer.unobserve(currentRef);
+            }
+        };
+    }, [progress]);
+
+    const strokeDashoffset = circumference - (animatedProgress / 100) * circumference;
 
     return (
-        <div className="relative h-48 w-48">
+        <div ref={ref} className="relative h-48 w-48">
             <svg className="h-full w-full" viewBox="0 0 200 200">
                 <circle
                     className="stroke-current text-muted/30"
@@ -143,11 +181,11 @@ const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number
                     strokeDashoffset={strokeDashoffset}
                     strokeLinecap="round"
                     transform="rotate(-90 100 100)"
-                    style={{ transition: 'stroke-dashoffset 0.5s ease-in-out' }}
+                    style={{ transition: 'stroke-dashoffset 1.5s ease-out' }}
                 />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-bold text-foreground">{progress}%</span>
+                <span className="text-4xl font-bold text-foreground">{animatedNumber}%</span>
                 <Badge className={cn("font-semibold tracking-wider mt-2 bg-opacity-80 text-white", statusColor.replace('text-', 'bg-'))}>{statusLabel}</Badge>
             </div>
         </div>
@@ -173,10 +211,10 @@ export default function ObjetivosSmartPage() {
         const startOfYear = new Date(now.getFullYear(), 0, 1);
         const endOfYear = new Date(now.getFullYear(), 11, 31);
         const dayOfYear = Math.ceil((now.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
-        const totalDays = Math.ceil((endOfYear.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
-        const percentage = Math.round((dayOfYear / totalDays) * 100);
+        const totalDaysInYear = (startOfYear.getFullYear() % 4 === 0 && startOfYear.getFullYear() % 100 !== 0) || startOfYear.getFullYear() % 400 === 0 ? 366 : 365;
+        const percentage = Math.round((dayOfYear / totalDaysInYear) * 100);
 
-        setYearProgress({ day: dayOfYear, totalDays, percentage });
+        setYearProgress({ day: dayOfYear, totalDays: totalDaysInYear, percentage });
     }, []);
 
     useEffect(() => {

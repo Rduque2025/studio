@@ -115,30 +115,29 @@ const getNpsStatus = (score: number) => {
     return { label: "Excelente", color: "text-green-600", bg: "bg-green-100", stroke: "stroke-green-500" };
 };
 
-const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number; statusLabel: string; statusColor: string; }) => {
-    const [animatedProgress, setAnimatedProgress] = useState(0);
-    const [animatedNumber, setAnimatedNumber] = useState(0);
+const useAnimatedNumber = (end: number, duration = 700) => {
+    const [count, setCount] = useState(0);
     const ref = useRef<HTMLDivElement>(null);
-    const strokeWidth = 10;
-    const radius = 80;
-    const circumference = 2 * Math.PI * radius;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    setAnimatedProgress(progress);
                     let start = 0;
-                    const end = progress;
-                    if (start === end) return;
+                    const endValue = end;
+                    if (start === endValue) return;
+
+                    const range = endValue - start;
+                    const increment = endValue > start ? 1 : -1;
+                    const stepTime = Math.abs(Math.floor(duration / range));
                     
-                    const duration = 1500;
-                    const incrementTime = (duration / end) * (1000 / 60);
                     const timer = setInterval(() => {
-                        start += 1;
-                        setAnimatedNumber(start);
-                        if (start === end) clearInterval(timer);
-                    }, incrementTime);
+                        start += increment;
+                        setCount(start);
+                        if (start === endValue) {
+                            clearInterval(timer);
+                        }
+                    }, stepTime);
                     observer.disconnect();
                 }
             },
@@ -155,15 +154,52 @@ const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number
                 observer.unobserve(currentRef);
             }
         };
-    }, [progress]);
+    }, [end, duration]);
+
+    return { count, ref };
+};
+
+const ProgressRing = ({ progress }: { progress: number }) => {
+    const { count: animatedNumber, ref } = useAnimatedNumber(progress);
+    const [animatedProgress, setAnimatedProgress] = useState(0);
+
+    const strokeWidth = 16;
+    const radius = 80;
+    const circumference = 2 * Math.PI * radius;
+
+    useEffect(() => {
+        // This effect synchronizes the SVG stroke animation with the number animation trigger
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setAnimatedProgress(progress);
+                observer.disconnect();
+            }
+        }, { threshold: 0.1 });
+        
+        const currentRef = ref.current;
+        if(currentRef) {
+            observer.observe(currentRef);
+        }
+
+        return () => {
+            if(currentRef) {
+                observer.unobserve(currentRef);
+            }
+        }
+    }, [progress, ref]);
 
     const strokeDashoffset = circumference - (animatedProgress / 100) * circumference;
+    const indicatorAngle = (animatedProgress / 100) * 360;
+    const indicatorX = 100 + radius * Math.cos((indicatorAngle - 90) * (Math.PI / 180));
+    const indicatorY = 100 + radius * Math.sin((indicatorAngle - 90) * (Math.PI / 180));
+
+    const remainingPercentage = 100 - animatedNumber;
 
     return (
         <div ref={ref} className="relative h-48 w-48">
             <svg className="h-full w-full" viewBox="0 0 200 200">
                 <circle
-                    className="stroke-current text-muted/30"
+                    className="stroke-current text-primary/10"
                     cx="100"
                     cy="100"
                     r={radius}
@@ -171,7 +207,7 @@ const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number
                     strokeWidth={strokeWidth}
                 />
                 <circle
-                    className={cn("stroke-current", statusColor)}
+                    className="stroke-current text-primary"
                     cx="100"
                     cy="100"
                     r={radius}
@@ -181,12 +217,37 @@ const ProgressRing = ({ progress, statusLabel, statusColor }: { progress: number
                     strokeDashoffset={strokeDashoffset}
                     strokeLinecap="round"
                     transform="rotate(-90 100 100)"
-                    style={{ transition: 'stroke-dashoffset 1.5s ease-out' }}
+                    style={{ transition: 'stroke-dashoffset 0.7s ease-out' }}
                 />
+                 {animatedProgress > 0 && (
+                    <circle
+                        cx={indicatorX}
+                        cy={indicatorY}
+                        r={strokeWidth / 2.5}
+                        fill="white"
+                        style={{ transition: 'all 0.7s ease-out' }}
+                    />
+                )}
             </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-bold text-foreground">{animatedNumber}%</span>
-                <Badge className={cn("font-semibold tracking-wider mt-2 bg-opacity-80 text-white", statusColor.replace('text-', 'bg-'))}>{statusLabel}</Badge>
+             <div 
+                className={cn(
+                    "absolute bottom-0 right-0 transform translate-x-1/4 -translate-y-1/4 transition-opacity duration-700",
+                    animatedProgress > 0 ? "opacity-100" : "opacity-0"
+                )}
+            >
+                <div className="bg-primary text-primary-foreground text-lg font-bold p-2 px-3 rounded-lg shadow-lg">
+                    {animatedNumber}%
+                </div>
+            </div>
+             <div 
+                className={cn(
+                    "absolute top-0 left-0 transform -translate-x-1/4 translate-y-1/4 transition-opacity duration-700",
+                     animatedProgress > 0 ? "opacity-100" : "opacity-0"
+                )}
+            >
+                <div className="bg-primary/10 text-primary text-lg font-bold p-2 px-3 rounded-lg shadow-lg">
+                    {remainingPercentage}%
+                </div>
             </div>
         </div>
     );
@@ -326,11 +387,7 @@ export default function ObjetivosSmartPage() {
                                 <CardDescription className="text-xs">Objetivo: 100%</CardDescription>
                             </CardHeader>
                             <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                               <ProgressRing 
-                                    progress={companyProgress} 
-                                    statusLabel={companyProgressStatus.label} 
-                                    statusColor={companyProgressStatus.color} 
-                                />
+                               <ProgressRing progress={companyProgress} />
                             </CardContent>
                         </Card>
                          <Card className="shadow-sm border-none bg-card flex flex-col justify-between p-6">
@@ -339,11 +396,7 @@ export default function ObjetivosSmartPage() {
                                 <CardDescription className="text-xs">Día {yearProgress.day} de {yearProgress.totalDays}</CardDescription>
                             </CardHeader>
                             <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                               <ProgressRing 
-                                    progress={yearProgress.percentage} 
-                                    statusLabel={yearProgressStatus.label} 
-                                    statusColor={yearProgressStatus.color} 
-                                />
+                               <ProgressRing progress={yearProgress.percentage} />
                             </CardContent>
                         </Card>
                     </div>

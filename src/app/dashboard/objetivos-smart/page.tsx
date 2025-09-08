@@ -103,11 +103,6 @@ const smartGoalsData = {
   },
 };
 
-const progressData = {
-    current: 58,
-    goal: 100
-};
-
 const getStatus = (progress: number) => {
     if (progress < 40) return { label: "EN RIESGO", color: "text-red-600", bg: "bg-red-100", ring: "ring-red-200", stroke: "stroke-red-500", progressClass: "bg-destructive" };
     if (progress < 75) return { label: "EN PROGRESO", color: "text-amber-600", bg: "bg-amber-100", ring: "ring-amber-200", stroke: "stroke-amber-500", progressClass: "bg-amber-500" };
@@ -126,6 +121,28 @@ export default function ObjetivosSmartPage() {
     const [activeFeedbackCategory, setActiveFeedbackCategory] = useState<'PROMOTOR' | 'NEUTRO' | 'DETRACTOR'>('PROMOTOR');
     const [customerFeedback, setCustomerFeedback] = useState<CustomerFeedback[]>([]);
     const [isLoadingFeedback, setIsLoadingFeedback] = useState(true);
+    const [yearProgress, setYearProgress] = useState({
+      day: 0,
+      totalDays: 365,
+      percentage: 0,
+      chartData: [] as { name: string; value: number }[],
+    });
+
+    useEffect(() => {
+        const now = new Date();
+        const startOfYear = new Date(now.getFullYear(), 0, 1);
+        const endOfYear = new Date(now.getFullYear(), 11, 31);
+        const dayOfYear = Math.ceil((now.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
+        const totalDays = Math.ceil((endOfYear.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
+        const percentage = Math.round((dayOfYear / totalDays) * 100);
+
+        const chartData = [
+            { name: 'Inicio', value: 0 },
+            { name: 'Hoy', value: dayOfYear },
+        ];
+
+        setYearProgress({ day: dayOfYear, totalDays, percentage, chartData });
+    }, []);
 
     useEffect(() => {
       const fetchFeedback = async () => {
@@ -151,20 +168,9 @@ export default function ObjetivosSmartPage() {
         }
     };
 
-    const progressStatus = getStatus(progressData.current);
     const npsStatus = getNpsStatus(npsData.score);
-
-    const radius = 55;
-    const strokeWidth = 10;
-    const size = (radius + strokeWidth) * 2;
-
-    const progressCircumference = 2 * Math.PI * radius;
-    const progressOffset = progressCircumference - (progressData.current / 100) * progressCircumference;
     
-    // NPS score is from -100 to 100. We map it to a 0-100 scale for the circle.
-    const npsPercentage = (npsData.score + 100) / 2;
-    const npsCircumference = 2 * Math.PI * radius;
-    const npsOffset = npsCircumference - (npsPercentage / 100) * npsCircumference;
+    const progressStatus = getStatus(yearProgress.percentage);
 
     const filteredFeedback = useMemo(() => {
         if (isLoadingFeedback) return [];
@@ -247,7 +253,7 @@ export default function ObjetivosSmartPage() {
                                 </div>
                                 <div>
                                     <CardTitle className="text-sm font-medium">Progreso Anual</CardTitle>
-                                    <CardDescription className="text-xs">Estado general de objetivos</CardDescription>
+                                    <CardDescription className="text-xs">Día {yearProgress.day} de {yearProgress.totalDays}</CardDescription>
                                 </div>
                             </div>
                             <Button variant="ghost" size="icon" className="h-8 w-8">
@@ -255,39 +261,34 @@ export default function ObjetivosSmartPage() {
                             </Button>
                         </CardHeader>
                         <CardContent className="flex-grow flex flex-col items-center justify-center p-0">
-                           <div className="relative h-40 w-40">
-                                <svg className="h-full w-full" viewBox={`0 0 ${size} ${size}`}>
-                                    <circle
-                                        className="text-muted/50"
-                                        stroke="currentColor"
-                                        strokeWidth={strokeWidth}
-                                        fill="transparent"
-                                        r={radius}
-                                        cx={size / 2}
-                                        cy={size / 2}
-                                    />
-                                    <circle
-                                        className={cn("transform -rotate-90 origin-center transition-all duration-1000", progressStatus.stroke)}
-                                        stroke="currentColor"
-                                        strokeWidth={strokeWidth}
-                                        strokeDasharray={progressCircumference}
-                                        strokeDashoffset={progressOffset}
-                                        strokeLinecap="round"
-                                        fill="transparent"
-                                        r={radius}
-                                        cx={size / 2}
-                                        cy={size / 2}
-                                    />
-                                </svg>
-                                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                                    <p className="text-4xl font-bold text-foreground">{progressData.current}%</p>
-                                </div>
-                            </div>
-                            <div className="text-center mt-4">
-                                <Badge className={cn("font-semibold tracking-wider", progressStatus.bg, progressStatus.color, `hover:${progressStatus.bg}`)}>
+                           <div className="w-full h-48">
+                               <ResponsiveContainer>
+                                   <AreaChart
+                                        data={yearProgress.chartData}
+                                        margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
+                                    >
+                                        <defs>
+                                            <linearGradient id="progressFill" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                                            </linearGradient>
+                                        </defs>
+                                        <YAxis domain={[0, yearProgress.totalDays]} hide />
+                                        <Area
+                                            type="monotone"
+                                            dataKey="value"
+                                            stroke="hsl(var(--primary))"
+                                            strokeWidth={2}
+                                            fill="url(#progressFill)"
+                                        />
+                                    </AreaChart>
+                               </ResponsiveContainer>
+                           </div>
+                            <div className="text-center -mt-8">
+                               <p className="text-4xl font-bold text-foreground">{yearProgress.percentage}%</p>
+                                <Badge className={cn("font-semibold tracking-wider mt-2", progressStatus.bg, progressStatus.color, `hover:${progressStatus.bg}`)}>
                                     {progressStatus.label}
                                 </Badge>
-                                <p className="text-muted-foreground text-xs mt-2">Objetivo: {progressData.goal}%</p>
                             </div>
                         </CardContent>
                     </Card>
@@ -483,8 +484,4 @@ export default function ObjetivosSmartPage() {
 }
 
 
-
-
-
-
-
+    

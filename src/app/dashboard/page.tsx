@@ -115,7 +115,7 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
     >
       <div className={cn("pl-4 transition-opacity duration-200", isClicked ? "opacity-0" : "opacity-100")}>
         <p className="text-[10px]">{label}</p>
-        <p className="text-xs font-semibold">{number}</p>
+        <p className={cn("font-semibold", type === 'email' ? "text-[11px]" : "text-xs")}>{number}</p>
       </div>
 
       <div
@@ -417,7 +417,7 @@ export default function DashboardPage() {
                 {isLoadingMenu ? (
                   <div className="flex flex-wrap justify-center gap-6">
                     {Array.from({ length: 3 }).map((_, index) => (
-                      <Card key={index} className="w-80 flex-shrink-0">
+                      <Card key={index} className="w-96 flex-shrink-0">
                         <Skeleton className="h-48 w-full" />
                         <CardContent className="p-4 space-y-2">
                           <Skeleton className="h-4 w-1/4" />
@@ -878,3 +878,46 @@ export default function DashboardPage() {
     </div>
   );
 }
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+
+
+
+    
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+
+    

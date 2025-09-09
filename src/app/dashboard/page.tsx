@@ -250,17 +250,17 @@ export default function DashboardPage() {
     // Set hero image based on time of day
     if (currentHour >= 6 && currentHour < 14) { // Morning (6am to 1:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib-rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "clear sky"
       });
     } else if (currentHour >= 14 && currentHour < 17) { // Afternoon (2pm to 4:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib-rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "sunset sky"
       });
     } else { // Evening/Night (5pm onwards)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOSUdIVHxlbnwwfHx8fDE3NTM5OTY3NjN8MA&ixlib-rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOSUdIVHxlbnwwfHx8fDE3NTM5OTY3NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
         hint: "night sky"
       });
     }
@@ -354,7 +354,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8ZmFtaWx5fGVufDB8fHx8MTc1MjYwNTY2Nnww&ixlib-rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8ZmFtaWx5fGVufDB8fHx8MTc1MjYwNTY2Nnww&ixlib=rb-4.1.0&q=80&w=1080"
                       alt="Cliente satisfecho"
                       width={400}
                       height={400}
@@ -519,7 +519,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                     <Image
-                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib-rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Recomendaciones de viaje"
                         layout="fill"
                         objectFit="cover"
@@ -617,7 +617,7 @@ export default function DashboardPage() {
             <SectionWrapper>
             <Card className="relative overflow-hidden rounded-2xl shadow-lg min-h-[500px] flex flex-col md:flex-row">
                 <Image
-                    src="https://images.unsplash.com/photo-1551803091-e2ab692d222c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2RlbCUyMG1hbnxlbnwwfHx8fDE3NTczNjUwNDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwbW9kZWx8ZW58MHx8fHwxNzU3NDI3MzUwfDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Modelo con ropa moderna"
                     layout="fill"
                     objectFit="cover"

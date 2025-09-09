@@ -624,7 +624,7 @@ export default function DashboardPage() {
                     data-ai-hint="fashion model"
                     className="brightness-90"
                 />
-                <div className="absolute inset-0 bg-black/20" />
+                
                 <div className="relative z-10 p-8 md:p-12 text-white flex flex-col justify-between w-full md:w-1/2">
                 <div>
                     <p className="text-sm uppercase tracking-wider text-white/80">Viste Seguro</p>
@@ -985,4 +985,5 @@ export default function DashboardPage() {
     
 
     
+
 

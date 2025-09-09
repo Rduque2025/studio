@@ -417,7 +417,7 @@ export default function DashboardPage() {
                 {isLoadingMenu ? (
                   <div className="flex flex-wrap justify-center gap-6">
                     {Array.from({ length: 3 }).map((_, index) => (
-                      <Card key={index} className="w-[350px] flex-shrink-0">
+                      <Card key={index} className="w-80 flex-shrink-0">
                         <Skeleton className="h-48 w-full" />
                         <CardContent className="p-4 space-y-2">
                           <Skeleton className="h-4 w-1/4" />
@@ -878,48 +878,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-    
-
-
-    
-
-
-
-
-
-
-
-
-
-    
-
-    
-
-
-
-
-    
-
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    
-
-    
-
-    

@@ -101,7 +101,7 @@ export default function BienestarPage() {
     const handleMenuScroll = (direction: 'left' | 'right') => {
         const viewport = menuScrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
         if (viewport) {
-        const scrollAmount = 320; 
+        const scrollAmount = 344; // w-80 (320px) + space-x-6 (24px)
         viewport.scrollBy({
             left: direction === 'left' ? -scrollAmount : scrollAmount,
             behavior: 'smooth',
@@ -207,7 +207,7 @@ export default function BienestarPage() {
             <div className="flex w-max space-x-6 py-4">
                 {isLoadingMenu ? (
                   Array.from({ length: 5 }).map((_, index) => (
-                    <div key={index} className="w-72 flex-shrink-0">
+                    <div key={index} className="w-80 flex-shrink-0">
                         <Skeleton className="h-[420px] w-full rounded-2xl" />
                     </div>
                   ))

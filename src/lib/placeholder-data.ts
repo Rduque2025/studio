@@ -266,7 +266,7 @@ export const mockCourses: Course[] = [
     id: "otras-opciones-desarrollo",
     title: "Otras opciones para tu desarrollo",
     description: "Aquí podrás encontrar el link de otras páginas que te ayudarán a tu crecimiento profesional.",
-    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlLWxlYXJuaW5nfGVufDB8fHx8fDE3NTQ0MTM4OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxlLWxlYXJuaW5nfGVufDB8fHx8MTc1NDQxMzg5MHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "e-learning development",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -318,7 +318,7 @@ export const mockActivities: Activity[] = [
     title: "Cross combat",
     date: "2025-07-01",
     location: "Terraza - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Qk9YSU5HfGVufDB8fHx8MTc1MDk1NDMyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1590556409324-aa1d726e5c3c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8Qk9YSU5HfGVufDB8fHx8MTc1MDk1NDMyOXww&ixlib-rb-4.1.0&q=80&w=1080",
     dataAiHint: "combat fitness",
     description: "Te invitamos a esta emocionante actividad física musicalizada, donde de forma equilibrada y en conjunto se estimulan capacidades, como la aérobica o cardiovascular, la resistencia muscular, flexibilidad y otra habilidades y destrezas de ejercicios tomados del Boxeo, las Artes marciales y la Danza aeróbica o gimnasia aeróbica.\n\nDónde y cuándo son las clases:\nMartes, 5:00 P.M."
   },
@@ -775,28 +775,28 @@ export const mockDressCodeItems: DressCodeItem[] = [
     id: "DC001",
     title: "Formal de Negocios",
     description: "Traje completo (saco y pantalón o falda), camisa de vestir, corbata (opcional para mujeres). Zapatos de vestir.",
-    imageUrl: "https://placehold.co/400x300.png",
+    imageUrl: "https://images.unsplash.com/photo-1610652492515-d3c3f3f3f3f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     dataAiHint: "business formal"
   },
   {
     id: "DC002",
     title: "Casual de Negocios",
     description: "Pantalones de vestir o chinos, camisa o blusa, blazer o suéter opcional. Zapatos cerrados.",
-    imageUrl: "https://placehold.co/400x300.png",
+    imageUrl: "https://images.unsplash.com/photo-1556742512-83491b2c44fb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     dataAiHint: "business casual"
   },
   {
     id: "DC003",
     title: "Smart Casual",
     description: "Vaqueros oscuros (sin roturas), camisa o polo, blusa elegante. Chaqueta deportiva o cárdigan. Zapatos limpios y cuidados.",
-    imageUrl: "https://placehold.co/400x300.png",
+    imageUrl: "https://images.unsplash.com/photo-1603217041434-3199a5e8b61e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     dataAiHint: "smart casual"
   },
   {
     id: "DC004",
     title: "Viernes Casual",
     description: "Vestimenta más relajada, pero manteniendo profesionalismo. Vaqueros permitidos (limpios), camisetas tipo polo o blusas casuales.",
-    imageUrl: "https://placehold.co/400x300.png",
+    imageUrl: "https://images.unsplash.com/photo-1581044777550-4cfa6ce67943?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
     dataAiHint: "casual friday"
   },
 ];
@@ -888,7 +888,7 @@ export const mockPlaylist: PlaylistItem[] = [
     id: "P004", 
     title: "Solo Éxitos Pop", 
     description: "Las canciones más populares del momento.",
-    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080", 
+    albumArtUrl: "https://images.unsplash.com/photo-1729338043193-3a8464eb20c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8Y29tZXR8ZW58MHx8fHwxNzUyNjAwMDI4fDA&ixlib-rb-4.1.0&q=80&w=1080", 
     linkUrl: "#", 
     dataAiHint: "pop music"
   },

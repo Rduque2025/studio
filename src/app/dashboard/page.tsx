@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities, mockDepartments, mockPlaylist, faqData } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockDepartments, mockPlaylist, faqData, mockDressCodeItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
@@ -70,6 +70,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PlaylistCard } from '@/components/dashboard/playlist-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DressCodeCard } from '@/components/dashboard/dress-code-card';
 
 
 const pilaresData = [
@@ -109,13 +110,13 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
       href={href}
       onClick={handleClick}
       className={cn(
-        "relative flex w-[340px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px]",
+        "relative flex w-[280px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px]",
         className
       )}
     >
       <div className={cn("pl-4 transition-opacity duration-200", isClicked ? "opacity-0" : "opacity-100")}>
-        <p className="text-xs">{label}</p>
-        <p className={cn("font-semibold", type === 'email' ? "text-sm" : "text-sm")}>{number}</p>
+        <p className="text-[10px]">{label}</p>
+        <p className={cn("font-semibold", type === 'email' ? "text-[11px]" : "text-xs")}>{number}</p>
       </div>
 
       <div
@@ -202,6 +203,7 @@ const normalizeDayName = (name: string) => {
 
 
 export default function DashboardPage() {
+  const dressCodeScrollRef = useRef<HTMLDivElement>(null);
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [heroImage, setHeroImage] = useState({
@@ -226,6 +228,17 @@ export default function DashboardPage() {
     }
   };
 
+  const handleDressCodeScroll = (direction: 'left' | 'right') => {
+    const viewport = dressCodeScrollRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
+    if (viewport) {
+      const scrollAmount = 344; // w-80 (320px) + space-x-6 (24px)
+      viewport.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   const currentCourse = mockCourses[currentCourseIndex];
   
   useEffect(() => {
@@ -237,17 +250,17 @@ export default function DashboardPage() {
     // Set hero image based on time of day
     if (currentHour >= 6 && currentHour < 14) { // Morning (6am to 1:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib-rb-4.1.0&q=80&w=1080",
         hint: "clear sky"
       });
     } else if (currentHour >= 14 && currentHour < 17) { // Afternoon (2pm to 4:59pm)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1517685633466-403d6955aeab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBVEFSREVDRVJ8ZW58MHx8fHwxNzUyNjEyMDE2fDA&ixlib-rb-4.1.0&q=80&w=1080",
         hint: "sunset sky"
       });
     } else { // Evening/Night (5pm onwards)
       setHeroImage({
-        src: "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOSUdIVHxlbnwwfHx8fDE3NTM5OTY3NjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+        src: "https://images.unsplash.com/photo-1590418606746-018840f9cd0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxOSUdIVHxlbnwwfHx8fDE3NTM5OTY3NjN8MA&ixlib-rb-4.1.0&q=80&w=1080",
         hint: "night sky"
       });
     }
@@ -341,7 +354,7 @@ export default function DashboardPage() {
               </div>
               <div className="col-span-1 row-span-1 rounded-2xl overflow-hidden shadow-lg">
                   <Image
-                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8ZmFtaWx5fGVufDB8fHx8MTc1MjYwNTY2Nnww&ixlib=rb-4.1.0&q=80&w=1080"
+                      src="https://images.unsplash.com/photo-1529180979161-06b8b6d6f2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8ZmFtaWx5fGVufDB8fHx8MTc1MjYwNTY2Nnww&ixlib-rb-4.1.0&q=80&w=1080"
                       alt="Cliente satisfecho"
                       width={400}
                       height={400}
@@ -506,7 +519,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                     <Image
-                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib=rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1534396579421-7c278108bf83?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzYWx0byUyMGFuZ2VsfGVufDB8fHx8MTc1MjU4NzIxMHww&ixlib-rb-4.1.0&q=80&w=1080"
                         alt="Recomendaciones de viaje"
                         layout="fill"
                         objectFit="cover"
@@ -596,6 +609,57 @@ export default function DashboardPage() {
                     </div>
                 </div>
             </div>
+            </SectionWrapper>
+        </div>
+
+        {/* Dress Code Section */}
+        <div id="dress-code">
+            <SectionWrapper>
+            <Card className="relative overflow-hidden rounded-2xl shadow-lg min-h-[500px] flex flex-col md:flex-row">
+                <Image
+                    src="https://images.unsplash.com/photo-1551803091-e2ab692d222c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb2RlbCUyMG1hbnxlbnwwfHx8fDE3NTczNjUwNDB8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Modelo con ropa moderna"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="fashion model"
+                    className="brightness-90"
+                />
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="relative z-10 p-8 md:p-12 text-white flex flex-col justify-between w-full md:w-1/2">
+                <div>
+                    <p className="text-sm uppercase tracking-wider text-white/80">Viste Seguro</p>
+                    <h2 className="text-4xl md:text-5xl font-bold mt-2">Banesco Seguros</h2>
+                </div>
+                <div>
+                    <p className="mt-4 max-w-sm text-white/90">
+                    Conoce nuestros códigos de vestimenta para cada ocasión y proyecta la mejor imagen.
+                    </p>
+                    <Button asChild variant="secondary" className="mt-6 bg-white/90 text-foreground hover:bg-white">
+                    <Link href="/dashboard/bienestar#dress-code">Explorar Guía</Link>
+                    </Button>
+                </div>
+                </div>
+                <div className="relative z-10 p-8 md:p-12 w-full md:w-1/2 flex items-center">
+                    <div ref={dressCodeScrollRef} className="w-full">
+                        <ScrollArea>
+                            <div className="flex w-max space-x-6 pb-4">
+                            {mockDressCodeItems.map((item) => (
+                                <DressCodeCard key={item.id} item={item} />
+                            ))}
+                            </div>
+                            <ScrollBar orientation="horizontal" className="invisible" />
+                        </ScrollArea>
+                    </div>
+                     <div className="absolute right-4 bottom-4 flex gap-2">
+                        <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white/20 text-white backdrop-blur-sm" onClick={() => handleDressCodeScroll('left')}>
+                            <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white/20 text-white backdrop-blur-sm" onClick={() => handleDressCodeScroll('right')}>
+                            <ChevronRight className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+            </Card>
             </SectionWrapper>
         </div>
 

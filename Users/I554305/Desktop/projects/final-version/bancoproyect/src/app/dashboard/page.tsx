@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
-import { mockCourses, mockActivities, mockDepartments, mockPlaylist, faqData } from "@/lib/placeholder-data";
+import { mockCourses, mockActivities, mockDepartments, mockPlaylist, faqData, mockDressCodeItems } from "@/lib/placeholder-data";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import {
@@ -70,6 +70,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PlaylistCard } from '@/components/dashboard/playlist-card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { DressCodeCard } from '@/components/dashboard/dress-code-card';
 
 
 const pilaresData = [
@@ -109,7 +110,7 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
       href={href}
       onClick={handleClick}
       className={cn(
-        "relative flex w-[300px] items-center justify-start rounded-full p-1.5 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[48px]",
+        "relative flex w-[280px] items-center justify-start rounded-full p-2 text-white shadow-lg transition-colors duration-300 hover:brightness-110 overflow-hidden h-[56px]",
         className
       )}
     >
@@ -120,12 +121,12 @@ const AnimatedContactButton = ({ href, type, label, number, icon: Icon, classNam
 
       <div
         className={cn(
-          "absolute top-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
+          "absolute top-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white transition-transform duration-300 ease-in-out",
           "transform -translate-y-1/2",
           isClicked ? "left-2" : "right-2",
         )}
       >
-         {isClicked ? <Check className="h-5 w-5 text-green-500" /> : <Icon className={cn("h-4 w-4", iconClassName)} />}
+         {isClicked ? <Check className="h-5 w-5 text-green-500" /> : <Icon className={cn("h-5 w-5", iconClassName)} />}
       </div>
     </Link>
   );
@@ -202,6 +203,7 @@ const normalizeDayName = (name: string) => {
 
 
 export default function DashboardPage() {
+  const dressCodeScrollRef = useRef<HTMLDivElement>(null);
   const [currentDayName, setCurrentDayName] = useState('');
   const [currentCourseIndex, setCurrentCourseIndex] = useState(0);
   const [heroImage, setHeroImage] = useState({
@@ -223,6 +225,17 @@ export default function DashboardPage() {
       setCurrentCourseIndex((prevIndex) => (prevIndex + 1) % mockCourses.length);
     } else {
       setCurrentCourseIndex((prevIndex) => (prevIndex - 1 + mockCourses.length) % mockCourses.length);
+    }
+  };
+
+  const handleDressCodeScroll = (direction: 'left' | 'right') => {
+    const viewport = dressCodeScrollRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
+    if (viewport) {
+      const scrollAmount = 344; // w-80 (320px) + space-x-6 (24px)
+      viewport.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -417,7 +430,7 @@ export default function DashboardPage() {
                 {isLoadingMenu ? (
                   <div className="flex flex-wrap justify-center gap-6">
                     {Array.from({ length: 3 }).map((_, index) => (
-                      <Card key={index} className="w-80 flex-shrink-0">
+                      <Card key={index} className="w-96 flex-shrink-0">
                         <Skeleton className="h-48 w-full" />
                         <CardContent className="p-4 space-y-2">
                           <Skeleton className="h-4 w-1/4" />
@@ -597,6 +610,58 @@ export default function DashboardPage() {
                 </div>
             </div>
             </SectionWrapper>
+        </div>
+
+        {/* Dress Code Section */}
+        <div id="dress-code" className="py-12 md:py-16">
+          <div className="container mx-auto px-4">
+            <Card className="relative overflow-hidden rounded-2xl shadow-lg min-h-[500px] flex flex-col md:flex-row">
+                <Image
+                    src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmYXNoaW9uJTIwbW9kZWx8ZW58MHx8fHwxNzU3NDI3MzUwfDA&ixlib=rb-4.1.0&q=80&w=1080"
+                    alt="Modelo con ropa moderna"
+                    layout="fill"
+                    objectFit="cover"
+                    data-ai-hint="fashion model"
+                    className="brightness-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-transparent"></div>
+
+                <div className="relative z-10 p-8 md:p-12 text-white flex flex-col justify-between w-full md:w-1/2">
+                <div>
+                    <p className="text-sm uppercase tracking-wider text-white/80">Viste Seguro</p>
+                    <h2 className="text-4xl md:text-5xl font-bold mt-2">Banesco Seguros</h2>
+                </div>
+                <div>
+                    <p className="mt-4 max-w-sm text-white/90">
+                    Conoce nuestros códigos de vestimenta para cada ocasión y proyecta la mejor imagen.
+                    </p>
+                    <Button asChild variant="secondary" className="mt-6 bg-white/90 text-foreground hover:bg-white">
+                    <Link href="/dashboard/bienestar#dress-code">Explorar Guía</Link>
+                    </Button>
+                </div>
+                </div>
+                <div className="relative z-10 p-8 md:p-12 w-full md:w-1/2 flex items-center">
+                    <div ref={dressCodeScrollRef} className="w-full">
+                        <ScrollArea>
+                            <div className="flex w-max space-x-6 pb-4">
+                            {mockDressCodeItems.map((item) => (
+                                <DressCodeCard key={item.id} item={item} />
+                            ))}
+                            </div>
+                            <ScrollBar orientation="horizontal" className="invisible" />
+                        </ScrollArea>
+                    </div>
+                     <div className="absolute right-4 bottom-4 flex gap-2">
+                        <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white/20 text-white backdrop-blur-sm" onClick={() => handleDressCodeScroll('left')}>
+                            <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <Button variant="secondary" size="icon" className="h-8 w-8 rounded-full bg-white/20 text-white backdrop-blur-sm" onClick={() => handleDressCodeScroll('right')}>
+                            <ChevronRight className="h-4 w-4" />
+                        </Button>
+                    </div>
+                </div>
+            </Card>
+          </div>
         </div>
 
         {/* Póliza HCM Section */}
@@ -921,3 +986,4 @@ export default function DashboardPage() {
     
 
     
+

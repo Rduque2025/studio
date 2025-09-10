@@ -782,7 +782,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     id: "DC002",
     title: "Casual de Negocios",
     description: "Pantalones de vestir o chinos, camisa o blusa, blazer o suéter opcional. Zapatos cerrados.",
-    imageUrl: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxidXNpbmVzcyUyMGNhc3VhbHxlbnwwfHx8fDE3NTc0MjczNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1711574786546-d41025b2e863?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxidXNpbmVzcyUyMGNhc3VhbHxlbnwwfHx8fDE3NTc0MjczNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "business casual"
   },
   {
@@ -796,7 +796,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     id: "DC004",
     title: "Viernes Casual",
     description: "Vestimenta más relajada, pero manteniendo profesionalismo. Vaqueros permitidos (limpios), camisetas tipo polo o blusas casuales.",
-    imageUrl: "https://images.unsplash.com/photo-1711123576364-7c221ce7f178?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjYXN1YWwlMjBmcmlkYXl8ZW58MHx8fHwxNzU3NDI3MzUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1592621385612-4d7129426394?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxXT01BTnxlbnwwfHx8fDE3NTc1MzQzNDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "casual friday"
   },
 ];
@@ -938,5 +938,6 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 
 

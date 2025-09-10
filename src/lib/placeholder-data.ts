@@ -775,7 +775,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     id: "DC001",
     title: "Formal de Negocios",
     description: "Traje completo (saco y pantalón o falda), camisa de vestir, corbata (opcional para mujeres). Zapatos de vestir.",
-    imageUrl: "https://images.unsplash.com/photo-1574781824015-6dc89cb75ff1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxidXNpbmVzcyUyMGZvcm1hbHxlbnwwfHx8fDE3NTc0MjczNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/flagged/photo-1573603867003-89f5fd7a7576?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxidXNzaW5lcyUyMG1hbnxlbnwwfHx8fDE3NTc1MzA0NzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "business formal"
   },
   {
@@ -938,3 +938,4 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+

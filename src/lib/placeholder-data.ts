@@ -789,7 +789,7 @@ export const mockDressCodeItems: DressCodeItem[] = [
     id: "DC003",
     title: "Smart Casual",
     description: "Vaqueros oscuros (sin roturas), camisa o polo, blusa elegante. Chaqueta deportiva o cárdigan. Zapatos limpios y cuidados.",
-    imageUrl: "https://images.unsplash.com/photo-1675191837842-696f43c9be8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxzbWFydCUyMGNhc3VhbHxlbnwwfHx8fDE3NTc0MjczNTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxyb3BhJTIwfGVufDB8fHx8MTc1NzUzMTk3Mnww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "smart casual"
   },
   {
@@ -938,4 +938,5 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 

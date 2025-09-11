@@ -15,6 +15,7 @@ import { Badge } from '@/components/ui/badge';
 import type { CalendarEvent } from '@/contexts/events-context';
 import { getMenuItems } from '@/ai/flows/get-menu-items-flow';
 import type { MenuItem } from '@/ai/flows/get-menu-items-flow';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const SPECIFIC_EVENT_STYLES: { [title: string]: { bg: string; text: string } } = {
   "Bono Gerencial": { bg: 'bg-primary', text: 'text-primary-foreground' },
@@ -35,15 +36,27 @@ const mockExecutiveCalendarEvents = [
 export default function EspacioEjecutivoPage() {
     const [date, setDate] = React.useState<Date | undefined>(new Date(2025, 5, 1));
     const [todaysMenu, setTodaysMenu] = React.useState<MenuItem | null>(null);
+    const [isLoadingMenu, setIsLoadingMenu] = React.useState(true);
 
-     React.useEffect(() => {
+    React.useEffect(() => {
         const fetchAndSetMenu = async () => {
-            const allMenus = await getMenuItems();
-            const dayName = new Date().toLocaleString('es-ES', { weekday: 'long' });
-            const capitalizedDayName = dayName.charAt(0).toUpperCase() + dayName.slice(1);
-            
-            const menuItem = allMenus.find(item => item.day === capitalizedDayName && item.type === 'Ejecutivo') || null;
-            setTodaysMenu(menuItem);
+            setIsLoadingMenu(true);
+            try {
+                const allMenus = await getMenuItems();
+                const dayName = new Date().toLocaleString('es-ES', { weekday: 'long' });
+                const normalizedToday = dayName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                
+                const menuItem = allMenus.find(item => 
+                    item.day.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") === normalizedToday && 
+                    item.type === 'Ejecutivo'
+                ) || null;
+                setTodaysMenu(menuItem);
+            } catch (error) {
+                console.error("Failed to fetch menu:", error);
+                setTodaysMenu(null);
+            } finally {
+                setIsLoadingMenu(false);
+            }
         };
         
         fetchAndSetMenu();
@@ -166,7 +179,13 @@ export default function EspacioEjecutivoPage() {
                 <div className="lg:col-span-1 flex flex-col gap-6">
                      <Card className="flex-1 flex flex-col overflow-hidden">
                         <CardContent className="flex-grow p-0">
-                           {todaysMenu ? (
+                           {isLoadingMenu ? (
+                                <div className="p-6 h-full flex flex-col items-center justify-center text-center">
+                                    <Skeleton className="h-48 w-full mb-4" />
+                                    <Skeleton className="h-6 w-3/4 mb-2" />
+                                    <Skeleton className="h-4 w-1/2" />
+                                </div>
+                           ) : todaysMenu ? (
                                 <div className="relative h-full w-full">
                                     {todaysMenu.imageUrl ? (
                                         <Image 

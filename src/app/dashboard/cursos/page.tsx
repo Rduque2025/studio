@@ -90,36 +90,6 @@ export default function CursosPage() {
           </div>
         </div>
       </section>
-
-      {/* Newsletter Section */}
-      <section className="py-16 bg-foreground text-background">
-        <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-16 items-center">
-                <div className="space-y-4">
-                    <h2 className="text-4xl font-bold">Suscríbete a nuestro boletín</h2>
-                    <p className="text-muted-foreground max-w-md">Recibe notificaciones sobre nuevos cursos, eventos y recursos directamente en tu correo.</p>
-                    <div className="flex w-full max-w-md items-center space-x-2 pt-4">
-                        <Input type="email" placeholder="Tu correo electrónico" className="bg-background/90 border-border text-foreground h-12" />
-                        <Button type="submit" size="lg" className="h-12">Suscribirse</Button>
-                    </div>
-                </div>
-                <div className="hidden md:block">
-                  <Card className="bg-card shadow-lg rounded-xl transform rotate-3">
-                    <CardContent className="p-4">
-                        <Image
-                            src="https://images.unsplash.com/photo-1542349314-b0ceb4d90f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxudWJlc3xlbnwwfHx8fDE3NTI2MDU1MDV8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                            alt="Newsletter preview"
-                            width={500}
-                            height={300}
-                            className="rounded-lg object-cover"
-                            data-ai-hint="clear sky"
-                        />
-                    </CardContent>
-                  </Card>
-                </div>
-            </div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -83,7 +83,7 @@ export default function BienestarPage() {
                 title: event.title,
                 date: format(event.date, "d 'de' MMMM", { locale: es }),
                 description: event.description || `Un evento especial programado para el ${format(event.date, "PPP", { locale: es })}.`,
-                imageUrl: "https://images.unsplash.com/photo-1552650272-b8a34e21bc4b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8cmVzdHxlbnwwfHx8fDE3NTY5MDgyNzB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+                imageUrl: "https://images.unsplash.com/photo-1729155408920-20029e94e183?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNHx8cmVzdHxlbnwwfHx8fDE3NTc2MTQ5MTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
                 dataAiHint: "celebration event"
             }));
 

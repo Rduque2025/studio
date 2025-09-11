@@ -121,7 +121,7 @@ export default function EspacioEjecutivoPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <Card className="group relative rounded-2xl overflow-hidden shadow-lg h-[450px] flex flex-col justify-end">
-                    <Image src="https://images.unsplash.com/photo-1704423846283-f016b77ca51a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8Y29ycG9yYXRpdmV8ZW58MHx8fHwxNzU2ODQ1NDIyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Actividades Exclusivas" layout="fill" objectFit="cover" data-ai-hint="exclusive workshop" className="transition-transform duration-300 group-hover:scale-105" />
+                    <Image src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMXx8RURJRklDSU98ZW58MHx8fHwxNzU3NjEyNzUwfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Actividades Exclusivas" layout="fill" objectFit="cover" data-ai-hint="exclusive workshop" className="transition-transform duration-300 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none" />
                     <CardContent className="relative z-10 p-6 text-white">
                         <h3 className="text-2xl font-bold">Actividades Exclusivas</h3>

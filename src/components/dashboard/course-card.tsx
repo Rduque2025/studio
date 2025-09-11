@@ -12,45 +12,32 @@ interface CourseCardProps {
 }
 
 export function CourseCard({ course }: CourseCardProps) {
-  // Use a standard link for courses without a detail page, assuming it's an external resource.
-  // In a real scenario, this link would come from the course data.
   const linkHref = course.hasDetailPage ? `/dashboard/cursos/${course.id}` : "#";
   const linkTarget = course.hasDetailPage ? "_self" : "_blank";
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden">
-      <CardHeader className="p-0">
-        <div className="relative w-full h-48">
-          <Image
-            src={course.imageUrl}
-            alt={course.title}
-            layout="fill"
-            objectFit="cover"
-            data-ai-hint={course.dataAiHint}
-          />
+    <Link href={linkHref} target={linkTarget} className="group block h-full">
+      <div className="flex flex-col h-full">
+        <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl mb-4">
+            <Image
+                src={course.imageUrl}
+                alt={course.title}
+                layout="fill"
+                objectFit="cover"
+                data-ai-hint={course.dataAiHint}
+                className="transition-transform duration-300 group-hover:scale-105"
+            />
         </div>
-      </CardHeader>
-      <CardContent className="flex-grow p-4">
-        <CardTitle className="text-lg font-semibold mb-2">{course.title}</CardTitle>
-        <CardDescription className="text-xs text-muted-foreground mb-3 h-16 overflow-hidden text-ellipsis">
-          {course.description}
-        </CardDescription>
-        <div className="flex flex-wrap gap-2 text-xs text-muted-foreground mb-3">
-          <Badge variant="secondary" className="flex items-center gap-1">
-            <Tag className="h-3 w-3" /> {course.category}
-          </Badge>
-          <Badge variant="outline" className="flex items-center gap-1">
-            <Clock className="h-3 w-3" /> {course.duration}
-          </Badge>
+        <div className="flex-grow">
+          <div className="flex items-center gap-4 text-xs text-muted-foreground mb-1">
+            <span>{course.category}</span>
+            <span>&bull;</span>
+            <span>{course.duration}</span>
+          </div>
+          <h3 className="font-semibold text-foreground text-lg group-hover:text-primary transition-colors">{course.title}</h3>
+          <p className="text-sm text-muted-foreground mt-2 line-clamp-2">{course.description}</p>
         </div>
-      </CardContent>
-      <CardFooter className="p-4 border-t">
-        <Button asChild className="w-full" variant="default">
-          <Link href={linkHref} target={linkTarget}>
-            {course.hasDetailPage ? "Ver Detalles" : "Acceder al Curso"}
-          </Link>
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </Link>
   );
 }

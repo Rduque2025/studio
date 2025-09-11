@@ -149,7 +149,7 @@ export default function BienestarPage() {
 
       {/* Important Events Section */}
       <SectionWrapper
-        title="Eventos Importantes del Mes"
+        title="Eventos del Mes"
         description="Mantente al día con las celebraciones y fechas especiales que tenemos en Banesco Seguros."
         titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
         descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"

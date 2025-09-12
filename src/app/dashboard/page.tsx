@@ -48,7 +48,10 @@ import {
   Music2,
   Home,
   User,
-  Cog
+  Cog,
+  Lightbulb,
+  Shield,
+  Handshake
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -74,10 +77,10 @@ import { DressCodeCard } from '@/components/dashboard/dress-code-card';
 
 
 const pilaresData = [
-    { number: "01", title: "Solidez", text: "Garantizamos la capacidad de respuesta ante compromisos.", icon: Landmark, color: "bg-primary" },
-    { number: "02", title: "Talento", text: "Equipo de profesionales capacitados y motivados.", icon: "bg-secondary" },
-    { number: "03", title: "Tecnología", text: "Invertimos para optimizar procesos y mejorar experiencia.", icon: Cpu, color: "bg-blue-400" },
-    { number: "04", title: "Adaptabilidad", text: "Nos ajustamos a los cambios del entorno y del mercado.", icon: GitFork, color: "bg-sky-400" },
+    { number: "01", title: "Calidad", text: "Trabajamos para brindar mejores soluciones a nuestros clientes.", icon: Award, color: "bg-primary" },
+    { number: "02", title: "Innovación", text: "Construimos una visión de futuro para nuestra organización.", icon: Lightbulb, color: "bg-secondary" },
+    { number: "03", title: "Confiabilidad", text: "La cultura de servicio se enfoca en unir esfuerzos en torno a nuestros clientes.", icon: Shield, color: "bg-blue-400" },
+    { number: "04", title: "Responsabilidad", text: "Cumplimos con nuestros compromisos; brindamos seguridad y confianza.", icon: Handshake, color: "bg-sky-400" },
 ];
 
 const AnimatedContactButton = ({ href, type, label, number, icon: Icon, className, iconClassName }: {
@@ -489,7 +492,7 @@ export default function DashboardPage() {
                 <div className="space-y-4 my-auto">
                     <div className="relative h-48 w-full rounded-2xl overflow-hidden group">
                     <Image
-                        src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib-rb-4.1.0&q=80&w=1080"
+                        src="https://images.unsplash.com/photo-1615317779547-2078d82c549a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwbGFuZXxlbnwwfHx8fDE3NTI1MDYxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
                         alt="Solicitudes de vacaciones"
                         layout="fill"
                         objectFit="cover"
@@ -918,6 +921,7 @@ export default function DashboardPage() {
                 <div className="space-y-4">
                 {pilaresData.map((pilar, index) => {
                     const colors = ["bg-primary", "bg-secondary", "bg-[#3f94cd]", "bg-[#59d1ff]"];
+                    const Icon = pilar.icon;
                     return (
                     <div 
                         key={pilar.number}
@@ -985,6 +989,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

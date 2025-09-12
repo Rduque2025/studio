@@ -236,7 +236,7 @@ export const mockCourses: Course[] = [
     id: "gestion-de-proveedores",
     title: "Gestión de Proveedores",
     description: "Aquí podrás  obtener información de herramientas y mejores prácticas para ser efectivos en la búsqueda, selección, evaluación y gestión de proveedores, mediante la planificación asociada a la negociación, que finalmente servirá como retroalimentación constante para el desarrollo tanto de la organización como de los proveedores.",
-    imageUrl: "https://images.unsplash.com/photo-1613214149922-f0189c99b414?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyMHx8bWVjYW5pY298ZW58MHx8fHwxNzU0NDE3MTk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxERUxJVkVSWXxlbnwwfHx8fDE3NTc3MDMxMzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "supplier management",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -938,6 +938,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 
 
 

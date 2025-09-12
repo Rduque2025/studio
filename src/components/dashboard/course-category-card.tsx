@@ -15,7 +15,7 @@ interface CourseCategoryCardProps {
 export function CourseCategoryCard({ category, imageUrl, dataAiHint }: CourseCategoryCardProps) {
   return (
     <Link href="#" className="group block">
-      <div className="relative h-80 w-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+      <div className="relative h-64 w-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
         <Image
           src={imageUrl}
           alt={`Category: ${category}`}

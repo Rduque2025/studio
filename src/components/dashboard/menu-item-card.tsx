@@ -14,7 +14,7 @@ interface MenuItemCardProps {
 
 export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
   return (
-    <Card className="w-80 flex-shrink-0 overflow-hidden rounded-2xl shadow-lg transition-shadow hover:shadow-xl flex flex-col h-[420px]">
+    <Card className="w-96 flex-shrink-0 overflow-hidden rounded-2xl shadow-lg transition-shadow hover:shadow-xl flex flex-col h-[420px]">
         <CardHeader className="p-0 relative h-3/5">
             <div className="relative w-full h-full">
                 {item.imageUrl ? (

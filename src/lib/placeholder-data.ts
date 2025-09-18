@@ -1,5 +1,4 @@
 
-
 import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code, Music, AlertTriangle, CheckCircle, CalendarDays, MessageSquare as MessageSquareIcon, Music2 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
@@ -176,7 +175,7 @@ export const mockCourses: Course[] = [
     id: "pensamiento-estrategico",
     title: "Pensamiento Estratégico",
     description: "Asigna prioridades en el destino de los recursos, donde mejora el desempeño de la organización, así permitiendo a la empresa enfrentarse a los principales problemas de la organización, al cambio en el entorno y ver las oportunidades y detectar las amenazas.",
-    imageUrl: "https://images.unsplash.com/photo-1730804518415-75297e8d2a41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHV6emxlfGVufDB8fHx8MTc1NDMzOTY4OXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1730804518415-75297e8d2a41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cHV6emxlfGVufDB8fHx8fDE3NTQzMzk2ODl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "strategy plan",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -186,7 +185,7 @@ export const mockCourses: Course[] = [
     id: "balanced-scorecard",
     title: "Balanced Scorecard",
     description: "Es herramienta de planeación estratégica que permite a la empresa crear y controlar sus propios indicadores de gestión relacionados dentro de cuatro perspectiva: Financiera, Procesos Internos, Cliente y Formación y Crecimiento",
-    imageUrl: "https://images.unsplash.com/photo-1556155092-8707de31f9c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZXRyaWNzfGVufDB8fHx8MTc1NDM0MDMyN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1556155092-8707de31f9c4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZXRyaWNzfGVufDB8fHx8fDE3NTQzNDAzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "balance chart",
     category: "Desarrollo",
     duration: "Auto-gestionado",
@@ -300,7 +299,7 @@ export const mockActivities: Activity[] = [
     title: "Clases de cuatro",
     date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a901?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a9bb1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "music lessons",
     description: "Si tienes talento para tocar un instrumento musical o quieres aprender, es tú momento.\nÚnete al grupo, no necesitas experiencia previa para formar parte de la actividad.\nPara asistir a las clases solo necesitas:\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes o jueves, 5:00 P.M."
   },
@@ -775,28 +774,28 @@ export const mockDressCodeItems: DressCodeItem[] = [
     id: "DC001",
     title: "Formal de Negocios",
     description: "Traje completo (saco y pantalón o falda), camisa de vestir, corbata (opcional para mujeres). Zapatos de vestir.",
-    imageUrl: "https://images.unsplash.com/photo-1738750908048-14200459c3c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGZvcm1hbHxlbnwwfHx8fDE3NTc2ODMwMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1622497170185-5d668f816a56?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxidXNpbmVzcyUyMGZvcm1hbHxlbnwwfHx8fDE3NTgyMTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "business formal"
   },
   {
     id: "DC002",
     title: "Casual de Negocios",
     description: "Pantalones de vestir o chinos, camisa o blusa, blazer o suéter opcional. Zapatos cerrados.",
-    imageUrl: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxidXNpbmVzcyUyMGNhc3VhbHxlbnwwfHx8fDE3NTc2ODMwMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1618086734768-dab4ca3c2c75?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxidXNpbmVzcyUyMGNhc3VhbHxlbnwwfHx8fDE3NTgyMTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "business casual"
   },
   {
     id: "DC003",
     title: "Smart Casual",
     description: "Vaqueros oscuros (sin roturas), camisa o polo, blusa elegante. Chaqueta deportiva o cárdigan. Zapatos limpios y cuidados.",
-    imageUrl: "https://images.unsplash.com/photo-1581065178026-390bc4e78dad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzbWFydCUyMGNhc3VhbHxlbnwwfHx8fDE3NTc2ODMwMjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1495312559398-a85e2dca1cdb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxzbWFydCUyMGNhc3VhbHxlbnwwfHx8fDE3NTgyMTcyMzl8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "smart casual"
   },
   {
     id: "DC004",
     title: "Viernes Casual",
     description: "Vestimenta más relajada, pero manteniendo profesionalismo. Vaqueros permitidos (limpios), camisetas tipo polo o blusas casuales.",
-    imageUrl: "https://images.unsplash.com/photo-1736238943409-d42b547d266e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXN1YWwlMjBmcmlkYXl8ZW58MHx8fHwxNzU3NjgzMDI0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1729281852474-748f2c1af388?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYXN1YWwlMjBmcmlkYXl8ZW58MHx8fHwxNzU4MjE3MjM5fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "casual friday"
   },
 ];
@@ -938,6 +937,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 
 
 

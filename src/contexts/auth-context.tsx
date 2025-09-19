@@ -5,12 +5,14 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 
+// Get the script URL directly using the recommended Next.js client-side approach
+const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+
 // Real API calls to Google Apps Script
 const api = {
   async register(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
     if (!scriptUrl || scriptUrl === "TU_URL_DE_IMPLEMENTACIÓN_AQUÍ") {
-      throw new Error("La URL de Apps Script no está configurada. Por favor, añádala al archivo .env.local");
+      throw new Error("La URL de Apps Script no está configurada. Por favor, añádala a las variables de entorno de su hosting.");
     }
 
     const response = await fetch(scriptUrl, {
@@ -25,9 +27,8 @@ const api = {
   },
   
   async login(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
      if (!scriptUrl || scriptUrl === "TU_URL_DE_IMPLEMENTACIÓN_AQUÍ") {
-      throw new Error("La URL de Apps Script no está configurada. Por favor, añádala al archivo .env.local");
+      throw new Error("La URL de Apps Script no está configurada. Por favor, añádala a las variables de entorno de su hosting.");
     }
 
     const response = await fetch(scriptUrl, {

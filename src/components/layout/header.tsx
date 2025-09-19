@@ -34,7 +34,7 @@ const navItemsDesktop = [
   { name: "Nosotros", href: "/dashboard/mapa-clientes", icon: Target, activePaths: ["/dashboard/mapa-clientes", "/dashboard/objetivos", "/dashboard/objetivos-smart"] },
   { name: "Calendario", href: "/dashboard/calendario", icon: CalendarDays, activePaths: ["/dashboard/calendario"] },
   { name: "Bienestar", href: "/dashboard/bienestar", icon: HeartHandshake, activePaths: ["/dashboard/bienestar", "/dashboard/actividades"] },
-  { name: "Cursos", href: "/dashboard/cursos", icon: GraduationCap, activePaths: ["/dashboard/cursos"] },
+  { name: "Desarrollo", href: "/dashboard/cursos", icon: GraduationCap, activePaths: ["/dashboard/cursos"] },
   { name: "Requerimientos", href: "/dashboard/requerimientos", icon: FileText, activePaths: ["/dashboard/requerimientos"] },
   { name: "Biblioteca", href: "/dashboard/biblioteca", icon: BookOpen, activePaths: ["/dashboard/biblioteca"] },
 ];

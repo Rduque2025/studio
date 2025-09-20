@@ -126,12 +126,12 @@ function LoginPageContent() {
       </div>
       <div className="hidden bg-muted lg:block">
         <Image
-          src="https://images.unsplash.com/photo-1504119089809-1d5100a33f27?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxidWlsZGluZ3N8ZW58MHx8fHwxNzU2ODQ1MzAwfDA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="Edificio corporativo moderno"
+          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/site-inter_Mesa%20de%20trabajo%201.jpg?raw=true"
+          alt="Banner corporativo de Banesco Seguros"
           width="1920"
           height="1080"
           className="h-full w-full object-cover dark:brightness-[0.3]"
-          data-ai-hint="corporate building"
+          data-ai-hint="corporate banner"
         />
       </div>
     </div>

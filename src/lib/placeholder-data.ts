@@ -49,6 +49,7 @@ export interface DocumentResource {
   title: string;
   category: 'Recursos Visuales' | 'Herramientas' | 'Presentaciones' | 'Manuales' | 'Documentos' | 'Videos' | 'Destacados' | 'Música';
   area: 'Comercial' | 'Suscripción' | 'Legal' | 'Mercadeo' | 'Capital Humano' | 'Procesos' | 'Actuarial' | 'General' | 'Finanzas' | 'Tecnologia';
+  businessLine?: 'Automóvil' | 'Personas' | 'Patrimoniales' | 'Salud';
   description: string;
   imageUrl: string;
   dataAiHint: string;
@@ -454,6 +455,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Comprendiendo la Brecha de Entrega Móvil", 
     category: "Manuales", 
     area: "Procesos",
+    businessLine: "Salud",
     description: "Un análisis profundo de los desafíos en la entrega de servicios móviles y cómo superarlos.", 
     imageUrl: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxicmlkZ2V8ZW58MHx8fHwxNzUzMzA2NzM1fDA&ixlib=rb-4.1.0&q=80&w=1080", 
     dataAiHint: "bridge landscape",
@@ -474,6 +476,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Guiones de Atención al Cliente", 
     category: "Manuales", 
     area: "Comercial",
+    businessLine: "Personas",
     description: "Guía para ofrecer un servicio de excelencia y estandarizado a nuestros clientes.",
     imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "team meeting",
@@ -484,6 +487,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Manual de Marca", 
     category: "Recursos Visuales", 
     area: "Mercadeo",
+    businessLine: "Patrimoniales",
     description: "Directrices para el uso correcto de nuestra identidad visual y verbal.",
     imageUrl: "https://images.unsplash.com/photo-1598289431512-b970a521d892?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmFwZXN8ZW58MHx8fHwxNzUzMzA2OTI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "grapes fruit",
@@ -494,6 +498,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Guía de Inspección Digital de Autos", 
     category: "Documentos", 
     area: "Suscripción",
+    businessLine: "Automóvil",
     description: "Procedimiento para realizar inspecciones de vehículos de forma remota y eficiente.",
     imageUrl: "https://images.unsplash.com/photo-1532384749327-1453d1225585?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHhydW5uaW5nfGVufDB8fHx8MTc1MzMwNzAwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "woman running",
@@ -504,6 +509,7 @@ export const mockDocuments: DocumentResource[] = [
     title: "Procesos de Suscripción", 
     category: "Manuales", 
     area: "Suscripción",
+    businessLine: "Personas",
     description: "Documentación detallada sobre los flujos y políticas de suscripción de pólizas.",
     imageUrl: "https://images.unsplash.com/photo-1575478422368-2793b2e35b7b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxoZWxpY29wdGVyfGVufDB8fHx8MTc1MzMwNzA2M3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "helicopter sky",
@@ -941,6 +947,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 
 
 

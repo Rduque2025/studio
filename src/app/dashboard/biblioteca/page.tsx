@@ -45,6 +45,8 @@ import Image from 'next/image';
 import { Music2 } from 'lucide-react';
 
 type CategoryFilter = DocumentResource['category'] | 'ALL';
+type BusinessLineFilter = DocumentResource['businessLine'] | 'ALL';
+
 
 const categories: { id: CategoryFilter, label: string, icon: LucideIcon }[] = [
     { id: "ALL", label: "Todos", icon: LayoutGrid },
@@ -71,6 +73,16 @@ const areas = [
     { id: "Tecnologia", label: "Tecnología" },
 ];
 
+const businessLines = [
+    { id: "ALL", label: "Todos" },
+    { id: "Automóvil", label: "Automóvil" },
+    { id: "Personas", label: "Personas" },
+    { id: "Patrimoniales", label: "Patrimoniales" },
+    { id: "Salud", label: "Salud" },
+];
+
+const areasWithBusinessLineFilter = ["Comercial", "Suscripción", "Procesos", "Mercadeo"];
+
 const specialRequestAreas = [
     { id: 'Finanzas', name: 'Finanzas', email: 'gcia_nacional_finanzas_ve@banescoseguros.com' },
     { id: 'Capital Humano', name: 'Capital Humano', email: 'capital_humano_ve@banescoseguros.com' },
@@ -90,6 +102,7 @@ const requestSteps = [
 export default function BibliotecaPage() {
     const [activeCategory, setActiveCategory] = useState<CategoryFilter>('ALL');
     const [activeArea, setActiveArea] = useState('ALL');
+    const [activeBusinessLine, setActiveBusinessLine] = useState<BusinessLineFilter>('ALL');
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearchExpanded, setIsSearchExpanded] = useState(false);
     const [isSendButtonExpanded, setIsSendButtonExpanded] = useState(false);
@@ -111,6 +124,14 @@ export default function BibliotecaPage() {
 
     const { toast } = useToast();
 
+    const showBusinessLineFilter = useMemo(() => areasWithBusinessLineFilter.includes(activeArea), [activeArea]);
+
+    const handleAreaChange = (area: string) => {
+        setActiveArea(area);
+        // Reset business line filter when area changes
+        setActiveBusinessLine('ALL');
+    };
+
     const filteredDocuments = useMemo(() => {
         let documents = mockDocuments;
 
@@ -124,6 +145,10 @@ export default function BibliotecaPage() {
             documents = documents.filter(doc => doc.area === activeArea);
         }
         
+        if (showBusinessLineFilter && activeBusinessLine !== 'ALL') {
+            documents = documents.filter(doc => doc.businessLine === activeBusinessLine);
+        }
+        
         if (searchTerm) {
             documents = documents.filter(doc => 
                 doc.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -132,7 +157,7 @@ export default function BibliotecaPage() {
 
         return documents;
 
-    }, [activeCategory, activeArea, searchTerm]);
+    }, [activeCategory, activeArea, activeBusinessLine, searchTerm, showBusinessLineFilter]);
     
     const handleSendClick = () => {
         if (selectedDocIds.length > 0) {
@@ -478,12 +503,28 @@ export default function BibliotecaPage() {
                                         "rounded-full flex-shrink-0",
                                         activeArea !== area.id && "hover:bg-muted"
                                     )}
-                                    onClick={() => setActiveArea(area.id)}
+                                    onClick={() => handleAreaChange(area.id)}
                                 >
                                     <span className="text-xs">{area.label}</span>
                                 </Button>
                             ))}
                         </div>
+
+                         {showBusinessLineFilter && (
+                            <div className="flex items-center gap-2 mb-4 overflow-x-auto pb-2 border-t pt-4">
+                                {businessLines.map(line => (
+                                    <Button
+                                        key={line.id}
+                                        variant={activeBusinessLine === line.id ? "secondary" : "ghost"}
+                                        size="sm"
+                                        className="rounded-full flex-shrink-0 text-xs"
+                                        onClick={() => setActiveBusinessLine(line.id as BusinessLineFilter)}
+                                    >
+                                        {line.label}
+                                    </Button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <Card className="flex-grow rounded-2xl flex flex-col bg-transparent border-none">

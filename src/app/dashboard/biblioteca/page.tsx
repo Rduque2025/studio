@@ -30,7 +30,8 @@ import {
   CheckCircle,
   Check,
   Music,
-  LayoutGrid
+  LayoutGrid,
+  ArrowRight
 } from "lucide-react";
 import { Badge } from '@/components/ui/badge';
 import type { LucideIcon } from 'lucide-react';
@@ -325,8 +326,8 @@ export default function BibliotecaPage() {
                                                                         <div
                                                                             className={cn(
                                                                                 "absolute left-[15px] top-[32px] w-0.5 h-full transition-colors",
-                                                                                isCompleted ? "bg-primary" : "bg-border",
-                                                                                "z-[-10]"
+                                                                                "z-[-10]",
+                                                                                isCompleted ? "bg-primary" : "bg-border"
                                                                             )}
                                                                         />
                                                                     )}
@@ -596,37 +597,39 @@ export default function BibliotecaPage() {
                                             key={doc.id} 
                                             onClick={() => handleCardClick(doc.id, false)}
                                             className={cn(
-                                                "group relative flex flex-col justify-between overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer text-foreground",
-                                                isSelected 
-                                                    ? "scale-105 bg-gradient-to-br from-primary to-blue-400 text-primary-foreground"
-                                                    : "bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50"
+                                                "group cursor-pointer transition-all duration-300 flex flex-col text-left rounded-2xl h-full relative",
+                                                "bg-card shadow-sm hover:shadow-xl hover:-translate-y-1",
+                                                "hover:bg-primary hover:text-primary-foreground",
+                                                isSelected ? "shadow-xl ring-2 ring-primary" : "shadow-sm"
                                             )}
                                         >
-                                            <CardContent className="p-3 flex flex-col flex-grow">
-                                                <div className={cn(
-                                                    "absolute top-4 right-4 p-2 rounded-lg",
-                                                    isSelected ? "bg-white/20 backdrop-blur-sm" : "bg-white/50 dark:bg-black/50 backdrop-blur-sm"
-                                                )}>
-                                                    <Icon className={cn("h-5 w-5", isSelected ? "text-primary-foreground" : "text-primary")} />
+                                            <CardContent className="p-6 flex flex-col flex-grow">
+                                                <div className="flex justify-between items-start mb-4">
+                                                    <div className={cn(
+                                                        "w-10 h-10 rounded-lg flex items-center justify-center",
+                                                        isSelected ? "bg-primary-foreground/20" : "bg-muted"
+                                                    )}>
+                                                        <Icon className={cn(
+                                                            "h-5 w-5",
+                                                            isSelected ? "text-primary-foreground" : "text-primary"
+                                                        )} />
+                                                    </div>
                                                 </div>
-                                                <h3 className="text-sm font-semibold pr-10 mb-4">{doc.title}</h3>
-                                                
-                                                <div className="flex-grow" />
-                                                
-                                                <div className="flex gap-2 mb-4">
-                                                    <Badge variant={isSelected ? "secondary" : "outline"} className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.area}</Badge>
-                                                    <Badge variant="secondary" className={cn("text-xs", isSelected && "bg-white/20 text-white")}>{doc.category}</Badge>
+                                                <div className="flex-grow">
+                                                    <p className={cn(
+                                                        "font-semibold mb-1",
+                                                        isSelected ? "text-primary-foreground" : "text-foreground"
+                                                    )}>{doc.title}</p>
+                                                    <p className={cn(
+                                                        "text-xs",
+                                                        isSelected ? "text-primary-foreground/80" : "text-muted-foreground"
+                                                    )}>{doc.area}</p>
                                                 </div>
-                                                
-                                                <div className="flex items-center justify-center gap-2">
-                                                    <Button variant={isSelected ? "secondary" : "outline"} size="sm" className="group/button flex-grow justify-center text-xs transition-all duration-300">
-                                                        <Eye className="h-4 w-4" />
-                                                        <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Consultar</span>
-                                                    </Button>
-                                                    <Button size="sm" className={cn("group/button flex-grow justify-center text-xs transition-all duration-300", isSelected && "bg-white/90 hover:bg-white text-primary")}>
-                                                        <Download className="h-4 w-4" />
-                                                        <span className="w-0 opacity-0 group-hover/button:w-auto group-hover/button:opacity-100 group-hover/button:ml-2 transition-all">Descargar</span>
-                                                    </Button>
+                                                <div className="mt-4 text-right">
+                                                    <ArrowRight className={cn(
+                                                        "h-5 w-5 transition-opacity",
+                                                        isSelected ? "text-primary-foreground opacity-100" : "text-muted-foreground opacity-0 group-hover:opacity-100"
+                                                    )} />
                                                 </div>
                                             </CardContent>
                                         </Card>
@@ -685,3 +688,4 @@ export default function BibliotecaPage() {
 }
 
     
+

@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { SectionWrapper } from "@/components/dashboard/section-wrapper";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase, ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { ArrowRight, Leaf, Users, BrainCircuit, ToyBrick, Mail, Briefcase, ChevronLeft, ChevronRight, Star, Smile, Meh, Frown, Send } from "lucide-react";
 import { CourseCard } from "@/components/dashboard/course-card";
 import { ActivityCard } from "@/components/dashboard/activity-card";
 import { mockCourses, mockActivities } from "@/lib/placeholder-data";
@@ -24,6 +24,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useEvents } from '@/contexts/events-context';
 import { format, getMonth, getYear } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 const ESPECIAL_KEYWORDS = ['día de', 'feriado', 'conmemorativo', 'aniversario', 'independencia', 'mujer', 'trabajador', 'resistencia', 'navidad', 'noche buena', 'festivo', 'resultados anuales', 'carnavales', 'santo', 'batalla', 'natalicio', 'año nuevo', 'fin de año'];
 
@@ -32,8 +35,11 @@ const normalizeDayName = (name: string) => {
   return name
     .toLowerCase()
     .normalize("NFD") // Decompose accented characters
-    .replace(/[\u0300-\u036f]/g, ""); // Remove diacritical marks
+    .replace(/[\u0000-\u007f]/g, ""); // Remove diacritical marks
 };
+
+type Satisfaction = 'happy' | 'neutral' | 'sad' | null;
+
 
 export default function BienestarPage() {
     const menuScrollAreaRef = useRef<HTMLDivElement>(null);
@@ -44,6 +50,9 @@ export default function BienestarPage() {
     const { allEvents } = useEvents();
     const [importantEvents, setImportantEvents] = useState<EventHighlightProps[]>([]);
     const [isLoadingEvents, setIsLoadingEvents] = useState(true);
+    const [satisfaction, setSatisfaction] = useState<Satisfaction>(null);
+    const [comment, setComment] = useState('');
+    const { toast } = useToast();
 
     useEffect(() => {
         const dayName = new Date().toLocaleDateString('es-ES', { weekday: 'long' });
@@ -108,6 +117,35 @@ export default function BienestarPage() {
         });
         }
     };
+
+    const handleFeedbackSubmit = () => {
+        if (!satisfaction) {
+            toast({
+                title: "Calificación requerida",
+                description: "Por favor, selecciona una opción de satisfacción.",
+                variant: "destructive",
+            });
+            return;
+        }
+        if (!comment.trim()) {
+             toast({
+                title: "Comentario requerido",
+                description: "Por favor, escribe tu sugerencia o comentario.",
+                variant: "destructive",
+            });
+            return;
+        }
+        
+        toast({
+            title: "¡Gracias por tu opinión!",
+            description: "Hemos recibido tu comentario y lo tendremos en cuenta.",
+        });
+
+        // Reset form
+        setSatisfaction(null);
+        setComment('');
+    };
+
 
     const filteredMenuItems = allMenuItems.filter(item => item.type === selectedMenu);
 
@@ -240,30 +278,42 @@ export default function BienestarPage() {
         </SectionWrapper>
       </div>
 
-      {/* Subscription Section */}
+      {/* Feedback Section */}
       <div id="empezar" className="scroll-mt-20">
         <SectionWrapper
           className="bg-muted/50"
-          title="Mantente al Día"
-          description="Suscríbete para recibir notificaciones sobre novedades, eventos y más directamente en tu correo."
+          title="Buzón de Sugerencias y Comentarios"
+          description="Tu opinión es importante. Déjanos tus sugerencias, comentarios o califica tu satisfacción con nuestros servicios de bienestar."
           titleClassName="text-4xl md:text-5xl font-extrabold tracking-tight"
           descriptionClassName="text-lg md:text-xl text-muted-foreground max-w-3xl"
         >
             <Card className="mt-16 max-w-2xl mx-auto p-8 shadow-lg">
               <CardHeader className="text-center p-0">
-                <Mail className="h-10 w-10 text-primary mx-auto mb-4" />
-                <CardTitle className="font-bold text-2xl">Únete a nuestra comunidad</CardTitle>
-                <CardDescription className="text-sm">Recibe notificaciones sobre nuevas actividades y recursos de bienestar.</CardDescription>
+                <CardTitle className="font-bold text-2xl">¿Cómo calificarías tu experiencia?</CardTitle>
+                <CardDescription className="text-sm mt-1">Selecciona una opción y déjanos tu comentario.</CardDescription>
               </CardHeader>
-              <CardContent className="p-0 mt-6 space-y-4">
-                <div className="flex flex-col sm:flex-row gap-2">
-                    <Input type="email" placeholder="Tu correo electrónico" className="flex-grow" />
-                    <Button className="w-full sm:w-auto bg-foreground hover:bg-foreground/90 text-background" size="lg">Suscribirse</Button>
+              <CardContent className="p-0 mt-6 space-y-6">
+                <div className="flex justify-center gap-4">
+                    <Button variant="ghost" size="icon" className={cn("h-16 w-16 rounded-full transition-all", satisfaction === 'happy' && 'bg-green-100 scale-110')} onClick={() => setSatisfaction('happy')}>
+                        <Smile className={cn("h-8 w-8 text-muted-foreground", satisfaction === 'happy' && 'text-green-500')} />
+                    </Button>
+                    <Button variant="ghost" size="icon" className={cn("h-16 w-16 rounded-full transition-all", satisfaction === 'neutral' && 'bg-amber-100 scale-110')} onClick={() => setSatisfaction('neutral')}>
+                        <Meh className={cn("h-8 w-8 text-muted-foreground", satisfaction === 'neutral' && 'text-amber-500')} />
+                    </Button>
+                    <Button variant="ghost" size="icon" className={cn("h-16 w-16 rounded-full transition-all", satisfaction === 'sad' && 'bg-red-100 scale-110')} onClick={() => setSatisfaction('sad')}>
+                        <Frown className={cn("h-8 w-8 text-muted-foreground", satisfaction === 'sad' && 'text-red-500')} />
+                    </Button>
                 </div>
-                <div className="flex items-center space-x-2 pt-2">
-                    <Checkbox id="terms-sub" />
-                    <Label htmlFor="terms-sub" className="text-xs text-muted-foreground">Acepto los términos de servicio y la política de privacidad.</Label>
-                </div>
+                <Textarea 
+                    placeholder="Escribe tu comentario o sugerencia aquí..." 
+                    rows={4}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
+                <Button className="w-full" size="lg" onClick={handleFeedbackSubmit}>
+                    <Send className="mr-2 h-4 w-4" />
+                    Enviar Comentario
+                </Button>
               </CardContent>
             </Card>
         </SectionWrapper>

@@ -163,10 +163,13 @@ export default function RequerimientosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-transparent p-4 sm:p-6 md:p-8">
-      <Card className="w-full rounded-3xl bg-transparent p-6 sm:p-8 flex flex-col border-none shadow-none">
-        
-        <header className="flex justify-end items-center mb-8">
+    <div className="min-h-[calc(100vh-6rem)] bg-transparent p-4 sm:p-6 md:p-8">
+      <div className="w-full h-full flex flex-col">
+        <header className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-4xl font-bold text-foreground">Portal de Requerimientos</h1>
+            <p className="text-muted-foreground mt-1">Selecciona una categoría o departamento para iniciar tu solicitud.</p>
+          </div>
             <Dialog open={isSpecialRequestOpen} onOpenChange={(isOpen) => {
                 setIsSpecialRequestOpen(isOpen);
                 if (!isOpen) {
@@ -368,9 +371,9 @@ export default function RequerimientosPage() {
             </Dialog>
         </header>
 
-        <div className="flex-grow grid md:grid-cols-12 gap-8">
+        <div className="flex-grow grid md:grid-cols-12 gap-8 items-start">
           
-          <nav className="md:col-span-3 lg:col-span-2">
+          <nav className="md:col-span-3 lg:col-span-2 sticky top-28 h-fit">
             <div className="flex flex-col space-y-1">
               {categories.map((category) => {
                 const isActive = activeCategory === category.id;
@@ -426,7 +429,7 @@ export default function RequerimientosPage() {
             </div>
           </div>
         </div>
-      </Card>
+      </div>
       
       <Dialog open={isReportDialogOpen} onOpenChange={setIsReportDialogOpen}>
         <DialogContent>

@@ -607,28 +607,33 @@ export default function BibliotecaPage() {
                                                 <div className="flex justify-between items-start mb-4">
                                                     <div className={cn(
                                                         "w-10 h-10 rounded-lg flex items-center justify-center",
-                                                        isSelected ? "bg-primary-foreground/20" : "bg-muted"
+                                                        "bg-muted group-hover:bg-primary-foreground/20",
+                                                        isSelected && "bg-primary-foreground/20"
                                                     )}>
                                                         <Icon className={cn(
                                                             "h-5 w-5",
-                                                            isSelected ? "text-primary-foreground" : "text-primary"
+                                                            "text-primary group-hover:text-primary-foreground",
+                                                            isSelected && "text-primary-foreground"
                                                         )} />
                                                     </div>
                                                 </div>
                                                 <div className="flex-grow">
                                                     <p className={cn(
                                                         "font-semibold mb-1",
-                                                        isSelected ? "text-primary-foreground" : "text-foreground"
+                                                        "text-foreground group-hover:text-primary-foreground",
+                                                        isSelected && "text-primary-foreground"
                                                     )}>{doc.title}</p>
                                                     <p className={cn(
                                                         "text-xs",
-                                                        isSelected ? "text-primary-foreground/80" : "text-muted-foreground"
+                                                        "text-muted-foreground group-hover:text-primary-foreground/80",
+                                                        isSelected && "text-primary-foreground/80"
                                                     )}>{doc.area}</p>
                                                 </div>
                                                 <div className="mt-4 text-right">
                                                     <ArrowRight className={cn(
                                                         "h-5 w-5 transition-opacity",
-                                                        isSelected ? "text-primary-foreground opacity-100" : "text-muted-foreground opacity-0 group-hover:opacity-100"
+                                                        "text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary-foreground",
+                                                        isSelected && "text-primary-foreground opacity-100"
                                                     )} />
                                                 </div>
                                             </CardContent>

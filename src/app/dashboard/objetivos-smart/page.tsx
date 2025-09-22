@@ -502,7 +502,7 @@ export default function ObjetivosSmartPage() {
              {/* Client Section */}
             <div className="py-12">
               <div className="grid lg:grid-cols-2 gap-16 items-start">
-                  <div className="relative">
+                  <div className="lg:sticky lg:top-28">
                       <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">La Voz de Nuestros Clientes</h2>
                       <p className="text-muted-foreground max-w-md mb-6">
                           La opinión de nuestros clientes es el motor que impulsa nuestra mejora continua. Sus voces nos guían para ofrecer un servicio de excelencia.

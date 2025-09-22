@@ -228,41 +228,39 @@ export default function BibliotecaPage() {
 
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex min-h-[calc(100vh-6rem)]">
+            <div className="flex items-start">
                 {/* Left Sidebar - Categories */}
-                <aside className="w-64 flex-shrink-0 p-4 hidden md:block">
-                    <div className="pt-20">
-                        <nav className="flex flex-col space-y-1">
-                            {categories.map(cat => {
-                                const Icon = cat.icon;
-                                const isActive = activeCategory === cat.id;
-                                return (
-                                    <button
-                                        key={cat.id}
-                                        onClick={() => setActiveCategory(cat.id)}
-                                        className={cn(
-                                            "flex items-center justify-between w-full p-3 rounded-lg text-left transition-colors relative",
-                                            "hover:bg-muted"
-                                        )}
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <div className={cn(
-                                                "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
-                                                isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                                            )}>
-                                                <Icon className="h-5 w-5 flex-shrink-0" />
-                                            </div>
-                                            <span className={cn(
-                                                "font-medium text-xs",
-                                                isActive ? "text-primary font-semibold" : "text-muted-foreground"
-                                            )}>{cat.label}</span>
+                <aside className="w-64 flex-shrink-0 p-4 hidden md:block sticky top-28 h-fit">
+                    <nav className="flex flex-col space-y-1">
+                        {categories.map(cat => {
+                            const Icon = cat.icon;
+                            const isActive = activeCategory === cat.id;
+                            return (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => setActiveCategory(cat.id)}
+                                    className={cn(
+                                        "flex items-center justify-between w-full p-3 rounded-lg text-left transition-colors relative",
+                                        "hover:bg-muted"
+                                    )}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <div className={cn(
+                                            "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+                                            isActive ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                                        )}>
+                                            <Icon className="h-5 w-5 flex-shrink-0" />
                                         </div>
-                                        {isActive && <div className="absolute right-0 h-5 w-1 bg-primary rounded-full" />}
-                                    </button>
-                                )
-                            })}
-                        </nav>
-                    </div>
+                                        <span className={cn(
+                                            "font-medium text-xs",
+                                            isActive ? "text-primary font-semibold" : "text-muted-foreground"
+                                        )}>{cat.label}</span>
+                                    </div>
+                                    {isActive && <div className="absolute right-0 h-5 w-1 bg-primary rounded-full" />}
+                                </button>
+                            )
+                        })}
+                    </nav>
                 </aside>
                 <Separator orientation="vertical" className="h-auto hidden md:block" />
                 {/* Main Content */}
@@ -690,7 +688,5 @@ export default function BibliotecaPage() {
     );
 
     
-}
 
     
-

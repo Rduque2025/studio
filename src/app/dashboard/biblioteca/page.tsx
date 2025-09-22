@@ -598,18 +598,18 @@ export default function BibliotecaPage() {
                                                 "group cursor-pointer transition-all duration-300 flex flex-col text-left rounded-2xl h-full relative",
                                                 "bg-card shadow-sm hover:shadow-xl hover:-translate-y-1",
                                                 "hover:bg-primary hover:text-primary-foreground",
-                                                isSelected ? "shadow-xl ring-2 ring-primary" : "shadow-sm"
+                                                isSelected && "bg-primary text-primary-foreground shadow-xl ring-2 ring-primary scale-105"
                                             )}
                                         >
                                             <CardContent className="p-6 flex flex-col flex-grow">
                                                 <div className="flex justify-between items-start mb-4">
                                                     <div className={cn(
-                                                        "w-10 h-10 rounded-lg flex items-center justify-center",
+                                                        "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
                                                         "bg-muted group-hover:bg-primary-foreground/20",
                                                         isSelected && "bg-primary-foreground/20"
                                                     )}>
                                                         <Icon className={cn(
-                                                            "h-5 w-5",
+                                                            "h-5 w-5 transition-colors",
                                                             "text-primary group-hover:text-primary-foreground",
                                                             isSelected && "text-primary-foreground"
                                                         )} />
@@ -617,12 +617,12 @@ export default function BibliotecaPage() {
                                                 </div>
                                                 <div className="flex-grow">
                                                     <p className={cn(
-                                                        "font-semibold mb-1",
+                                                        "font-semibold mb-1 transition-colors",
                                                         "text-foreground group-hover:text-primary-foreground",
                                                         isSelected && "text-primary-foreground"
                                                     )}>{doc.title}</p>
                                                     <p className={cn(
-                                                        "text-xs",
+                                                        "text-xs transition-colors",
                                                         "text-muted-foreground group-hover:text-primary-foreground/80",
                                                         isSelected && "text-primary-foreground/80"
                                                     )}>{doc.area}</p>
@@ -686,7 +686,3 @@ export default function BibliotecaPage() {
             </div>
         </div>
     );
-
-    
-
-    

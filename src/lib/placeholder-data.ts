@@ -300,7 +300,7 @@ export const mockActivities: Activity[] = [
     title: "Clases de cuatro",
     date: "2025-07-01",
     location: "Triadas - Ciudad Banesco",
-    imageUrl: "https://images.unsplash.com/photo-1518190171695-bbbb69c4a9bb1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx1a2VsZWxlfGVufDB8fHx8MTc1MDk0NTA2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1707699164633-0e584b2da329?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxVS0VMRUxFfGVufDB8fHx8MTc1ODU2NDUxNHww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "music lessons",
     description: "Si tienes talento para tocar un instrumento musical o quieres aprender, es tú momento.\nÚnete al grupo, no necesitas experiencia previa para formar parte de la actividad.\nPara asistir a las clases solo necesitas:\n- Una botella de agua para tu hidratación.\n\nDónde y cuándo son las clases:\nLunes o jueves, 5:00 P.M."
   },
@@ -947,6 +947,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 
 
 

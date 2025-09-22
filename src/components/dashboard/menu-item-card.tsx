@@ -45,7 +45,10 @@ export function MenuItemCard({ item, isCurrentDay }: MenuItemCardProps) {
         <CardContent className="p-4 flex flex-col flex-grow bg-card">
             <div className="flex-grow">
                 <p className="text-sm font-bold text-foreground mb-1">{item.name}</p>
-                <p className="text-xs text-muted-foreground">{item.day} - {item.type}</p>
+                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span>{item.day}</span>
+                    <Badge variant="default" className="text-[10px] px-2 py-0.5">{item.type}</Badge>
+                </div>
                  <CardDescription className="text-xs text-muted-foreground mt-2 line-clamp-2">
                     {item.description}
                 </CardDescription>

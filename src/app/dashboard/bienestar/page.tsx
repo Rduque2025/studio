@@ -310,9 +310,8 @@ export default function BienestarPage() {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                 />
-                <Button className="w-full" size="lg" onClick={handleFeedbackSubmit}>
-                    <Send className="mr-2 h-4 w-4" />
-                    Enviar Comentario
+                <Button size="lg" onClick={handleFeedbackSubmit}>
+                    <Send className="h-4 w-4" />
                 </Button>
               </CardContent>
             </Card>

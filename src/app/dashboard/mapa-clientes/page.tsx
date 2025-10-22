@@ -19,7 +19,9 @@ import {
   Workflow,
   GraduationCap,
   Plus,
-  Banknote
+  Banknote,
+  FileBarChart,
+  Target
 } from "lucide-react";
 import { getTeamMembers, type TeamMember } from '@/ai/flows/get-team-members-flow';
 import { cn } from '@/lib/utils';
@@ -153,10 +155,10 @@ export default function NosotrosPage() {
       icon: FileCheck2,
     },
     {
-      title: "Siniestros",
-      description: "Identifica, evalúa y mitiga los riesgos para proteger tus activos.",
-      href: "/dashboard/siniestros",
-      icon: ClipboardCheck,
+      title: "Actuarial",
+      description: "Análisis y modelos para la evaluación de riesgos y la fijación de tarifas.",
+      href: "/dashboard/actuarial",
+      icon: FileBarChart,
     },
      {
       title: "Procesos",

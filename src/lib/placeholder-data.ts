@@ -1,5 +1,5 @@
 
-import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code, Music, AlertTriangle, CheckCircle, CalendarDays, MessageSquare as MessageSquareIcon, Music2, Home, User, Cog, Lightbulb, Handshake, Award } from 'lucide-react';
+import { Users, Megaphone, FolderKanban, Shield, BarChart2, Briefcase, FileText, Bot, BookOpen, Scale, FileSignature, HardHat, Plane, Cpu, PiggyBank, CreditCard, Landmark, CalendarClock, MessageCircleQuestion, Bell, Utensils, Star, Video, Presentation, Image as ImageIcon, Code, Music, AlertTriangle, CheckCircle, CalendarDays, MessageSquare as MessageSquareIcon, Music2, Home, User, Cog, Lightbulb, Handshake, Award, FileBarChart } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 export interface Course {
@@ -41,7 +41,7 @@ export interface Department {
   imageUrl?: string;
   dataAiHint?: string;
   directLink?: string; 
-  category: 'Capital Humano' | 'Comercial' | 'Legal' | 'Seguridad' | 'Proyectos' | 'Otros';
+  category: 'Capital Humano' | 'Comercial' | 'Legal' | 'Seguridad' | 'Proyectos' | 'Otros' | 'Actuarial';
 }
 
 export interface DocumentResource {
@@ -446,7 +446,14 @@ export const mockDepartments: Department[] = [
     description: "Información y estado de los proyectos de automatización (RPA).",
     category: "Proyectos",
     icon: Bot,
-  }
+  },
+  {
+    id: "actuarial",
+    name: "Actuarial",
+    description: "Modelado, análisis de riesgos y fijación de tarifas.",
+    category: "Actuarial",
+    icon: FileBarChart,
+  },
 ];
 
 export const mockDocuments: DocumentResource[] = [
@@ -478,7 +485,7 @@ export const mockDocuments: DocumentResource[] = [
     area: "Comercial",
     businessLine: "Personas",
     description: "Guía para ofrecer un servicio de excelencia y estandarizado a nuestros clientes.",
-    imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8fDE3NTMzMDY4NzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    imageUrl: "https://images.unsplash.com/photo-1521737711867-e3b97375f902?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtZWV0aW5nfGVufDB8fHx8MTc1MzMwNjg3M3ww&ixlib=rb-4.1.0&q=80&w=1080",
     dataAiHint: "team meeting",
     isFeatured: true
   },
@@ -947,6 +954,7 @@ export const mockCustomerFeedback: CustomerFeedback[] = [
     
 
   
+
 
 
 

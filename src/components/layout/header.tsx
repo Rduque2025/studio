@@ -208,7 +208,7 @@ export function Header() {
                 <Button
                   type="submit"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-foreground text-background shadow-md transition-transform hover:scale-105"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-9 w-9 rounded-full bg-primary text-primary-foreground shadow-md transition-transform hover:scale-105"
                   onClick={handleSearch}
                 >
                   <Search className="h-5 w-5" />

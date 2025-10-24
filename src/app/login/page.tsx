@@ -126,7 +126,7 @@ function LoginPageContent() {
       </div>
       <div className="hidden bg-muted lg:block">
         <Image
-          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/site-inter_Mesa%20de%20trabajo%201.jpg?raw=true"
+          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/PORTADA%20ENTORNO%20SEG.jpg?raw=true"
           alt="Banner corporativo de Banesco Seguros"
           width="1920"
           height="1080"

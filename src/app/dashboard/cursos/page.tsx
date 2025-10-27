@@ -5,7 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PlayCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 
@@ -19,6 +19,7 @@ const CategoryCard = ({
   className,
   imageClassName,
   isLightCard,
+  href,
 }: {
   title: string;
   description: string;
@@ -29,8 +30,9 @@ const CategoryCard = ({
   className?: string;
   imageClassName?: string;
   isLightCard?: boolean;
+  href?: string;
 }) => {
-  return (
+  const CardContent = (
     <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
       <div className="relative z-10">
         <Badge variant="secondary" className={`${isLightCard ? "bg-neutral-500 text-white" : "bg-white/20 text-white backdrop-blur-sm"} mb-2`}>{label}</Badge>
@@ -49,6 +51,12 @@ const CategoryCard = ({
       />
     </Card>
   );
+
+  if (href) {
+    return <Link href={href}>{CardContent}</Link>;
+  }
+
+  return CardContent;
 };
 
 export default function CursosPage() {
@@ -76,6 +84,7 @@ export default function CursosPage() {
             className="min-h-[250px]"
             imageClassName="w-[150px] h-[150px] bottom-0 right-4"
             isLightCard={true}
+            href="/dashboard/cursos/google-workspace"
           />
 
           <CategoryCard

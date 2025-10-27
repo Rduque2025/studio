@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 const CategoryCard = ({
   title,
@@ -33,9 +34,17 @@ const CategoryCard = ({
   href?: string;
 }) => {
   const CardContent = (
-    <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
+    <Card className={cn(
+      "relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02]",
+      bgColor,
+      textColor,
+      className
+    )}>
       <div className="relative z-10">
-        <Badge variant="secondary" className={`${isLightCard ? "bg-neutral-500 text-white" : "bg-white/20 text-white backdrop-blur-sm"} mb-2`}>{label}</Badge>
+        <Badge variant="secondary" className={cn(
+          "mb-2",
+          isLightCard ? "bg-neutral-500 text-white" : "bg-white/20 text-white backdrop-blur-sm"
+        )}>{label}</Badge>
         <h3 className="flex items-center text-2xl font-bold tracking-tight">
           {title}
         </h3>
@@ -47,7 +56,7 @@ const CategoryCard = ({
         width={250}
         height={250}
         quality={100}
-        className={`absolute z-0 object-contain ${imageClassName}`}
+        className={cn("absolute z-0 object-contain", imageClassName)}
       />
     </Card>
   );

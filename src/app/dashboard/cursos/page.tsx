@@ -39,6 +39,7 @@ const CategoryCard = ({
         alt={title}
         width={250}
         height={250}
+        quality={100}
         className={`absolute bottom-0 right-0 z-0 object-contain ${imageClassName}`}
       />
     </Card>
@@ -71,7 +72,7 @@ export default function CursosPage() {
             bgColor="bg-card"
             textColor="text-card-foreground"
             className="lg:row-span-2 min-h-[300px] lg:min-h-[400px] justify-end"
-            imageClassName="w-[70%] h-auto -bottom-4 right-1/2 translate-x-1/2 lg:w-[300px] lg:h-[300px] lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2"
+            imageClassName="w-[70%] h-auto -bottom-4 right-1/2 translate-x-1/2 lg:w-[300px] lg:h-[300px] lg:top-1/2 lg:-translate-y-1/2"
           />
 
           <CategoryCard

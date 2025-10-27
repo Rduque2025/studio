@@ -33,7 +33,7 @@ const CategoryCard = ({
   return (
     <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
       <div className="relative z-10">
-        <Badge variant="secondary" className={isLightCard ? "bg-neutral-800 text-white mb-2" : "bg-white/20 text-white backdrop-blur-sm mb-2"}>{label}</Badge>
+        <Badge variant="secondary" className={isLightCard ? "bg-neutral-700 text-white mb-2" : "bg-white/20 text-white backdrop-blur-sm mb-2"}>{label}</Badge>
         <h3 className="flex items-center text-2xl font-bold tracking-tight">
           {title}
         </h3>
@@ -121,7 +121,7 @@ export default function CursosPage() {
             textColor="text-white"
             label="Cursos"
             className="min-h-[250px]"
-            imageClassName="bottom-4 right-4"
+            imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
         </div>
       </div>

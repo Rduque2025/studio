@@ -9,7 +9,7 @@ const workspaceTools = [
     {
       title: "Google Slides",
       description: "Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros",
-      bgColor: "bg-yellow-400",
+      bgColor: "bg-amber-500",
       textColor: "text-white",
       href: "/dashboard/cursos/google-slides"
     },

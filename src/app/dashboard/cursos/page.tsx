@@ -104,7 +104,7 @@ export default function CursosPage() {
           <CategoryCard
             title="Organización"
             description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
-            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(11).png?raw=true"
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(14).png?raw=true"
             bgColor="bg-purple-200"
             textColor="text-purple-900"
             label="Información"

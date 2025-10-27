@@ -68,7 +68,7 @@ export default function CursosPage() {
             bgColor="bg-blue-100"
             textColor="text-blue-900"
             className="min-h-[250px]"
-            imageClassName="w-[150px] h-[150px] -bottom-4 right-4"
+            imageClassName="w-[150px] h-[150px] bottom-0 right-4"
           />
 
           <CategoryCard

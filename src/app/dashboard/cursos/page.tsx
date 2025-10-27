@@ -87,7 +87,7 @@ export default function CursosPage() {
           
           <CategoryCard
             title="Google Workspace"
-            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            description="Domina las herramientas de Google. Cursos de Sheets, Slides, y más para potenciar tu productividad y colaboración."
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(15).png?raw=true"
             bgColor="bg-blue-100"
             textColor="text-blue-900"
@@ -111,7 +111,7 @@ export default function CursosPage() {
 
           <CategoryCard
             title="Inteligencia Artificial"
-            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            description="Descubre cómo la IA está transformando el mundo de los seguros y aprende a utilizarla en tu día a día."
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(12).png?raw=true"
             bgColor="bg-card"
             textColor="text-card-foreground"
@@ -123,7 +123,7 @@ export default function CursosPage() {
 
           <CategoryCard
             title="Organización"
-            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            description="Mejora tu productividad con cursos sobre gestión del tiempo, planificación y métodos de organización personal."
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(14).png?raw=true"
             bgColor="bg-purple-200"
             textColor="text-purple-900"
@@ -135,7 +135,7 @@ export default function CursosPage() {
 
           <CategoryCard
             title="Herramientas Digitales"
-            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            description="Explora y domina las herramientas digitales que optimizan nuestros procesos y mejoran la experiencia del cliente."
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(16).png?raw=true"
             bgColor="bg-sky-400"
             textColor="text-white"

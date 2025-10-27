@@ -69,8 +69,8 @@ export default function GoogleWorkspacePage() {
           <Link href={tool.href} key={tool.title} className="group">
             <Card className={`${tool.bgColor} ${tool.textColor} rounded-2xl shadow-lg h-full flex flex-col justify-between transition-transform group-hover:scale-[1.02]`}>
               <CardContent className="p-8">
-                <h3 className="text-3xl font-bold">{tool.title}</h3>
-                <p className="mt-2 text-sm max-w-sm opacity-90">{tool.description}</p>
+                <h3 className="text-2xl font-bold">{tool.title}</h3>
+                <p className="mt-2 text-xs max-w-sm opacity-90">{tool.description}</p>
               </CardContent>
             </Card>
           </Link>

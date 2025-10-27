@@ -58,9 +58,6 @@ export default function GoogleWorkspacePage() {
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </CardDescription>
           </div>
-          <div className="w-24 h-24 relative">
-             <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Google_Workspace_Logo.svg/2560px-Google_Workspace_Logo.svg.png" alt="Google Workspace Logo" layout="fill" objectFit="contain" />
-          </div>
         </CardHeader>
       </Card>
       

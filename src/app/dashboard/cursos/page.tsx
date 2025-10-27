@@ -26,13 +26,13 @@ const CategoryCard = ({
   imageClassName?: string;
 }) => {
   return (
-    <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-8 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
+    <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
       <div className="relative z-10">
-        <h3 className="flex items-center text-3xl font-bold tracking-tight">
+        <h3 className="flex items-center text-2xl font-bold tracking-tight">
           {title}
-          <PlayCircle className="ml-3 h-7 w-7" />
+          <PlayCircle className="ml-3 h-6 w-6" />
         </h3>
-        <p className="mt-2 text-sm max-w-xs">{description}</p>
+        <p className="mt-2 text-xs max-w-xs">{description}</p>
       </div>
       <Image
         src={imageUrl}
@@ -54,10 +54,10 @@ export default function CursosPage() {
             <X className="h-5 w-5" />
           </Button>
           <div className="text-center max-w-2xl mx-auto">
-            <h1 className="text-4xl font-bold tracking-tight">
+            <h1 className="text-3xl font-bold tracking-tight">
               Donde potencias el talento que impulsa tu carrera
             </h1>
-            <p className="mt-4 text-sm text-primary-foreground/80">
+            <p className="mt-4 text-xs text-primary-foreground/80">
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </p>
           </div>
@@ -70,8 +70,8 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(12).png?raw=true"
             bgColor="bg-card"
             textColor="text-card-foreground"
-            className="lg:row-span-2 min-h-[300px] lg:min-h-[620px] justify-end"
-            imageClassName="w-[80%] h-auto -bottom-8 right-1/2 translate-x-1/2 lg:w-[350px] lg:h-[350px] lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2"
+            className="lg:row-span-2 min-h-[300px] lg:min-h-[400px] justify-end"
+            imageClassName="w-[70%] h-auto -bottom-4 right-1/2 translate-x-1/2 lg:w-[300px] lg:h-[300px] lg:bottom-auto lg:top-1/2 lg:-translate-y-1/2"
           />
 
           <CategoryCard
@@ -80,8 +80,8 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(13).png?raw=true"
             bgColor="bg-indigo-500"
             textColor="text-white"
-            className="min-h-[300px]"
-            imageClassName="w-[200px] h-[200px] -bottom-4 -right-4"
+            className="min-h-[250px]"
+            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
           />
 
           <CategoryCard
@@ -90,8 +90,8 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(14).png?raw=true"
             bgColor="bg-purple-400"
             textColor="text-white"
-            className="min-h-[300px]"
-            imageClassName="w-[200px] h-[200px] -bottom-4 -right-4"
+            className="min-h-[250px]"
+            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
           />
         </div>
       </div>

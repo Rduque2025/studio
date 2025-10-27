@@ -68,7 +68,7 @@ export default function CursosPage() {
           <CategoryCard
             title="Google Workspace"
             description="Domina las herramientas de Google y optimiza tu productividad diaria."
-            imageUrl="https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHdvcmtzcGFjZXxlbnwwfHx8fDE3NTgzMDI3OTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(15).png?raw=true"
             bgColor="bg-green-500"
             textColor="text-white"
             className="min-h-[250px]"

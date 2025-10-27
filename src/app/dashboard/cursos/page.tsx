@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -77,7 +78,7 @@ export default function CursosPage() {
             bgColor="bg-indigo-500"
             textColor="text-white"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
+            imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
 
           <CategoryCard
@@ -87,7 +88,7 @@ export default function CursosPage() {
             bgColor="bg-card"
             textColor="text-card-foreground"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
+            imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
 
           <CategoryCard
@@ -97,7 +98,7 @@ export default function CursosPage() {
             bgColor="bg-purple-200"
             textColor="text-purple-900"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
+            imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
 
           <CategoryCard
@@ -107,7 +108,6 @@ export default function CursosPage() {
             bgColor="bg-sky-400"
             textColor="text-white"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
           />
         </div>
       </div>

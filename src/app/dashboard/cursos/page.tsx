@@ -24,7 +24,7 @@ const CategoryCard = ({
 }: {
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
   bgColor: string;
   textColor: string;
   label: string;
@@ -50,14 +50,16 @@ const CategoryCard = ({
         </h3>
         <p className="mt-2 text-xs max-w-xs">{description}</p>
       </div>
-      <Image
-        src={imageUrl}
-        alt={title}
-        width={250}
-        height={250}
-        quality={100}
-        className={cn("absolute z-0 object-contain", imageClassName)}
-      />
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt={title}
+          width={250}
+          height={250}
+          quality={100}
+          className={cn("absolute z-0 object-contain", imageClassName)}
+        />
+      )}
     </Card>
   );
 
@@ -86,7 +88,6 @@ export default function CursosPage() {
           <CategoryCard
             title="Google Workspace"
             description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
-            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(15).png?raw=true"
             bgColor="bg-blue-100"
             textColor="text-blue-900"
             label="Educativo"

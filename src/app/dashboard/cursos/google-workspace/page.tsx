@@ -54,7 +54,7 @@ export default function GoogleWorkspacePage() {
         <CardHeader className="flex flex-row items-center justify-between p-8">
           <div>
             <CardTitle className="text-4xl font-bold text-foreground">Google Workspace</CardTitle>
-            <CardDescription className="text-muted-foreground mt-2 max-w-md text-sm">
+            <CardDescription className="text-muted-foreground mt-2 max-w-md text-xs">
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </CardDescription>
           </div>

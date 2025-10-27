@@ -67,7 +67,7 @@ export default function CursosPage() {
             bgColor="bg-blue-100"
             textColor="text-blue-900"
             className="min-h-[250px]"
-            imageClassName="w-[150px] h-[150px] -bottom-4 -right-4"
+            imageClassName="w-[150px] h-[150px] -bottom-4 right-4"
           />
 
           <CategoryCard
@@ -77,7 +77,7 @@ export default function CursosPage() {
             bgColor="bg-indigo-500"
             textColor="text-white"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
+            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
           />
 
           <CategoryCard
@@ -87,7 +87,7 @@ export default function CursosPage() {
             bgColor="bg-card"
             textColor="text-card-foreground"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
+            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
           />
 
           <CategoryCard
@@ -97,7 +97,7 @@ export default function CursosPage() {
             bgColor="bg-purple-200"
             textColor="text-purple-900"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
+            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
           />
 
           <CategoryCard

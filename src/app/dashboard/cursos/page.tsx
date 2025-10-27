@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { PlayCircle, X } from 'lucide-react';
 import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
 
 const CategoryCard = ({
   title,
@@ -14,6 +15,7 @@ const CategoryCard = ({
   imageUrl,
   bgColor,
   textColor,
+  label,
   className,
   imageClassName,
 }: {
@@ -22,15 +24,16 @@ const CategoryCard = ({
   imageUrl: string;
   bgColor: string;
   textColor: string;
+  label: string;
   className?: string;
   imageClassName?: string;
 }) => {
   return (
     <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
       <div className="relative z-10">
+        <Badge variant="secondary" className="bg-white/20 text-white backdrop-blur-sm mb-2">{label}</Badge>
         <h3 className="flex items-center text-2xl font-bold tracking-tight">
           {title}
-          <PlayCircle className="ml-3 h-6 w-6" />
         </h3>
         <p className="mt-2 text-xs max-w-xs">{description}</p>
       </div>
@@ -67,6 +70,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(15).png?raw=true"
             bgColor="bg-blue-100"
             textColor="text-blue-900"
+            label="Educativo"
             className="min-h-[250px]"
             imageClassName="w-[150px] h-[150px] bottom-0 right-4"
           />
@@ -77,6 +81,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(13).png?raw=true"
             bgColor="bg-indigo-500"
             textColor="text-white"
+            label="Cursos"
             className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
@@ -87,6 +92,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(12).png?raw=true"
             bgColor="bg-card"
             textColor="text-card-foreground"
+            label="Educativo"
             className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
@@ -97,6 +103,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(11).png?raw=true"
             bgColor="bg-purple-200"
             textColor="text-purple-900"
+            label="Información"
             className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] bottom-4 right-4"
           />
@@ -107,6 +114,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(10).png?raw=true"
             bgColor="bg-sky-400"
             textColor="text-white"
+            label="Cursos"
             className="min-h-[250px]"
           />
         </div>

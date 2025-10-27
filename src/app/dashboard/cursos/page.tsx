@@ -48,7 +48,7 @@ const CategoryCard = ({
 export default function CursosPage() {
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         <div className="mb-12">
             <h1 className="text-4xl font-bold tracking-tight">
               Donde potencias el talento <br /> que impulsa tu carrera

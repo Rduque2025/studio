@@ -8,28 +8,28 @@ import Link from "next/link";
 const workspaceTools = [
     {
       title: "Google Slides",
-      description: "Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros",
+      description: "Crea presentaciones de alto impacto, colabora en tiempo real y utiliza plantillas profesionales para comunicar tus ideas.",
       bgColor: "bg-amber-500",
       textColor: "text-white",
       href: "/dashboard/cursos/google-slides"
     },
     {
       title: "Google Appscript",
-      description: "Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros",
+      description: "Automatiza tareas y crea soluciones personalizadas integrando las aplicaciones de Google Workspace.",
       bgColor: "bg-red-500",
       textColor: "text-white",
       href: "#"
     },
     {
       title: "Google Sites",
-      description: "Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros",
+      description: "Diseña y publica sitios web internos o para clientes sin necesidad de código, de forma rápida y sencilla.",
       bgColor: "bg-blue-600",
       textColor: "text-white",
       href: "/dashboard/cursos/google-sites"
     },
     {
       title: "Google Sheets",
-      description: "Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros",
+      description: "Domina las hojas de cálculo, desde fórmulas básicas hasta análisis de datos complejos y dashboards.",
       bgColor: "bg-green-600",
       textColor: "text-white",
       href: "/dashboard/cursos/google-sheets"
@@ -53,7 +53,7 @@ export default function GoogleWorkspacePage() {
       <Card className="bg-sky-100/50 rounded-2xl shadow-sm mb-8">
         <CardHeader className="flex flex-row items-center justify-between p-8">
           <div>
-            <CardTitle className="text-4xl font-bold text-foreground">Google Workspace</CardTitle>
+            <CardTitle className="tracking-tight text-4xl font-bold text-foreground">Google Workspace</CardTitle>
             <CardDescription className="text-muted-foreground mt-2 max-w-md text-xs">
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </CardDescription>

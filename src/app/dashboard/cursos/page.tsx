@@ -18,6 +18,7 @@ const CategoryCard = ({
   label,
   className,
   imageClassName,
+  isLightCard,
 }: {
   title: string;
   description: string;
@@ -27,11 +28,12 @@ const CategoryCard = ({
   label: string;
   className?: string;
   imageClassName?: string;
+  isLightCard?: boolean;
 }) => {
   return (
     <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
       <div className="relative z-10">
-        <Badge variant="secondary" className="bg-white/20 text-white backdrop-blur-sm mb-2">{label}</Badge>
+        <Badge variant="secondary" className={isLightCard ? "bg-black/10 mb-2" : "bg-white/20 text-white backdrop-blur-sm mb-2"}>{label}</Badge>
         <h3 className="flex items-center text-2xl font-bold tracking-tight">
           {title}
         </h3>
@@ -43,7 +45,7 @@ const CategoryCard = ({
         width={250}
         height={250}
         quality={100}
-        className={`absolute bottom-0 right-0 z-0 object-contain ${imageClassName}`}
+        className={`absolute z-0 object-contain ${imageClassName}`}
       />
     </Card>
   );
@@ -73,6 +75,7 @@ export default function CursosPage() {
             label="Educativo"
             className="min-h-[250px]"
             imageClassName="w-[150px] h-[150px] bottom-0 right-4"
+            isLightCard={true}
           />
 
           <CategoryCard
@@ -95,6 +98,7 @@ export default function CursosPage() {
             label="Educativo"
             className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] bottom-4 right-4"
+            isLightCard={true}
           />
 
           <CategoryCard
@@ -106,6 +110,7 @@ export default function CursosPage() {
             label="Información"
             className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] bottom-4 right-4"
+            isLightCard={true}
           />
 
           <CategoryCard
@@ -116,6 +121,7 @@ export default function CursosPage() {
             textColor="text-white"
             label="Cursos"
             className="min-h-[250px]"
+            imageClassName="bottom-4 right-4"
           />
         </div>
       </div>

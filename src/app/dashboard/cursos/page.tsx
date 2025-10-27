@@ -51,7 +51,7 @@ export default function CursosPage() {
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="mb-12">
             <h1 className="text-4xl font-bold tracking-tight">
-              Donde potencias el talento que impulsa tu carrera
+              Donde potencias el talento <br /> que impulsa tu carrera
             </h1>
             <p className="mt-4 text-sm text-muted-foreground max-w-lg">
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros

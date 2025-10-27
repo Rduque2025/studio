@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -50,11 +49,11 @@ export default function CursosPage() {
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
       <div className="max-w-4xl mx-auto space-y-6">
-        <div className="text-center mb-12">
+        <div className="mb-12">
             <h1 className="text-4xl font-bold tracking-tight">
               Donde potencias el talento que impulsa tu carrera
             </h1>
-            <p className="mt-4 text-sm text-muted-foreground max-w-lg mx-auto">
+            <p className="mt-4 text-sm text-muted-foreground max-w-lg">
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </p>
         </div>
@@ -107,7 +106,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(10).png?raw=true"
             bgColor="bg-sky-400"
             textColor="text-white"
-            className="md:col-span-2 min-h-[250px]"
+            className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
           />
         </div>

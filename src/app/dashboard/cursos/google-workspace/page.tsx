@@ -22,7 +22,7 @@ const workspaceTools = [
     },
     {
       title: "Google Sites",
-      description: "Diseña y publica sitios web internos o para clientes sin necesidad de código, de forma rápida y sencilla.",
+      description: "Diseña y publica sitios web internos o para clientes con y sin código, de forma rápida y sencilla.",
       bgColor: "bg-blue-600",
       textColor: "text-white",
       href: "/dashboard/cursos/google-sites"

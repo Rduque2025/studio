@@ -64,14 +64,23 @@ export default function CursosPage() {
           </div>
         </Card>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <CategoryCard
+            title="Google Workspace"
+            description="Domina las herramientas de Google y optimiza tu productividad diaria."
+            imageUrl="https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHdvcmtzcGFjZXxlbnwwfHx8fDE3NTgzMDI3OTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+            bgColor="bg-green-500"
+            textColor="text-white"
+            className="min-h-[250px]"
+            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
+          />
           <CategoryCard
             title="Inteligencia Artificial"
             description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros"
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(12).png?raw=true"
             bgColor="bg-card"
             textColor="text-card-foreground"
-            className="lg:row-span-2 min-h-[300px] lg:min-h-[400px] justify-end"
+            className="lg:col-span-2 min-h-[250px] justify-end"
             imageClassName="w-[70%] h-auto -bottom-4 right-1/2 translate-x-1/2 lg:w-[300px] lg:h-[300px] lg:top-1/2 lg:-translate-y-1/2"
           />
 
@@ -81,7 +90,7 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(13).png?raw=true"
             bgColor="bg-indigo-500"
             textColor="text-white"
-            className="min-h-[250px]"
+            className="lg:col-span-2 min-h-[250px]"
             imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
           />
 

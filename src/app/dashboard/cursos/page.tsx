@@ -5,12 +5,9 @@ import React, { useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { CourseCard } from "@/components/dashboard/course-card";
 import { CourseCategoryCard } from "@/components/dashboard/course-category-card";
 import { mockCourses } from "@/lib/placeholder-data";
-import { ArrowRight, Mail } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight } from 'lucide-react';
 
 export default function CursosPage() {
   const categories = useMemo(() => {

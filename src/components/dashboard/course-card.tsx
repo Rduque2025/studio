@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import type { Course } from "@/lib/placeholder-data";
 import { Badge } from "@/components/ui/badge";
-import { Clock, Tag, PlayCircle } from "lucide-react";
+import { Clock, Tag } from "lucide-react";
 import { Progress } from "../ui/progress";
 
 interface CourseCardProps {
@@ -18,27 +18,38 @@ export function CourseCard({ course }: CourseCardProps) {
 
   return (
     <Link href={linkHref} target={linkTarget} className="group block h-full">
-      <div className="flex flex-col h-full">
-        <div className="relative w-full aspect-square overflow-hidden rounded-lg mb-3 group">
+      <Card className="h-full overflow-hidden transition-shadow hover:shadow-lg">
+        <CardHeader className="p-0">
+          <div className="relative w-full aspect-video">
             <Image
-                src={course.imageUrl}
-                alt={course.title}
-                layout="fill"
-                objectFit="cover"
-                data-ai-hint={course.dataAiHint}
-                className="transition-transform duration-300 group-hover:scale-105"
+              src={course.imageUrl}
+              alt={course.title}
+              layout="fill"
+              objectFit="cover"
+              data-ai-hint={course.dataAiHint}
+              className="transition-transform duration-300 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <PlayCircle className="h-10 w-10 text-white" />
+          </div>
+        </CardHeader>
+        <CardContent className="p-4">
+          <Badge variant="secondary" className="text-xs mb-2">{course.category}</Badge>
+          <CardTitle className="text-md font-semibold leading-tight group-hover:text-primary transition-colors line-clamp-2">
+            {course.title}
+          </CardTitle>
+          <CardDescription className="mt-2 text-xs line-clamp-2">
+            {course.description}
+          </CardDescription>
+        </CardContent>
+        <CardFooter className="p-4 pt-0 text-xs text-muted-foreground flex justify-between items-center">
+            <div className="flex items-center gap-1">
+                <Clock className="h-3 w-3" />
+                <span>{course.duration}</span>
             </div>
-            <div className="absolute bottom-2 left-2">
-                <Badge variant="secondary" className="bg-black/50 text-white text-[10px]">{course.duration}</Badge>
-            </div>
-        </div>
-        <div className="flex-grow">
-          <h3 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors line-clamp-1">{course.title}</h3>
-        </div>
-      </div>
+            <Button variant="link" size="sm" className="p-0 h-auto text-xs">
+              Ver más
+            </Button>
+        </CardFooter>
+      </Card>
     </Link>
   );
 }

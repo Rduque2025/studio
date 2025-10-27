@@ -75,21 +75,6 @@ export default function CursosPage() {
           </div>
         </div>
       </section>
-
-      {/* All Courses Section */}
-      <section id="todos-los-cursos" className="py-16 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="text-left mb-8">
-            <h2 className="text-3xl font-bold">Todos los Cursos</h2>
-            <p className="text-muted-foreground mt-2">Explora nuestra oferta completa de cursos para tu desarrollo.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-            {mockCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

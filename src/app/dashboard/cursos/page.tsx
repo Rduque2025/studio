@@ -49,39 +49,26 @@ const CategoryCard = ({
 export default function CursosPage() {
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <Card className="bg-primary text-primary-foreground p-8 rounded-2xl shadow-lg relative">
-          <Button variant="ghost" size="icon" className="absolute top-4 right-4 h-8 w-8 rounded-full bg-black/20 hover:bg-black/30">
-            <X className="h-5 w-5" />
-          </Button>
-          <div className="text-center max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold tracking-tight">
+      <div className="max-w-4xl mx-auto space-y-6">
+        <div className="text-center mb-12">
+            <h1 className="text-4xl font-bold tracking-tight">
               Donde potencias el talento que impulsa tu carrera
             </h1>
-            <p className="mt-4 text-xs text-primary-foreground/80">
+            <p className="mt-4 text-sm text-muted-foreground max-w-lg mx-auto">
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </p>
-          </div>
-        </Card>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
           <CategoryCard
             title="Google Workspace"
-            description="Domina las herramientas de Google y optimiza tu productividad diaria."
+            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(15).png?raw=true"
-            bgColor="bg-green-500"
-            textColor="text-white"
+            bgColor="bg-blue-100"
+            textColor="text-blue-900"
             className="min-h-[250px]"
-            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
-          />
-          <CategoryCard
-            title="Inteligencia Artificial"
-            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros"
-            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(12).png?raw=true"
-            bgColor="bg-card"
-            textColor="text-card-foreground"
-            className="lg:col-span-2 min-h-[250px] justify-end"
-            imageClassName="w-[70%] h-auto -bottom-4 right-1/2 translate-x-1/2 lg:w-[300px] lg:h-[300px] lg:top-1/2 lg:-translate-y-1/2"
+            imageClassName="w-[150px] h-[150px] -bottom-4 -right-4"
           />
 
           <CategoryCard
@@ -90,18 +77,38 @@ export default function CursosPage() {
             imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(13).png?raw=true"
             bgColor="bg-indigo-500"
             textColor="text-white"
-            className="lg:col-span-2 min-h-[250px]"
+            className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
           />
 
           <CategoryCard
-            title="Programación"
-            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros"
-            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(14).png?raw=true"
-            bgColor="bg-purple-400"
-            textColor="text-white"
+            title="Inteligencia Artificial"
+            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(12).png?raw=true"
+            bgColor="bg-card"
+            textColor="text-card-foreground"
             className="min-h-[250px]"
             imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
+          />
+
+          <CategoryCard
+            title="Organización"
+            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(11).png?raw=true"
+            bgColor="bg-purple-200"
+            textColor="text-purple-900"
+            className="min-h-[250px]"
+            imageClassName="w-[180px] h-[180px] -bottom-4 -right-4"
+          />
+
+          <CategoryCard
+            title="Herramientas Digitales"
+            description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(10).png?raw=true"
+            bgColor="bg-sky-400"
+            textColor="text-white"
+            className="md:col-span-2 min-h-[250px]"
+            imageClassName="w-[180px] h-[180px] -bottom-4 right-4"
           />
         </div>
       </div>

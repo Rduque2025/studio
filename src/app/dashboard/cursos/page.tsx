@@ -28,7 +28,7 @@ const CategoryCard = ({
   return (
     <Card className={`relative rounded-2xl overflow-hidden shadow-lg p-8 flex flex-col justify-between transition-transform hover:scale-[1.02] ${bgColor} ${textColor} ${className}`}>
       <div className="relative z-10">
-        <h3 className="flex items-center text-3xl font-bold">
+        <h3 className="flex items-center text-3xl font-bold tracking-tight">
           {title}
           <PlayCircle className="ml-3 h-7 w-7" />
         </h3>
@@ -54,7 +54,7 @@ export default function CursosPage() {
             <X className="h-5 w-5" />
           </Button>
           <div className="text-center max-w-2xl mx-auto">
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-4xl font-bold tracking-tight">
               Donde potencias el talento que impulsa tu carrera
             </h1>
             <p className="mt-4 text-sm text-primary-foreground/80">

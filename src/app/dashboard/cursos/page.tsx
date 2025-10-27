@@ -88,6 +88,7 @@ export default function CursosPage() {
           <CategoryCard
             title="Google Workspace"
             description="Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros."
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(15).png?raw=true"
             bgColor="bg-blue-100"
             textColor="text-blue-900"
             label="Educativo"

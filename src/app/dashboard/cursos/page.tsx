@@ -133,8 +133,8 @@ export default function CursosPage() {
             <ScrollArea>
               <div className="flex space-x-6 pb-4">
                 {carouselItems.map((item) => (
-                  <Link href={item.href} key={item.title} className="block">
-                    <Card className="w-80 h-96 flex-shrink-0 relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                  <Link href={item.href} key={item.title} className="block w-80 h-96 flex-shrink-0">
+                    <Card className="h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300">
                       <Image
                         src={item.imageUrl}
                         alt={item.title}
@@ -235,4 +235,3 @@ export default function CursosPage() {
     </div>
   );
 }
-

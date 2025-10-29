@@ -1,14 +1,40 @@
 
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Image from 'next/image';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
+import { ArrowRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+
+const carouselItems = [
+  {
+    title: 'ADN Banesco Seguros',
+    description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
+    imageUrl: 'https://images.unsplash.com/photo-1579547945412-484f233b3799?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkbmF8ZW58MHx8fHwxNzU4NjEyMTA4fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    dataAiHint: 'dna strand',
+    href: '#',
+  },
+  {
+    title: 'Cursos Regulatorios',
+    description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
+    imageUrl: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsYXd8ZW58MHx8fHwxNzU4NjEyMTQyfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    dataAiHint: 'law regulations',
+    href: '#',
+  },
+  {
+    title: 'Nuestros Productos',
+    description: 'Explora a fondo nuestro portafolio de productos y fortalece tu conocimiento comercial.',
+    imageUrl: 'https://images.unsplash.com/photo-1674049406279-d67b45a6f059?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0c3xlbnwwfHx8fDE3NTg2MTIxNzB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    dataAiHint: 'product portfolio',
+    href: '#',
+  },
+];
+
 
 const CategoryCard = ({
   title,
@@ -33,7 +59,7 @@ const CategoryCard = ({
   isLightCard?: boolean;
   href?: string;
 }) => {
-  const CardContent = (
+  const CardContentComponent = (
     <Card className={cn(
       "relative rounded-2xl overflow-hidden shadow-lg p-6 flex flex-col justify-between transition-transform hover:scale-[1.02]",
       bgColor,
@@ -64,17 +90,78 @@ const CategoryCard = ({
   );
 
   if (href) {
-    return <Link href={href}>{CardContent}</Link>;
+    return <Link href={href}>{CardContentComponent}</Link>;
   }
 
-  return CardContent;
+  return CardContentComponent;
 };
 
 export default function CursosPage() {
+    const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+    const handleCarouselScroll = (direction: 'left' | 'right') => {
+        const viewport = scrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
+        if (viewport) {
+            const scrollAmount = 320; // Adjust based on card width + gap
+            viewport.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth',
+            });
+        }
+    };
+
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <div className="mb-12">
+      <div className="max-w-7xl mx-auto space-y-12">
+
+        {/* New Carousel Section */}
+        <div>
+          <div className="flex justify-between items-end mb-4">
+            <h2 className="text-3xl font-bold text-foreground tracking-tight">
+              Descubre todo lo que <br/> Banesco Seguros tiene para ti
+            </h2>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="icon" onClick={() => handleCarouselScroll('left')}>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon" onClick={() => handleCarouselScroll('right')}>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+          <div ref={scrollAreaRef}>
+            <ScrollArea>
+              <div className="flex space-x-6 pb-4">
+                {carouselItems.map((item) => (
+                  <Link href={item.href} key={item.title} className="block">
+                    <Card className="w-80 h-96 flex-shrink-0 relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.title}
+                        layout="fill"
+                        objectFit="cover"
+                        data-ai-hint={item.dataAiHint}
+                        className="transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
+                        <h3 className="text-xl font-bold">{item.title}</h3>
+                        <p className="text-xs mt-1 text-white/90">{item.description}</p>
+                        <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-sm font-semibold">
+                          Explorar <ArrowRight className="ml-2 h-4 w-4" />
+                        </div>
+                      </div>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+              <ScrollBar orientation="horizontal" className="invisible" />
+            </ScrollArea>
+          </div>
+        </div>
+
+        {/* Existing Courses Section */}
+        <div>
             <h1 className="text-5xl font-extrabold tracking-tight">
               Donde potencias el talento <br /> que impulsa tu carrera
             </h1>
@@ -148,3 +235,4 @@ export default function CursosPage() {
     </div>
   );
 }
+

@@ -154,7 +154,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full flex h-24 items-center justify-center px-4">
-      <nav className="hidden md:grid w-full max-w-7xl grid-cols-3 items-center bg-card/95 backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border">
+      <nav className="hidden md:grid w-full max-w-7xl grid-cols-3 items-center bg-primary backdrop-blur-sm px-6 py-2 rounded-full shadow-lg border-primary/20">
         <div className="flex items-center justify-start">
           <Link href="/dashboard" className="flex items-center space-x-2 flex-shrink-0">
             <Image
@@ -163,6 +163,7 @@ export function Header() {
               width={32}
               height={32}
               priority
+              style={{ filter: 'brightness(0) invert(1)' }}
             />
           </Link>
         </div>
@@ -177,8 +178,8 @@ export function Header() {
                 className={cn(
                   "transition-colors px-3 py-1.5 rounded-full text-xs font-medium",
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "bg-primary-foreground text-primary"
+                    : "text-primary-foreground/70 hover:text-primary-foreground"
                 )}
               >
                 {item.name}
@@ -190,7 +191,7 @@ export function Header() {
         <div className="flex items-center justify-self-end space-x-1">
           <Popover open={isSearchPopoverOpen} onOpenChange={setIsSearchPopoverOpen}>
             <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon" className="group hover:bg-transparent">
+              <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground group hover:bg-white/10">
                 <Search className="h-5 w-5 transition-transform group-hover:scale-110" />
                 <span className="sr-only">Buscar</span>
               </Button>
@@ -219,7 +220,7 @@ export function Header() {
 
           <Popover>
             <PopoverTrigger asChild>
-               <Button variant="ghost" size="icon" className="relative group hover:bg-transparent">
+               <Button variant="ghost" size="icon" className="text-primary-foreground/80 hover:text-primary-foreground relative group hover:bg-white/10">
                 <Bell className="h-5 w-5 transition-transform group-hover:scale-110" />
                 {notifications.length > 0 && (
                   <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-bold text-white">
@@ -336,5 +337,3 @@ export function Header() {
     </header>
   );
 }
-
-    

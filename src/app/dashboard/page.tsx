@@ -920,12 +920,11 @@ export default function DashboardPage() {
                 
                 <div className="space-y-4">
                 {pilaresData.map((pilar, index) => {
-                    const colors = ["bg-primary", "bg-secondary", "bg-[#3f94cd]", "bg-[#59d1ff]"];
                     const Icon = pilar.icon;
                     return (
                     <div 
                         key={pilar.number}
-                        className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", colors[index % colors.length])}
+                        className={cn("group p-6 rounded-2xl transition-all duration-300 ease-in-out hover:shadow-xl hover:scale-105", pilar.color)}
                     >
                         <div className="flex items-start gap-4">
                         <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-white/20 text-white text-lg font-bold">
@@ -989,6 +988,7 @@ export default function DashboardPage() {
     
 
     
+
 
 
 

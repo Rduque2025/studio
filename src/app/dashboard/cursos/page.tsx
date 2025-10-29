@@ -14,7 +14,7 @@ const carouselItems = [
   {
     title: 'ADN Banesco Seguros',
     description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(13).png?raw=true',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(17).png?raw=true',
     dataAiHint: 'dna strand',
     href: '#',
     bgColor: 'bg-blue-100',
@@ -23,7 +23,7 @@ const carouselItems = [
   {
     title: 'Cursos Regulatorios',
     description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(11).png?raw=true',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(19).png?raw=true',
     dataAiHint: 'law regulations',
     href: '#',
     bgColor: 'bg-primary',
@@ -32,7 +32,7 @@ const carouselItems = [
   {
     title: 'Nuestros Productos',
     description: 'Explora a fondo nuestro portafolio de productos y fortalece tu conocimiento comercial.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(16).png?raw=true',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(18).png?raw=true',
     dataAiHint: 'product portfolio',
     href: '#',
     bgColor: 'bg-sky-400',

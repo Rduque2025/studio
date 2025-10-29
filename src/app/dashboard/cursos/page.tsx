@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useRef } from 'react';
@@ -15,23 +14,29 @@ const carouselItems = [
   {
     title: 'ADN Banesco Seguros',
     description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
-    imageUrl: 'https://images.unsplash.com/photo-1579547945412-484f233b3799?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxkbmF8ZW58MHx8fHwxNzU4NjEyMTA4fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(13).png?raw=true',
     dataAiHint: 'dna strand',
     href: '#',
+    bgColor: 'bg-blue-100',
+    textColor: 'text-blue-900',
   },
   {
     title: 'Cursos Regulatorios',
     description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
-    imageUrl: 'https://images.unsplash.com/photo-1505664194779-8beaceb93744?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxsYXd8ZW58MHx8fHwxNzU4NjEyMTQyfDA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(11).png?raw=true',
     dataAiHint: 'law regulations',
     href: '#',
+    bgColor: 'bg-primary',
+    textColor: 'text-primary-foreground',
   },
   {
     title: 'Nuestros Productos',
     description: 'Explora a fondo nuestro portafolio de productos y fortalece tu conocimiento comercial.',
-    imageUrl: 'https://images.unsplash.com/photo-1674049406279-d67b45a6f059?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwcm9kdWN0c3xlbnwwfHx8fDE3NTg2MTIxNzB8MA&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(16).png?raw=true',
     dataAiHint: 'product portfolio',
     href: '#',
+    bgColor: 'bg-sky-400',
+    textColor: 'text-white',
   },
 ];
 
@@ -133,23 +138,26 @@ export default function CursosPage() {
             <ScrollArea>
               <div className="flex space-x-6 pb-4">
                 {carouselItems.map((item) => (
-                  <Link href={item.href} key={item.title} className="block w-80 h-96 flex-shrink-0">
-                    <Card className="h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.title}
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint={item.dataAiHint}
-                        className="transition-transform duration-300 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                        <h3 className="text-xl font-bold">{item.title}</h3>
-                        <p className="text-xs mt-1 text-white/90">{item.description}</p>
-                        <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity flex items-center text-sm font-semibold">
-                          Explorar <ArrowRight className="ml-2 h-4 w-4" />
-                        </div>
+                  <Link href={item.href} key={item.title} className="block w-80 h-48 flex-shrink-0">
+                    <Card className={cn("h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex items-center", item.bgColor, item.textColor)}>
+                      <div className="w-2/3 pr-4">
+                          <h3 className="text-lg font-bold uppercase">{item.title}</h3>
+                          <p className="text-xs mt-1 opacity-90">{item.description}</p>
+                      </div>
+                      <div className="w-1/3 relative h-full">
+                         <Image
+                          src={item.imageUrl}
+                          alt={item.title}
+                          layout="fill"
+                          objectFit="contain"
+                          data-ai-hint={item.dataAiHint}
+                          className="transition-transform duration-300 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="absolute top-1/2 -right-3 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                         <div className="h-6 w-6 rounded-full bg-white/20 flex items-center justify-center">
+                            <ChevronRight className="h-4 w-4 text-white" />
+                         </div>
                       </div>
                     </Card>
                   </Link>

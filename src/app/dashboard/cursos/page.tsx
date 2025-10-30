@@ -107,7 +107,7 @@ export default function CursosPage() {
     const handleCarouselScroll = (direction: 'left' | 'right') => {
         const viewport = scrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
         if (viewport) {
-            const scrollAmount = 320; // Adjust based on card width + gap
+            const scrollAmount = 500; // Adjust based on card width (480px) + gap
             viewport.scrollBy({
                 left: direction === 'left' ? -scrollAmount : scrollAmount,
                 behavior: 'smooth',
@@ -138,11 +138,11 @@ export default function CursosPage() {
             <ScrollArea>
               <div className="flex space-x-6 pb-4">
                 {carouselItems.map((item) => (
-                  <Link href={item.href} key={item.title} className="block w-80 h-48 flex-shrink-0">
+                  <Link href={item.href} key={item.title} className="block w-[480px] h-[240px] flex-shrink-0">
                     <Card className={cn("h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex items-center", item.bgColor, item.textColor)}>
                       <div className="w-2/3 pr-4">
-                          <h3 className="text-lg font-bold uppercase">{item.title}</h3>
-                          <p className="text-xs mt-1 opacity-90">{item.description}</p>
+                          <h3 className="text-xl font-bold uppercase">{item.title}</h3>
+                          <p className="text-sm mt-2 opacity-90">{item.description}</p>
                       </div>
                       <div className="w-1/3 relative h-full">
                          <Image
@@ -155,8 +155,8 @@ export default function CursosPage() {
                         />
                       </div>
                       <div className="absolute top-1/2 -right-3 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                         <div className="h-6 w-6 rounded-full bg-white/20 flex items-center justify-center">
-                            <ChevronRight className="h-4 w-4 text-white" />
+                         <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <ChevronRight className="h-5 w-5 text-white" />
                          </div>
                       </div>
                     </Card>

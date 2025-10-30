@@ -153,16 +153,16 @@ export default function CursosPage() {
                                   <h3 className="text-5xl font-bold uppercase">{item.title}</h3>
                                   <p className="text-sm mt-2 opacity-90">{item.description}</p>
                               </div>
+                              <div className="absolute inset-0 flex items-center justify-end pointer-events-none">
+                                  <Image
+                                      src={item.imageUrl}
+                                      alt=""
+                                      width={250}
+                                      height={250}
+                                      className="object-contain transition-transform duration-300 group-hover:scale-110"
+                                  />
+                              </div>
                               <div className="relative z-10 flex justify-between items-center mt-auto">
-                                <div className="absolute right-0 bottom-0 top-0 w-1/2 flex items-center justify-center">
-                                    <Image
-                                        src={item.imageUrl}
-                                        alt=""
-                                        width={250}
-                                        height={250}
-                                        className="object-contain transition-transform duration-300 group-hover:scale-110"
-                                    />
-                                </div>
                                 <div className="absolute bottom-0 right-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <ArrowRight className="h-5 w-5 text-white" />
                                 </div>

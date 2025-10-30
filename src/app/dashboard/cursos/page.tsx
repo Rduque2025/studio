@@ -13,22 +13,14 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const carouselItems = [
   {
-    title: 'ADN Banesco Seguros',
-    description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(17).png?raw=true',
-    dataAiHint: 'dna strand',
-    href: '#',
-    bgColor: 'bg-blue-100',
-    textColor: 'text-blue-900',
-  },
-  {
     title: 'Cursos Regulatorios',
     description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
     imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(19).png?raw=true',
     dataAiHint: 'law regulations',
     href: '#',
-    bgColor: 'bg-primary',
-    textColor: 'text-primary-foreground',
+    bgColor: 'bg-indigo-500',
+    textColor: 'text-white',
+    gridClass: "md:col-span-2 md:row-span-2",
   },
   {
     title: 'Nuestros Productos',
@@ -38,6 +30,27 @@ const carouselItems = [
     href: '#',
     bgColor: 'bg-sky-400',
     textColor: 'text-white',
+    gridClass: "md:col-span-1",
+  },
+    {
+    title: 'ADN Banesco Seguros',
+    description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(17).png?raw=true',
+    dataAiHint: 'dna strand',
+    href: '#',
+    bgColor: 'bg-primary',
+    textColor: 'text-primary-foreground',
+    gridClass: "md:col-span-1",
+  },
+  {
+    title: 'Nuestros Valores de Marca',
+    description: 'Descubre los principios que nos guían y fortalecen nuestro compromiso contigo.',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(20).png?raw=true',
+    dataAiHint: 'brand values',
+    href: '#',
+    bgColor: 'bg-slate-500',
+    textColor: 'text-white',
+    gridClass: "md:col-span-2",
   },
 ];
 
@@ -103,69 +116,50 @@ const CategoryCard = ({
 };
 
 export default function CursosPage() {
-    const scrollAreaRef = useRef<HTMLDivElement>(null);
-
-    const handleCarouselScroll = (direction: 'left' | 'right') => {
-        const viewport = scrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
-        if (viewport) {
-            const scrollAmount = 604; // Adjust based on card width (580px) + gap (24px)
-            viewport.scrollBy({
-                left: direction === 'left' ? -scrollAmount : scrollAmount,
-                behavior: 'smooth',
-            });
-        }
-    };
 
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
       <div className="max-w-7xl mx-auto space-y-12">
 
-        {/* New Carousel Section */}
+        {/* New Grid Section */}
         <div>
-          <div className="flex justify-between items-end mb-4">
+          <div className="mb-8">
             <h1 className="text-5xl font-extrabold tracking-tight">
               Descubre todo lo que <br/> Banesco Seguros tiene para ti
             </h1>
-            <div className="flex items-center gap-2">
-              <Button variant="outline" size="icon" onClick={() => handleCarouselScroll('left')}>
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" onClick={() => handleCarouselScroll('right')}>
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
+            <p className="mt-4 text-sm text-muted-foreground max-w-lg">
+              Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
+            </p>
           </div>
-          <div ref={scrollAreaRef}>
-            <ScrollArea>
-              <div className="flex space-x-6 pb-4">
-                {carouselItems.map((item) => (
-                  <Link href={item.href} key={item.title} className="block w-[580px] h-[280px] flex-shrink-0">
-                    <Card className={cn("h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex items-center", item.bgColor, item.textColor)}>
-                      <div className="w-2/3 pr-4">
-                          <h3 className="text-xl font-bold uppercase">{item.title}</h3>
-                          <p className="text-sm mt-2 opacity-90">{item.description}</p>
-                      </div>
-                      <div className="w-1/3 relative h-full">
-                         <Image
-                          src={item.imageUrl}
-                          alt={item.title}
-                          layout="fill"
-                          objectFit="contain"
-                          data-ai-hint={item.dataAiHint}
-                          className="transition-transform duration-300 group-hover:scale-110"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {carouselItems.map((item) => (
+              <Link href={item.href} key={item.title} className={cn("group", item.gridClass)}>
+                <Card className={cn(
+                  "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[280px]",
+                  item.bgColor,
+                  item.textColor
+                )}>
+                  <div className="relative z-10">
+                      <h3 className="text-xl font-bold uppercase">{item.title}</h3>
+                      <p className="text-sm mt-2 opacity-90 max-w-xs">{item.description}</p>
+                  </div>
+                  <div className="relative z-10 flex justify-end items-center">
+                    <div className="absolute -bottom-8 -right-8 opacity-20 group-hover:opacity-30 transition-opacity">
+                        <Image
+                            src={item.imageUrl}
+                            alt=""
+                            width={150}
+                            height={150}
+                            className="object-contain"
                         />
-                      </div>
-                      <div className="absolute top-1/2 -right-3 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
-                         <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
-                            <ChevronRight className="h-5 w-5 text-white" />
-                         </div>
-                      </div>
-                    </Card>
-                  </Link>
-                ))}
-              </div>
-              <ScrollBar orientation="horizontal" className="invisible" />
-            </ScrollArea>
+                    </div>
+                    <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ArrowRight className="h-5 w-5 text-white" />
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
 
@@ -232,7 +226,7 @@ export default function CursosPage() {
           <CategoryCard
             title="Herramientas Digitales"
             description="Explora y domina las herramientas digitales que optimizan nuestros procesos y mejoran la experiencia del cliente."
-            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(16).png?raw=true"
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%情(16).png?raw=true"
             bgColor="bg-sky-400"
             textColor="text-white"
             label="Cursos"

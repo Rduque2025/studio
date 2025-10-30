@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -32,7 +33,7 @@ const carouselItems = [
     {
     title: 'ADN Banesco Seguros',
     description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(17).png?raw=true',
+    imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/09/frame-987.png',
     dataAiHint: 'dna strand',
     href: '#',
     bgColor: 'bg-primary',

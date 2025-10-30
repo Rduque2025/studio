@@ -1,7 +1,6 @@
-
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -20,7 +19,6 @@ const carouselItems = [
     href: '#',
     bgColor: 'bg-indigo-500',
     textColor: 'text-white',
-    gridClass: "md:col-span-2 md:row-span-2",
   },
   {
     title: 'Nuestros Productos',
@@ -30,7 +28,6 @@ const carouselItems = [
     href: '#',
     bgColor: 'bg-sky-400',
     textColor: 'text-white',
-    gridClass: "md:col-span-1",
   },
     {
     title: 'ADN Banesco Seguros',
@@ -40,7 +37,6 @@ const carouselItems = [
     href: '#',
     bgColor: 'bg-primary',
     textColor: 'text-primary-foreground',
-    gridClass: "md:col-span-1",
   },
   {
     title: 'Nuestros Valores de Marca',
@@ -50,7 +46,6 @@ const carouselItems = [
     href: '#',
     bgColor: 'bg-slate-500',
     textColor: 'text-white',
-    gridClass: "md:col-span-2",
   },
 ];
 
@@ -116,12 +111,23 @@ const CategoryCard = ({
 };
 
 export default function CursosPage() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + carouselItems.length) % carouselItems.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
+  };
+
+  const currentItem = carouselItems[currentIndex];
 
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
       <div className="max-w-7xl mx-auto space-y-12">
 
-        {/* New Grid Section */}
+        {/* New Carousel Section */}
         <div>
           <div className="mb-8">
             <h1 className="text-5xl font-extrabold tracking-tight">
@@ -131,35 +137,57 @@ export default function CursosPage() {
               Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {carouselItems.map((item) => (
-              <Link href={item.href} key={item.title} className={cn("group", item.gridClass)}>
-                <Card className={cn(
-                  "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[280px]",
-                  item.bgColor,
-                  item.textColor
-                )}>
-                  <div className="relative z-10">
-                      <h3 className="text-xl font-bold uppercase">{item.title}</h3>
-                      <p className="text-sm mt-2 opacity-90 max-w-xs">{item.description}</p>
-                  </div>
-                  <div className="relative z-10 flex justify-end items-center">
-                    <div className="absolute -bottom-8 -right-8 opacity-20 group-hover:opacity-30 transition-opacity">
-                        <Image
-                            src={item.imageUrl}
-                            alt=""
-                            width={150}
-                            height={150}
-                            className="object-contain"
-                        />
-                    </div>
-                    <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <ArrowRight className="h-5 w-5 text-white" />
-                    </div>
-                  </div>
-                </Card>
-              </Link>
-            ))}
+          <div className="relative">
+             <div className="overflow-hidden relative min-h-[300px]">
+                <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+                   {carouselItems.map((item) => (
+                      <div key={item.title} className="w-full flex-shrink-0">
+                         <Link href={item.href} className="group block">
+                            <Card className={cn(
+                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[280px]",
+                              item.bgColor,
+                              item.textColor
+                            )}>
+                              <div className="relative z-10">
+                                  <h3 className="text-xl font-bold uppercase">{item.title}</h3>
+                                  <p className="text-sm mt-2 opacity-90 max-w-xs">{item.description}</p>
+                              </div>
+                              <div className="relative z-10 flex justify-between items-center">
+                                <div className="absolute -bottom-8 -right-8 opacity-20 group-hover:opacity-30 transition-opacity">
+                                    <Image
+                                        src={item.imageUrl}
+                                        alt=""
+                                        width={150}
+                                        height={150}
+                                        className="object-contain"
+                                    />
+                                </div>
+                                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <ArrowRight className="h-5 w-5 text-white" />
+                                </div>
+                              </div>
+                            </Card>
+                          </Link>
+                      </div>
+                   ))}
+                </div>
+             </div>
+             <Button
+                variant="ghost"
+                size="icon"
+                onClick={handlePrev}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-card/80 hover:bg-card rounded-full h-10 w-10 shadow-md"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleNext}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-card/80 hover:bg-card rounded-full h-10 w-10 shadow-md"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </Button>
           </div>
         </div>
 

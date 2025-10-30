@@ -144,7 +144,7 @@ export default function CursosPage() {
                       <div key={item.title} className="w-full flex-shrink-0">
                          <Link href={item.href} className="group block">
                             <Card className={cn(
-                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[280px]",
+                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[300px]",
                               item.bgColor,
                               item.textColor
                             )}>

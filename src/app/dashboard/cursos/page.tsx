@@ -122,9 +122,9 @@ export default function CursosPage() {
         {/* New Carousel Section */}
         <div>
           <div className="flex justify-between items-end mb-4">
-            <h2 className="text-3xl font-bold text-foreground tracking-tight">
+            <h1 className="text-5xl font-extrabold tracking-tight">
               Descubre todo lo que <br/> Banesco Seguros tiene para ti
-            </h2>
+            </h1>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="icon" onClick={() => handleCarouselScroll('left')}>
                 <ChevronLeft className="h-4 w-4" />

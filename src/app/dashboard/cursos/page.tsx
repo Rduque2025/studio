@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -150,7 +151,7 @@ export default function CursosPage() {
                             )}>
                               <div className="relative z-10 flex-grow flex flex-col justify-center">
                                   <h3 className="text-5xl font-bold uppercase">{item.title}</h3>
-                                  <p className="text-sm mt-2 opacity-90 max-w-xs">{item.description}</p>
+                                  <p className="text-sm mt-2 opacity-90">{item.description}</p>
                               </div>
                               <div className="relative z-10 flex justify-between items-center mt-auto">
                                 <div className="absolute -bottom-8 -right-8 opacity-20 group-hover:opacity-30 transition-opacity">

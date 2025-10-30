@@ -144,15 +144,15 @@ export default function CursosPage() {
                       <div key={item.title} className="w-full flex-shrink-0">
                          <Link href={item.href} className="group block">
                             <Card className={cn(
-                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[456px]",
+                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col min-h-[456px]",
                               item.bgColor,
                               item.textColor
                             )}>
-                              <div className="relative z-10">
+                              <div className="relative z-10 flex-grow flex flex-col justify-center">
                                   <h3 className="text-5xl font-bold uppercase">{item.title}</h3>
                                   <p className="text-sm mt-2 opacity-90 max-w-xs">{item.description}</p>
                               </div>
-                              <div className="relative z-10 flex justify-between items-center">
+                              <div className="relative z-10 flex justify-between items-center mt-auto">
                                 <div className="absolute -bottom-8 -right-8 opacity-20 group-hover:opacity-30 transition-opacity">
                                     <Image
                                         src={item.imageUrl}

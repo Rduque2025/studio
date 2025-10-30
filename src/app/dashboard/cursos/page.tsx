@@ -33,7 +33,7 @@ const carouselItems = [
     {
     title: 'ADN Banesco Seguros',
     description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(17).png?raw=true',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blobain/image-Photoroom%20(17).png?raw=true',
     dataAiHint: 'dna strand',
     href: '#',
     bgColor: 'bg-primary',
@@ -154,13 +154,13 @@ export default function CursosPage() {
                                   <p className="text-sm mt-2 opacity-90">{item.description}</p>
                               </div>
                               <div className="relative z-10 flex justify-between items-center mt-auto">
-                                <div className="absolute -bottom-8 -right-8 opacity-20 group-hover:opacity-30 transition-opacity">
+                                <div className="absolute right-0 bottom-0 top-0 w-1/2 flex items-center justify-center">
                                     <Image
                                         src={item.imageUrl}
                                         alt=""
-                                        width={150}
-                                        height={150}
-                                        className="object-contain"
+                                        width={250}
+                                        height={250}
+                                        className="object-contain transition-transform duration-300 group-hover:scale-110"
                                     />
                                 </div>
                                 <div className="absolute bottom-0 right-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

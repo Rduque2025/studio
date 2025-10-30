@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -138,13 +138,13 @@ export default function CursosPage() {
             </p>
           </div>
           <div className="relative">
-             <div className="overflow-hidden relative min-h-[600px]">
+             <div className="overflow-hidden relative">
                 <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
                    {carouselItems.map((item) => (
                       <div key={item.title} className="w-full flex-shrink-0">
                          <Link href={item.href} className="group block">
                             <Card className={cn(
-                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[600px]",
+                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col justify-between min-h-[480px]",
                               item.bgColor,
                               item.textColor
                             )}>

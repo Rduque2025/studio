@@ -226,7 +226,7 @@ export default function CursosPage() {
           <CategoryCard
             title="Herramientas Digitales"
             description="Explora y domina las herramientas digitales que optimizan nuestros procesos y mejoran la experiencia del cliente."
-            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%情(16).png?raw=true"
+            imageUrl="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(16).png?raw=true"
             bgColor="bg-sky-400"
             textColor="text-white"
             label="Cursos"

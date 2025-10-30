@@ -149,7 +149,7 @@ export default function CursosPage() {
                               item.textColor
                             )}>
                               <div className="relative z-10">
-                                  <h3 className="text-3xl font-bold uppercase">{item.title}</h3>
+                                  <h3 className="text-5xl font-bold uppercase">{item.title}</h3>
                                   <p className="text-sm mt-2 opacity-90 max-w-xs">{item.description}</p>
                               </div>
                               <div className="relative z-10 flex justify-between items-center">

@@ -162,7 +162,7 @@ export default function CursosPage() {
                                         className="object-contain"
                                     />
                                 </div>
-                                <div className="h-8 w-8 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="absolute bottom-0 right-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <ArrowRight className="h-5 w-5 text-white" />
                                 </div>
                               </div>

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -159,7 +158,7 @@ export default function CursosPage() {
                                       alt=""
                                       width={250}
                                       height={250}
-                                      className="object-contain transition-transform duration-300 group-hover:scale-110 mr-8"
+                                      className="object-contain transition-transform duration-300 group-hover:scale-110 mr-16"
                                   />
                               </div>
                               <div className="relative z-10 flex justify-between items-center mt-auto">

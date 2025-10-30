@@ -158,7 +158,7 @@ export default function CursosPage() {
                                       alt=""
                                       width={250}
                                       height={250}
-                                      className="object-contain transition-transform duration-300 group-hover:scale-110 mr-16"
+                                      className="object-contain transition-transform duration-300 group-hover:scale-110 mr-24"
                                   />
                               </div>
                               <div className="relative z-10 flex justify-between items-center mt-auto">

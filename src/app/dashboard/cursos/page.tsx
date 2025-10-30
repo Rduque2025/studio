@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -107,7 +108,7 @@ export default function CursosPage() {
     const handleCarouselScroll = (direction: 'left' | 'right') => {
         const viewport = scrollAreaRef.current?.querySelector<HTMLDivElement>('[data-radix-scroll-area-viewport]');
         if (viewport) {
-            const scrollAmount = 500; // Adjust based on card width (480px) + gap
+            const scrollAmount = 604; // Adjust based on card width (580px) + gap (24px)
             viewport.scrollBy({
                 left: direction === 'left' ? -scrollAmount : scrollAmount,
                 behavior: 'smooth',
@@ -138,7 +139,7 @@ export default function CursosPage() {
             <ScrollArea>
               <div className="flex space-x-6 pb-4">
                 {carouselItems.map((item) => (
-                  <Link href={item.href} key={item.title} className="block w-[480px] h-[240px] flex-shrink-0">
+                  <Link href={item.href} key={item.title} className="block w-[580px] h-[280px] flex-shrink-0">
                     <Card className={cn("h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 flex items-center", item.bgColor, item.textColor)}>
                       <div className="w-2/3 pr-4">
                           <h3 className="text-xl font-bold uppercase">{item.title}</h3>

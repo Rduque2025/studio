@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useRef } from 'react';
@@ -15,7 +14,7 @@ const carouselItems = [
   {
     title: 'Cursos Regulatorios',
     description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(19).png?raw=true',
+    imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     dataAiHint: 'law regulations',
     href: '#',
     bgColor: 'bg-indigo-500',
@@ -24,7 +23,7 @@ const carouselItems = [
   {
     title: 'Nuestros Productos',
     description: 'Explora a fondo nuestro portafolio de productos y fortalece tu conocimiento comercial.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(18).png?raw=true',
+    imageUrl: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     dataAiHint: 'product portfolio',
     href: '#',
     bgColor: 'bg-sky-400',
@@ -144,26 +143,22 @@ export default function CursosPage() {
                    {carouselItems.map((item) => (
                       <div key={item.title} className="w-full flex-shrink-0">
                          <Link href={item.href} className="group block">
-                            <Card className={cn(
-                              "h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 p-8 flex flex-col min-h-[456px]",
-                              item.bgColor,
-                              item.textColor
-                            )}>
-                              <div className="relative z-10 flex-grow flex flex-col justify-center">
-                                  <h3 className="text-5xl font-bold uppercase">{item.title}</h3>
-                                  <p className="text-sm mt-2 opacity-90">{item.description}</p>
-                              </div>
-                              <div className="absolute inset-0 flex items-center justify-end pointer-events-none">
-                                  <Image
-                                      src={item.imageUrl}
-                                      alt=""
-                                      width={250}
-                                      height={250}
-                                      className="object-contain transition-transform duration-300 group-hover:scale-110 mr-24"
-                                  />
-                              </div>
-                              <div className="relative z-10 flex justify-between items-center mt-auto">
-                                <div className="absolute bottom-0 right-0 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <Card className="h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 min-h-[456px]">
+                              <Image
+                                src={item.imageUrl}
+                                alt={item.title}
+                                layout="fill"
+                                objectFit="cover"
+                                className="transition-transform duration-500 group-hover:scale-105"
+                                data-ai-hint={item.dataAiHint}
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+                              <div className="relative z-10 flex flex-col justify-center h-full p-8 text-white">
+                                <div className="max-w-md">
+                                  <h3 className="text-4xl font-bold uppercase" dangerouslySetInnerHTML={{ __html: item.title.replace(' ', '<br/>') }} />
+                                  <p className="text-sm mt-4 opacity-90">{item.description}</p>
+                                </div>
+                                <div className="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                     <ArrowRight className="h-5 w-5 text-white" />
                                 </div>
                               </div>

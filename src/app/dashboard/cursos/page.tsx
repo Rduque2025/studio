@@ -10,46 +10,6 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
-const carouselItems = [
-  {
-    title: 'Cursos Regulatorios',
-    description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
-    imageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    dataAiHint: 'law regulations',
-    href: '#',
-    bgColor: 'bg-indigo-500',
-    textColor: 'text-white',
-  },
-  {
-    title: 'Nuestros Productos',
-    description: 'Explora a fondo nuestro portafolio de productos y fortalece tu conocimiento comercial.',
-    imageUrl: 'https://images.unsplash.com/photo-1556740738-b6a63e27c4df?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    dataAiHint: 'product portfolio',
-    href: '#',
-    bgColor: 'bg-sky-400',
-    textColor: 'text-white',
-  },
-    {
-    title: 'ADN Banesco Seguros',
-    description: 'Conoce nuestra identidad, valores y lo que nos impulsa a ser líderes en el mercado.',
-    imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/09/frame-987.png',
-    dataAiHint: 'dna strand',
-    href: '#',
-    bgColor: 'bg-primary',
-    textColor: 'text-primary-foreground',
-  },
-  {
-    title: 'Nuestros Valores de Marca',
-    description: 'Descubre los principios que nos guían y fortalecen nuestro compromiso contigo.',
-    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(20).png?raw=true',
-    dataAiHint: 'brand values',
-    href: '#',
-    bgColor: 'bg-slate-500',
-    textColor: 'text-white',
-  },
-];
-
-
 const CategoryCard = ({
   title,
   description,
@@ -111,78 +71,9 @@ const CategoryCard = ({
 };
 
 export default function CursosPage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + carouselItems.length) % carouselItems.length);
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselItems.length);
-  };
-
-  const currentItem = carouselItems[currentIndex];
-
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
       <div className="max-w-7xl mx-auto space-y-12">
-
-        {/* New Carousel Section */}
-        <div>
-          <div className="mb-8">
-            <h1 className="text-5xl font-extrabold tracking-tight">
-              Descubre todo lo que <br/> Banesco Seguros tiene para ti
-            </h1>
-            <p className="mt-4 text-sm text-muted-foreground max-w-lg">
-              Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros
-            </p>
-          </div>
-          <div className="relative">
-             <div className="overflow-hidden relative">
-                <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                   {carouselItems.map((item) => (
-                      <div key={item.title} className="w-full flex-shrink-0">
-                         <Link href={item.href} className="group block">
-                            <Card className="h-full w-full relative rounded-xl overflow-hidden group shadow-lg hover:shadow-2xl transition-shadow duration-300 min-h-[456px]">
-                              <Image
-                                src={item.imageUrl}
-                                alt={item.title}
-                                layout="fill"
-                                objectFit="cover"
-                                className="transition-transform duration-500 group-hover:scale-105"
-                                data-ai-hint={item.dataAiHint}
-                              />
-                              <div className="absolute inset-0 bg-black/50"></div>
-                              <div className="relative z-10 flex flex-col justify-center items-center text-center h-full p-8 text-white">
-                                <div className="max-w-md">
-                                  <h3 className="text-5xl font-bold uppercase" dangerouslySetInnerHTML={{ __html: item.title.replace(' ', '<br/>') }} />
-                                  <p className="text-sm mt-4 opacity-90">{item.description}</p>
-                                </div>
-                              </div>
-                            </Card>
-                          </Link>
-                      </div>
-                   ))}
-                </div>
-             </div>
-             <Button
-                variant="ghost"
-                size="icon"
-                onClick={handlePrev}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 bg-card/80 hover:bg-card rounded-full h-10 w-10 shadow-md"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10 bg-card/80 hover:bg-card rounded-full h-10 w-10 shadow-md"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </Button>
-          </div>
-        </div>
 
         {/* Existing Courses Section */}
         <div>

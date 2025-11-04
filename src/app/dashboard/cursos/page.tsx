@@ -152,14 +152,11 @@ export default function CursosPage() {
                                 className="transition-transform duration-500 group-hover:scale-105"
                                 data-ai-hint={item.dataAiHint}
                               />
-                              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
-                              <div className="relative z-10 flex flex-col justify-center h-full p-8 text-white">
+                              <div className="absolute inset-0 bg-black/50"></div>
+                              <div className="relative z-10 flex flex-col justify-center items-center text-center h-full p-8 text-white">
                                 <div className="max-w-md">
-                                  <h3 className="text-4xl font-bold uppercase" dangerouslySetInnerHTML={{ __html: item.title.replace(' ', '<br/>') }} />
+                                  <h3 className="text-5xl font-bold uppercase" dangerouslySetInnerHTML={{ __html: item.title.replace(' ', '<br/>') }} />
                                   <p className="text-sm mt-4 opacity-90">{item.description}</p>
-                                </div>
-                                <div className="absolute bottom-8 right-8 h-12 w-12 rounded-full bg-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <ArrowRight className="h-5 w-5 text-white" />
                                 </div>
                               </div>
                             </Card>

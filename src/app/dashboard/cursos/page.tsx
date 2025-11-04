@@ -113,7 +113,7 @@ export default function CursosPage() {
                 />
                 <div className="absolute inset-0 bg-blue-900/50" />
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center text-white">
-                  <h3 className="text-5xl font-bold uppercase" dangerouslySetInnerHTML={{ __html: card.title }} />
+                  <h3 className="text-5xl font-bold" dangerouslySetInnerHTML={{ __html: card.title }} />
                   <p className="text-sm mt-2 max-w-xs">{card.description}</p>
                 </div>
               </Card>

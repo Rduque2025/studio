@@ -19,7 +19,7 @@ const newSectionCards = [
   {
     title: 'ADN<br />Banesco Seguros',
     description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
-    imageUrl: 'https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjB3b3JrfGVufDB8fHx8MTc2MDkxOTU0OHww&ixlib=rb-4.1.0&q=80&w=1080',
+    imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(20).png?raw=true',
   },
   {
     title: 'Nuestros<br />Productos',
@@ -99,7 +99,7 @@ export default function CursosPage() {
       <div className="max-w-7xl mx-auto space-y-12">
         {/* New Section */}
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Descubre todo lo que Banesco Seguros tiene para ti</h2>
+          <h2 className="text-5xl font-bold tracking-tight text-center mb-8">Descubre todo lo que Banesco Seguros tiene para ti</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {newSectionCards.map((card, index) => (
               <Card key={index} className="relative rounded-2xl overflow-hidden shadow-lg aspect-[16/10] group">

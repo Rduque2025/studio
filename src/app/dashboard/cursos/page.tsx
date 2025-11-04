@@ -10,6 +10,29 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
+const newSectionCards = [
+  {
+    title: 'Cursos<br />Regulatorios',
+    description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjB3b3JrfGVufDB8fHx8MTc2MDkxOTU0OHww&ixlib=rb-4.1.0&q=80&w=1080',
+  },
+  {
+    title: 'ADN<br />Banesco Seguros',
+    description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjB3b3JrfGVufDB8fHx8MTc2MDkxOTU0OHww&ixlib=rb-4.1.0&q=80&w=1080',
+  },
+  {
+    title: 'Nuestros<br />Productos',
+    description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjB3b3JrfGVufDB8fHx8MTc2MDkxOTU0OHww&ixlib=rb-4.1.0&q=80&w=1080',
+  },
+  {
+    title: 'Nuestra<br />Marca',
+    description: 'Mantente al día con las normativas y procedimientos esenciales para tu rol en la organización.',
+    imageUrl: 'https://images.unsplash.com/photo-1554224155-169544351742?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvZmZpY2UlMjB3b3JrfGVufDB8fHx8MTc2MDkxOTU0OHww&ixlib=rb-4.1.0&q=80&w=1080',
+  },
+];
+
 const CategoryCard = ({
   title,
   description,
@@ -74,6 +97,29 @@ export default function CursosPage() {
   return (
     <div className="bg-muted min-h-screen p-4 sm:p-8">
       <div className="max-w-7xl mx-auto space-y-12">
+        {/* New Section */}
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight text-center mb-8">Descubre todo lo que Banesco Seguros tiene para ti</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {newSectionCards.map((card, index) => (
+              <Card key={index} className="relative rounded-2xl overflow-hidden shadow-lg aspect-[16/10] group">
+                <Image
+                  src={card.imageUrl}
+                  alt={card.title.replace('<br />', ' ')}
+                  layout="fill"
+                  objectFit="cover"
+                  className="transition-transform duration-300 group-hover:scale-105"
+                  data-ai-hint="office work"
+                />
+                <div className="absolute inset-0 bg-blue-900/50" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center text-white">
+                  <h3 className="text-5xl font-bold uppercase" dangerouslySetInnerHTML={{ __html: card.title }} />
+                  <p className="text-sm mt-2 max-w-xs">{card.description}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </div>
 
         {/* Existing Courses Section */}
         <div>

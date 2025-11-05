@@ -21,7 +21,6 @@ export interface CalendarEvent {
 
 interface EventsContextType {
   allEvents: CalendarEvent[];
-  // addUserEvent is no longer needed since we are not adding events from the UI
   deleteUserEvent: (eventId: string) => void;
 }
 
